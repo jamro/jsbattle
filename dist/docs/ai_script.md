@@ -34,7 +34,7 @@ tank.init(function() {
 
 Heart of AI logic is put in a callback that is passed to `tank.loop()`. This function will be called at each step of battle's simulation. (usually several times per second). The time between calls of `tank.loop()` may vary and depends on such factors as speed of simulation or performance of the machine that runs the app.
 
-There are two parameters passed to loop callback: [state](/manual/tank_state_object) and [control](/manual/tank_control_object).
+There are two parameters passed to loop callback: [state](tank_state_object) and [control](tank_control_object).
 
 * state - contains information about the tank (e.g. position, amount of energy, radar data, ...)
 * control - contains instructions used to control the behavior of the tank (e.g. throttle, turning, shooting, ...)
@@ -66,7 +66,7 @@ tank.loop(function(state, control) {
 
 ## Debugging
 
-To make debugging of your AI scripts easier, it is possible to pass some data from the script and display them bellow battle window. It can be achieved by setting `DEBUG` field of [control object](/manual/tank_control_object). The value of `control.DEBUG` can be anything: from objects, arrays, numbers to strings.
+To make debugging of your AI scripts easier, it is possible to pass some data from the script and display them bellow battle window. It can be achieved by setting `DEBUG` field of [control object](tank_control_object). The value of `control.DEBUG` can be anything: from objects, arrays, numbers to strings.
 
 ## Extended Math Object
 

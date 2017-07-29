@@ -1,9 +1,0 @@
-# JsBattle Manual
-
-  - [Battle Anatomy](/manual/battle_anatomy)
-  - [Tank Anatomy](/manual/tank_anatomy)
-  - [AI Script](/manual/ai_script)
-  - [Tank State Object](/manual/tank_state_object)
-  - [Tank Control Object](/manual/tank_control_object)
-  - [Scoring System](/manual/scoring_system)
-  - [Constants and Formulas](/manual/consts)

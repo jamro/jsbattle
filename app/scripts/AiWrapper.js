@@ -10,6 +10,8 @@ module.exports = class AiWrapper {
     this._aiProcessingResolveCallback = null;
     this._aiProcessingRejectCallback = null;
     this._slowAiChances = 10;
+    this._onActivationCallback = [];
+    this._onDectivationCallback = [];
 
     this._controlData = {
       THROTTLE: 0,
@@ -24,6 +26,18 @@ module.exports = class AiWrapper {
 
   get tank() {
     return this._tank;
+  }
+
+  get worker() {
+    return this._aiWorker;
+  }
+
+  onActivation(callback) {
+    this._onActivationCallback.push(callback);
+  }
+
+  onDectivation(callback) {
+    this._onDeactivationCallback.push(callback);
   }
 
   activate(seed) {
@@ -73,7 +87,7 @@ module.exports = class AiWrapper {
 
         if(self._aiProcessingResolveCallback) {
           if(value.type == 'init') {
-
+            for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
           } else {
             self._controlTank(value);
           }
@@ -95,6 +109,7 @@ module.exports = class AiWrapper {
               return;
             }
           }
+
           self._aiProcessingResolveCallback();
           self._aiProcessingResolveCallback = null;
           self._aiProcessingRejectCallback = null;
@@ -121,6 +136,7 @@ module.exports = class AiWrapper {
       clearInterval(this._aiProcessingCheckInterval);
       this._aiProcessingCheckInterval = null;
     }
+    for(var i=0; i < this._onDectivationCallback.length; i++) this._onDectivationCallback[i].bind(this)();
   }
 
   simulationStep() {

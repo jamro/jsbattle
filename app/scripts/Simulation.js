@@ -98,7 +98,7 @@ module.exports = class Simulation {
       this._renderInterval = null;
     }
 
-    this._renderInterval = setInterval(function (){
+    this._renderInterval = setInterval(function () {
       self._updateView();
     }, this._renderStepDuration);
 

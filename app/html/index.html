@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JsBattle</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jsbattle.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container" style="width: 940px">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="pull-left">JsBattle</h1>
+          <span class="pull-right sim-control" style="margin-top: 35px; margin-left: 10px">
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              <button id="sim-super-slow" type="button" class="btn btn-default sim-speed">
+                Super Slow
+              </button>
+              <button id="sim-slow" type="button" class="btn btn-default sim-speed">
+                Slow
+              </button>
+              <button id="sim-normal" type="button" class="btn btn-default sim-speed">
+                Normal
+              </button>
+              <button id="sim-fast" type="button" class="btn btn-default sim-speed">
+                Fast
+              </button>
+              <button id="sim-super-fast" type="button" class="btn btn-default sim-speed">
+                Super Fast
+              </button>
+            </div>
+          </span>
+          <span class="pull-right" style="margin-top: 35px">
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              <a href="./docs" type="button" target="_blank" class="btn btn-primary">
+                Documentation
+              </a>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="error" class="alert alert-danger" role="alert" style="display: none">
+            <strong>
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              Oh snap!
+            </strong>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="cover center-block">
+            <div>
+              <button id="sim-loading" type="button" class="btn btn-lg">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> LOADING...
+              </button>
+              <button id="sim-start" type="button" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> START
+              </button>
+              <div class="sim-finish" style="margin-top: -50px">
+                <h1 class="congrats"></h1>
+                <a href="./" type="button" class="btn btn-primary btn-lg">
+                  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> RESTART
+                </a>
+              </div>
+            </div>
+          </div>
+          <canvas id="battlefield" width="900" height="600" style="touch-action: none; cursor: inherit; margin: 5px"></canvas>
+        </div>
+      </div>
+      <div class="row sim-control">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <select id="debug-tank" class="form-control">
+                <option value="0">[Select Tank for Debug View]</option>
+              </select>
+            </div>
+            <div id="debug-view" class="panel-body">
+              <small>Debug Data</small>
+              <pre class="debug"></pre>
+              <small>State Object</small>
+              <pre class="state"></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table id="scoreboard" class="table table-condensed">
+            <tr>
+              <th>Tank Name</th>
+              <th style="text-align: center">Energy</th>
+              <th style="text-align: right">Score</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/pixi.min.js"></script>
+    <script type="text/javascript" src="js/jsbattle.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>

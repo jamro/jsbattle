@@ -1,0 +1,32 @@
+#battlefield {
+  touch-action: none;
+  cursor: inherit;
+  margin: 5px;
+}
+
+.cover {
+  width: 900px;
+  height: 600px;
+  margin: 5px;
+  background-color: #ffffff;
+  position: absolute;
+  border: 1px solid #000;
+}
+
+.cover > div {
+  text-align: center;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.cover > div > button,
+.cover > div > div,
+.sim-control,
+#debug-view
+{
+  display: none;
+
+
+}

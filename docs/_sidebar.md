@@ -1,6 +1,6 @@
 - [**Home**](/)
 - [**Getting Started**](/getting_started.md)
-- [**Manual**](/index.md)
+- **Manual**
   - [Battle Anatomy](/battle_anatomy.md)
   - [Tank Anatomy](/tank_anatomy.md)
   - [AI Script](/ai_script.md)

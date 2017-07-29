@@ -8,7 +8,7 @@ JsBattle requires a web server to run. Install `http-server` package via NPM:
   npm install -g http-server
 ```
 
-Now you can download JsBattle project. Go to `/dist` directory and run http server there:
+Now you can download JsBattle project from [GitHub](https://github.com/jamro/jsbattle) and go to `/dist` directory and run http server there:
 
 ```bash
   cd ./dist

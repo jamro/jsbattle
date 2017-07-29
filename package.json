@@ -8,8 +8,12 @@
     "build": "node_modules/.bin/gulp",
     "test": "node_modules/.bin/gulp test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamro/jsbattle"
+  },
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",

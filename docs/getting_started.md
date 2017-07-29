@@ -36,7 +36,7 @@ It will open a page where you can watch battle of your tanks
 
 ### Bootstrap
 
-To create your own tank, you will need to write an [Artificial Intelligence Script](ai_script). Navigate to `/dist/js/tanks` and create a file `newbie.tank.js` there with such script
+To create your own tank, you will need to write an [Artificial Intelligence Script](ai_script.md). Navigate to `/dist/js/tanks` and create a file `newbie.tank.js` there with such script
 
 ```javascript
   importScripts('lib/tank.js');
@@ -52,7 +52,7 @@ To create your own tank, you will need to write an [Artificial Intelligence Scri
 
 Callback passed to `init` function is called at the beginning of the battle and allows you to setup your tank. `loop` is called on every step of simulation processing loop and this is the place where you will put the logic of your tank.
 
-This implementation of the script will cause the tank to move forward at full speed by modification of [control object](tank_control_object).
+This implementation of the script will cause the tank to move forward at full speed by modification of [control object](tank_control_object.md).
 
 Now, you need to add your new tank to list of tanks that will join the battle. Open `/dist/js/tanks/index.json` and change it to:
 
@@ -116,7 +116,7 @@ if(Math.abs(angleDifference) < 5)
 
 This condition ensures that tank is moving forward only when the difference between current and desired angle is smaller than 5 degrees.
 
-Information about collisions with walls is stored in [tank state object](tank_state_object) at `state.collisions.wall`. Whenever this value is `true`,the desired direction of the tank should be changed randomly. It is important to stop the tank at this point so it does not hit the wall again and does not receive additional damage.
+Information about collisions with walls is stored in [tank state object](tank_state_object.md) at `state.collisions.wall`. Whenever this value is `true`,the desired direction of the tank should be changed randomly. It is important to stop the tank at this point so it does not hit the wall again and does not receive additional damage.
 
 ```javascript
 if(state.collisions.wall) {
@@ -125,7 +125,7 @@ if(state.collisions.wall) {
 }
 ```
 
-`Math.randomRange` is another extension of `Math` object that is available in AI scripts and it returns a random number from  specified range. See **Extended Math Object** section in [AI Script](ai_script#) documentation for more details.
+`Math.randomRange` is another extension of `Math` object that is available in AI scripts and it returns a random number from  specified range. See **Extended Math Object** section in [AI Script](ai_script.md) documentation for more details.
 
 Now navigate to `http://127.0.0.1:8080` and watch the new version of your AI in action.
 
@@ -163,7 +163,7 @@ tank.loop(function(state, control) {
 ```
 Setting `control.RADAR_TURN=1` will keep the radar constantly rotating clockwise.
 
-When an enemy is spotted, field `state.radar.enemy` will contains information about it. In such case radar and the tank should be stopped what can be done by overriding previous values of [control object](tank_control_object):
+When an enemy is spotted, field `state.radar.enemy` will contains information about it. In such case radar and the tank should be stopped what can be done by overriding previous values of [control object](tank_control_object.md):
 
 ```javascript
 control.THROTTLE = 0;
@@ -187,13 +187,13 @@ That's all. Now go to `http://127.0.0.1:8080` and watch your victory.
 
 Learn more about JsBattle mechanics by reading the manual:
 
-- [Battle Anatomy](battle_anatomy)
-- [Tank Anatomy](tank_anatomy)
-- [AI Script](ai_script)
-- [Tank State Object](tank_state_object)
-- [Tank Control Object](tank_control_object)
-- [Scoring System](scoring_system)
-- [Constants and Formulas](consts)
+- [Battle Anatomy](battle_anatomy.md)
+- [Tank Anatomy](tank_anatomy.md)
+- [AI Script](ai_script.md)
+- [Tank State Object](tank_state_object.md)
+- [Tank Control Object](tank_control_object.md)
+- [Scoring System](scoring_system.md)
+- [Constants and Formulas](consts.md)
 
 You can try to modify your AI script and test is against more powerful opponents:
 

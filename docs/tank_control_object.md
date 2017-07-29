@@ -1,6 +1,6 @@
 # Tank Control Object
 
-Following object is used to control the behavior of the tank in [AI Scripts](ai_script):
+Following object is used to control the behavior of the tank in [AI Scripts](ai_script.md):
 
 ```javascript
   {

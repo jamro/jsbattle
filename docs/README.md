@@ -5,13 +5,13 @@ JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a ga
 
 ## How to play?
 
-Read [Getting Started](./getting_started) to learn how to build your first tank.
+Read [Getting Started](./getting_started.md) to learn how to build your first tank.
 
 You will find more information about JsBattle in the manual:
-  - [Battle Anatomy](.battle_anatomy)
-  - [Tank Anatomy](.tank_anatomy)
-  - [AI Script](.ai_script)
-  - [Tank State Object](.tank_state_object)
-  - [Tank Control Object](.tank_control_object)
-  - [Scoring System](.scoring_system)
-  - [Constants and Formulas](.consts)
+  - [Battle Anatomy](battle_anatomy.md)
+  - [Tank Anatomy](tank_anatomy.md)
+  - [AI Script](ai_script.md)
+  - [Tank State Object](tank_state_object.md)
+  - [Tank Control Object](tank_control_object.md)
+  - [Scoring System](scoring_system.md)
+  - [Constants and Formulas](consts.md)

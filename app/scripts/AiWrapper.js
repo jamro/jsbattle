@@ -12,6 +12,7 @@ module.exports = class AiWrapper {
     this._slowAiChances = 10;
     this._onActivationCallback = [];
     this._onDectivationCallback = [];
+    this._aiProcessingTimeLimit = 3000;
 
     this._controlData = {
       THROTTLE: 0,
@@ -22,6 +23,10 @@ module.exports = class AiWrapper {
       SHOOT: 0,
       DEBUG: {}
     };
+  }
+
+  setProcessingLimit(v) {
+    this._aiProcessingTimeLimit = v;
   }
 
   get tank() {
@@ -68,7 +73,7 @@ module.exports = class AiWrapper {
         if(self._aiProcessingRejectCallback) {
           var now = (new Date()).getTime();
           var dt = now - self._aiProcessingStart;
-          if(dt > 900) {
+          if(dt > self._aiProcessingTimeLimit) {
             clearInterval(self._aiProcessingCheckInterval);
             self._aiProcessingCheckInterval = null;
             self._aiProcessingRejectCallback({
@@ -79,7 +84,7 @@ module.exports = class AiWrapper {
             });
           }
         }
-      }, 500);
+      }, Math.max(50, Math.round(self._aiProcessingTimeLimit/2)));
 
       self._aiWorker.onmessage = function (commandEvent) {
 
@@ -94,7 +99,7 @@ module.exports = class AiWrapper {
 
           var now = (new Date()).getTime();
           var dt = now - self._aiProcessingStart;
-          if(dt > 50) {
+          if(dt > 50 && value.type != 'init') {
             self._slowAiChances--;
             console.warn("Execution of AI for tank " + self._tank.name + " #" + self._tank.id + " takes too long. If problem repeats, AI will be terminated.");
             if(self._slowAiChances <= 0) {

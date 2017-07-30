@@ -51,6 +51,7 @@ describe('AiWrapper', function() {
         worker = new WorkerMock(name);
         return worker;
       }
+      ai.setProcessingLimit(100);
       var promise = ai.activate();
       promise.then(function() {
         assert.fail("Should return error");
@@ -151,6 +152,7 @@ describe('AiWrapper', function() {
         worker = new WorkerMock(name);
         return worker;
       }
+      ai.setProcessingLimit(100);
       var promise = ai.activate();
       worker.onmessage({
         data: {

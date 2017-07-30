@@ -1,11 +1,13 @@
 var simulation;
 var debugTankId;
 var rendererName = 'bw';
+var canvas = document.getElementById("battlefield");
 
 var step = 0;
 
 $( document ).ready(function() {
   buildSimulation();
+  showCover();
 
   $('#sim-super-slow').data('speed', 0.05);
   $('#sim-slow').data('speed', 0.3);
@@ -27,11 +29,9 @@ $( document ).ready(function() {
   })
 
   $('#sim-start').click(function() {
-    setTimeout(function() {
-      simulation.start();
-    }, 100);
+    simulation.start();
+    hideCover();
 
-    $('.cover').hide();
     $('.sim-control').show();
     $('#sim-start').hide();
   });
@@ -44,7 +44,6 @@ $( document ).ready(function() {
 
 function buildSimulation() {
   debugTankId = 0;
-  var canvas = document.getElementById("battlefield");
 
   var renderer = JsBattle.createRenderer(rendererName);
   renderer.init(canvas);
@@ -67,15 +66,15 @@ function buildSimulation() {
         winner = tank.fullName;
       }
     }
-    $('.cover').show();
     if(simulation.timeElapsed == simulation.timeLimit) {
-      $('.congrats').html("Time out! Congrats " + winner + "!");
+      $('.congrats').html("<small>Time out! The winner is:</small><br/> <strong>" + winner + "</strong>!");
     } else {
-      $('.congrats').html("Congrats " + winner + "!");
+      $('.congrats').html("<small>And the winner is:</small><br/> <strong>" + winner + "</strong>!");
     }
 
     $('.sim-finish').show();
     $('.sim-control').hide();
+    showCover();
   });
 
   $('#sim-loading').show();
@@ -83,8 +82,8 @@ function buildSimulation() {
     data.forEach(function(tankName) {
       simulation.addTank(tankName);
       $('#sim-loading').hide();
-      $('.cover').show();
       $('#sim-start').show();
+      showCover();
     })
     buildScoreTable(simulation.tankList);
   })
@@ -155,5 +154,14 @@ function updateTanks(force) {
     })
     $('#scoreboard > tbody').append(rows);
   }
+}
 
+function showCover() {
+  $('#battlefield').hide();
+  $('#cover').show();
+}
+
+function hideCover() {
+  $('#battlefield').show();
+  $('#cover').hide();
 }

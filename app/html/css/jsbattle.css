@@ -4,29 +4,27 @@
   margin: 5px;
 }
 
-.cover {
-  width: 900px;
-  height: 600px;
-  margin: 5px;
-  background-color: #ffffff;
-  position: absolute;
+#cover {
+  width: 100%;
+  height: 400px;
+  display: table;
   border: 1px solid #000;
 }
 
-.cover > div {
-  text-align: center;
-  margin-top: -12px;
-  position: absolute;
-  top: 50%;
-  width: 100%;
+#cover > div {
+  display: table-cell;
+  vertical-align: middle;;
 }
 
-.cover > div > button,
-.cover > div > div,
 .sim-control,
-#debug-view
-{
+#sim-start,
+.sim-finish,
+#battlefield,
+#debug-view {
   display: none;
+}
 
-
+canvas {
+  width: 100%;
+  max-width: 900px;
 }

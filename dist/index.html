@@ -17,7 +17,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container" style="width: 940px">
+    <div class="container" style="max-width: 900px">
       <div class="row">
         <div class="col-md-12">
           <h1 class="pull-left">JsBattle</h1>
@@ -62,16 +62,16 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="cover center-block">
+          <div id="cover" class="text-center">
             <div>
-              <button id="sim-loading" type="button" class="btn btn-lg">
+              <button id="sim-loading" type="button" class="btn btn-lg" disabled="disabled">
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> LOADING...
               </button>
               <button id="sim-start" type="button" class="btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> START
               </button>
-              <div class="sim-finish" style="margin-top: -50px">
-                <h1 class="congrats"></h1>
+              <div class="sim-finish">
+                <h3 class="congrats"></h3>
                 <button id="sim-restart" type="button" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> RESTART
                 </button>

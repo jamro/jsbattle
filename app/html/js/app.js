@@ -35,6 +35,10 @@ $( document ).ready(function() {
     $('.sim-control').show();
     $('#sim-start').hide();
   });
+  $('#sim-restart').click(function() {
+    $('.sim-finish').hide();
+    buildSimulation();
+  });
 
 });
 

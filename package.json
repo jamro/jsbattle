@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {

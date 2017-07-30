@@ -7,11 +7,11 @@ var step = 0;
 $( document ).ready(function() {
   buildSimulation();
 
-  $('#sim-super-slow').data('speed', 0.1);
+  $('#sim-super-slow').data('speed', 0.05);
   $('#sim-slow').data('speed', 0.3);
   $('#sim-normal').data('speed', 1);
   $('#sim-fast').data('speed', 8);
-  $('#sim-super-fast').data('speed', 20);
+  $('#sim-super-fast').data('speed', 50);
   $('.sim-speed').click(function() {
     simulation.setSpeed($(this).data('speed'));
   });

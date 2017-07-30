@@ -85,7 +85,7 @@ module.exports = class Simulation {
 
 
   setSpeed(v) {
-    this._speedMultiplier = Math.max(0.1, Number(v));
+    this._speedMultiplier = Math.max(0.01, Number(v));
   }
 
   start() {
@@ -133,10 +133,16 @@ module.exports = class Simulation {
           var dt = self._simulationStepDuration - processingTime;
           dt = Math.max(1, dt);
           dt /= self._speedMultiplier;
+          dt = Math.round(dt);
 
           for(i=0; i < self._onSimulationStepCallback.length; i++) self._onSimulationStepCallback[i]();
           self._timeElapsed = Math.min(self._timeElapsed + self._simulationStepDuration, self._timeLimit);
-          self._simulationTimeout = setTimeout(self._simulationStep.bind(self), dt);
+          if(dt >= 1) {
+            self._simulationTimeout = setTimeout(self._simulationStep.bind(self), dt);
+          } else {
+            self._simulationStep();
+          }
+
         }
 
       })

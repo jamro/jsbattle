@@ -59,3 +59,7 @@ typings/
 
 # Mac files
 .DS_Store
+
+#temporary files
+/tmp
+/temp

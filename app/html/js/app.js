@@ -2,6 +2,7 @@ var simulation;
 var debugTankId;
 var rendererName = 'bw';
 var canvas = document.getElementById("battlefield");
+var renderer;
 
 var step = 0;
 
@@ -45,12 +46,16 @@ $( document ).ready(function() {
 function buildSimulation() {
   debugTankId = 0;
 
-  var renderer = JsBattle.createRenderer(rendererName);
+  renderer = JsBattle.createRenderer(rendererName);
+  renderer.loadAssets(onAssetsLoaded.bind(this));
+}
+
+function onAssetsLoaded() {
   renderer.init(canvas);
 
   simulation = JsBattle.createSimulation(renderer);
   simulation.onError(showError);
-  simulation.init(canvas.width, canvas.height);
+  simulation.init(900, 600);
 
   simulation.onRender(updateTanks);
 

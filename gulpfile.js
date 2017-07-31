@@ -9,6 +9,8 @@ const babel = require('gulp-babel');
 const webpack = require('gulp-webpack');
 const sourcemaps = require('gulp-sourcemaps');
 const mocha = require('gulp-mocha');
+const PixiPacker = require('pixi-packer');
+const through = require('through2');
 
 
 var paths = {
@@ -19,9 +21,11 @@ var paths = {
  dist: 'dist/',
  tanks: ['app/tanks/*.tank.js', 'app/tanks/index.json'],
  test: ['test/**/*.test.js'],
+ images: ['resources/images'],
  lib: [
    'node_modules/sat/SAT.js',
-   'node_modules/seedrandom/seedrandom.js'
+   'node_modules/seedrandom/seedrandom.js',
+   'node_modules/pixi-packer-parser/index.js'
  ],
  externalLib: [
   'node_modules/pixi.js/dist/pixi.min.js',
@@ -40,11 +44,30 @@ gulp.task('clean', function(){
   return gulp.src(paths.dist).pipe(clean());
 });
 
+gulp.task("sprites", ['clean', 'copy'], function () {
+  return gulp.src(paths.images)
+    .pipe(through.obj(function (dir, enc, cb) {
+      delete require.cache[dir.path + "/images.js"];
+      var config = require(dir.path + "/images.js");
+
+      var pixiPacker = new PixiPacker(
+          config,
+          dir.path,
+          paths.dist + "/img",
+          "tmp/cache"
+      );
+
+      pixiPacker.process();
+      cb(null, dir)
+    }))
+});
+
 gulp.task('jshint', null, function() {
   return gulp.src(paths.scripts)
     .pipe(jshint({
       esversion: 6,
       node: true,
+      browser: true,
       globals: {
         'Worker': true
       }
@@ -153,7 +176,7 @@ gulp.task('copy', ['clean'], function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('app/**/*', ['default']);
+  gulp.watch('app/**/*', ['clean', 'scripts', 'copy', 'sprites', 'sandbox']);
 });
 
-gulp.task('default', ['test', 'jshint', 'clean', 'scripts', 'copy', 'sandbox']);
+gulp.task('default', ['clean', 'test', 'jshint', 'scripts', 'copy', 'sprites', 'sandbox']);

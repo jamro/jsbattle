@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
-    "start": "node_modules/.bin/http-server ./dist -c-1",
-    "build": "node_modules/.bin/gulp",
-    "test": "node_modules/.bin/gulp test"
+    "start": "./node_modules/.bin/http-server ./dist -c-1",
+    "build": "./node_modules/.bin/gulp",
+    "test": "./node_modules/.bin/gulp test"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "gulp-webpack": "^1.5.0",
-    "http-server": "^0.10.0",
     "imagemin-pngquant": "^5.0.1",
     "jshint": "^2.9.5",
     "json-loader": "^0.5.6",
@@ -47,6 +46,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "http-server": "^0.10.0",
     "pixi.js": "^4.5.3",
     "sat": "^0.6.0",
     "seedrandom": "^2.4.3"

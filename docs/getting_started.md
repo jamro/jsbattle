@@ -2,20 +2,35 @@
 
 ## Installation
 
-JsBattle requires a web server to run. Install `http-server` package via NPM:
+### Option 1: Download from GitHub
+
+Download sources of latest release from here: [https://github.com/jamro/jsbattle/releases](https://github.com/jamro/jsbattle/releases) and unpack the archive.
+
+Go to directory with the game and install all NPM dependencies:
 
 ```bash
-  npm install -g http-server
+  npm install
 ```
 
-Now you can download JsBattle project from [GitHub](https://github.com/jamro/jsbattle) and go to `/dist` directory and run http server there:
+### Option 2: Use NPM
+
+Install JsBattle in selected directory:
 
 ```bash
-  cd ./dist
-  http-server -c-1
+  npm install jsbattle
 ```
 
-The script will output address of your web server:
+Go to `node_modules/jsbattle` directory
+
+### Run the game
+
+Start web server that is required to run JsBattle simulator:
+
+```bash
+  npm start
+```
+
+The command will output URL of the server:
 
 ```
   Starting up http-server, serving ./

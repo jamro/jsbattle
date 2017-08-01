@@ -4,8 +4,8 @@ module.exports = {
     "scales": {
         "web": {"scale": 1, "resolution": 1}
     },
-    "variations": ["en"],
-    "loading_stages": [ "init" ],
+    "variations": ["bw"],
+    "loading_stages": [ "game" ],
     group_default: {
         max_width: 2048,          // default: 2048
         max_height: 1024,         // default: 1024
@@ -16,9 +16,10 @@ module.exports = {
     "groups": [
         {
             "id": "default",
-            "loading_stage": "init",
+            "loading_stage": "game",
+            "variation": "bw",
             "compressor": pngQuant(),
-            "sprites": ["*.png"]
+            "sprites": ["./bw/*.png"]
         }
     ]
 };

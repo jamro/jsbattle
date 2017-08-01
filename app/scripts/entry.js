@@ -1,9 +1,9 @@
 'use strict';
 
 var Simulation = require("./Simulation.js");
-var Renderer = require("./Renderer.js");
-var DebugRenderer = require("./DebugRenderer.js");
-var BWRenderer = require("./BWRenderer.js");
+var Renderer = require("./renderers/Renderer.js");
+var DebugRenderer = require("./renderers/debug/DebugRenderer.js");
+var BWRenderer = require("./renderers/bw/BWRenderer.js");
 
 
 module.exports  = {

@@ -1,8 +1,8 @@
 {
     "scaleName": "web",
-    "variation": "en",
-    "loadingStage": "init",
-    "id": "init_en_web",
+    "variation": "bw",
+    "loadingStage": "game",
+    "id": "game_bw_web",
     "resolution": 1,
     "meta": {
         "type": "pixi-packer",
@@ -11,7 +11,7 @@
     },
     "spritesheets": [
         {
-            "image": "82c59993cfa17a6cf8231190cf4ee5b85f5fcfb8.png",
+            "image": "50c7d3f4fae8513e7b0554b507ee1643b4c49fb0.png",
             "filesize": 14068,
             "sprites": [
                 {

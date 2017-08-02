@@ -115,6 +115,10 @@ module.exports = class Tank {
     return this._angle;
   }
 
+  get throttle() {
+    return this._throttle;
+  }
+
   get hasBoost() {
     return (this._hasBoost && this._boost > 0);
   }
@@ -210,6 +214,10 @@ module.exports = class Tank {
 
   get isShooting() {
     return this._shootingPower > 0;
+  }
+
+  get shootingPower() {
+    return this._shootingPower;
   }
 
   handleShoot() {

@@ -1,8 +1,17 @@
 var simulation;
 var debugTankId;
-var rendererName = 'bw';
+var rendererName = 'brody';
 var canvas = document.getElementById("battlefield");
 var renderer;
+var keepRenderingTimer = 0;
+
+setInterval(function() {
+  if(renderer && keepRenderingTimer > 0) {
+    renderer.preRender();
+    renderer.postRender();
+    keepRenderingTimer--;
+  }
+}, 30)
 
 var step = 0;
 
@@ -38,6 +47,7 @@ $( document ).ready(function() {
   });
   $('#sim-restart').click(function() {
     $('.sim-finish').hide();
+    $('#sim-loading').show();
     buildSimulation();
   });
 
@@ -79,7 +89,8 @@ function onAssetsLoaded() {
 
     $('.sim-finish').show();
     $('.sim-control').hide();
-    showCover();
+    keepRenderingTimer = 30;
+    setTimeout(showCover, 500);
   });
 
   $('#sim-loading').show();

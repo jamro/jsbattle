@@ -19,8 +19,10 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     this._masterContainer = new PIXI.Container();
     this._tankContainer = new PIXI.Container();
     this._bulletContainer = new PIXI.Container();
+    this._hudContainer = new PIXI.Container();
     this._masterContainer.addChild(this._tankContainer );
     this._masterContainer.addChild(this._bulletContainer);
+    this._masterContainer.addChild(this._hudContainer);
     this._renderer = null;
     this._stage = null;
     this._clockModel = new PixiRendererClockModel();
@@ -40,16 +42,15 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     super.initBatlefield(battlefield);
     this._masterContainer.x = -this.offsetX;
     this._masterContainer.y = -this.offsetY;
-    this._context = this._canvas.getContext("2d");
 
     var rendererSettings = {
       view: this._canvas,
-      antialias: true,
+      antialias: false,
       backgroundColor: 0xffffff,
       resolution: window.devicePixelRatio
     };
 
-    this._renderer = new PIXI.CanvasRenderer(
+    this._renderer = new PIXI.autoDetectRenderer(
       battlefield.width + 2 * battlefield.margin,
       battlefield.height + 2 * battlefield.margin,
       rendererSettings
@@ -97,6 +98,7 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     var view = super.renderTank(tank);
     if(!view.parent && view.isAlive) {
       this._tankContainer.addChild(view.view);
+      this._hudContainer.addChild(view.hudView);
     }
     return view;
   }

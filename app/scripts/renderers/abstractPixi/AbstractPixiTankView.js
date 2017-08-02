@@ -7,10 +7,16 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
 
   constructor(model) {
     super(model);
+    this._hudView = new PIXI.Container();
+    this._createHud(this._hudView);
   }
 
   get body() {
     return this._body;
+  }
+
+  get hudView() {
+    return this._hudView;
   }
 
   get gun() {
@@ -38,6 +44,9 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
     this.energyBar.scale.x = this.model.energy / this.model.maxEnergy;
     this.label.text = this.model.fullName;
 
+    this.hudView.x = this.view.x;
+    this.hudView.y = this.view.y;
+
     if(this.model.energy == 0) {
       this.destroy();
     }
@@ -48,11 +57,14 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
     this._body = this._createBody();
     this._gun = this._createGun();
     this._radar = this._createRadar();
-    this._label = this._createLabel();
-    this._energyBar = this._createEnergyBar();
     container.addChild(this._body);
     container.addChild(this._gun);
     container.addChild(this._radar);
+  }
+
+  _createHud(container) {
+    this._label = this._createLabel();
+    this._energyBar = this._createEnergyBar();
     container.addChild(this._createHudBackground());
     container.addChild(this._energyBar);
     container.addChild(this._label);
@@ -80,6 +92,12 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
 
   _createLabel() {
     return new PIXI.Text();
+  }
+  destroy() {
+    super.destroy();
+    if(this.hudView.parent) {
+      this.hudView.parent.removeChild(this.hudView);
+    }
   }
 
 };

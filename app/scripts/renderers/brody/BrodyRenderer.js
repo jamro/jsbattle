@@ -10,7 +10,7 @@ var BrodyTankView = require("./BrodyTankView.js");
 module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   constructor() {
-    super('Brody');
+    super('brody');
     this._bigBoomAnim = [];
     this._shakeTimer = 0;
     this._particleContainer = null;

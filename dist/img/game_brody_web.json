@@ -11,8 +11,8 @@
     },
     "spritesheets": [
         {
-            "image": "0245c96d43cd708e8272e93aadb4ce538acd07de.png",
-            "filesize": 465967,
+            "image": "fcaa6e1ef61ba50712a409562a42fc20a3f8fbd2.png",
+            "filesize": 469315,
             "sprites": [
                 {
                     "name": "battlefield",
@@ -381,6 +381,23 @@
                     }
                 },
                 {
+                    "name": "tank_light",
+                    "position": {
+                        "x": 62,
+                        "y": 988
+                    },
+                    "dimension": {
+                        "w": 82,
+                        "h": 50
+                    },
+                    "trim": {
+                        "x": 14,
+                        "y": 7,
+                        "w": 21,
+                        "h": 21
+                    }
+                },
+                {
                     "name": "dirt_0",
                     "position": {
                         "x": 0,
@@ -398,7 +415,7 @@
                     }
                 },
                 {
-                    "name": "dirt_1",
+                    "name": "dirt_2",
                     "position": {
                         "x": 9,
                         "y": 1015
@@ -415,7 +432,7 @@
                     }
                 },
                 {
-                    "name": "dirt_2",
+                    "name": "dirt_1",
                     "position": {
                         "x": 18,
                         "y": 1015

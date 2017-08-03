@@ -7,6 +7,7 @@ module.exports = class BrodyTankView extends AbstractPixiTankView  {
 
   constructor(model) {
     super(model);
+    this._lightTimer = 0;
   }
 
   update(events) {
@@ -14,6 +15,10 @@ module.exports = class BrodyTankView extends AbstractPixiTankView  {
     this._shoot.alpha =  this._shoot.alpha*0.8;
     this._tankGun.x = this._tankGun.x*0.8;
     this.radar.rotation = (- this.model.gunAngle + this._model.radarAngle) * (Math.PI/180);
+
+    this._lightTimer = this.model.enemySpot ? this._lightTimer+1 : 0;
+
+    this._light.alpha = -Math.cos(this._lightTimer * 0.25) * 0.5 + 0.5;
   }
 
   _onShoot(event) {
@@ -43,7 +48,13 @@ module.exports = class BrodyTankView extends AbstractPixiTankView  {
     this._shoot = PIXI.Sprite.fromFrame('tank_shoot');
     this._shoot.anchor.set(0.3, 0.5);
     this._shoot.alpha = 0;
+
+    this._light = PIXI.Sprite.fromFrame('tank_light');
+    this._light.anchor.set(0.3, 0.5);
+    this._light.alpha = 0;
+
     gunContainer.addChild(this._shoot);
+    gunContainer.addChild(this._light);
 
     return gunContainer;
   }

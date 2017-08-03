@@ -139,6 +139,10 @@ module.exports = class Tank {
     return this._radarAngle;
   }
 
+  get enemySpot() {
+    return this._enemySpot;
+  }
+
   setThrottle(v) {
     this._throttle = Math.min(1, Math.max(-1, v));
   }

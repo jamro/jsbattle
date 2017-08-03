@@ -34,6 +34,8 @@ radar.angle == 180; // aiming backward
 
 The angle of radar is normalized and is always between -180° and 180°.
 
+Whenever the radar detects an enemy, its indicator light will start blinking.
+
 ### Gun
 
 The gun can be rotated around to aim in other direction that the tank is moving. The speed of the rotation is defined as a number between -1 and 1. Positive values cause clockwise rotation, negative - counter clockwise. Zero means that the gun is not rotating. The position of the gun is specified in degrees and is always in relation to tank's body. For example:

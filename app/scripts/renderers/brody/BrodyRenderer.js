@@ -35,8 +35,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._masterContainer.addChild(this._hudContainer);
   }
 
-  renderTank(tank) {
-    super.renderTank(tank);
+  renderTank(tank, events) {
+    super.renderTank(tank, events);
     if(tank.energy == 0) {
       this._shakeTimer = 10;
       this._addTankExplosion(tank);
@@ -61,8 +61,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     }
   }
 
-  renderBullet(bullet) {
-    super.renderBullet(bullet);
+  renderBullet(bullet, events) {
+    super.renderBullet(bullet, events);
     if(bullet.exploded) {
       this._addBulletExplosion(bullet);
     }

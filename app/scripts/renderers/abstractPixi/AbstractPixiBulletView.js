@@ -9,8 +9,8 @@ module.exports = class AbstractPixiBulletView extends AbstractPixiView {
     super(model);
   }
 
-  update() {
-    super.update();
+  update(events) {
+    super.update(events);
     this.view.scale.x = this.view.scale.y = this.model.power * 0.7 + 0.3;
     if(this.model.exploded) {
       this.destroy();

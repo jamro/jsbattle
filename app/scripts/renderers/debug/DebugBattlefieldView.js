@@ -20,7 +20,7 @@ module.exports = class DebugBattlefieldView extends AbstractPixiView  {
     container.addChild(background);
   }
 
-  update() {
+  update(events) {
 
   }
 };

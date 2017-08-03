@@ -22,7 +22,7 @@ module.exports = class BWClockView extends AbstractPixiView  {
     container.addChild(this._label);
   }
 
-  update() {
+  update(events) {
     this._label.setText(this.model.text);
   }
 };

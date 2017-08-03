@@ -18,8 +18,8 @@ module.exports = class Renderer {
 
   }
 
-  renderTank(tank) {
-    return null; // return rendered view
+  renderTank(tank, events) {
+
   }
 
   renderClock(msElapsed, msLimit) {
@@ -30,7 +30,7 @@ module.exports = class Renderer {
 
   }
 
-  renderBullet(bullet) {
-    return null; // return rendered view
+  renderBullet(bullet, events) {
+    
   }
 };

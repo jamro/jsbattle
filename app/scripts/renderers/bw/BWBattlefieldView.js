@@ -10,7 +10,7 @@ module.exports = class BWBattlefieldView extends AbstractPixiView  {
     container.addChild(background);
   }
 
-  update() {
+  update(events) {
 
   }
 };

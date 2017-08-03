@@ -9,8 +9,8 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
     super(model);
   }
 
-  update() {
-    super.update();
+  update(events) {
+    super.update(events);
     this._shoot.alpha = this.model.isShooting ? 1 : this._shoot.alpha*0.7;
   }
 

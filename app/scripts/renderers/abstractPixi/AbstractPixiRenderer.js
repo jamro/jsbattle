@@ -94,21 +94,21 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     this._battlefieldView.update();
   }
 
-  renderTank(tank) {
-    var view = super.renderTank(tank);
+  renderTank(tank, events) {
+    super.renderTank(tank, events);
+    var view = this.getTankView(tank.id);
     if(!view.parent && view.isAlive) {
       this._tankContainer.addChild(view.view);
       this._hudContainer.addChild(view.hudView);
     }
-    return view;
   }
 
-  renderBullet(bullet) {
-    var view = super.renderBullet(bullet);
+  renderBullet(bullet, events) {
+    super.renderBullet(bullet, events);
+    var view = this.getBulletView(bullet.id);
     if(!view.parent && view.isAlive) {
       this._bulletContainer.addChild(view.view);
     }
-    return view;
   }
 
   renderClock(msElapsed, msLimit) {

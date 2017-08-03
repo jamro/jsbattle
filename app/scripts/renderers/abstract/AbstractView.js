@@ -24,8 +24,8 @@ module.exports = class AbstractView  {
     return this._view;
   }
 
-  update() {
-
+  update(events) {
+    
   }
 
 };

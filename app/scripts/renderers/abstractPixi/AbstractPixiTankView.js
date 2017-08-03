@@ -35,8 +35,8 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
     return this._energyBar;
   }
 
-  update() {
-    super.update();
+  update(events) {
+    super.update(events);
     this.view.rotation = 0;
     this.body.rotation = this.model.angle * (Math.PI/180);
     this.gun.rotation = (this.model.angle + this.model.gunAngle) * (Math.PI/180);
@@ -47,9 +47,29 @@ module.exports = class AbstractPixiTankView extends AbstractPixiView {
     this.hudView.x = this.view.x;
     this.hudView.y = this.view.y;
 
-    if(this.model.energy == 0) {
-      this.destroy();
+    for(var i=0; i < events.length; i++) {
+      this._onEvent(events[i]);
     }
+  }
+
+  _onEvent(event) {
+    switch (event.type) {
+      case 'shoot':
+        this._onShoot(event);
+        break;
+      case 'destroy':
+        this._onDestroy(event);
+        break;
+    }
+  }
+
+  _onShoot(event) {
+
+  }
+
+
+  _onDestroy(event) {
+    this.destroy();
   }
 
   _create(container) {

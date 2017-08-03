@@ -10,7 +10,7 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     container.addChild(background);
   }
 
-  update() {
+  update(events) {
 
   }
 };

@@ -27,16 +27,16 @@ module.exports = class BWRenderer extends AbstractPixiRenderer  {
     super.initBatlefield(battlefield);
   }
 
-  renderTank(tank) {
-    super.renderTank(tank);
+  renderTank(tank, events) {
+    super.renderTank(tank, events);
     if(tank.energy == 0) {
       this._shakeTimer = 10;
       this._addExplosion(tank.x, tank.y, this._bigBoomAnim);
     }
   }
 
-  renderBullet(bullet) {
-    super.renderBullet(bullet);
+  renderBullet(bullet, events) {
+    super.renderBullet(bullet, events);
     if(bullet.exploded) {
       this._addExplosion(bullet.x, bullet.y, this._smallBoomAnim);
     }

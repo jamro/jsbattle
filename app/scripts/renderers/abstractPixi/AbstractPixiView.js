@@ -12,7 +12,8 @@ module.exports = class AbstractPixiView extends AbstractView {
     this._create(this._view);
   }
 
-  update() {
+  update(events) {
+    super.update(events);
     if(this._model.x !== undefined) {
       this._view.x = this._model.x;
     }

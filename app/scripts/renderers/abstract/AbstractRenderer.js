@@ -26,15 +26,23 @@ module.exports = class AbstractRenderer extends Renderer  {
     this._offsetY = battlefield.offsetY;
   }
 
-  renderTank(tank) {
-    return this._renderModel(tank, this._tankMap, this._createTankView);
+  renderTank(tank, events) {
+    this._renderModel(tank, events, this._tankMap, this._createTankView);
   }
 
-  renderBullet(bullet) {
-    return this._renderModel(bullet, this._bulletMap, this._createBulletView);
+  renderBullet(bullet, events) {
+    this._renderModel(bullet, events, this._bulletMap, this._createBulletView);
   }
 
-  _renderModel(model, map, factory) {
+  getBulletView(id) {
+    return this._bulletMap[id];
+  }
+
+  getTankView(id) {
+    return this._tankMap[id];
+  }
+
+  _renderModel(model, events, map, factory) {
     var view = null;
     if(map[model.id]) {
       view = map[model.id];
@@ -42,7 +50,7 @@ module.exports = class AbstractRenderer extends Renderer  {
       view = factory(model);
       map[model.id] = view;
     }
-    view.update();
+    view.update(events);
     return view;
   }
 

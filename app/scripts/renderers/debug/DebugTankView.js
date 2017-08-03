@@ -77,9 +77,4 @@ module.exports = class DebugTankView extends AbstractPixiTankView  {
     return energyBar;
   }
 
-  update() {
-    super.update();
-
-  }
-
 };

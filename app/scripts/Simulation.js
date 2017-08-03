@@ -3,6 +3,7 @@
 var Tank = require("./Tank.js");
 var Bullet = require("./Bullet.js");
 var Battlefield = require("./Battlefield.js");
+var EventStore = require("./EventStore.js");
 var CollisionResolver = require("./CollisionResolver.js");
 var AiWrapper = require("./AiWrapper.js");
 var seedrandom = require("seedrandom");
@@ -34,6 +35,7 @@ module.exports = class Simulation {
     this._onErrorCallback = [];
     this._timeElapsed = 0;
     this._timeLimit = 30000;
+    this._eventStore = new EventStore();
     Math.random = this._rng;
   }
 
@@ -256,6 +258,10 @@ module.exports = class Simulation {
         this._tankList[i] = null;
         this._explodedTankList.push(tank);
         this._collisionResolver.removeTank(tank);
+        this._eventStore.add("tank_" + tank.id, {
+          type: "destroy",
+          tank: tank
+        });
       }
     }
     for(i=0; i < this._aiList.length; i++) {
@@ -274,6 +280,11 @@ module.exports = class Simulation {
         var power = tank.handleShoot();
         bullet = this._createBullet(tank, power);
         this._bulletList.push(bullet);
+        this._eventStore.add("tank_" + tank.id, {
+          type: "shoot",
+          tank: tank,
+          bullet: bullet
+        });
       }
     }
     for(i=0; i < this._tankList.length; i++) {
@@ -293,6 +304,10 @@ module.exports = class Simulation {
         this._bulletList[i] = null;
         this._explodedBulletList.push(bullet);
         this._collisionResolver.removeBullet(bullet);
+        this._eventStore.add("bullet_" + bullet.id, {
+          type: "explode",
+          bullet: bullet
+        });
       }
     }
   }
@@ -304,24 +319,25 @@ module.exports = class Simulation {
     for(i=0; i < this._tankList.length; i++) {
       tank = this._tankList[i];
       if(!tank) continue;
-      this._renderer.renderTank(tank);
+      this._renderer.renderTank(tank, this._eventStore.get("tank_" + tank.id));
     }
     for(i=0; i < this._bulletList.length; i++) {
       bullet = this._bulletList[i];
       if(!bullet) continue;
-      this._renderer.renderBullet(bullet);
+      this._renderer.renderBullet(bullet, this._eventStore.get("bullet_" + bullet.id));
     }
     while(this._explodedTankList.length) {
       tank = this._explodedTankList.pop();
-      this._renderer.renderTank(tank);
+      this._renderer.renderTank(tank, this._eventStore.get("tank_" + tank.id));
     }
     while(this._explodedBulletList.length) {
       bullet = this._explodedBulletList.pop();
-      this._renderer.renderBullet(bullet);
+      this._renderer.renderBullet(bullet, this._eventStore.get("bullet_" + bullet.id));
     }
     this._renderer.renderTankStats(this._allTankList);
     this._renderer.postRender();
     for(i=0; i < this._onRenderStepCallback.length; i++) this._onRenderStepCallback[i]();
+    this._eventStore.clear();
   }
 
   _getTanksLeft() {

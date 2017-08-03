@@ -9,11 +9,16 @@ module.exports = class BrodyTankView extends AbstractPixiTankView  {
     super(model);
   }
 
-  update() {
-    super.update();
-    this._shoot.alpha = this.model.isShooting ? 1 : this._shoot.alpha*0.7;
-    this._tankGun.x = this.model.isShooting ? -1-3*this.model.shootingPower : this._tankGun.x*0.7;
+  update(events) {
+    super.update(events);
+    this._shoot.alpha =  this._shoot.alpha*0.8;
+    this._tankGun.x = this._tankGun.x*0.8;
     this.radar.rotation = (- this.model.gunAngle + this._model.radarAngle) * (Math.PI/180);
+  }
+
+  _onShoot(event) {
+    this._tankGun.x = -1-3*event.bullet.power;
+    this._shoot.alpha = 1;
   }
 
   _create(container) {

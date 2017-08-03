@@ -20,11 +20,7 @@ Install JsBattle in selected directory:
   npm install jsbattle
 ```
 
-Go to `node_modules/jsbattle` directory and install all NPM dependencies:
-
-```bash
-  npm install
-```
+Go to `node_modules/jsbattle` directory
 
 ### Run the game
 

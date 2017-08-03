@@ -48,9 +48,10 @@
     "bootstrap": "^3.3.7",
     "pixi.js": "^4.5.3",
     "sat": "^0.6.0",
-    "seedrandom": "^2.4.3"
-  },
-  "bundledDependencies": {
+    "seedrandom": "^2.4.3",
     "http-server": "^0.10.0"
-  }
+  },
+  "bundledDependencies": [
+    "http-server"
+  ]
 }

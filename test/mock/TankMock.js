@@ -2,9 +2,9 @@ var sinon = require('sinon');
 
 module.exports = class TankMock {
 
-  constructor(name) {
+  constructor(name, id) {
     this.name = name ? name : "bravo_" + Math.round(Math.random()*1000);
-    this.id = Math.round(Math.random()*1000000);
+    this.id = id ? id : Math.round(Math.random()*1000000);
     this.angle = Math.round(Math.random()*360-180);
     this.gunAngle = Math.round(Math.random()*360-180);
     this.radarAngle = Math.round(Math.random()*360-180);

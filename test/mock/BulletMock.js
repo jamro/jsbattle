@@ -2,7 +2,8 @@ var sinon = require('sinon');
 
 module.exports = class BulletMock {
 
-  constructor(owner, power) {
+  constructor(owner, id, power) {
+    this.id = id ? id : Math.round(Math.random()*1000000);
     this.owner = owner;
     this.power = power;
     this.x = Math.round(Math.random()*1000);

@@ -1,11 +1,9 @@
 'use strict';
 
-var nextBulletId = 1;
-
 module.exports = class Bullet {
 
-  constructor(owner, power) {
-    this._id = nextBulletId++;
+  constructor(owner, id, power) {
+    this._id = id;
     this._owner = owner;
     this._angle = owner.angle + owner.gunAngle;
     while(this._angle > 180) this._angle -= 360;

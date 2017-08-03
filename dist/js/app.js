@@ -6,6 +6,8 @@ var renderer;
 var keepRenderingTimer = 0;
 var scoreTable = []
 
+var simSpeed = 1;
+
 setInterval(function() {
   if(renderer && keepRenderingTimer > 0) {
     renderer.preRender();
@@ -26,7 +28,10 @@ $( document ).ready(function() {
   $('#sim-fast').data('speed', 8);
   $('#sim-super-fast').data('speed', 50);
   $('.sim-speed').click(function() {
-    simulation.setSpeed($(this).data('speed'));
+    simSpeed = $(this).data('speed');
+    simulation.setSpeed(simSpeed);
+    $('.sim-speed').removeClass('btn-warning');
+    $(this).addClass('btn-warning');
   });
 
   $('#debug-tank').change(function() {
@@ -69,7 +74,7 @@ function onAssetsLoaded() {
   simulation.init(900, 600);
 
   simulation.onRender(updateTanks);
-
+  simulation.setSpeed(simSpeed);
   simulation.onFinish(function() {
     updateTanks(true);
 
@@ -155,16 +160,23 @@ function buildScoreTable(tankList) {
 function updateTanks(forceUpdate) {
   if(!scoreTable.length) return;
   step++;
+  var i, tank;
+  for(i in simulation.tankList) {
+    tank = simulation.tankList[i];
+    if(tank.id == debugTankId) {
+      $('#debug-view > pre.debug').html(tank.debugData ? tank.debugData : "{}");
+      $('#debug-view > pre.state').html(JSON.stringify(tank.state, null, 2));
+    }
+  }
   if(!forceUpdate && step % 15 != 0) {
     return;
   }
-  var i;
   var tankData = [];
 
   for(i in simulation.tankList) {
     tank = simulation.tankList[i];
     tankData.push({
-      name: tank.name,
+      name: tank.fullName,
       energy: Math.round(100*tank.energy/tank.maxEnergy),
       score: tank.score
     });

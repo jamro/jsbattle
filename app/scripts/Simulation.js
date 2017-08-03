@@ -36,6 +36,8 @@ module.exports = class Simulation {
     this._timeElapsed = 0;
     this._timeLimit = 30000;
     this._eventStore = new EventStore();
+    this._nextTankId = 1;
+    this._nextBulletId = 1;
     Math.random = this._rng;
   }
 
@@ -359,11 +361,13 @@ module.exports = class Simulation {
   }
 
   _createTank(aiName) {
-    return new Tank(aiName);
+    var tank = new Tank(aiName, this._nextTankId++);
+    return tank;
   }
 
   _createBullet(owner, power) {
-    return new Bullet(owner, power);
+    var bullet = new Bullet(owner, this._nextBulletId++, power);
+    return bullet;
   }
 
 };

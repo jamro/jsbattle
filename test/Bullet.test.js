@@ -8,20 +8,20 @@ describe('Bullet', function() {
   describe('constructor', function() {
 
     it('should set power of bullet', function() {
-      var bullet = new Bullet(new TankMock(), 0.2);
+      var bullet = new Bullet(new TankMock(), 1, 0.2);
       assert.equal(0.2, bullet.power);
       assert.equal(2.12, bullet.damage);
     });
 
     it('should assgin owner', function() {
       var owner = new TankMock();
-      var bullet = new Bullet(owner, 1);
+      var bullet = new Bullet(owner, 1, 1);
       assert.equal(owner, bullet.owner);
     });
 
     it('should place bullet at the end of the gun', function() {
       var owner = new TankMock();
-      var bullet = new Bullet(owner, 1);
+      var bullet = new Bullet(owner, 1, 1);
       var x = owner.x + owner.gunLength*Math.cos((owner.angle + owner.gunAngle)*(Math.PI/180));
       var y = owner.y + owner.gunLength*Math.sin((owner.angle + owner.gunAngle)*(Math.PI/180))
       assert.equal(x.toFixed(3), bullet.x.toFixed(3));
@@ -30,24 +30,15 @@ describe('Bullet', function() {
 
     it('should rotate bullet as the gun', function() {
       var owner = new TankMock();
-      var bullet = new Bullet(owner, 1);
+      var bullet = new Bullet(owner, 1, 1);
       var a = (owner.angle + owner.gunAngle);
       while(a > 180) a -= 360;
       while(a < -180) a += 360;
       assert.equal(a, bullet.angle);
     });
 
-    it('should assign unique id', function() {
-      var bullet1 = new Bullet(new TankMock(), 0);
-      var bullet2 = new Bullet(new TankMock(), 0);
-      var bullet3 = new Bullet(new TankMock(), 0);
-      assert.notEqual(bullet1.id, bullet2.id);
-      assert.notEqual(bullet2.id, bullet3.id);
-      assert.notEqual(bullet3.id, bullet1.id);
-    });
-
     it('should create bullet that is not exploded', function() {
-      var bullet = new Bullet(new TankMock(), 0);
+      var bullet = new Bullet(new TankMock(), 1, 0);
       assert.equal(false, bullet.exploded);
     });
   });
@@ -55,7 +46,7 @@ describe('Bullet', function() {
   describe('onWallHit', function() {
 
     it('should explode bullet', function() {
-      var bullet = new Bullet(new TankMock(), 0);
+      var bullet = new Bullet(new TankMock(), 1, 0);
       assert.equal(false, bullet.exploded);
       bullet.onWallHit();
       assert.equal(true, bullet.exploded);
@@ -67,7 +58,7 @@ describe('Bullet', function() {
 
     it('should explode bullet', function() {
       var enemy = new TankMock();
-      var bullet = new Bullet(new TankMock(), 1);
+      var bullet = new Bullet(new TankMock(), 1, 1);
       assert.equal(false, bullet.exploded);
       bullet.onEnemyHit(enemy);
       assert.equal(true, bullet.exploded);
@@ -75,7 +66,7 @@ describe('Bullet', function() {
 
     it('should deal damage to the enemy', function() {
       var enemy = new TankMock()
-      var bullet = new Bullet(new TankMock(), 1);
+      var bullet = new Bullet(new TankMock(), 1, 1);
       bullet.onEnemyHit(enemy);
       assert.equal(true, enemy.onDamage.calledOnce);
       assert.equal(true, enemy.onDamage.calledWith(bullet.damage));
@@ -87,7 +78,7 @@ describe('Bullet', function() {
 
     it('should move according to velocity and angle', function() {
       var owner = new TankMock();
-      var bullet = new Bullet(owner, 0.5);
+      var bullet = new Bullet(owner, 1, 0.5);
 
       var a = (owner.angle + owner.gunAngle)*(Math.PI/180);
       var x = bullet.x + bullet.speed*Math.cos(a);

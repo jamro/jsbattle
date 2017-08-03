@@ -1,7 +1,5 @@
 'use strict';
 
-var nextTankId = 1;
-
 function normalizeAngle(a) {
   while(a > 180) a -= 360;
   while(a < -180) a += 360;
@@ -10,8 +8,8 @@ function normalizeAngle(a) {
 
 module.exports = class Tank {
 
-  constructor(name) {
-    this._id = nextTankId++;
+  constructor(name, id) {
+    this._id = id;
     this._name = name;
     this._maxEnergy = 100;
     this._energy = this._maxEnergy;

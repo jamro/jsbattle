@@ -9,27 +9,17 @@ describe('Tank', function() {
   describe('constructor', function() {
 
     it('should set name of the tank', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal("beta", tank.name);
     });
 
-    it('should set unique id', function() {
-      var tank1 = new Tank("one");
-      var tank2 = new Tank("two");
-      var tank3 = new Tank("three");
-
-      assert.notEqual(tank1.id, tank2.id);
-      assert.notEqual(tank2.id, tank3.id);
-      assert.notEqual(tank3.id, tank1.id);
-    });
-
     it('should set energy to max', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal(tank.energy, tank.maxEnergy);
     });
 
     it('should set boost to max', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal(tank.boost, tank.maxBoost);
     });
   });
@@ -37,7 +27,7 @@ describe('Tank', function() {
   describe('onEnemyHitScore', function() {
 
     it('should award scores equal to damage', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal(0, tank.score);
       tank.onEnemyHitScore(0.1);
       assert.equal(0.1, tank.score);
@@ -50,7 +40,7 @@ describe('Tank', function() {
   describe('onEnemyKillScore', function() {
 
     it('should award 20 scores', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal(0, tank.score);
       tank.onEnemyKillScore();
       assert.equal(20, tank.score);
@@ -63,7 +53,7 @@ describe('Tank', function() {
   describe('onSurviveScore', function() {
 
     it('should award 10 scores', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert.equal(0, tank.score);
       tank.onSurviveScore();
       assert.equal(10, tank.score);
@@ -76,7 +66,7 @@ describe('Tank', function() {
   describe('setBoost', function() {
 
     it('should turn on/off boost', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       assert(!tank.hasBoost);
       tank.setBoost(true);
       assert(tank.hasBoost);
@@ -85,7 +75,7 @@ describe('Tank', function() {
     });
 
     it('should not turn boost on if the boost is out', function() {
-      var tank = new Tank("beta");
+      var tank = new Tank("beta", 1);
       tank.setBoost(true);
       var resolver = new CollisionResolverMock();
       for(var i =0; i < tank.maxBoost; i++) {

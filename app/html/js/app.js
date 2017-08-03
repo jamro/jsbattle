@@ -4,6 +4,7 @@ var rendererName = 'brody';
 var canvas = document.getElementById("battlefield");
 var renderer;
 var keepRenderingTimer = 0;
+var scoreTable = []
 
 setInterval(function() {
   if(renderer && keepRenderingTimer > 0) {
@@ -99,9 +100,10 @@ function onAssetsLoaded() {
       simulation.addTank(tankName);
       $('#sim-loading').hide();
       $('#sim-start').show();
-      showCover();
     })
+    showCover();
     buildScoreTable(simulation.tankList);
+    updateTanks(true);
   })
   .fail(function() {
     showError("Cannot load and parse js/tanks/index.json");
@@ -115,60 +117,67 @@ function showError(msg) {
 }
 
 function buildScoreTable(tankList) {
-  var row, tank;
+  var row, tank, nameCell, energyCell, scoreCell;
   $('#scoreboard > tbody > tr.tank-data').remove();
-
+  scoreTable = [];
   for(var i in tankList) {
     tank = tankList[i];
-    row = '<tr class="tank-data tank-' + tank.id + '">' +
-      '<td>' + tank.fullName + '</td>' +
-      '<td class="energy" style="text-align: center">' +
-        '<div class="progress" style="margin-bottom: 0 !important;">' +
-          '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">' +
-          '</div>' +
-        '</div>' +
-      '</td>' +
-      '<td style="text-align: right" class="score">0</td>' +
-    '</tr>';
-    $('#scoreboard').append(row);
-    $('#debug-tank').append('<option value="' + tank.id + '">' + tank.fullName + '</option>')
-  }
 
+    row = $('<tr class="tank-data"></tr>');
+    nameCell = $('<td></td>');
+    energyCell = $('<td class="energy" style="text-align: center">' +
+      '<div class="progress" style="margin-bottom: 0 !important;">' +
+        '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">' +
+        '</div>' +
+      '</div>' +
+    '</td>');
+    scoreCell = $('<td style="text-align: right" class="score">0</td>');
+
+
+    row.append(nameCell);
+    row.append(energyCell);
+    row.append(scoreCell);
+
+    $('#scoreboard').append(row);
+
+    $('#debug-tank').append('<option value="' + tank.id + '">' + tank.fullName + '</option>');
+    scoreTable.push({
+      row: row,
+      nameCell: nameCell,
+      energyCell: energyCell,
+      scoreCell: scoreCell,
+      progressBar: energyCell.find('.progress > .progress-bar')
+    })
+  }
 
 }
 
-function updateTanks(force) {
+function updateTanks(forceUpdate) {
+  if(!scoreTable.length) return;
   step++;
-  if(!force && step % 3 != 0) {
+  if(!forceUpdate && step % 15 != 0) {
     return;
   }
+  var i;
+  var tankData = [];
 
-  var tank;
-
-  for(var i in simulation.tankList) {
+  for(i in simulation.tankList) {
     tank = simulation.tankList[i];
-
-    $('#scoreboard > tbody > tr.tank-' + tank.id + ' > td.score').html(tank.score.toFixed(2));
-
-    var energy = Math.round(100*tank.energy/tank.maxEnergy);
-
-    $('#scoreboard > tbody > tr.tank-' + tank.id + ' > td.energy > .progress > .progress-bar').attr('aria-valuenow', energy);
-    $('#scoreboard > tbody > tr.tank-' + tank.id + ' > td.energy > .progress > .progress-bar').css('width', energy + "%");
-    $('#scoreboard > tbody > tr.tank-' + tank.id + ' > td.energy > .progress > .progress-bar').html(tank.energy.toFixed(2));
-
-    if(tank.id == debugTankId) {
-      $('#debug-view > pre.debug').html(tank.debugData);
-      $('#debug-view > pre.state').html(JSON.stringify(tank.state, null, 2));
-    }
-
-    var rows = $('#scoreboard > tbody > tr.tank-data').remove();
-    rows.sort(function(a, b) {
-      a = Number($(a).find('.score').html());
-      b = Number($(b).find('.score').html());
-
-      return b-a;
-    })
-    $('#scoreboard > tbody').append(rows);
+    tankData.push({
+      name: tank.name,
+      energy: Math.round(100*tank.energy/tank.maxEnergy),
+      score: tank.score
+    });
+  }
+  tankData.sort(function(a,b) {
+    return b.score - a.score;
+  });
+  for(i in tankData) {
+    scoreTable[i].nameCell.html(tankData[i].name);
+    scoreTable[i].progressBar.attr('aria-valuenow', tankData[i].energy);
+    scoreTable[i].progressBar.css('width', tankData[i].energy + "%");
+    scoreTable[i].progressBar.html(tankData[i].energy.toFixed(2));
+    scoreTable[i].scoreCell.html(tankData[i].score.toFixed(2));
   }
 }
 

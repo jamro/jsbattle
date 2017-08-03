@@ -11,3 +11,7 @@ All angles are in a range between -180° and 180°. Angle 0° is equivalent to l
 ## Simulation Mechanics
 
 Simulation processing loop updates all objects in the battlefield (tanks and bullets). In every step of the loop [AI Script](ai_script.md) is being called and returned information is used to control the behavior of tanks.
+
+## Battle Duration and Speed
+
+Standard battle takes 30 seconds when watching at normal speed. The duration will be extended if there are more than two tanks in the battle. Extra 2 seconds are added for every additional tank. The speed of the simulation can be increased or decreased. In such case, the frequency of simulation processing loop will change.

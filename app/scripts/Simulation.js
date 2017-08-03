@@ -187,6 +187,9 @@ module.exports = class Simulation {
     tank.moveTo(startSlot.x, startSlot.y);
     this._tankList.push(tank);
     this._allTankList.push(tank);
+    if(this._allTankList.length > 2) {
+      this._timeLimit += 2000;
+    }
 
     var ai = this._createAiWrapper(tank);
     this._aiList.push(ai);

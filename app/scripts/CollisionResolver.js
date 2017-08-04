@@ -213,7 +213,7 @@ module.exports = class CollisionResolver {
 
     if(angle == -180 || angle == 180) { // W
       return distanceWest;
-    } else if(angle == -0 || angle == 180) { // E
+    } else if(angle == 0) { // E
       return distanceEast;
     } else if(angle == -90) { // N
       return distanceNorth;

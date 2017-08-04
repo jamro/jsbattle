@@ -141,7 +141,46 @@ describe('CollisionResolver', function() {
     });
 
   });
+  describe('scanWalls', function() {
+    it('should detect distance to a wall', function() {
+      var resolver = new CollisionResolver();
+      var battlefield = new BattlefieldMock();
+      battlefield.width = 500;
+      battlefield.height = 500;
+      resolver.updateBattlefield(new BattlefieldMock());
 
+      var tank1 = new TankMock();
+      tank1.x = 200;
+      tank1.y = 200;
+      tank1.angle = 20;
+      tank1.radarRange = 500;
+
+      //east
+      tank1.radarAngle = -tank1.angle;
+      resolver.updateTank(tank1);
+      resolver.scanWalls(tank1);
+      assert(tank1.onWallSpot.calledWith(300));
+
+      //west
+      tank1.radarAngle = -tank1.angle + 180;
+      resolver.updateTank(tank1);
+      resolver.scanWalls(tank1);
+      assert(tank1.onWallSpot.calledWith(200));
+
+      //north
+      tank1.radarAngle = -tank1.angle - 90;
+      resolver.updateTank(tank1);
+      resolver.scanWalls(tank1);
+      assert(tank1.onWallSpot.calledWith(200));
+
+      //south
+      tank1.radarAngle = -tank1.angle + 90;
+      resolver.updateTank(tank1);
+      resolver.scanWalls(tank1);
+      assert(tank1.onWallSpot.calledWith(300));
+
+    });
+  });
 
   describe('scanTanks', function() {
 

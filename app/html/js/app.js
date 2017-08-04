@@ -21,6 +21,14 @@ setInterval(function() {
 var step = 0;
 
 $( document ).ready(function() {
+  if(debugTankId == 0) {
+    $('#debug-view').hide();
+  } else {
+    $('#debug-view').show();
+    $('#debug-view > pre').html("");
+
+  }
+
   buildSimulation();
   showCover();
 

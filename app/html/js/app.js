@@ -1,12 +1,14 @@
 var simulation;
-var debugTankId;
+var debugTankId = localStorage.getItem("settings.debugTankId");
+debugTankId = debugTankId ? debugTankId : 0;
 var rendererName = 'brody';
 var canvas = document.getElementById("battlefield");
 var renderer;
 var keepRenderingTimer = 0;
 var scoreTable = []
 
-var simSpeed = 1;
+var simSpeed = localStorage.getItem("settings.simSpeed");
+simSpeed = simSpeed ? simSpeed : 1;
 
 setInterval(function() {
   if(renderer && keepRenderingTimer > 0) {
@@ -29,13 +31,25 @@ $( document ).ready(function() {
   $('#sim-super-fast').data('speed', 50);
   $('.sim-speed').click(function() {
     simSpeed = $(this).data('speed');
-    simulation.setSpeed(simSpeed);
+    localStorage.setItem("settings.simSpeed", simSpeed);
+    if(simulation) {
+      simulation.setSpeed(simSpeed);
+    }
     $('.sim-speed').removeClass('btn-warning');
     $(this).addClass('btn-warning');
   });
 
+  ($('.sim-speed')).toArray().find(function(item) {
+    item = $(item);
+    speed = item.data('speed');
+    if(speed == simSpeed) {
+      item.addClass('btn-warning');
+    }
+  })
+
   $('#debug-tank').change(function() {
     debugTankId = $(this).val();
+    localStorage.setItem("settings.debugTankId", debugTankId);
     if(debugTankId == 0) {
       $('#debug-view').hide();
     } else {
@@ -60,8 +74,6 @@ $( document ).ready(function() {
 });
 
 function buildSimulation() {
-  debugTankId = 0;
-
   renderer = JsBattle.createRenderer(rendererName);
   renderer.loadAssets(onAssetsLoaded.bind(this));
 }
@@ -125,6 +137,8 @@ function buildScoreTable(tankList) {
   var row, tank, nameCell, energyCell, scoreCell;
   $('#scoreboard > tbody > tr.tank-data').remove();
   scoreTable = [];
+  $('#debug-tank').empty();
+  $('#debug-tank').append('<option value="0">[Select Tank for Debug View]</option>');
   for(var i in tankList) {
     tank = tankList[i];
 
@@ -154,6 +168,8 @@ function buildScoreTable(tankList) {
       progressBar: energyCell.find('.progress > .progress-bar')
     })
   }
+  $('#debug-tank').val(debugTankId);
+
 
 }
 

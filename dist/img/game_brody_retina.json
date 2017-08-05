@@ -1,9 +1,9 @@
 {
-    "scaleName": "web",
+    "scaleName": "retina",
     "variation": "brody",
     "loadingStage": "game",
-    "id": "game_brody_web",
-    "resolution": 1,
+    "id": "game_brody_retina",
+    "resolution": 2,
     "meta": {
         "type": "pixi-packer",
         "version": "1",
@@ -11,8 +11,8 @@
     },
     "spritesheets": [
         {
-            "image": "0f2bd8d9370b22a72b822da0c18d425f22a7f244.png",
-            "filesize": 449931,
+            "image": "eddeeaa4c014913281b32ddd415d34d001a90cff.png",
+            "filesize": 1732229,
             "sprites": [
                 {
                     "name": "battlefield",
@@ -21,470 +21,488 @@
                         "y": 0
                     },
                     "dimension": {
-                        "w": 900,
-                        "h": 600
+                        "w": 1800,
+                        "h": 1200
                     }
-                },
+                }
+            ]
+        },
+        {
+            "image": "4fc86b2a2152bae54cd1a2669c4975d7747c19cf.png",
+            "filesize": 403001,
+            "sprites": [
                 {
                     "name": "crater",
                     "position": {
                         "x": 0,
-                        "y": 601
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 125,
-                        "h": 138
+                        "w": 250,
+                        "h": 276
                     }
                 },
                 {
                     "name": "big_boom_001",
                     "position": {
                         "x": 0,
-                        "y": 740
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_002",
                     "position": {
                         "x": 0,
-                        "y": 869
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_003",
                     "position": {
-                        "x": 129,
-                        "y": 869
+                        "x": 257,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_004",
                     "position": {
-                        "x": 258,
-                        "y": 869
+                        "x": 514,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_005",
                     "position": {
-                        "x": 387,
-                        "y": 869
+                        "x": 771,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_006",
                     "position": {
-                        "x": 516,
-                        "y": 869
+                        "x": 1028,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_007",
                     "position": {
-                        "x": 645,
-                        "y": 869
+                        "x": 1285,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_008",
                     "position": {
-                        "x": 774,
-                        "y": 869
+                        "x": 1542,
+                        "y": 534
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_009",
                     "position": {
-                        "x": 903,
-                        "y": 869
+                        "x": 257,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_010",
                     "position": {
-                        "x": 1032,
-                        "y": 869
+                        "x": 514,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_011",
                     "position": {
-                        "x": 1161,
-                        "y": 869
+                        "x": 771,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_012",
                     "position": {
-                        "x": 1290,
-                        "y": 869
+                        "x": 1028,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_013",
                     "position": {
-                        "x": 1419,
-                        "y": 869
+                        "x": 1285,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_014",
                     "position": {
-                        "x": 1548,
-                        "y": 869
+                        "x": 1542,
+                        "y": 277
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_015",
                     "position": {
-                        "x": 1677,
-                        "y": 869
+                        "x": 251,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_016",
                     "position": {
-                        "x": 1806,
-                        "y": 869
+                        "x": 508,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_000",
                     "position": {
-                        "x": 129,
-                        "y": 740
+                        "x": 765,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_018",
                     "position": {
-                        "x": 258,
-                        "y": 740
+                        "x": 1022,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_019",
                     "position": {
-                        "x": 387,
-                        "y": 740
+                        "x": 1279,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "big_boom_020",
                     "position": {
-                        "x": 516,
-                        "y": 740
+                        "x": 1536,
+                        "y": 0
                     },
                     "dimension": {
-                        "w": 128,
-                        "h": 128
-                    }
-                },
-                {
-                    "name": "big_boom_021",
-                    "position": {
-                        "x": 645,
-                        "y": 740
-                    },
-                    "dimension": {
-                        "w": 128,
-                        "h": 128
-                    }
-                },
-                {
-                    "name": "big_boom_022",
-                    "position": {
-                        "x": 774,
-                        "y": 740
-                    },
-                    "dimension": {
-                        "w": 128,
-                        "h": 128
-                    }
-                },
-                {
-                    "name": "big_boom_017",
-                    "position": {
-                        "x": 903,
-                        "y": 740
-                    },
-                    "dimension": {
-                        "w": 128,
-                        "h": 128
+                        "w": 256,
+                        "h": 256
                     }
                 },
                 {
                     "name": "glow",
                     "position": {
-                        "x": 1935,
-                        "y": 869
+                        "x": 0,
+                        "y": 791
                     },
                     "dimension": {
-                        "w": 100,
-                        "h": 100
+                        "w": 200,
+                        "h": 200
                     },
                     "trim": {
-                        "x": 6,
-                        "y": 6,
-                        "w": 90,
-                        "h": 90
+                        "x": 13,
+                        "y": 13,
+                        "w": 178,
+                        "h": 178
                     }
                 },
                 {
                     "name": "tank_gun",
                     "position": {
-                        "x": 1032,
-                        "y": 740
+                        "x": 179,
+                        "y": 791
                     },
                     "dimension": {
-                        "w": 82,
-                        "h": 50
+                        "w": 163,
+                        "h": 100
                     },
                     "trim": {
-                        "x": 5,
-                        "y": 4,
-                        "w": 60,
-                        "h": 42
+                        "x": 11,
+                        "y": 8,
+                        "w": 119,
+                        "h": 83
+                    }
+                },
+                {
+                    "name": "tank_body",
+                    "position": {
+                        "x": 179,
+                        "y": 875
+                    },
+                    "dimension": {
+                        "w": 163,
+                        "h": 100
+                    },
+                    "trim": {
+                        "x": 6,
+                        "y": 5,
+                        "w": 90,
+                        "h": 89
                     }
                 },
                 {
                     "name": "tank_shoot",
                     "position": {
                         "x": 0,
-                        "y": 998
+                        "y": 970
                     },
                     "dimension": {
-                        "w": 82,
-                        "h": 50
+                        "w": 163,
+                        "h": 100
                     },
                     "trim": {
-                        "x": 29,
-                        "y": 11,
-                        "w": 46,
-                        "h": 26
-                    }
-                },
-                {
-                    "name": "tank_body",
-                    "position": {
-                        "x": 1032,
-                        "y": 783
-                    },
-                    "dimension": {
-                        "w": 82,
-                        "h": 50
-                    },
-                    "trim": {
-                        "x": 3,
-                        "y": 2,
-                        "w": 45,
-                        "h": 45
+                        "x": 59,
+                        "y": 22,
+                        "w": 89,
+                        "h": 52
                     }
                 },
                 {
                     "name": "bullet",
                     "position": {
-                        "x": 1935,
-                        "y": 960
+                        "x": 270,
+                        "y": 875
                     },
                     "dimension": {
-                        "w": 50,
-                        "h": 36
+                        "w": 100,
+                        "h": 72
                     },
                     "trim": {
-                        "x": 4,
-                        "y": 3,
-                        "w": 39,
-                        "h": 31
+                        "x": 8,
+                        "y": 6,
+                        "w": 77,
+                        "h": 61
                     }
                 },
                 {
                     "name": "tank_radar",
                     "position": {
-                        "x": 47,
-                        "y": 998
+                        "x": 90,
+                        "y": 970
                     },
                     "dimension": {
-                        "w": 82,
-                        "h": 50
+                        "w": 163,
+                        "h": 100
                     },
                     "trim": {
-                        "x": 9,
-                        "y": 12,
-                        "w": 15,
-                        "h": 25
+                        "x": 17,
+                        "y": 25,
+                        "w": 30,
+                        "h": 48
                     }
                 },
                 {
                     "name": "tank_light",
                     "position": {
-                        "x": 63,
-                        "y": 998
+                        "x": 121,
+                        "y": 970
                     },
                     "dimension": {
-                        "w": 82,
-                        "h": 50
+                        "w": 163,
+                        "h": 100
                     },
                     "trim": {
-                        "x": 14,
-                        "y": 7,
-                        "w": 22,
-                        "h": 21
+                        "x": 29,
+                        "y": 14,
+                        "w": 41,
+                        "h": 41
                     }
                 },
                 {
                     "name": "hole",
                     "position": {
-                        "x": 86,
-                        "y": 998
+                        "x": 163,
+                        "y": 970
                     },
                     "dimension": {
-                        "w": 20,
-                        "h": 7
+                        "w": 39,
+                        "h": 14
                     },
                     "trim": {
-                        "x": 3,
-                        "y": 1,
-                        "w": 15,
-                        "h": 5
-                    }
-                },
-                {
-                    "name": "dirt_0",
-                    "position": {
-                        "x": 86,
-                        "y": 1004
-                    },
-                    "dimension": {
-                        "w": 10,
-                        "h": 5
-                    },
-                    "trim": {
-                        "x": 1,
-                        "y": 0,
-                        "w": 8,
-                        "h": 5
+                        "x": 6,
+                        "y": 2,
+                        "w": 28,
+                        "h": 9
                     }
                 },
                 {
                     "name": "dirt_2",
                     "position": {
-                        "x": 86,
-                        "y": 1010
+                        "x": 163,
+                        "y": 980
                     },
                     "dimension": {
-                        "w": 10,
-                        "h": 5
+                        "w": 20,
+                        "h": 10
                     },
                     "trim": {
                         "x": 1,
                         "y": 0,
-                        "w": 8,
-                        "h": 5
+                        "w": 18,
+                        "h": 10
+                    }
+                },
+                {
+                    "name": "dirt_0",
+                    "position": {
+                        "x": 163,
+                        "y": 991
+                    },
+                    "dimension": {
+                        "w": 20,
+                        "h": 10
+                    },
+                    "trim": {
+                        "x": 2,
+                        "y": 0,
+                        "w": 16,
+                        "h": 10
                     }
                 },
                 {
                     "name": "dirt_1",
                     "position": {
-                        "x": 95,
-                        "y": 1010
+                        "x": 180,
+                        "y": 991
                     },
                     "dimension": {
-                        "w": 10,
-                        "h": 5
+                        "w": 20,
+                        "h": 10
                     },
                     "trim": {
-                        "x": 1,
+                        "x": 2,
                         "y": 0,
-                        "w": 8,
-                        "h": 5
+                        "w": 16,
+                        "h": 10
                     }
                 },
                 {
                     "name": "spark",
                     "position": {
-                        "x": 63,
-                        "y": 1020
+                        "x": 90,
+                        "y": 1019
                     },
                     "dimension": {
-                        "w": 7,
-                        "h": 1
+                        "w": 14,
+                        "h": 2
+                    },
+                    "trim": {
+                        "x": 1,
+                        "y": 0,
+                        "w": 13,
+                        "h": 2
+                    }
+                }
+            ]
+        },
+        {
+            "image": "805a9e7e9814bbc4fd4267106be0c2fdf2d651a5.png",
+            "filesize": 45955,
+            "sprites": [
+                {
+                    "name": "big_boom_021",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "dimension": {
+                        "w": 256,
+                        "h": 256
+                    }
+                },
+                {
+                    "name": "big_boom_022",
+                    "position": {
+                        "x": 0,
+                        "y": 257
+                    },
+                    "dimension": {
+                        "w": 256,
+                        "h": 256
+                    }
+                },
+                {
+                    "name": "big_boom_017",
+                    "position": {
+                        "x": 0,
+                        "y": 514
+                    },
+                    "dimension": {
+                        "w": 256,
+                        "h": 256
                     }
                 }
             ]

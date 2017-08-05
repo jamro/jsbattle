@@ -109,6 +109,12 @@ module.exports = class App extends React.Component {
         energy: tank.energy,
       };
     });
+    tankList.sort((a, b) => {
+      return b.score - a.score;
+    });
+    for(var rank=0; rank < tankList.length; rank++) {
+      tankList[rank].rank = rank;
+    }
     this.setState({tankList: tankList});
   }
 

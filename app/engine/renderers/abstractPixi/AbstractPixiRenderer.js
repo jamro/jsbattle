@@ -28,10 +28,19 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     this._clockModel = new PixiRendererClockModel();
     this._clockView = null;
     this._battlefieldView = null;
+    if(window.devicePixelRatio >= 2) {
+      this._rendererScale = 2;
+    } else {
+      this._rendererScale = 1;
+    }
   }
 
   get stage() {
     return this._stage;
+  }
+
+  get battlefieldView() {
+    return this._battlefieldView;
   }
 
   get masterContainer() {
@@ -78,7 +87,8 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     }
     var loader = new PIXI.loaders.Loader();
     loader.after(PixiPackerParser(PIXI));
-    loader.add("img/game_" + this._name + "_web.json");
+    var resolution = (this._rendererScale == 2) ? "retina" : "web";
+    loader.add("img/game_" + this._name + "_" + resolution + ".json");
     var self = this;
     loader.load(function() {
       self.onAssetsLoaded();

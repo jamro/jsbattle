@@ -6,7 +6,7 @@ module.exports = class ScoreBoard extends React.Component {
   renderRows() {
     return this.props.tankList.map((tank) => {
       return <ScoreBoardRow
-      key={tank.id}
+      key={tank.rank}
       name={tank.name}
       energy={tank.energy}
       score={tank.score}

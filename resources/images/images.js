@@ -2,7 +2,8 @@ var pngQuant = require("imagemin-pngquant");
 
 module.exports = {
   "scales": {
-    "web": {"scale": 1, "resolution": 1}
+    "web": {"scale": 0.5, "resolution": 1},
+    "retina": {"scale": 1, "resolution": 2}
   },
   "variations": ["bw", "brody"],
   "loading_stages": [ "game" ],

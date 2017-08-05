@@ -15,6 +15,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._shakeTimer = 0;
     this._particleContainer = null;
     this._particleList = [];
+    this._explosionList = [];
   }
 
   onAssetsLoaded() {
@@ -37,9 +38,13 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   renderTank(tank, events) {
     super.renderTank(tank, events);
-    if(tank.energy == 0) {
-      this._shakeTimer = 10;
-      this._addTankExplosion(tank);
+    var i;
+    for(i in events) {
+      if(events[i].type == 'destroy') {
+        this._shakeTimer = 10;
+        this._addTankExplosion(tank);
+        break;
+      }
     }
 
     var directionCorrection = tank.throttle > 0 ? 180 : 0;
@@ -65,6 +70,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     super.renderBullet(bullet, events);
     if(bullet.exploded) {
       this._addBulletExplosion(bullet);
+      this.battlefieldView.addBulletHole(bullet.x, bullet.y, bullet.power);
     }
   }
 
@@ -72,7 +78,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     super.preRender();
     var particle;
     var particleCount = 0;
-    for(var i = this._particleList.length-1; i >= 0; i--) {
+    var i;
+    for(i = this._particleList.length-1; i >= 0; i--) {
       particle = this._particleList[i];
       if(!particle) {
         continue;
@@ -90,6 +97,15 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
         particleCount++;
       }
     }
+    for(i=0; i < this._explosionList.length; i++) {
+      if(!this._explosionList[i]) continue;
+      this._explosionList[i].alpha *= 0.7;
+      if(this._explosionList[i].alpha < 0.01) {
+        this._explosionList[i].parent.removeChild(this._explosionList[i]);
+        this._explosionList[i] = null;
+      }
+    }
+
   }
 
   postRender() {
@@ -110,6 +126,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addTankExplosion(tank) {
     this._addExplosion(tank.x, tank.y, this._bigBoomAnim);
+    this.battlefieldView.addCrater(tank.x, tank.y);
     this._addSparks(
       tank.x,
       tank.y,
@@ -117,8 +134,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     );
   }
 
-
   _addBulletExplosion(bullet) {
+    this._addGlow(bullet.x, bullet.y, 0.3 + 0.6*bullet.power);
     var sparks = 3 + 20 * bullet.power;
     this._addSparks(
       bullet.x,
@@ -144,6 +161,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
   }
 
   _addExplosion(x, y, type) {
+    this._addGlow(x, y, 5);
+
     var anim = new PIXI.extras.AnimatedSprite(type);
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
@@ -156,6 +175,18 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
       this.parent.removeChild(this);
     };
     anim.play();
+  }
+
+  _addGlow(x, y, scale) {
+    var glow = PIXI.Sprite.fromFrame('glow');
+    glow.anchor.set(0.5);
+    glow.scale.x = glow.scale.y = scale;
+    glow.alpha = 0.4;
+    glow.blendMode = PIXI.BLEND_MODES.ADD;
+    glow.x = x;
+    glow.y = y;
+    this.masterContainer.addChild(glow);
+    this._explosionList.push(glow);
   }
 
   _addSparks(x, y, amount) {

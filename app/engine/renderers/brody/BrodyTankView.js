@@ -22,6 +22,7 @@ module.exports = class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _onShoot(event) {
+    super._onShoot(event);
     this._tankGun.x = -1-3*event.bullet.power;
     this._shoot.alpha = 1;
   }

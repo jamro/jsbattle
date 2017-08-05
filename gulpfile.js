@@ -1,182 +1,29 @@
 const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
-const clean = require('gulp-clean');
-const jslint = require('gulp-jslint');
-const jshint = require('gulp-jshint');
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
-const babel = require('gulp-babel');
-const webpack = require('gulp-webpack');
-const sourcemaps = require('gulp-sourcemaps');
-const mocha = require('gulp-mocha');
-const PixiPacker = require('pixi-packer');
-const through = require('through2');
+var config = require('./build/config.js')
 
+gulp.task('clean', require('./build/clean.js')(gulp, config, plugins));
+gulp.task('copy', ['clean'], require('./build/copy.js')(gulp, config, plugins));
 
-var paths = {
- entry: "./app/scripts/entry.js",
- scripts: ['app/scripts/**/*.js'],
- html: ['app/html/**/*'],
- docs: ['docs/**/*'],
- dist: 'dist/',
- tanks: ['app/tanks/*.tank.js', 'app/tanks/index.json'],
- test: ['test/**/*.test.js'],
- images: ['resources/images'],
- lib: [
-   'node_modules/sat/SAT.js',
-   'node_modules/seedrandom/seedrandom.js',
-   'node_modules/pixi-packer-parser/index.js'
- ],
- externalLib: [
-  'node_modules/pixi.js/dist/pixi.min.js',
-  'node_modules/jquery/dist/jquery.min.js'
- ]
-};
+gulp.task('engine.sprites', ['copy'], require('./build/engine.sprites.js')(gulp, config, plugins));
+gulp.task('engine.jshint', require('./build/engine.jshint.js')(gulp, config, plugins));
+gulp.task('engine.test', require('./build/engine.test.js')(gulp, config, plugins));
+gulp.task('engine.sources', ['copy', 'engine.jshint', 'engine.test'], require('./build/engine.sources.js')(gulp, config, plugins));
 
-var sandboxPaths = {
-  entry: "./app/tanks/lib/tank.js",
-  scripts: ['app/tanks/lib/**/*.js'],
-  lib: ['node_modules/seedrandom/seedrandom.js'],
-  dist: 'dist/js/tanks/lib/'
-};
+gulp.task('tanks.sources', ['copy'], require('./build/tanks.sources.js')(gulp, config, plugins));
 
-gulp.task('clean', function(){
-  return gulp.src(paths.dist).pipe(clean());
-});
+gulp.task('webpage.jshint', require('./build/webpage.jshint.js')(gulp, config, plugins));
+gulp.task('webpage.sources', ['copy', 'webpage.jshint'], require('./build/webpage.sources.js')(gulp, config, plugins));
 
-gulp.task("sprites", ['clean', 'copy'], function () {
-  return gulp.src(paths.images)
-    .pipe(through.obj(function (dir, enc, cb) {
-      delete require.cache[dir.path + "/images.js"];
-      var config = require(dir.path + "/images.js");
-
-      var pixiPacker = new PixiPacker(
-          config,
-          dir.path,
-          paths.dist + "/img",
-          "tmp/cache"
-      );
-
-      pixiPacker.process();
-      cb(null, dir)
-    }))
-});
-
-gulp.task('jshint', null, function() {
-  return gulp.src(paths.scripts)
-    .pipe(jshint({
-      esversion: 6,
-      node: true,
-      browser: true,
-      globals: {
-        'Worker': true
-      }
-    }))
-    .pipe(jshint.reporter('default'))
-})
-
-gulp.task('test', function() {
-  return gulp.src(paths.test, { read: false })
-    .pipe(mocha({
-      reporter: 'spec',
-      globals: {
-        should: require('should')
-      }
-    }));
-});
-
-gulp.task('sandbox', [], function() {
-  return gulp.src(sandboxPaths.scripts.concat(sandboxPaths.lib))
-    .pipe(jshint.reporter('default'))
-    .pipe(webpack({
-      entry: {
-        app: sandboxPaths.entry
-      },
-      output: {
-        filename: 'tank.js',
-        library: 'tank',
-        libraryTarget: 'var'
-      },
-      node: {
-      	fs: 'empty'
-      },
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            exclude: /(nodes_modules)/,
-            loader: "babel-loader",
-            query: {
-                presets: ["es2015"]
-            }
-          }
-        ]
-      }
-    }))
-    .pipe(uglify())
-    .pipe(gulp.dest(sandboxPaths.dist));
-})
-
-gulp.task('scripts', ['clean', 'jshint'], function() {
-  return gulp.src(paths.scripts.concat(paths.lib))
-    .pipe(sourcemaps.init())
-    .pipe(webpack({
-      entry: {
-        app: paths.entry
-      },
-      output: {
-        filename: 'jsbattle.min.js',
-        library: 'JsBattle',
-        libraryTarget: 'var'
-      },
-      node: {
-      	fs: 'empty'
-      },
-      module: {
-        loaders: [
-          {
-    				test: /\.json$/,
-    				include: 'node_modules/pixi.ja/dist/pixi.js',
-    				loader: 'json',
-    			},
-          {
-            test: /\.js$/,
-            exclude: /(nodes_modules)/,
-            loader: "babel-loader",
-            query: {
-                presets: ["es2015"]
-            }
-          }
-        ],
-        postLoaders: [
-            {
-                include: "node_modules/pixi.js/dist/pixi.js",
-                loader: 'transform?brfs'
-            }
-        ]
-      }
-    }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist + 'js/'));
-})
-
-gulp.task('copy', ['clean'], function() {
-
-  gulp.src(paths.html)
-    .pipe(gulp.dest(paths.dist));
-
-  gulp.src(paths.tanks)
-    .pipe(gulp.dest(paths.dist + "js/tanks/"));
-
-  gulp.src(paths.externalLib)
-    .pipe(gulp.dest(paths.dist + "js/lib/"));
-
-    gulp.src(paths.docs)
-      .pipe(gulp.dest(paths.dist + "docs/"));
-});
 
 gulp.task('watch', function() {
-  gulp.watch('app/**/*', ['clean', 'scripts', 'copy', 'sprites', 'sandbox']);
+  gulp.watch('app/**/*', ['clean', 'copy', 'engine.sources', 'engine.sprites', 'tanks.sources']);
 });
 
-gulp.task('default', ['clean', 'test', 'jshint', 'scripts', 'copy', 'sprites', 'sandbox']);
+gulp.task('default', [
+  'webpage.sources',
+  'engine.sources',
+  'engine.sprites',
+  'tanks.sources'
+]);

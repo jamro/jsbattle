@@ -28,6 +28,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
     "gulp-jslint": "^1.0.10",
+    "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^4.3.1",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
@@ -42,14 +43,16 @@
     "sinon": "^2.3.8",
     "through2": "^2.0.3",
     "transform-loader": "^0.2.4",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.3.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "http-server": "^0.10.0",
+    "jquery": "^3.2.1",
     "pixi.js": "^4.5.3",
     "sat": "^0.6.0",
-    "seedrandom": "^2.4.3",
-    "http-server": "^0.10.0"
+    "seedrandom": "^2.4.3"
   },
   "bundledDependencies": [
     "http-server"

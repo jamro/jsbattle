@@ -1,0 +1,35 @@
+module.exports = {
+  engine: {
+    entry: "./app/engine/entry.js",
+    sources: ['app/engine/**/*.js'],
+    test: ['test/**/*.test.js'],
+    resources: ['resources/images'],
+
+    lib: [
+      'node_modules/sat/SAT.js',
+      'node_modules/seedrandom/seedrandom.js',
+      'node_modules/pixi-packer-parser/index.js'
+    ],
+  },
+  webpage: {
+    sources: ['app/webpage/sources/**/*'],
+    static: ['app/webpage/static/**/*'],
+    entry: './app/webpage/sources/entry.js',
+    lib: [],
+    externalLib: [
+     'node_modules/pixi.js/dist/pixi.min.js',
+     'node_modules/jquery/dist/jquery.min.js',
+     'node_modules/bootstrap/dist/**/*'
+    ]
+  },
+  docs: {
+    sources: ['docs/**/*'],
+  },
+  tanks: {
+    resources: ['app/tanks/*.tank.js', 'app/tanks/index.json'],
+    entry: "./app/tanks/lib/tank.js",
+    sources: ['app/tanks/lib/**/*.js'],
+    lib: ['node_modules/seedrandom/seedrandom.js'],
+  },
+  dist: 'dist/'
+};

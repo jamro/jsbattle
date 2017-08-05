@@ -1,15 +1,26 @@
 module.exports = function (gulp, config, plugins) {
-    return function () {
+    return function (done) {
+      var completeCount = 0;
+      function onComplete() {
+        completeCount++;
+        if(completeCount == 4) {
+          done();
+        }
+      }
       gulp.src(config.webpage.static)
-        .pipe(gulp.dest(config.dist));
+        .pipe(gulp.dest(config.dist))
+        .on('end', onComplete);
 
       gulp.src(config.tanks.resources)
-        .pipe(gulp.dest(config.dist + "js/tanks/"));
+        .pipe(gulp.dest(config.dist + "js/tanks/"))
+        .on('end', onComplete);
 
       gulp.src(config.webpage.externalLib, { base : 'node_modules' })
-        .pipe(gulp.dest(config.dist + "vendor/"));
+        .pipe(gulp.dest(config.dist + "vendor/"))
+        .on('end', onComplete);
 
       gulp.src(config.docs.sources)
-        .pipe(gulp.dest(config.dist + "docs/"));
+        .pipe(gulp.dest(config.dist + "docs/"))
+        .on('end', onComplete);
     };
 };

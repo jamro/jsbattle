@@ -1,25 +1,17 @@
-#battlefield {
+.battlefield {
   margin: 5px;
 }
 
-#cover {
+.cover {
   width: 100%;
   height: 400px;
   display: table;
   border: 1px solid #000;
 }
 
-#cover > div {
+.cover > div {
   display: table-cell;
-  vertical-align: middle;;
-}
-
-.sim-control,
-#sim-start,
-.sim-finish,
-#battlefield,
-#debug-view {
-  display: none;
+  vertical-align: middle;
 }
 
 canvas {

@@ -17,113 +17,16 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container" style="max-width: 900px">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="pull-left">JsBattle</h1>
-          <span class="pull-right" style="margin-top: 35px; margin-left: 10px">
-            <div class="btn-group btn-group-xs" role="group" aria-label="...">
-              <button id="sim-super-slow" type="button" class="btn btn-default sim-speed">
-                Super Slow
-              </button>
-              <button id="sim-slow" type="button" class="btn btn-default sim-speed">
-                Slow
-              </button>
-              <button id="sim-normal" type="button" class="btn btn-default sim-speed">
-                Normal
-              </button>
-              <button id="sim-fast" type="button" class="btn btn-default sim-speed">
-                Fast
-              </button>
-              <button id="sim-super-fast" type="button" class="btn btn-default sim-speed">
-                Super Fast
-              </button>
-            </div>
-          </span>
-          <span class="pull-right" style="margin-top: 35px">
-            <div class="btn-group btn-group-xs" role="group" aria-label="...">
-              <a href="./docs" type="button" target="_blank" class="btn btn-primary">
-                Documentation
-              </a>
-            </div>
-          </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div id="error" class="alert alert-danger" role="alert" style="display: none">
-            <strong>
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              Oh snap!
-            </strong>
-            <span></span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div id="cover" class="text-center">
-            <div>
-              <button id="sim-loading" type="button" class="btn btn-lg" disabled="disabled">
-                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> LOADING...
-              </button>
-              <button id="sim-start" type="button" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> START
-              </button>
-              <div class="sim-finish">
-                <h3 class="congrats"></h3>
-                <button id="sim-restart" type="button" class="btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> RESTART
-                </button>
-              </div>
-            </div>
-          </div>
-          <canvas id="battlefield" width="900" height="600"></canvas>
-        </div>
-      </div>
-      <div class="row sim-control">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <select id="debug-tank" class="form-control">
+    <div id="root" class="container" style="max-width: 900px">
 
-              </select>
-            </div>
-            <div id="debug-view" class="panel-body">
-              <small>Debug Data</small>
-              <pre class="debug"></pre>
-              <small>State Object</small>
-              <pre class="state"></pre>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <table id="scoreboard" class="table table-condensed">
-            <tr>
-              <th>Tank Name</th>
-              <th style="text-align: center">Energy</th>
-              <th style="text-align: right">Score</th>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-        <hr/>
-          <footer class="small text-center">
-            GitHub: <a href="https://github.com/jamro/jsbattle" target="_blank">https://github.com/jamro/jsbattle</a>
-          </footer>
-        </div>
-      </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="vendor/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="vendor/pixi.js/dist/pixi.min.js"></script>
+    <script type="text/javascript" src="vendor/react/dist/react.js"></script>
+    <script type="text/javascript" src="vendor/react-dom/dist/react-dom.js"></script>
     <script type="text/javascript" src="js/jsbattle.min.js"></script>
     <script type="text/javascript" src="js/webpage.min.js"></script>
   </body>

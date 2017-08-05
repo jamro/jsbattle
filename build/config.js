@@ -15,11 +15,15 @@ module.exports = {
     sources: ['app/webpage/sources/**/*'],
     static: ['app/webpage/static/**/*'],
     entry: './app/webpage/sources/entry.js',
-    lib: [],
+    lib: [
+
+    ],
     externalLib: [
      'node_modules/pixi.js/dist/pixi.min.js',
      'node_modules/jquery/dist/jquery.min.js',
-     'node_modules/bootstrap/dist/**/*'
+     'node_modules/bootstrap/dist/**/*',
+     'node_modules/react/dist/**/*.js',
+     'node_modules/react-*/dist/**/*.js'
     ]
   },
   docs: {

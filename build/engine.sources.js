@@ -2,12 +2,18 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = function (gulp, config, plugins) {
     return function () {
+      var webpackPlugins = [];
+      if(!config.devMode) {
+        webpackPlugins.push(new UglifyJSPlugin({
+          sourceMap: true
+        }));
+      }
       return gulp.src(config.engine.sources.concat(config.engine.lib))
         .pipe(plugins.webpack({
           entry: {
             app: config.engine.entry
           },
-          devtool: "source-map",
+          devtool: (!config.devMode) ? "source-map" : null,
           output: {
             filename: 'jsbattle.min.js',
             library: 'JsBattle',
@@ -16,18 +22,9 @@ module.exports = function (gulp, config, plugins) {
           node: {
             fs: 'empty'
           },
-          plugins: [
-            new UglifyJSPlugin({
-              sourceMap: true
-            })
-          ],
+          plugins: webpackPlugins,
           module: {
             loaders: [
-              {
-                test: /\.json$/,
-                include: 'node_modules/pixi.ja/dist/pixi.js',
-                loader: 'json',
-              },
               {
                 test: /\.js$/,
                 exclude: /(nodes_modules)/,
@@ -36,12 +33,6 @@ module.exports = function (gulp, config, plugins) {
                     presets: ["es2015"]
                 }
               }
-            ],
-            postLoaders: [
-                {
-                    include: "node_modules/pixi.js/dist/pixi.js",
-                    loader: 'transform?brfs'
-                }
             ]
           }
         }))

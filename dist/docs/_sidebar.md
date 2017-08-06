@@ -8,3 +8,4 @@
   - [Tank Control Object](/tank_control_object.md)
   - [Scoring System](/scoring_system.md)
   - [Constants and Formulas](/consts.md)
+- [**Development Guide**](/dev_guide.md)

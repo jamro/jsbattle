@@ -7,6 +7,7 @@ var config = require('./build/config.js')
 config.devMode = !!plugins.util.env.dev;
 
 gulp.task('clean', require('./build/clean.js')(gulp, config, plugins));
+gulp.task('clean-tmp', require('./build/clean-tmp.js')(gulp, config, plugins));
 gulp.task('copy', ['clean'], require('./build/copy.js')(gulp, config, plugins));
 
 gulp.task('engine.sprites', ['copy'], require('./build/engine.sprites.js')(gulp, config, plugins));

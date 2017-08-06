@@ -35,5 +35,6 @@ module.exports = {
     sources: ['app/tanks/lib/**/*.js'],
     lib: ['node_modules/seedrandom/seedrandom.js'],
   },
-  dist: 'dist/'
+  dist: 'dist/',
+  tmp: 'tmp/'
 };

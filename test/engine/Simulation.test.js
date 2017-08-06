@@ -7,11 +7,13 @@ var BattlefieldMock = require('./mock/BattlefieldMock.js');
 var TankMock = require('./mock/TankMock.js');
 var BulletMock = require('./mock/BulletMock.js');
 var AiWrapperMock = require('./mock/AiWrapperMock.js');
+var PerformanceMonitorMock = require('./mock/PerformanceMonitorMock.js');
 
 
 function createSimulation() {
   var renderer = new RendererMock();
   var sim = new Simulation(renderer);
+  sim._perfMon = new PerformanceMonitorMock();
   sim._createAiWrapper = function(tank) {
     return new AiWrapperMock(tank);
   }
@@ -57,6 +59,7 @@ describe('Simulation', function() {
   describe('setSpeed', function() {
 
     it('should change simulation speed', function (done) {
+      this.retries(3);
       var sim1 = createSimulation();
       var sim2 = createSimulation();
       sim1.init(600, 600);
@@ -220,6 +223,21 @@ describe('Simulation', function() {
         done();
       }, 30);
     });
+
+    it('should start Perfomance Monitor', function(done) {
+      var sim = createSimulation();
+      sim.init(600, 600);
+
+      var tank1 = sim.addTank('bravo').tank;
+      var tank2 = sim.addTank('bravo').tank;
+
+      sim.onStep(function () {
+        assert(sim._perfMon.start.calledOnce);
+        sim.stop();
+        done();
+      });
+      sim.start();
+    });
   });
 
   describe('stop', function() {
@@ -246,6 +264,50 @@ describe('Simulation', function() {
         }, 50);
       }, 50);
     });
+
+    it('should stop renderer', function (done) {
+      var renderer = new RendererMock();
+      var sim = new Simulation(renderer);
+      sim._createAiWrapper = function(tank) {
+        return new AiWrapperMock(tank);
+      }
+      sim._createTank = function(name) {
+        return new TankMock();
+      }
+      sim._createBullet = function(owner, power) {
+        return new BulletMock(owner, power);
+      }
+      sim.init(600, 600);
+
+      sim.addTank('bravo');
+      sim.addTank('bravo');
+
+      sim.start();
+      setTimeout(function() {
+        sim.stop();
+        setTimeout(function() {
+          assert(renderer.stop.called);
+          done();
+        }, 50);
+      }, 50);
+    });
+
+    it('should stop Perfomance Monitor', function(done) {
+      var sim = createSimulation();
+      sim.init(600, 600);
+      sim.addTank('bravo');
+      sim.addTank('bravo');
+
+      sim.start();
+      setTimeout(function() {
+        sim.stop();
+        setTimeout(function() {
+          assert(sim._perfMon.stop.calledOnce)
+          done();
+        }, 50);
+      }, 50);
+    });
+
   });
 
   describe('addTank', function() {
@@ -284,4 +346,82 @@ describe('Simulation', function() {
       sim.start();
     });
   });
+
+  describe('simulationStep', function() {
+
+    it('should update Performance Monitor', function() {
+      var sim = createSimulation();
+      sim.init(600, 600);
+      sim.addTank('bravo');
+      sim.addTank('bravo');
+
+      sim.onStep(function () {
+        assert(sim._perfMon.onSimulationStep.calledOnce)
+        sim.stop();
+      });
+      sim.start();
+    });
+
+  });
+
+  describe('setRendererQuality', function() {
+
+    it('should change quality of renderer', function() {
+      var renderer = new RendererMock();
+      var sim = new Simulation(renderer);
+      sim._createAiWrapper = function(tank) {
+        return new AiWrapperMock(tank);
+      }
+      sim._createTank = function(name) {
+        return new TankMock();
+      }
+      sim._createBullet = function(owner, power) {
+        return new BulletMock(owner, power);
+      }
+      sim.init(600, 600);
+
+      sim.addTank('bravo');
+      sim.addTank('bravo');
+
+      sim.start();
+      sim.setRendererQuality(0.32);
+
+      sim.onRender(function () {
+        sim.stop();
+        assert.equal(0.32, renderer.quality);
+        done();
+      });
+    });
+
+    it('should support auto mode', function() {
+      var renderer = new RendererMock();
+      var sim = new Simulation(renderer);
+      sim._createAiWrapper = function(tank) {
+        return new AiWrapperMock(tank);
+      }
+      sim._createTank = function(name) {
+        return new TankMock();
+      }
+      sim._createBullet = function(owner, power) {
+        return new BulletMock(owner, power);
+      }
+      sim.init(600, 600);
+
+      sim.addTank('bravo');
+      sim.addTank('bravo');
+
+      sim.start();
+      sim.setRendererQuality('auto');
+      sim._perfMon.qualityLevel = 0.43;
+
+      sim.onRender(function () {
+        sim.stop();
+        assert.equal(0.43, renderer.quality);
+        done();
+      });
+    });
+
+  });
+
+
 });

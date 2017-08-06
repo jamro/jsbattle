@@ -5,8 +5,17 @@ var AbstractPixiBulletView = require("../abstractPixi/AbstractPixiBulletView.js"
 
 module.exports = class BrodyBulletView extends AbstractPixiBulletView  {
 
-  constructor(model) {
+  constructor(model, settings) {
     super(model);
+  }
+
+  configure(settings) {
+    this._settings = settings;
+  }
+
+  update(events) {
+    super.update(events);
+    this._glow.visible = this._settings && this._settings.showGlow;
   }
 
   _create(container) {
@@ -16,6 +25,7 @@ module.exports = class BrodyBulletView extends AbstractPixiBulletView  {
     glow.anchor.set(0.5);
     glow.blendMode = PIXI.BLEND_MODES.ADD;
     glow.alpha = 0.1;
+    this._glow = glow;
     container.addChild(glow);
     container.addChild(bullet);
   }

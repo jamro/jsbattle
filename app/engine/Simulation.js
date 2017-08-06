@@ -6,6 +6,7 @@ var Battlefield = require("./Battlefield.js");
 var EventStore = require("./EventStore.js");
 var CollisionResolver = require("./CollisionResolver.js");
 var AiWrapper = require("./AiWrapper.js");
+var PerformanceMonitor = require("./PerformanceMonitor.js");
 var seedrandom = require("seedrandom");
 
 
@@ -38,6 +39,9 @@ module.exports = class Simulation {
     this._eventStore = new EventStore();
     this._nextTankId = 1;
     this._nextBulletId = 1;
+    this._rendererQuality = 'auto';
+    this._perfMon = new PerformanceMonitor();
+    this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
     Math.random = this._rng;
   }
 
@@ -45,6 +49,14 @@ module.exports = class Simulation {
     this._battlefield.setSize(width, height);
     this._renderer.initBatlefield(this._battlefield);
     this._collisionResolver.updateBattlefield(this._battlefield);
+  }
+
+  setRendererQuality(v) {
+    if(isNaN(v) && v != 'auto') return;
+    if(!isNaN(v)) {
+      v = Math.min(1, Math.max(0, v));
+    }
+    this._rendererQuality = v;
   }
 
   get tankList() {
@@ -90,6 +102,7 @@ module.exports = class Simulation {
 
   setSpeed(v) {
     this._speedMultiplier = Math.max(0.01, Number(v));
+    this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
   }
 
   start() {
@@ -111,6 +124,7 @@ module.exports = class Simulation {
         if(self._simulationTimeout) {
           clearTimeout(self._simulationTimeout);
         }
+        self._perfMon.start();
         self._simulationStep();
       })
       .catch(function(err) {
@@ -121,6 +135,7 @@ module.exports = class Simulation {
   }
 
   _simulationStep() {
+    this._perfMon.onSimulationStep();
     var startTime = (new Date()).getTime();
     var self = this;
     var i;
@@ -159,6 +174,8 @@ module.exports = class Simulation {
 
   stop() {
     this._isRunning = false;
+    this._perfMon.stop();
+    this._renderer.stop();
     if(this._simulationTimeout) {
       clearTimeout(this._simulationTimeout);
       this._simulationTimeout = null;
@@ -318,6 +335,11 @@ module.exports = class Simulation {
   }
 
   _updateView() {
+    if(this._rendererQuality == 'auto') {
+      this._renderer.quality = this._perfMon.qualityLevel;
+    } else {
+      this._renderer.quality = this._rendererQuality;
+    }
     let i, tank, bullet;
     this._renderer.preRender();
     this._renderer.renderClock(this._timeElapsed, this._timeLimit);

@@ -8,6 +8,11 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
   constructor(model) {
     super(model);
     this._holeList = [];
+    this._settings = null;
+  }
+
+  configure(settings) {
+    this._settings = settings;
   }
 
   _create(container) {
@@ -62,6 +67,12 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     this._craterContainer.addChild(crater);
   }
 
+  update() {
+    super.update();
+    this._holesContainer.visible = (this._settings.skratchLimit > 0);
+    this._craterContainer.visible = this._settings.showCraters;
+  }
+
   addBulletHole(x, y, power) {
     var rotation = 0;
     if(Math.abs(y - this.model.maxY) < 10) {
@@ -86,13 +97,10 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     hole.scale.x = hole.scale.y = 0.7 + 0.5*power;
     this._holesContainer.addChild(hole);
     this._holeList.push(hole);
-    while(this._holeList.length > 100) {
+    var limit = this._settings ? this._settings.skratchLimit : 20;
+    while(this._holeList.length > limit) {
       hole = this._holeList.shift();
       hole.parent.removeChild(hole);
     }
-  }
-
-  update(events) {
-
   }
 };

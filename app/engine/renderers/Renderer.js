@@ -10,6 +10,14 @@ module.exports = class Renderer {
 
   }
 
+  get quality() {
+    return 1;
+  }
+
+  set quality(v) {
+
+  }
+
   preRender() {
 
   }
@@ -31,6 +39,10 @@ module.exports = class Renderer {
   }
 
   renderBullet(bullet, events) {
-    
+
+  }
+
+  stop() {
+
   }
 };

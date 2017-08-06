@@ -17,3 +17,5 @@ You will find more information about JsBattle in the manual:
   - [Tank Control Object](tank_control_object.md)
   - [Scoring System](scoring_system.md)
   - [Constants and Formulas](consts.md)
+
+To start extending or developing JsBattle, read [Development Guide](dev_guide.md)

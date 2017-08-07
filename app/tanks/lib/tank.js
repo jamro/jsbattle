@@ -16,9 +16,10 @@ class TankController {
 
         case 'init':
           var seed = tankStateEvent.data.seed;
+          var settings = tankStateEvent.data.settings;
           Math.random = seedrandom(seed);
-          self._initCallback();
-          postMessage({type: 'init'});
+          self._initCallback(settings);
+          postMessage({type: 'init', settings: settings});
           break;
 
         case 'update':

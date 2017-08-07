@@ -43,10 +43,15 @@ module.exports = class Tank {
     this._maxBoost = 400;
     this._boost = this._maxBoost;
     this._wallDistance = null;
+    this._skin = 'zebra';
   }
 
   get id() {
     return this._id;
+  }
+
+  get skin() {
+    return this._skin;
   }
 
   get state() {
@@ -242,6 +247,12 @@ module.exports = class Tank {
 
   randomize() {
     this._angle = Math.round(360*Math.random())-180;
+  }
+
+  init(settings) {
+    if(settings && settings.SKIN) {
+      this._skin = settings.SKIN;
+    }
   }
 
   simulationStep(collisionResolver) {

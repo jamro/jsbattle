@@ -56,9 +56,9 @@ To create your own tank, you will need to write an [Artificial Intelligence Scri
 ```javascript
   importScripts('lib/tank.js');
 
-  tank.init(function() {
+  tank.init(function(settings) {
 
-  })
+  });
 
   tank.loop(function(state, control) {
     control.THROTTLE = 1;
@@ -90,9 +90,9 @@ importScripts('lib/tank.js');
 
 var tartgetAngle;
 
-tank.init(function() {
+tank.init(function(settings) {
   tartgetAngle = 0;
-})
+});
 
 tank.loop(function(state, control) {
 
@@ -190,7 +190,7 @@ After that, there is a small trigonometry magic with arcus tangens function to t
 
 ```javascript
 var gunAngleDifference = Math.deg.normalize(targetAngle - state.angle - state.gun.angle);
-control.GUN_TURN = gunAngleDifference*0.2;
+control.GUN_TURN = gunAngleDifference * 0.2;
 control.SHOOT = 1;
 ```
 
@@ -205,8 +205,6 @@ Learn more about JsBattle mechanics by reading the manual:
 - [Battle Anatomy](battle_anatomy.md)
 - [Tank Anatomy](tank_anatomy.md)
 - [AI Script](ai_script.md)
-- [Tank State Object](tank_state_object.md)
-- [Tank Control Object](tank_control_object.md)
 - [Scoring System](scoring_system.md)
 - [Constants and Formulas](consts.md)
 
@@ -218,3 +216,4 @@ You can try to modify your AI script and test is against more powerful opponents
 - kamikaze
 - sniper
 - super-sniper
+- jamro

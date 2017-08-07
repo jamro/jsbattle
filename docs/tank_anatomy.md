@@ -60,8 +60,8 @@ Bullet Power | Damage Per Bullet | Reloading Time | Damage dealt during 100 simu
 
 ### Boost
 
-It is possible to temporarily double speed of the tank by turning on boost. The amount of boost is limited and it will not work when it runs out.
+It is possible to temporarily double speed of the tank by turning on boost. The amount of boost is limited so it has no effect when it runs out.
 
 ## Energy
 
-Each collision or bullet hit reduce the amount of energy that the tank has. When energy drops to zero, the tank will be destroyed.
+Each collision or bullet hit reduces the amount of energy that the tank has. When energy drops to zero, the tank will be destroyed.

@@ -2,7 +2,8 @@ importScripts('lib/tank.js');
 
 var turnDirection, turnTimer, direction, backTimer, boostTimer;
 
-tank.init(function() {
+tank.init(function(settings) {
+  settings.SKIN = 'forest';
   // the direction where tank will turning.
   // 1 is clockwise, -1 is couter clockwise
   turnDirection = Math.random() < 0.5 ? 1 : -1;

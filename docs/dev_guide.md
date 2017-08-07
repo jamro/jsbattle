@@ -33,7 +33,7 @@ There are several Gulp tasks that could be useful for you:
  default        | Rebuild the whole project
  watch          | Watch project folders for changes and rebuild the project if any files have changed
  clean          | Clears `/dist` directory
- clean.tmp      | Clears `/tmp` where the cache of sprite sheets is stored. Could be useful to rebuild sprite sheets what is a time consuming process.
+ clean-tmp      | Clears `/tmp` where the cache of sprite sheets is stored. Could be useful to rebuild sprite sheets what is a time consuming process.
  engine.test    | Runs unit tests of battle simulation engine
  engine.jshint  | Checks source codes of battle simulation engine
  webpage.jshint | Checks source codes of the website

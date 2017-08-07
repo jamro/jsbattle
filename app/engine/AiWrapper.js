@@ -92,6 +92,7 @@ module.exports = class AiWrapper {
 
         if(self._aiProcessingResolveCallback) {
           if(value.type == 'init') {
+            self._configureTank(value.settings ? value.settings : {});
             for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
           } else {
             self._controlTank(value);
@@ -127,6 +128,9 @@ module.exports = class AiWrapper {
       self._aiWorker.postMessage({
         command: 'init',
         seed: seed + ":" + self._tank.id,
+        settings: {
+          SKIN: 'zebra'
+        }
       });
     });
   }
@@ -163,6 +167,15 @@ module.exports = class AiWrapper {
         control: self._controlData
       });
     });
+  }
+  _configureTank(input) {
+    var settings = {};
+
+    var skinList = ['zebra', 'forest', 'black', 'tiger', 'desert', 'lava', 'ocean'];
+    if(skinList.indexOf(input.SKIN) != -1) {
+      settings.SKIN = input.SKIN;
+    }
+    this._tank.init(settings);
   }
 
   _controlTank(value) {

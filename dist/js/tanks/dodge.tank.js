@@ -8,7 +8,8 @@ var bulletMap;
 var avoidDirection;
 
 // initialize your tank
-tank.init(function() {
+tank.init(function(settings) {
+  settings.SKIN = 'forest';
   bulletMap = [];
   changeAvoidDirection();
 });
@@ -82,7 +83,7 @@ tank.loop(function(state, control) {
       bulletMap[i] = null;
       continue;
     }
-    // tract age of the bullet so they can be removed if out-dated
+    // track age of the bullet so they can be removed if out-dated
     bullet.age++;
     // predict position of the bullet basing on its velocity
     bullet.x += bullet.vx;

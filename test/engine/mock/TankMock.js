@@ -14,6 +14,7 @@ module.exports = class TankMock {
     this.gunLength = 20+Math.round(Math.random()*50);
     this.energy = 20+Math.round(Math.random()*50);
 
+    this.init = sinon.spy()
     this.onDamage = sinon.spy()
     this.setThrottle = sinon.spy()
     this.setTurn = sinon.spy()

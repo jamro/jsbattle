@@ -172,7 +172,7 @@ module.exports = class App extends React.Component {
         visible={true}
         tankList={this.state.tankList}
       />
-    </Row>
+    </Row>;
     var fpsWarn = <Row><InfoBox
       message="Animation refresh rate was reduced to increase speed of the battle and reserve it more of CPU time"
       title="FPS reduced"

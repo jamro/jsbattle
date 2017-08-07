@@ -2,7 +2,8 @@ importScripts('lib/tank.js');
 
 var enemyMap, power;
 
-tank.init(function() {
+tank.init(function(settings) {
+  settings.SKIN = 'forest';
   enemyMap = [];
   power = Math.random()*0.9 + 0.1;
 })

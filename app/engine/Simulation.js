@@ -115,12 +115,12 @@ module.exports = class Simulation {
       this._renderInterval = null;
     }
 
-    this._renderInterval = setInterval(function () {
-      self._updateView();
-    }, this._renderStepDuration);
-
     this._activateAi()
       .then(function(result) {
+        self._renderInterval = setInterval(function () {
+          self._updateView();
+        }, self._renderStepDuration);
+
         if(self._simulationTimeout) {
           clearTimeout(self._simulationTimeout);
         }
@@ -212,8 +212,7 @@ module.exports = class Simulation {
 
     var ai = this._createAiWrapper(tank);
     this._aiList.push(ai);
-
-    this._updateView();
+    
     return ai;
   }
 

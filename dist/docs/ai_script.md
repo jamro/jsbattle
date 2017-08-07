@@ -24,10 +24,10 @@ Each AI script must start from importing `tank.js` library. It contains core mec
 importScripts('lib/tank.js');
 ```
 
-Next, it is a good place to define all global variables and functions that will be used to control the tank. After that, it is time to initialize the tank. This step is optional so if you don't need to perform any actions at the beginning of the battle you can skip it. Callback passed to `tank.init()` is called only once, at the beginning of the battle.
+Next, it is a good place to define all global variables and functions that will be used to control the tank. After that, it is time to initialize the tank. This step is optional so if you don't need to perform any actions at the beginning of the battle you can skip it. Callback passed to `tank.init()` is called only once, at the beginning of the battle and it has one argument: [settings](tank_settings_object.md)
 
 ```javascript
-tank.init(function() {
+tank.init(function(settings) {
 
 })
 ```
@@ -53,7 +53,7 @@ Here is a very simple example of an AI script. It will keep turning clockwise an
 importScripts('lib/tank.js');
 var bulletPower;
 
-tank.init(function() {
+tank.init(function(settings) {
   // use different power of bullets for each battle
   bulletPower = Math.randomRange(0.1, 1);
 })

@@ -103,6 +103,7 @@ module.exports = class Simulation {
   setSpeed(v) {
     this._speedMultiplier = Math.max(0.01, Number(v));
     this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
+    this._renderer.setSpeed(v);
   }
 
   start() {
@@ -212,7 +213,7 @@ module.exports = class Simulation {
 
     var ai = this._createAiWrapper(tank);
     this._aiList.push(ai);
-    
+
     return ai;
   }
 

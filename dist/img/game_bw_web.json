@@ -11,8 +11,8 @@
     },
     "spritesheets": [
         {
-            "image": "cdb19777edb1c922766719ac5748a62d34cced5a.png",
-            "filesize": 14991,
+            "image": "f5a1f2112942160326457a3d4cc3d0b00dc66a2f.png",
+            "filesize": 15848,
             "sprites": [
                 {
                     "name": "battlefield",
@@ -147,8 +147,8 @@
                 {
                     "name": "big_boom_008",
                     "position": {
-                        "x": 55,
-                        "y": 931
+                        "x": 0,
+                        "y": 986
                     },
                     "dimension": {
                         "w": 60,
@@ -164,8 +164,8 @@
                 {
                     "name": "big_boom_007",
                     "position": {
-                        "x": 55,
-                        "y": 876
+                        "x": 0,
+                        "y": 1039
                     },
                     "dimension": {
                         "w": 60,
@@ -181,8 +181,8 @@
                 {
                     "name": "big_boom_009",
                     "position": {
-                        "x": 109,
-                        "y": 931
+                        "x": 0,
+                        "y": 1093
                     },
                     "dimension": {
                         "w": 60,
@@ -199,7 +199,7 @@
                     "name": "tank_gun",
                     "position": {
                         "x": 0,
-                        "y": 986
+                        "y": 1146
                     },
                     "dimension": {
                         "w": 45,
@@ -209,8 +209,8 @@
                 {
                     "name": "tank_body",
                     "position": {
-                        "x": 161,
-                        "y": 931
+                        "x": 0,
+                        "y": 1161
                     },
                     "dimension": {
                         "w": 30,
@@ -221,7 +221,7 @@
                     "name": "bullet",
                     "position": {
                         "x": 0,
-                        "y": 1001
+                        "y": 1192
                     },
                     "dimension": {
                         "w": 20,
@@ -232,7 +232,7 @@
                     "name": "tank_shoot",
                     "position": {
                         "x": 0,
-                        "y": 1008
+                        "y": 1199
                     },
                     "dimension": {
                         "w": 18,
@@ -248,8 +248,8 @@
                 {
                     "name": "small_boom_008",
                     "position": {
-                        "x": 18,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1216
                     },
                     "dimension": {
                         "w": 12,
@@ -259,8 +259,8 @@
                 {
                     "name": "small_boom_003",
                     "position": {
-                        "x": 31,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1229
                     },
                     "dimension": {
                         "w": 12,
@@ -270,8 +270,8 @@
                 {
                     "name": "small_boom_005",
                     "position": {
-                        "x": 44,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1242
                     },
                     "dimension": {
                         "w": 12,
@@ -281,8 +281,8 @@
                 {
                     "name": "small_boom_006",
                     "position": {
-                        "x": 57,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1255
                     },
                     "dimension": {
                         "w": 12,
@@ -292,8 +292,8 @@
                 {
                     "name": "small_boom_007",
                     "position": {
-                        "x": 70,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1268
                     },
                     "dimension": {
                         "w": 12,
@@ -303,8 +303,8 @@
                 {
                     "name": "small_boom_004",
                     "position": {
-                        "x": 83,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1281
                     },
                     "dimension": {
                         "w": 12,
@@ -314,8 +314,8 @@
                 {
                     "name": "small_boom_009",
                     "position": {
-                        "x": 96,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1294
                     },
                     "dimension": {
                         "w": 12,
@@ -325,8 +325,8 @@
                 {
                     "name": "small_boom_002",
                     "position": {
-                        "x": 109,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1307
                     },
                     "dimension": {
                         "w": 12,
@@ -336,8 +336,8 @@
                 {
                     "name": "small_boom_000",
                     "position": {
-                        "x": 122,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1320
                     },
                     "dimension": {
                         "w": 12,
@@ -347,8 +347,8 @@
                 {
                     "name": "tank_radar",
                     "position": {
-                        "x": 135,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1333
                     },
                     "dimension": {
                         "w": 6,
@@ -358,8 +358,8 @@
                 {
                     "name": "small_boom_001",
                     "position": {
-                        "x": 142,
-                        "y": 1008
+                        "x": 0,
+                        "y": 1346
                     },
                     "dimension": {
                         "w": 12,

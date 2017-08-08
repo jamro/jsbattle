@@ -58,6 +58,14 @@ describe('Simulation', function() {
 
   describe('setSpeed', function() {
 
+    it('should change renderer speed', function () {
+      var renderer = new RendererMock();
+      var sim = new Simulation(renderer);
+      sim.init(600, 600);
+      sim.setSpeed(3.2);
+      assert(renderer.setSpeed.calledWith(3.2));
+    });
+
     it('should change simulation speed', function (done) {
       this.retries(3);
       var sim1 = createSimulation();

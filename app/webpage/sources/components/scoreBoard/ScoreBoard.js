@@ -1,7 +1,7 @@
 var ScoreBoardRow = require('./ScoreBoardRow.js');
+var UnfreshComponent = require('../common/UnfreshComponent.js');
 
-module.exports = class ScoreBoard extends React.Component {
-
+module.exports = class ScoreBoard extends UnfreshComponent {
 
   renderRows() {
     return this.props.tankList.map((tank) => {

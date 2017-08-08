@@ -42,6 +42,10 @@ module.exports = class Renderer {
 
   }
 
+  setSpeed(v) {
+
+  }
+
   stop() {
 
   }

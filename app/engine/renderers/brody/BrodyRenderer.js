@@ -23,6 +23,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._frameCounter = 0;
     this._fpsInterval = null;
     this._fps = 30;
+    this._debugId = undefined;
   }
 
   onAssetsLoaded() {
@@ -60,11 +61,21 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   renderTank(tank, events) {
     super.renderTank(tank, events);
+    if(this._debugId === undefined) {
+      this.battlefieldView.hidePointer();
+    } else if(tank.id == this._debugId) {
+      this.battlefieldView.showPointer(tank.x, tank.y);
+    }
+
     var i;
     for(i in events) {
       if(events[i].type == 'destroy') {
         this._shakeTimer = 10;
         this._addTankExplosion(tank);
+        if(tank.id == this._debugId) {
+          this.battlefieldView.hidePointer();
+          this._debugId = undefined;
+        }
         break;
       }
     }
@@ -77,14 +88,16 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
       var corner2X = tank.x + 20*Math.cos(dirtAngle+Math.PI/4) + 7*Math.cos(dirtAngle);
       var corner2Y = tank.y + 20*Math.sin(dirtAngle+Math.PI/4) + 7*Math.sin(dirtAngle);
 
-      this._addDirt(
-        corner1X,
-        corner1Y
-      );
-      this._addDirt(
-        corner2X,
-        corner2Y
-      );
+      if(Math.random() < this.speedMultiplier) {
+        this._addDirt(
+          corner1X,
+          corner1Y
+        );
+        this._addDirt(
+          corner2X,
+          corner2Y
+        );
+      }
     }
   }
 
@@ -109,11 +122,11 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
         continue;
       }
 
-      particle.x += particle.speed * particle.rotation * Math.cos(particle.rotation);
-      particle.y += particle.speed * particle.rotation * Math.sin(particle.rotation);
-      particle.alpha = Math.max(0, particle.alpha-particle.alphaSpeed);
+      particle.x += this.speedMultiplier * particle.speed * particle.rotation * Math.cos(particle.rotation);
+      particle.y += this.speedMultiplier * particle.speed * particle.rotation * Math.sin(particle.rotation);
+      particle.alpha = Math.max(0, particle.alpha - this.speedMultiplier * particle.alphaSpeed);
 
-      particle.lifetime--;
+      particle.lifetime -= this.speedMultiplier;
       if(particle.lifetime <= 0 || particleCount > this._settings.particleLimit) {
         particle.parent.removeChild(particle);
         this._particleList[i] = null;
@@ -123,7 +136,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     }
     for(i=0; i < this._explosionList.length; i++) {
       if(!this._explosionList[i]) continue;
-      this._explosionList[i].alpha *= 0.7;
+      this._explosionList[i].alpha = (this._explosionList[i].alpha - 0.12 * this.speedMultiplier);
       if(this._explosionList[i].alpha < 0.01) {
         this._explosionList[i].parent.removeChild(this._explosionList[i]);
         this._explosionList[i] = null;
@@ -156,6 +169,14 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     if(this._fpsInterval) {
       clearInterval(this._fpsInterval);
     }
+  }
+
+  highlightTank(id) {
+    this._debugId = id;
+  }
+
+  unhighlightTank() {
+    this._debugId = undefined;
   }
 
   _addTankExplosion(tank) {
@@ -198,6 +219,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._addGlow(x, y, 5);
 
     var anim = new PIXI.extras.AnimatedSprite(type);
+    anim.animationSpeed = this.speedMultiplier;
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
     anim.x = x;

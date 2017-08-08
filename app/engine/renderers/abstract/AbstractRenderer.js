@@ -11,6 +11,7 @@ module.exports = class AbstractRenderer extends Renderer  {
     this._bulletMap = [];
     this._offsetX = 0;
     this._offsetY = 0;
+    this._speedMultiplier = 1;
   }
 
   get offsetX() {
@@ -19,6 +20,10 @@ module.exports = class AbstractRenderer extends Renderer  {
 
   get offsetY() {
     return this._offsetY;
+  }
+
+  get speedMultiplier () {
+    return this._speedMultiplier;
   }
 
   initBatlefield(battlefield) {
@@ -42,6 +47,9 @@ module.exports = class AbstractRenderer extends Renderer  {
     return this._tankMap[id];
   }
 
+  setSpeed(v) {
+    this._speedMultiplier = v;
+  }
   _renderModel(model, events, map, factory) {
     var view = null;
     if(map[model.id]) {

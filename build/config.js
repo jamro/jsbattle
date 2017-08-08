@@ -23,7 +23,7 @@ module.exports = {
      'node_modules/jquery/dist/jquery.min.js',
      'node_modules/bootstrap/dist/**/*',
      'node_modules/react/dist/**/*.js',
-     'node_modules/react-*/dist/**/*.js'
+     'node_modules/react-dom/dist/**/*.js'
     ]
   },
   docs: {

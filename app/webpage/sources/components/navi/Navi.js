@@ -13,7 +13,7 @@ module.exports = class Navi extends React.Component {
     if(speed < 0.1) label = "Super Slow";
     else if(speed < 1) label = "Slow";
     else if(speed == 1) label = "Normal";
-    else if(speed < 10) label = "Fast";
+    else if(speed < 3) label = "Fast";
     else label = "Super Fast";
     return label;
   }
@@ -85,7 +85,7 @@ module.exports = class Navi extends React.Component {
                 {this.renderSpeedButton(0.05)}
                 {this.renderSpeedButton(0.3)}
                 {this.renderSpeedButton(1)}
-                {this.renderSpeedButton(8)}
+                {this.renderSpeedButton(2)}
                 {this.renderSpeedButton(50)}
               </ul>
             </li>

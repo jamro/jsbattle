@@ -9,7 +9,7 @@ module.exports = {
   "loading_stages": [ "game" ],
   group_default: {
     max_width: 2048,          // default: 2048
-    max_height: 1024,         // default: 1024
+    max_height: 2048,         // default: 1024
     oversized_warning: true, // default: false
     padding: 1               // default: 1
   },

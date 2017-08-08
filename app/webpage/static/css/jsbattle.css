@@ -14,7 +14,19 @@
   vertical-align: middle;
 }
 
+
 canvas {
+  padding: 0 !important;
+  margin: auto !important;
   width: 100%;
-  max-width: 900px;
+  max-height: 600px;
+}
+
+debug-container {
+  padding: 2px;
+}
+
+.debug {
+  font-size: 10px;
+  padding: 2px;
 }

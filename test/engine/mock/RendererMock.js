@@ -12,5 +12,6 @@ module.exports = class RendererMock {
     this.renderClock = sinon.spy();
     this.initBatlefield = sinon.spy();
     this.stop = sinon.spy();
+    this.setSpeed = sinon.spy();
   }
 };

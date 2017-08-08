@@ -4,6 +4,9 @@ module.exports = class Battlefield extends React.Component {
     var style = {};
     if(!this.props.visible) {
       style.display = 'none';
+    } else {
+      style.display = 'block';
+      style.maxWidth = '900px';
     }
     return <canvas
       ref={(c) => this.canvas = c }

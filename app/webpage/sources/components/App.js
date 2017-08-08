@@ -1,10 +1,13 @@
-var Row = require('./Row.js');
+var Row = require('./bootstrap/Row.js');
+var FullRow = require('./bootstrap/FullRow.js');
+var Col = require('./bootstrap/Col.js');
 var InfoBox = require('./InfoBox.js');
 var Cover = require('./cover/Cover.js');
 var DebugView = require('./debugView/DebugView.js');
 var ScoreBoard = require('./scoreBoard/ScoreBoard.js');
 var Navi = require('./navi/Navi.js');
 var Battlefield = require('./Battlefield.js');
+var BootstrapRWD = require('../lib/BootstrapRWD.js');
 
 module.exports = class App extends React.Component {
 
@@ -17,8 +20,7 @@ module.exports = class App extends React.Component {
     this.renderer = null;
     this.simulation = null;
     this.canvas = null;
-    this.tankList = [];
-    this.scoreboardRefreshLoop = null;
+    this.rwd = new BootstrapRWD();
     this.state = {
       errorMessage: null,
       simSpeed: simSpeed,
@@ -28,21 +30,22 @@ module.exports = class App extends React.Component {
       timeLeft: 0,
       tankList: [],
       quality: 1,
+      windowSize: 'md',
+      debugId: 0
     };
   }
 
   componentDidMount() {
     this.buildSimulation();
     var self = this;
-    self.updateScoreBoard();
-  }
 
-  componentWillUnmount() {
-    clearTimeout(this.scoreboardRefreshLoop);
+    this.rwd.onChange((s) => this.setState({windowSize: s}));
+    this.setState({windowSize: this.rwd.size});
   }
 
   startBattle() {
     this.simulation.start();
+    this.highlightTank(this.state.debugId);
     this.setState({phase: 'battle'});
   }
 
@@ -70,7 +73,6 @@ module.exports = class App extends React.Component {
 
     this.simulation.onFinish(() => {
       this.updateTankList();
-      this.updateScoreBoard();
 
       var winner = null;
       for(var i in self.simulation.tankList) {
@@ -106,7 +108,6 @@ module.exports = class App extends React.Component {
         phase: 'start'
       });
       self.updateTankList();
-      this.updateScoreBoard();
     })
     .fail(function() {
       self.showError("Cannot load and parse js/tanks/index.json");
@@ -114,7 +115,7 @@ module.exports = class App extends React.Component {
   }
 
   updateTankList() {
-    this.tankList = this.simulation.tankList.map((tank) => {
+    var tankList = this.simulation.tankList.map((tank) => {
       return {
         id: tank.id,
         name: tank.fullName,
@@ -124,23 +125,16 @@ module.exports = class App extends React.Component {
         energy: tank.energy,
       };
     });
-    this.tankList.sort((a, b) => {
+    tankList.sort((a, b) => {
       return b.score - a.score;
     });
-    for(var rank=0; rank < this.tankList.length; rank++) {
-      this.tankList[rank].rank = rank;
+    for(var rank=0; rank < tankList.length; rank++) {
+      tankList[rank].rank = rank;
     }
-  }
-
-  updateScoreBoard() {
-    this.setState({tankList: this.tankList});
-    var refreshTime = Math.round(300 + 1700*(1-this.renderer.quality));
-    this.setState({quality: this.renderer.quality});
-    var self = this;
-    this.scoreboardRefreshLoop = setTimeout(() => {
-      self.scoreboardRefreshLoop = null;
-      self.updateScoreBoard();
-    }, refreshTime);
+    this.setState({
+      tankList: tankList,
+      quality: this.renderer.quality
+    });
   }
 
   showError(msg) {
@@ -163,24 +157,38 @@ module.exports = class App extends React.Component {
     }
   }
 
+  highlightTank(id) {
+    this.setState({debugId: id});
+    if(!this.renderer) {
+      return;
+    }
+    if(id == 0 && this.renderer.unhighlightTank) {
+      this.renderer.unhighlightTank();
+    } else if(id != 0 && this.renderer.highlightTank){
+      this.renderer.highlightTank(id);
+    }
+
+  }
+
   render() {
-    var scoreboard = <Row>
-      <ScoreBoard tankList={this.state.tankList} />
-    </Row>;
-    var debugView = <Row>
-      <DebugView
+    var scoreboard = <ScoreBoard
+      tankList={this.state.tankList}
+      refreshTime={200+1300*(1-this.state.quality)}
+    />;
+    var debugView = <DebugView
         visible={true}
         tankList={this.state.tankList}
-      />
-    </Row>;
-    var fpsWarn = <Row><InfoBox
-      message="Animation refresh rate was reduced to increase speed of the battle and reserve it more of CPU time"
+        highlight={this.state.quality > 0.66}
+        onSelect={(id) => this.highlightTank(id)}
+      />;
+    var fpsWarn = <InfoBox
+      message="Animation refresh rate was reduced to increase speed of the battle. You can adjust quality setting in the top bar"
       title="FPS reduced"
       level="warning"
-    /></Row>;
+    />;
     if(this.state.phase == 'battle' && this.state.quality <= 0.05) {
-      scoreboard = <Row><InfoBox message="Scoreboard hidden to improve performance of battle simulation" title=" " level="info"/></Row>;
-      debugView = <Row><InfoBox message="Debug View hidden to improve performance of battle simulation" title=" " level="info"/></Row>;
+      scoreboard = <InfoBox message="Scoreboard hidden to improve performance of battle simulation" title=" " level="info"/>;
+      debugView = <InfoBox message="Debug View hidden to improve performance of battle simulation" title=" " level="info"/>;
     }
     if(this.state.quality >= 0.3 || this.state.phase != 'battle') {
       fpsWarn = null;
@@ -192,29 +200,34 @@ module.exports = class App extends React.Component {
         onSpeedChange={(v) => this.setSimulationSpeed(v)}
         onQualityChange={(v) => this.setSimulationQuality(v)}
       />
-      <Row>
+      <FullRow>
         <InfoBox message={this.state.errorMessage} level="danger"/>
-      </Row>
+        {fpsWarn}
+      </FullRow>
       <Row>
-        <Cover
-          phase={this.state.phase}
-          onStart={() => this.startBattle()}
-          onRestart={() => this.restartBattle()}
-          winner={this.state.winner}
-          timeLeft={this.state.timeLeft}
-        />
+        <Col lg={8} md={8} sm={12}>
+          <Battlefield
+            ref={(battlefield) => this.canvas = battlefield ? battlefield.canvas : null }
+            width="900"
+            height="600"
+            visible={this.state.phase == "battle"}
+          />
+          <Cover
+            phase={this.state.phase}
+            onStart={() => this.startBattle()}
+            onRestart={() => this.restartBattle()}
+            winner={this.state.winner}
+            timeLeft={this.state.timeLeft}
+          />
+          {this.rwd.equalOrBiggerThan('md') ? scoreboard : null}
+        </Col>
+        <Col lg={4} md={4} sm={12} >
+          {debugView}
+        </Col>
       </Row>
-      <Row>
-        <Battlefield
-          ref={(battlefield) => this.canvas = battlefield ? battlefield.canvas : null }
-          width="900"
-          height="600"
-          visible={this.state.phase == "battle"}
-        />
-      </Row>
-      {fpsWarn}
-      {debugView}
-      {scoreboard}
+      <FullRow>
+        {this.rwd.smallerThan('md') ? scoreboard : null}
+      </FullRow>
     </div>;
   }
 };

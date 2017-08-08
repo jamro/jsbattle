@@ -1,4 +1,7 @@
-module.exports = class DebugView extends React.Component {
+var JsonCode = require('./JsonCode.js');
+var UnfreshComponent = require('../common/UnfreshComponent.js');
+
+module.exports = class DebugView extends UnfreshComponent {
 
   constructor(props) {
     super(props);
@@ -9,13 +12,24 @@ module.exports = class DebugView extends React.Component {
     };
   }
 
+  componentDidMount() {
+    super.componentDidMount();
+    if(this.props.onSelect) {
+      this.props.onSelect(this.state.debugId);
+    }
+  }
+
   renderOptions() {
     if(!this.props.tankList) return null;
-    return this.props.tankList.map((tank) => {
+    var result = this.props.tankList.map((tank) => {
       return <option key={tank.id} value={tank.id} >
         {tank.name}
       </option>;
     });
+    result.sort((a, b) => {
+      return Number(a.key) - Number(b.key);
+    });
+    return result;
   }
 
   findDebugTank() {
@@ -27,8 +41,11 @@ module.exports = class DebugView extends React.Component {
   }
 
   onChange(e) {
-    this.setState({debugId: e.target.value});
+    this.setState({debugId: e.target.value, forceChange: true});
     localStorage.setItem("settings.debugTankId", e.target.value);
+    if(this.props.onSelect) {
+      this.props.onSelect(e.target.value);
+    }
   }
 
   render() {
@@ -37,11 +54,11 @@ module.exports = class DebugView extends React.Component {
     var debugPanel = null;
     var debugTank = this.findDebugTank();
     if(debugTank) {
-      debugPanel = <div className="panel-body">
+      debugPanel = <div className="panel-body debug-container">
         <small>Debug Data</small>
-        <pre>{JSON.stringify(debugTank.debug, null, 2)}</pre>
+        <JsonCode className="debug" highlight={this.props.highlight} data={debugTank.debug ? debugTank.debug : {}} />
         <small>State Object</small>
-        <pre>{debugTank.state ? JSON.stringify(debugTank.state, null, 2) : ''}</pre>
+        <JsonCode className="debug" highlight={this.props.highlight} data={debugTank.state ? debugTank.state : {}} />
       </div>;
     }
 

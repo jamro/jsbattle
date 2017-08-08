@@ -30,21 +30,10 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     groundMask.lineTo(25, 25);
     groundMask.endFill();
 
-
-    this._pointerContainer = new PIXI.Container();
-    this._pointer = PIXI.Sprite.fromFrame('debug_mark');
-    this._pointer.anchor.set(0.5);
-    this._pointer.visible = false;
-    this._pointerContainer.mask = groundMask;
-    this._pointerContainer.addChild(this._pointer);
-
-
     this._craterContainer = new PIXI.Container();
     this._craterContainer.mask = groundMask;
     container.addChild(this._craterContainer);
     container.addChild(groundMask);
-
-
 
     var wallMask = new PIXI.Graphics();
     wallMask.beginFill(0x0000ff, 0.4);
@@ -66,7 +55,6 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     this._holesContainer = new PIXI.Container();
     this._holesContainer.mask = wallMask;
     container.addChild(this._holesContainer);
-    container.addChild(this._pointerContainer);
     container.addChild(wallMask);
   }
 
@@ -84,7 +72,6 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     super.update();
     this._holesContainer.visible = (this._settings.skratchLimit > 0);
     this._craterContainer.visible = this._settings.showCraters;
-    this._pointer.alpha = Math.max(0, this._pointer.alpha - 0.01);
   }
 
   addBulletHole(x, y, power) {
@@ -118,13 +105,4 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     }
   }
 
-  showPointer(x, y) {
-    this._pointer.visible = true;
-    this._pointer.x = x - this.model.offsetX;
-    this._pointer.y = y - this.model.offsetY;
-  }
-
-  hidePointer() {
-    this._pointer.visible = false;
-  }
 };

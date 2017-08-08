@@ -14,6 +14,13 @@ module.exports = class ScoreBoard extends UnfreshComponent {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.tankList && this.props.tankList && nextProps.tankList.length != this.props.tankList.length) {
+      return true;
+    }
+    return super.shouldComponentUpdate(nextProps, nextState);
+  }
+
   render() {
     return <table className="table table-condensed">
       <thead>

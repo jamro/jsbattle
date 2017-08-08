@@ -3,7 +3,7 @@ module.exports = class DebugView extends React.Component {
   constructor(props) {
     super(props);
     this._unlockChangesLoop = null;
-    this._preventChanges=false;
+    this._preventChanges = false;
   }
 
   componentDidMount() {

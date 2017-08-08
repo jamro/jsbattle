@@ -23,7 +23,6 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._frameCounter = 0;
     this._fpsInterval = null;
     this._fps = 30;
-    this._debugId = undefined;
   }
 
   onAssetsLoaded() {
@@ -61,21 +60,12 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   renderTank(tank, events) {
     super.renderTank(tank, events);
-    if(this._debugId === undefined) {
-      this.battlefieldView.hidePointer();
-    } else if(tank.id == this._debugId) {
-      this.battlefieldView.showPointer(tank.x, tank.y);
-    }
 
     var i;
     for(i in events) {
       if(events[i].type == 'destroy') {
         this._shakeTimer = 10;
         this._addTankExplosion(tank);
-        if(tank.id == this._debugId) {
-          this.battlefieldView.hidePointer();
-          this._debugId = undefined;
-        }
         break;
       }
     }
@@ -169,14 +159,6 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     if(this._fpsInterval) {
       clearInterval(this._fpsInterval);
     }
-  }
-
-  highlightTank(id) {
-    this._debugId = id;
-  }
-
-  unhighlightTank() {
-    this._debugId = undefined;
   }
 
   _addTankExplosion(tank) {

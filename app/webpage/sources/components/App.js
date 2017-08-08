@@ -30,8 +30,7 @@ module.exports = class App extends React.Component {
       timeLeft: 0,
       tankList: [],
       quality: 1,
-      windowSize: 'md',
-      debugId: 0
+      windowSize: 'md'
     };
   }
 
@@ -45,12 +44,11 @@ module.exports = class App extends React.Component {
 
   startBattle() {
     this.simulation.start();
-    this.highlightTank(this.state.debugId);
     this.setState({phase: 'battle'});
   }
 
   restartBattle() {
-    this.setState({phase: 'loading'});
+    this.setState({phase: 'loading', tankList: []});
     this.buildSimulation();
   }
 
@@ -157,19 +155,6 @@ module.exports = class App extends React.Component {
     }
   }
 
-  highlightTank(id) {
-    this.setState({debugId: id});
-    if(!this.renderer) {
-      return;
-    }
-    if(id == 0 && this.renderer.unhighlightTank) {
-      this.renderer.unhighlightTank();
-    } else if(id != 0 && this.renderer.highlightTank){
-      this.renderer.highlightTank(id);
-    }
-
-  }
-
   render() {
     var scoreboard = <ScoreBoard
       tankList={this.state.tankList}
@@ -179,7 +164,6 @@ module.exports = class App extends React.Component {
         visible={true}
         tankList={this.state.tankList}
         highlight={this.state.quality > 0.66}
-        onSelect={(id) => this.highlightTank(id)}
       />;
     var fpsWarn = <InfoBox
       message="Animation refresh rate was reduced to increase speed of the battle. You can adjust quality setting in the top bar"
@@ -189,6 +173,10 @@ module.exports = class App extends React.Component {
     if(this.state.phase == 'battle' && this.state.quality <= 0.05) {
       scoreboard = <InfoBox message="Scoreboard hidden to improve performance of battle simulation" title=" " level="info"/>;
       debugView = <InfoBox message="Debug View hidden to improve performance of battle simulation" title=" " level="info"/>;
+    }
+    if(this.state.phase == 'loading') {
+      scoreboard = null;
+      debugView = null;
     }
     if(this.state.quality >= 0.3 || this.state.phase != 'battle') {
       fpsWarn = null;

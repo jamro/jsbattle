@@ -1,5 +1,6 @@
 var JsonCode = require('./JsonCode.js');
-var UnfreshComponent = require('../common/UnfreshComponent.js');
+var UnfreshComponent = require('../../../common/UnfreshComponent.js');
+var InfoBox = require('../../../common/InfoBox.js');
 
 module.exports = class DebugView extends UnfreshComponent {
 
@@ -55,28 +56,39 @@ module.exports = class DebugView extends UnfreshComponent {
     return super.shouldComponentUpdate(nextProps, nextState);
   }
 
-  render() {
-    if(!this.props.visible) return null;
-
-    var debugPanel = null;
+  renderDebugPanel() {
     var debugTank = this.findDebugTank();
     if(debugTank) {
-      debugPanel = <div className="panel-body debug-container">
+      return <div className="panel-body debug-container">
         <small>Debug Data</small>
         <JsonCode className="debug" highlight={this.props.highlight} data={debugTank.debug ? debugTank.debug : {}} />
         <small>State Object</small>
         <JsonCode className="debug" highlight={this.props.highlight} data={debugTank.state ? debugTank.state : {}} />
       </div>;
+    } else {
+      return null;
     }
+  }
 
-    return <div className="panel panel-default">
-      <div className="panel-heading">
-        <select className="form-control" value={this.state.debugId} onChange={(e) => this.onChange(e)}>
-          <option value="0">[Select Tank for Debug View]</option>
-          {this.renderOptions()}
-        </select>
+  render() {
+    if(!this.props.visible) return null;
+    return <div>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <select className="form-control" value={this.state.debugId} onChange={(e) => this.onChange(e)}>
+            <option value="0">[Select Tank for Debug View]</option>
+            {this.renderOptions()}
+          </select>
+        </div>
+        {this.renderDebugPanel()}
       </div>
-      {debugPanel}
+      <InfoBox title="Hint: " level="info">
+        <span>
+          This panel shows <a href="docs/#/tank_state_object" target="_blank"><strong>state object</ strong></a> of
+          the   selected tank and its debug data passed through <a href="docs/#/tank_control_object" target="_blank"><strong>control.DEBUG</strong></a>.
+          For more details read <a href="docs/" target="_blank">the docs</a>.
+        </span>
+      </InfoBox>
     </div>;
   }
 };

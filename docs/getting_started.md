@@ -45,7 +45,11 @@ Open your favorite web browser and navigate to URL from the previous step
   http://127.0.0.1:8080
 ```
 
-It will open a page where you can watch battle of your tanks
+It will open battle starting page
+
+![alt text](img/start_screen_001.png)
+
+Just click the **Start** button to watch the battle.
 
 ## Code Artificial Intelligence
 
@@ -69,17 +73,30 @@ Callback passed to `init` function is called at the beginning of the battle and 
 
 This implementation of the script will cause the tank to move forward at full speed by modification of [control object](tank_control_object.md).
 
-Now, you need to add your new tank to list of tanks that will join the battle. Open `/dist/js/tanks/index.json` and change it to:
+Now, you need to add your new tank to list of tanks that will join the battle. Open `/dist/js/tanks/index.json` and add `"newbie"` at the beginning:
 
 ```json
 [
+  "newbie",
   "dummy",
-  "newbie"
+  "crawler",
+  "crazy",
+  "dodge",
+  "sniper",
+  "kamikaze",
+  "jamro"
 ]
+
 ```
-`dummy` is one of pre-build tanks and it will be your first enemy. Now navigate to `http://127.0.0.1:8080` and watch the battle.
+`dummy`, `crawler`, `crazy` and others are [tanks bundled with JsBattle distribution](bundled_tanks.md). Now navigate to `http://127.0.0.1:8080`
+
+Select only two tanks for the first battle: `newbie` and `dummy`. Click **Start** to begin.
+
+![alt text](img/start_screen_002.png)
 
 There should be nothing exciting yet. Your tank will probably hit the wall and destroy itself in this way :)
+
+Please notice that you can speed up the battle by **Speed** control located in the top, right corner of the screen. High speeds may result in a lower graphical quality of battle simulation (if **Quality** is set to **Auto**). JsBattle will adjust the quality of graphics to keep the speed of the simulation and finish it faster.
 
 ### Movement
 
@@ -113,6 +130,10 @@ tank.loop(function(state, control) {
     control.THROTTLE = 0;
   }
 
+  control.DEBUG = {
+    tartgetAngle: tartgetAngle
+  }
+
 });
 ```
 
@@ -142,7 +163,21 @@ if(state.collisions.wall) {
 
 `Math.randomRange` is another extension of `Math` object that is available in AI scripts and it returns a random number from  specified range. See **Extended Math Object** section in [AI Script](ai_script.md) documentation for more details.
 
+At the end of the script, there is some debug logging
+
+```javascript
+control.DEBUG = {
+  tartgetAngle: tartgetAngle
+}
+```
+
+You can observe how the debug object is changing over the battle by selecting your tank from **Debug View** from **Battle Screen**.
+
 Now navigate to `http://127.0.0.1:8080` and watch the new version of your AI in action.
+
+![alt text](img/battle_screen_001.png)
+
+If you are lucky, you could even earn some points because ramming is part of [scoring system](scoring_system.md)
 
 ### Aiming and shooting
 
@@ -217,3 +252,5 @@ You can try to modify your AI script and test is against more powerful opponents
 - sniper
 - super-sniper
 - jamro
+
+The source codes of [bundled enemies](bundled_tanks.md) is included and described so you can also learn from it.

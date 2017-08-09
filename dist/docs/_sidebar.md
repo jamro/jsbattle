@@ -7,6 +7,7 @@
     - [Tank State Object](/tank_state_object.md)
     - [Tank Control Object](/tank_control_object.md)
     - [Tank Settings Object](/tank_settings_object.md)
+  - [Bundled Enemies](/bundled_tanks.md)
   - [Scoring System](/scoring_system.md)
   - [Constants and Formulas](/consts.md)
 - [**Development Guide**](/dev_guide.md)

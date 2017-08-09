@@ -10,7 +10,9 @@ module.exports = class BootstrapRWD {
     this._sizing.md = {min: 992, max: 1200};
     this._sizing.lg = {min: 1200, max: Number.MAX_VALUE};
     this._onWindowResize();
-    window.addEventListener('resize', () => this._onWindowResize());
+    this._listener = () => this._onWindowResize();
+    window.addEventListener('resize', this._listener);
+
   }
 
   get size() {
@@ -38,7 +40,7 @@ module.exports = class BootstrapRWD {
   }
 
   dispose() {
-    window.removeEventListener('resize', () => this._onWindowResize());
+    window.removeEventListener('resize', this._listener);
   }
 
   onChange(callback) {

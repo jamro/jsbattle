@@ -1,5 +1,5 @@
 var ScoreBoardRow = require('./ScoreBoardRow.js');
-var UnfreshComponent = require('../common/UnfreshComponent.js');
+var UnfreshComponent = require('../../../common/UnfreshComponent.js');
 
 module.exports = class ScoreBoard extends UnfreshComponent {
 

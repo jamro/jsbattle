@@ -2,7 +2,7 @@
 
 ## Script Location
 
-All AI scripts are stored in `js/tanks` folder. Each script file must be named `[tankname].tank.js`, where `[tankname]` is a name of the tank used during battle simulation. List of all tanks that will be involved in a battle is stored in `js/tanks/index.json`:
+All AI scripts are stored in `js/tanks` folder. Each script file must be named `[tankname].tank.js`, where `[tankname]` is a name of the tank used during battle simulation. List of all tanks that will be available for the battle is stored in `js/tanks/index.json`:
 
 ```javascript
 [
@@ -10,9 +10,9 @@ All AI scripts are stored in `js/tanks` folder. Each script file must be named `
   "crawler",
   "crazy",
   "dodge",
-  "kamikaze",
   "sniper",
-  "super-sniper"
+  "kamikaze",
+  "jamro"
 ]
 ```
 
@@ -66,7 +66,9 @@ tank.loop(function(state, control) {
 
 ## Debugging
 
-To make debugging of your AI scripts easier, it is possible to pass some data from the script and display them bellow battle window. It can be achieved by setting `DEBUG` field of [control object](tank_control_object.md). The value of `control.DEBUG` can be anything: from objects, arrays, numbers to strings.
+To make debugging of your AI scripts easier, it is possible to pass some data from the script and display it in the battle window. It can be achieved by setting `DEBUG` field of [control object](tank_control_object.md). The value of `control.DEBUG` can be anything: from objects, arrays, numbers to strings.
+
+![alt text](img/battle_screen_001.png)
 
 ## Extended Math Object
 

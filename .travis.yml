@@ -1,6 +1,10 @@
 language: node_js
+os:
+  - osx
 node_js:
   - "node"
+before_install:
+  - brew install imagemagick
 install:
   - npm install
 before_script:

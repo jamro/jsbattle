@@ -194,7 +194,10 @@ module.exports = class Simulation {
 
   }
 
-  addTank(aiName) {
+  addTank(aiDefinition) {
+    if(typeof aiDefinition != 'object') {
+      throw "AI definition must be an object";
+    }
     if(!this._battlefield) {
       throw "Simulation not initialized";
     }
@@ -202,7 +205,7 @@ module.exports = class Simulation {
     if(!startSlot) {
       throw "No free space in the battlefield";
     }
-    var tank = this._createTank(aiName);
+    var tank = this._createTank(aiDefinition);
     tank.randomize();
     tank.moveTo(startSlot.x, startSlot.y);
     this._tankList.push(tank);
@@ -211,7 +214,7 @@ module.exports = class Simulation {
       this._timeLimit += 2000;
     }
 
-    var ai = this._createAiWrapper(tank);
+    var ai = this._createAiWrapper(tank, aiDefinition);
     this._aiList.push(ai);
 
     return ai;
@@ -378,12 +381,12 @@ module.exports = class Simulation {
     return tanksLeft;
   }
 
-  _createAiWrapper(tank) {
-    return new AiWrapper(tank);
+  _createAiWrapper(tank, aiDefinition) {
+    return new AiWrapper(tank, aiDefinition);
   }
 
-  _createTank(aiName) {
-    var tank = new Tank(aiName, this._nextTankId++);
+  _createTank(aiDefinition) {
+    var tank = new Tank(aiDefinition, this._nextTankId++);
     return tank;
   }
 

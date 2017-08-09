@@ -30,7 +30,12 @@ module.exports = {
     sources: ['docs/**/*'],
   },
   tanks: {
-    resources: ['app/tanks/*.tank.js', 'app/tanks/index.json'],
+    resourcesBase: 'app/tanks/',
+    resources: [
+      'app/tanks/*.tank.js',
+      'app/tanks/index.json',
+      'app/tanks/lib/codeWorker.js'
+    ],
     entry: "./app/tanks/lib/tank.js",
     sources: ['app/tanks/lib/**/*.js'],
     lib: ['node_modules/seedrandom/seedrandom.js'],

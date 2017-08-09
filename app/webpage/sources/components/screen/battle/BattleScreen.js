@@ -41,7 +41,7 @@ module.exports = class BattleScreen extends React.Component {
   onBattleReady() {
     var self = this;
     this.props.tankNameList.forEach(function(tankName) {
-      self.battlefield.addTank(tankName);
+      self.battlefield.addTank({name: tankName});
     });
 
     this.updateTankList();

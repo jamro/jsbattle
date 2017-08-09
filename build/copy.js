@@ -11,7 +11,7 @@ module.exports = function (gulp, config, plugins) {
         .pipe(gulp.dest(config.dist))
         .on('end', onComplete);
 
-      gulp.src(config.tanks.resources)
+      gulp.src(config.tanks.resources, { base : config.tanks.resourcesBase })
         .pipe(gulp.dest(config.dist + "js/tanks/"))
         .on('end', onComplete);
 

@@ -73,10 +73,10 @@ describe('Simulation', function() {
       sim1.init(600, 600);
       sim2.init(600, 600);
 
-      sim1.addTank('bravo');
-      sim1.addTank('bravo');
-      sim2.addTank('bravo');
-      sim2.addTank('bravo');
+      sim1.addTank({name: 'bravo'});
+      sim1.addTank({name: 'bravo'});
+      sim2.addTank({name: 'bravo'});
+      sim2.addTank({name: 'bravo'});
 
       var stepCount1 = 0;
       sim1.onStep(function () {
@@ -106,8 +106,8 @@ describe('Simulation', function() {
     it('should start rendering loop', function (done) {
       var sim = createSimulation();
       sim.init(600, 600);
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.onRender(function () {
         sim.stop();
@@ -119,8 +119,8 @@ describe('Simulation', function() {
     it('should start simulation loop', function (done) {
       var sim = createSimulation();
       sim.init(600, 600);
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.onStep(function () {
         sim.stop();
@@ -133,9 +133,9 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      var tank2 = sim.addTank('bravo').tank;
-      var tank3 = sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      var tank2 = sim.addTank({name: 'bravo'}).tank;
+      var tank3 = sim.addTank({name: 'bravo'}).tank;
       tank1.energy = 0;
 
       var totalStepCount = 0;
@@ -157,8 +157,8 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      sim.addTank({name: 'bravo'}).tank;
       tank1.energy = 0;
 
       var totalStepCount = 0;
@@ -179,9 +179,9 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      var tank2 = sim.addTank('bravo').tank;
-      var tank3 = sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      var tank2 = sim.addTank({name: 'bravo'}).tank;
+      var tank3 = sim.addTank({name: 'bravo'}).tank;
       tank1.energy = 0;
 
       var totalStepCount = 0;
@@ -200,8 +200,8 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      var tank2 = sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      var tank2 = sim.addTank({name: 'bravo'}).tank;
 
       var totalStepCount = 0;
 
@@ -221,8 +221,8 @@ describe('Simulation', function() {
       sim._createAiWrapper = function(tank) {
         return ai;
       }
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
       sim.start();
 
       setTimeout(function () {
@@ -236,8 +236,8 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      var tank2 = sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      var tank2 = sim.addTank({name: 'bravo'}).tank;
 
       sim.onStep(function () {
         assert(sim._perfMon.start.calledOnce);
@@ -254,8 +254,8 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       var stepCount = 0;
       var finalStepCount = 0;
@@ -287,8 +287,8 @@ describe('Simulation', function() {
       }
       sim.init(600, 600);
 
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.start();
       setTimeout(function() {
@@ -303,8 +303,8 @@ describe('Simulation', function() {
     it('should stop Perfomance Monitor', function(done) {
       var sim = createSimulation();
       sim.init(600, 600);
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.start();
       setTimeout(function() {
@@ -325,11 +325,11 @@ describe('Simulation', function() {
       sim.init(600, 600);
 
       assert.equal(0, sim.tankList.length);
-      sim.addTank("bravo");
+      sim.addTank({name: 'bravo'});
       assert.equal(1, sim.tankList.length);
-      sim.addTank("bravo");
+      sim.addTank({name: 'bravo'});
       assert.equal(2, sim.tankList.length);
-      sim.addTank("bravo");
+      sim.addTank({name: 'bravo'});
       assert.equal(3, sim.tankList.length);
     });
 
@@ -341,8 +341,8 @@ describe('Simulation', function() {
       var sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank('bravo').tank;
-      var tank2 = sim.addTank('bravo').tank;
+      var tank1 = sim.addTank({name: 'bravo'}).tank;
+      var tank2 = sim.addTank({name: 'bravo'}).tank;
 
       sim.timeLimit = 50;
 
@@ -360,8 +360,8 @@ describe('Simulation', function() {
     it('should update Performance Monitor', function() {
       var sim = createSimulation();
       sim.init(600, 600);
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.onStep(function () {
         assert(sim._perfMon.onSimulationStep.calledOnce)
@@ -388,8 +388,8 @@ describe('Simulation', function() {
       }
       sim.init(600, 600);
 
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.start();
       sim.setRendererQuality(0.32);
@@ -415,8 +415,8 @@ describe('Simulation', function() {
       }
       sim.init(600, 600);
 
-      sim.addTank('bravo');
-      sim.addTank('bravo');
+      sim.addTank({name: 'bravo'});
+      sim.addTank({name: 'bravo'});
 
       sim.start();
       sim.setRendererQuality('auto');

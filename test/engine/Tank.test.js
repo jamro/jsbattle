@@ -9,17 +9,17 @@ describe('Tank', function() {
   describe('constructor', function() {
 
     it('should set name of the tank', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'beta'}, 1);
       assert.equal("beta", tank.name);
     });
 
     it('should set energy to max', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(tank.energy, tank.maxEnergy);
     });
 
     it('should set boost to max', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(tank.boost, tank.maxBoost);
     });
   });
@@ -27,7 +27,7 @@ describe('Tank', function() {
   describe('onEnemyHitScore', function() {
 
     it('should award scores equal to damage', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(0, tank.score);
       tank.onEnemyHitScore(0.1);
       assert.equal(0.1, tank.score);
@@ -40,7 +40,7 @@ describe('Tank', function() {
   describe('onEnemyKillScore', function() {
 
     it('should award 20 scores', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(0, tank.score);
       tank.onEnemyKillScore();
       assert.equal(20, tank.score);
@@ -53,7 +53,7 @@ describe('Tank', function() {
   describe('onSurviveScore', function() {
 
     it('should award 10 scores', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(0, tank.score);
       tank.onSurviveScore();
       assert.equal(10, tank.score);
@@ -66,7 +66,7 @@ describe('Tank', function() {
   describe('setBoost', function() {
 
     it('should turn on/off boost', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       assert(!tank.hasBoost);
       tank.setBoost(true);
       assert(tank.hasBoost);
@@ -75,7 +75,7 @@ describe('Tank', function() {
     });
 
     it('should not turn boost on if the boost is out', function() {
-      var tank = new Tank("beta", 1);
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.setBoost(true);
       var resolver = new CollisionResolverMock();
       for(var i =0; i < tank.maxBoost; i++) {
@@ -94,7 +94,7 @@ describe('Tank', function() {
   describe('onWallHit', function() {
 
     it('should change state of the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
 
       var resolver = new CollisionResolverMock();
       tank.simulationStep(resolver);
@@ -108,7 +108,7 @@ describe('Tank', function() {
     });
 
     it('should deal damage', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var maxEnergy = tank.maxEnergy;
       assert.equal(maxEnergy, tank.energy);
       tank.onWallHit();
@@ -122,7 +122,7 @@ describe('Tank', function() {
   describe('onEnemyHit', function() {
 
     it('should change state of the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
 
       var resolver = new CollisionResolverMock();
       tank.simulationStep(resolver);
@@ -136,7 +136,7 @@ describe('Tank', function() {
     });
 
     it('should deal damage', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var maxEnergy = tank.maxEnergy;
       assert.equal(maxEnergy, tank.energy);
       tank.onWallHit();
@@ -150,7 +150,7 @@ describe('Tank', function() {
   describe('onBeingRam', function() {
 
     it('should deal damage', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var e1 = tank.energy;
       tank.onBeingRam(0);
       var e2 = tank.energy;
@@ -172,7 +172,7 @@ describe('Tank', function() {
   describe('onEnemySpot', function() {
 
     it('should change state of the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
 
       var resolver = new CollisionResolverMock();
       tank.simulationStep(resolver);
@@ -195,7 +195,7 @@ describe('Tank', function() {
   describe('onDamage', function() {
 
     it('should deal damage', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var maxEnergy = tank.maxEnergy;
       assert.equal(maxEnergy, tank.energy);
       tank.onDamage(6);
@@ -212,7 +212,7 @@ describe('Tank', function() {
   describe('moveTo', function() {
 
     it('should change position of the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.moveTo(345, 567);
       assert.equal(345, tank.x);
       assert.equal(567, tank.y);
@@ -223,7 +223,7 @@ describe('Tank', function() {
     });
 
     it('should not affect tank speed', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       assert.equal(0, tank.speed);
       tank.moveTo(345, 567);
       assert.equal(0, tank.speed);
@@ -237,16 +237,16 @@ describe('Tank', function() {
   describe('handleShoot', function() {
 
     it('should return power of shoot', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.shoot(0.3);
       assert.equal(0.3, tank.handleShoot());
-      tank = new Tank();
+      tank = new Tank({name: 'bravo'}, 1);
       tank.shoot(1);
       assert.equal(1, tank.handleShoot());
     });
 
     it('should return power of shot only once', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.shoot(0.7);
       assert.equal(0.7, tank.handleShoot());
       assert.equal(0, tank.handleShoot());
@@ -257,7 +257,7 @@ describe('Tank', function() {
   describe('shoot', function() {
 
     it('should be blocked when reloading', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       assert(!tank.isReloading);
       tank.shoot(1);
       tank.handleShoot()
@@ -271,7 +271,7 @@ describe('Tank', function() {
   describe('randomize', function() {
 
     it('should rotate the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var pos1 = tank.angle;
       tank.randomize();
       var pos2 = tank.angle;
@@ -290,7 +290,7 @@ describe('Tank', function() {
   describe('simulationStep', function() {
 
     it('should move the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var oldPos = tank.x + ":" + tank.y;
       tank.setThrottle(1);
       var resolver = new CollisionResolverMock();
@@ -303,7 +303,7 @@ describe('Tank', function() {
     });
 
     it('should rotate the tank', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var oldPos = tank.angle;
       tank.setTurn(1);
       var resolver = new CollisionResolverMock();
@@ -316,7 +316,7 @@ describe('Tank', function() {
     });
 
     it('should rotate the gun', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var oldPos = tank.gunAngle;
       tank.setGunTurn(1);
       var resolver = new CollisionResolverMock();
@@ -329,7 +329,7 @@ describe('Tank', function() {
     });
 
     it('should rotate the radar', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       var oldPos = tank.radarAngle;
       tank.setRadarTurn(1);
       var resolver = new CollisionResolverMock();
@@ -342,7 +342,7 @@ describe('Tank', function() {
     });
 
     it('should not move the tank if collide', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.moveTo(34, 56);
       var oldPos = tank.x + ":" + tank.y;
       tank.setThrottle(1);
@@ -357,7 +357,7 @@ describe('Tank', function() {
     });
 
     it('should update tank state', function() {
-      var tank = new Tank();
+      var tank = new Tank({name: 'bravo'}, 1);
       tank.moveTo(34, 56);
       var resolver = new CollisionResolverMock();
       tank.simulationStep(resolver);

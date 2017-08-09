@@ -8,9 +8,12 @@ function normalizeAngle(a) {
 
 module.exports = class Tank {
 
-  constructor(name, id) {
+  constructor(aiDefinition, id) {
+    if(typeof aiDefinition != 'object') {
+      throw "AI definition must be an object";
+    }
     this._id = id;
-    this._name = name;
+    this._name = aiDefinition.name;
     this._maxEnergy = 100;
     this._energy = this._maxEnergy;
     this._x = 0;

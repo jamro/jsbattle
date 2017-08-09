@@ -2,7 +2,7 @@
 
 module.exports = class AiWrapper {
 
-  constructor(tank) {
+  constructor(tank, aiDefinition) {
     this._tank = tank;
     this._aiWorker = null;
     this._aiProcessingStart = 0;
@@ -13,6 +13,7 @@ module.exports = class AiWrapper {
     this._onActivationCallback = [];
     this._onDectivationCallback = [];
     this._aiProcessingTimeLimit = 3000;
+    this._code = (aiDefinition && aiDefinition.code) ? this._cleanupCode(aiDefinition.code) : null;
 
     this._controlData = {
       THROTTLE: 0,
@@ -48,8 +49,13 @@ module.exports = class AiWrapper {
   activate(seed) {
     var self = this;
     return new Promise(function (resolve, reject) {
-
-      self._aiWorker = self._createWorker("js/tanks/" + self._tank.name + ".tank.js");
+      var workerPath;
+      if(self._code) {
+        workerPath = "js/tanks/lib/codeWorker.js";
+      } else {
+        workerPath = "js/tanks/" + self._tank.name + ".tank.js";
+      }
+      self._aiWorker = self._createWorker(workerPath);
       self._aiWorker.onerror = function(err) {
         console.log(err);
         if(self._aiProcessingRejectCallback) {
@@ -130,7 +136,8 @@ module.exports = class AiWrapper {
         seed: seed + ":" + self._tank.id,
         settings: {
           SKIN: 'zebra'
-        }
+        },
+        code: self._code
       });
     });
   }
@@ -168,6 +175,13 @@ module.exports = class AiWrapper {
       });
     });
   }
+
+  _cleanupCode(code) {
+    //remove importScripts because it will not work anyway ;)
+    code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
+    return code;
+  }
+
   _configureTank(input) {
     var settings = {};
 

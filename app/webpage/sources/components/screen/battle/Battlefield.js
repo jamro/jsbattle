@@ -68,12 +68,12 @@ module.exports = class Battlefield extends React.Component {
     }, 500);
   }
 
-  addTank(tankName) {
+  addTank(aiDefinition) {
     try {
-      this.simulation.addTank(tankName);
+      this.simulation.addTank(aiDefinition);
     } catch(err) {
       if(this.props.onError) {
-        this.props.onError("Cannot add tank '" + tankName + "': " +  (err.message ? err.message : err));
+        this.props.onError("Cannot add tank '" + aiDefinition.name + "': " +  (err.message ? err.message : err));
       }
     }
   }

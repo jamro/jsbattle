@@ -65,6 +65,32 @@ describe('AiWrapper', function() {
       });
     });
 
+    it('should pass code to worker', function (done) {
+      var tank = new TankMock();
+      var ai = new AiWrapper(tank, {code: "My AI code"});
+      var worker;
+      ai._createWorker = function(name) {
+        worker = new WorkerMock(name);
+        worker.postMessage = (data) => {
+          assert.equal("My AI code", data.code);
+        }
+        return worker;
+      }
+      var promise = ai.activate();
+      worker.onmessage({
+        data: {
+          type: 'init'
+        }
+      });
+      promise.then(function() {
+
+        done();
+      })
+      .catch(function(err) {
+        assert.fail("Error" + err.message);
+      });
+    });
+
   });
 
   describe('deactivate', function() {

@@ -1,21 +1,5 @@
 # Artificial Intelligence Scripts
 
-## Script Location
-
-All AI scripts are stored in `js/tanks` folder. Each script file must be named `[tankname].tank.js`, where `[tankname]` is a name of the tank used during battle simulation. List of all tanks that will be available for the battle is stored in `js/tanks/index.json`:
-
-```javascript
-[
-  "dummy",
-  "crawler",
-  "crazy",
-  "dodge",
-  "sniper",
-  "kamikaze",
-  "jamro"
-]
-```
-
 ## Script Structure
 
 Each AI script must start from importing `tank.js` library. It contains core mechanism that will be required to program the tank. Importing of any other libraries is not allowed.

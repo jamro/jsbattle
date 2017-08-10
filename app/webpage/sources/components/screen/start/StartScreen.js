@@ -2,6 +2,7 @@ var FullRow = require('../../common/bootstrap/FullRow.js');
 var Row = require('../../common/bootstrap/Row.js');
 var Col = require('../../common/bootstrap/Col.js');
 var NumericInput = require('../../common/NumericInput.js');
+var TankTableRow = require('./TankTableRow.js');
 
 module.exports = class StartScreen extends React.Component {
 
@@ -11,7 +12,7 @@ module.exports = class StartScreen extends React.Component {
     battleSet = battleSet ? JSON.parse(battleSet) : [];
     this.state = {
       loading: true,
-      selectedTankList: [],
+      aiDefList: [],
       battleSet: battleSet,
     };
     this.difficultyMap = {};
@@ -32,9 +33,13 @@ module.exports = class StartScreen extends React.Component {
   componentDidMount() {
     var self = this;
     $.getJSON( "js/tanks/index.json", (tankList) => {
+      var userTankNames = this.props.aiRepository.getScriptNameList();
+      this.props.aiRepository.reserveName(tankList);
+
       var battleSet = this.state.battleSet;
+      var allTanks = tankList.concat(userTankNames);
       battleSet = battleSet.filter((settings) => {
-        return tankList.indexOf(settings.name) != -1;
+        return allTanks.indexOf(settings.name) != -1;
       });
 
       var newTanks = tankList
@@ -46,20 +51,32 @@ module.exports = class StartScreen extends React.Component {
       })
       .map((name) => ({
         name: name,
-        count: 1
+        count: 1,
+        userCreated: false
       }));
 
-      battleSet = battleSet.concat(newTanks);
-      battleSet = battleSet.sort((a, b) => {
-        return this.getDifficulty(a.name) - this.getDifficulty(b.name);
-      });
+      var userTanks = userTankNames
+      .filter((tankName) => {
+        return battleSet.find((settings) => {
+          return settings.name == tankName;
+        }) ? false : true;
+      })
+      .map((name) => ({
+        name: name,
+        count: 1,
+        userCreated: true
+      }));
+
+      battleSet = battleSet.concat(newTanks).concat(userTanks);
+      battleSet = this.sortBattleSet(battleSet);
 
       this.setState({
-        loading: false,
-        battleSet: battleSet
+        loading: false
       });
-      this.onSettingsChange();
-
+      this.refreshTankList(battleSet);
+      if(this.props.fastForward) {
+        this.startBattle();
+      }
     })
     .fail(function() {
       this.showError("Cannot load and parse js/tanks/index.json");
@@ -73,29 +90,79 @@ module.exports = class StartScreen extends React.Component {
   }
 
   startBattle() {
-    var listComplete = this.state.selectedTankList.length >= 2;
+    var listComplete = this.state.aiDefList.length >= 2;
     if(!listComplete) return;
-    this.props.onStart(this.state.selectedTankList);
+    this.props.onStart(this.state.aiDefList);
   }
 
   onSettingsChange(tankName, v) {
     var i, j;
-    var settings = this.state.battleSet;
-    var tankList = [];
-    for(i=0; i < settings.length; i++) {
-      if(settings[i].name == tankName) {
-        settings[i].count = v;
+    var battleSet = this.state.battleSet;
+    for(i=0; i < battleSet.length; i++) {
+      if(battleSet[i].name == tankName) {
+        battleSet[i].count = v;
       }
-      for(j=0; j < settings[i].count; j++) {
-        tankList.push(settings[i].name);
+    }
+    this.refreshTankList(battleSet);
+  }
+
+  refreshTankList(battleSet) {
+    var i, j;
+    var aiDefList = [];
+    for(i=0; i < battleSet.length; i++) {
+      for(j=0; j < battleSet[i].count; j++) {
+        aiDefList.push({
+          name: battleSet[i].name,
+          code: battleSet[i].userCreated ? this.props.aiRepository.getCompiledScript(battleSet[i].name) : null
+        });
       }
     }
     this.setState({
-      selectedTankList: tankList,
-      battleSet: settings
+      aiDefList: aiDefList,
+      battleSet: battleSet
     });
+    localStorage.setItem("settings.battleSet", JSON.stringify(battleSet));
+  }
 
-    localStorage.setItem("settings.battleSet", JSON.stringify(settings));
+  createTank() {
+    var battleSet = this.state.battleSet;
+    var name = this.props.aiRepository.getRandomScriptName(true);
+    var retry = 0;
+    while(!this.props.aiRepository.isNameAllowed(name)) {
+      name = this.props.aiRepository.getRandomScriptName(false);
+      retry++;
+      if(retry > 100) {
+        throw "Cannot find unique name for the script";
+      }
+    }
+    battleSet.push({
+      name: name,
+      count: 1,
+      userCreated: true
+    });
+    battleSet = this.sortBattleSet(battleSet);
+    this.props.aiRepository.createScript(name);
+    this.refreshTankList(battleSet);
+
+  }
+
+  sortBattleSet(battleSet) {
+    return battleSet.sort((a, b) => {
+      var diff = this.getDifficulty(a.name) - this.getDifficulty(b.name);
+      if(diff != 0) {
+        return diff;
+      } else {
+        return a.name.localeCompare(b.name);
+      }
+    });
+  }
+
+  deleteTank(name) {
+    var battleSet = this.state.battleSet.filter((item) => {
+      return item.name != name;
+    });
+    this.props.aiRepository.deleteScript(name);
+    this.refreshTankList(battleSet);
   }
 
   renderLoading() {
@@ -107,50 +174,41 @@ module.exports = class StartScreen extends React.Component {
   renderSettingRows() {
     return this.state.battleSet
     .map((tank) => {
-      var difficultyStars = [];
-      var rank = this.getDifficulty(tank.name);
-      if(rank) {
-        for(var i=0; i < rank; i++) {
-          difficultyStars.push(<i key={tank.name + "-" + i} className="fa fa-star" aria-hidden="true"></i>);
-        }
-      } else {
-        difficultyStars = <span>unknown</span>;
-      }
-      return <tr key={tank.name}>
-        <td>{tank.name}</td>
-        <td className="text-center">
-          {difficultyStars}
-        </td>
-        <td className="block-right">
-          <NumericInput
-            className="pull-right"
-            defaultValue={tank.count}
-            onChange={(v) => this.onSettingsChange(tank.name, v)}
-            min={0}
-            max={10}
-          />
-        </td>
-      </tr>;
+      return <TankTableRow
+        key={tank.name}
+        name={tank.name}
+        count={tank.count}
+        onChange={(v) => this.onSettingsChange(tank.name, v)}
+        difficulty={this.getDifficulty(tank.name)}
+        onEdit={tank.userCreated ? (name) => this.props.onScriptEdit(name) : null}
+        onDelete={tank.userCreated ? (name) => this.deleteTank(name) : null}
+      />;
     });
   }
 
   renderSettings() {
-    return <table className="table" >
-              <thead>
-                <tr>
-                  <th>Tank Name</th>
-                  <th className="text-center">Difficulty</th>
-                  <th className="text-right">Count</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.renderSettingRows()}
-              </tbody>
-            </table>;
+    return <div>
+      <button type="button" className="btn btn-success btn-lg pull-right" onClick={() => this.createTank()}>
+        <i className="fa fa-plus-circle" aria-hidden="true"></i> Create Tank
+      </button>
+      <table className="table" >
+        <thead>
+          <tr>
+            <th>Tank Name</th>
+            <th className="text-center">Difficulty</th>
+            <th className="text-right" style={{width: '90px'}}>&nbsp;</th>
+            <th className="text-center" style={{width: '180px'}}>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderSettingRows()}
+        </tbody>
+      </table>
+    </div>;
   }
 
   renderStartButton() {
-    var listComplete = this.state.selectedTankList.length >= 2;
+    var listComplete = this.state.aiDefList.length >= 2;
     var classNames = "btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
     return <button type="button" className={classNames} onClick={() => this.startBattle()}>
       <span className="glyphicon glyphicon-play" aria-hidden="true"></span> START
@@ -158,19 +216,19 @@ module.exports = class StartScreen extends React.Component {
   }
 
   render() {
-    var listComplete = this.state.selectedTankList.length >= 2;
+    var listComplete = this.state.aiDefList.length >= 2;
     return <Row>
-      <Col lg={4} md={6}>
+      <Col lg={4} md={5}>
         <div className="thumbnail text-center">
           <div className="caption">
           <p style={{marginBottom: "5px"}}>Tanks in the battle.</p>
-            <h1 style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.selectedTankList.length}</h1>
+            <h1 style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.aiDefList.length}</h1>
             <p>{listComplete ? "Press start to begin." : "Add more tanks."}</p>
             {this.renderStartButton()}
           </div>
         </div>
       </Col>
-      <Col lg={8} md={6}>
+      <Col lg={8} md={7}>
         {!this.state.loading ? this.renderSettings() : this.renderLoading()}
       </Col>
     </Row>;

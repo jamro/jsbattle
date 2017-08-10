@@ -40,8 +40,8 @@ module.exports = class BattleScreen extends React.Component {
 
   onBattleReady() {
     var self = this;
-    this.props.tankNameList.forEach(function(tankName) {
-      self.battlefield.addTank({name: tankName});
+    this.props.aiDefList.forEach(function(ai) {
+      self.battlefield.addTank(ai);
     });
 
     this.updateTankList();
@@ -84,8 +84,16 @@ module.exports = class BattleScreen extends React.Component {
     }
   }
 
+  exit() {
+    this.battlefield.stop();
+    this.props.onExit();
+  }
+
   render() {
     var loading = null;
+    var exitButton = <button className="btn btn-danger btn-lg" style={{width: '100%', marginBottom: '5px'}} onClick={() => this.exit()}>
+      <i className="fa fa-times" aria-hidden="true"></i> Exit
+    </button>;
     var scoreboard = <ScoreBoard
       tankList={this.state.tankList}
       refreshTime={200+1300*(1-this.state.qualityLevel)}
@@ -107,6 +115,7 @@ module.exports = class BattleScreen extends React.Component {
     if(this.state.phase == 'loading') {
       scoreboard = null;
       debugView = null;
+      exitButton = null;
       loading = <span>loading...</span>;
     }
     if(this.state.qualityLevel >= 0.3 || this.state.phase != 'battle') {
@@ -133,6 +142,7 @@ module.exports = class BattleScreen extends React.Component {
           {this.rwd.equalOrBiggerThan('md') ? scoreboard : null}
         </Col>
         <Col lg={4} md={4} sm={12} >
+          {exitButton}
           {debugView}
         </Col>
       </Row>

@@ -21,6 +21,10 @@ module.exports = class Battlefield extends React.Component {
     this.simulation.start();
   }
 
+  stop() {
+    this.simulation.stop();
+  }
+
   onAssetsLoaded() {
     this.renderer.init(this.canvas);
     this.simulation = JsBattle.createSimulation(this.renderer);
@@ -75,6 +79,7 @@ module.exports = class Battlefield extends React.Component {
       if(this.props.onError) {
         this.props.onError("Cannot add tank '" + aiDefinition.name + "': " +  (err.message ? err.message : err));
       }
+      console.error(err);
     }
   }
 

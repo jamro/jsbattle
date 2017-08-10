@@ -16,14 +16,17 @@ module.exports = {
     static: ['app/webpage/static/**/*'],
     entry: './app/webpage/sources/entry.js',
     lib: [
-
+      'node_modules/sillyname/index.js'
     ],
     externalLib: [
      'node_modules/pixi.js/dist/pixi.min.js',
      'node_modules/jquery/dist/jquery.min.js',
      'node_modules/bootstrap/dist/**/*',
-     'node_modules/react/dist/**/*.js',
-     'node_modules/react-dom/dist/**/*.js'
+     'node_modules/react/dist/**/*',
+     'node_modules/react-dom/dist/**/*',
+     'node_modules/codemirror/lib/**/*',
+     'node_modules/codemirror/mode/javascript/**/*',
+     'node_modules/codemirror/theme/ambiance.css'
     ]
   },
   docs: {

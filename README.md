@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jamro/jsbattle.svg?branch=master)](https://travis-ci.org/jamro/jsbattle)
 [![npm version](https://badge.fury.io/js/jsbattle.svg)](https://badge.fury.io/js/jsbattle)
+[![license](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
 
 ![alt text](/docs/img/screenshot.png)
 

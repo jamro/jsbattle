@@ -1,9 +1,11 @@
 var BattleScreen = require('./screen/battle/BattleScreen.js');
 var WinnerScreen = require('./screen/winner/WinnerScreen.js');
 var StartScreen = require('./screen/start/StartScreen.js');
+var EditorScreen = require('./screen/editor/EditorScreen.js');
 var FullRow = require('./common/bootstrap/FullRow.js');
 var Navi = require('./common/navi/Navi.js');
 var InfoBox = require('./common/InfoBox.js');
+var AiRepository = require('../lib/AiRepository.js');
 
 module.exports = class App extends React.Component {
 
@@ -19,8 +21,11 @@ module.exports = class App extends React.Component {
       errorMessage: null,
       phase: "start",
       battleResult: null,
-      tankNameList: []
+      aiDefList: [],
+      editorTank: null,
+      quickBattleMode: false
     };
+    this.aiRepository = new AiRepository();
   }
 
   setSimulationSpeed(v) {
@@ -44,17 +49,45 @@ module.exports = class App extends React.Component {
     });
   }
 
-  onBattleRestart() {
+  onPrepareForBattle() {
     this.setState({
       phase: 'start',
-      battleResult: null
+      battleResult: null,
+      quickBattleMode: false,
+      errorMessage: null
     });
   }
 
-  onBattleStart(tankList) {
+  onBattleStart(aiDefList) {
     this.setState({
       phase: 'battle',
-      tankNameList: tankList
+      aiDefList: aiDefList,
+      errorMessage: null
+    });
+  }
+
+  onBattleExit() {
+    if(this.state.editorTank && this.state.quickBattleMode) {
+      this.onScriptEdit(this.state.editorTank);
+    } else {
+      this.onPrepareForBattle();
+    }
+  }
+
+  onScriptEdit(name) {
+    this.setState({
+      phase: 'editor',
+      editorTank: name,
+      quickBattleMode: false,
+      errorMessage: null
+    });
+  }
+
+  onQuickBattle() {
+    this.setState({
+      phase: 'start',
+      quickBattleMode: true,
+      errorMessage: null
     });
   }
 
@@ -62,22 +95,35 @@ module.exports = class App extends React.Component {
     switch(this.state.phase) {
       case 'start':
         return <StartScreen
-          onStart={(tankList) => this.onBattleStart(tankList)}
+          onStart={(aiDefList) => this.onBattleStart(aiDefList)}
           onError={(msg) => this.showError(msg)}
+          onScriptEdit={(name) => this.onScriptEdit(name)}
+          aiRepository={this.aiRepository}
+          fastForward={this.state.quickBattleMode}
         />;
       case 'battle':
         return <BattleScreen
           renderer={this.props.renderer}
           speed={this.state.simSpeed}
           quality={this.state.qualitySettings}
-          tankNameList={this.state.tankNameList}
+          aiDefList={this.state.aiDefList}
           onError={(msg) => this.showError(msg)}
           onFinish={(result) => this.onBattleFinish(result)}
+          onExit={() => this.onBattleExit()}
         />;
       case 'winner':
         return <WinnerScreen
           result={this.state.battleResult}
-          onRestart={() => this.onBattleRestart()}
+          onRestart={() => this.onPrepareForBattle()}
+          onEdit={this.state.editorTank && this.state.quickBattleMode ? (() => this.onScriptEdit(this.state.editorTank)) : null}
+        />;
+      case 'editor':
+        return <EditorScreen
+          aiRepository={this.aiRepository}
+          name={this.state.editorTank}
+          onClose={() => this.setState({phase: 'start'})}
+          onTest={() => this.onQuickBattle()}
+          onRename={(newName) => this.setState({editorTank: newName})}
         />;
       default: return null;
     }

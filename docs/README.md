@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jamro/jsbattle.svg?branch=master)](https://travis-ci.org/jamro/jsbattle)
 [![npm version](https://badge.fury.io/js/jsbattle.svg)](https://badge.fury.io/js/jsbattle)
+[![license](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
 
 ![alt text](img/screenshot.png)
 
@@ -20,4 +21,4 @@ You will find more information about JsBattle in the manual:
   - [Scoring System](scoring_system.md)
   - [Constants and Formulas](consts.md)
 
-To start extending or developing JsBattle, read [Development Guide](dev_guide.md)
+Want to extend or develop **JsBattle**? Read [Development Guide](dev_guide.md)

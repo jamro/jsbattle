@@ -99,6 +99,7 @@ Some of the tools used during JsBattle Development
 Tool                                                 | Description
 -----------------------------------------------------|-----------------------------------------
 [PixiJS](http://www.pixijs.com/)                     | HTML5 Rendering engine
+[CodeMirror](https://codemirror.net/)                | Source codes editor 
 [React](https://facebook.github.io/react/)           | User Interface library used to build components of the web page
 [Bootstrap](http://getbootstrap.com/)                | HTML and CSS framework used to build the web page
 [jQuery](https://jquery.com/)                        | Minor usage, mostly as Bootstrap dependency. The website is based rather on React.

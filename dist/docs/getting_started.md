@@ -1,61 +1,44 @@
 # Getting Started
 
-## Installation
+If you are interested in running JsBattle locally, please read the [Installation](installation.md) section.
 
-### Option 1: Download from GitHub
+## Starting the Battle
 
-Download sources of latest release from here: [https://github.com/jamro/jsbattle/releases](https://github.com/jamro/jsbattle/releases) and unpack the archive.
-
-Go to directory with the game and install all NPM dependencies:
-
-```bash
-  npm install
-```
-
-### Option 2: Use NPM
-
-Install JsBattle in selected directory:
-
-```bash
-  npm install jsbattle
-```
-
-Go to `node_modules/jsbattle` directory
-
-### Run the game
-
-Start web server that is required to run JsBattle simulator:
-
-```bash
-  npm start
-```
-
-The command will output URL of the server:
-
-```
-  Starting up http-server, serving ./
-  Available on:
-    http://127.0.0.1:8080
-  Hit CTRL-C to stop the server
-```
-
-Open your favorite web browser and navigate to URL from the previous step
-
-```
-  http://127.0.0.1:8080
-```
-
-It will open battle starting page
+When you open JsBattle you will see Battle configuration screen.
 
 ![alt text](img/start_screen_001.png)
 
-Just click the **Start** button to watch the battle.
+You choose tanks for a battle there. It is also possible to choose several tanks of the same time. The game comes with bundled set of enemies so you can test it even before you write the first tank algorithm. Skip the configuration for now and just click **Start** button to begin the first battle:
+
+![alt text](img/battle_screen_001.png)
+
+Tank chosen in the previous step will start to fight. Below the battlefield, there is a ranking board with actual score and energy of each tank. There is also a debug view on the right, but let's leave it now. We will get back to it later.
+
+Speed and the quality of the battle can be adjusted by controls located at the right-top corner of the screen. Higher speeds may result in a lower graphical quality of battle simulation (if Quality is set to **Auto**). **JsBattle** will adjust the quality of graphics to keep a proper speed of the simulation and finish it in time.
+
+The battle is time limited. It is finished when time runs out or there is only one tank left on the battlefield.
+
+After the battle, a short summary will be show:
+
+![alt text](img/summary_screen_001.png)
+
+Let's click **"Next Battle"** and build your first tank program.
+
+## Creating Tank Script
+
+Click **"Create Tank"** button to add new tank to the list. It will appear on the top with a random name
+
+![alt text](img/start_screen_002.png)
+
+Choose only two tanks for the battle: your new tank and `dummy`. Set count for all other tanks to zero. It will be easier to test your tank with one enemy only. Now click the edit button next to your new tank to open **AI Script Editor**:
+
+![alt text](img/editor_screen_001.png)
+
+You can change the name of your tank here by clicking the edit button next to its name.
+
+Below, there is an [Artificial Intelligence Script](ai_script.md) of your tank. It is just filled by a standard template. Let's take a look at it a little bit deeper.
 
 ## Code Artificial Intelligence
-
-### Bootstrap
-
-To create your own tank, you will need to write an [Artificial Intelligence Script](ai_script.md). Navigate to `/dist/js/tanks` and create a file `newbie.tank.js` there with such script
 
 ```javascript
   importScripts('lib/tank.js');
@@ -65,42 +48,31 @@ To create your own tank, you will need to write an [Artificial Intelligence Scri
   });
 
   tank.loop(function(state, control) {
+
+  });
+```
+
+The first line imports tank library that will be required to implement tank steering algorithm.
+
+Callback passed to `init` function is called at the beginning of the battle and allows you to setup your tank. `loop` is called on every step of simulation processing loop and this is the place where you will put the logic of your tank.
+
+Let's make a simple modification and add one line to `loop` callback:
+
+```javascript
+  tank.loop(function(state, control) {
     control.THROTTLE = 1;
   });
 ```
 
-Callback passed to `init` function is called at the beginning of the battle and allows you to setup your tank. `loop` is called on every step of simulation processing loop and this is the place where you will put the logic of your tank.
+This implementation of the script will cause the tank to move forward at full speed by modification of its [control object](tank_control_object.md).
 
-This implementation of the script will cause the tank to move forward at full speed by modification of [control object](tank_control_object.md).
+Click **Quick Battle** to immediately test your tank. (Setup from the previous step will be used, so `dummy will be your opponent`)  
 
-Now, you need to add your new tank to list of tanks that will join the battle. Open `/dist/js/tanks/index.json` and add `"newbie"` at the beginning:
-
-```json
-[
-  "newbie",
-  "dummy",
-  "crawler",
-  "crazy",
-  "dodge",
-  "sniper",
-  "kamikaze",
-  "jamro"
-]
-
-```
-`dummy`, `crawler`, `crazy` and others are [tanks bundled with JsBattle distribution](bundled_tanks.md). Now navigate to `http://127.0.0.1:8080`
-
-Select only two tanks for the first battle: `newbie` and `dummy`. Click **Start** to begin.
-
-![alt text](img/start_screen_002.png)
-
-There should be nothing exciting yet. Your tank will probably hit the wall and destroy itself in this way :)
-
-Please notice that you can speed up the battle by **Speed** control located in the top, right corner of the screen. High speeds may result in a lower graphical quality of battle simulation (if **Quality** is set to **Auto**). JsBattle will adjust the quality of graphics to keep the speed of the simulation and finish it faster.
+There should be nothing exciting yet. Your tank will probably hit the wall and destroy itself in this way :) Feel free to click **Exit** if you don't want to watch this drama :)
 
 ### Movement
 
-Let's modify the script and add more intelligence there. The tank must avoid obstacles and search for an enemy
+Let's modify the script because our tank needs more intelligence there. The tank must avoid obstacles and search for an enemy
 
 ```javascript
 importScripts('lib/tank.js');
@@ -173,11 +145,11 @@ control.DEBUG = {
 
 You can observe how the debug object is changing over the battle by selecting your tank from **Debug View** from **Battle Screen**.
 
-Now navigate to `http://127.0.0.1:8080` and watch the new version of your AI in action.
+Now start the battle again by clicking **Quick Battle** and watch the new version of your AI in action.
 
-![alt text](img/battle_screen_001.png)
+![alt text](img/battle_screen_002.png)
 
-If you are lucky, you could even earn some points because ramming is part of [scoring system](scoring_system.md)
+If you are lucky, you could even earn some points because ramming is part of [scoring system](scoring_system.md). Take a look also at the **Debug View**. It will show `control.DEBUG` but the [state object](tank_state_object.md)
 
 ### Aiming and shooting
 
@@ -221,7 +193,16 @@ control.TURN = 0;
 control.RADAR_TURN = 0;
 ```
 
-After that, there is a small trigonometry magic with arcus tangens function to the determine desired angle of the gun. When we know where the gun should be pointed, the only thing that has left is to rotate it and shoot:
+After that, there is a small trigonometry magic with arcus tangent function used to the determine desired angle of the gun.
+
+```javascript
+var targetAngle = Math.deg.atan2(
+  state.radar.enemy.y - state.y,
+  state.radar.enemy.x - state.x
+);
+```
+
+When we know where the gun should be pointed, the only thing that has left is to rotate it and shoot:
 
 ```javascript
 var gunAngleDifference = Math.deg.normalize(targetAngle - state.angle - state.gun.angle);
@@ -229,28 +210,18 @@ control.GUN_TURN = gunAngleDifference * 0.2;
 control.SHOOT = 1;
 ```
 
-Notice that to calculate `gunAngleDifference`, it is required to take into account both: angle of the tank and angle of the gun. The reason is that `state.gun.angle` is relative to tank rotation.
+Notice that to calculate `gunAngleDifference`, it is required to take into account both: angle of the tank and angle of the gun. The reason is that `state.gun.angle` is relative to tank rotation. It is described in more details in [Battle Anatomy](battle_anatomy.md).
 
-That's all. Now go to `http://127.0.0.1:8080` and watch your victory.
+That's all. Start the battle and watch your victory.
 
 ## What's next?
 
-Learn more about JsBattle mechanics by reading the manual:
+Try to modify your AI script and test is against [more powerful opponents](bundled_tanks.md).
+
+Learn more about **JsBattle** mechanics by reading the manual:
 
 - [Battle Anatomy](battle_anatomy.md)
 - [Tank Anatomy](tank_anatomy.md)
 - [AI Script](ai_script.md)
 - [Scoring System](scoring_system.md)
 - [Constants and Formulas](consts.md)
-
-You can try to modify your AI script and test is against more powerful opponents:
-
-- crawler
-- crazy
-- dodge
-- kamikaze
-- sniper
-- super-sniper
-- jamro
-
-The source codes of [bundled enemies](bundled_tanks.md) is included and described so you can also learn from it.

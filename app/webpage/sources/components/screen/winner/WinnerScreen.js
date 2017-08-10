@@ -21,6 +21,21 @@ module.exports = class WinnerScreen extends React.Component {
 
   render() {
     var previewUrl = "img/tank_skin_" + this.props.result.winner.skin + ".png";
+
+
+    var restartButton = <button className="btn btn-default btn-lg" onClick={() => this.props.onRestart()}>
+      <i className="fa fa-refresh" aria-hidden="true"></i> Next Battle
+    </button>;
+    var editButton = <button className="btn btn-primary btn-lg" onClick={() => this.props.onEdit()}>
+      <i className="fa fa-pencil" aria-hidden="true"></i> Edit AI Script
+    </button>;
+    if(!this.props.onEdit) {
+      editButton = null;
+    }
+    if(!this.props.onRestart) {
+      restartButton = null;
+    }
+
     return <Row>
       <Col lg={4} md={6}>
         <div className="thumbnail text-center">
@@ -28,9 +43,9 @@ module.exports = class WinnerScreen extends React.Component {
           <div className="caption">
             <h3>{this.props.result.winner.fullName}</h3>
             <p>has won the battle</p>
-            <button className="btn btn-primary btn-lg" onClick={() => this.props.onRestart()}>
-              <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span> RESTART
-            </button>
+            {restartButton}
+            &nbsp;
+            {editButton}
           </div>
         </div>
       </Col>

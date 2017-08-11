@@ -31,6 +31,7 @@ module.exports = class Tank {
     this._radarTurn = 0;
     this._wallHit = false;
     this._enemyHit = false;
+    this._beingRammed = false;
     this._radarRange = 300;
     this._radarFocal = 6;
     this._enemySpot = null;
@@ -184,6 +185,7 @@ module.exports = class Tank {
   }
 
   onBeingRam(speed) {
+    this._beingRammed = true;
     this.onDamage(0.1 + Math.round(speed*8)*0.1);
   }
 
@@ -287,6 +289,14 @@ module.exports = class Tank {
       self._x = oldX;
       self._y = oldY;
       self._actualThrottle = 0;
+    }
+    if(this._beingRammed) {
+      // must be done later because ramming is
+      // reported after collisionResolver.checkTank(self)
+      // it is detected when collisionResolver.checkTank
+      // is called for attacing tank
+      self._enemyHit = true;
+      this._beingRammed = false;
     }
 
     self._angle += 2*self._turn;

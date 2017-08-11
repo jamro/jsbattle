@@ -92,7 +92,7 @@ module.exports = class BattleScreen extends React.Component {
   render() {
     var loading = null;
     var exitButton = <button className="btn btn-danger btn-lg" style={{width: '100%', marginBottom: '5px'}} onClick={() => this.exit()}>
-      <i className="fa fa-times" aria-hidden="true"></i> Exit
+      <i className="fa fa-power-off" aria-hidden="true"></i> Exit the battle
     </button>;
     var scoreboard = <ScoreBoard
       tankList={this.state.tankList}

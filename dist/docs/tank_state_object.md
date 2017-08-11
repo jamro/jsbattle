@@ -6,7 +6,7 @@ in [AI Scripts](ai_script.md) as an input to control the behavior of the tank.
 ```javascript
   {
     x: 39.5,
-    y: 74.3
+    y: 74.3,
     angle: 45.2,
     energy: 100,
     boost: 300,
@@ -21,7 +21,7 @@ in [AI Scripts](ai_script.md) as an input to control the behavior of the tank.
       enemy: {
         id: 4,
         x: 39.5,
-        y: 74.3
+        y: 74.3,
         angle: 45.2,
         speed: 23,
         energy: 43

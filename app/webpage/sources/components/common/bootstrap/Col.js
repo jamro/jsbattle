@@ -8,7 +8,7 @@ module.exports = class Col extends React.Component {
     if(this.props.lg) classList.push("col-lg-"+this.props.lg);
     if(this.props.extraClass) classList.push(this.props.extraClass);
 
-    return <div className={classList.join(" ")}>
+    return <div className={classList.join(" ") + " " + this.props.className}>
       {this.props.children}
     </div>;
   }

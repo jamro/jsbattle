@@ -64,6 +64,10 @@ module.exports = class JsonCode extends React.Component {
     } else {
       output = JSON.stringify(this.props.data, null, 2);
     }
-    return <pre className={classes}>{output}</pre>;
+    var prefix = "";
+    if(this.props.varName) {
+      prefix = this.props.varName + " = ";
+    }
+    return <pre className={classes}>{prefix}{output}</pre>;
   }
 };

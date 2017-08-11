@@ -1,4 +1,4 @@
-var JsonCode = require('./JsonCode.js');
+var JsonCode = require('../../../common/JsonCode.js');
 var UnfreshComponent = require('../../../common/UnfreshComponent.js');
 var InfoBox = require('../../../common/InfoBox.js');
 

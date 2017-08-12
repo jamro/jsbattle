@@ -2,7 +2,7 @@ module.exports = {
   engine: {
     entry: "./app/engine/entry.js",
     sources: ['app/engine/**/*.js'],
-    test: ['test/**/*.test.js'],
+    test: ['test/engine/**/*.test.js'],
     resources: ['resources/images'],
 
     lib: [
@@ -15,6 +15,7 @@ module.exports = {
     sources: ['app/webpage/sources/**/*'],
     static: ['app/webpage/static/**/*'],
     entry: './app/webpage/sources/entry.js',
+    test: ['test/webpage/**/*.test.js'],
     lib: [
       'node_modules/sillyname/index.js'
     ],
@@ -40,6 +41,7 @@ module.exports = {
       'app/tanks/index.json',
       'app/tanks/lib/codeWorker.js'
     ],
+    test: ['test/tanks/**/*.test.js'],
     entry: "./app/tanks/lib/tank.js",
     sources: ['app/tanks/lib/**/*.js'],
     lib: ['node_modules/seedrandom/seedrandom.js'],

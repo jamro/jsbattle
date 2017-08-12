@@ -1,7 +1,7 @@
 # Tank State Object
 
 Here is an example of an object that describes the state of the tank. It is used
-in [AI Scripts](ai_script.md) as an input to control the behavior of the tank.
+in [AI Scripts](/docs/manual/ai_script.md) as an input to control the behavior of the tank.
 
 ```javascript
   {

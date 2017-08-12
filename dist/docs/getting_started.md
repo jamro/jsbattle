@@ -1,6 +1,6 @@
 # Getting Started
 
-If you are interested in running JsBattle locally, please read the [Installation](installation.md) section.
+If you are interested in running JsBattle locally, please read the [Installation](/docs/installation.md) section.
 
 ## Starting the Battle
 
@@ -36,7 +36,7 @@ Choose only two tanks for the battle: your new tank and `dummy`. Set count for a
 
 You can change the name of your tank here by clicking the edit button next to its name.
 
-Below, there is an [Artificial Intelligence Script](ai_script.md) of your tank. It is just filled by a standard template. Let's take a look at it a little bit deeper.
+Below, there is an [Artificial Intelligence Script](/docs/manual/ai_script.md) of your tank. It is just filled by a standard template. Let's take a look at it a little bit deeper.
 
 ## Code Artificial Intelligence
 
@@ -64,7 +64,7 @@ Let's make a simple modification and add one line to `loop` callback:
   });
 ```
 
-This implementation of the script will cause the tank to move forward at full speed by modification of its [control object](tank_control_object.md).
+This implementation of the script will cause the tank to move forward at full speed by modification of its [control object](/docs/manual/tank_control_object.md).
 
 Click **Quick Battle** to immediately test your tank. (Setup from the previous step will be used, so `dummy will be your opponent`)  
 
@@ -124,7 +124,7 @@ if(Math.abs(angleDifference) < 5)
 
 This condition ensures that tank is moving forward only when the difference between current and desired angle is smaller than 5 degrees.
 
-Information about collisions with walls is stored in [tank state object](tank_state_object.md) at `state.collisions.wall`. Whenever this value is `true`,the desired direction of the tank should be changed randomly. It is important to stop the tank at this point so it does not hit the wall again and does not receive additional damage.
+Information about collisions with walls is stored in [tank state object](/docs/manual/tank_state_object.md) at `state.collisions.wall`. Whenever this value is `true`,the desired direction of the tank should be changed randomly. It is important to stop the tank at this point so it does not hit the wall again and does not receive additional damage.
 
 ```javascript
 if(state.collisions.wall) {
@@ -133,7 +133,7 @@ if(state.collisions.wall) {
 }
 ```
 
-`Math.randomRange` is another extension of `Math` object that is available in AI scripts and it returns a random number from  specified range. See **Extended Math Object** section in [AI Script](ai_script.md) documentation for more details.
+`Math.randomRange` is another extension of `Math` object that is available in AI scripts and it returns a random number from  specified range. See **Extended Math Object** section in [AI Script](/docs/manual/ai_script.md) documentation for more details.
 
 At the end of the script, there is some debug logging
 
@@ -149,7 +149,7 @@ Now start the battle again by clicking **Quick Battle** and watch the new versio
 
 ![alt text](img/battle_screen_002.png)
 
-If you are lucky, you could even earn some points because ramming is part of [scoring system](scoring_system.md). Take a look also at the **Debug View**. It will show `control.DEBUG` but the [state object](tank_state_object.md)
+If you are lucky, you could even earn some points because ramming is part of [scoring system](/docs/manual/scoring_system.md). Take a look also at the **Debug View**. It will show `control.DEBUG` but the [state object](/docs/manual/tank_state_object.md)
 
 ### Aiming and shooting
 
@@ -185,7 +185,7 @@ tank.loop(function(state, control) {
 ```
 Setting `control.RADAR_TURN=1` will keep the radar constantly rotating clockwise.
 
-When an enemy is spotted, field `state.radar.enemy` will contains information about it. In such case radar and the tank should be stopped what can be done by overriding previous values of [control object](tank_control_object.md):
+When an enemy is spotted, field `state.radar.enemy` will contains information about it. In such case radar and the tank should be stopped what can be done by overriding previous values of [control object](/docs/manual/tank_control_object.md):
 
 ```javascript
 control.THROTTLE = 0;
@@ -210,18 +210,12 @@ control.GUN_TURN = gunAngleDifference * 0.2;
 control.SHOOT = 1;
 ```
 
-Notice that to calculate `gunAngleDifference`, it is required to take into account both: angle of the tank and angle of the gun. The reason is that `state.gun.angle` is relative to tank rotation. It is described in more details in [Battle Anatomy](battle_anatomy.md).
+Notice that to calculate `gunAngleDifference`, it is required to take into account both: angle of the tank and angle of the gun. The reason is that `state.gun.angle` is relative to tank rotation. It is described in more details in [Battle Anatomy](/docs/manual/battle_anatomy.md).
 
 That's all. Start the battle and watch your victory.
 
 ## What's next?
 
-Try to modify your AI script and test is against [more powerful opponents](bundled_tanks.md).
+Try to modify your AI script and test is against [more powerful opponents](/docs/manual/bundled_tanks.md).
 
-Learn more about **JsBattle** mechanics by reading the manual:
-
-- [Battle Anatomy](battle_anatomy.md)
-- [Tank Anatomy](tank_anatomy.md)
-- [AI Script](ai_script.md)
-- [Scoring System](scoring_system.md)
-- [Constants and Formulas](consts.md)
+Learn more about **JsBattle** mechanics by reading the [Manual](/docs/manual/README.md)

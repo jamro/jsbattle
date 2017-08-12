@@ -8,18 +8,28 @@ config.devMode = !!plugins.util.env.dev;
 
 gulp.task('clean', require('./build/clean.js')(gulp, config, plugins));
 gulp.task('clean-tmp', require('./build/clean-tmp.js')(gulp, config, plugins));
-gulp.task('webpage.copy', ['clean'], require('./build/webpage.copy.js')(gulp, config, plugins));
-gulp.task('tanks.copy', ['clean'], require('./build/tanks.copy.js')(gulp, config, plugins));
 
 gulp.task('engine.sprites', ['clean', 'webpage.copy'], require('./build/engine.sprites.js')(gulp, config, plugins));
 gulp.task('engine.jshint', require('./build/engine.jshint.js')(gulp, config, plugins));
 gulp.task('engine.test', require('./build/engine.test.js')(gulp, config, plugins));
 gulp.task('engine.sources', ['clean', 'webpage.copy', 'engine.jshint', 'engine.test'], require('./build/engine.sources.js')(gulp, config, plugins));
 
-gulp.task('tanks.sources', ['clean', 'tanks.copy'], require('./build/tanks.sources.js')(gulp, config, plugins));
+gulp.task('tanks.sources', ['clean', 'tanks.copy', 'tanks.test'], require('./build/tanks.sources.js')(gulp, config, plugins));
+gulp.task('tanks.copy', ['clean'], require('./build/tanks.copy.js')(gulp, config, plugins));
+gulp.task('tanks.test', require('./build/tanks.test.js')(gulp, config, plugins));
 
 gulp.task('webpage.jshint', require('./build/webpage.jshint.js')(gulp, config, plugins));
 gulp.task('webpage.sources', ['clean', 'webpage.copy', 'webpage.jshint'], require('./build/webpage.sources.js')(gulp, config, plugins));
+gulp.task('webpage.copy', ['clean'], require('./build/webpage.copy.js')(gulp, config, plugins));
+gulp.task('webpage.test', ['clean', 'engine.sources', 'tanks.sources', 'tanks.copy', 'webpage.sources', 'webpage.copy'], require('./build/webpage.test.js')(gulp, config, plugins));
+
+
+gulp.task('test', [
+  'webpage.test',
+  'engine.test',
+  'tanks.test',
+], require('./build/beep.js')(gulp, config, plugins));
+
 
 gulp.task('all', [
   'webpage.copy',
@@ -27,7 +37,10 @@ gulp.task('all', [
   'engine.sources',
   'engine.sprites',
   'tanks.copy',
-  'tanks.sources'
+  'tanks.sources',
+  'webpage.test',
+  'engine.test',
+  'tanks.test'
 ], require('./build/beep.js')(gulp, config, plugins));
 
 gulp.task('engine-all', [

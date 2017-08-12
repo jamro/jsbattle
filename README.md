@@ -11,7 +11,7 @@ JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a ga
 
 ## How to play?
 
-You'll find **Getting Started** guide in [Documentation](docs/README.md)
+You'll find **Getting Started** guide in [Documentation](/docs/README.md)
 
 ## Demo
 

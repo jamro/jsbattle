@@ -10,7 +10,7 @@ All angles are in a range between -180° and 180°. Angle 0° is equivalent to l
 
 ## Simulation Mechanics
 
-Simulation processing loop updates all objects in the battlefield (tanks and bullets). In every step of the loop [AI Script](ai_script.md) is being called and returned information is used to control the behavior of tanks.
+Simulation processing loop updates all objects in the battlefield (tanks and bullets). In every step of the loop [AI Script](/docs/manual/ai_script.md) is being called and returned information is used to control the behavior of tanks.
 
 ## Battle Duration and Speed
 

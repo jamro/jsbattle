@@ -1,6 +1,6 @@
 # Tank Settings Object
 
-Settings object is passed to `tank.init(function(settings) { ... })` of [AI Scripts](ai_script.md). You can modify its properties to change initial settings of your tank. For example:
+Settings object is passed to `tank.init(function(settings) { ... })` of [AI Scripts](/docs/manual/ai_script.md). You can modify its properties to change initial settings of your tank. For example:
 
 ```javascript
   tank.init(function(settings) {

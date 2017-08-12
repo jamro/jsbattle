@@ -14,6 +14,7 @@ module.exports = class AiWrapper {
     this._onDectivationCallback = [];
     this._aiProcessingTimeLimit = 3000;
     this._code = (aiDefinition && aiDefinition.code) ? this._cleanupCode(aiDefinition.code) : null;
+    this._initData = (aiDefinition && aiDefinition.initData) ? aiDefinition.initData : null;
     this._isReady = false;
     this._controlData = {
       THROTTLE: 0,
@@ -138,7 +139,8 @@ module.exports = class AiWrapper {
         settings: {
           SKIN: 'zebra'
         },
-        code: self._code
+        code: self._code,
+        initData: self._initData
       });
     });
   }

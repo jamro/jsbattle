@@ -32,6 +32,9 @@ module.exports = class Battlefield extends React.Component {
     if(this.props.onError) {
       this.simulation.onError((msg) => this.props.onError(msg));
     }
+    if(this.props.onStart) {
+      this.simulation.onStart(() => this.props.onStart());
+    }
     this.simulation.init(900, 600);
 
     if(this.props.onRender) {

@@ -14,7 +14,7 @@ module.exports = class AiWrapper {
     this._onDectivationCallback = [];
     this._aiProcessingTimeLimit = 3000;
     this._code = (aiDefinition && aiDefinition.code) ? this._cleanupCode(aiDefinition.code) : null;
-
+    this._isReady = false;
     this._controlData = {
       THROTTLE: 0,
       BOOST: 0,
@@ -99,6 +99,7 @@ module.exports = class AiWrapper {
         if(self._aiProcessingResolveCallback) {
           if(value.type == 'init') {
             self._configureTank(value.settings ? value.settings : {});
+            self._isReady = true;
             for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
           } else {
             self._controlTank(value);
@@ -156,6 +157,9 @@ module.exports = class AiWrapper {
   }
 
   simulationStep() {
+    if(!this._isReady) {
+      throw "AI of " + this._tank.fullName + " not initliazed";
+    }
     var self = this;
     return new Promise(function (resolve, reject) {
       if(self._aiWorker && self._tank.energy == 0) {

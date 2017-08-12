@@ -6,6 +6,7 @@ var DebugView = require('./debugView/DebugView.js');
 var ScoreBoard = require('./scoreBoard/ScoreBoard.js');
 var Battlefield = require('./Battlefield.js');
 var BootstrapRWD = require('../../../lib/BootstrapRWD.js');
+var Loading = require('../../common/Loading.js');
 
 module.exports = class BattleScreen extends React.Component {
 
@@ -46,6 +47,9 @@ module.exports = class BattleScreen extends React.Component {
 
     this.updateTankList();
     this.battlefield.start();
+  }
+
+  onBattleStart() {
     this.setState({phase: 'battle'});
   }
 
@@ -116,15 +120,15 @@ module.exports = class BattleScreen extends React.Component {
       scoreboard = null;
       debugView = null;
       exitButton = null;
-      loading = <span>loading...</span>;
+      loading = <FullRow><Loading /></FullRow>;
     }
     if(this.state.qualityLevel >= 0.3 || this.state.phase != 'battle') {
       fpsWarn = null;
     }
     return <div>
+      {loading}
       <Row>
         <Col lg={8} md={8} sm={12}>
-          {loading}
           {fpsWarn}
           <Battlefield
             ref={(battlefield) => this.battlefield = battlefield }
@@ -135,6 +139,7 @@ module.exports = class BattleScreen extends React.Component {
             renderer={this.props.renderer}
             visible={this.state.phase == "battle"}
             onReady={() => this.onBattleReady()}
+            onStart={() => this.onBattleStart()}
             onError={(msg) => this.showError(msg)}
             onRender={() => this.updateTankList()}
             onFinish={(result) => this.onBattleFinish(result)}

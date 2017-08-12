@@ -2,6 +2,7 @@ var FullRow = require('../../common/bootstrap/FullRow.js');
 var Row = require('../../common/bootstrap/Row.js');
 var Col = require('../../common/bootstrap/Col.js');
 var NumericInput = require('../../common/NumericInput.js');
+var Loading = require('../../common/Loading.js');
 var TankTableRow = require('./TankTableRow.js');
 
 module.exports = class StartScreen extends React.Component {
@@ -68,18 +69,18 @@ module.exports = class StartScreen extends React.Component {
       }));
 
       battleSet = battleSet.concat(newTanks).concat(userTanks);
-      battleSet = this.sortBattleSet(battleSet);
+      battleSet = self.sortBattleSet(battleSet);
 
-      this.setState({
+      self.setState({
         loading: false
       });
-      this.refreshTankList(battleSet);
+      self.refreshTankList(battleSet);
       if(this.props.fastForward) {
-        this.startBattle();
+        self.startBattle();
       }
     })
     .fail(function() {
-      this.showError("Cannot load and parse js/tanks/index.json");
+      self.showError("Cannot load and parse js/tanks/index.json");
     });
   }
 
@@ -166,9 +167,7 @@ module.exports = class StartScreen extends React.Component {
   }
 
   renderLoading() {
-    return <span>
-      Loading...
-    </span>;
+    return <FullRow><Loading /></FullRow>;
   }
 
   renderSettingRows() {
@@ -217,7 +216,7 @@ module.exports = class StartScreen extends React.Component {
 
   render() {
     var listComplete = this.state.aiDefList.length >= 2;
-    return <Row>
+    var content = <Row>
       <Col lg={4} md={5}>
         <div className="thumbnail text-center">
           <div className="caption">
@@ -229,8 +228,9 @@ module.exports = class StartScreen extends React.Component {
         </div>
       </Col>
       <Col lg={8} md={7}>
-        {!this.state.loading ? this.renderSettings() : this.renderLoading()}
+        {this.renderSettings()}
       </Col>
     </Row>;
+    return !this.state.loading ? content : this.renderLoading();
   }
 };

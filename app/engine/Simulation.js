@@ -34,6 +34,7 @@ module.exports = class Simulation {
     this._onRenderStepCallback = [];
     this._onFinishCallback = [];
     this._onErrorCallback = [];
+    this._onStartCallback = [];
     this._timeElapsed = 0;
     this._timeLimit = 30000;
     this._eventStore = new EventStore();
@@ -69,6 +70,10 @@ module.exports = class Simulation {
 
   onRender(callback) {
     this._onRenderStepCallback.push(callback);
+  }
+
+  onStart(callback) {
+    this._onStartCallback.push(callback);
   }
 
   onFinish(callback) {
@@ -126,6 +131,7 @@ module.exports = class Simulation {
           clearTimeout(self._simulationTimeout);
         }
         self._perfMon.start();
+        for(i=0; i < self._onStartCallback.length; i++) self._onStartCallback[i]();
         self._simulationStep();
       })
       .catch(function(err) {

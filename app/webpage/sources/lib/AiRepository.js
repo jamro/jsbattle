@@ -34,7 +34,7 @@ module.exports = class AiRepository {
     }
     this._scriptMap[name] = {
       name: name,
-      code: "importScripts(\'lib\/tank.js\');\r\n\r\n\/\/ Don\'t know where to start?\r\n\/\/ Read Getting Started in \"Docs\" section \r\n\r\ntank.init(function(settings) {\r\n\t\/\/ initialize tank here\r\n  \r\n})\r\n\r\ntank.loop(function(state, control) {\r\n\t\/\/ write your tank logic here\r\n  \r\n});"
+      code: "importScripts(\'lib\/tank.js\');\n\n\/\/ Don\'t know where to start?\n\/\/ Read Getting Started in \"Docs\" section \n\ntank.init(function(settings) {\n\t\/\/ initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t\/\/ write your tank logic here\n  \n});\n\n\n"
     };
     localStorage.setItem('aiRepository.scriptMap', JSON.stringify(this._scriptMap));
   }

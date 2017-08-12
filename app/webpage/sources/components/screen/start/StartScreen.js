@@ -33,7 +33,7 @@ module.exports = class StartScreen extends React.Component {
 
   componentDidMount() {
     var self = this;
-    $.getJSON( "js/tanks/index.json", (tankList) => {
+    $.getJSON( "tanks/index.json", (tankList) => {
       var userTankNames = this.props.aiRepository.getScriptNameList();
       this.props.aiRepository.reserveName(tankList);
 
@@ -80,7 +80,7 @@ module.exports = class StartScreen extends React.Component {
       }
     })
     .fail(function() {
-      self.showError("Cannot load and parse js/tanks/index.json");
+      self.showError("Cannot load and parse tanks/index.json");
     });
   }
 

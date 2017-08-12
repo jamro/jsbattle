@@ -57,13 +57,23 @@ It serves content of `/dist` at [http://127.0.0.1:8080](http://127.0.0.1:8080) (
 ## Files Structure
 
 ```
-|-- JsBattle
++-- JsBattle
     |-- app
     |   |-- engine
     |   |-- tanks
     |   +-- webpage
     |-- build
     |-- dist
+    |   |-- css
+    |   |-- docs
+    |   |-- fonts
+    |   |-- img
+    |   |-- js
+    |   |   |-- jsbattle.min.js
+    |   |   +-- webpage.min.js
+    |   |-- tanks
+    |   |-- vendor
+    |   +-- index.html
     |-- docs
     |-- node_modules
     |-- resources
@@ -84,7 +94,16 @@ It serves content of `/dist` at [http://127.0.0.1:8080](http://127.0.0.1:8080) (
   * `/app/website` - source codes of website where battle simulation is embedded
 * **`/build`** - Gulp tasks. Each file is a separate task imported by `/gulpfile.js`. Configuration of Gulp is kept in `config.js`
 * **`/dist`** - build output goes here. It contains built version of the game.
-* **`/docs`** - Documentation in markdown format. There is an `inde.html` in the directory that comes from [Docsify](https://docsify.js.org/) and allows to display docs as HTML
+  * `dist/css` - style sheets files
+  * `dist/docs` - this documentation in HTML format (via [Docsify](https://docsify.js.org/))
+  * `dist/fonts` - web fonts used in the website
+  * `dist/img` - images of the website and sprite sheets of the battle renderer
+  * `dist/js` - JavaScript code of JsBattle.
+    * `dist/js/jsbattle.min.js` - compiled battle simulation scripts
+    * `dist/js/webpage.min.js` - compiled webpage scripts
+  * `dist/tanks` - code of bundled tanks
+  * `dist/vendor` - third party libraries
+* **`/docs`** - Documentation in markdown format. There is an `index.html` in the directory that comes from [Docsify](https://docsify.js.org/) and allows to display docs as HTML
 * **`/node_modules`** - NPM dependencies
 * **`/resources`** -  graphical assets that are used in the game. Each directory has contains assets of different renderer. Graphics are converted to sprite sheets by [Pixi Packer](https://github.com/gamevy/pixi-packer). ``images.js`` contains information about conversion process. For more documentation read documentation of [Pixi Packer](https://github.com/gamevy/pixi-packer)
 * **`/test`** - Test scripts
@@ -99,7 +118,7 @@ Some of the tools used during JsBattle Development
 Tool                                                 | Description
 -----------------------------------------------------|-----------------------------------------
 [PixiJS](http://www.pixijs.com/)                     | HTML5 Rendering engine
-[CodeMirror](https://codemirror.net/)                | Source codes editor 
+[CodeMirror](https://codemirror.net/)                | Source codes editor
 [React](https://facebook.github.io/react/)           | User Interface library used to build components of the web page
 [Bootstrap](http://getbootstrap.com/)                | HTML and CSS framework used to build the web page
 [jQuery](https://jquery.com/)                        | Minor usage, mostly as Bootstrap dependency. The website is based rather on React.

@@ -51,9 +51,9 @@ module.exports = class AiWrapper {
     return new Promise(function (resolve, reject) {
       var workerPath;
       if(self._code) {
-        workerPath = "js/tanks/lib/codeWorker.js";
+        workerPath = "tanks/lib/codeWorker.js";
       } else {
-        workerPath = "js/tanks/" + self._tank.name + ".tank.js";
+        workerPath = "tanks/" + self._tank.name + ".tank.js";
       }
       self._aiWorker = self._createWorker(workerPath);
       self._aiWorker.onerror = function(err) {

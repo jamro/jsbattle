@@ -28,6 +28,6 @@ module.exports = function (gulp, config, plugins) {
           }
         }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(config.dist + "js/tanks/lib/"));
+        .pipe(gulp.dest(config.dist + "tanks/lib/"));
     };
 };

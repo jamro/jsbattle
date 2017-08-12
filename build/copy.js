@@ -12,7 +12,7 @@ module.exports = function (gulp, config, plugins) {
         .on('end', onComplete);
 
       gulp.src(config.tanks.resources, { base : config.tanks.resourcesBase })
-        .pipe(gulp.dest(config.dist + "js/tanks/"))
+        .pipe(gulp.dest(config.dist + "tanks/"))
         .on('end', onComplete);
 
       gulp.src(config.webpage.externalLib, { base : 'node_modules' })

@@ -26,6 +26,7 @@ module.exports = {
      'node_modules/react-dom/dist/**/*',
      'node_modules/codemirror/lib/**/*',
      'node_modules/codemirror/mode/javascript/**/*',
+     'node_modules/codemirror/addon/hint/**/*',
      'node_modules/codemirror/theme/ambiance.css'
     ]
   },

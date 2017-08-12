@@ -3,16 +3,12 @@ module.exports = function (gulp, config, plugins) {
       var completeCount = 0;
       function onComplete() {
         completeCount++;
-        if(completeCount == 4) {
+        if(completeCount == 3) {
           done();
         }
       }
       gulp.src(config.webpage.static)
         .pipe(gulp.dest(config.dist))
-        .on('end', onComplete);
-
-      gulp.src(config.tanks.resources, { base : config.tanks.resourcesBase })
-        .pipe(gulp.dest(config.dist + "tanks/"))
         .on('end', onComplete);
 
       gulp.src(config.webpage.externalLib, { base : 'node_modules' })

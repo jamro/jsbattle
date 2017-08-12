@@ -19,7 +19,7 @@ The building process can be started via npm:
   npm run-script build
 ```
 
-Above command will rebuild the whole project and put results to `/dist` directory. As you may see, building workflow is based on [Gulp](https://gulpjs.com/). It is recommended to install Gulp globally to start it by simple command `gulp`.
+Above command will rebuild the whole project and put results to `/dist` directory. As you may see, building workflow is based on [Gulp](https://gulpjs.com/). It is recommended to install Gulp globally to start it by a simple `gulp` command.
 
 Let's install gulp globally:
 ```bash
@@ -31,18 +31,13 @@ There are several Gulp tasks that could be useful for you:
  Task Name      | Description
  ---------------|-------------------------------------
  default        | Rebuild the whole project
- watch          | Watch project folders for changes and rebuild the project if any files have changed
+ watch          | Watch project folders for changes and rebuild the project if any files have changed. Always use with --dv option (it will make whole process much faster)
  clean          | Clears `/dist` directory
  clean-tmp      | Clears `/tmp` where the cache of sprite sheets is stored. Could be useful to rebuild sprite sheets what is a time consuming process.
  engine.test    | Runs unit tests of battle simulation engine
  engine.jshint  | Checks source codes of battle simulation engine
  webpage.jshint | Checks source codes of the website
 
-Gulp tasks may be executed with `--dev` option. It will make the process faster by skipping some parts that are not mandatory during development (e.g. minification):
-
-```bash
-  gulp watch --dev
-```
 
 ## Starting the Battle
 

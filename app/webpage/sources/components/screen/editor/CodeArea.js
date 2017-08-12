@@ -63,15 +63,15 @@ module.exports = class CodeArea extends React.Component {
           init: null,
           loop: null
         }
-      }
+      };
 
       var cursor = editor.getCursor();
       var curLine = editor.getLine(cursor.line).substring(0, cursor.ch);
-      var pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/
+      var pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/;
       var phrase = pattern.exec(curLine);
       phrase = phrase ? phrase[1] : "";
-      phrase = phrase.split(".")
-      pattern = /([A-Za-z\_]*)$/
+      phrase = phrase.split(".");
+      pattern = /([A-Za-z\_]*)$/;
       var word = pattern.exec(curLine);
       word = word ? word[0] : "";
       var end = cursor.ch;
@@ -117,7 +117,7 @@ module.exports = class CodeArea extends React.Component {
       if (!cm.state.completionActive && ignoreKeys.indexOf(event.keyCode) == -1) {
         CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
       }
-    })
+    });
 
     this.codeMirror.setSize("100%", "100%");
   }

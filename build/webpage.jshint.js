@@ -1,4 +1,10 @@
 module.exports = function (gulp, config, plugins) {
+    if(config.devMode) {
+      plugins.util.log(plugins.util.colors.yellow("webpage.jshint disabled in dev mode"));
+      return function () {
+        return gulp.src('.').pipe(plugins.util.noop());
+      }
+    }
     return function () {
       return gulp.src(config.webpage.sources)
         .pipe(plugins.react())

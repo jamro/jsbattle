@@ -12,3 +12,6 @@
   - [Scoring System](/docs/manual/scoring_system.md)
   - [Constants and Formulas](/docs/manual/consts.md)
 - [**Development Guide**](/docs/dev_guide/README.md)
+  - [Building Process](/docs/dev_guide/building.md)
+  - [Project Structure](/docs/dev_guide/structure.md)
+  - [Toolset](/docs/dev_guide/toolset.md)

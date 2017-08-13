@@ -1,14 +1,8 @@
 module.exports = function (gulp, config, plugins) {
-  if(config.devMode) {
-    plugins.util.log(plugins.util.colors.yellow("webpage.test disabled in dev mode"));
-    return function () {
-      return gulp.src('.').pipe(plugins.util.noop());
-    }
-  }
   return function () {
     plugins.connect.server({
-      name: 'test',
-      root: config.dist,
+      name: 'Test Server',
+      root: config.tmp + 'dist/',
       port: 8070
     });
     return gulp.src(config.webpage.test)

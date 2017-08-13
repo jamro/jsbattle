@@ -8,34 +8,34 @@ module.exports = function (gulp, config, plugins) {
           sourceMap: true
         }));
       }
-      return gulp.src(config.engine.sources.concat(config.engine.lib))
+      return gulp.src(config.webpage.sources.concat(config.webpage.lib))
         .pipe(plugins.webpack({
           entry: {
-            app: config.engine.entry
+            app: config.webpage.entry
           },
           devtool: (!config.devMode) ? "source-map" : null,
           output: {
-            filename: 'jsbattle.min.js',
-            library: 'JsBattle',
+            filename: 'webpage.min.js',
+            library: 'webpage',
             libraryTarget: 'var'
           },
           node: {
-            fs: 'empty'
+          	fs: 'empty'
           },
           plugins: webpackPlugins,
           module: {
             loaders: [
               {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /(nodes_modules)/,
                 loader: "babel-loader",
                 query: {
-                    presets: ["es2015"]
+                    presets: ["es2015", "react"]
                 }
-              }
+              },
             ]
           }
         }))
-        .pipe(gulp.dest(config.dist + 'js/'));
+        .pipe(gulp.dest(config.tmp + "dist/js/"))
     };
 };

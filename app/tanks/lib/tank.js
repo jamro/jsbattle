@@ -2,8 +2,8 @@ var seedrandom = require("seedrandom");
 var extendedMath = require("./extendedMath.js")();
 
 Math.random = function() {
-  throw "Cannot use Math.random outside of tank.init(...) or tank.loop(...) callbacks! Sorry!"
-}
+  throw "Cannot use Math.random outside of tank.init(...) or tank.loop(...) callbacks! Sorry!";
+};
 
 class TankController {
   constructor() {
@@ -36,7 +36,7 @@ class TankController {
           }
           break;
       }
-    }
+    };
   }
 
   loop(callback) {

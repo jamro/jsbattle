@@ -8,15 +8,15 @@ module.exports = function (gulp, config, plugins) {
         }
       }
       gulp.src(config.webpage.static)
-        .pipe(gulp.dest(config.dist))
+        .pipe(gulp.dest(config.tmp + 'dist/'))
         .on('end', onComplete);
 
       gulp.src(config.webpage.externalLib, { base : 'node_modules' })
-        .pipe(gulp.dest(config.dist + "vendor/"))
+        .pipe(gulp.dest(config.tmp + "dist/vendor/"))
         .on('end', onComplete);
 
       gulp.src(config.docs.sources)
-        .pipe(gulp.dest(config.dist + "docs/"))
+        .pipe(gulp.dest(config.tmp + "dist/docs/"))
         .on('end', onComplete);
     };
 };

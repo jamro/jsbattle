@@ -13,7 +13,7 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     super();
     this._name = name;
 
-    if(!PIXI) {
+    if(typeof PIXI === 'undefined') {
       throw "Pixi.js is required!";
     }
     this._masterContainer = new PIXI.Container();

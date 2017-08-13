@@ -6,11 +6,11 @@ If you are interested in running JsBattle locally, please read the [Installation
 
 When you open JsBattle you will see Battle configuration screen.
 
-![alt text](img/start_screen_001.png)
+![alt text](/docs/img/start_screen_001.png)
 
 You choose tanks for a battle there. It is also possible to choose several tanks of the same time. The game comes with bundled set of enemies so you can test it even before you write the first tank algorithm. Skip the configuration for now and just click **Start** button to begin the first battle:
 
-![alt text](img/battle_screen_001.png)
+![alt text](/docs/img/battle_screen_001.png)
 
 Tank chosen in the previous step will start to fight. Below the battlefield, there is a ranking board with actual score and energy of each tank. There is also a debug view on the right, but let's leave it now. We will get back to it later.
 
@@ -20,7 +20,7 @@ The battle is time limited. It is finished when time runs out or there is only o
 
 After the battle, a short summary will be show:
 
-![alt text](img/summary_screen_001.png)
+![alt text](/docs/img/summary_screen_001.png)
 
 Let's click **"Next Battle"** and build your first tank program.
 
@@ -28,11 +28,11 @@ Let's click **"Next Battle"** and build your first tank program.
 
 Click **"Create Tank"** button to add new tank to the list. It will appear on the top with a random name
 
-![alt text](img/start_screen_002.png)
+![alt text](/docs/img/start_screen_002.png)
 
 Choose only two tanks for the battle: your new tank and `dummy`. Set count for all other tanks to zero. It will be easier to test your tank with one enemy only. Now click the edit button next to your new tank to open **AI Script Editor**:
 
-![alt text](img/editor_screen_001.png)
+![alt text](/docs/img/editor_screen_001.png)
 
 You can change the name of your tank here by clicking the edit button next to its name.
 
@@ -147,7 +147,7 @@ You can observe how the debug object is changing over the battle by selecting yo
 
 Now start the battle again by clicking **Quick Battle** and watch the new version of your AI in action.
 
-![alt text](img/battle_screen_002.png)
+![alt text](/docs/img/battle_screen_002.png)
 
 If you are lucky, you could even earn some points because ramming is part of [scoring system](/docs/manual/scoring_system.md). Take a look also at the **Debug View**. It will show `control.DEBUG` but the [state object](/docs/manual/tank_state_object.md)
 

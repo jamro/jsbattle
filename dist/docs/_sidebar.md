@@ -1,4 +1,4 @@
-- [**Home**](/)
+- [**Home**](/docs/README.md)
 - [**Installation**](/docs/installation.md)
 - [**Getting Started**](/docs/getting_started.md)
 - [**Manual**](/docs/manual/README.md)
@@ -13,5 +13,6 @@
   - [Constants and Formulas](/docs/manual/consts.md)
 - [**Development Guide**](/docs/dev_guide/README.md)
   - [Building Process](/docs/dev_guide/building.md)
+  - [JsBattle Library Tutorial](/docs/dev_guide/sim_lib.md)
   - [Project Structure](/docs/dev_guide/structure.md)
   - [Toolset](/docs/dev_guide/toolset.md)

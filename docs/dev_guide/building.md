@@ -2,7 +2,32 @@
 
 ## Project Dependencies
 
-At the beginning, download JsBattle as described in [**Getting Started**](/docs/getting_started.md). Next, go to directory with the project where `package.json` is located and install all dependencies:
+At the beginning, download JsBattle. There are at least two ways to do that:
+
+### Option 1: Download from GitHub
+
+Download sources of latest release from here: [https://github.com/jamro/jsbattle/releases](https://github.com/jamro/jsbattle/releases) and unpack the archive.
+
+Go to the directory with the game and install all NPM dependencies:
+
+```bash
+  npm install
+```
+
+### Option 2: Use NPM
+
+Install JsBattle in selected directory:
+
+```bash
+  npm install jsbattle
+```
+
+Go to `node_modules/jsbattle` directory
+
+
+
+
+ Next, go to directory with the project where `package.json` is located and install all dependencies:
 
 ```bash
   npm install

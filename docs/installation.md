@@ -46,6 +46,6 @@ Open your favorite web browser and navigate to URL from the previous step
 
 It will open battle starting page
 
-![alt text](img/start_screen_001.png)
+![alt text](/docs/img/start_screen_001.png)
 
 Just click the **Start** button to watch the battle.

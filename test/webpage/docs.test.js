@@ -1,14 +1,19 @@
 casper.test.begin('Links in documentation works', function suite(test) {
   var BASE_URL = 'http://127.0.0.1:8070/docs/';
-  var allLinks = [];
-  var linkQueue = [{
-    url: BASE_URL,
-    parent: '/'
-  }];
+  var START_PAGE = BASE_URL + "#/docs/README"
+  var allLinks = [
+    BASE_URL
+  ];
+  var linkQueue = [
+    {
+      url: START_PAGE,
+      parent: '/'
+    }
+];
   var loopCount = 0;
 
   casper
-    .start(BASE_URL)
+    .start(START_PAGE)
     .then(function() {
       processLinkQueue(this, test);
     })

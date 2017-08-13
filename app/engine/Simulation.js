@@ -9,9 +9,17 @@ var AiWrapper = require("./AiWrapper.js");
 var PerformanceMonitor = require("./PerformanceMonitor.js");
 var seedrandom = require("seedrandom");
 
-
-module.exports = class Simulation {
-
+/**
+ * Battle simulation component. Process the simulation updating all related objects
+ * and refreshing the renderer.
+ */
+class Simulation {
+  /**
+   * Create Simulation object. Constructor is not available outside of
+   * `JsBattle.min.js` library. To create Simulation object use
+   * `JsBattle.createSimulation(renderer)` instead
+   * @param {Renderer} renderer - Renderer used to present results of the simulation
+   */
   constructor(renderer) {
     this._aiList = [];
     this._allTankList = [];
@@ -46,44 +54,28 @@ module.exports = class Simulation {
     Math.random = this._rng;
   }
 
+  /**
+   * Initialize the battle field. Must be called before any other calls
+   * to simulation object
+   * @param {Number} width - width of the battlefield
+   * @param {Number} height - height of the battlefield
+   */
   init(width, height) {
     this._battlefield.setSize(width, height);
     this._renderer.initBatlefield(this._battlefield);
     this._collisionResolver.updateBattlefield(this._battlefield);
   }
 
-  setRendererQuality(v) {
-    if(isNaN(v) && v != 'auto') return;
-    if(!isNaN(v)) {
-      v = Math.min(1, Math.max(0, v));
-    }
-    this._rendererQuality = v;
-  }
-
+  /**
+   * @return all tanks that were added to the battle
+   */
   get tankList() {
     return this._allTankList;
   }
 
-  onStep(callback) {
-    this._onSimulationStepCallback.push(callback);
-  }
-
-  onRender(callback) {
-    this._onRenderStepCallback.push(callback);
-  }
-
-  onStart(callback) {
-    this._onStartCallback.push(callback);
-  }
-
-  onFinish(callback) {
-    this._onFinishCallback.push(callback);
-  }
-
-  onError(callback) {
-    this._onErrorCallback.push(callback);
-  }
-
+  /**
+   * @return renderer attached to the simulation
+   */
   get renderer() {
     return this._renderer;
   }
@@ -92,10 +84,16 @@ module.exports = class Simulation {
     return this._battlefield;
   }
 
+  /**
+   * @return amount of time that has elapsed from the beginning of the battle (in milliseconds)
+   */
   get timeElapsed() {
     return this._timeElapsed;
   }
 
+  /**
+   * @return maximum duration of the battle (in milliseconds). The battle will be over after that time.
+   */
   get timeLimit() {
     return this._timeLimit;
   }
@@ -104,13 +102,12 @@ module.exports = class Simulation {
     this._timeLimit = v;
   }
 
-
-  setSpeed(v) {
-    this._speedMultiplier = Math.max(0.01, Number(v));
-    this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
-    this._renderer.setSpeed(v);
-  }
-
+  /**
+   * Starts simulation of the battle. It will initialize all AI scripts, trigger `onStart` event
+   * and launch rendering and simulation processing loops. Remember to call `Simulation.init()` and
+   * `Simulation.addTank()` before executing this method.
+   * @see Simulation.onStart()
+   */
   start() {
     this._isRunning = true;
     var i;
@@ -179,27 +176,12 @@ module.exports = class Simulation {
       });
   }
 
-  stop() {
-    this._isRunning = false;
-    this._perfMon.stop();
-    this._renderer.stop();
-    if(this._simulationTimeout) {
-      clearTimeout(this._simulationTimeout);
-      this._simulationTimeout = null;
-    }
-    if(this._renderInterval) {
-      clearInterval(this._renderInterval);
-      this._renderInterval = null;
-    }
-    var tank, ai, i;
-    for(i=0; i < this._aiList.length; i++) {
-      ai = this._aiList[i];
-      if(!ai) continue;
-      ai.deactivate();
-    }
-
-  }
-
+  /**
+   * Create a tank according to provided `AiDefinition`. Remember to add at
+   * least two tanks to the battle. Otherwise, it will stop immediately and
+   * the winner will be recognized
+   * @param {AiDefinition} - defintion of tank AI script
+   */
   addTank(aiDefinition) {
     if(typeof aiDefinition != 'object') {
       throw "AI definition must be an object";
@@ -224,6 +206,116 @@ module.exports = class Simulation {
     this._aiList.push(ai);
 
     return ai;
+  }
+
+  /**
+   * Set speed multiplier of the simulation. Setting to `2`means that everything will be
+   * two times faster than usual. Setting to `0.5` will simulate the battle 2 times slower
+   * than usual
+   * @param {Number} multiplier - simulation speed multiplier
+   */
+  setSpeed(v) {
+    this._speedMultiplier = Math.max(0.01, Number(v));
+    this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
+    this._renderer.setSpeed(v);
+  }
+
+  /**
+   * Sets quality of renderer controlled by simulation object.
+   * You can specify a value between 0 (lowest quality) and 1 (highest quality)
+   * or allow the simulation to adjust it automatically by passing 'auto' string
+   * Automatic quality adjustment try to keep the speed of the animation at proper level.
+   * If simulation is lagging, quality will be reduced to ensure that the simulation
+   * does not take longer than it should
+   * @param {Number|String} qualityLevel - number between 0 and 1 or 'auto' string
+   */
+  setRendererQuality(v) {
+    if(isNaN(v) && v != 'auto') return;
+    if(!isNaN(v)) {
+      v = Math.min(1, Math.max(0, v));
+    }
+    this._rendererQuality = v;
+  }
+
+  /**
+   * Stops battle simulation. It also stops rendering loop.
+   * After calling this method you should not try to call
+   * start to resume the battle but rather create a new
+   * Simulation object and initialize it from the beginning
+   */
+  stop() {
+    this._isRunning = false;
+    this._perfMon.stop();
+    this._renderer.stop();
+    if(this._simulationTimeout) {
+      clearTimeout(this._simulationTimeout);
+      this._simulationTimeout = null;
+    }
+    if(this._renderInterval) {
+      clearInterval(this._renderInterval);
+      this._renderInterval = null;
+    }
+    var tank, ai, i;
+    for(i=0; i < this._aiList.length; i++) {
+      ai = this._aiList[i];
+      if(!ai) continue;
+      ai.deactivate();
+    }
+
+  }
+
+
+  /**
+   * Allow adding a callback that will be called after each step of simulation
+   * processing loop. The callback takes no arguments. The frequency of this event
+   * depends on simulation speed.
+   * @param {Function} callback - callback that will be called on each event occurence.
+   * @see `Simulation.setSpeed()`
+   */
+  onStep(callback) {
+    this._onSimulationStepCallback.push(callback);
+  }
+
+  /**
+   * Allow adding a callback that will be called after each refresh of the renderer.
+   * The callback takes no arguments. `onRender` and `onStep` event are not synchronized
+   * and may be called at different intervals. Increasing of animation speed will not
+   * increase rendering frequency. Rendering frequency is affected by quality of
+   * rendering parameter
+   * @param {Function} callback - callback that will be called on each event occurence.
+   * @see `Simulation.setSpeed()`
+   * @see `Simulation.setRendererQuality()`
+   */
+  onRender(callback) {
+    this._onRenderStepCallback.push(callback);
+  }
+
+  /**
+   * Allow adding a callback that will be called when the battle is started.
+   * It is executed after initialization of all AI Scripts, just before
+   * first step of simulation processing loop. The callback takes no arguments.
+   * @param {Function} callback - callback that will be called on each event occurence.
+   */
+  onStart(callback) {
+    this._onStartCallback.push(callback);
+  }
+
+  /**
+   * Allow adding a callback that will be called when the battle is over.
+   * The callback takes no arguments.
+   * @param {Function} callback - callback that will be called on each event occurence.
+   */
+  onFinish(callback) {
+    this._onFinishCallback.push(callback);
+  }
+
+  /**
+   * Allow adding a callback that will be called when an error occur.
+   * The callback takes one arguments: error message
+   * @param {Function} callback - callback that will be called on each event occurence.
+   */
+  onError(callback) {
+    this._onErrorCallback.push(callback);
   }
 
   _activateAi() {
@@ -401,4 +493,5 @@ module.exports = class Simulation {
     return bullet;
   }
 
-};
+}
+module.exports = Simulation;

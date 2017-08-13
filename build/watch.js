@@ -9,6 +9,7 @@ module.exports = function (gulp, config, plugins) {
     plugins.sequence(
       'engine.sources',
       'engine.sprites',
+      'engine.docs',
       'connect-reload',
       'beep',
       done

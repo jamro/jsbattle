@@ -90,9 +90,9 @@ Let's write some code:
   var simulation = JsBattle.createSimulation(renderer);
   simulation.init(900, 600);
   for(var i=0; i < 5; i++) {
-    simulation.addTank({
-      name: 'test'
-    });
+    var ai = JsBattle.createAiDefinition();
+    ai.fromFile('test');
+    simulation.addTank(ai);
   }
   simulation.start();
 </script>
@@ -116,12 +116,12 @@ The renderer created above can be now used to create simulation object and initi
 When the simulation is ready, we can add tanks to the battle. Remember to add at least two. Otherwise, the battle will finish immediately since there will be no opponents left and the only one tank will be recognized as the winner:
 
 ```javascript
-simulation.addTank({
-  name: 'test'
-});
+var ai = JsBattle.createAiDefinition();
+ai.fromFile('test');
+simulation.addTank(ai);
 ```
 
-`name` field must correspond to the filename of tank's AI. In this case, setting it to `'test'` will result in downloading AI Script from `/tanks/test.tank.js`.
+`tankName` argument passed to `AiDefinition.fromFile()` must correspond to the filename of tank's AI. In this case, setting it to `'test'` will result in downloading AI Script from `/tanks/test.tank.js`.
 
 When all tanks are added it is time to begin the battle:
 

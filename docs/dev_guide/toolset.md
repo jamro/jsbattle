@@ -26,6 +26,7 @@ Tool                                                 | Description
 [BabelJs](https://babeljs.io/)                       | Converts ES6 to most web browsers compliant code
 [Pixi Packer](https://github.com/gamevy/pixi-packer) | Build sprite sheets
 [http-server](https://github.com/indexzero/http-server) | Lightweight NPM web server used to run the game
+[JSDocs](http://usejsdoc.org/)                       |  API documentation generator
 
 
 ## Tests and code validation

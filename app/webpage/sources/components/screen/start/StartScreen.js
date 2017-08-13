@@ -112,10 +112,13 @@ module.exports = class StartScreen extends React.Component {
     var aiDefList = [];
     for(i=0; i < battleSet.length; i++) {
       for(j=0; j < battleSet[i].count; j++) {
-        aiDefList.push({
-          name: battleSet[i].name,
-          code: battleSet[i].userCreated ? this.props.aiRepository.getCompiledScript(battleSet[i].name) : null
-        });
+        var aiDef = JsBattle.createAiDefinition();
+        if(battleSet[i].userCreated) {
+          aiDef.fromCode(battleSet[i].name, this.props.aiRepository.getCompiledScript(battleSet[i].name));
+        } else {
+          aiDef.fromFile(battleSet[i].name);
+        }
+        aiDefList.push(aiDef);
       }
     }
     this.setState({

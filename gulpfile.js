@@ -17,6 +17,7 @@ gulp.task('engine.sprites', require('./build/engine/engine.sprites.js')(gulp, co
 gulp.task('engine.jshint', require('./build/engine/engine.jshint.js')(gulp, config, plugins));
 gulp.task('engine.test', require('./build/engine/engine.test.js')(gulp, config, plugins));
 gulp.task('engine.sources', require('./build/engine/engine.sources.js')(gulp, config, plugins));
+gulp.task('engine.docs', require('./build/engine/engine.docs.js')(gulp, config, plugins));
 
 gulp.task('tanks.jshint', require('./build/tanks/tanks.jshint.js')(gulp, config, plugins));
 gulp.task('tanks.sources', require('./build/tanks/tanks.sources.js')(gulp, config, plugins));

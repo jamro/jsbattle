@@ -7,6 +7,7 @@ module.exports = function (gulp, config, plugins) {
       'tanks.test',
       'clean',
       'webpage.copy',
+      'engine.docs',
       'webpage.sources',
       'engine.sources',
       'engine.sprites',

@@ -14,5 +14,6 @@
 - [**Development Guide**](/docs/dev_guide/README.md)
   - [Building Process](/docs/dev_guide/building.md)
   - [JsBattle Library Tutorial](/docs/dev_guide/sim_lib.md)
+  - [JsBattle API](/docs/dev_guide/api.md)
   - [Project Structure](/docs/dev_guide/structure.md)
   - [Toolset](/docs/dev_guide/toolset.md)

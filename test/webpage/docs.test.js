@@ -78,6 +78,7 @@ casper.test.begin('Links in documentation works', function suite(test) {
       });
       return items;
     });
+    if(!result) return;
     result = Array.prototype.map.call(result,function(url){
       return {
         url: BASE_URL + url,

@@ -5,6 +5,7 @@ var Renderer = require("./renderers/Renderer.js");
 var DebugRenderer = require("./renderers/debug/DebugRenderer.js");
 var BWRenderer = require("./renderers/bw/BWRenderer.js");
 var BrodyRenderer = require("./renderers/brody/BrodyRenderer.js");
+var AiDefinition = require("./AiDefinition.js");
 
 
 module.exports  = {
@@ -13,6 +14,10 @@ module.exports  = {
     renderer = renderer ? renderer : new Renderer();
     var sim = new Simulation(renderer);
     return sim;
+  },
+
+  createAiDefinition: function() {
+    return new AiDefinition();
   },
 
   createRenderer: function(name) {

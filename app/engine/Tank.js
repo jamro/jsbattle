@@ -6,8 +6,17 @@ function normalizeAngle(a) {
   return a;
 }
 
-module.exports = class Tank {
+/**
+ * Object represents a tank that is involved in the battle during simulation
+ */
+class Tank {
 
+  /**
+   * Constructor should not be called directly but through
+   * `Simulation.addTank()` method
+   * @param {AiDefinition} aiDefinition - definition of tank's AI Script
+   * @param {Number} id - unique id of the tank
+   */
   constructor(aiDefinition, id) {
     if(typeof aiDefinition != 'object') {
       throw "AI definition must be an object";
@@ -50,22 +59,36 @@ module.exports = class Tank {
     this._skin = 'zebra';
   }
 
+  /**
+   * @return unique id of the tank
+   */
   get id() {
     return this._id;
   }
-
+  /**
+   * @return skin name applied to the tank
+   */
   get skin() {
     return this._skin;
   }
 
+  /**
+   * @return an object that represents current state of the tank
+   */
   get state() {
     return this._state;
   }
 
+  /**
+   * @return amount of energy that the tank has
+   */
   get energy() {
     return this._energy;
   }
 
+  /**
+   * @return current score of the tank
+   */
   get score() {
     return this._score;
   }
@@ -82,34 +105,58 @@ module.exports = class Tank {
     this._score += 10;
   }
 
+  /**
+   * @return initial amount of the energy
+   */
   get maxEnergy() {
     return this._maxEnergy;
   }
 
+  /**
+   * @return range of tank's radar
+   */
   get radarRange() {
     return this._radarRange;
   }
 
+  /**
+   * @return angle that radar field covers
+   */
   get radarFocal() {
     return this._radarFocal;
   }
 
+  /**
+   * @return name of the tank
+   */
   get name() {
     return this._name;
   }
 
+  /**
+   * @return full name contains name of the tank and its unique ID
+   */
   get fullName() {
     return this._name + " #" + this._id;
   }
 
+  /**
+   * @return x position of the tank
+   */
   get x() {
     return this._x;
   }
 
+  /**
+   * @return y position of the tank
+   */
   get y() {
     return this._y;
   }
 
+  /**
+   * @return linear speed of the tank
+   */
   get speed() {
     return this._speed;
   }
@@ -118,30 +165,50 @@ module.exports = class Tank {
     return 25;
   }
 
+  /**
+   * @return rotation of tank's body
+   */
   get angle() {
     return this._angle;
   }
 
+  /**
+   * @return current throttle of the tank
+   */
   get throttle() {
     return this._throttle;
   }
-
+  /**
+   * @return true if tank has boost turned on. Otherwise false
+   */
   get hasBoost() {
     return (this._hasBoost && this._boost > 0);
   }
 
+  /**
+   * @return amount of boost that has left
+   */
   get boost() {
     return this._boost;
   }
 
+  /**
+   * @return initial amount of boost
+   */
   get maxBoost() {
     return this._maxBoost;
   }
 
+  /**
+   * @return rotation of tank's gun (relative to tank's body)
+   */
   get gunAngle() {
     return this._gunAngle;
   }
 
+  /**
+   * @return rotation of tank's radar (relative to tank's body)
+   */
   get radarAngle() {
     return this._radarAngle;
   }
@@ -205,6 +272,9 @@ module.exports = class Tank {
     this._targetingAlarmTimer = 3;
   }
 
+  /**
+   * @return true if tank is on the radar of an enemy. Otherwise false
+   */
   get targetingAlarm() {
     return this._targetingAlarmTimer > 0;
   }
@@ -220,6 +290,9 @@ module.exports = class Tank {
     this._lastY = yPosition;
   }
 
+  /**
+   * @return debug data set by AI script via `control.DEBUG`
+   */
   get debugData() {
     return this._debugData;
   }
@@ -374,4 +447,6 @@ module.exports = class Tank {
       }
     };
   }
-};
+}
+
+module.exports = Tank;

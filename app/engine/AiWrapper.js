@@ -50,6 +50,15 @@ module.exports = class AiWrapper {
     this._onDeactivationCallback.push(callback);
   }
 
+  _formatError(err) {
+    if(!err.message) return 'unknown';
+    var msg = err.message;
+    if(err.lineno) {
+      msg = "Line #" + err.lineno + ": " + msg;
+    }
+    return msg;
+  }
+
   activate(seed, resolve, reject) {
     if(typeof seed != 'number') throw "seed must be a number, '" + (typeof seed) + "' given";
     if(typeof resolve != 'function') throw "resolve callback must be a function, '" + (typeof resolve) + "' given";
@@ -57,10 +66,10 @@ module.exports = class AiWrapper {
     var self = this;
     self._aiWorker = self._createWorker(this._aiDefinition);
     self._aiWorker.onerror = function(err) {
-      console.log(err);
+      console.error(err);
       if(self._aiProcessingRejectCallback) {
         self._aiProcessingRejectCallback({
-          message: "Web Worker of '" + self._tank.fullName + "' returned an error: " + (err.message ? err.message : 'unknown'),
+          message: "Web Worker of '" + self._tank.fullName + "' returned an error: " + self._formatError(err),
           performanceIssues: false,
           tankName: self._tank.name,
           tankId: self._tank.id

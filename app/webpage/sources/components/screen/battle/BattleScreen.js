@@ -19,7 +19,8 @@ module.exports = class BattleScreen extends React.Component {
       phase: "loading",
       timeLeft: 0,
       tankList: [],
-      windowSize: 'md'
+      windowSize: 'md',
+      error: ""
     };
   }
 
@@ -86,6 +87,7 @@ module.exports = class BattleScreen extends React.Component {
     if(this.props.onError) {
       this.props.onError(msg);
     }
+    this.setState({error: msg});
   }
 
   exit() {
@@ -119,6 +121,8 @@ module.exports = class BattleScreen extends React.Component {
     if(this.state.phase == 'loading') {
       scoreboard = null;
       debugView = null;
+    }
+    if(this.state.phase == 'loading' && !this.state.error) {
       exitButton = null;
       loading = <FullRow><Loading /></FullRow>;
     }

@@ -1,8 +1,12 @@
 'use strict';
 
+var EvalWorker = require('./EvalWorker.js');
+
 module.exports = class AiWrapper {
 
   constructor(tank, aiDefinition) {
+    if(!tank) throw "Tank is required";
+    if(!aiDefinition) throw "AiDefinition is required";
     this._tank = tank;
     this._aiWorker = null;
     this._aiProcessingStart = 0;
@@ -13,8 +17,7 @@ module.exports = class AiWrapper {
     this._onActivationCallback = [];
     this._onDectivationCallback = [];
     this._aiProcessingTimeLimit = 3000;
-    this._code = (aiDefinition && aiDefinition.code) ? this._cleanupCode(aiDefinition.code) : null;
-    this._initData = (aiDefinition && aiDefinition.initData) ? aiDefinition.initData : null;
+    this._aiDefinition = aiDefinition;
     this._isReady = false;
     this._controlData = {
       THROTTLE: 0,
@@ -47,101 +50,96 @@ module.exports = class AiWrapper {
     this._onDeactivationCallback.push(callback);
   }
 
-  activate(seed) {
+  activate(seed, resolve, reject) {
+    if(typeof seed != 'number') throw "seed must be a number, '" + (typeof seed) + "' given";
+    if(typeof resolve != 'function') throw "resolve callback must be a function, '" + (typeof resolve) + "' given";
+    if(typeof reject != 'function') throw "reject callback must be a function, '" + (typeof reject) + "' given";
     var self = this;
-    return new Promise(function (resolve, reject) {
-      var workerPath;
-      if(self._code) {
-        workerPath = "tanks/lib/codeWorker.js";
-      } else {
-        workerPath = "tanks/" + self._tank.name + ".tank.js";
+    self._aiWorker = self._createWorker(this._aiDefinition);
+    self._aiWorker.onerror = function(err) {
+      console.log(err);
+      if(self._aiProcessingRejectCallback) {
+        self._aiProcessingRejectCallback({
+          message: "Web Worker of '" + self._tank.fullName + "' returned an error: " + (err.message ? err.message : 'unknown'),
+          performanceIssues: false,
+          tankName: self._tank.name,
+          tankId: self._tank.id
+        });
+        self._aiProcessingResolveCallback = null;
+        self._aiProcessingRejectCallback = null;
       }
-      self._aiWorker = self._createWorker(workerPath);
-      self._aiWorker.onerror = function(err) {
-        console.log(err);
-        if(self._aiProcessingRejectCallback) {
+    };
+
+    if(self._aiProcessingCheckInterval) {
+      clearInterval(self._aiProcessingCheckInterval);
+      self._aiProcessingCheckInterval = null;
+    }
+
+    self._aiProcessingCheckInterval = setInterval(function() {
+      if(self._aiProcessingRejectCallback) {
+        var now = (new Date()).getTime();
+        var dt = now - self._aiProcessingStart;
+        if(dt > self._aiProcessingTimeLimit) {
+          clearInterval(self._aiProcessingCheckInterval);
+          self._aiProcessingCheckInterval = null;
           self._aiProcessingRejectCallback({
-            message: "Web Worker of '" + self._tank.fullName + "' returned an error: " + (err.message ? err.message : 'unknown'),
-            performanceIssues: false,
+            message: "Simulation cannot be continued because " + self._tank.name + " #" + self._tank.id + " does not respond",
+            performanceIssues: true,
             tankName: self._tank.name,
             tankId: self._tank.id
           });
-          self._aiProcessingResolveCallback = null;
-          self._aiProcessingRejectCallback = null;
         }
-      };
-
-      if(self._aiProcessingCheckInterval) {
-        clearInterval(self._aiProcessingCheckInterval);
-        self._aiProcessingCheckInterval = null;
       }
+    }, Math.max(self._aiDefinition.executionLimit, Math.round(self._aiProcessingTimeLimit/2)));
 
-      self._aiProcessingCheckInterval = setInterval(function() {
-        if(self._aiProcessingRejectCallback) {
-          var now = (new Date()).getTime();
-          var dt = now - self._aiProcessingStart;
-          if(dt > self._aiProcessingTimeLimit) {
-            clearInterval(self._aiProcessingCheckInterval);
-            self._aiProcessingCheckInterval = null;
-            self._aiProcessingRejectCallback({
-              message: "Simulation cannot be continued because " + self._tank.name + " #" + self._tank.id + " does not respond",
+    self._aiWorker.onmessage = function (commandEvent) {
+      var value = commandEvent.data;
+      if(self._aiProcessingResolveCallback) {
+        if(value.type == 'init') {
+          self._configureTank(value.settings ? value.settings : {});
+          self._isReady = true;
+          for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
+        } else {
+          self._controlTank(value);
+        }
+
+        var callback;
+        var now = (new Date()).getTime();
+        var dt = now - self._aiProcessingStart;
+        if(dt > self._aiDefinition.executionLimit && value.type != 'init') {
+          self._slowAiChances--;
+          console.warn("Execution of AI for tank " + self._tank.name + " #" + self._tank.id + " takes too long (" + dt + "ms). If problem repeats, AI will be terminated.");
+          if(self._slowAiChances <= 0) {
+            callback = self._aiProcessingRejectCallback;
+            self._aiProcessingResolveCallback = null;
+            self._aiProcessingRejectCallback = null;
+            callback({
+              message: "Simulation cannot be continued because " + self._tank.name + " #" + self._tank.id + " has performance issues",
               performanceIssues: true,
               tankName: self._tank.name,
               tankId: self._tank.id
             });
+            return;
           }
         }
-      }, Math.max(50, Math.round(self._aiProcessingTimeLimit/2)));
+        callback = self._aiProcessingResolveCallback;
+        self._aiProcessingResolveCallback = null;
+        self._aiProcessingRejectCallback = null;
+        callback();
+      }
 
-      self._aiWorker.onmessage = function (commandEvent) {
-
-        var value = commandEvent.data;
-
-        if(self._aiProcessingResolveCallback) {
-          if(value.type == 'init') {
-            self._configureTank(value.settings ? value.settings : {});
-            self._isReady = true;
-            for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
-          } else {
-            self._controlTank(value);
-          }
-
-          var now = (new Date()).getTime();
-          var dt = now - self._aiProcessingStart;
-          if(dt > 50 && value.type != 'init') {
-            self._slowAiChances--;
-            console.warn("Execution of AI for tank " + self._tank.name + " #" + self._tank.id + " takes too long. If problem repeats, AI will be terminated.");
-            if(self._slowAiChances <= 0) {
-              self._aiProcessingRejectCallback({
-                message: "Simulation cannot be continued because " + self._tank.name + " #" + self._tank.id + " has performance issues",
-                performanceIssues: true,
-                tankName: self._tank.name,
-                tankId: self._tank.id
-              });
-              self._aiProcessingResolveCallback = null;
-              self._aiProcessingRejectCallback = null;
-              return;
-            }
-          }
-
-          self._aiProcessingResolveCallback();
-          self._aiProcessingResolveCallback = null;
-          self._aiProcessingRejectCallback = null;
-        }
-
-      };
-      self._aiProcessingStart = (new Date()).getTime();
-      self._aiProcessingResolveCallback = resolve;
-      self._aiProcessingRejectCallback = reject;
-      self._aiWorker.postMessage({
-        command: 'init',
-        seed: seed + ":" + self._tank.id,
-        settings: {
-          SKIN: 'zebra'
-        },
-        code: self._code,
-        initData: self._initData
-      });
+    };
+    self._aiProcessingStart = (new Date()).getTime();
+    self._aiProcessingResolveCallback = resolve;
+    self._aiProcessingRejectCallback = reject;
+    self._aiWorker.postMessage({
+      command: 'init',
+      seed: seed + ":" + self._tank.id,
+      settings: {
+        SKIN: 'zebra'
+      },
+      code: self._aiDefinition.code,
+      initData: self._aiDefinition.initData
     });
   }
 
@@ -158,34 +156,29 @@ module.exports = class AiWrapper {
     for(var i=0; i < this._onDectivationCallback.length; i++) this._onDectivationCallback[i].bind(this)();
   }
 
-  simulationStep() {
+  simulationStep(resolve, reject) {
+    if(typeof resolve != 'function') throw "resolve callback must be a function, '" + (typeof resolve) + "' given";
+    if(typeof reject != 'function') throw "reject callback must be a function, '" + (typeof reject) + "' given";
     if(!this._isReady) {
       throw "AI of " + this._tank.fullName + " not initliazed";
     }
     var self = this;
-    return new Promise(function (resolve, reject) {
-      if(self._aiWorker && self._tank.energy == 0) {
-        self._aiWorker.terminate();
-        self._aiWorker = null;
-        resolve();
-        return;
-      }
+    if(self._aiWorker && self._tank.energy == 0) {
+      self._aiWorker.terminate();
+      self._aiWorker = null;
+      resolve();
+      return;
+    }
 
-      self._aiProcessingStart = (new Date()).getTime();
-      self._aiProcessingResolveCallback = resolve;
-      self._aiProcessingRejectCallback = reject;
-      self._aiWorker.postMessage({
-        command: 'update',
-        state: self._tank.state,
-        control: self._controlData
-      });
+    self._aiProcessingStart = (new Date()).getTime();
+    self._aiProcessingResolveCallback = resolve;
+    self._aiProcessingRejectCallback = reject;
+    self._aiWorker.postMessage({
+      command: 'update',
+      state: self._tank.state,
+      control: self._controlData
     });
-  }
 
-  _cleanupCode(code) {
-    //remove importScripts because it will not work anyway ;)
-    code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
-    return code;
   }
 
   _configureTank(input) {
@@ -232,7 +225,11 @@ module.exports = class AiWrapper {
     self._controlData.SHOOT = 0;
   }
 
-  _createWorker(path) {
-    return new Worker(path);
+  _createWorker(def) {
+    if(def.useSandbox) {
+      return new Worker(def.filePath);
+    } else {
+      return new EvalWorker();
+    }
   }
 };

@@ -51,6 +51,8 @@ class Simulation {
     this._rendererQuality = 'auto';
     this._perfMon = new PerformanceMonitor();
     this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
+    this._callStackLimit = Number.MAX_VALUE;
+    this._callStackCount = 0;
     Math.random = this._rng;
   }
 
@@ -118,8 +120,8 @@ class Simulation {
       this._renderInterval = null;
     }
 
-    this._activateAi()
-      .then(function(result) {
+    this._activateAi(
+      () => {
         self._renderInterval = setInterval(function () {
           self._updateView();
         }, self._renderStepDuration);
@@ -130,12 +132,12 @@ class Simulation {
         self._perfMon.start();
         for(i=0; i < self._onStartCallback.length; i++) self._onStartCallback[i]();
         self._simulationStep();
-      })
-      .catch(function(err) {
-        console.error(err.message);
+      },
+      (err) => {
         console.error(err);
         for(i=0; i < self._onErrorCallback.length; i++) self._onErrorCallback[i](err.message ? err.message : "Error during simulation");
-      });
+      }
+    );
   }
 
   _simulationStep() {
@@ -144,8 +146,12 @@ class Simulation {
     var self = this;
     var i;
     this._updateModel();
-    this._updateAi()
-      .then(function(result) {
+    this._updateAi(
+      () => {
+        if(self._simulationTimeout) {
+          clearTimeout(self._simulationTimeout);
+          self._simulationTimeout = null;
+        }
         if(self._getTanksLeft() <= 1 || self._timeElapsed == self._timeLimit) {
           self.stop();
           self._updateView();
@@ -154,26 +160,26 @@ class Simulation {
         if(self._isRunning) {
           var processingTime = (new Date()).getTime() - startTime;
           var dt = self._simulationStepDuration - processingTime;
-          dt = Math.max(1, dt);
           dt /= self._speedMultiplier;
           dt = Math.round(dt);
-
           for(i=0; i < self._onSimulationStepCallback.length; i++) self._onSimulationStepCallback[i]();
           self._timeElapsed = Math.min(self._timeElapsed + self._simulationStepDuration, self._timeLimit);
-          if(dt >= 1) {
+          if(dt > 0) {
+            self._callStackCount=0;
             self._simulationTimeout = setTimeout(self._simulationStep.bind(self), dt);
+          } else if(self._callStackCount >= self._callStackLimit) {
+            self._simulationTimeout = setTimeout(self._simulationStep.bind(self), 1);
           } else {
+            self._callStackCount++;
             self._simulationStep();
           }
-
         }
-
-      })
-      .catch(function(err) {
-        console.error(err.message);
+      },
+      (err) => {
         console.error(err);
         for(i=0; i < self._onErrorCallback.length; i++) self._onErrorCallback[i](err.message ? err.message : "Error during simulation");
-      });
+      }
+    );
   }
 
   /**
@@ -261,7 +267,7 @@ class Simulation {
       if(!ai) continue;
       ai.deactivate();
     }
-
+    this._aiList = [];
   }
 
 
@@ -318,49 +324,48 @@ class Simulation {
     this._onErrorCallback.push(callback);
   }
 
-  _activateAi() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
-      var promise = new Promise(function(done, err) { done(); });
-
-      promise = self._aiList.reduce(function (chain, ai) {
-        if(!ai) {
-          return chain;
-        } else {
-          return chain.then(ai.activate.bind(ai, self._rngSeed));
-        }
-      }, promise);
-      promise
-        .then(function() {
-          resolve();
-        })
-        .catch(function(err) {
-          reject(err);
-        });
-    });
+  _activateAi(done, error) {
+    this._runInSequence(this._aiList, 'activate', this._rngSeed, done, error);
   }
 
-  _updateAi() {
-    var self = this;
-    return new Promise(function (resolve, reject) {
+  _updateAi(done, error) {
+    this._runInSequence(this._aiList, 'simulationStep', null, done, error);
+  }
 
-      var promise = new Promise(function(done, err) { done(); });
+  _runInSequence(objectList, methodName, argument, done, error) {
+    if(objectList.length == 0) {
+      return done();
+    }
+    function wrapCallback() {
+      var args = [];
+      var callback = arguments[1];
+      var self = arguments[0];
+      for(var i=2; i < arguments.length; i++) {
+        args.push(arguments[i]);
+      }
+      return (args2) => {
+        callback.apply(self, args.concat(args2));
+      };
+    }
 
-      promise = self._aiList.reduce(function (chain, ai) {
-      	if(!ai) {
-        	return chain;
-        } else {
-        	return chain.then(ai.simulationStep.bind(ai));
-        }
-      }, promise);
-      promise
-        .then(function() {
-          resolve();
-        })
-        .catch(function(err) {
-          reject(err);
-        });
-    });
+    var self = null;
+    var doneWrapper = wrapCallback(self, done);
+    var errorWrapper = wrapCallback(self, error);
+
+    var c;
+    if(argument) {
+      c = wrapCallback(objectList[objectList.length-1], objectList[objectList.length-1][methodName], argument, doneWrapper, errorWrapper);
+    } else {
+      c = wrapCallback(objectList[objectList.length-1], objectList[objectList.length-1][methodName], doneWrapper, errorWrapper);
+    }
+    for(var i=objectList.length-2; i >=0; i--) {
+      if(argument) {
+        c = wrapCallback(objectList[i], objectList[i][methodName], argument, c, errorWrapper);
+      } else {
+        c = wrapCallback(objectList[i], objectList[i][methodName], c, errorWrapper);
+      }
+    }
+    c();
   }
 
   _updateModel() {
@@ -387,14 +392,18 @@ class Simulation {
         });
       }
     }
+    var newAiList = [];
     for(i=0; i < this._aiList.length; i++) {
       ai = this._aiList[i];
       if(!ai) continue;
       if(ai.tank.energy <= 0) {
         this._aiList[i] = null;
         ai.deactivate();
+        continue;
       }
+      newAiList.push(ai);
     }
+    this._aiList = newAiList;
 
     for(i=0; i < this._tankList.length; i++) {
       tank = this._tankList[i];

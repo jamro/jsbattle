@@ -32,10 +32,15 @@ methods should be used to initialize the object
 * [AiDefinition](#AiDefinition)
     * [new AiDefinition()](#new_AiDefinition_new)
     * [.name](#AiDefinition+name) ⇒
+    * [.executionLimit](#AiDefinition+executionLimit) ⇒
+    * [.executionLimit](#AiDefinition+executionLimit)
+    * [.filePath](#AiDefinition+filePath) ⇒
     * [.code](#AiDefinition+code) ⇒
     * [.initData](#AiDefinition+initData) ⇒
+    * [.useSandbox](#AiDefinition+useSandbox) ⇒
     * [.fromFile(tankName, initData)](#AiDefinition+fromFile)
     * [.fromCode(tankName, code, initData)](#AiDefinition+fromCode)
+    * [.disableSandbox()](#AiDefinition+disableSandbox)
 
 <a name="new_AiDefinition_new"></a>
 
@@ -49,6 +54,25 @@ Creates AiDefinition. Constructor is not available outside of
 ### aiDefinition.name ⇒
 **Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
 **Returns**: name of the AI. The same name will be assigned to the tank  
+<a name="AiDefinition+executionLimit"></a>
+
+### aiDefinition.executionLimit ⇒
+**Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: Maximum time for execution of AI script (in milliseconds)  
+<a name="AiDefinition+executionLimit"></a>
+
+### aiDefinition.executionLimit
+**Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| limit | <code>Number</code> | Maximum time for execution of AI script (in milliseconds) |
+
+<a name="AiDefinition+filePath"></a>
+
+### aiDefinition.filePath ⇒
+**Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: path to file with code of Web Worker where the AI will be ran.  
 <a name="AiDefinition+code"></a>
 
 ### aiDefinition.code ⇒
@@ -60,6 +84,11 @@ Creates AiDefinition. Constructor is not available outside of
 ### aiDefinition.initData ⇒
 **Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
 **Returns**: optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)  
+<a name="AiDefinition+useSandbox"></a>
+
+### aiDefinition.useSandbox ⇒
+**Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: true if AI should be sandboxed. Otherwise false. By default, all AIs are sandboxed.  
 <a name="AiDefinition+fromFile"></a>
 
 ### aiDefinition.fromFile(tankName, initData)
@@ -86,6 +115,16 @@ Creates AI definition that has the algorithm codded in provided in string parame
 | code | <code>String</code> | JavaScript code of AI script. |
 | initData | <code>object</code> | optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`) |
 
+<a name="AiDefinition+disableSandbox"></a>
+
+### aiDefinition.disableSandbox()
+Allows to running code of AI in the same sandbox as the core of JsBattle game. It is
+potentially dangerous since code of AI Script can access code of JS Battle and
+influence it. However disabling sandbox can significantly increase performance
+(especially if you run several simulations in concurrent). Use this approach
+only for trusted AI code.
+
+**Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
 <a name="Simulation"></a>
 
 ## Simulation

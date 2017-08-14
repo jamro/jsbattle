@@ -4,13 +4,18 @@ module.exports = class AiWrapperMock {
 
   constructor(tank) {
     this.tank = tank
-    this.activate = sinon.stub().returns(new Promise(function(done) {
+    this.activateCallCount = 0;
+    this.simulationStepCallCount = 0;
+    var self = this;
+    this.activate = function(seed, done) {
       setTimeout(done, 1);
-    }));
+      self.activateCallCount++;
+    };
     this.deactivate = sinon.spy();
-    this.simulationStep = sinon.stub().returns(new Promise(function(done) {
+    this.simulationStep = function(done) {
+      self.simulationStepCallCount++;
       setTimeout(done, 1);
-    }));
+    };
   }
 
 };

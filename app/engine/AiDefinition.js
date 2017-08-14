@@ -1,5 +1,7 @@
 'use strict';
 
+var SUSSPEND_AI_SANDBOX_WARNING = false;
+
 /**
  * Describes AI algorithm of the tank. There could be two sources of AI scripts:
  * files or string variable. Depending on source of scripts `fromFile()` or `fromCode()`
@@ -16,6 +18,8 @@ class AiDefinition {
     this._name = "";
     this._code = null;
     this._initData = null;
+    this._useSandbox = true;
+    this._executionLimit = 100;
   }
 
   /**
@@ -23,6 +27,32 @@ class AiDefinition {
    */
   get name() {
     return this._name;
+  }
+
+  /**
+   * @return Maximum time for execution of AI script (in milliseconds)
+   */
+  get executionLimit() {
+    return this._executionLimit;
+  }
+
+  /**
+   * @param {Number} limit -  Maximum time for execution of AI script (in milliseconds)
+   */
+  set executionLimit(v) {
+    this._executionLimit = v;
+  }
+
+  /**
+   * @return path to file with code of Web Worker where the AI will be ran.
+   */
+  get filePath() {
+    if(!this._useSandbox) return null;
+    if(this._code) {
+      return "tanks/lib/codeWorker.js";
+    } else {
+      return "tanks/" + this._name + ".tank.js";
+    }
   }
 
   /**
@@ -41,13 +71,22 @@ class AiDefinition {
   }
 
   /**
+   * @return true if AI should be sandboxed. Otherwise false. By default, all AIs are sandboxed.
+   */
+  get useSandbox() {
+    return this._useSandbox;
+  }
+
+  /**
    * Creates AI definition that has source codes in a file. All AI scripts
    * are kept in `/tanks/[tankName].tank.js` files
    * @param {String} tankName - name of the tank. Its source code is kept in `/tanks/[tankName].tank.js`
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)
    */
   fromFile(tankName, initData) {
+    if(!tankName) throw "TankName is required";
     this._name = tankName;
+    this._code = null;
     this._initData = initData !== undefined ? initData : null;
   }
 
@@ -58,11 +97,31 @@ class AiDefinition {
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)
    */
   fromCode(tankName, code, initData) {
+    if(!tankName) throw "TankName is required";
+    if(!code) throw "Code is required";
+    code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
     this._name = tankName;
     this._code = code;
     this._initData = initData !== undefined ? initData : null;
   }
 
+  /**
+   * Allows to running code of AI in the same sandbox as the core of JsBattle game. It is
+   * potentially dangerous since code of AI Script can access code of JS Battle and
+   * influence it. However disabling sandbox can significantly increase performance
+   * (especially if you run several simulations in concurrent). Use this approach
+   * only for trusted AI code.
+   */
+  disableSandbox() {
+    if(!this._code) {
+      throw "Sandbox can be disabled for AI created from code only.";
+    }
+    if(!SUSSPEND_AI_SANDBOX_WARNING) {
+      console.warn("Disabling sandbox for AI! It could be dangerous.");
+      SUSSPEND_AI_SANDBOX_WARNING = true;
+    }
+    this._useSandbox = false;
+  }
 
 }
 

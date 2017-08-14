@@ -91,6 +91,8 @@ describe('Simulation', function() {
       sim2.start();
 
       setTimeout(function() {
+        assert(stepCount1 > 0, "Simulation1 steps were counted");
+        assert(stepCount2 > 0, "Simulation2 steps were counted");
         var multiplier = Math.round(stepCount2/stepCount1);
         sim1.stop();
         sim2.stop();
@@ -226,7 +228,7 @@ describe('Simulation', function() {
       sim.start();
 
       setTimeout(function () {
-        assert(ai.activate.called);
+        assert(ai.activateCallCount > 0);
         sim.stop();
         done();
       }, 30);

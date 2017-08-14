@@ -1,5 +1,7 @@
 var seedrandom = require("seedrandom");
-var extendedMath = require("./extendedMath.js")();
+var extendedMath = require("./extendedMath.js");
+
+Math = extendedMath();
 
 Math.random = function() {
   throw "Cannot use Math.random outside of tank.init(...) or tank.loop(...) callbacks! Sorry!";
@@ -20,6 +22,7 @@ class TankController {
           if(tankStateEvent.data.initData) {
             settings.initData = tankStateEvent.data.initData;
           }
+
           Math.random = seedrandom(seed);
           self._initCallback(settings);
           postMessage({type: 'init', settings: settings});

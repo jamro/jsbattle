@@ -1,46 +1,51 @@
 module.exports = function() {
+  var result = {};
+  var items = ["LN10", "PI", "E", "LOG10E", "SQRT2", "LOG2E", "SQRT1_2", "LN2", "cos", "pow", "log", "tan", "sqrt", "ceil", "asin", "abs", "max", "exp", "atan2", "random", "round", "floor", "acos", "atan", "min", "sin"];
+  for(var i in items) {
+    result[items[i]] = Math[items[i]];
+  }
 
-  Math.deg = {};
+  result.deg = {};
 
-  Math.rad = {};
+  result.rad = {};
 
-  Math.deg.normalize = function(a) {
+  result.deg.normalize = function(a) {
     a = Number(a);
     while(a > 180) a -= 360;
     while(a <= -180) a += 360;
     return a;
   };
 
-  Math.rad.normalize = function(a) {
+  result.rad.normalize = function(a) {
     a = Number(a);
-    while(a > Math.PI) a -= Math.PI*2;
-    while(a <= -Math.PI) a += Math.PI*2;
+    while(a > result.PI) a -= result.PI*2;
+    while(a <= -result.PI) a += result.PI*2;
     return a;
   };
 
-  Math.deg2rad = function(v) {
-    return Math.rad.normalize(v*(Math.PI/180));
+  result.deg2rad = function(v) {
+    return result.rad.normalize(v*(result.PI/180));
   };
 
-  Math.rad2deg = function(v) {
-    return Math.deg.normalize(v*(180/Math.PI));
+  result.rad2deg = function(v) {
+    return result.deg.normalize(v*(180/result.PI));
   };
 
-  Math.rad.atan2 = Math.atan2;
+  result.rad.atan2 = result.atan2;
 
-  Math.deg.atan2 = function(y, x) {
-    return Math.rad2deg(Math.rad.atan2(y, x));
+  result.deg.atan2 = function(y, x) {
+    return result.rad2deg(result.rad.atan2(y, x));
   };
 
-  Math.distance = function(x1, y1, x2, y2) {
+  result.distance = function(x1, y1, x2, y2) {
     var dx = x2 - x1;
     var dy = y2 - y1;
-    return Math.sqrt(dx*dx + dy*dy);
+    return result.sqrt(dx*dx + dy*dy);
   };
 
-  Math.randomRange = function(a, b) {
+  result.randomRange = function(a, b) {
     if(a > b) throw "The range is incorrect. First number must be lower than second";
-    return a + Math.random()*(b-a);
+    return a + result.random()*(b-a);
   };
-
+  return result;
 };

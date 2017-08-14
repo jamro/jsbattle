@@ -137,3 +137,96 @@ http-server -c-1
 
 You should see something like that:
 ![alt text](/docs/img/debug_renderer_001.png)
+
+## AiDefinition Internals
+
+So far we have seen a very basic example of `AiDefinition` usage however, there are more advanced features that could be useful. In previous example, AI script was created from a file:
+
+```javascript
+var ai = JsBattle.createAiDefinition();
+ai.fromFile('my-tank');
+```
+However, you can also create it from a string that contains code to be executed:
+
+```javascript
+var ai = JsBattle.createAiDefinition();
+var code = "tank.init(function(settings) { console.log('Hello World!') })";
+ai.fromCode('my-tank', code);
+```
+
+It is also possible to pass some data to AI script through `AiDefinition`:
+
+```javascript
+var customData = {foo: "bar"};
+ai.fromCode('my-tank', code, customData);
+
+// works also for AI created from file
+ai.fromFile('my-tank', customData);
+```
+
+`customData` object will be available in your AI script in `settings` object passed through `init` callback:
+
+```javascript
+// AI Script ----------------------------------------
+tank.init(function(settings) {
+  var customData = settings.initData;
+  console.log(customData); // will print {foo: "bar"}
+})
+```
+
+## Speeding up Battle Simulation
+
+Let's say that you would like to simulate battles in ultra short time. Some use cases of such approach could be gathering of statistics or genetic programming. The first thing that you probably do is to set speed multiplier to a very high value:
+
+```javascript
+simulation.setSpeed(1000);
+```
+
+However, this could be not enough. If you want simulate battles even faster, disable rendering. It can be done by not passing a reference of a renderer to the constructor of `Simulation`:
+
+```javascript
+var simulation = JsBattle.createSimulation();
+```
+
+Another thing that you could consider is to disable sandboxing of AI scripts (available for script created from code by `AiDefinition.fromCode`). This could be potentially dangerous because it gives AI access to the internals of JsBattle so do it only for trusted AI scripts:
+
+```javascript
+ai.disableSandbox();
+```
+
+It will give you also a possibility to run several battles in parallel without losing the performance. If multiples battles run at the same time, sometimes, there could be some lags in AI responses. It will result in a warning, and if the problem repeats, the battle can be eventually stopped. To avoid such issues, increase AI script execution limit:
+
+```javascript
+ai.executionLimit = 1000;
+```
+
+Here is a full script that runs several, concurrent battles in ultra speed:
+
+```javascript
+function startBattle() {
+  var startTime;
+  var simulation = JsBattle.createSimulation();
+  simulation.init(900, 600);
+  for(var i=0; i < 5; i++) {
+    var ai = JsBattle.createAiDefinition();
+    var code = "tank.init(function(s) { console.log('Ready!') })";
+    ai.fromCode('empty', code);
+    ai.disableSandbox();
+    ai.executionLimit = 1000;
+    simulation.addTank(ai);
+  }
+  simulation.setSpeed(1000);
+  simulation.onStart(() => {
+    startTime = (new Date()).getTime();
+  });
+  simulation.onFinish(() => {
+    var stopTime = (new Date()).getTime();
+    var duration = stopTime - startTime;
+    console.log("Battle duration: " + duration + "ms")
+    startBattle();
+  });
+  simulation.start();
+}
+startBattle();
+startBattle();
+```

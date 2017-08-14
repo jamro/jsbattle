@@ -67,6 +67,15 @@ module.exports = class CodeArea extends React.Component {
 
       var cursor = editor.getCursor();
       var curLine = editor.getLine(cursor.line).substring(0, cursor.ch);
+      var lastCharacter = curLine.substr(curLine.length-1, 1);
+      var pattern = /[A-Za-z\.]/;
+      if(!pattern.test(lastCharacter)) {
+        return {
+          from: CodeMirror.Pos(cursor.line, start),
+          to: CodeMirror.Pos(cursor.line, end),
+          list: []
+        }
+      }
       var pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/;
       var phrase = pattern.exec(curLine);
       phrase = phrase ? phrase[1] : "";
@@ -113,7 +122,7 @@ module.exports = class CodeArea extends React.Component {
       this.props.onChange(this.codeMirror.getValue());
     });
     this.codeMirror.on('keyup', (cm, event) => {
-      var ignoreKeys = [13, 27, 32, 37, 38, 39, 40, 17, 18, 91, 16, 20, 93];
+      var ignoreKeys = [];
       if (!cm.state.completionActive && ignoreKeys.indexOf(event.keyCode) == -1) {
         CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
       }

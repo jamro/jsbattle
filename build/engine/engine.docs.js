@@ -6,5 +6,6 @@ module.exports = function (gulp, config, plugins) {
           template: "# JsBattle API\n{{>main}}"
         }))
         .pipe(gulp.dest(config.tmp + 'dist/docs/dev_guide'))
+        .pipe(gulp.dest(config.docs.apiDist))
     };
 };

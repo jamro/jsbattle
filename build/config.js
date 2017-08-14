@@ -33,6 +33,7 @@ module.exports = {
   },
   docs: {
     sources: ['docs/**/*'],
+    apiDist: 'docs/dev_guide'
   },
   tanks: {
     resourcesBase: 'app/tanks/',

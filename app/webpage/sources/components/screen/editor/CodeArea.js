@@ -74,9 +74,9 @@ module.exports = class CodeArea extends React.Component {
           from: CodeMirror.Pos(cursor.line, start),
           to: CodeMirror.Pos(cursor.line, end),
           list: []
-        }
+        };
       }
-      var pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/;
+      pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/;
       var phrase = pattern.exec(curLine);
       phrase = phrase ? phrase[1] : "";
       phrase = phrase.split(".");

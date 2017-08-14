@@ -20,6 +20,7 @@ module.exports = class StartScreen extends React.Component {
     this.difficultyMap.dummy = 1;
     this.difficultyMap.crazy = 1;
     this.difficultyMap.crawler = 1;
+    this.difficultyMap.chicken = 2;
     this.difficultyMap.sniper = 2;
     this.difficultyMap.dodge = 2;
     this.difficultyMap.kamikaze = 3;

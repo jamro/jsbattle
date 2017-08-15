@@ -61,7 +61,7 @@ module.exports = class Navi extends React.Component {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#"><strong>JsBattle</strong></a>
+          <a className="navbar-brand" href="http://jsbattle.jamro.net"><strong>JsBattle</strong> <small style={{color: '#666666', fontSize: '10px'}}>%%GULP_INJECT_VERSION%%</small></a>
         </div>
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">

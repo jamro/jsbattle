@@ -31,6 +31,7 @@
     "gulp-cli": "^1.4.0",
     "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
+    "gulp-inject-version": "^1.0.1",
     "gulp-jsdoc-to-markdown": "^1.2.2",
     "gulp-jshint": "^2.0.4",
     "gulp-jslint": "^1.0.10",

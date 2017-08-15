@@ -13,7 +13,7 @@ It literally does nothing. No movement, no shooting. **Dummy** could be a pretty
 ```javascript
 importScripts('lib/tank.js');
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
 });
 
@@ -35,7 +35,7 @@ importScripts('lib/tank.js');
 
 var turnDirection, turnTimer;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   // the direction where tank will turning.
   // 1 is clockwise, -1 is counter clockwise
@@ -47,7 +47,7 @@ tank.loop(function(state, control) {
 
   // when hit an obstacle, start turning until
   // time of turnTimer doesn't run out
-  if(state.collisions.wall || state.collisions.enemy) {
+  if(state.collisions.wall || state.collisions.enemy || state.collisions.ally) {
     turnTimer = Math.round(Math.randomRange(20, 50));
   }
   if(turnTimer > 0) {
@@ -80,7 +80,7 @@ Not much strategy here. Just keep turning and shooting in all directions. Maybe 
 ```javascript
 importScripts('lib/tank.js');
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
 });
 
@@ -129,8 +129,8 @@ function goToDirection(targetAngle, state, control, done) {
   }
 
   if(Math.abs(angleDelta) < 5) {
-    // do not move forward if an enemy is on your way
-    if(state.collisions.enemy) {
+    // do not move forward if a tank is on your way
+    if(state.collisions.enemy || tate.collisions.ally) {
       control.THROTTLE = 0;
     } else {
       control.THROTTLE = 1;
@@ -174,6 +174,7 @@ function shootStrategy(state, control) {
   control.DEBUG.strategy = "shootStrategy:" + shootAngle;
 }
 
+
 // strategy function that is currently used
 var strategy;
 
@@ -186,7 +187,7 @@ var shootAngle;
 // timer used to change shooting angle over the time
 var timer = 0;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
 
   // randomize direction of tank movement
@@ -233,7 +234,7 @@ var bulletMap;
 var avoidDirection;
 
 // initialize your tank
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   bulletMap = [];
   changeAvoidDirection();
@@ -361,7 +362,7 @@ importScripts('lib/tank.js');
 
 var enemyMap, power;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   enemyMap = [];
   power = Math.random()*0.9 + 0.1;
@@ -409,7 +410,7 @@ importScripts('lib/tank.js');
 
 var turnDirection, turnTimer, direction, backTimer, boostTimer;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   // the direction where tank will turning.
   // 1 is clockwise, -1 is couter clockwise
@@ -421,7 +422,7 @@ tank.init(function(settings) {
 
 tank.loop(function(state, control) {
 
-  if(state.collisions.enemy) {
+  if(state.collisions.enemy || state.collisions.ally) {
     backTimer = 12;
     boostTimer = 40;
   }

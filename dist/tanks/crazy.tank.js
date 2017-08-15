@@ -1,6 +1,6 @@
 importScripts('lib/tank.js');
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
 });
 

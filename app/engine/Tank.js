@@ -16,6 +16,7 @@ class Tank {
    * `Simulation.addTank()` method
    * @param {AiDefinition} aiDefinition - definition of tank's AI Script
    * @param {Number} id - unique id of the tank
+   * @param {Team} team - reference to team object where the tank belongs
    */
   constructor(aiDefinition, id) {
     if(typeof aiDefinition != 'object') {
@@ -23,6 +24,7 @@ class Tank {
     }
     this._id = id;
     this._name = aiDefinition.name;
+    this._team =  null;
     this._maxEnergy = 100;
     this._energy = this._maxEnergy;
     this._x = 0;
@@ -40,10 +42,12 @@ class Tank {
     this._radarTurn = 0;
     this._wallHit = false;
     this._enemyHit = false;
+    this._allyHit = false;
     this._beingRammed = false;
     this._radarRange = 300;
     this._radarFocal = 6;
     this._enemySpot = null;
+    this._allySpot = null;
     this._bulletsSpot = [];
     this._gunReloadTime = 70;
     this._gunTimer = 0;
@@ -141,6 +145,13 @@ class Tank {
   }
 
   /**
+   * @return name of the team
+   */
+  get team() {
+    return this._team;
+  }
+
+  /**
    * @return x position of the tank
    */
   get x() {
@@ -217,6 +228,10 @@ class Tank {
     return this._enemySpot;
   }
 
+  get allySpot() {
+    return this._allySpot;
+  }
+
   setThrottle(v) {
     this._throttle = Math.min(1, Math.max(-1, v));
   }
@@ -251,6 +266,11 @@ class Tank {
     this.onDamage(0.2);
   }
 
+  onAllyHit() {
+    this._allyHit = true;
+    this.onDamage(0.2);
+  }
+
   onBeingRam(speed) {
     this._beingRammed = true;
     this.onDamage(0.1 + Math.round(speed*8)*0.1);
@@ -258,6 +278,10 @@ class Tank {
 
   onEnemySpot(enemy) {
     this._enemySpot = enemy;
+  }
+
+  onAllySpot(ally) {
+    this._allySpot = ally;
   }
 
   onBulletSpot(bullet) {
@@ -270,6 +294,12 @@ class Tank {
 
   onTargetingAlarm() {
     this._targetingAlarmTimer = 3;
+  }
+
+  isAlly(tank) {
+    if(!this._team) return false;
+    if(!tank.team) return false;
+    return this._team.name == tank.team.name;
   }
 
   /**
@@ -357,6 +387,7 @@ class Tank {
     self._y += v*Math.sin(rotation);
     self._wallHit = false;
     self._enemyHit = false;
+    self._allyHit = false;
     var hitTest = !collisionResolver.checkTank(self);
     if(hitTest) {
       self._x = oldX;
@@ -382,6 +413,7 @@ class Tank {
     collisionResolver.updateTank(self);
 
     self._enemySpot = null;
+    self._allySpot = null;
     self._wallDistance = null;
     self._targetingAlarmTimer = Math.max(0, self._targetingAlarmTimer-1);
     collisionResolver.scanTanks(self);
@@ -393,6 +425,7 @@ class Tank {
     }
 
     var enemyData = null;
+    var allyData = null;
     var bulletsData = [];
     while(self._bulletsSpot.length) {
       var bullet = self._bulletsSpot.shift();
@@ -416,6 +449,16 @@ class Tank {
         energy: self._enemySpot.energy,
       };
     }
+    if(self._allySpot) {
+      allyData = {
+        id: self._allySpot.id,
+        x: self._allySpot.x,
+        y: self._allySpot.y,
+        angle: self._allySpot.angle,
+        speed: self._allySpot.speed,
+        energy: self._allySpot.energy,
+      };
+    }
 
     var dx = self._x - self._lastX;
     var dy = self._y - self._lastY;
@@ -432,18 +475,23 @@ class Tank {
       boost: self._boost,
       collisions: {
         wall: self._wallHit,
-        enemy: self._enemyHit
+        enemy: self._enemyHit,
+        ally: self._allyHit
       },
       radar: {
         angle: self._radarAngle,
         targetingAlarm: self.targetingAlarm,
         wallDistance: self._wallDistance,
         enemy: enemyData,
+        ally: allyData,
         bullets: bulletsData
       },
       gun: {
         angle: self._gunAngle,
         reloading: self.isReloading
+      },
+      radio: {
+        inbox: self.team ? self.team.getMessages(self.id) : []
       }
     };
   }

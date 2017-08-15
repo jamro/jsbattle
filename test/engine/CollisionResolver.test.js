@@ -56,6 +56,34 @@ describe('CollisionResolver', function() {
 
       assert(result === false);
       assert(tank2.onEnemyHit.called);
+      assert(!tank2.onAllyHit.called);
+    });
+
+
+    it('should detect collision with an ally', function() {
+      var resolver = new CollisionResolver();
+      var battlefield = new BattlefieldMock();
+      battlefield.width = 500;
+      battlefield.height = 500;
+      resolver.updateBattlefield(new BattlefieldMock());
+
+      var tank1 = new TankMock();
+      tank1.x = 200;
+      tank1.y = 200;
+      tank1.isAlly.returns(true);
+
+      var tank2 = new TankMock();
+      tank2.x = 210;
+      tank2.y = 210;
+      tank2.isAlly.returns(true);
+
+      resolver.checkTank(tank1);
+      var result = resolver.checkTank(tank2);
+
+      assert(result === false);
+
+      assert(tank2.onEnemyHit.notCalled);
+      assert(tank2.onAllyHit.called);
     });
 
     it('should not detect a collision on free space', function() {
@@ -97,7 +125,7 @@ describe('CollisionResolver', function() {
       assert(result);
     });
 
-    it('should detect collision with an enemy', function() {
+    it('should detect collision with a tank', function() {
       var resolver = new CollisionResolver();
       var battlefield = new BattlefieldMock();
       battlefield.width = 500;
@@ -226,6 +254,38 @@ describe('CollisionResolver', function() {
       assert(result);
       assert(tank1.onEnemySpot.calledWith(tank2));
       assert(tank2.onTargetingAlarm.called);
+      assert(tank1.onAllySpot.notCalled);
+    });
+
+
+    it('should detect an ally', function() {
+      var resolver = new CollisionResolver();
+      var battlefield = new BattlefieldMock();
+      battlefield.width = 500;
+      battlefield.height = 500;
+      resolver.updateBattlefield(new BattlefieldMock());
+
+      var tank1 = new TankMock();
+      tank1.x = 200;
+      tank1.y = 200;
+      tank1.angle = 0;
+      tank1.radarAngle = 0;
+      tank1.radarRange = 500;
+      tank1.isAlly.returns(true);
+
+      var tank2 = new TankMock();
+      tank2.x = 400;
+      tank2.y = 200;
+      tank2.isAlly.returns(true);
+
+      resolver.checkTank(tank1);
+      resolver.checkTank(tank2);
+
+      var result = resolver.scanTanks(tank1);
+
+      assert(result);
+      assert(tank1.onAllySpot.calledWith(tank2));
+      assert(tank1.onEnemySpot.notCalled);
     });
 
 

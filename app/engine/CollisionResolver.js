@@ -110,11 +110,15 @@ module.exports = class CollisionResolver {
         continue;
       }
       hitTest = SAT.testCircleCircle(tankShape, enemyShape);
-      if(hitTest) {
+      var areAllies = tank.isAlly(enemyShape.tank);
+      if(hitTest && !areAllies) {
         var energyBefore = enemyShape.tank.energy;
         tank.onEnemyHit();
         enemyShape.tank.onBeingRam(tank.speed);
         tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+        return false;
+      } else if(hitTest && areAllies) {
+        tank.onAllyHit();
         return false;
       }
     }
@@ -148,19 +152,31 @@ module.exports = class CollisionResolver {
       return false;
     }
     var closestEnemy = null;
-    var closestDistance = tank.radarRange;
-    var d, dx, dy;
+    var closestEnemyDistance = tank.radarRange;
+    var closestAlly = null;
+    var closestAllyDistance = tank.radarRange;
+    var d, dx, dy, ally;
     for(i in enemies ) {
       dx = enemies[i].x - tank.x;
       dy = enemies[i].y - tank.y;
       d = Math.sqrt(dx*dx + dy*dy);
-      if(!closestEnemy || d < closestDistance) {
+      ally = enemies[i].isAlly(tank);
+      if(!ally && (!closestEnemy || d < closestEnemyDistance)) {
         closestEnemy = enemies[i];
-        closestDistance = d;
+        closestEnemyDistance = d;
+      } else if(ally && (!closestAlly || d < closestAllyDistance)) {
+        closestAlly = enemies[i];
+        closestAllyDistance = d;
       }
     }
-    tank.onEnemySpot(closestEnemy);
-    closestEnemy.onTargetingAlarm();
+    if(closestAlly) {
+      tank.onAllySpot(closestAlly);
+    }
+    if(closestEnemy) {
+      tank.onEnemySpot(closestEnemy);
+      closestEnemy.onTargetingAlarm();
+    }
+
 
     return true;
   }

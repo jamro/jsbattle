@@ -1,6 +1,7 @@
 'use strict';
 
 var Tank = require("./Tank.js");
+var Team = require("./Team.js");
 var Bullet = require("./Bullet.js");
 var Battlefield = require("./Battlefield.js");
 var EventStore = require("./EventStore.js");
@@ -53,6 +54,8 @@ class Simulation {
     this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
     this._callStackLimit = Number.MAX_VALUE;
     this._callStackCount = 0;
+    this._teamMap = [];
+    this._teamList = [];
     Math.random = this._rng;
   }
 
@@ -73,6 +76,13 @@ class Simulation {
    */
   get tankList() {
     return this._allTankList;
+  }
+
+  /**
+   * @return list of teams
+   */
+  get teamList() {
+    return this._teamList;
   }
 
   /**
@@ -152,7 +162,7 @@ class Simulation {
           clearTimeout(self._simulationTimeout);
           self._simulationTimeout = null;
         }
-        if(self._getTanksLeft() <= 1 || self._timeElapsed == self._timeLimit) {
+        if(self._getTeamsLeft() <= 1 || self._timeElapsed == self._timeLimit) {
           self.stop();
           self._updateView();
           for(i=0; i < self._onFinishCallback.length; i++) self._onFinishCallback[i]();
@@ -195,6 +205,9 @@ class Simulation {
     if(!this._battlefield) {
       throw "Simulation not initialized";
     }
+    if(!aiDefinition.teamName) {
+      throw "Team name cannot be empty!";
+    }
     var startSlot = this._battlefield.getStartSlot();
     if(!startSlot) {
       throw "No free space in the battlefield";
@@ -207,6 +220,12 @@ class Simulation {
     if(this._allTankList.length > 2) {
       this._timeLimit += 2000;
     }
+
+    if(!this._teamMap[aiDefinition.teamName]) {
+      this._teamMap[aiDefinition.teamName] = new Team(aiDefinition.teamName);
+      this._teamList.push(this._teamMap[aiDefinition.teamName]);
+    }
+    this._teamMap[aiDefinition.teamName].addTank(tank);
 
     var ai = this._createAiWrapper(tank, aiDefinition);
     this._aiList.push(ai);
@@ -442,6 +461,9 @@ class Simulation {
         });
       }
     }
+    for(i in this._teamMap) {
+      this._teamMap[i].processMessages();
+    }
   }
 
   _updateView() {
@@ -477,15 +499,13 @@ class Simulation {
     this._eventStore.clear();
   }
 
-  _getTanksLeft() {
-    var tanksLeft = 0;
-    var tank;
-    for(var i=0; i < this._tankList.length; i++) {
-      tank = this._tankList[i];
-      if(!tank) continue;
-      tanksLeft++;
+  _getTeamsLeft() {
+    var teamsLeft = 0;
+    for(var i in this._teamMap) {
+      if(!this._teamMap[i].isAlive) continue;
+      teamsLeft++;
     }
-    return tanksLeft;
+    return teamsLeft;
   }
 
   _createAiWrapper(tank, aiDefinition) {

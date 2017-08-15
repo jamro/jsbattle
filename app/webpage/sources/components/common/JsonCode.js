@@ -13,7 +13,8 @@ module.exports = class JsonCode extends React.Component {
       while(data.length > 2 && data.charAt(data.length - 1) == '0' && data.charAt(data.length - 2) != '.') {
         data = data.substring(0, data.length - 1);
       }
-      data = (data == '-0.0') ? '0' : data;
+      data = (data.substr(data.length-2, 2) == '.0') ? data.substr(0, data.length-2) : data;
+      data = (data == '-0') ? '0' : data;
       return <span className="hljs-number">{data}</span>;
     }
     if(typeof data == 'boolean') {

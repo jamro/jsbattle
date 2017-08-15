@@ -15,18 +15,29 @@ class AiDefinition {
    * `JsBattle.createAiDefinition()` instead
    */
   constructor() {
+    var uid = (new Date()).getTime().toString();
+    uid = uid.substr(uid.length-6, 6) + "" + Math.round(10000000*Math.random());
+    uid = Number(uid);
+    uid = uid.toString(35);
     this._name = "";
+    this._team = uid;
     this._code = null;
     this._initData = null;
     this._useSandbox = true;
     this._executionLimit = 100;
   }
-
   /**
    * @return name of the AI. The same name will be assigned to the tank
    */
   get name() {
     return this._name;
+  }
+
+  /**
+   * @return name of the team
+   */
+  get teamName() {
+    return this._team;
   }
 
   /**
@@ -64,7 +75,7 @@ class AiDefinition {
   }
 
   /**
-   * @return optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)
+   * @return optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   get initData() {
     return this._initData;
@@ -81,7 +92,7 @@ class AiDefinition {
    * Creates AI definition that has source codes in a file. All AI scripts
    * are kept in `/tanks/[tankName].tank.js` files
    * @param {String} tankName - name of the tank. Its source code is kept in `/tanks/[tankName].tank.js`
-   * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)
+   * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromFile(tankName, initData) {
     if(!tankName) throw "TankName is required";
@@ -94,7 +105,7 @@ class AiDefinition {
    * Creates AI definition that has the algorithm codded in provided in string parameter.
    * @param {String} tankName - name of the tank.
    * @param {String} code - JavaScript code of AI script.
-   * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)
+   * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromCode(tankName, code, initData) {
     if(!tankName) throw "TankName is required";
@@ -103,6 +114,14 @@ class AiDefinition {
     this._name = tankName;
     this._code = code;
     this._initData = initData !== undefined ? initData : null;
+  }
+
+  /**
+   * Set name of the team. Tanks from the same team can coomunicate with eachother and cooperate
+   * @param {string} name - unique name of the team
+   */
+  assignToTeam(teamName) {
+    this._team = teamName;
   }
 
   /**

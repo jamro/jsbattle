@@ -20,8 +20,8 @@ function goToDirection(targetAngle, state, control, done) {
   }
 
   if(Math.abs(angleDelta) < 5) {
-    // do not move forward if an enemy is on your way
-    if(state.collisions.enemy) {
+    // do not move forward if a tank is on your way
+    if(state.collisions.enemy || tate.collisions.ally) {
       control.THROTTLE = 0;
     } else {
       control.THROTTLE = 1;
@@ -78,7 +78,7 @@ var shootAngle;
 // timer used to change shooting angle over the time
 var timer = 0;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
 
   // randomize direction of tank movement

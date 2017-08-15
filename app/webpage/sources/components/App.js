@@ -23,7 +23,8 @@ module.exports = class App extends React.Component {
       battleResult: null,
       aiDefList: [],
       editorTank: null,
-      quickBattleMode: false
+      quickBattleMode: false,
+      battleSettings: {}
     };
     this.aiRepository = new AiRepository();
   }
@@ -58,10 +59,11 @@ module.exports = class App extends React.Component {
     });
   }
 
-  onBattleStart(aiDefList) {
+  onBattleStart(aiDefList, settings) {
     this.setState({
       phase: 'battle',
       aiDefList: aiDefList,
+      battleSettings: settings,
       errorMessage: null
     });
   }
@@ -95,7 +97,7 @@ module.exports = class App extends React.Component {
     switch(this.state.phase) {
       case 'start':
         return <StartScreen
-          onStart={(aiDefList) => this.onBattleStart(aiDefList)}
+          onStart={(aiDefList, settings) => this.onBattleStart(aiDefList, settings)}
           onError={(msg) => this.showError(msg)}
           onScriptEdit={(name) => this.onScriptEdit(name)}
           aiRepository={this.aiRepository}
@@ -107,6 +109,7 @@ module.exports = class App extends React.Component {
           speed={this.state.simSpeed}
           quality={this.state.qualitySettings}
           aiDefList={this.state.aiDefList}
+          settings={this.state.battleSettings}
           onError={(msg) => this.showError(msg)}
           onFinish={(result) => this.onBattleFinish(result)}
           onExit={() => this.onBattleExit()}

@@ -26,6 +26,7 @@ module.exports = class AiWrapper {
       RADAR_TURN: 0,
       GUN_TURN: 0,
       SHOOT: 0,
+      OUTBOX: [],
       DEBUG: {}
     };
   }
@@ -138,6 +139,22 @@ module.exports = class AiWrapper {
       }
 
     };
+
+    var teamInfo = null;
+    if(self._tank.team && self._tank.team.size > 1) {
+      teamInfo = {
+        name: self._tank.team.name,
+        mates: self._tank.team.members.map((t) => t.id),
+      };
+    } else {
+      teamInfo = {
+        name: self._tank.fullName,
+        mates: [self._tank.id],
+      };
+    }
+    if(self._aiDefinition.initData) {
+      teamInfo.initData = self._aiDefinition.initData;
+    }
     self._aiProcessingStart = (new Date()).getTime();
     self._aiProcessingResolveCallback = resolve;
     self._aiProcessingRejectCallback = reject;
@@ -147,8 +164,11 @@ module.exports = class AiWrapper {
       settings: {
         SKIN: 'zebra'
       },
-      code: self._aiDefinition.code,
-      initData: self._aiDefinition.initData
+      info: {
+        id: self._tank.id,
+        team: teamInfo
+      },
+      code: self._aiDefinition.code
     });
   }
 
@@ -232,6 +252,17 @@ module.exports = class AiWrapper {
       self._tank.shoot(self._controlData.SHOOT);
     }
     self._controlData.SHOOT = 0;
+
+    var messages = [];
+    for(var i  in value.OUTBOX) {
+      messages.push(JSON.parse(JSON.stringify(value.OUTBOX[i])));
+    }
+
+    if(self._tank.team) {
+      self._tank.team.sendMessages(self._tank.id, messages);
+    }
+
+    self._controlData.OUTBOX = [];
   }
 
   _createWorker(def) {

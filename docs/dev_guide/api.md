@@ -32,6 +32,7 @@ methods should be used to initialize the object
 * [AiDefinition](#AiDefinition)
     * [new AiDefinition()](#new_AiDefinition_new)
     * [.name](#AiDefinition+name) ⇒
+    * [.teamName](#AiDefinition+teamName) ⇒
     * [.executionLimit](#AiDefinition+executionLimit) ⇒
     * [.executionLimit](#AiDefinition+executionLimit)
     * [.filePath](#AiDefinition+filePath) ⇒
@@ -40,6 +41,7 @@ methods should be used to initialize the object
     * [.useSandbox](#AiDefinition+useSandbox) ⇒
     * [.fromFile(tankName, initData)](#AiDefinition+fromFile)
     * [.fromCode(tankName, code, initData)](#AiDefinition+fromCode)
+    * [.assignToTeam(name)](#AiDefinition+assignToTeam)
     * [.disableSandbox()](#AiDefinition+disableSandbox)
 
 <a name="new_AiDefinition_new"></a>
@@ -54,6 +56,11 @@ Creates AiDefinition. Constructor is not available outside of
 ### aiDefinition.name ⇒
 **Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
 **Returns**: name of the AI. The same name will be assigned to the tank  
+<a name="AiDefinition+teamName"></a>
+
+### aiDefinition.teamName ⇒
+**Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: name of the team  
 <a name="AiDefinition+executionLimit"></a>
 
 ### aiDefinition.executionLimit ⇒
@@ -83,7 +90,7 @@ Creates AiDefinition. Constructor is not available outside of
 
 ### aiDefinition.initData ⇒
 **Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
-**Returns**: optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`)  
+**Returns**: optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)  
 <a name="AiDefinition+useSandbox"></a>
 
 ### aiDefinition.useSandbox ⇒
@@ -100,7 +107,7 @@ are kept in `/tanks/[tankName].tank.js` files
 | Param | Type | Description |
 | --- | --- | --- |
 | tankName | <code>String</code> | name of the tank. Its source code is kept in `/tanks/[tankName].tank.js` |
-| initData | <code>object</code> | optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`) |
+| initData | <code>object</code> | optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`) |
 
 <a name="AiDefinition+fromCode"></a>
 
@@ -113,7 +120,18 @@ Creates AI definition that has the algorithm codded in provided in string parame
 | --- | --- | --- |
 | tankName | <code>String</code> | name of the tank. |
 | code | <code>String</code> | JavaScript code of AI script. |
-| initData | <code>object</code> | optional initial data that is passed to the AI and can be accessed from tank settings object (`settings.initData`) |
+| initData | <code>object</code> | optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`) |
+
+<a name="AiDefinition+assignToTeam"></a>
+
+### aiDefinition.assignToTeam(name)
+Set name of the team. Tanks from the same team can coomunicate with eachother and cooperate
+
+**Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>string</code> | unique name of the team |
 
 <a name="AiDefinition+disableSandbox"></a>
 
@@ -136,6 +154,7 @@ and refreshing the renderer.
 * [Simulation](#Simulation)
     * [new Simulation(renderer)](#new_Simulation_new)
     * [.tankList](#Simulation+tankList) ⇒
+    * [.teamList](#Simulation+teamList) ⇒
     * [.renderer](#Simulation+renderer) ⇒
     * [.timeElapsed](#Simulation+timeElapsed) ⇒
     * [.timeLimit](#Simulation+timeLimit) ⇒
@@ -168,6 +187,11 @@ Create Simulation object. Constructor is not available outside of
 ### simulation.tankList ⇒
 **Kind**: instance property of <code>[Simulation](#Simulation)</code>  
 **Returns**: all tanks that were added to the battle  
+<a name="Simulation+teamList"></a>
+
+### simulation.teamList ⇒
+**Kind**: instance property of <code>[Simulation](#Simulation)</code>  
+**Returns**: list of teams  
 <a name="Simulation+renderer"></a>
 
 ### simulation.renderer ⇒
@@ -335,7 +359,7 @@ Object represents a tank that is involved in the battle during simulation
 **Kind**: global class  
 
 * [Tank](#Tank)
-    * [new Tank(aiDefinition, id)](#new_Tank_new)
+    * [new Tank(aiDefinition, id, team)](#new_Tank_new)
     * [.id](#Tank+id) ⇒
     * [.skin](#Tank+skin) ⇒
     * [.state](#Tank+state) ⇒
@@ -346,6 +370,7 @@ Object represents a tank that is involved in the battle during simulation
     * [.radarFocal](#Tank+radarFocal) ⇒
     * [.name](#Tank+name) ⇒
     * [.fullName](#Tank+fullName) ⇒
+    * [.team](#Tank+team) ⇒
     * [.x](#Tank+x) ⇒
     * [.y](#Tank+y) ⇒
     * [.speed](#Tank+speed) ⇒
@@ -361,7 +386,7 @@ Object represents a tank that is involved in the battle during simulation
 
 <a name="new_Tank_new"></a>
 
-### new Tank(aiDefinition, id)
+### new Tank(aiDefinition, id, team)
 Constructor should not be called directly but through
 `Simulation.addTank()` method
 
@@ -370,6 +395,7 @@ Constructor should not be called directly but through
 | --- | --- | --- |
 | aiDefinition | <code>[AiDefinition](#AiDefinition)</code> | definition of tank's AI Script |
 | id | <code>Number</code> | unique id of the tank |
+| team | <code>Team</code> | reference to team object where the tank belongs |
 
 <a name="Tank+id"></a>
 
@@ -421,6 +447,11 @@ Constructor should not be called directly but through
 ### tank.fullName ⇒
 **Kind**: instance property of <code>[Tank](#Tank)</code>  
 **Returns**: full name contains name of the tank and its unique ID  
+<a name="Tank+team"></a>
+
+### tank.team ⇒
+**Kind**: instance property of <code>[Tank](#Tank)</code>  
+**Returns**: name of the team  
 <a name="Tank+x"></a>
 
 ### tank.x ⇒

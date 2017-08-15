@@ -30,7 +30,7 @@ Next, create a simple [AI Script](/docs/manual/ai_script.md) and save it at `/ta
 ```javascript
 importScripts('lib/tank.js');
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
 
 })
 tank.loop(function(state, control) {
@@ -150,7 +150,7 @@ However, you can also create it from a string that contains code to be executed:
 
 ```javascript
 var ai = JsBattle.createAiDefinition();
-var code = "tank.init(function(settings) { console.log('Hello World!') })";
+var code = "tank.init(function(settings, info) { console.log('Hello World!') })";
 ai.fromCode('my-tank', code);
 ```
 
@@ -168,8 +168,8 @@ ai.fromFile('my-tank', customData);
 
 ```javascript
 // AI Script ----------------------------------------
-tank.init(function(settings) {
-  var customData = settings.initData;
+tank.init(function(settings, info) {
+  var customData = info.initData;
   console.log(customData); // will print {foo: "bar"}
 })
 ```

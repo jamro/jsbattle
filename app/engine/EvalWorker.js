@@ -30,9 +30,6 @@ class EvalWorker {
       if(!inputData.code) throw "The code is required!";
       var seed = inputData.seed;
       var settings = inputData.settings;
-      if(inputData.initData) {
-        settings.initData = inputData.initData;
-      }
       var Math = extendedMath();
 
       var tank = this._tankController;

@@ -45,6 +45,14 @@ module.exports = class CodeArea extends React.Component {
               speed: null,
               energy: null
             },
+            ally: {
+              id: null,
+              x: null,
+              y: null,
+              angle: null,
+              speed: null,
+              energy: null
+            },
             bullets: {
                 id: null,
                 x: null,
@@ -57,11 +65,21 @@ module.exports = class CodeArea extends React.Component {
           gun: {
             angle: null,
             reloading: null
+          },
+          radio: {
+            inbox: null
           }
         },
         tank: {
           init: null,
           loop: null
+        },
+        info: {
+          id: null,
+          team: {
+            name: null,
+            mates: null
+          }
         }
       };
 
@@ -105,7 +123,6 @@ module.exports = class CodeArea extends React.Component {
             inner.list.push(i);
           }
         }
-
       }
 
       return (inner.list.length == 0) ? orig(editor) : inner;
@@ -122,8 +139,8 @@ module.exports = class CodeArea extends React.Component {
       this.props.onChange(this.codeMirror.getValue());
     });
     this.codeMirror.on('keyup', (cm, event) => {
-      var ignoreKeys = [];
-      if (!cm.state.completionActive && ignoreKeys.indexOf(event.keyCode) == -1) {
+      var ignoreKeys = [37, 38, 39, 40, 32, 13];
+      if (ignoreKeys.indexOf(event.keyCode) == -1) {
         CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
       }
     });

@@ -3,7 +3,8 @@ var sinon = require('sinon');
 module.exports = class TankMock {
 
   constructor(name, id) {
-    this.name = name ? name : "bravo_" + Math.round(Math.random()*1000);
+    this.name = name ? name : "bravo_" + Math.round(Math.random()*1000000);
+    this.team = null;
     this.id = id ? id : Math.round(Math.random()*1000000);
     this.angle = Math.round(Math.random()*360-180);
     this.gunAngle = Math.round(Math.random()*360-180);
@@ -29,12 +30,15 @@ module.exports = class TankMock {
     this.onSurviveScore = sinon.spy();
     this.onWallHit = sinon.spy();
     this.onEnemyHit = sinon.spy();
+    this.onAllyHit = sinon.spy();
     this.onBeingRam = sinon.spy();
     this.onEnemyHitScore = sinon.spy();
     this.onEnemySpot = sinon.spy();
+    this.onAllySpot = sinon.spy();
     this.onBulletSpot = sinon.spy();
     this.onTargetingAlarm = sinon.spy();
     this.onWallSpot = sinon.spy();
+    this.isAlly = sinon.stub().returns(false);
   }
 
 };

@@ -12,6 +12,7 @@ in [AI Scripts](/docs/manual/ai_script.md) as an input to control the behavior o
     boost: 300,
     collisions: {
       enemy: false,
+      ally: false,
       wall: false
     },
     radar: {
@@ -23,8 +24,16 @@ in [AI Scripts](/docs/manual/ai_script.md) as an input to control the behavior o
         x: 39.5,
         y: 74.3,
         angle: 45.2,
-        speed: 23,
+        speed: 3.2,
         energy: 43
+      },
+      ally: {
+        id: 4,
+        x: 50.2,
+        y: 90.1,
+        angle: 13.1,
+        speed: 2,
+        energy: 90
       },
       bullets: [
         {
@@ -40,6 +49,9 @@ in [AI Scripts](/docs/manual/ai_script.md) as an input to control the behavior o
     gun: {
       angle: -34.5,
       reloading: false
+    },
+    radio: {
+      inbox: []
     }
   }
 ```
@@ -60,6 +72,7 @@ Name                       | Description
 ---------------------------|------------------------------------------------------
 **collisions.wall**        | true if tank hit a wall, otherwise false
 **collisions.enemy**       | true if tank hit an enemy, otherwise false
+**collisions.ally**        | true if tank hit an ally, otherwise false
 
 ## Radar Data
 
@@ -80,6 +93,17 @@ Name                       | Description
 **radar.enemy.angle**      | rotation of the enemy in degrees
 **radar.enemy.speed**      | linear speed of the enemy
 
+### Ally Data
+
+Name                       | Description
+---------------------------|------------------------------------------------------
+**radar.ally**             | if an ally is spot, the object contains information about it. Otherwise, the value is null
+**radar.ally.id**          | unique ID of ally's tank
+**radar.ally.x**           | x coordinate of the ally
+**radar.ally.y**           | y coordinate of the ally
+**radar.ally.angle**       | rotation of the ally in degrees
+**radar.ally.speed**       | linear speed of the ally
+
 ### Bullet Data
 
 Name                       | Description
@@ -98,3 +122,9 @@ Name                       | Description
 ---------------------------|------------------------------------------------------
 **gun.angle**              | rotation of the gun relative to tank's rotation. Possible values are between -180 and 180. Zero means that the gun s aiming at the same direction as front of the tank
 **gun.reloading**          | after each shoot, the gun must be reloaded and it cannot shoot again until reload is finished. The value is true if the gun is being reloaded. Otherwise false.
+
+## Radio Data
+
+Name                       | Description
+---------------------------|------------------------------------------------------
+**radio.inbox**            | list of messages sent from team members. The list contains only bodies of messages.

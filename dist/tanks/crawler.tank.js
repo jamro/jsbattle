@@ -2,7 +2,7 @@ importScripts('lib/tank.js');
 
 var turnDirection, turnTimer;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   // the direction where tank will turning.
   // 1 is clockwise, -1 is couter clockwise
@@ -14,7 +14,7 @@ tank.loop(function(state, control) {
 
   // when hit an obstacle, start turning until
   // time of turnTimer doesn't run out
-  if(state.collisions.wall || state.collisions.enemy) {
+  if(state.collisions.wall || state.collisions.enemy || state.collisions.ally) {
     turnTimer = Math.round(Math.randomRange(20, 50));
   }
   if(turnTimer > 0) {

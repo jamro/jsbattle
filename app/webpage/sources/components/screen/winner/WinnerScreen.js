@@ -8,19 +8,49 @@ module.exports = class WinnerScreen extends React.Component {
     super(props);
   }
 
+  getWinnerName() {
+    var result = this.props.result;
+    return result.teamMode ? "Team " + result.teamWinner.name : result.tankWinner.fullName;
+  }
+
+  getWinnerSkin() {
+    return this.props.result.tankWinner.skin;
+  }
+
+  getScoreBoardData() {
+    var result = this.props.result;
+    if(result.teamMode) {
+      return result.teamList
+        .sort((a, b) => b.score - a.score)
+        .map((team) => ({
+          id: team.name,
+          name: team.name,
+          score: team.score
+        }));
+    } else {
+      return result.tankList
+        .sort((a, b) => b.score - a.score)
+        .map((tank) => ({
+          id: tank.id,
+          name: tank.fullName,
+          score: tank.score
+        }));
+    }
+
+  }
+
   renderRows() {
-    return this.props.result.tankList
-    .sort((a, b) => b.score - a.score)
+    return this.getScoreBoardData()
     .map((tank) => {
       return <tr key={tank.id}>
-        <td>{tank.fullName}</td>
+        <td>{tank.name}</td>
         <td className="text-right">{tank.score.toFixed(2)}</td>
       </tr>;
     });
   }
 
   render() {
-    var previewUrl = "img/tank_skin_" + this.props.result.winner.skin + ".png";
+    var previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
 
 
     var restartButton = <button className="btn btn-default btn-lg" onClick={() => this.props.onRestart()}>
@@ -41,7 +71,7 @@ module.exports = class WinnerScreen extends React.Component {
         <div className="thumbnail text-center">
           <img src={previewUrl} alt="Winner preview" style={{paddingLeft: '50px'}} />
           <div className="caption">
-            <h3>{this.props.result.winner.fullName}</h3>
+            <h3>{this.getWinnerName()}</h3>
             <p>has won the battle</p>
             {restartButton}
             &nbsp;

@@ -2,7 +2,7 @@ importScripts('lib/tank.js');
 
 var turnDirection, turnTimer, direction, backTimer, boostTimer;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   settings.SKIN = 'forest';
   // the direction where tank will turning.
   // 1 is clockwise, -1 is couter clockwise
@@ -14,7 +14,7 @@ tank.init(function(settings) {
 
 tank.loop(function(state, control) {
 
-  if(state.collisions.enemy) {
+  if(state.collisions.enemy || state.collisions.ally) {
     backTimer = 12;
     boostTimer = 40;
   }

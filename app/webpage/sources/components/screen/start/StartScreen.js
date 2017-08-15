@@ -9,12 +9,15 @@ module.exports = class StartScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    var teamMode = localStorage.getItem("settings.teamMode");
+    teamMode = (teamMode == 'true');
     var battleSet = localStorage.getItem("settings.battleSet");
     battleSet = battleSet ? JSON.parse(battleSet) : [];
     this.state = {
       loading: true,
       aiDefList: [],
       battleSet: battleSet,
+      teamMode: teamMode
     };
     this.difficultyMap = {};
     this.difficultyMap.dummy = 1;
@@ -94,7 +97,7 @@ module.exports = class StartScreen extends React.Component {
   startBattle() {
     var listComplete = this.state.aiDefList.length >= 2;
     if(!listComplete) return;
-    this.props.onStart(this.state.aiDefList);
+    this.props.onStart(this.state.aiDefList, {teamMode: this.state.teamMode});
   }
 
   onSettingsChange(tankName, v) {
@@ -106,6 +109,14 @@ module.exports = class StartScreen extends React.Component {
       }
     }
     this.refreshTankList(battleSet);
+  }
+
+  onTeamModeChange() {
+    this.setState((prevState, props) => {
+      var teamMode = !prevState.teamMode;
+      localStorage.setItem("settings.teamMode", teamMode ? 'true' : 'false');
+      return {teamMode: teamMode};
+    });
   }
 
   refreshTankList(battleSet) {
@@ -222,12 +233,20 @@ module.exports = class StartScreen extends React.Component {
     var listComplete = this.state.aiDefList.length >= 2;
     var content = <Row>
       <Col lg={4} md={5}>
-        <div className="thumbnail text-center">
-          <div className="caption">
-          <p style={{marginBottom: "5px"}}>Tanks in the battle.</p>
+        <div className="panel panel-default">
+          <div className="panel-body text-center">
+            <p style={{marginBottom: "5px"}}>Tanks in the battle.</p>
             <h1 style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.aiDefList.length}</h1>
             <p>{listComplete ? "Press start to begin." : "Add more tanks."}</p>
             {this.renderStartButton()}
+          </div>
+          <div className="panel-footer" style={{padding: '5px'}}>
+            <div className="checkbox" style={{margin: "0px"}}>
+             <label>
+               <input type="checkbox" checked={this.state.teamMode} onChange={() => this.onTeamModeChange()} />
+               Enable <strong>Team Mode</strong> for tanks of the same type
+             </label>
+           </div>
           </div>
         </div>
       </Col>

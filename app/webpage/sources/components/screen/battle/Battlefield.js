@@ -50,16 +50,26 @@ module.exports = class Battlefield extends React.Component {
   }
 
   handleFinish() {
-    var winner = null;
-    for(var i in this.simulation.tankList) {
+    var tankWinner = null;
+    var i;
+    for(i in this.simulation.tankList) {
       var tank = this.simulation.tankList[i];
-      if(!winner || tank.score > winner.score) {
-        winner = tank;
+      if(!tankWinner || tank.score > tankWinner.score) {
+        tankWinner = tank;
+      }
+    }
+    var teamWinner = null;
+    for(i in this.simulation.teamList) {
+      var team = this.simulation.teamList[i];
+      if(!teamWinner || team.score > teamWinner.score) {
+        teamWinner = team;
       }
     }
     var result = {
-      winner: winner,
+      tankWinner: tankWinner,
+      teamWinner: teamWinner,
       tankList: this.simulation.tankList,
+      teamList: this.simulation.teamList,
       timeLeft: this.simulation.timeLimit - this.simulation.timeElapsed
     };
 
@@ -88,6 +98,10 @@ module.exports = class Battlefield extends React.Component {
 
   get tankList() {
     return this.simulation.tankList;
+  }
+
+  get teamList() {
+    return this.simulation.teamList;
   }
 
   get actualRendererQuality() {

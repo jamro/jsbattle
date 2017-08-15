@@ -43,7 +43,7 @@ Below, there is an [Artificial Intelligence Script](/docs/manual/ai_script.md) o
 ```javascript
   importScripts('lib/tank.js');
 
-  tank.init(function(settings) {
+  tank.init(function(settings, info) {
 
   });
 
@@ -79,7 +79,7 @@ importScripts('lib/tank.js');
 
 var tartgetAngle;
 
-tank.init(function(settings) {
+tank.init(function(settings, info) {
   tartgetAngle = 0;
 });
 

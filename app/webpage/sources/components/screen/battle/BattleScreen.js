@@ -19,6 +19,7 @@ module.exports = class BattleScreen extends React.Component {
       phase: "loading",
       timeLeft: 0,
       tankList: [],
+      teamList: [],
       windowSize: 'md',
       error: ""
     };
@@ -43,6 +44,9 @@ module.exports = class BattleScreen extends React.Component {
   onBattleReady() {
     var self = this;
     this.props.aiDefList.forEach(function(ai) {
+      if(self.props.settings.teamMode) {
+        ai.assignToTeam(ai.name);
+      }
       self.battlefield.addTank(ai);
     });
 
@@ -55,12 +59,14 @@ module.exports = class BattleScreen extends React.Component {
   }
 
   onBattleFinish(result) {
+    result.teamMode = this.props.settings.teamMode;
     if(this.props.onFinish) {
       this.props.onFinish(result);
     }
   }
 
   updateTankList() {
+    var rank;
     var tankList = this.battlefield.tankList.map((tank) => {
       return {
         id: tank.id,
@@ -68,20 +74,36 @@ module.exports = class BattleScreen extends React.Component {
         debug: tank.debugData,
         state: tank.state,
         score: tank.score,
-        energy: tank.energy,
+        energy: 100*(tank.energy/tank.maxEnergy),
       };
     });
     tankList.sort((a, b) => {
       return b.score - a.score;
     });
-    for(var rank=0; rank < tankList.length; rank++) {
+    for(rank=0; rank < tankList.length; rank++) {
       tankList[rank].rank = rank;
+    }
+
+    var teamList = this.battlefield.teamList.map((team) => {
+      return {
+        name: team.name,
+        score: team.score,
+        energy: 100*(team.energy / team.maxEnergy)
+      };
+    });
+    teamList.sort((a, b) => {
+      return b.score - a.score;
+    });
+    for(rank=0; rank < teamList.length; rank++) {
+      teamList[rank].rank = rank;
     }
     this.setState({
       tankList: tankList,
+      teamList: teamList,
       qualityLevel: this.battlefield.actualRendererQuality
     });
   }
+
 
   showError(msg) {
     if(this.props.onError) {
@@ -101,7 +123,7 @@ module.exports = class BattleScreen extends React.Component {
       <i className="fa fa-power-off" aria-hidden="true"></i> Exit the battle
     </button>;
     var scoreboard = <ScoreBoard
-      tankList={this.state.tankList}
+      tankList={this.props.settings.teamMode ? this.state.teamList : this.state.tankList}
       refreshTime={200+1300*(1-this.state.qualityLevel)}
     />;
     var debugView = <DebugView

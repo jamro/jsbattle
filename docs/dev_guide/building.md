@@ -1,6 +1,14 @@
 # Building Process
 
-## Project Dependencies
+### Prerequisites
+
+You will need these before you start:
+
+ - [**NPM**](https://www.npmjs.com/) - NPM is a package manager used heavily during building process. You cannot start without it.
+ - [**ImageMagick**](http://www.imagemagick.org/) - During the building process, sprite sheets are generated with [Pixi Packer](https://github.com/gamevy/pixi-packer). This tool requires ImageMagick. Make sure you have installed it locally. On OSX you can do so via `brew install imagemagick`, other operating systems will vary.
+ - [**Python**](https://www.python.org/) -[CasperJS](http://casperjs.org/) and [PhantomJS](http://phantomjs.org/) that are used in testing process require Python 2.6 or grater. Download and install it if you don't have it in your system yet.
+
+## Download Project & Dependencies
 
 At the beginning, download JsBattle. There are at least two ways to do that:
 
@@ -24,15 +32,11 @@ Install JsBattle in selected directory:
 
 Go to `node_modules/jsbattle` directory
 
-
-
-
- Next, go to directory with the project where `package.json` is located and install all dependencies:
+Next, go to directory with the project where `package.json` is located and install all dependencies:
 
 ```bash
   npm install
 ```
-During the building process, sprite sheets are generated with [Pixi Packer](https://github.com/gamevy/pixi-packer). This tool requires [ImageMagick](http://www.imagemagick.org/script/index.php). Make sure you have installed it locally. On OSX you can do so via `brew install imagemagick`, other operating systems will vary.
 
 ## Build Process
 

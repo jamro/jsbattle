@@ -14,7 +14,6 @@ Tool                                                 | Description
 [jQuery](https://jquery.com/)                        | Minor usage, mostly as Bootstrap dependency. The website is based rather on React.
 [Font Awesome](http://fontawesome.io/)               | Icons for user interface
 [SatJS](https://github.com/jriecken/sat-js)          | Collision detection library
-[Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
 
 ## Build and Development
 
@@ -27,12 +26,15 @@ Tool                                                 | Description
 [Pixi Packer](https://github.com/gamevy/pixi-packer) | Build sprite sheets
 [http-server](https://github.com/indexzero/http-server) | Lightweight NPM web server used to run the game
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator
+[Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
 
 
 ## Tests and code validation
 
 Tool                                                 | Description
 -----------------------------------------------------|-----------------------------------------
+[CasperJS](http://casperjs.org/)                     | Website navigation test Framework
+[PhantomJS](http://phantomjs.org/)                   | Scriptable, headless WebKit used by CasperJS
 [Mocha](https://mochajs.org/)                        | Unit Tests Framework
 [SinonJS](http://sinonjs.org/)                       | Test spies, stubs and mocks for unit tests
 [JSHint](http://jshint.com/)                         | JavaScript code validation

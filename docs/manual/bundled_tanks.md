@@ -130,7 +130,7 @@ function goToDirection(targetAngle, state, control, done) {
 
   if(Math.abs(angleDelta) < 5) {
     // do not move forward if a tank is on your way
-    if(state.collisions.enemy || tate.collisions.ally) {
+    if(state.collisions.enemy || state.collisions.ally) {
       control.THROTTLE = 0;
     } else {
       control.THROTTLE = 1;

@@ -1,8 +1,8 @@
+var config = require('../config.js');
 casper.test.begin('Links in documentation works', function suite(test) {
-  var BASE_URL = 'http://127.0.0.1:8070/docs/';
-  var START_PAGE = BASE_URL + "#/docs/README"
+  var START_PAGE = config.DOCS_URL + "#/docs/README"
   var allLinks = [
-    BASE_URL
+    config.DOCS_URL
   ];
   var linkQueue = [
     {
@@ -23,8 +23,6 @@ casper.test.begin('Links in documentation works', function suite(test) {
     .run(function() {
         test.done();
     });
-
-
 
   function processLinkQueue(self, test) {
     self.each(linkQueue, function(self,link) {
@@ -81,7 +79,7 @@ casper.test.begin('Links in documentation works', function suite(test) {
     if(!result) return;
     result = Array.prototype.map.call(result,function(url){
       return {
-        url: BASE_URL + url,
+        url: config.DOCS_URL + url,
         parent: self.getCurrentUrl()
       };
     });

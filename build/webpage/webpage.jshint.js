@@ -1,7 +1,9 @@
 module.exports = function (gulp, config, plugins) {
     return function () {
       return gulp.src(config.webpage.sources)
-        .pipe(plugins.react())
+        .pipe(plugins.react({
+          es6module: true
+        }))
         .on('error', function(err) {
           console.error('JSX ERROR in ' + err.fileName);
           console.error(err.message);

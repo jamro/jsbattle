@@ -9,9 +9,13 @@ module.exports = class StartScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    var teamMode = localStorage.getItem("settings.teamMode");
+    var teamMode;
+    var battleSet;
+    if(!props.stateless) {
+      teamMode = localStorage.getItem("settings.teamMode");
+      battleSet = localStorage.getItem("settings.battleSet");
+    }
     teamMode = (teamMode == 'true');
-    var battleSet = localStorage.getItem("settings.battleSet");
     battleSet = battleSet ? JSON.parse(battleSet) : [];
     this.state = {
       loading: true,
@@ -202,10 +206,10 @@ module.exports = class StartScreen extends React.Component {
 
   renderSettings() {
     return <div>
-      <button type="button" className="btn btn-success btn-lg pull-right" onClick={() => this.createTank()}>
+      <button type="button" className="btn btn-success btn-lg pull-right create-tank" onClick={() => this.createTank()}>
         <i className="fa fa-plus-circle" aria-hidden="true"></i> Create Tank
       </button>
-      <table className="table" >
+      <table className="table tank-table" >
         <thead>
           <tr>
             <th>Tank Name</th>
@@ -236,7 +240,7 @@ module.exports = class StartScreen extends React.Component {
         <div className="panel panel-default">
           <div className="panel-body text-center">
             <p style={{marginBottom: "5px"}}>Tanks in the battle.</p>
-            <h1 style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.aiDefList.length}</h1>
+            <h1 className="tank-counter" style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.aiDefList.length}</h1>
             <p>{listComplete ? "Press start to begin." : "Add more tanks."}</p>
             {this.renderStartButton()}
           </div>

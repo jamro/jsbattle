@@ -2,8 +2,11 @@ var generateName = require('sillyname');
 
 module.exports = class AiRepository {
 
-  constructor() {
-    var storedScripts = localStorage.getItem('aiRepository.scriptMap');
+  constructor(stateless) {
+    var storedScripts;
+    if(!stateless) {
+      storedScripts = localStorage.getItem('aiRepository.scriptMap');
+    }
     this._scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
     this._reservedNames = [];
   }

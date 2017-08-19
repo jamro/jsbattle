@@ -130,6 +130,7 @@ module.exports = class BattleScreen extends React.Component {
         visible={true}
         tankList={this.state.tankList}
         highlight={this.state.qualityLevel > 0.66}
+        stateless={this.props.stateless}
       />;
     var fpsWarn = <InfoBox
       message="Animation refresh rate was reduced to increase speed of the battle. You can adjust quality setting in the top bar"

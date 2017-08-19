@@ -30,15 +30,15 @@ module.exports = class NumericInput extends React.Component {
   }
 
   render() {
-    var classNames = "input-group " + this.props.className;
+    var classNames = "numeric-input input-group " + this.props.className;
     var style = this.state.value ? {fontWeight: 'bold'} : {color: '#bbbbbb'};
     return <div className={classNames} style={{width: '150px'}}>
       <div className="input-group-btn">
-        <button type="button" className="btn btn-default" onClick={() => this.decreaseValue()}>-</button>
+        <button type="button" className="minus btn btn-default" onClick={() => this.decreaseValue()}>-</button>
       </div>
       <input type="text" className="form-control text-center" aria-label="..." value={this.state.value} readOnly={true} style={style}/>
       <div className="input-group-btn">
-        <button type="button" className="btn btn-default" onClick={() => this.increaseValue()}>+</button>
+        <button type="button" className="plus btn btn-default" onClick={() => this.increaseValue()}>+</button>
       </div>
     </div>;
   }

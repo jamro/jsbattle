@@ -11,9 +11,13 @@ module.exports = class App extends React.Component {
 
   constructor(props) {
     super(props);
-    var simSpeed = localStorage.getItem("settings.simSpeed");
+    var simSpeed;
+    var qualitySettings;
+    if(!props.stateless) {
+      simSpeed = localStorage.getItem("settings.simSpeed");
+      qualitySettings = localStorage.getItem("settings.quality");
+    }
     simSpeed = simSpeed ? simSpeed : 1;
-    var qualitySettings = localStorage.getItem("settings.quality");
     qualitySettings = qualitySettings ? qualitySettings : "auto";
     this.state = {
       simSpeed: simSpeed,
@@ -26,7 +30,7 @@ module.exports = class App extends React.Component {
       quickBattleMode: false,
       battleSettings: {}
     };
-    this.aiRepository = new AiRepository();
+    this.aiRepository = new AiRepository(props.stateless);
   }
 
   setSimulationSpeed(v) {
@@ -102,6 +106,7 @@ module.exports = class App extends React.Component {
           onScriptEdit={(name) => this.onScriptEdit(name)}
           aiRepository={this.aiRepository}
           fastForward={this.state.quickBattleMode}
+          stateless={this.props.stateless}
         />;
       case 'battle':
         return <BattleScreen
@@ -113,6 +118,7 @@ module.exports = class App extends React.Component {
           onError={(msg) => this.showError(msg)}
           onFinish={(result) => this.onBattleFinish(result)}
           onExit={() => this.onBattleExit()}
+          stateless={this.props.stateless}
         />;
       case 'winner':
         return <WinnerScreen

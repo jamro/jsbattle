@@ -59,13 +59,13 @@ module.exports = class TankTableRow extends React.Component {
   }
 
   renderDeleteButton() {
-    return <button type="button" className="btn btn-danger"  onClick={() => this.setState({mode: 'confirmDelete'})}>
+    return <button type="button" className="btn btn-danger tank-remove"  onClick={() => this.setState({mode: 'confirmDelete'})}>
       <i className="fa fa-trash" aria-hidden="true"></i>
     </button>;
   }
 
   renderEditButton() {
-    return <button type="button" className="btn btn-default" onClick={() => this.props.onEdit(this.props.name)}>
+    return <button type="button" className="btn btn-default tank-edit" onClick={() => this.props.onEdit(this.props.name)}>
       <i className="fa fa-pencil" aria-hidden="true"></i>
     </button>;
   }
@@ -84,12 +84,12 @@ module.exports = class TankTableRow extends React.Component {
 
   renderConfirmDelete() {
       return <tr>
-        <td colSpan={4}>
-          <button type="button" className="btn btn-danger" onClick={() => this.deleteRow()}>
+        <td colSpan={4} className="tank-remove-confirm">
+          <button type="button" className="btn btn-danger tank-remove-confirm-yes" onClick={() => this.deleteRow()}>
             Yes, delete AI Script of {this.props.name} tank!
           </button>
           &nbsp;
-          <button type="button" className="btn btn-default" onClick={() => this.setState({mode: 'normal'})}>
+          <button type="button" className="btn btn-default tank-remove-confirm-no" onClick={() => this.setState({mode: 'normal'})}>
             Nevermind
           </button>
         </td>
@@ -101,17 +101,17 @@ module.exports = class TankTableRow extends React.Component {
     var style = this.state.light ? {backgroundColor: this.getBgColor()} : null;
 
     return <tr style={style}>
-      <td>{this.props.name}</td>
-      <td className="text-center">
+      <td className="tank-name">{this.props.name}</td>
+      <td className="text-center tank-difficulty">
         {this.renderDifficulty(this.props.name, this.props.difficulty)}
       </td>
-      <td className="text-right">
+      <td className="text-right tank-actions">
         <div className="btn-group" role="group" aria-label="...">
           {this.props.onEdit ? this.renderEditButton() : null}
           {this.props.onDelete ? this.renderDeleteButton() : null}
         </div>
       </td>
-      <td className="block-center">
+      <td className="block-center tank-count">
         <NumericInput
           className="pull-right"
           defaultValue={this.props.count}

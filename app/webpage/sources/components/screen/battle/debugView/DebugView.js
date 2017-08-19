@@ -6,7 +6,10 @@ module.exports = class DebugView extends UnfreshComponent {
 
   constructor(props) {
     super(props);
-    var debugTankId = localStorage.getItem("settings.debugTankId");
+    var debugTankId;
+    if(!props.stateless) {
+      debugTankId = localStorage.getItem("settings.debugTankId");
+    }
     debugTankId = debugTankId ? debugTankId : 0;
     this.state = {
       debugId: debugTankId

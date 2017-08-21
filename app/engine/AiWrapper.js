@@ -152,8 +152,12 @@ module.exports = class AiWrapper {
         mates: [self._tank.id],
       };
     }
+    var infoData = {
+      id: self._tank.id,
+      team: teamInfo
+    };
     if(self._aiDefinition.initData) {
-      teamInfo.initData = self._aiDefinition.initData;
+      infoData.initData = self._aiDefinition.initData;
     }
     self._aiProcessingStart = (new Date()).getTime();
     self._aiProcessingResolveCallback = resolve;
@@ -164,10 +168,7 @@ module.exports = class AiWrapper {
       settings: {
         SKIN: 'zebra'
       },
-      info: {
-        id: self._tank.id,
-        team: teamInfo
-      },
+      info: infoData,
       code: self._aiDefinition.code
     });
   }

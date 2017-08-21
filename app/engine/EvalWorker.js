@@ -30,11 +30,12 @@ class EvalWorker {
       if(!inputData.code) throw "The code is required!";
       var seed = inputData.seed;
       var settings = inputData.settings;
+      var info = inputData.info;
       var Math = extendedMath();
 
       var tank = this._tankController;
       eval(inputData.code);  // jshint ignore:line
-      tank._initCallback(settings);
+      tank._initCallback(settings, info);
       response = {data: {type: 'init', settings: settings}};
     } else if (inputData.command == 'update') {
       var state = inputData.state;

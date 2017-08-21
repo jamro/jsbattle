@@ -1,0 +1,17 @@
+{
+  "name": "jsbattle",
+  "description": "",
+  "main": "dist/js/jsbattle.min.js",
+  "authors": [
+    "Krzysztof Jamroz <jamro@jamro.net>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jamro/jsbattle",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

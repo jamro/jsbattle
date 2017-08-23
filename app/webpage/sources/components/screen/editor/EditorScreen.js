@@ -2,6 +2,7 @@ var FullRow = require('../../common/bootstrap/FullRow.js');
 var Row = require('../../common/bootstrap/Row.js');
 var Col = require('../../common/bootstrap/Col.js');
 var JsonCode = require('../../common/JsonCode.js');
+var ExitWarning = require('../../common/ExitWarning.js');
 var FileNameHeader = require('./FileNameHeader.js');
 var SaveButtons = require('./SaveButtons.js');
 var CodeArea = require('./CodeArea.js');
@@ -124,6 +125,7 @@ module.exports = class EditorScreen extends React.Component {
       }
     };
     return <div>
+      <ExitWarning disabled={!this.hasUnsavedChanges()}/>
       <FullRow>
           <FileNameHeader
             className="pull-left"

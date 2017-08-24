@@ -7,7 +7,7 @@ module.exports = function (gulp, config, plugins) {
 
   gulp.task('rebuild-engine', function(done) {
     plugins.sequence(
-      'engine.sources',
+      'engine.sources.min',
       'engine.sprites',
       'engine.docs',
       'connect-reload',

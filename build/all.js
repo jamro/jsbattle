@@ -10,6 +10,7 @@ module.exports = function (gulp, config, plugins) {
       'engine.docs',
       'webpage.sources',
       'engine.sources',
+      'engine.sources.min',
       'engine.sprites',
       'tanks.copy',
       'tanks.sources',

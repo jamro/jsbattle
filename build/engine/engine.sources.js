@@ -1,11 +1,13 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = function (gulp, config, plugins) {
+module.exports = function (gulp, config, plugins, minify) {
     return function () {
       var webpackPlugins = [];
-      if(!config.devMode) {
+      if(!config.devMode && minify) {
         webpackPlugins.push(new UglifyJSPlugin({
-          sourceMap: true
+          sourceMap: true,
+          minimize: true,
+          compress: false,
         }));
       }
       return gulp.src(config.engine.sources.concat(config.engine.lib))
@@ -15,7 +17,7 @@ module.exports = function (gulp, config, plugins) {
           },
           devtool: (!config.devMode) ? "source-map" : null,
           output: {
-            filename: 'jsbattle.min.js',
+            filename: minify ? 'jsbattle.min.js' : 'jsbattle.js',
             library: 'JsBattle',
             libraryTarget: 'var'
           },

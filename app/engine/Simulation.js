@@ -281,7 +281,7 @@ class Simulation {
       clearInterval(this._renderInterval);
       this._renderInterval = null;
     }
-    let tank, ai, i;
+    let ai, i;
     for(i=0; i < this._aiList.length; i++) {
       ai = this._aiList[i];
       if(!ai) continue;

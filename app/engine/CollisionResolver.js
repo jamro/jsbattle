@@ -183,7 +183,6 @@ export default class CollisionResolver {
 
   scanBullets(tank) {
     let radarBeamShape =  this._getRadarBeamShape(tank);
-    let tankShape =  this._getTankShape(tank);
     radarBeamShape.setAngle((tank.angle + tank.radarAngle)*Math.PI/180);
     radarBeamShape.pos.x = tank.x;
     radarBeamShape.pos.y = tank.y;

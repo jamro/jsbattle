@@ -1,4 +1,4 @@
-module.exports = class ExitWarning extends React.Component {
+export default class ExitWarning extends React.Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.warn.bind(this));
@@ -8,7 +8,7 @@ module.exports = class ExitWarning extends React.Component {
     if(this.props.disabled) {
       return null;
     }
-    var confirmationMessage = 'It looks like you have been editing something. If you leave before saving, your changes will be lost.';
+    let confirmationMessage = 'It looks like you have been editing something. If you leave before saving, your changes will be lost.';
     confirmationMessage = this.props.message ? this.props.message : confirmationMessage;
 
     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
@@ -22,4 +22,4 @@ module.exports = class ExitWarning extends React.Component {
   render() {
     return null;
   }
-};
+}

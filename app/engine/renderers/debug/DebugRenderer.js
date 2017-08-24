@@ -1,13 +1,13 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiRenderer = require("../abstractPixi/AbstractPixiRenderer.js");
-var DebugBattlefieldView = require("./DebugBattlefieldView.js");
-var DebugClockView = require("./DebugClockView.js");
-var DebugBulletView = require("./DebugBulletView.js");
-var DebugTankView = require("./DebugTankView.js");
+import AbstractPixiRenderer from "../abstractPixi/AbstractPixiRenderer.js";
+import DebugBattlefieldView from "./DebugBattlefieldView.js";
+import DebugClockView from "./DebugClockView.js";
+import DebugBulletView from "./DebugBulletView.js";
+import DebugTankView from "./DebugTankView.js";
 
-module.exports = class DebugRenderer extends AbstractPixiRenderer  {
+export default class DebugRenderer extends AbstractPixiRenderer  {
 
   constructor() {
     super();
@@ -19,7 +19,7 @@ module.exports = class DebugRenderer extends AbstractPixiRenderer  {
   initBatlefield(battlefield) {
     super.initBatlefield(battlefield);
 
-    var labelStyle = new PIXI.TextStyle({
+    let labelStyle = new PIXI.TextStyle({
       fontFamily: 'Arial',
       fontSize: 12,
       fill: '#00ff00'
@@ -30,8 +30,8 @@ module.exports = class DebugRenderer extends AbstractPixiRenderer  {
     this._fpsLabel.y = 5;
     this.stage.addChild(this._fpsLabel);
 
-    var self = this;
-    setInterval(function() {
+    let self = this;
+    setInterval(() => {
       self._fpsLabel.text = "FPS: " + self._frameCounter;
       self._frameCounter = 0;
     }, 1000);
@@ -51,8 +51,8 @@ module.exports = class DebugRenderer extends AbstractPixiRenderer  {
 
   renderTankStats(tankList) {
     super.renderTankStats(tankList);
-    var scores = [];
-    var i;
+    let scores = [];
+    let i;
     for(i=0; i < tankList.length; i++) {
       scores.push({
         name: tankList[i].fullName,
@@ -60,12 +60,12 @@ module.exports = class DebugRenderer extends AbstractPixiRenderer  {
         value: tankList[i].score,
       });
     }
-    scores.sort(function(a,b) {
+    scores.sort((a,b) => {
       if (a.value < b.value) return 1;
       if (a.value > b.value) return -1;
       return 0;
     });
-    var msg = "";
+    let msg = "";
     for(i=0; i < scores.length; i++) {
       msg += scores[i].value.toFixed(3) + " - " + scores[i].name + (scores[i].energy == 0 ? " [X]" : "" ) + "\n";
     }
@@ -93,4 +93,4 @@ module.exports = class DebugRenderer extends AbstractPixiRenderer  {
     return new DebugTankView(tank);
   }
 
-};
+}

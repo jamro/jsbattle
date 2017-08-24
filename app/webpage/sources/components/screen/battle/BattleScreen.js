@@ -1,14 +1,14 @@
-var Row = require('../../common/bootstrap/Row.js');
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Col = require('../../common/bootstrap/Col.js');
-var InfoBox = require('../../common/InfoBox.js');
-var DebugView = require('./debugView/DebugView.js');
-var ScoreBoard = require('./scoreBoard/ScoreBoard.js');
-var Battlefield = require('./Battlefield.js');
-var BootstrapRWD = require('../../../lib/BootstrapRWD.js');
-var Loading = require('../../common/Loading.js');
+import Row from "../../common/bootstrap/Row.js";
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Col from "../../common/bootstrap/Col.js";
+import InfoBox from "../../common/InfoBox.js";
+import DebugView from "./debugView/DebugView.js";
+import ScoreBoard from "./scoreBoard/ScoreBoard.js";
+import Battlefield from "./Battlefield.js";
+import BootstrapRWD from "../../../lib/BootstrapRWD.js";
+import Loading from "../../common/Loading.js";
 
-module.exports = class BattleScreen extends React.Component {
+export default class BattleScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ module.exports = class BattleScreen extends React.Component {
 
   componentDidMount() {
     this.buildSimulation();
-    var self = this;
+    let self = this;
     this.rwd.onChange((s) => this.setState({windowSize: s}));
     this.setState({windowSize: this.rwd.size});
   }
@@ -42,8 +42,8 @@ module.exports = class BattleScreen extends React.Component {
   }
 
   onBattleReady() {
-    var self = this;
-    this.props.aiDefList.forEach(function(ai) {
+    let self = this;
+    this.props.aiDefList.forEach((ai) => {
       if(self.props.settings.teamMode) {
         ai.assignToTeam(ai.name);
       }
@@ -66,8 +66,8 @@ module.exports = class BattleScreen extends React.Component {
   }
 
   updateTankList() {
-    var rank;
-    var tankList = this.battlefield.tankList.map((tank) => {
+    let rank;
+    let tankList = this.battlefield.tankList.map((tank) => {
       return {
         id: tank.id,
         name: tank.fullName,
@@ -84,7 +84,7 @@ module.exports = class BattleScreen extends React.Component {
       tankList[rank].rank = rank;
     }
 
-    var teamList = this.battlefield.teamList.map((team) => {
+    let teamList = this.battlefield.teamList.map((team) => {
       return {
         name: team.name,
         score: team.score,
@@ -118,21 +118,21 @@ module.exports = class BattleScreen extends React.Component {
   }
 
   render() {
-    var loading = null;
-    var exitButton = <button className="btn btn-danger btn-lg" style={{width: '100%', marginBottom: '5px'}} onClick={() => this.exit()}>
+    let loading = null;
+    let exitButton = <button className="btn btn-danger btn-lg" style={{width: '100%', marginBottom: '5px'}} onClick={() => this.exit()}>
       <i className="fa fa-power-off" aria-hidden="true"></i> Exit the battle
     </button>;
-    var scoreboard = <ScoreBoard
+    let scoreboard = <ScoreBoard
       tankList={this.props.settings.teamMode ? this.state.teamList : this.state.tankList}
       refreshTime={200+1300*(1-this.state.qualityLevel)}
     />;
-    var debugView = <DebugView
+    let debugView = <DebugView
         visible={true}
         tankList={this.state.tankList}
         highlight={this.state.qualityLevel > 0.66}
         stateless={this.props.stateless}
       />;
-    var fpsWarn = <InfoBox
+    let fpsWarn = <InfoBox
       message="Animation refresh rate was reduced to increase speed of the battle. You can adjust quality setting in the top bar"
       title="FPS reduced"
       level="warning"
@@ -183,4 +183,4 @@ module.exports = class BattleScreen extends React.Component {
       </FullRow>
     </div>;
   }
-};
+}

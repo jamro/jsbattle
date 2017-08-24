@@ -1,8 +1,8 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
 
-module.exports = class SaveButtons extends React.Component {
+export default class SaveButtons extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ module.exports = class SaveButtons extends React.Component {
   }
 
   renderStandard() {
-    var saveButton;
+    let saveButton;
     if(this.props.unsavedChanges) {
       saveButton = <button type="button" className="btn btn-default"  onClick={() => this.onSave()}>
           <i className="fa fa-save" aria-hidden="true"></i> Save
@@ -75,4 +75,4 @@ module.exports = class SaveButtons extends React.Component {
       case 'confirm': return this.renderConfirm();
     }
   }
-};
+}

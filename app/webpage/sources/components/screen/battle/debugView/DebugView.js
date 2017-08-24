@@ -1,12 +1,12 @@
-var JsonCode = require('../../../common/JsonCode.js');
-var UnfreshComponent = require('../../../common/UnfreshComponent.js');
-var InfoBox = require('../../../common/InfoBox.js');
+import JsonCode from "../../../common/JsonCode.js";
+import UnfreshComponent from "../../../common/UnfreshComponent.js";
+import InfoBox from "../../../common/InfoBox.js";
 
-module.exports = class DebugView extends UnfreshComponent {
+export default class DebugView extends UnfreshComponent {
 
   constructor(props) {
     super(props);
-    var debugTankId;
+    let debugTankId;
     if(!props.stateless) {
       debugTankId = localStorage.getItem("settings.debugTankId");
     }
@@ -25,7 +25,7 @@ module.exports = class DebugView extends UnfreshComponent {
 
   renderOptions() {
     if(!this.props.tankList) return null;
-    var result = this.props.tankList.map((tank) => {
+    let result = this.props.tankList.map((tank) => {
       return <option key={tank.id} value={tank.id} >
         {tank.name}
       </option>;
@@ -38,7 +38,7 @@ module.exports = class DebugView extends UnfreshComponent {
 
   findDebugTank() {
     if(this.state.debugId == 0) return null;
-    var self = this;
+    let self = this;
     return this.props.tankList.find((tank) => {
       return tank.id == self.state.debugId;
     });
@@ -60,7 +60,7 @@ module.exports = class DebugView extends UnfreshComponent {
   }
 
   renderDebugPanel() {
-    var debugTank = this.findDebugTank();
+    let debugTank = this.findDebugTank();
     if(debugTank) {
       return <div className="panel-body debug-container">
         <small>Debug Data</small>
@@ -94,4 +94,4 @@ module.exports = class DebugView extends UnfreshComponent {
       </InfoBox>
     </div>;
   }
-};
+}

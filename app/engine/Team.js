@@ -10,7 +10,7 @@ class Team {
 
   addTank(tank) {
     if(tank.team) throw "Tank " + tank.fullName + " is already assigned to team " + tank.team.name;
-    for(var i in this._members) {
+    for(let i in this._members) {
       if(this._members[i].id == tank.id) return;
     }
     this._members.push(tank);
@@ -28,8 +28,8 @@ class Team {
   }
 
   get aliveCount() {
-    var count = 0;
-    for(var i=0; i < this._members.length; i++ ) {
+    let count = 0;
+    for(let i=0; i < this._members.length; i++ ) {
       if(this._members[i].energy > 0) {
         count++;
       }
@@ -38,24 +38,24 @@ class Team {
   }
 
   get score() {
-    var sum = 0;
-    for(var i=0; i < this._members.length; i++ ) {
+    let sum = 0;
+    for(let i=0; i < this._members.length; i++ ) {
       sum += this._members[i].score;
     }
     return sum;
   }
 
   get energy() {
-    var sum = 0;
-    for(var i=0; i < this._members.length; i++ ) {
+    let sum = 0;
+    for(let i=0; i < this._members.length; i++ ) {
       sum += this._members[i].energy;
     }
     return sum;
   }
-  
+
   get maxEnergy() {
-    var sum = 0;
-    for(var i=0; i < this._members.length; i++ ) {
+    let sum = 0;
+    for(let i=0; i < this._members.length; i++ ) {
       sum += this._members[i].maxEnergy;
     }
     return sum;
@@ -74,14 +74,14 @@ class Team {
   }
 
   sendMessages(senderId, messages) {
-    for(var i in this._inboxMap) {
+    for(let i in this._inboxMap) {
       if(i == senderId) continue;
       this._inboxMap[i] = this._inboxMap[i].concat(messages);
     }
   }
 
   processMessages() {
-    var i;
+    let i;
     for(i in this._inboxMap) {
       this._outboxMap[i] = this._inboxMap[i];
       this._inboxMap[i] = [];
@@ -90,4 +90,4 @@ class Team {
 
 }
 
-module.exports = Team;
+export default Team;

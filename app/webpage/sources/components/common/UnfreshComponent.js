@@ -1,4 +1,4 @@
-module.exports = class DebugView extends React.Component {
+export default class DebugView extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,9 +39,9 @@ module.exports = class DebugView extends React.Component {
       clearTimeout(this._unlockChangesLoop);
     }
     this._preventChanges=false;
-    var self = this;
+    let self = this;
     this._unlockChangesLoop = setTimeout(() => {
       self.unlockChanges();
     }, this.props.refreshTime ? this.props.refreshTime : 100);
   }
-};
+}

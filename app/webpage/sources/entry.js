@@ -1,7 +1,7 @@
 import 'babel-polyfill';
-var App = require('./components/App.js');
+import App from "./components/App.js";
 
-var stateless = false;
+let stateless = false;
 if(window.location.hash) {
   stateless = window.location.hash.substring(1) == 'stateless';
 }

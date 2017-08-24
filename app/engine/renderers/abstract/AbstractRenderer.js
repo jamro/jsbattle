@@ -1,9 +1,9 @@
 'use strict';
 
-var Renderer = require("../Renderer.js");
-var AbstractView = require("./AbstractView.js");
+import Renderer from "../Renderer.js";
+import AbstractView from "./AbstractView.js";
 
-module.exports = class AbstractRenderer extends Renderer  {
+export default class AbstractRenderer extends Renderer  {
 
   constructor() {
     super();
@@ -51,7 +51,7 @@ module.exports = class AbstractRenderer extends Renderer  {
     this._speedMultiplier = v;
   }
   _renderModel(model, events, map, factory) {
-    var view = null;
+    let view = null;
     if(map[model.id]) {
       view = map[model.id];
     } else {
@@ -70,4 +70,4 @@ module.exports = class AbstractRenderer extends Renderer  {
     return new AbstractView(bullet);
   }
 
-};
+}

@@ -1,13 +1,13 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractRenderer = require("../abstract/AbstractRenderer.js");
-var AbstractPixiView = require("./AbstractPixiView.js");
-var AbstractPixiTankView = require("./AbstractPixiTankView.js");
-var PixiRendererClockModel = require("./PixiRendererClockModel.js");
-var PixiPackerParser = require("pixi-packer-parser");
+import AbstractRenderer from "../abstract/AbstractRenderer.js";
+import AbstractPixiView from "./AbstractPixiView.js";
+import AbstractPixiTankView from "./AbstractPixiTankView.js";
+import PixiRendererClockModel from "./PixiRendererClockModel.js";
+import PixiPackerParser from "pixi-packer-parser";
 
-module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
+export default class AbstractPixiRenderer extends AbstractRenderer  {
 
   constructor(name) {
     super();
@@ -52,7 +52,7 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     this._masterContainer.x = -this.offsetX;
     this._masterContainer.y = -this.offsetY;
 
-    var rendererSettings = {
+    let rendererSettings = {
       view: this._canvas,
       antialias: false,
       backgroundColor: 0xffffff,
@@ -85,12 +85,12 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
       done();
       return;
     }
-    var loader = new PIXI.loaders.Loader();
+    let loader = new PIXI.loaders.Loader();
     loader.after(PixiPackerParser(PIXI));
-    var resolution = (this._rendererScale == 2) ? "retina" : "web";
+    let resolution = (this._rendererScale == 2) ? "retina" : "web";
     loader.add("img/game_" + this._name + "_" + resolution + ".json");
-    var self = this;
-    loader.load(function() {
+    let self = this;
+    loader.load(() => {
       self.onAssetsLoaded();
       done();
     });
@@ -106,7 +106,7 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
 
   renderTank(tank, events) {
     super.renderTank(tank, events);
-    var view = this.getTankView(tank.id);
+    let view = this.getTankView(tank.id);
     if(!view.parent && view.isAlive) {
       this._tankContainer.addChild(view.view);
       this._hudContainer.addChild(view.hudView);
@@ -115,7 +115,7 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
 
   renderBullet(bullet, events) {
     super.renderBullet(bullet, events);
-    var view = this.getBulletView(bullet.id);
+    let view = this.getBulletView(bullet.id);
     if(!view.parent && view.isAlive) {
       this._bulletContainer.addChild(view.view);
     }
@@ -147,4 +147,4 @@ module.exports = class AbstractPixiRenderer extends AbstractRenderer  {
     return new AbstractPixiView(clock);
   }
 
-};
+}

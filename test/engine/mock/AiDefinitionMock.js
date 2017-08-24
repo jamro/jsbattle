@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class AiDefinitionMock {
+export default class AiDefinitionMock {
 
   constructor(name) {
     this.name = name ? name : "ai_" + Math.round(Math.random()*1000000);

@@ -1,4 +1,4 @@
-module.exports = class PixiRendererClockModel {
+export default class PixiRendererClockModel {
 
   construct() {
     this._msElapsed = 0;
@@ -19,9 +19,9 @@ module.exports = class PixiRendererClockModel {
   }
 
   get text() {
-    var msTotal = Math.max(0, this._msLimit - this._msElapsed);
-    var s = Math.floor(msTotal/1000);
-    var ms = msTotal % 1000;
+    let msTotal = Math.max(0, this._msLimit - this._msElapsed);
+    let s = Math.floor(msTotal/1000);
+    let ms = msTotal % 1000;
     s = s.toString();
     while(s.length < 2) s = "0" + s;
     ms = ms.toString();
@@ -30,4 +30,4 @@ module.exports = class PixiRendererClockModel {
     return "0:" + s + "." + ms;
   }
 
-};
+}

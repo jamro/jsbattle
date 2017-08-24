@@ -1,16 +1,16 @@
-var assert = require('assert');
-var sinon = require('sinon');
-var AiWrapper = require('../../app/engine/AiWrapper.js');
-var WorkerMock = require('./mock/WorkerMock.js');
-var TankMock = require('./mock/TankMock.js');
-var AiDefinitionMock = require('./mock/AiDefinitionMock.js');
+import assert from "assert";
+import sinon from "sinon";
+import AiWrapper from '../../app/engine/AiWrapper.js';
+import WorkerMock from "./mock/WorkerMock.js";
+import TankMock from "./mock/TankMock.js";
+import AiDefinitionMock from "./mock/AiDefinitionMock.js";
 
 describe('AiWrapper', function() {
   describe('constructor', function() {
 
     it('should store tank reference', function () {
-      var tank = new TankMock();
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
+      let tank = new TankMock();
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
 
       assert.equal(tank, ai.tank);
     });
@@ -20,9 +20,9 @@ describe('AiWrapper', function() {
   describe('activate', function() {
 
     it('should create web worker', function (done) {
-      var tank = new TankMock();
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
-      var worker;
+      let tank = new TankMock();
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         return worker;
@@ -45,9 +45,9 @@ describe('AiWrapper', function() {
 
     it('should return error if worker not responding', function (done) {
       this.timeout(5000);
-      var tank = new TankMock();
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
-      var worker;
+      let tank = new TankMock();
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         return worker;
@@ -68,11 +68,11 @@ describe('AiWrapper', function() {
     });
 
     it('should pass code to worker', function (done) {
-      var tank = new TankMock();
-      var def = new AiDefinitionMock();
+      let tank = new TankMock();
+      let def = new AiDefinitionMock();
       def.code = "My AI code";
-      var ai = new AiWrapper(tank, def);
-      var worker;
+      let ai = new AiWrapper(tank, def);
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         worker.postMessage = (data) => {
@@ -101,9 +101,9 @@ describe('AiWrapper', function() {
   describe('deactivate', function() {
 
     it('should terminate web worker', function(done) {
-      var tank = new TankMock();
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
-      var worker;
+      let tank = new TankMock();
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         return worker;
@@ -131,8 +131,8 @@ describe('AiWrapper', function() {
 
   describe('simulationStep', function() {
     it('should call worker', function (done) {
-      var tank = new TankMock();
-      var control = {
+      let tank = new TankMock();
+      let control = {
         THROTTLE: Math.random(),
         TURN: Math.random(),
         RADAR_TURN: Math.random(),
@@ -141,8 +141,8 @@ describe('AiWrapper', function() {
         SHOOT: 0.5 + 0.5*Math.random(),
         DEBUG: {}
       }
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
-      var worker;
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         return worker;
@@ -182,9 +182,9 @@ describe('AiWrapper', function() {
 
     it('should return error if working not responding', function (done) {
       this.timeout(5000);
-      var tank = new TankMock();
-      var ai = new AiWrapper(tank, new AiDefinitionMock());
-      var worker;
+      let tank = new TankMock();
+      let ai = new AiWrapper(tank, new AiDefinitionMock());
+      let worker;
       ai._createWorker = function(name) {
         worker = new WorkerMock(name);
         return worker;

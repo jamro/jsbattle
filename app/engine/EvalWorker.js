@@ -1,9 +1,9 @@
-var extendedMath = require('../tanks/lib/extendedMath.js');
+const extendedMath = require('../tanks/lib/extendedMath.js');
 
 class TankController {
   constructor() {
-    this._initCallback = function() {};
-    this._loopCallback = function() {};
+    this._initCallback = () => {};
+    this._loopCallback = () => {};
   }
 
   loop(callback) {
@@ -25,21 +25,21 @@ class EvalWorker {
   }
 
   postMessage(inputData) {
-    var response = null;
+    let response = null;
     if(inputData.command == 'init') {
       if(!inputData.code) throw "The code is required!";
-      var seed = inputData.seed;
-      var settings = inputData.settings;
-      var info = inputData.info;
+      let seed = inputData.seed;
+      let settings = inputData.settings;
+      let info = inputData.info;
       var Math = extendedMath();
 
-      var tank = this._tankController;
+      let tank = this._tankController;
       eval(inputData.code);  // jshint ignore:line
       tank._initCallback(settings, info);
       response = {data: {type: 'init', settings: settings}};
     } else if (inputData.command == 'update') {
-      var state = inputData.state;
-      var control = inputData.control;
+      let state = inputData.state;
+      let control = inputData.control;
       if(this._tankController._loopCallback) {
         this._tankController._loopCallback(state, control);
         response = {data: control};
@@ -64,4 +64,4 @@ class EvalWorker {
   }
 }
 
-module.exports = EvalWorker;
+export default EvalWorker;

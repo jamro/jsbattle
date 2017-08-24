@@ -1,18 +1,18 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiBulletView = require("../abstractPixi/AbstractPixiBulletView.js");
+import AbstractPixiBulletView from "../abstractPixi/AbstractPixiBulletView.js";
 
-module.exports = class BWBulletView extends AbstractPixiBulletView  {
+export default class BWBulletView extends AbstractPixiBulletView  {
 
   constructor(model) {
     super(model);
   }
 
   _create(container) {
-    var bullet = PIXI.Sprite.fromFrame('bullet');
+    let bullet = PIXI.Sprite.fromFrame('bullet');
     bullet.anchor.set(0.5);
     container.addChild(bullet);
   }
 
-};
+}

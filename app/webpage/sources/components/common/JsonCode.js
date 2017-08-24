@@ -1,8 +1,8 @@
-module.exports = class JsonCode extends React.Component {
+export default class JsonCode extends React.Component {
 
 
   formatJSON(data, indent, path) {
-    var i, txt, lineBreak, newIndent;
+    let i, txt, lineBreak, newIndent;
     if(!indent) indent = <span></span>;
     if(!path) path = "";
     if(typeof data == 'string') {
@@ -58,17 +58,17 @@ module.exports = class JsonCode extends React.Component {
   }
 
   render() {
-    var classes = "hljs " + this.props.className;
-    var output = '';
+    let classes = "hljs " + this.props.className;
+    let output = '';
     if(this.props.highlight) {
       output = this.formatJSON(this.props.data);
     } else {
       output = JSON.stringify(this.props.data, null, 2);
     }
-    var prefix = "";
+    let prefix = "";
     if(this.props.varName) {
       prefix = this.props.varName + " = ";
     }
     return <pre className={classes}>{prefix}{output}</pre>;
   }
-};
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class BrodySettings   {
+export default class BrodySettings   {
 
   constructor(model) {
     this._particleLimit = 1000;
@@ -53,6 +53,4 @@ module.exports = class BrodySettings   {
     this._quality = v;
   }
 
-
-
-};
+}

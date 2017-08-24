@@ -1,15 +1,15 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
 
-module.exports = class WinnerScreen extends React.Component {
+export default class WinnerScreen extends React.Component {
 
   constructor(props) {
     super(props);
   }
 
   getWinnerName() {
-    var result = this.props.result;
+    let result = this.props.result;
     return result.teamMode ? "Team " + result.teamWinner.name : result.tankWinner.fullName;
   }
 
@@ -18,7 +18,7 @@ module.exports = class WinnerScreen extends React.Component {
   }
 
   getScoreBoardData() {
-    var result = this.props.result;
+    let result = this.props.result;
     if(result.teamMode) {
       return result.teamList
         .sort((a, b) => b.score - a.score)
@@ -50,13 +50,13 @@ module.exports = class WinnerScreen extends React.Component {
   }
 
   render() {
-    var previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
+    let previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
 
 
-    var restartButton = <button className="btn btn-default btn-lg" onClick={() => this.props.onRestart()}>
+    let restartButton = <button className="btn btn-default btn-lg" onClick={() => this.props.onRestart()}>
       <i className="fa fa-refresh" aria-hidden="true"></i> Next Battle
     </button>;
-    var editButton = <button className="btn btn-primary btn-lg" onClick={() => this.props.onEdit()}>
+    let editButton = <button className="btn btn-primary btn-lg" onClick={() => this.props.onEdit()}>
       <i className="fa fa-pencil" aria-hidden="true"></i> Edit AI Script
     </button>;
     if(!this.props.onEdit) {
@@ -94,4 +94,4 @@ module.exports = class WinnerScreen extends React.Component {
       </Col>
     </Row>;
   }
-};
+}

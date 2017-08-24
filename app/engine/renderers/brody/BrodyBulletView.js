@@ -1,9 +1,9 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiBulletView = require("../abstractPixi/AbstractPixiBulletView.js");
+import AbstractPixiBulletView from "../abstractPixi/AbstractPixiBulletView.js";
 
-module.exports = class BrodyBulletView extends AbstractPixiBulletView  {
+export default class BrodyBulletView extends AbstractPixiBulletView  {
 
   constructor(model, settings) {
     super(model);
@@ -19,9 +19,9 @@ module.exports = class BrodyBulletView extends AbstractPixiBulletView  {
   }
 
   _create(container) {
-    var bullet = PIXI.Sprite.fromFrame('bullet');
+    let bullet = PIXI.Sprite.fromFrame('bullet');
     bullet.anchor.set(0.5);
-    var glow = PIXI.Sprite.fromFrame('glow');
+    let glow = PIXI.Sprite.fromFrame('glow');
     glow.anchor.set(0.5);
     glow.blendMode = PIXI.BLEND_MODES.ADD;
     glow.alpha = 0.1;
@@ -30,4 +30,4 @@ module.exports = class BrodyBulletView extends AbstractPixiBulletView  {
     container.addChild(bullet);
   }
 
-};
+}

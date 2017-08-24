@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class PerformanceMonitorMock {
+export default class PerformanceMonitorMock {
 
   constructor(name) {
     this.qualityLevel = 1;

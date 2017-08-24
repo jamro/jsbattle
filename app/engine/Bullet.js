@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class Bullet {
+export default class Bullet {
 
   constructor(owner, id, power) {
     this._id = id;
@@ -64,4 +64,4 @@ module.exports = class Bullet {
     this._x += this._speed*Math.cos(this._angle*(Math.PI/180));
     this._y += this._speed*Math.sin(this._angle*(Math.PI/180));
   }
-};
+}

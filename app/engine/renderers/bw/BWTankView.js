@@ -1,9 +1,9 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiTankView = require("../abstractPixi/AbstractPixiTankView.js");
+import AbstractPixiTankView from "../abstractPixi/AbstractPixiTankView.js";
 
-module.exports = class BWTankView extends AbstractPixiTankView  {
+export default class BWTankView extends AbstractPixiTankView  {
 
   constructor(model) {
     super(model);
@@ -15,15 +15,15 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
   }
 
   _createBody() {
-    var body = PIXI.Sprite.fromFrame('tank_body');
+    let body = PIXI.Sprite.fromFrame('tank_body');
     body.anchor.set(0.5);
     return body;
   }
 
   _createGun() {
-    var gunContainer = new PIXI.Container();
+    let gunContainer = new PIXI.Container();
 
-    var tankGun = PIXI.Sprite.fromFrame('tank_gun');
+    let tankGun = PIXI.Sprite.fromFrame('tank_gun');
     tankGun.anchor.set(0.3, 0.5);
     gunContainer.addChild(tankGun);
 
@@ -36,18 +36,18 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
   }
 
   _createRadar() {
-    var tankRadar = PIXI.Sprite.fromFrame('tank_radar');
+    let tankRadar = PIXI.Sprite.fromFrame('tank_radar');
     tankRadar.anchor.set(0.5);
     return tankRadar;
   }
 
   _createLabel() {
-    var labelStyle = new PIXI.TextStyle({
+    let labelStyle = new PIXI.TextStyle({
         fontFamily: 'Arial',
         fontSize: 12,
         fill: 0x000000
     });
-    var label = new PIXI.Text("", labelStyle);
+    let label = new PIXI.Text("", labelStyle);
     label.anchor.set(0.5, 0.5);
     label.x = 0;
     label.y = -40;
@@ -55,7 +55,7 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
   }
 
   _createHudBackground() {
-    var statusBarBg =  new PIXI.Graphics();
+    let statusBarBg =  new PIXI.Graphics();
     statusBarBg.beginFill(0x000000, 1);
     statusBarBg.drawRect(-26, -3, 52, 6);
     statusBarBg.y = -30;
@@ -63,7 +63,7 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
   }
 
   _createEnergyBar() {
-    var energyBar =  new PIXI.Graphics();
+    let energyBar =  new PIXI.Graphics();
     energyBar.beginFill(0xff0000, 1);
     energyBar.drawRect(0, -2, 50, 4);
     energyBar.x = -25;
@@ -71,4 +71,4 @@ module.exports = class BWTankView extends AbstractPixiTankView  {
     return energyBar;
   }
 
-};
+}

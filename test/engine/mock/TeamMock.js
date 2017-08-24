@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class TeamMock {
+export default class TeamMock {
 
   constructor(name) {
     this.name = name ? name : "bravo_" + Math.round(Math.random()*1000000);

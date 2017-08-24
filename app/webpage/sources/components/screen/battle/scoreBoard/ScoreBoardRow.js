@@ -1,7 +1,7 @@
-module.exports = class ScoreBoardRow extends React.Component {
+export default class ScoreBoardRow extends React.Component {
 
   render() {
-    var progressStyle = {
+    let progressStyle = {
       width: Math.round(this.props.energy) + "%"
     };
     return <tr>
@@ -16,4 +16,4 @@ module.exports = class ScoreBoardRow extends React.Component {
       <td className="text-right">{this.props.score.toFixed(2)}</td>
     </tr>;
   }
-};
+}

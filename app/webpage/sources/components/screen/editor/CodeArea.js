@@ -1,4 +1,4 @@
-module.exports = class CodeArea extends React.Component {
+export default class CodeArea extends React.Component {
 
   constructor(props) {
     super(props);
@@ -8,9 +8,9 @@ module.exports = class CodeArea extends React.Component {
 
   componentDidMount() {
 
-    var orig = CodeMirror.hint.javascript;
+    let orig = CodeMirror.hint.javascript;
     CodeMirror.hint.javascript = function(editor) {
-      var hints = {
+      let hints = {
         settings: {
           SKIN: null
         },
@@ -83,35 +83,35 @@ module.exports = class CodeArea extends React.Component {
         }
       };
 
-      var cursor = editor.getCursor();
-      var curLine = editor.getLine(cursor.line).substring(0, cursor.ch);
-      var lastCharacter = curLine.substr(curLine.length-1, 1);
-      var pattern = /[A-Za-z\.]/;
+      let cursor = editor.getCursor();
+      let curLine = editor.getLine(cursor.line).substring(0, cursor.ch);
+      let lastCharacter = curLine.substr(curLine.length-1, 1);
+      let pattern = /[A-Za-z\.]/;
       if(!pattern.test(lastCharacter)) {
         return {
-          from: CodeMirror.Pos(cursor.line, start),
-          to: CodeMirror.Pos(cursor.line, end),
+          from: CodeMirror.Pos(cursor.line, cursor.ch),
+          to: CodeMirror.Pos(cursor.line, cursor.ch),
           list: []
         };
       }
       pattern = /([A-Za-z\_\.]*)(\[.+\])?\.[^\.\=]*$/;
-      var phrase = pattern.exec(curLine);
+      let phrase = pattern.exec(curLine);
       phrase = phrase ? phrase[1] : "";
       phrase = phrase.split(".");
       pattern = /([A-Za-z\_]*)$/;
-      var word = pattern.exec(curLine);
+      let word = pattern.exec(curLine);
       word = word ? word[0] : "";
-      var end = cursor.ch;
-      var start = end - word.length;
+      let end = cursor.ch;
+      let start = end - word.length;
 
-      var inner = {
+      let inner = {
         from: CodeMirror.Pos(cursor.line, start),
         to: CodeMirror.Pos(cursor.line, end),
         list: []
       };
 
-      var i;
-      var hint = hints;
+      let i;
+      let hint = hints;
       for(i=0; i < phrase.length; i++) {
         hint = hint[phrase[i]];
         if(!hint) break;
@@ -139,7 +139,7 @@ module.exports = class CodeArea extends React.Component {
       this.props.onChange(this.codeMirror.getValue());
     });
     this.codeMirror.on('keyup', (cm, event) => {
-      var ignoreKeys = [37, 38, 39, 40, 32, 13];
+      let ignoreKeys = [37, 38, 39, 40, 32, 13];
       if (ignoreKeys.indexOf(event.keyCode) == -1) {
         CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
       }
@@ -157,4 +157,4 @@ module.exports = class CodeArea extends React.Component {
     />;
 
   }
-};
+}

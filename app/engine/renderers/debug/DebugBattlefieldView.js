@@ -1,12 +1,12 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiView = require("../abstractPixi/AbstractPixiView.js");
+import AbstractPixiView from "../abstractPixi/AbstractPixiView.js";
 
-module.exports = class DebugBattlefieldView extends AbstractPixiView  {
+export default class DebugBattlefieldView extends AbstractPixiView  {
 
   _create(container) {
-    var background = new PIXI.Graphics();
+    let background = new PIXI.Graphics();
     background.beginFill(0x000000);
     background.lineStyle(1, 0xffff00, 0.8);
     background.drawRect(0, 0, this.model.width+2*this.model.margin, this.model.height+2*this.model.margin);
@@ -23,4 +23,4 @@ module.exports = class DebugBattlefieldView extends AbstractPixiView  {
   update(events) {
 
   }
-};
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class PerformanceMonitor {
+export default class PerformanceMonitor {
 
   constructor() {
     this._simulationStepDuration = 30;
@@ -29,7 +29,7 @@ module.exports = class PerformanceMonitor {
 
   start() {
     this._started = true;
-    var self = this;
+    let self = this;
     this._checkLoop = setInterval(() => {
       self._check();
     }, this._checkInterval);
@@ -64,15 +64,15 @@ module.exports = class PerformanceMonitor {
   _check() {
     this._actualPerfomance = Math.ceil(this._stepCounter*(1000/this._checkInterval));
     this._stepCounter = 0;
-    var index = this._desiredPerfomance ? this._actualPerfomance/this._desiredPerfomance : 1;
+    let index = this._desiredPerfomance ? this._actualPerfomance/this._desiredPerfomance : 1;
     this._perfomanceIndex = (this._perfomanceIndex + index)/2;
     this._updateQuality();
   }
 
   _updateQuality() {
-    var lowestQuality = 2.5*this._perfomanceIndex - 1.25;
+    let lowestQuality = 2.5*this._perfomanceIndex - 1.25;
     lowestQuality = Math.max(0, Math.min(1, lowestQuality));
-    var decreaseStep = -0.5*this._perfomanceIndex + 0.45;
+    let decreaseStep = -0.5*this._perfomanceIndex + 0.45;
 
     if(this._perfomanceIndex > 1) {
       this._desiredQuality += 0.1;
@@ -82,7 +82,7 @@ module.exports = class PerformanceMonitor {
 
     this._desiredQuality = Math.max(0, Math.min(1, this._desiredQuality));
 
-    var targetQuality = Math.max(lowestQuality, this._desiredQuality);
+    let targetQuality = Math.max(lowestQuality, this._desiredQuality);
 
     this._desiredQuality = (this._desiredQuality + targetQuality)/2;
     if(this._desiredQuality < this._quality ) {
@@ -91,4 +91,4 @@ module.exports = class PerformanceMonitor {
       this._quality = (this._desiredQuality + 9*this._quality)/10;
     }
   }
-};
+}

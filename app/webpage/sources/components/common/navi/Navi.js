@@ -1,4 +1,4 @@
-module.exports = class Navi extends React.Component {
+export default class Navi extends React.Component {
 
   constructor(props) {
     super(props);
@@ -9,7 +9,7 @@ module.exports = class Navi extends React.Component {
   }
 
   speedToName(speed) {
-    var label;
+    let label;
     if(speed < 0.1) label = "Super Slow";
     else if(speed < 1) label = "Slow";
     else if(speed == 1) label = "Normal";
@@ -20,7 +20,7 @@ module.exports = class Navi extends React.Component {
 
   qualityToName(q) {
     if(q == 'auto') return 'Auto';
-    var label;
+    let label;
     if(q < 0.33) label = "Low";
     else if(q < 0.66) label = "Normal";
     else label = "High";
@@ -28,14 +28,14 @@ module.exports = class Navi extends React.Component {
   }
 
   renderSpeedButton(speed) {
-    var label = this.speedToName(speed);
+    let label = this.speedToName(speed);
     return <li>
       <a href="#" onClick={() => this.setSpeed(speed)}>{label}</a>
     </li>;
   }
 
   renderQualityButton(q) {
-    var label = this.qualityToName(q);
+    let label = this.qualityToName(q);
     return <li>
       <a href="#" onClick={() => this.setQuality(q)}>{label}</a>
     </li>;
@@ -94,4 +94,4 @@ module.exports = class Navi extends React.Component {
       </div>
     </nav>;
   }
-};
+}

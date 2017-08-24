@@ -1,4 +1,4 @@
-module.exports = class Battlefield extends React.Component {
+export default class Battlefield extends React.Component {
 
   construct() {
     this.simulation = null;
@@ -50,22 +50,22 @@ module.exports = class Battlefield extends React.Component {
   }
 
   handleFinish() {
-    var tankWinner = null;
-    var i;
+    let tankWinner = null;
+    let i;
     for(i in this.simulation.tankList) {
-      var tank = this.simulation.tankList[i];
+      let tank = this.simulation.tankList[i];
       if(!tankWinner || tank.score > tankWinner.score) {
         tankWinner = tank;
       }
     }
-    var teamWinner = null;
+    let teamWinner = null;
     for(i in this.simulation.teamList) {
-      var team = this.simulation.teamList[i];
+      let team = this.simulation.teamList[i];
       if(!teamWinner || team.score > teamWinner.score) {
         teamWinner = team;
       }
     }
-    var result = {
+    let result = {
       tankWinner: tankWinner,
       teamWinner: teamWinner,
       tankList: this.simulation.tankList,
@@ -73,7 +73,7 @@ module.exports = class Battlefield extends React.Component {
       timeLeft: this.simulation.timeLimit - this.simulation.timeElapsed
     };
 
-    var keepRendering = setInterval(() => {
+    let keepRendering = setInterval(() => {
       this.renderer.preRender();
       this.renderer.postRender();
     }, 30);
@@ -109,7 +109,7 @@ module.exports = class Battlefield extends React.Component {
   }
 
   render() {
-    var style = {};
+    let style = {};
     if(!this.props.visible) {
       style.display = 'none';
     } else {
@@ -125,4 +125,4 @@ module.exports = class Battlefield extends React.Component {
     >
     </canvas>;
   }
-};
+}

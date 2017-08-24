@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class AbstractView  {
+export default class AbstractView  {
 
   constructor(model) {
     this._model = model;
@@ -25,7 +25,7 @@ module.exports = class AbstractView  {
   }
 
   update(events) {
-    
+
   }
 
-};
+}

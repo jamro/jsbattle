@@ -1,9 +1,9 @@
-var generateName = require('sillyname');
+import generateName from "sillyname";
 
-module.exports = class AiRepository {
+export default class AiRepository {
 
   constructor(stateless) {
-    var storedScripts;
+    let storedScripts;
     if(!stateless) {
       storedScripts = localStorage.getItem('aiRepository.scriptMap');
     }
@@ -57,8 +57,8 @@ module.exports = class AiRepository {
   }
 
   getScriptNameList() {
-    var result = [];
-    for(var i in this._scriptMap) {
+    let result = [];
+    for(let i in this._scriptMap) {
       result.push(i);
     }
     return result;
@@ -73,8 +73,8 @@ module.exports = class AiRepository {
   }
 
   deleteScript(name) {
-    var newMap = {};
-    for(var i in this._scriptMap) {
+    let newMap = {};
+    for(let i in this._scriptMap) {
       if(i == name) continue;
       newMap[i] = this._scriptMap[i];
     }
@@ -85,4 +85,4 @@ module.exports = class AiRepository {
   reserveName(names) {
     this._reservedNames = this._reservedNames.concat(names);
   }
-};
+}

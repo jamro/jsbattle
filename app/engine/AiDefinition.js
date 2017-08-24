@@ -15,7 +15,7 @@ class AiDefinition {
    * `JsBattle.createAiDefinition()` instead
    */
   constructor() {
-    var uid = (new Date()).getTime().toString();
+    let uid = (new Date()).getTime().toString();
     uid = uid.substr(uid.length-6, 6) + "" + Math.round(10000000*Math.random());
     uid = Number(uid);
     uid = uid.toString(35);
@@ -62,7 +62,7 @@ class AiDefinition {
     if(this._code) {
       return "tanks/lib/codeWorker.js";
     } else {
-      return "tanks/" + this._name + ".tank.js";
+      return `tanks/${this._name}.tank.js`;
     }
   }
 
@@ -144,4 +144,4 @@ class AiDefinition {
 
 }
 
-module.exports = AiDefinition;
+export default AiDefinition;

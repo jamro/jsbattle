@@ -336,7 +336,7 @@ class Tank {
   }
 
   handleShoot() {
-    var value = this._shootingPower;
+    let value = this._shootingPower;
     this._shootingPower = 0;
     return value;
   }
@@ -364,7 +364,7 @@ class Tank {
   }
 
   simulationStep(collisionResolver) {
-    var self = this;
+    let self = this;
 
     if(self._energy == 0) {
       return;
@@ -374,21 +374,21 @@ class Tank {
       self._boost--;
     }
 
-    var oldX = self._x;
-    var oldY = self._y;
+    let oldX = self._x;
+    let oldY = self._y;
 
-    var maxSpeed = self._throttle * (self.hasBoost ? 4 : 2);
-    var accelerationFactor = (self.hasBoost ? 10 : 20);
+    let maxSpeed = self._throttle * (self.hasBoost ? 4 : 2);
+    let accelerationFactor = (self.hasBoost ? 10 : 20);
     self._actualThrottle += (maxSpeed - self._actualThrottle)/accelerationFactor;
 
-    var v = self._actualThrottle;
-    var rotation = self._angle*(Math.PI/180);
+    let v = self._actualThrottle;
+    let rotation = self._angle*(Math.PI/180);
     self._x += v*Math.cos(rotation);
     self._y += v*Math.sin(rotation);
     self._wallHit = false;
     self._enemyHit = false;
     self._allyHit = false;
-    var hitTest = !collisionResolver.checkTank(self);
+    let hitTest = !collisionResolver.checkTank(self);
     if(hitTest) {
       self._x = oldX;
       self._y = oldY;
@@ -424,11 +424,11 @@ class Tank {
       self._gunTimer--;
     }
 
-    var enemyData = null;
-    var allyData = null;
-    var bulletsData = [];
+    let enemyData = null;
+    let allyData = null;
+    let bulletsData = [];
     while(self._bulletsSpot.length) {
-      var bullet = self._bulletsSpot.shift();
+      let bullet = self._bulletsSpot.shift();
       bulletsData.push({
         id: bullet.id,
         x: bullet.x,
@@ -460,8 +460,8 @@ class Tank {
       };
     }
 
-    var dx = self._x - self._lastX;
-    var dy = self._y - self._lastY;
+    let dx = self._x - self._lastX;
+    let dy = self._y - self._lastY;
     self._speed = Math.sqrt(dx*dx + dy*dy);
 
     self._lastX = self._x;
@@ -497,4 +497,4 @@ class Tank {
   }
 }
 
-module.exports = Tank;
+export default Tank;

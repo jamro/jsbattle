@@ -1,18 +1,18 @@
-var assert = require('assert');
-var sinon = require('sinon');
+import assert from "assert";
+import sinon from "sinon";
 
-var Simulation = require('../../app/engine/Simulation.js');
-var RendererMock = require('./mock/RendererMock.js');
-var BattlefieldMock = require('./mock/BattlefieldMock.js');
-var TankMock = require('./mock/TankMock.js');
-var BulletMock = require('./mock/BulletMock.js');
-var AiWrapperMock = require('./mock/AiWrapperMock.js');
-var PerformanceMonitorMock = require('./mock/PerformanceMonitorMock.js');
-var AiDefinitionMock = require('./mock/AiDefinitionMock.js');
+import Simulation from "../../app/engine/Simulation.js"
+import RendererMock from "./mock/RendererMock.js";
+import BattlefieldMock from "./mock/BattlefieldMock.js";
+import TankMock from "./mock/TankMock.js";
+import BulletMock from "./mock/BulletMock.js";
+import AiWrapperMock from "./mock/AiWrapperMock.js";
+import PerformanceMonitorMock from "./mock/PerformanceMonitorMock.js";
+import AiDefinitionMock from "./mock/AiDefinitionMock.js";
 
 function createSimulation() {
-  var renderer = new RendererMock();
-  var sim = new Simulation(renderer);
+  let renderer = new RendererMock();
+  let sim = new Simulation(renderer);
   sim._perfMon = new PerformanceMonitorMock();
   sim._createAiWrapper = function(tank) {
     return new AiWrapperMock(tank);
@@ -30,8 +30,8 @@ describe('Simulation', function() {
   describe('construct', function() {
 
     it('should set the renderer', function() {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
 
       assert.equal(renderer, sim.renderer);
     });
@@ -40,16 +40,16 @@ describe('Simulation', function() {
   describe('init', function() {
 
     it('should set size of the battlefield', function() {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim.init(340, 560);
       assert.equal(340-sim.battlefield.margin*2, sim.battlefield.width);
       assert.equal(560-sim.battlefield.margin*2, sim.battlefield.height);
     });
 
     it('should init renderer\'s battlefield', function() {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim.init(340, 560);
       assert(renderer.initBatlefield.calledWith(sim.battlefield));
     });
@@ -59,8 +59,8 @@ describe('Simulation', function() {
   describe('setSpeed', function() {
 
     it('should change renderer speed', function () {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim.init(600, 600);
       sim.setSpeed(3.2);
       assert(renderer.setSpeed.calledWith(3.2));
@@ -68,8 +68,8 @@ describe('Simulation', function() {
 
     it('should change simulation speed', function (done) {
       this.retries(3);
-      var sim1 = createSimulation();
-      var sim2 = createSimulation();
+      let sim1 = createSimulation();
+      let sim2 = createSimulation();
       sim1.init(600, 600);
       sim2.init(600, 600);
 
@@ -78,11 +78,11 @@ describe('Simulation', function() {
       sim2.addTank(new AiDefinitionMock());
       sim2.addTank(new AiDefinitionMock());
 
-      var stepCount1 = 0;
+      let stepCount1 = 0;
       sim1.onStep(function () {
         stepCount1++;
       });
-      var stepCount2 = 0;
+      let stepCount2 = 0;
       sim2.onStep(function () {
         stepCount2++;
       });
@@ -93,7 +93,7 @@ describe('Simulation', function() {
       setTimeout(function() {
         assert(stepCount1 > 0, "Simulation1 steps were counted");
         assert(stepCount2 > 0, "Simulation2 steps were counted");
-        var multiplier = Math.round(stepCount2/stepCount1);
+        let multiplier = Math.round(stepCount2/stepCount1);
         sim1.stop();
         sim2.stop();
         assert.equal(2, multiplier);
@@ -106,7 +106,7 @@ describe('Simulation', function() {
   describe('start', function() {
 
     it('should start rendering loop', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
       sim.addTank(new AiDefinitionMock());
       sim.addTank(new AiDefinitionMock());
@@ -119,7 +119,7 @@ describe('Simulation', function() {
     });
 
     it('should start simulation loop', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
       sim.addTank(new AiDefinitionMock());
       sim.addTank(new AiDefinitionMock());
@@ -132,15 +132,15 @@ describe('Simulation', function() {
     });
 
     it('should remove destroyed tanks', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank2 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank3 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank2 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank3 = sim.addTank(new AiDefinitionMock()).tank;
       tank1.energy = 0;
 
-      var totalStepCount = 0;
+      let totalStepCount = 0;
 
       sim.onStep(function () {
         totalStepCount++;
@@ -156,14 +156,14 @@ describe('Simulation', function() {
     });
 
     it('should stop when no enemys left', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
       sim.addTank(new AiDefinitionMock()).tank;
       tank1.energy = 0;
 
-      var totalStepCount = 0;
+      let totalStepCount = 0;
       sim.onFinish(function() {
         done();
       });
@@ -178,15 +178,15 @@ describe('Simulation', function() {
     });
 
     it('should award survival scores', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank2 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank3 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank2 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank3 = sim.addTank(new AiDefinitionMock()).tank;
       tank1.energy = 0;
 
-      var totalStepCount = 0;
+      let totalStepCount = 0;
 
       sim.onStep(function () {
         assert(tank1.onSurviveScore.notCalled);
@@ -199,13 +199,13 @@ describe('Simulation', function() {
     });
 
     it('should update tanks', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank2 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank2 = sim.addTank(new AiDefinitionMock()).tank;
 
-      var totalStepCount = 0;
+      let totalStepCount = 0;
 
       sim.onStep(function () {
         assert(tank1.simulationStep.called);
@@ -217,9 +217,9 @@ describe('Simulation', function() {
     });
 
     it('should activate AI', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
-      var ai = new AiWrapperMock(new TankMock());
+      let ai = new AiWrapperMock(new TankMock());
       sim._createAiWrapper = function(tank) {
         return ai;
       }
@@ -235,11 +235,11 @@ describe('Simulation', function() {
     });
 
     it('should start Perfomance Monitor', function(done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank2 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank2 = sim.addTank(new AiDefinitionMock()).tank;
 
       sim.onStep(function () {
         assert(sim._perfMon.start.calledOnce);
@@ -253,14 +253,14 @@ describe('Simulation', function() {
   describe('stop', function() {
 
     it('should stop simulation', function (done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
       sim.addTank(new AiDefinitionMock());
       sim.addTank(new AiDefinitionMock());
 
-      var stepCount = 0;
-      var finalStepCount = 0;
+      let stepCount = 0;
+      let finalStepCount = 0;
       sim.onStep(function () {
         stepCount++;
       });
@@ -276,8 +276,8 @@ describe('Simulation', function() {
     });
 
     it('should stop renderer', function (done) {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim._createAiWrapper = function(tank) {
         return new AiWrapperMock(tank);
       }
@@ -303,7 +303,7 @@ describe('Simulation', function() {
     });
 
     it('should stop Perfomance Monitor', function(done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
       sim.addTank(new AiDefinitionMock());
       sim.addTank(new AiDefinitionMock());
@@ -323,7 +323,7 @@ describe('Simulation', function() {
   describe('addTank', function() {
 
     it('should add Tank to simulation', function() {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
       assert.equal(0, sim.tankList.length);
@@ -340,11 +340,11 @@ describe('Simulation', function() {
   describe('timeLimit', function() {
 
     it('should limit duration of the simulation', function(done) {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
 
-      var tank1 = sim.addTank(new AiDefinitionMock()).tank;
-      var tank2 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank1 = sim.addTank(new AiDefinitionMock()).tank;
+      let tank2 = sim.addTank(new AiDefinitionMock()).tank;
 
       sim.timeLimit = 50;
 
@@ -360,7 +360,7 @@ describe('Simulation', function() {
   describe('simulationStep', function() {
 
     it('should update Performance Monitor', function() {
-      var sim = createSimulation();
+      let sim = createSimulation();
       sim.init(600, 600);
       sim.addTank(new AiDefinitionMock());
       sim.addTank(new AiDefinitionMock());
@@ -377,8 +377,8 @@ describe('Simulation', function() {
   describe('setRendererQuality', function() {
 
     it('should change quality of renderer', function() {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim._createAiWrapper = function(tank) {
         return new AiWrapperMock(tank);
       }
@@ -404,8 +404,8 @@ describe('Simulation', function() {
     });
 
     it('should support auto mode', function() {
-      var renderer = new RendererMock();
-      var sim = new Simulation(renderer);
+      let renderer = new RendererMock();
+      let sim = new Simulation(renderer);
       sim._createAiWrapper = function(tank) {
         return new AiWrapperMock(tank);
       }
@@ -422,7 +422,7 @@ describe('Simulation', function() {
 
       sim.start();
       sim.setRendererQuality('auto');
-      sim._perfMon.qualityLevel = 0.43;
+      sim._perfMon._quality = 0.43;
 
       sim.onRender(function () {
         sim.stop();

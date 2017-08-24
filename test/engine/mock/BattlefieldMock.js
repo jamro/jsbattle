@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class BattlefieldMock {
+export default class BattlefieldMock {
 
   constructor() {
     this.setSize = sinon.spy();

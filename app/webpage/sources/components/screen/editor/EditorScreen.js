@@ -1,17 +1,17 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
-var JsonCode = require('../../common/JsonCode.js');
-var ExitWarning = require('../../common/ExitWarning.js');
-var FileNameHeader = require('./FileNameHeader.js');
-var SaveButtons = require('./SaveButtons.js');
-var CodeArea = require('./CodeArea.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
+import JsonCode from "../../common/JsonCode.js";
+import ExitWarning from "../../common/ExitWarning.js";
+import FileNameHeader from "./FileNameHeader.js";
+import SaveButtons from "./SaveButtons.js";
+import CodeArea from "./CodeArea.js";
 
-module.exports = class EditorScreen extends React.Component {
+export default class EditorScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    var script = this.props.aiRepository.getScript(this.props.name);
+    let script = this.props.aiRepository.getScript(this.props.name);
     this.state = {
       script: script,
       unsavedCode: script.code
@@ -46,7 +46,7 @@ module.exports = class EditorScreen extends React.Component {
   }
 
   onSave() {
-    var name = this.state.script.name;
+    let name = this.state.script.name;
     if(this.hasUnsavedChanges()) {
       this.props.aiRepository.updateScript(name, this.state.unsavedCode);
       this.setState({script: this.props.aiRepository.getScript(name)});
@@ -54,17 +54,17 @@ module.exports = class EditorScreen extends React.Component {
   }
 
   render() {
-    var settingsData = {
+    let settingsData = {
       SKIN: 'forest'
     };
-    var infoData = {
+    let infoData = {
       id: 3,
       team: {
         name: 'my-team',
         mates: [1, 2 , 3]
       }
     };
-    var controlData = {
+    let controlData = {
       THROTTLE: 0,
       BOOST: 0,
       TURN: 0,
@@ -74,7 +74,7 @@ module.exports = class EditorScreen extends React.Component {
       OUTBOX: [],
       DEBUG: {}
     };
-    var stateData = {
+    let stateData = {
       x: 39.5,
       y: 74.3,
       angle: 45.2,
@@ -167,4 +167,4 @@ module.exports = class EditorScreen extends React.Component {
       </Row>
     </div>;
   }
-};
+}

@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class RendererMock {
+export default class RendererMock {
 
   constructor() {
     this.quality = 1;

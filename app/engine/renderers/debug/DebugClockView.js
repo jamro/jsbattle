@@ -1,16 +1,16 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiView = require("../abstractPixi/AbstractPixiView.js");
+import AbstractPixiView from "../abstractPixi/AbstractPixiView.js";
 
-module.exports = class DebugClockView extends AbstractPixiView  {
+export default class DebugClockView extends AbstractPixiView  {
 
   constructor(model) {
     super(model);
   }
 
   _create(container) {
-    var labelStyle = new PIXI.TextStyle({
+    let labelStyle = new PIXI.TextStyle({
         fontFamily: 'Arial',
         fontSize: 12,
         fill: '#00ff00'
@@ -25,4 +25,4 @@ module.exports = class DebugClockView extends AbstractPixiView  {
   update(events) {
     this._label.text = this.model.text;
   }
-};
+}

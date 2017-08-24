@@ -1,13 +1,13 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiRenderer = require("../abstractPixi/AbstractPixiRenderer.js");
-var BWBattlefieldView = require("./BWBattlefieldView.js");
-var BWClockView = require("./BWClockView.js");
-var BWBulletView = require("./BWBulletView.js");
-var BWTankView = require("./BWTankView.js");
+import AbstractPixiRenderer from "../abstractPixi/AbstractPixiRenderer.js";
+import BWBattlefieldView from "./BWBattlefieldView.js";
+import BWClockView from "./BWClockView.js";
+import BWBulletView from "./BWBulletView.js";
+import BWTankView from "./BWTankView.js";
 
-module.exports = class BWRenderer extends AbstractPixiRenderer  {
+export default class BWRenderer extends AbstractPixiRenderer  {
 
   constructor() {
     super('bw');
@@ -17,7 +17,7 @@ module.exports = class BWRenderer extends AbstractPixiRenderer  {
   }
 
   onAssetsLoaded() {
-    for(var i=0; i <= 9; i++) {
+    for(let i=0; i <= 9; i++) {
       this._bigBoomAnim.push(PIXI.Texture.fromFrame('big_boom_00' + i));
       this._smallBoomAnim.push(PIXI.Texture.fromFrame('small_boom_00' + i));
     }
@@ -71,7 +71,7 @@ module.exports = class BWRenderer extends AbstractPixiRenderer  {
   }
 
   _addExplosion(x, y, type) {
-    var anim = new PIXI.extras.AnimatedSprite(type);
+    let anim = new PIXI.extras.AnimatedSprite(type);
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
     anim.x = x;
@@ -84,4 +84,4 @@ module.exports = class BWRenderer extends AbstractPixiRenderer  {
     anim.play();
   }
 
-};
+}

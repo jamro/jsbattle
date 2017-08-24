@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class BulletMock {
+export default class BulletMock {
 
   constructor(owner, id, power) {
     this.id = id ? id : Math.round(Math.random()*1000000);

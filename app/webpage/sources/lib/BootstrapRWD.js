@@ -1,4 +1,4 @@
-module.exports = class BootstrapRWD {
+export default class BootstrapRWD {
 
   constructor() {
     this._width = 0;
@@ -48,7 +48,7 @@ module.exports = class BootstrapRWD {
   }
 
   _calculateSize(width) {
-    for(var i in this._sizing) {
+    for(let i in this._sizing) {
       if(width >= this._sizing[i].min && width < this._sizing[i].max) {
         return i;
       }
@@ -57,13 +57,13 @@ module.exports = class BootstrapRWD {
   }
 
   _onWindowResize() {
-    var oldSize = this._calculateSize(this._width);
+    let oldSize = this._calculateSize(this._width);
     this._width = window.innerWidth;
-    var newSize = this._calculateSize(this._width);
+    let newSize = this._calculateSize(this._width);
     this._size = newSize;
     if(newSize != oldSize) {
-      for(var i in this._onChangeCallbackList) this._onChangeCallbackList[i](newSize);
+      for(let i in this._onChangeCallbackList) this._onChangeCallbackList[i](newSize);
     }
   }
 
-};
+}

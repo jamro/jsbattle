@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class Battlefield {
+export default class Battlefield {
 
   constructor(width, height) {
     this._width = null;
@@ -16,14 +16,14 @@ module.exports = class Battlefield {
 
     // generate list of start slots
     this._startSlotList = [];
-    var slotSize = 90;
-    for(var x = this.minX + slotSize; x < this.maxX - slotSize; x += slotSize) {
-      for(var y = this.minY + slotSize; y < this.maxY - slotSize; y += slotSize) {
+    let slotSize = 90;
+    for(let x = this.minX + slotSize; x < this.maxX - slotSize; x += slotSize) {
+      for(let y = this.minY + slotSize; y < this.maxY - slotSize; y += slotSize) {
         this._startSlotList.push({x: x, y: y});
       }
     }
     // shuffle start slots
-    var currentIndex = this._startSlotList.length, temporaryValue, randomIndex;
+    let currentIndex = this._startSlotList.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
@@ -75,4 +75,4 @@ module.exports = class Battlefield {
     }
     return null;
   }
-};
+}

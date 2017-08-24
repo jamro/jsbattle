@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class WorkerMock {
+export default class WorkerMock {
 
   constructor(name) {
     this.name = name;

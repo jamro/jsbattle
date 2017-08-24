@@ -1,8 +1,8 @@
 'use strict';
 
-var EvalWorker = require('./EvalWorker.js');
+import EvalWorker from './EvalWorker.js';
 
-module.exports = class AiWrapper {
+export default class AiWrapper {
 
   constructor(tank, aiDefinition) {
     if(!tank) throw "Tank is required";
@@ -53,7 +53,7 @@ module.exports = class AiWrapper {
 
   _formatError(err) {
     if(!err.message) return 'unknown';
-    var msg = err.message;
+    let msg = err.message;
     if(err.lineno) {
       msg = "Line #" + err.lineno + ": " + msg;
     }
@@ -64,9 +64,9 @@ module.exports = class AiWrapper {
     if(typeof seed != 'number') throw "seed must be a number, '" + (typeof seed) + "' given";
     if(typeof resolve != 'function') throw "resolve callback must be a function, '" + (typeof resolve) + "' given";
     if(typeof reject != 'function') throw "reject callback must be a function, '" + (typeof reject) + "' given";
-    var self = this;
+    let self = this;
     self._aiWorker = self._createWorker(this._aiDefinition);
-    self._aiWorker.onerror = function(err) {
+    self._aiWorker.onerror = (err) => {
       console.error(err);
       if(self._aiProcessingRejectCallback) {
         self._aiProcessingRejectCallback({
@@ -85,10 +85,10 @@ module.exports = class AiWrapper {
       self._aiProcessingCheckInterval = null;
     }
 
-    self._aiProcessingCheckInterval = setInterval(function() {
+    self._aiProcessingCheckInterval = setInterval(() => {
       if(self._aiProcessingRejectCallback) {
-        var now = (new Date()).getTime();
-        var dt = now - self._aiProcessingStart;
+        let now = (new Date()).getTime();
+        let dt = now - self._aiProcessingStart;
         if(dt > self._aiProcessingTimeLimit) {
           clearInterval(self._aiProcessingCheckInterval);
           self._aiProcessingCheckInterval = null;
@@ -102,20 +102,20 @@ module.exports = class AiWrapper {
       }
     }, Math.max(self._aiDefinition.executionLimit, Math.round(self._aiProcessingTimeLimit/2)));
 
-    self._aiWorker.onmessage = function (commandEvent) {
-      var value = commandEvent.data;
+    self._aiWorker.onmessage = (commandEvent) => {
+      let value = commandEvent.data;
       if(self._aiProcessingResolveCallback) {
         if(value.type == 'init') {
           self._configureTank(value.settings ? value.settings : {});
           self._isReady = true;
-          for(var i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
+          for(let i=0; i < self._onActivationCallback.length; i++) self._onActivationCallback[i].bind(self)();
         } else {
           self._controlTank(value);
         }
 
-        var callback;
-        var now = (new Date()).getTime();
-        var dt = now - self._aiProcessingStart;
+        let callback;
+        let now = (new Date()).getTime();
+        let dt = now - self._aiProcessingStart;
         if(dt > self._aiDefinition.executionLimit && value.type != 'init') {
           self._slowAiChances--;
           console.warn("Execution of AI for tank " + self._tank.name + " #" + self._tank.id + " takes too long (" + dt + "ms). If problem repeats, AI will be terminated.");
@@ -140,7 +140,7 @@ module.exports = class AiWrapper {
 
     };
 
-    var teamInfo = null;
+    let teamInfo = null;
     if(self._tank.team && self._tank.team.size > 1) {
       teamInfo = {
         name: self._tank.team.name,
@@ -152,7 +152,7 @@ module.exports = class AiWrapper {
         mates: [self._tank.id],
       };
     }
-    var infoData = {
+    let infoData = {
       id: self._tank.id,
       team: teamInfo
     };
@@ -183,7 +183,7 @@ module.exports = class AiWrapper {
       clearInterval(this._aiProcessingCheckInterval);
       this._aiProcessingCheckInterval = null;
     }
-    for(var i=0; i < this._onDectivationCallback.length; i++) this._onDectivationCallback[i].bind(this)();
+    for(let i=0; i < this._onDectivationCallback.length; i++) this._onDectivationCallback[i].bind(this)();
   }
 
   simulationStep(resolve, reject) {
@@ -192,7 +192,7 @@ module.exports = class AiWrapper {
     if(!this._isReady) {
       throw "AI of " + this._tank.fullName + " not initliazed";
     }
-    var self = this;
+    let self = this;
     if(self._aiWorker && self._tank.energy == 0) {
       self._aiWorker.terminate();
       self._aiWorker = null;
@@ -212,9 +212,9 @@ module.exports = class AiWrapper {
   }
 
   _configureTank(input) {
-    var settings = {};
+    let settings = {};
 
-    var skinList = ['zebra', 'forest', 'black', 'tiger', 'desert', 'lava', 'ocean'];
+    let skinList = ['zebra', 'forest', 'black', 'tiger', 'desert', 'lava', 'ocean'];
     if(skinList.indexOf(input.SKIN) != -1) {
       settings.SKIN = input.SKIN;
     }
@@ -222,7 +222,7 @@ module.exports = class AiWrapper {
   }
 
   _controlTank(value) {
-    var self = this;
+    let self = this;
     self._controlData.THROTTLE = Number(value.THROTTLE);
     self._controlData.TURN = Number(value.TURN);
     self._controlData.GUN_TURN = Number(value.GUN_TURN);
@@ -254,8 +254,8 @@ module.exports = class AiWrapper {
     }
     self._controlData.SHOOT = 0;
 
-    var messages = [];
-    for(var i  in value.OUTBOX) {
+    let messages = [];
+    for(let i  in value.OUTBOX) {
       messages.push(JSON.parse(JSON.stringify(value.OUTBOX[i])));
     }
 
@@ -273,4 +273,4 @@ module.exports = class AiWrapper {
       return new EvalWorker();
     }
   }
-};
+}

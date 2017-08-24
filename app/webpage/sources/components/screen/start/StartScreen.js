@@ -1,16 +1,16 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
-var NumericInput = require('../../common/NumericInput.js');
-var Loading = require('../../common/Loading.js');
-var TankTableRow = require('./TankTableRow.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
+import NumericInput from "../../common/NumericInput.js";
+import Loading from "../../common/Loading.js";
+import TankTableRow from "./TankTableRow.js";
 
-module.exports = class StartScreen extends React.Component {
+export default class StartScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    var teamMode;
-    var battleSet;
+    let teamMode;
+    let battleSet;
     if(!props.stateless) {
       teamMode = localStorage.getItem("settings.teamMode");
       battleSet = localStorage.getItem("settings.battleSet");
@@ -40,18 +40,18 @@ module.exports = class StartScreen extends React.Component {
   }
 
   componentDidMount() {
-    var self = this;
+    let self = this;
     $.getJSON( "tanks/index.json", (tankList) => {
-      var userTankNames = this.props.aiRepository.getScriptNameList();
+      let userTankNames = this.props.aiRepository.getScriptNameList();
       this.props.aiRepository.reserveName(tankList);
 
-      var battleSet = this.state.battleSet;
-      var allTanks = tankList.concat(userTankNames);
+      let battleSet = this.state.battleSet;
+      let allTanks = tankList.concat(userTankNames);
       battleSet = battleSet.filter((settings) => {
         return allTanks.indexOf(settings.name) != -1;
       });
 
-      var newTanks = tankList
+      let newTanks = tankList
       .filter((value, index, self) => self.indexOf(value) === index)
       .filter((tankName) => {
         return battleSet.find((settings) => {
@@ -64,7 +64,7 @@ module.exports = class StartScreen extends React.Component {
         userCreated: false
       }));
 
-      var userTanks = userTankNames
+      let userTanks = userTankNames
       .filter((tankName) => {
         return battleSet.find((settings) => {
           return settings.name == tankName;
@@ -87,7 +87,7 @@ module.exports = class StartScreen extends React.Component {
         self.startBattle();
       }
     })
-    .fail(function() {
+    .fail(() => {
       self.showError("Cannot load and parse tanks/index.json");
     });
   }
@@ -99,14 +99,14 @@ module.exports = class StartScreen extends React.Component {
   }
 
   startBattle() {
-    var listComplete = this.state.aiDefList.length >= 2;
+    let listComplete = this.state.aiDefList.length >= 2;
     if(!listComplete) return;
     this.props.onStart(this.state.aiDefList, {teamMode: this.state.teamMode});
   }
 
   onSettingsChange(tankName, v) {
-    var i, j;
-    var battleSet = this.state.battleSet;
+    let i, j;
+    let battleSet = this.state.battleSet;
     for(i=0; i < battleSet.length; i++) {
       if(battleSet[i].name == tankName) {
         battleSet[i].count = v;
@@ -117,18 +117,18 @@ module.exports = class StartScreen extends React.Component {
 
   onTeamModeChange() {
     this.setState((prevState, props) => {
-      var teamMode = !prevState.teamMode;
+      let teamMode = !prevState.teamMode;
       localStorage.setItem("settings.teamMode", teamMode ? 'true' : 'false');
       return {teamMode: teamMode};
     });
   }
 
   refreshTankList(battleSet) {
-    var i, j;
-    var aiDefList = [];
+    let i, j;
+    let aiDefList = [];
     for(i=0; i < battleSet.length; i++) {
       for(j=0; j < battleSet[i].count; j++) {
-        var aiDef = JsBattle.createAiDefinition();
+        let aiDef = JsBattle.createAiDefinition();
         if(battleSet[i].userCreated) {
           aiDef.fromCode(battleSet[i].name, this.props.aiRepository.getCompiledScript(battleSet[i].name));
         } else {
@@ -145,9 +145,9 @@ module.exports = class StartScreen extends React.Component {
   }
 
   createTank() {
-    var battleSet = this.state.battleSet;
-    var name = this.props.aiRepository.getRandomScriptName(true);
-    var retry = 0;
+    let battleSet = this.state.battleSet;
+    let name = this.props.aiRepository.getRandomScriptName(true);
+    let retry = 0;
     while(!this.props.aiRepository.isNameAllowed(name)) {
       name = this.props.aiRepository.getRandomScriptName(false);
       retry++;
@@ -168,7 +168,7 @@ module.exports = class StartScreen extends React.Component {
 
   sortBattleSet(battleSet) {
     return battleSet.sort((a, b) => {
-      var diff = this.getDifficulty(a.name) - this.getDifficulty(b.name);
+      let diff = this.getDifficulty(a.name) - this.getDifficulty(b.name);
       if(diff != 0) {
         return diff;
       } else {
@@ -178,7 +178,7 @@ module.exports = class StartScreen extends React.Component {
   }
 
   deleteTank(name) {
-    var battleSet = this.state.battleSet.filter((item) => {
+    let battleSet = this.state.battleSet.filter((item) => {
       return item.name != name;
     });
     this.props.aiRepository.deleteScript(name);
@@ -226,16 +226,16 @@ module.exports = class StartScreen extends React.Component {
   }
 
   renderStartButton() {
-    var listComplete = this.state.aiDefList.length >= 2;
-    var classNames = "btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
+    let listComplete = this.state.aiDefList.length >= 2;
+    let classNames = "btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
     return <button type="button" className={classNames} onClick={() => this.startBattle()}>
       <span className="glyphicon glyphicon-play" aria-hidden="true"></span> START
     </button>;
   }
 
   render() {
-    var listComplete = this.state.aiDefList.length >= 2;
-    var content = <Row>
+    let listComplete = this.state.aiDefList.length >= 2;
+    let content = <Row>
       <Col lg={4} md={5}>
         <div className="panel panel-default">
           <div className="panel-body text-center">
@@ -260,4 +260,4 @@ module.exports = class StartScreen extends React.Component {
     </Row>;
     return !this.state.loading ? content : this.renderLoading();
   }
-};
+}

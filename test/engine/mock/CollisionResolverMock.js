@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class CollisionResolverMock {
+export default class CollisionResolverMock {
 
   constructor() {
     this.checkTank = sinon.stub().returns(true);

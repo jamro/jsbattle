@@ -1,9 +1,9 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiView = require("../abstractPixi/AbstractPixiView.js");
+import AbstractPixiView from "../abstractPixi/AbstractPixiView.js";
 
-module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
+export default class BrodyBattlefieldView extends AbstractPixiView  {
 
   constructor(model) {
     super(model);
@@ -16,10 +16,10 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   _create(container) {
-    var background = PIXI.Sprite.fromFrame('battlefield');
+    let background = PIXI.Sprite.fromFrame('battlefield');
     container.addChild(background);
 
-    var groundMask = new PIXI.Graphics();
+    let groundMask = new PIXI.Graphics();
     groundMask.beginFill(0x0000ff, 1);
     groundMask.moveTo(25, 25);
     groundMask.lineTo(900-25, 25);
@@ -35,7 +35,7 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     container.addChild(this._craterContainer);
     container.addChild(groundMask);
 
-    var wallMask = new PIXI.Graphics();
+    let wallMask = new PIXI.Graphics();
     wallMask.beginFill(0x0000ff, 0.4);
     wallMask.moveTo(15, 15);
     wallMask.lineTo(900-15, 15);
@@ -59,7 +59,7 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   addCrater(x, y) {
-    var crater = PIXI.Sprite.fromFrame('crater');
+    let crater = PIXI.Sprite.fromFrame('crater');
     crater.anchor.set(0.5);
     crater.x = x - this.model.offsetX;
     crater.y = y - this.model.offsetY;
@@ -75,7 +75,7 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   addBulletHole(x, y, power) {
-    var rotation = 0;
+    let rotation = 0;
     if(Math.abs(y - this.model.maxY) < 10) {
       y = this.model.maxY + 3 +  Math.random()*3;
     } else if(Math.abs(y - this.model.minY) < 10) {
@@ -90,7 +90,7 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
       return;
     }
 
-    var hole = PIXI.Sprite.fromFrame('hole');
+    let hole = PIXI.Sprite.fromFrame('hole');
     hole.anchor.set(0.5);
     hole.x = x - this.model.offsetX;
     hole.y = y - this.model.offsetY;
@@ -98,11 +98,11 @@ module.exports = class BrodyBattlefieldView extends AbstractPixiView  {
     hole.scale.x = hole.scale.y = 0.7 + 0.5*power;
     this._holesContainer.addChild(hole);
     this._holeList.push(hole);
-    var limit = this._settings ? this._settings.skratchLimit : 20;
+    let limit = this._settings ? this._settings.skratchLimit : 20;
     while(this._holeList.length > limit) {
       hole = this._holeList.shift();
       hole.parent.removeChild(hole);
     }
   }
 
-};
+}

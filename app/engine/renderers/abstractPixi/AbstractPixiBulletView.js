@@ -1,9 +1,9 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiView = require("./AbstractPixiView.js");
+import AbstractPixiView from "./AbstractPixiView.js";
 
-module.exports = class AbstractPixiBulletView extends AbstractPixiView {
+export default class AbstractPixiBulletView extends AbstractPixiView {
 
   constructor(model) {
     super(model);
@@ -17,4 +17,4 @@ module.exports = class AbstractPixiBulletView extends AbstractPixiView {
     }
   }
 
-};
+}

@@ -1,8 +1,8 @@
 'use strict';
 
-var SAT = require('SAT');
+import SAT from 'SAT';
 
-module.exports = class CollisionResolver {
+export default class CollisionResolver {
 
   constructor() {
     this._wallList = [];
@@ -19,7 +19,7 @@ module.exports = class CollisionResolver {
       maxX: battlefield.maxX,
       maxY: battlefield.maxY
     };
-    var wall;
+    let wall;
     wall = (new SAT.Box(new SAT.Vector(battlefield.minX-10, battlefield.minY), 10, battlefield.height)).toPolygon();
     this._wallList.push(wall);
     wall = (new SAT.Box(new SAT.Vector(battlefield.minX, battlefield.minY-10), battlefield.width, 10)).toPolygon();
@@ -31,7 +31,7 @@ module.exports = class CollisionResolver {
   }
 
   updateTank(tank) {
-    var tankShape =  this._getTankShape(tank);
+    let tankShape =  this._getTankShape(tank);
     tankShape.pos.x = tank.x;
     tankShape.pos.y = tank.y;
   }
@@ -47,15 +47,15 @@ module.exports = class CollisionResolver {
   }
 
   hitTestBullet(bullet) {
-    var bulletShape =  this._getBulletShape(bullet);
-    var tankShape =  bullet.owner.energy ? this._getTankShape(bullet.owner) : null;
+    let bulletShape =  this._getBulletShape(bullet);
+    let tankShape =  bullet.owner.energy ? this._getTankShape(bullet.owner) : null;
 
     bulletShape.pos.x = bullet.x;
     bulletShape.pos.y = bullet.y;
 
-    var i;
-    var hitTest;
-    var wall;
+    let i;
+    let hitTest;
+    let wall;
     for(i in this._wallList ) {
       wall = this._wallList[i];
       hitTest = SAT.testCirclePolygon(bulletShape, wall);
@@ -64,7 +64,7 @@ module.exports = class CollisionResolver {
         return true;
       }
     }
-    var enemyShape;
+    let enemyShape;
     for(i in this._tankMap ) {
       enemyShape = this._tankMap[i];
       if(!enemyShape) continue;
@@ -73,7 +73,7 @@ module.exports = class CollisionResolver {
       }
       hitTest = SAT.testCircleCircle(bulletShape, enemyShape);
       if(hitTest) {
-        var energyBefore = enemyShape.tank.energy;
+        let energyBefore = enemyShape.tank.energy;
         bullet.onEnemyHit(enemyShape.tank);
         bullet.owner.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
         if(enemyShape.tank.energy == 0) {
@@ -86,14 +86,14 @@ module.exports = class CollisionResolver {
   }
 
   checkTank(tank) {
-    var tankShape =  this._getTankShape(tank);
+    let tankShape =  this._getTankShape(tank);
 
     tankShape.pos.x = tank.x;
     tankShape.pos.y = tank.y;
 
-    var i;
-    var hitTest;
-    var wall;
+    let i;
+    let hitTest;
+    let wall;
     for(i in this._wallList ) {
       wall = this._wallList[i];
       hitTest = SAT.testCirclePolygon(tankShape, wall);
@@ -102,7 +102,7 @@ module.exports = class CollisionResolver {
         return false;
       }
     }
-    var enemyShape;
+    let enemyShape;
     for(i in this._tankMap ) {
       enemyShape = this._tankMap[i];
       if(!enemyShape) continue;
@@ -110,9 +110,9 @@ module.exports = class CollisionResolver {
         continue;
       }
       hitTest = SAT.testCircleCircle(tankShape, enemyShape);
-      var areAllies = tank.isAlly(enemyShape.tank);
+      let areAllies = tank.isAlly(enemyShape.tank);
       if(hitTest && !areAllies) {
-        var energyBefore = enemyShape.tank.energy;
+        let energyBefore = enemyShape.tank.energy;
         tank.onEnemyHit();
         enemyShape.tank.onBeingRam(tank.speed);
         tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
@@ -126,16 +126,16 @@ module.exports = class CollisionResolver {
   }
 
   scanTanks(tank) {
-    var radarBeamShape =  this._getRadarBeamShape(tank);
-    var tankShape =  this._getTankShape(tank);
+    let radarBeamShape =  this._getRadarBeamShape(tank);
+    let tankShape =  this._getTankShape(tank);
     radarBeamShape.setAngle((tank.angle + tank.radarAngle)*Math.PI/180);
     radarBeamShape.pos.x = tank.x;
     radarBeamShape.pos.y = tank.y;
 
-    var i;
-    var enemyShape;
-    var hitTest;
-    var enemies = [];
+    let i;
+    let enemyShape;
+    let hitTest;
+    let enemies = [];
 
     for(i in this._tankMap ) {
       enemyShape = this._tankMap[i];
@@ -151,11 +151,11 @@ module.exports = class CollisionResolver {
     if(enemies.length == 0) {
       return false;
     }
-    var closestEnemy = null;
-    var closestEnemyDistance = tank.radarRange;
-    var closestAlly = null;
-    var closestAllyDistance = tank.radarRange;
-    var d, dx, dy, ally;
+    let closestEnemy = null;
+    let closestEnemyDistance = tank.radarRange;
+    let closestAlly = null;
+    let closestAllyDistance = tank.radarRange;
+    let d, dx, dy, ally;
     for(i in enemies ) {
       dx = enemies[i].x - tank.x;
       dy = enemies[i].y - tank.y;
@@ -182,16 +182,16 @@ module.exports = class CollisionResolver {
   }
 
   scanBullets(tank) {
-    var radarBeamShape =  this._getRadarBeamShape(tank);
-    var tankShape =  this._getTankShape(tank);
+    let radarBeamShape =  this._getRadarBeamShape(tank);
+    let tankShape =  this._getTankShape(tank);
     radarBeamShape.setAngle((tank.angle + tank.radarAngle)*Math.PI/180);
     radarBeamShape.pos.x = tank.x;
     radarBeamShape.pos.y = tank.y;
 
-    var i;
-    var hitTest;
-    var bulletShape;
-    var spottedBullets = false;
+    let i;
+    let hitTest;
+    let bulletShape;
+    let spottedBullets = false;
 
     for(i in this._bulletMap) {
       bulletShape = this._bulletMap[i];
@@ -209,7 +209,7 @@ module.exports = class CollisionResolver {
 
 
   scanWalls(tank) {
-    var distance = this._getWallDistance(tank);
+    let distance = this._getWallDistance(tank);
     if(distance < tank.radarRange) {
       tank.onWallSpot(distance);
       return true;
@@ -218,14 +218,14 @@ module.exports = class CollisionResolver {
   }
 
   _getWallDistance(tank) {
-    var angle = tank.angle + tank.radarAngle;
+    let angle = tank.angle + tank.radarAngle;
     while(angle > 180) angle -= 360;
     while(angle < -180) angle += 360;
 
-    var distanceNorth = tank.y - this._battlefield.minY;
-    var distanceSouth = this._battlefield.maxY - tank.y;
-    var distanceWest = tank.x - this._battlefield.minX;
-    var distanceEast = this._battlefield.maxX - tank.x;
+    let distanceNorth = tank.y - this._battlefield.minY;
+    let distanceSouth = this._battlefield.maxY - tank.y;
+    let distanceWest = tank.x - this._battlefield.minX;
+    let distanceEast = this._battlefield.maxX - tank.x;
 
     if(angle == -180 || angle == 180) { // W
       return distanceWest;
@@ -237,7 +237,7 @@ module.exports = class CollisionResolver {
       return  distanceSouth;
     }
 
-    var d1, d2;
+    let d1, d2;
 
     if(angle > -180 && angle < -90) { // NW
       d1 = distanceWest / Math.cos((angle+180)*(Math.PI/180));
@@ -261,7 +261,7 @@ module.exports = class CollisionResolver {
       if(tank.energy == 0) {
         throw "Cannot create shape for destroyed tank";
       }
-      var shape = new SAT.Circle(new SAT.Vector(tank.x,tank.y), 18);
+      let shape = new SAT.Circle(new SAT.Vector(tank.x,tank.y), 18);
       this._tankMap[tank.id] = shape;
       shape.tank = tank;
     }
@@ -273,7 +273,7 @@ module.exports = class CollisionResolver {
       if(bullet.exploded) {
         throw "Cannot create shape for exploded bullet";
       }
-      var shape = new SAT.Circle(new SAT.Vector(bullet.x,bullet.y), 3);
+      let shape = new SAT.Circle(new SAT.Vector(bullet.x,bullet.y), 3);
       this._bulletMap[bullet.id] = shape;
       shape.bullet = bullet;
     }
@@ -285,8 +285,8 @@ module.exports = class CollisionResolver {
       if(tank.energy == 0) {
         throw "Cannot create radar beam shape for destroyed tank";
       }
-      var width = tank.radarRange * Math.tan(tank.radarFocal*(Math.PI/180))/2;
-      var shape = new SAT.Polygon(new SAT.Vector(tank.x, tank.y), [
+      let width = tank.radarRange * Math.tan(tank.radarFocal*(Math.PI/180))/2;
+      let shape = new SAT.Polygon(new SAT.Vector(tank.x, tank.y), [
         new SAT.Vector(0, 3),
         new SAT.Vector(0, -3),
         new SAT.Vector(tank.radarRange,-width),
@@ -299,4 +299,4 @@ module.exports = class CollisionResolver {
     return this._radarBeamMap[tank.id];
   }
 
-};
+}

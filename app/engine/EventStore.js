@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class EventStore {
+export default class EventStore {
 
   constructor() {
     this._data = [];
@@ -21,7 +21,7 @@ module.exports = class EventStore {
   }
 
   clear(index) {
-    this._data = [];  
+    this._data = [];
   }
 
-};
+}

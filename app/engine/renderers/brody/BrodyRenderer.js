@@ -1,14 +1,14 @@
 /* globals PIXI */
 'use strict';
 
-var AbstractPixiRenderer = require("../abstractPixi/AbstractPixiRenderer.js");
-var BrodyBattlefieldView = require("./BrodyBattlefieldView.js");
-var BrodyClockView = require("./BrodyClockView.js");
-var BrodyBulletView = require("./BrodyBulletView.js");
-var BrodyTankView = require("./BrodyTankView.js");
-var BrodySettings = require("./BrodySettings.js");
+import AbstractPixiRenderer from "../abstractPixi/AbstractPixiRenderer.js";
+import BrodyBattlefieldView from "./BrodyBattlefieldView.js";
+import BrodyClockView from "./BrodyClockView.js";
+import BrodyBulletView from "./BrodyBulletView.js";
+import BrodyTankView from "./BrodyTankView.js";
+import BrodySettings from "./BrodySettings.js";
 
-module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
+export default class BrodyRenderer extends AbstractPixiRenderer  {
 
   constructor() {
     super('brody');
@@ -26,7 +26,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
   }
 
   onAssetsLoaded() {
-    var i;
+    let i;
     for(i=0; i <= 22; i++) {
       this._bigBoomAnim.push(PIXI.Texture.fromFrame('big_boom_0' + (i < 10 ? "0" + i : i)));
     }
@@ -51,8 +51,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     this._masterContainer.addChild(this._particleContainer);
     this._masterContainer.addChild(this._hudContainer);
 
-    var self = this;
-    this._fpsInterval = setInterval(function() {
+    let self = this;
+    this._fpsInterval = setInterval(() => {
       self._fps = self._frameCounter;
       self._frameCounter = 0;
     }, 1000);
@@ -61,7 +61,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
   renderTank(tank, events) {
     super.renderTank(tank, events);
 
-    var i;
+    let i;
     for(i in events) {
       if(events[i].type == 'destroy') {
         this._shakeTimer = 10;
@@ -70,13 +70,13 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
       }
     }
 
-    var directionCorrection = tank.throttle > 0 ? 180 : 0;
-    var dirtAngle = (tank.angle+directionCorrection)*(Math.PI/180);
+    let directionCorrection = tank.throttle > 0 ? 180 : 0;
+    let dirtAngle = (tank.angle+directionCorrection)*(Math.PI/180);
     if(tank.speed > 1) {
-      var corner1X = tank.x + 20*Math.cos(dirtAngle-Math.PI/4) + 7*Math.cos(dirtAngle);
-      var corner1Y = tank.y + 20*Math.sin(dirtAngle-Math.PI/4) + 7*Math.sin(dirtAngle);
-      var corner2X = tank.x + 20*Math.cos(dirtAngle+Math.PI/4) + 7*Math.cos(dirtAngle);
-      var corner2Y = tank.y + 20*Math.sin(dirtAngle+Math.PI/4) + 7*Math.sin(dirtAngle);
+      let corner1X = tank.x + 20*Math.cos(dirtAngle-Math.PI/4) + 7*Math.cos(dirtAngle);
+      let corner1Y = tank.y + 20*Math.sin(dirtAngle-Math.PI/4) + 7*Math.sin(dirtAngle);
+      let corner2X = tank.x + 20*Math.cos(dirtAngle+Math.PI/4) + 7*Math.cos(dirtAngle);
+      let corner2Y = tank.y + 20*Math.sin(dirtAngle+Math.PI/4) + 7*Math.sin(dirtAngle);
 
       if(Math.random() < this.speedMultiplier) {
         this._addDirt(
@@ -93,7 +93,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   renderBullet(bullet, events) {
     super.renderBullet(bullet, events);
-    var view = this.getBulletView(bullet.id);
+    let view = this.getBulletView(bullet.id);
     view.configure(this._settings);
     if(bullet.exploded) {
       this._addBulletExplosion(bullet);
@@ -103,9 +103,9 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   preRender() {
     super.preRender();
-    var particle;
-    var particleCount = 0;
-    var i;
+    let particle;
+    let particleCount = 0;
+    let i;
     for(i = this._particleList.length-1; i >= 0; i--) {
       particle = this._particleList[i];
       if(!particle) {
@@ -173,7 +173,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addBulletExplosion(bullet) {
     this._addGlow(bullet.x, bullet.y, 0.3 + 0.6*bullet.power);
-    var sparks = 5 + 40 * bullet.power;
+    let sparks = 5 + 40 * bullet.power;
     this._addSparks(
       bullet.x,
       bullet.y,
@@ -200,7 +200,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
   _addExplosion(x, y, type) {
     this._addGlow(x, y, 5);
 
-    var anim = new PIXI.extras.AnimatedSprite(type);
+    let anim = new PIXI.extras.AnimatedSprite(type);
     anim.animationSpeed = this.speedMultiplier;
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
@@ -217,7 +217,7 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addGlow(x, y, scale) {
     if(!this._settings.showGlow) return;
-    var glow = PIXI.Sprite.fromFrame('glow');
+    let glow = PIXI.Sprite.fromFrame('glow');
     glow.anchor.set(0.5);
     glow.scale.x = glow.scale.y = scale;
     glow.alpha = 0.4;
@@ -230,8 +230,8 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addSparks(x, y, amount) {
     amount = Math.ceil(amount*this._settings.quality);
-    for(var i=0; i < amount; i++) {
-      var particle = PIXI.Sprite.fromFrame('spark');
+    for(let i=0; i < amount; i++) {
+      let particle = PIXI.Sprite.fromFrame('spark');
       particle.x = x;
       particle.y = y;
       particle.alphaSpeed = 0;
@@ -246,9 +246,9 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addDirt(x, y) {
     if(!this._settings.showDirt) return;
-    for(var i=0; i < 5; i++) {
-      var index = Math.floor(Math.random()*3);
-      var particle = PIXI.Sprite.fromFrame('dirt_' + index);
+    for(let i=0; i < 5; i++) {
+      let index = Math.floor(Math.random()*3);
+      let particle = PIXI.Sprite.fromFrame('dirt_' + index);
       particle.x = x+Math.random()*4-2;
       particle.y = y+Math.random()*4-2;
       particle.anchor.set(0.5);
@@ -263,4 +263,4 @@ module.exports = class BrodyRenderer extends AbstractPixiRenderer  {
     }
   }
 
-};
+}

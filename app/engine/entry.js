@@ -1,26 +1,25 @@
 'use strict';
 
-var Simulation = require("./Simulation.js");
-var Renderer = require("./renderers/Renderer.js");
-var DebugRenderer = require("./renderers/debug/DebugRenderer.js");
-var BWRenderer = require("./renderers/bw/BWRenderer.js");
-var BrodyRenderer = require("./renderers/brody/BrodyRenderer.js");
-var AiDefinition = require("./AiDefinition.js");
-
+import Simulation from "./Simulation.js";
+import Renderer from "./renderers/Renderer.js";
+import DebugRenderer from "./renderers/debug/DebugRenderer.js";
+import BWRenderer from "./renderers/bw/BWRenderer.js";
+import BrodyRenderer from "./renderers/brody/BrodyRenderer.js";
+import AiDefinition from "./AiDefinition.js";
 
 module.exports  = {
 
-  createSimulation: function(renderer) {
+  createSimulation: (renderer) => {
     renderer = renderer ? renderer : new Renderer();
-    var sim = new Simulation(renderer);
+    let sim = new Simulation(renderer);
     return sim;
   },
 
-  createAiDefinition: function() {
+  createAiDefinition: () => {
     return new AiDefinition();
   },
 
-  createRenderer: function(name) {
+  createRenderer: (name) => {
     switch(name) {
       case 'debug':   return new DebugRenderer();
       case 'bw':      return new BWRenderer();

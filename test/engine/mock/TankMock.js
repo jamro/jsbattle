@@ -1,6 +1,6 @@
-var sinon = require('sinon');
+import sinon from "sinon";
 
-module.exports = class TankMock {
+export default class TankMock {
 
   constructor(name, id) {
     this.name = name ? name : "bravo_" + Math.round(Math.random()*1000000);

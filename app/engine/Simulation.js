@@ -1,14 +1,14 @@
 'use strict';
 
-var Tank = require("./Tank.js");
-var Team = require("./Team.js");
-var Bullet = require("./Bullet.js");
-var Battlefield = require("./Battlefield.js");
-var EventStore = require("./EventStore.js");
-var CollisionResolver = require("./CollisionResolver.js");
-var AiWrapper = require("./AiWrapper.js");
-var PerformanceMonitor = require("./PerformanceMonitor.js");
-var seedrandom = require("seedrandom");
+import Tank from "./Tank.js";
+import Team from "./Team.js";
+import Bullet from "./Bullet.js";
+import Battlefield from "./Battlefield.js";
+import EventStore from "./EventStore.js";
+import CollisionResolver from "./CollisionResolver.js";
+import AiWrapper from "./AiWrapper.js";
+import PerformanceMonitor from "./PerformanceMonitor.js";
+import seedrandom from "seedrandom";
 
 /**
  * Battle simulation component. Process the simulation updating all related objects
@@ -122,8 +122,8 @@ class Simulation {
    */
   start() {
     this._isRunning = true;
-    var i;
-    var self = this;
+    let i;
+    let self = this;
 
     if(this._renderInterval) {
       clearInterval(this._renderInterval);
@@ -132,7 +132,7 @@ class Simulation {
 
     this._activateAi(
       () => {
-        self._renderInterval = setInterval(function () {
+        self._renderInterval = setInterval(() => {
           self._updateView();
         }, self._renderStepDuration);
 
@@ -152,9 +152,9 @@ class Simulation {
 
   _simulationStep() {
     this._perfMon.onSimulationStep();
-    var startTime = (new Date()).getTime();
-    var self = this;
-    var i;
+    let startTime = (new Date()).getTime();
+    let self = this;
+    let i;
     this._updateModel();
     this._updateAi(
       () => {
@@ -168,8 +168,8 @@ class Simulation {
           for(i=0; i < self._onFinishCallback.length; i++) self._onFinishCallback[i]();
         }
         if(self._isRunning) {
-          var processingTime = (new Date()).getTime() - startTime;
-          var dt = self._simulationStepDuration - processingTime;
+          let processingTime = (new Date()).getTime() - startTime;
+          let dt = self._simulationStepDuration - processingTime;
           dt /= self._speedMultiplier;
           dt = Math.round(dt);
           for(i=0; i < self._onSimulationStepCallback.length; i++) self._onSimulationStepCallback[i]();
@@ -208,11 +208,11 @@ class Simulation {
     if(!aiDefinition.teamName) {
       throw "Team name cannot be empty!";
     }
-    var startSlot = this._battlefield.getStartSlot();
+    let startSlot = this._battlefield.getStartSlot();
     if(!startSlot) {
       throw "No free space in the battlefield";
     }
-    var tank = this._createTank(aiDefinition);
+    let tank = this._createTank(aiDefinition);
     tank.randomize();
     tank.moveTo(startSlot.x, startSlot.y);
     this._tankList.push(tank);
@@ -227,7 +227,7 @@ class Simulation {
     }
     this._teamMap[aiDefinition.teamName].addTank(tank);
 
-    var ai = this._createAiWrapper(tank, aiDefinition);
+    let ai = this._createAiWrapper(tank, aiDefinition);
     this._aiList.push(ai);
 
     return ai;
@@ -280,7 +280,7 @@ class Simulation {
       clearInterval(this._renderInterval);
       this._renderInterval = null;
     }
-    var tank, ai, i;
+    let tank, ai, i;
     for(i=0; i < this._aiList.length; i++) {
       ai = this._aiList[i];
       if(!ai) continue;
@@ -356,10 +356,10 @@ class Simulation {
       return done();
     }
     function wrapCallback() {
-      var args = [];
-      var callback = arguments[1];
-      var self = arguments[0];
-      for(var i=2; i < arguments.length; i++) {
+      let args = [];
+      let callback = arguments[1];
+      let self = arguments[0];
+      for(let i=2; i < arguments.length; i++) {
         args.push(arguments[i]);
       }
       return (args2) => {
@@ -367,17 +367,17 @@ class Simulation {
       };
     }
 
-    var self = null;
-    var doneWrapper = wrapCallback(self, done);
-    var errorWrapper = wrapCallback(self, error);
+    let self = null;
+    let doneWrapper = wrapCallback(self, done);
+    let errorWrapper = wrapCallback(self, error);
 
-    var c;
+    let c;
     if(argument) {
       c = wrapCallback(objectList[objectList.length-1], objectList[objectList.length-1][methodName], argument, doneWrapper, errorWrapper);
     } else {
       c = wrapCallback(objectList[objectList.length-1], objectList[objectList.length-1][methodName], doneWrapper, errorWrapper);
     }
-    for(var i=objectList.length-2; i >=0; i--) {
+    for(let i=objectList.length-2; i >=0; i--) {
       if(argument) {
         c = wrapCallback(objectList[i], objectList[i][methodName], argument, c, errorWrapper);
       } else {
@@ -396,7 +396,7 @@ class Simulation {
       tank.simulationStep(this._collisionResolver);
     }
 
-    var killCount = 0;
+    let killCount = 0;
     for(i=0; i < this._tankList.length; i++) {
       tank = this._tankList[i];
       if(!tank) continue;
@@ -411,7 +411,7 @@ class Simulation {
         });
       }
     }
-    var newAiList = [];
+    let newAiList = [];
     for(i=0; i < this._aiList.length; i++) {
       ai = this._aiList[i];
       if(!ai) continue;
@@ -428,7 +428,7 @@ class Simulation {
       tank = this._tankList[i];
       if(!tank) continue;
       if(tank.isShooting) {
-        var power = tank.handleShoot();
+        let power = tank.handleShoot();
         bullet = this._createBullet(tank, power);
         this._bulletList.push(bullet);
         this._eventStore.add("tank_" + tank.id, {
@@ -441,7 +441,7 @@ class Simulation {
     for(i=0; i < this._tankList.length; i++) {
       tank = this._tankList[i];
       if(!tank) continue;
-      for(var j=0; j < killCount; j++) {
+      for(let j=0; j < killCount; j++) {
         tank.onSurviveScore();
       }
     }
@@ -500,8 +500,8 @@ class Simulation {
   }
 
   _getTeamsLeft() {
-    var teamsLeft = 0;
-    for(var i in this._teamMap) {
+    let teamsLeft = 0;
+    for(let i in this._teamMap) {
       if(!this._teamMap[i].isAlive) continue;
       teamsLeft++;
     }
@@ -513,14 +513,14 @@ class Simulation {
   }
 
   _createTank(aiDefinition) {
-    var tank = new Tank(aiDefinition, this._nextTankId++);
+    let tank = new Tank(aiDefinition, this._nextTankId++);
     return tank;
   }
 
   _createBullet(owner, power) {
-    var bullet = new Bullet(owner, this._nextBulletId++, power);
+    let bullet = new Bullet(owner, this._nextBulletId++, power);
     return bullet;
   }
 
 }
-module.exports = Simulation;
+export default Simulation;

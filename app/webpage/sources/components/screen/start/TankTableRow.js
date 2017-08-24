@@ -1,9 +1,9 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
-var NumericInput = require('../../common/NumericInput.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
+import NumericInput from "../../common/NumericInput.js";
 
-module.exports = class TankTableRow extends React.Component {
+export default class TankTableRow extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,13 +15,13 @@ module.exports = class TankTableRow extends React.Component {
   }
 
   getBgColor() {
-    var rStart = parseInt('5c', 16);
-    var gStart = parseInt('b8', 16);
-    var bStart = parseInt('5c', 16);
+    let rStart = parseInt('5c', 16);
+    let gStart = parseInt('b8', 16);
+    let bStart = parseInt('5c', 16);
 
-    var r  = Math.round(rStart + (1-this.state.light)*(255-rStart));
-    var g  = Math.round(gStart + (1-this.state.light)*(255-gStart));
-    var b  = Math.round(bStart + (1-this.state.light)*(255-bStart));
+    let r  = Math.round(rStart + (1-this.state.light)*(255-rStart));
+    let g  = Math.round(gStart + (1-this.state.light)*(255-gStart));
+    let b  = Math.round(bStart + (1-this.state.light)*(255-bStart));
 
     r = r.toString(16);
     if(r.length < 2) {
@@ -71,9 +71,9 @@ module.exports = class TankTableRow extends React.Component {
   }
 
   renderDifficulty(id, rank) {
-    var difficultyStars = [];
+    let difficultyStars = [];
     if(rank) {
-      for(var i=0; i < rank; i++) {
+      for(let i=0; i < rank; i++) {
         difficultyStars.push(<i key={id + "-" + i} className="fa fa-star" aria-hidden="true"></i>);
       }
     } else {
@@ -98,7 +98,7 @@ module.exports = class TankTableRow extends React.Component {
 
   renderRowContent() {
 
-    var style = this.state.light ? {backgroundColor: this.getBgColor()} : null;
+    let style = this.state.light ? {backgroundColor: this.getBgColor()} : null;
 
     return <tr style={style}>
       <td className="tank-name">{this.props.name}</td>
@@ -133,4 +133,4 @@ module.exports = class TankTableRow extends React.Component {
     }
   }
 
-};
+}

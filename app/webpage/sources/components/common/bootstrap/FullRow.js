@@ -1,5 +1,5 @@
-var Col = require('./Col.js');
-module.exports = class FullRow extends React.Component {
+import Col from "./Col.js";
+export default class FullRow extends React.Component {
 
   render() {
     return <div className="row">
@@ -8,4 +8,4 @@ module.exports = class FullRow extends React.Component {
       </Col>
     </div>;
   }
-};
+}

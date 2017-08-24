@@ -1,4 +1,4 @@
-module.exports = class NumericInput extends React.Component {
+export default class NumericInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,24 +14,24 @@ module.exports = class NumericInput extends React.Component {
   }
 
   increaseValue() {
-    var min = this.props.min !== undefined ? this.props.min : Number.MIN_VALUE;
-    var max = this.props.max !== undefined ? this.props.max : Number.MAX_VALUE;
+    let min = this.props.min !== undefined ? this.props.min : Number.MIN_VALUE;
+    let max = this.props.max !== undefined ? this.props.max : Number.MAX_VALUE;
     this.setState((prevState, props) => ({
       value: Math.max(min, Math.min(max, prevState.value+1))
     }));
   }
 
   decreaseValue() {
-    var min = this.props.min !== undefined ? this.props.min : Number.MIN_VALUE;
-    var max = this.props.max !== undefined ? this.props.max : Number.MAX_VALUE;
+    let min = this.props.min !== undefined ? this.props.min : Number.MIN_VALUE;
+    let max = this.props.max !== undefined ? this.props.max : Number.MAX_VALUE;
     this.setState((prevState, props) => ({
       value: Math.max(min, Math.min(max, prevState.value-1))
     }));
   }
 
   render() {
-    var classNames = "numeric-input input-group " + this.props.className;
-    var style = this.state.value ? {fontWeight: 'bold'} : {color: '#bbbbbb'};
+    let classNames = "numeric-input input-group " + this.props.className;
+    let style = this.state.value ? {fontWeight: 'bold'} : {color: '#bbbbbb'};
     return <div className={classNames} style={{width: '150px'}}>
       <div className="input-group-btn">
         <button type="button" className="minus btn btn-default" onClick={() => this.decreaseValue()}>-</button>
@@ -42,4 +42,4 @@ module.exports = class NumericInput extends React.Component {
       </div>
     </div>;
   }
-};
+}

@@ -1,18 +1,18 @@
-var BattleScreen = require('./screen/battle/BattleScreen.js');
-var WinnerScreen = require('./screen/winner/WinnerScreen.js');
-var StartScreen = require('./screen/start/StartScreen.js');
-var EditorScreen = require('./screen/editor/EditorScreen.js');
-var FullRow = require('./common/bootstrap/FullRow.js');
-var Navi = require('./common/navi/Navi.js');
-var InfoBox = require('./common/InfoBox.js');
-var AiRepository = require('../lib/AiRepository.js');
+import BattleScreen from "./screen/battle/BattleScreen.js";
+import WinnerScreen from "./screen/winner/WinnerScreen.js";
+import StartScreen from "./screen/start/StartScreen.js";
+import EditorScreen from "./screen/editor/EditorScreen.js";
+import FullRow from "./common/bootstrap/FullRow.js";
+import Navi from "./common/navi/Navi.js";
+import InfoBox from "./common/InfoBox.js";
+import AiRepository from "../lib/AiRepository.js";
 
-module.exports = class App extends React.Component {
+export default class App extends React.Component {
 
   constructor(props) {
     super(props);
-    var simSpeed;
-    var qualitySettings;
+    let simSpeed;
+    let qualitySettings;
     if(!props.stateless) {
       simSpeed = localStorage.getItem("settings.simSpeed");
       qualitySettings = localStorage.getItem("settings.quality");
@@ -152,4 +152,4 @@ module.exports = class App extends React.Component {
       {this.renderContent()}
     </div>;
   }
-};
+}

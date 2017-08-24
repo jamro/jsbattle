@@ -1,8 +1,8 @@
-var FullRow = require('../../common/bootstrap/FullRow.js');
-var Row = require('../../common/bootstrap/Row.js');
-var Col = require('../../common/bootstrap/Col.js');
+import FullRow from "../../common/bootstrap/FullRow.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
 
-module.exports = class FileNameHeader extends React.Component {
+export default class FileNameHeader extends React.Component {
 
   constructor(props) {
     super(props);
@@ -24,9 +24,9 @@ module.exports = class FileNameHeader extends React.Component {
   }
 
   onEdit() {
-    var newValue = this.text;
-    var oldValue = this.state.name;
-    var error = null;
+    let newValue = this.text;
+    let oldValue = this.state.name;
+    let error = null;
     if(this.props.onChange) {
       error = this.props.onChange(newValue, oldValue);
     }
@@ -47,7 +47,7 @@ module.exports = class FileNameHeader extends React.Component {
   }
 
   renderEdit() {
-    var errorBox = <div className="input-group">
+    let errorBox = <div className="input-group">
       <small>
         <span className="alert alert-danger" style={{padding: '5px', marginLeft: '10px'}}>
           <strong>Error: </strong>{this.state.error}
@@ -85,4 +85,4 @@ module.exports = class FileNameHeader extends React.Component {
       default:       return null;
     }
   }
-};
+}

@@ -164,6 +164,7 @@ class Simulation {
         }
         if(self._getTeamsLeft() <= 1 || self._timeElapsed == self._timeLimit) {
           self.stop();
+          self._updateModel();
           self._updateView();
           for(i=0; i < self._onFinishCallback.length; i++) self._onFinishCallback[i]();
         }

@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - warn before exiting without saving AI Script
 - This changelog :)
 
+### Fixed
+- explosion of last tank is not shown
+
 ## [1.4.5] - 2017-08-21
 ### Fixed
 - info object not passed to tanks outside a sandbox

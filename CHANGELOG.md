@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - warn before exiting without saving AI Script
 - Building also unminified version of JsBattle (dist/js/jsbattle.js)
+- SonarQube support
 - This changelog :)
 
 ### Fixed

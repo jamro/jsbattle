@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/jamro/jsbattle.svg?branch=master)](https://travis-ci.org/jamro/jsbattle)
 [![npm version](https://badge.fury.io/js/jsbattle.svg)](https://badge.fury.io/js/jsbattle)
 [![Bower version](https://badge.fury.io/bo/jsbattle.svg)](https://badge.fury.io/bo/jsbattle)
-[![license](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
+[![Technical debt](https://sonarcloud.io/api/badges/measure?key=jamro-github%3Ajsbattle&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard?id=jamro-github%3Ajsbattle)
+[![License](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
+
 
 ![alt text](/docs/img/screenshot.png)
 

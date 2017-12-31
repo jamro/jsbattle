@@ -1,4 +1,4 @@
-export default class DebugView extends React.Component {
+export default class UnfreshComponent extends React.Component {
 
   constructor(props) {
     super(props);

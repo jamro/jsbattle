@@ -27,7 +27,6 @@ export default class BattleScreen extends React.Component {
 
   componentDidMount() {
     this.buildSimulation();
-    let self = this;
     this.rwd.onChange((s) => this.setState({windowSize: s}));
     this.setState({windowSize: this.rwd.size});
   }

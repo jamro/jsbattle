@@ -1887,15 +1887,17 @@ var JsBattle =
 	        }
 	        hitTest = _SAT2.default.testCircleCircle(tankShape, enemyShape);
 	        var areAllies = tank.isAlly(enemyShape.tank);
-	        if (hitTest && !areAllies) {
-	          var energyBefore = enemyShape.tank.energy;
-	          tank.onEnemyHit();
-	          enemyShape.tank.onBeingRam(tank.speed);
-	          tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
-	          return false;
-	        } else if (hitTest && areAllies) {
-	          tank.onAllyHit();
-	          return false;
+	        if (hitTest) {
+	          if (!areAllies) {
+	            var energyBefore = enemyShape.tank.energy;
+	            tank.onEnemyHit();
+	            enemyShape.tank.onBeingRam(tank.speed);
+	            tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+	            return false;
+	          } else {
+	            tank.onAllyHit();
+	            return false;
+	          }
 	        }
 	      }
 	      return true;
@@ -3495,7 +3497,6 @@ var JsBattle =
 	      var response = null;
 	      if (inputData.command == 'init') {
 	        if (!inputData.code) throw "The code is required!";
-	        var seed = inputData.seed;
 	        var settings = inputData.settings;
 	        var info = inputData.info;
 	        var Math = extendedMath();

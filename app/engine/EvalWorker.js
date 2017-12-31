@@ -28,7 +28,6 @@ class EvalWorker {
     let response = null;
     if(inputData.command == 'init') {
       if(!inputData.code) throw "The code is required!";
-      let seed = inputData.seed;
       let settings = inputData.settings;
       let info = inputData.info;
       var Math = extendedMath();

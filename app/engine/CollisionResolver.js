@@ -111,15 +111,17 @@ export default class CollisionResolver {
       }
       hitTest = SAT.testCircleCircle(tankShape, enemyShape);
       let areAllies = tank.isAlly(enemyShape.tank);
-      if(hitTest && !areAllies) {
-        let energyBefore = enemyShape.tank.energy;
-        tank.onEnemyHit();
-        enemyShape.tank.onBeingRam(tank.speed);
-        tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
-        return false;
-      } else if(hitTest && areAllies) {
-        tank.onAllyHit();
-        return false;
+      if(hitTest) {
+        if(!areAllies) {
+          let energyBefore = enemyShape.tank.energy;
+          tank.onEnemyHit();
+          enemyShape.tank.onBeingRam(tank.speed);
+          tank.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+          return false;
+        } else {
+          tank.onAllyHit();
+          return false;
+        }
       }
     }
     return true;

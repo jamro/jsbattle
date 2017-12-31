@@ -105,7 +105,7 @@ export default class StartScreen extends React.Component {
   }
 
   onSettingsChange(tankName, v) {
-    let i, j;
+    let i;
     let battleSet = this.state.battleSet;
     for(i=0; i < battleSet.length; i++) {
       if(battleSet[i].name == tankName) {

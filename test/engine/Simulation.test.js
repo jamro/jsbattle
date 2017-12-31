@@ -94,10 +94,12 @@ describe('Simulation', function() {
       setTimeout(function() {
         assert(stepCount1 > 1, "Simulation1 steps were counted multiple times");
         assert(stepCount2 > 1, "Simulation2 steps were counted multiple times");
-        let multiplier = Math.round(stepCount2/stepCount1);
         sim1.stop();
         sim2.stop();
-        assert.equal(2, multiplier, "stepCount1: " + stepCount1 + ", stepCount2: " + stepCount2);
+        assert(
+          stepCount2 > stepCount1*1.2 && stepCount2 < stepCount1*2.8,
+          "stepCount1: " + stepCount1 + ", stepCount2: " + stepCount2
+        );
         done();
       }, 1500);
     });

@@ -91,14 +91,14 @@ describe('Simulation', function() {
       sim2.start();
 
       setTimeout(function() {
-        assert(stepCount1 > 0, "Simulation1 steps were counted");
-        assert(stepCount2 > 0, "Simulation2 steps were counted");
+        assert(stepCount1 > 1, "Simulation1 steps were counted multiple times");
+        assert(stepCount2 > 1, "Simulation2 steps were counted multiple times");
         let multiplier = Math.round(stepCount2/stepCount1);
         sim1.stop();
         sim2.stop();
         assert.equal(2, multiplier);
         done();
-      }, 200);
+      }, 1000);
     });
 
   });

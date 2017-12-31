@@ -1,7 +1,7 @@
 var seedrandom = require("seedrandom");
 var extendedMath = require("./extendedMath.js");
 
-Math = extendedMath();
+Math = extendedMath(); // jshint ignore:line
 
 Math.random = function() {
   throw "Cannot use Math.random outside of tank.init(...) or tank.loop(...) callbacks! Sorry!";

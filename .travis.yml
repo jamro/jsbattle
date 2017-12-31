@@ -8,5 +8,5 @@ before_install:
 install:
   - npm install
 before_script:
-  - npm install -g gulp-cli
+  - npm install -g gulp-cli casperjs
 script: gulp

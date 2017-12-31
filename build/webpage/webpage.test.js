@@ -6,7 +6,7 @@ module.exports = function (gulp, config, plugins) {
       port: 8070
     });
     return gulp.src(config.webpage.test)
-      .pipe(plugins.casperjsLocal.default({binPath: './node_modules/.bin/casperjs'}))
+      .pipe(plugins.casperjs({binPath: './node_modules/.bin/casperjs'}))
       .on('error', function(){
         process.emit('exit');
       })

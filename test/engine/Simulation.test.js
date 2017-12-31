@@ -86,6 +86,7 @@ describe('Simulation', function() {
       sim2.onStep(function () {
         stepCount2++;
       });
+      sim1.setSpeed(1);
       sim2.setSpeed(2);
       sim1.start();
       sim2.start();
@@ -96,9 +97,9 @@ describe('Simulation', function() {
         let multiplier = Math.round(stepCount2/stepCount1);
         sim1.stop();
         sim2.stop();
-        assert.equal(2, multiplier);
+        assert.equal(2, multiplier, "stepCount1: " + stepCount1 + ", stepCount2: " + stepCount2);
         done();
-      }, 1000);
+      }, 1500);
     });
 
   });

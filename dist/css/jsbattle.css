@@ -15,6 +15,10 @@
   vertical-align: middle;
 }
 
+.row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 canvas {
   padding: 0 !important;
@@ -30,4 +34,6 @@ debug-container {
 .debug {
   font-size: 10px;
   padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

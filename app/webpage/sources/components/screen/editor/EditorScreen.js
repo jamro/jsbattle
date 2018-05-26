@@ -145,11 +145,11 @@ export default class EditorScreen extends React.Component {
       </FullRow>
       <Row>
         <Col lg={3} md={4} className="visible-md visible-lg">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h3 className="panel-title">Cheat Sheet</h3>
+        <div className="card">
+          <div className="card-header">
+            <strong className="card-title">Cheat Sheet</strong>
           </div>
-          <div className="panel-body">
+          <div className="card-body">
             <JsonCode className="debug" highlight={true} data={settingsData} varName="settings"/>
             <JsonCode className="debug" highlight={true} data={infoData} varName="info"/>
             <JsonCode className="debug" highlight={true} data={controlData} varName="control" />

@@ -60,19 +60,21 @@ export default class FileNameHeader extends React.Component {
 
     return <div className={this.props.className} style={{width: '400px'}}>
       <h3>
-        <span className="form-inline">
+        <div className="btn-toolbar">
           <div className="input-group">
             <input ref={(input) => input ? this.onInputCreated(input) : null} type="text" className="form-control" aria-label="..." defaultValue={this.state.name} onChange={(v) => this.onChange(v)}/>
-            <div className="input-group-btn">
-              <button type="button" className="btn btn-default" onClick={() => this.onEdit()}>
+            <div className="input-group-prepend">
+              <button type="button" className="btn btn-primary" onClick={() => this.onEdit()}>
                 <i className="fa fa-check" aria-hidden="true"></i>
               </button>
-              <button type="button" className="btn btn-default" onClick={() => this.setState({mode: 'normal', error: ''})}>
+            </div>
+            <div className="input-group-append">
+              <button type="button" className="btn btn-secondary" onClick={() => this.setState({mode: 'normal', error: ''})}>
                 <i className="fa fa-times" aria-hidden="true"></i>
               </button>
             </div>
           </div>
-        </span>
+        </div>
       </h3>
       {errorBox}
     </div>;

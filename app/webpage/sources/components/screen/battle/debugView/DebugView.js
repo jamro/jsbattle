@@ -62,7 +62,7 @@ export default class DebugView extends UnfreshComponent {
   renderDebugPanel() {
     let debugTank = this.findDebugTank();
     if(debugTank) {
-      return <div className="panel-body debug-container">
+      return <div className="card-body debug-container">
         <small>Debug Data</small>
         <JsonCode className="debug" highlight={this.props.highlight} data={debugTank.debug ? debugTank.debug : {}} />
         <small>State Object</small>
@@ -76,8 +76,8 @@ export default class DebugView extends UnfreshComponent {
   render() {
     if(!this.props.visible) return null;
     return <div>
-      <div className="panel panel-default">
-        <div className="panel-heading">
+      <div className="card">
+        <div className="card-header">
           <select className="form-control" value={this.state.debugId} onChange={(e) => this.onChange(e)}>
             <option value="0">[Select Tank for Debug View]</option>
             {this.renderOptions()}

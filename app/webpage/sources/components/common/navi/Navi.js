@@ -29,16 +29,12 @@ export default class Navi extends React.Component {
 
   renderSpeedButton(speed) {
     let label = this.speedToName(speed);
-    return <li>
-      <a href="#" onClick={() => this.setSpeed(speed)}>{label}</a>
-    </li>;
+    return <a href="#" className="dropdown-item" onClick={() => this.setSpeed(speed)}>{label}</a>;
   }
 
   renderQualityButton(q) {
     let label = this.qualityToName(q);
-    return <li>
-      <a href="#" onClick={() => this.setQuality(q)}>{label}</a>
-    </li>;
+    return <a href="#" className="dropdown-item" onClick={() => this.setQuality(q)}>{label}</a>;
   }
 
   setQuality(q) {
@@ -52,46 +48,39 @@ export default class Navi extends React.Component {
   }
 
   render() {
-    return <nav className="navbar navbar-inverse">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
-          <a className="navbar-brand" href="http://jsbattle.jamro.net"><strong>JsBattle</strong> <small style={{color: '#666666', fontSize: '10px'}}>%%GULP_INJECT_VERSION%%</small></a>
-        </div>
+    return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <a className="navbar-brand" href="http://jsbattle.jamro.net"><strong>JsBattle</strong> <small style={{color: '#666666', fontSize: '10px'}}>%%GULP_INJECT_VERSION%%</small></a>
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul className="nav navbar-nav">
-            <li><a href="https://github.com/jamro/jsbattle" target="_blank"><i className="fa fa-github-alt" aria-hidden="true"></i> GitHub</a></li>
-            <li><a href="./docs" target="_blank"><i className="fa fa-file-text-o" aria-hidden="true"></i> Docs</a></li>
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item"><a className="nav-link" href="https://github.com/jamro/jsbattle" target="_blank"><i className="fa fa-github-alt" aria-hidden="true"></i> GitHub</a></li>
+            <li className="nav-item"><a className="nav-link" href="./docs" target="_blank"><i className="fa fa-file-text-o" aria-hidden="true"></i> Docs</a></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality: {this.qualityToName(this.state.quality)} <span className="caret"></span></a>
-              <ul className="dropdown-menu">
+              <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality: {this.qualityToName(this.state.quality)} <span className="caret"></span></a>
+              <div className="nav-item dropdown-menu">
                 {this.renderQualityButton('auto')}
-                <li role="separator" className="divider"></li>
+                <li role="separator" className="dropdown-divider"></li>
                 {this.renderQualityButton(0.0)}
                 {this.renderQualityButton(0.5)}
                 {this.renderQualityButton(1.0)}
-              </ul>
+              </div>
             </li>
-            <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Speed: {this.speedToName(this.state.speed)} <span className="caret"></span></a>
-              <ul className="dropdown-menu">
+            <li className="nav-item dropdown">
+              <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Speed: {this.speedToName(this.state.speed)} <span className="caret"></span></a>
+              <div className="dropdown-menu">
                 {this.renderSpeedButton(0.05)}
                 {this.renderSpeedButton(0.3)}
                 {this.renderSpeedButton(1)}
                 {this.renderSpeedButton(2)}
                 {this.renderSpeedButton(50)}
-              </ul>
+              </div>
             </li>
           </ul>
         </div>
-      </div>
     </nav>;
   }
 }

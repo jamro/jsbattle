@@ -23,12 +23,13 @@ module.exports = {
      'node_modules/pixi.js/dist/pixi.min.js',
      'node_modules/jquery/dist/jquery.min.js',
      'node_modules/bootstrap/dist/**/*',
-     'node_modules/react/dist/**/*',
-     'node_modules/react-dom/dist/**/*',
+     'node_modules/react/umd/**/*',
+     'node_modules/react-dom/umd/**/*',
      'node_modules/codemirror/lib/**/*',
      'node_modules/codemirror/mode/javascript/**/*',
      'node_modules/codemirror/addon/hint/**/*',
-     'node_modules/codemirror/theme/ambiance.css'
+     'node_modules/codemirror/theme/ambiance.css',
+     'node_modules/core-js/client/core.js'
     ]
   },
   docs: {

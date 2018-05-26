@@ -4,6 +4,7 @@ import sinon from "sinon";
 import PerformanceMonitor from "../../app/engine/PerformanceMonitor.js"
 
 describe('PerformanceMonitor', function() {
+
   describe('constructor', function() {
 
     it('should set max quality', function() {
@@ -78,6 +79,7 @@ describe('PerformanceMonitor', function() {
 
   });
 
+
   describe('setSimulationStepDuration', function() {
 
     it('should set desired performance', function() {
@@ -125,6 +127,7 @@ describe('PerformanceMonitor', function() {
       mon.start();
 
       setTimeout(() => {
+        mon.stop();
         assert(mon.qualityLevel == 0);
         done();
       }, 30);
@@ -144,6 +147,7 @@ describe('PerformanceMonitor', function() {
       }, 1);
 
       setTimeout(() => {
+        mon.stop();
         assert(mon.qualityLevel == 1);
         clearInterval(loop);
         done();
@@ -157,6 +161,7 @@ describe('PerformanceMonitor', function() {
       mon.start();
 
       setTimeout(() => {
+        mon.stop();
         assert.equal(0, mon.actualPerfomance)
         mon.stop();
         done();

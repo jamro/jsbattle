@@ -1,17 +1,16 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack-stream');
 
 module.exports = function (gulp, config, plugins, minify) {
     return function () {
       var webpackPlugins = [];
       if(!config.devMode && minify) {
         webpackPlugins.push(new UglifyJSPlugin({
-          sourceMap: true,
-          minimize: true,
-          compress: false,
+          sourceMap: true
         }));
       }
       return gulp.src(config.engine.sources.concat(config.engine.lib))
-        .pipe(plugins.webpack({
+        .pipe(webpack({
           entry: {
             app: config.engine.entry
           },

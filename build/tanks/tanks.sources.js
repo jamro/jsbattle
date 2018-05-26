@@ -1,8 +1,10 @@
+const webpack = require('webpack-stream');
+
 module.exports = function (gulp, config, plugins) {
     return function () {
       return gulp.src(config.tanks.sources.concat(config.tanks.lib))
         .pipe(plugins.jshint.reporter('default'))
-        .pipe(plugins.webpack({
+        .pipe(webpack({
           entry: {
             app: config.tanks.entry
           },

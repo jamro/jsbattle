@@ -206,7 +206,7 @@ export default class StartScreen extends React.Component {
 
   renderSettings() {
     return <div>
-      <button type="button" className="btn btn-success btn-lg pull-right create-tank" onClick={() => this.createTank()}>
+      <button type="button" className="btn btn-success btn-lg pull-right create-tank" onClick={() => this.createTank()} style={{margin: "15px"}}>
         <i className="fa fa-plus-circle" aria-hidden="true"></i> Create Tank
       </button>
       <table className="table tank-table" >
@@ -229,7 +229,7 @@ export default class StartScreen extends React.Component {
     let listComplete = this.state.aiDefList.length >= 2;
     let classNames = "btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
     return <button type="button" className={classNames} onClick={() => this.startBattle()}>
-      <span className="glyphicon glyphicon-play" aria-hidden="true"></span> START
+      <i className="fa fa-play" aria-hidden="true"></i> START
     </button>;
   }
 
@@ -237,17 +237,17 @@ export default class StartScreen extends React.Component {
     let listComplete = this.state.aiDefList.length >= 2;
     let content = <Row>
       <Col lg={4} md={5}>
-        <div className="panel panel-default">
-          <div className="panel-body text-center">
+        <div className="card">
+          <div className="card-body text-center">
             <p style={{marginBottom: "5px"}}>Tanks in the battle.</p>
             <h1 className="tank-counter" style={{fontSize: "100px", marginTop: "0px", paddingTop: "0px"}}>{this.state.aiDefList.length}</h1>
             <p>{listComplete ? "Press start to begin." : "Add more tanks."}</p>
             {this.renderStartButton()}
           </div>
-          <div className="panel-footer" style={{padding: '5px'}}>
+          <div className="card-footer" style={{padding: '5px'}}>
             <div className="checkbox" style={{margin: "0px"}}>
              <label>
-               <input type="checkbox" checked={this.state.teamMode} onChange={() => this.onTeamModeChange()} />
+               <input type="checkbox" checked={this.state.teamMode} onChange={() => this.onTeamModeChange()} style={{margin: "0px 5px"}} />
                Enable <strong>Team Mode</strong> for tanks of the same type
              </label>
            </div>

@@ -3,6 +3,9 @@ var HomeHelper = require('../lib/helpers/HomeHelper.js');
 
 casper.test.begin('Ading AI Scripts', function suite(test) {
   var homeHelper = new HomeHelper(casper, test);
+  casper.on("page.error", function(msg, trace) {
+    this.echo("Error: " + msg, "ERROR");
+  });
 
   casper.start(config.BASE_URL + '#stateless', function() {
     test.assertEquals(

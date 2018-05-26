@@ -1,4 +1,5 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack-stream');
 
 module.exports = function (gulp, config, plugins) {
     return function () {
@@ -9,7 +10,7 @@ module.exports = function (gulp, config, plugins) {
         }));
       }
       return gulp.src(config.webpage.sources.concat(config.webpage.lib))
-        .pipe(plugins.webpack({
+        .pipe(webpack({
           entry: {
             app: config.webpage.entry
           },

@@ -65,7 +65,7 @@ export default class TankTableRow extends React.Component {
   }
 
   renderEditButton() {
-    return <button type="button" className="btn btn-default tank-edit" onClick={() => this.props.onEdit(this.props.name)}>
+    return <button type="button" className="btn btn-secondary tank-edit" onClick={() => this.props.onEdit(this.props.name)}>
       <i className="fa fa-pencil" aria-hidden="true"></i>
     </button>;
   }
@@ -89,7 +89,7 @@ export default class TankTableRow extends React.Component {
             Yes, delete AI Script of {this.props.name} tank!
           </button>
           &nbsp;
-          <button type="button" className="btn btn-default tank-remove-confirm-no" onClick={() => this.setState({mode: 'normal'})}>
+          <button type="button" className="btn btn-secondary tank-remove-confirm-no" onClick={() => this.setState({mode: 'normal'})}>
             Nevermind
           </button>
         </td>

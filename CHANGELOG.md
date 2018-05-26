@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- update of libraries to latest versions
+- migration from Bootstrap v3 to v4
+
+### Fixed
+- unit tests fix
+
+### Security
+- Fixing vulnerability in handlebars.js 3.0.3 by lib upgrade (CVE-2015-8861)
+- Fixing vulnerability in hoek 2.16.3 by lib upgrade (CVE-2018-3728)
+- Fixing vulnerability in marked 0.3.6 by lib upgrade (CVE-2017-1000427, CVE-2017-17461)
+- Fixing vulnerability in UglifyJS2 2.3.6 by lib upgrade (CVE-2015-8858, CVE-2015-8857)
 
 ## [1.4.6] - 2017-12-31
 ### Added

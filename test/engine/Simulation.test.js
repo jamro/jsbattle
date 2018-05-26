@@ -362,7 +362,7 @@ describe('Simulation', function() {
 
   describe('simulationStep', function() {
 
-    it('should update Performance Monitor', function() {
+    it('should update Performance Monitor', function(done) {
       let sim = createSimulation();
       sim.init(600, 600);
       sim.addTank(new AiDefinitionMock());
@@ -371,6 +371,7 @@ describe('Simulation', function() {
       sim.onStep(function () {
         assert(sim._perfMon.onSimulationStep.calledOnce)
         sim.stop();
+        done();
       });
       sim.start();
     });
@@ -379,7 +380,7 @@ describe('Simulation', function() {
 
   describe('setRendererQuality', function() {
 
-    it('should change quality of renderer', function() {
+    it('should change quality of renderer', function(done) {
       let renderer = new RendererMock();
       let sim = new Simulation(renderer);
       sim._createAiWrapper = function(tank) {
@@ -406,7 +407,7 @@ describe('Simulation', function() {
       });
     });
 
-    it('should support auto mode', function() {
+    it('should support auto mode', function(done) {
       let renderer = new RendererMock();
       let sim = new Simulation(renderer);
       sim._createAiWrapper = function(tank) {
@@ -435,6 +436,5 @@ describe('Simulation', function() {
     });
 
   });
-
 
 });

@@ -37,11 +37,11 @@ export default class SaveButtons extends React.Component {
   renderStandard() {
     let saveButton;
     if(this.props.unsavedChanges) {
-      saveButton = <button type="button" className="btn btn-default"  onClick={() => this.onSave()}>
+      saveButton = <button type="button" className="btn btn-secondary"  onClick={() => this.onSave()}>
           <i className="fa fa-save" aria-hidden="true"></i> Save
       </button>;
     } else {
-      saveButton = <button type="button" className="btn btn-default disabled" >
+      saveButton = <button type="button" className="btn btn-secondary disabled" >
           <i className="fa fa-check" aria-hidden="true"></i> Saved
       </button>;
     }
@@ -50,7 +50,7 @@ export default class SaveButtons extends React.Component {
         <i className="fa fa-play" aria-hidden="true"></i> Quick Fight
       </button> &nbsp;
       {saveButton} &nbsp;
-      <button type="button" className="btn btn-default" onClick={() => this.onCloseRequest(false)}>
+      <button type="button" className="btn btn-secondary" onClick={() => this.onCloseRequest(false)}>
         <i className="fa fa-times" aria-hidden="true"></i> Close
       </button> &nbsp;
 
@@ -63,7 +63,7 @@ export default class SaveButtons extends React.Component {
       <button type="button" className="btn btn-primary" onClick={() => this.onSaveAndClose()}>
           <i className="fa fa-check" aria-hidden="true"></i> Yes
       </button> &nbsp;
-      <button type="button" className="btn btn-default"  onClick={() => this.onClose()}>
+      <button type="button" className="btn btn-secondary"  onClick={() => this.onClose()}>
           <i className="fa fa-times" aria-hidden="true"></i> No
       </button>
     </div>;

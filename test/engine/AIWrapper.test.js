@@ -29,10 +29,12 @@ describe('AiWrapper', function() {
       }
       ai.activate(1,
         () => {
+          ai.deactivate();
           assert(worker.postMessage.calledOnce);
           done();
         },
         (err) => {
+          ai.deactivate();
           assert.fail("Error " + err);
         }
       );
@@ -55,10 +57,12 @@ describe('AiWrapper', function() {
       ai.setProcessingLimit(100);
       ai.activate(1,
         () => {
+          ai.deactivate();
           assert.fail("Should return error");
           done();
         },
         (err) => {
+          ai.deactivate();
           assert.equal(true, err.performanceIssues);
           assert.equal(tank.name, err.tankName);
           assert.equal(tank.id, err.tankId);
@@ -82,9 +86,11 @@ describe('AiWrapper', function() {
       }
       ai.activate(1,
         () => {
+          ai.deactivate();
           done();
         },
         (err) => {
+          ai.deactivate();
           assert.fail("Error" + err.message);
           done();
         }
@@ -115,6 +121,7 @@ describe('AiWrapper', function() {
           done();
         },
         (err) => {
+          ai.deactivate();
           assert.fail("Error" + err.message);
           done();
         }
@@ -150,6 +157,7 @@ describe('AiWrapper', function() {
       ai.activate(1,
         () => {
           ai.simulationStep(() => {
+            ai.deactivate();
             assert(worker.postMessage.calledTwice)
             assert(tank.setThrottle.calledWith(control.THROTTLE));
             assert(tank.setTurn.calledWith(control.TURN));
@@ -160,6 +168,7 @@ describe('AiWrapper', function() {
             assert(tank.setDebugData.calledWith(control.DEBUG));
             done();
           }, (err) => {
+            ai.deactivate();
             assert.fail("Error" + err.message);
             done();
           });
@@ -198,13 +207,16 @@ describe('AiWrapper', function() {
             }
           });
           ai.simulationStep(() => {
+            ai.deactivate();
             assert.fail("Should return error");
             done();
           }, (err) => {
+            ai.deactivate();
             done();
           });
         },
         (err) => {
+          ai.deactivate();
           done();
         }
       );

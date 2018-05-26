@@ -1,0 +1,57 @@
+@startuml
+
+    participant application
+    participant Simulation
+    participant Renderer
+
+    == Initialization ==
+    application -> Renderer : renderer = new Renderer()
+    application -> Simulation : new Simulation(renderer)
+    Simulation -> Battlefield : new Battlefield()
+    application -> Simulation : init()
+    Simulation -> Battlefield : setSize()
+    Simulation -> Renderer : initBatlefield()
+
+    loop for all AIs
+        application -> AiDefinition : aiDef = new AiDefinition()
+        application -> Simulation : addTank(aiDef)
+        Simulation -> Tank : tank = new Tank(aiDef)
+        Simulation -> Tank : randomize()
+        Simulation -> Tank : moveTo(startPosition)
+        Simulation -> Simulation : tankList.push(tank)
+        Simulation -> AiWrapper : ai = new AiWrapper(aiDef)
+        Simulation -> Simulation : aiList.push(ai)
+    end
+
+    application -> Simulation : start()
+    Simulation -> AiWrapper : activate()
+    AiWrapper --> Simulation : done
+    Simulation -> Simulation : renderingLoop()
+    Simulation -> Simulation : simulationLoop()
+
+    == Repetition in simulationLoop ==
+    loop for all tanks
+        Simulation -> Tank : simulationStep()
+    end
+    loop for all bullets
+        Simulation -> Bullet : simulationStep()
+    end
+    loop for all AIs
+        Simulation -> AiWrapper : simulationStep()
+    end
+
+    == Repetition in renderingLoop ==
+    Simulation -> Renderer : preRender()
+    Simulation -> Renderer : renderClock()
+    loop for all tanks
+        Simulation -> Renderer : renderTank(tank)
+        Renderer -> Tank : getProperties(...)
+    end
+    loop for all bullets
+        Simulation -> Renderer : renderBullet(bullet)
+        Renderer -> Bullet : getProperties(...)
+    end
+    Simulation -> Renderer : renderTankStats()
+    Simulation -> Renderer : postRender()
+
+@enduml

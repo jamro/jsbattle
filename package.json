@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -56,6 +56,7 @@
     "jshint": "^2.9.5",
     "json-loader": "^0.5.7",
     "mocha": "^5.2.0",
+    "node-plantuml": "^0.6.2",
     "phantomjs": "^2.1.7",
     "pixi-packer": "^3.2.1",
     "pixi-packer-parser": "^2.0.0",

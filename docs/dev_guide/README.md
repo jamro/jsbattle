@@ -9,3 +9,4 @@ This section is unnecessary to play JsBattle however, if you would like to exten
 - [Project Structure](/docs/dev_guide/structure.md)
 - [Toolset](/docs/dev_guide/toolset.md)
 - [Adding Bundled Tanks](/docs/dev_guide/adding_bundled_tanks.md)
+- [Architecture](/docs/dev_guide/architecture/README.md)

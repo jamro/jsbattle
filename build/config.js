@@ -34,7 +34,11 @@ module.exports = {
   },
   docs: {
     sources: ['docs/**/*'],
-    apiDist: 'docs/dev_guide'
+    apiDist: 'docs/dev_guide',
+    plantuml: {
+      sources: 'docs/puml/**/*.puml',
+      target: 'docs/img/puml/'
+    }
   },
   tanks: {
     resourcesBase: 'app/tanks/',

@@ -27,7 +27,7 @@ Tool                                                 | Description
 [http-server](https://github.com/indexzero/http-server) | Lightweight NPM web server used to run the game
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator
 [Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
-
+[PlantUML](http://plantuml.com/)                     | Generates UML diagrams from text
 
 ## Tests and code validation
 

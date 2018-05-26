@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - update of libraries to latest versions
 - migration from Bootstrap v3 to v4
+- Documentation improvements
 
 ### Fixed
 - unit tests fix

@@ -53,3 +53,11 @@ tank.loop(function(state, control) {
 To make debugging of your AI scripts easier, it is possible to pass some data from the script and display it in the battle window. It can be achieved by setting `DEBUG` field of [control object](/docs/manual/tank_control_object.md). The value of `control.DEBUG` can be anything: from objects, arrays, numbers to strings.
 
 ![alt text](/docs/img/battle_screen_001.png)
+
+## Read more
+
+- [Tank State Object](/docs/manual/tank_state_object.md)
+- [Tank Control Object](/docs/manual/tank_control_object.md)
+- [Tank Settings Object](/docs/manual/tank_settings_object.md)
+- [Tank Info Object](/docs/manual/tank_info_object.md)
+- [Extended Math Object](/docs/manual/extended_math.md)

@@ -50,6 +50,7 @@ export default class AbstractRenderer extends Renderer  {
   setSpeed(v) {
     this._speedMultiplier = v;
   }
+  
   _renderModel(model, events, map, factory) {
     let view = null;
     if(map[model.id]) {

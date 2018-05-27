@@ -1,4 +1,4 @@
 # Architecture
 
-
-- [Simulation](/docs/dev_guide/architecture/simulation.md) 
+- [Simulation](/docs/dev_guide/architecture/simulation.md)
+- [Renderers](/docs/dev_guide/architecture/renderers.md) 

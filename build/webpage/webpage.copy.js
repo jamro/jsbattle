@@ -39,6 +39,7 @@ module.exports = function (gulp, config, plugins) {
 
         }))
         .pipe(gulp.dest(config.tmp + 'dist/' + config.docs.plantuml.target))
+        .pipe(gulp.dest(config.docs.plantuml.target))
         .on('end', onComplete);
     };
 };

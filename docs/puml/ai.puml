@@ -1,0 +1,38 @@
+@startuml
+
+participant application
+participant AiDefiniton
+participant AiWrapper
+participant WebWorker
+participant Tank
+
+== Initialization ==
+application -> AiDefiniton : aiDef = new AiDefiniton()
+application -> Tank : tank = new Tank()
+application -> AiWrapper : new AiWrapper(aiDef, tank)
+application -> AiWrapper : activate()
+AiWrapper -> WebWorker : aiWorker = new WebWorker()
+
+AiWrapper --[#blue]>> WebWorker : {command: 'init'}
+WebWorker --[#blue]>> AiWrapper : {type: 'init', settings: ...}
+AiWrapper -> Tank : init(settings)
+
+== Repetition in simulationLoop ==
+
+application -> AiWrapper : simulationStep()
+AiWrapper --[#blue]>> WebWorker : {command: 'update', state: ...}
+WebWorker --[#blue]>> AiWrapper : {controlData}
+AiWrapper -> Tank : setThrottle()
+AiWrapper -> Tank : setBoost()
+AiWrapper -> Tank : setTurn()
+AiWrapper -> Tank : setRadarTurn()
+AiWrapper -> Tank : setGunTurn()
+AiWrapper -> Tank : shoot()
+
+== Repetition in simulationLoop (Tank) ==
+
+application -> Tank : simulationStep()
+Tank -> Tank : move()
+Tank -> Tank : controlRadar()
+Tank -> Tank : controlGun()
+@enduml

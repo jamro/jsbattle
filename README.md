@@ -3,8 +3,9 @@
 [![Build Status](https://travis-ci.org/jamro/jsbattle.svg?branch=master)](https://travis-ci.org/jamro/jsbattle)
 [![npm version](https://badge.fury.io/js/jsbattle.svg)](https://badge.fury.io/js/jsbattle)
 [![Bower version](https://badge.fury.io/bo/jsbattle.svg)](https://badge.fury.io/bo/jsbattle)
-[![Technical debt](https://sonarcloud.io/api/badges/measure?key=jamro-github%3Ajsbattle&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard?id=jamro-github%3Ajsbattle)
+[![Technical debt](https://sonarcloud.io/api/project_badges/measure?project=jamro-github%3Ajsbattle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=jamro-github%3Ajsbattle)
 [![License](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
+
 
 ![alt text](/docs/img/screenshot.png)
 
@@ -13,12 +14,8 @@ JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a ga
 
 ## How to play?
 
-You'll find **Getting Started** guide in [Documentation](/docs/README.md)
+Read [Getting Started](/docs/getting_started.md) to learn how to build your first tank.
 
-## Demo
+You will find more information about **JsBattle** in the [Manual](/docs/manual/README.md)
 
-See an example of fighting tanks here: [http://jsbattle.jamro.net](http://jsbattle.jamro.net)
-
-## License
-
-This software is released under the [MIT license](https://opensource.org/licenses/MIT).
+Want to extend or develop **JsBattle**? Read [Development Guide](/docs/dev_guide/README.md)

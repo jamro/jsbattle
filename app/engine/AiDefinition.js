@@ -26,6 +26,34 @@ class AiDefinition {
     this._useSandbox = true;
     this._executionLimit = 100;
   }
+
+  /**
+   * @return JSON representation of AiDefiniton
+   */
+  toJSON() {
+    return {
+      name: this._name,
+      team: this._team,
+      code: this._code,
+      initData: this._initData,
+      useSandbox: this._useSandbox,
+      executionLimit: this.executionLimit
+    }
+  }
+
+  /**
+   * @param {object} data - JSON data to be parsed
+   */
+  fromJSON(data) {
+    this._name = data.name;
+    this._team = data.team;
+    this._code = data.code;
+    this._initData = data.initData;
+    this._useSandbox = data.useSandbox;
+    this._executionLimit = data.executionLimit;
+  }
+
+
   /**
    * @return name of the AI. The same name will be assigned to the tank
    */

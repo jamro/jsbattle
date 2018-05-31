@@ -68,4 +68,27 @@ describe('AiDefinition', function() {
 
   });
 
+  describe('to/fromJSON', function() {
+    it('should serialize and deserialize object', () => {
+      let ai = new AiDefinition();
+      let json1 = {
+        name: "text_" + Math.round(Math.random()*1000000),
+        team: "text_" + Math.round(Math.random()*1000000),
+        code: "text_" + Math.round(Math.random()*1000000),
+        initData: {data: "text_" + Math.round(Math.random()*1000000)},
+        useSandbox: (Math.random() > 0.5),
+        executionLimit: Math.round(Math.random()*1000000)
+      };
+      let jsonText1 = JSON.stringify(json1);
+      ai.fromJSON(json1);
+      let json2 = ai.toJSON();
+      let jsonText2 = JSON.stringify(json2);
+
+      assert.equal(jsonText1, jsonText2);
+
+
+      console.log(jsonText1);
+    });
+  });
+
 });

@@ -85,9 +85,6 @@ describe('AiDefinition', function() {
       let jsonText2 = JSON.stringify(json2);
 
       assert.equal(jsonText1, jsonText2);
-
-
-      console.log(jsonText1);
     });
   });
 

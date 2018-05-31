@@ -1,19 +1,33 @@
 'use strict';
 
+import seedrandom from "seedrandom";
+
 export default class Battlefield {
 
   constructor(width, height) {
     this._width = null;
     this._height = null;
     this._startSlotList = [];
-    this._offsetX = Math.round(Math.random()*10000-5000);
-    this._offsetY = Math.round(Math.random()*10000-5000);
+    this._offsetX = 0;
+    this._offsetY = 0;
   }
 
   setSize(width, height) {
     this._width = width-this.margin*2;
     this._height = height-this.margin*2;
 
+
+  }
+
+  randomize(seed) { // remember to call it after setSize !!!
+    if(seed === undefined) {
+      seed = (new Date()).getTime() + Math.round(Math.random()*1000000);
+    }
+    let rng = seedrandom(seed);
+
+    this._offsetX = Math.round(rng()*10000-5000);
+    this._offsetY = Math.round(rng()*10000-5000);
+    
     // generate list of start slots
     this._startSlotList = [];
     let slotSize = 90;
@@ -25,7 +39,7 @@ export default class Battlefield {
     // shuffle start slots
     let currentIndex = this._startSlotList.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
+      randomIndex = Math.floor(rng() * currentIndex);
       currentIndex -= 1;
       temporaryValue = this._startSlotList[currentIndex];
       this._startSlotList[currentIndex] = this._startSlotList[randomIndex];

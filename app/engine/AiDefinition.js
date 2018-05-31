@@ -38,7 +38,7 @@ class AiDefinition {
       initData: this._initData,
       useSandbox: this._useSandbox,
       executionLimit: this.executionLimit
-    }
+    };
   }
 
   /**

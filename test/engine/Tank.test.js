@@ -285,6 +285,60 @@ describe('Tank', function() {
       assert(diff1 || diff2 || diff3);
     });
 
+    it('should rotate the tank differntly when not seeded', function() {
+      let tank1 = new Tank({name: 'bravo1'}, 1);
+      let tank2 = new Tank({name: 'bravo2'}, 2);
+      let tank3 = new Tank({name: 'bravo3'}, 3);
+      tank1.randomize();
+      tank2.randomize();
+      tank3.randomize();
+      let pos1 = tank1.angle;
+      let pos2 = tank2.angle;
+      let pos3 = tank3.angle;
+
+      let diff1 = pos1 != pos2;
+      let diff2 = pos2 != pos3;
+      let diff3 = pos3 != pos1;
+
+      assert(diff1 || diff2 || diff3);
+    });
+
+    it('should rotate the tank differntly when seeded differntly', function() {
+      let tank1 = new Tank({name: 'bravo1'}, 1);
+      let tank2 = new Tank({name: 'bravo2'}, 2);
+      let tank3 = new Tank({name: 'bravo3'}, 3);
+      tank1.randomize(123);
+      tank2.randomize(456);
+      tank3.randomize(789);
+      let pos1 = tank1.angle;
+      let pos2 = tank2.angle;
+      let pos3 = tank3.angle;
+
+      let diff1 = pos1 != pos2;
+      let diff2 = pos2 != pos3;
+      let diff3 = pos3 != pos1;
+
+      assert(diff1 || diff2 || diff3);
+    });
+
+    it('should rotate the tank in the same way when seeded', function() {
+      let tank1 = new Tank({name: 'bravo1'}, 1);
+      let tank2 = new Tank({name: 'bravo2'}, 2);
+      let tank3 = new Tank({name: 'bravo3'}, 3);
+      tank1.randomize(5544);
+      tank2.randomize(5544);
+      tank3.randomize(5544);
+      let pos1 = tank1.angle;
+      let pos2 = tank2.angle;
+      let pos3 = tank3.angle;
+
+      let diff1 = (pos1 == pos2);
+      let diff2 = (pos2 == pos3);
+      let diff3 = (pos3 == pos1);
+
+      assert(diff1 && diff2 && diff3);
+    });
+
   });
 
   describe('simulationStep', function() {

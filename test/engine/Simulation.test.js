@@ -437,4 +437,38 @@ describe('Simulation', function() {
 
   });
 
+  describe('seeded RNG', function() {
+    it('should return different data when not seeded', function() {
+      let renderer = new RendererMock();
+      let sim1 = new Simulation(renderer);
+      let sim2 = new Simulation(renderer);
+      let r1 = sim1.getRandom();
+      let r2 = sim2.getRandom();
+      assert.notEqual(r1, r2);
+    });
+
+    it('should return the same data when seeded', function() {
+      let renderer = new RendererMock();
+      let sim1 = new Simulation(renderer);
+      let sim2 = new Simulation(renderer);
+      sim1.setRngSeed(12345);
+      sim2.setRngSeed(12345);
+      let r1 = sim1.getRandom();
+      let r2 = sim2.getRandom();
+      assert.equal(r1, r2);
+    });
+
+
+    it('should return different data when seeded differently', function() {
+      let renderer = new RendererMock();
+      let sim1 = new Simulation(renderer);
+      let sim2 = new Simulation(renderer);
+      sim1.setRngSeed(12345);
+      sim2.setRngSeed(54321);
+      let r1 = sim1.getRandom();
+      let r2 = sim2.getRandom();
+      assert.notEqual(r1, r2);
+    });
+  });
+
 });

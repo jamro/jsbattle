@@ -28,7 +28,7 @@ class Simulation {
     this._bulletList = [];
     this._explodedTankList = [];
     this._explodedBulletList = [];
-    this._battlefield = new Battlefield();
+    this._battlefield = null;
     this._simulationTimeout = null;
     this._renderInterval = null;
     this._simulationStepDuration = 17;
@@ -36,8 +36,7 @@ class Simulation {
     this._renderer = renderer;
     this._isRunning = false;
     this._collisionResolver = new CollisionResolver();
-    this._rngSeed = (new Date()).getTime();
-    this._rng = seedrandom(this._rngSeed);
+    this._rng = seedrandom((new Date()).getTime() + Math.round(Math.random()*1000000));
     this._speedMultiplier = 1;
     this._onSimulationStepCallback = [];
     this._onRenderStepCallback = [];
@@ -56,7 +55,27 @@ class Simulation {
     this._callStackCount = 0;
     this._teamMap = [];
     this._teamList = [];
-    Math.random = this._rng;
+  }
+
+  /**
+    * Seed random number generator. Each time when you seed rng with the same data
+    * it will return the same sequence of numbers. That feature can be used
+    * to reconstruct exactly the same, "randomized" simulation condidtions.
+    *
+    * IMPORTANT! set it just after calling constructor of the calss. Otherwise
+    * some RNG calls could be unseeded.
+    *
+    * @param {Number} seed - rng seed data
+    */
+  setRngSeed(seed) {
+    this._rng = seedrandom(seed);
+  }
+
+  /**
+   * @return random number from seeded rng
+   */
+  getRandom() {
+    return this._rng();
   }
 
   /**
@@ -66,7 +85,9 @@ class Simulation {
    * @param {Number} height - height of the battlefield
    */
   init(width, height) {
+    this._battlefield = new Battlefield();
     this._battlefield.setSize(width, height);
+    this._battlefield.randomize(this._rng());
     this._renderer.initBatlefield(this._battlefield);
     this._collisionResolver.updateBattlefield(this._battlefield);
   }
@@ -214,7 +235,7 @@ class Simulation {
       throw "No free space in the battlefield";
     }
     let tank = this._createTank(aiDefinition);
-    tank.randomize();
+    tank.randomize(this.getRandom());
     tank.moveTo(startSlot.x, startSlot.y);
     this._tankList.push(tank);
     this._allTankList.push(tank);
@@ -345,7 +366,7 @@ class Simulation {
   }
 
   _activateAi(done, error) {
-    this._runInSequence(this._aiList, 'activate', this._rngSeed, done, error);
+    this._runInSequence(this._aiList, 'activate', this._rng(), done, error);
   }
 
   _updateAi(done, error) {

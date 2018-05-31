@@ -39,6 +39,8 @@ methods should be used to initialize the object
     * [.code](#AiDefinition+code) ⇒
     * [.initData](#AiDefinition+initData) ⇒
     * [.useSandbox](#AiDefinition+useSandbox) ⇒
+    * [.toJSON()](#AiDefinition+toJSON) ⇒
+    * [.fromJSON(data)](#AiDefinition+fromJSON)
     * [.fromFile(tankName, initData)](#AiDefinition+fromFile)
     * [.fromCode(tankName, code, initData)](#AiDefinition+fromCode)
     * [.assignToTeam(name)](#AiDefinition+assignToTeam)
@@ -96,6 +98,20 @@ Creates AiDefinition. Constructor is not available outside of
 ### aiDefinition.useSandbox ⇒
 **Kind**: instance property of <code>[AiDefinition](#AiDefinition)</code>  
 **Returns**: true if AI should be sandboxed. Otherwise false. By default, all AIs are sandboxed.  
+<a name="AiDefinition+toJSON"></a>
+
+### aiDefinition.toJSON() ⇒
+**Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: JSON representation of AiDefiniton  
+<a name="AiDefinition+fromJSON"></a>
+
+### aiDefinition.fromJSON(data)
+**Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> | JSON data to be parsed |
+
 <a name="AiDefinition+fromFile"></a>
 
 ### aiDefinition.fromFile(tankName, initData)
@@ -158,6 +174,8 @@ and refreshing the renderer.
     * [.renderer](#Simulation+renderer) ⇒
     * [.timeElapsed](#Simulation+timeElapsed) ⇒
     * [.timeLimit](#Simulation+timeLimit) ⇒
+    * [.setRngSeed(seed)](#Simulation+setRngSeed)
+    * [.getRandom()](#Simulation+getRandom) ⇒
     * [.init(width, height)](#Simulation+init)
     * [.start()](#Simulation+start)
     * [.addTank(aiDefinition)](#Simulation+addTank)
@@ -207,6 +225,27 @@ Create Simulation object. Constructor is not available outside of
 ### simulation.timeLimit ⇒
 **Kind**: instance property of <code>[Simulation](#Simulation)</code>  
 **Returns**: maximum duration of the battle (in milliseconds). The battle will be over after that time.  
+<a name="Simulation+setRngSeed"></a>
+
+### simulation.setRngSeed(seed)
+Seed random number generator. Each time when you seed rng with the same data
+it will return the same sequence of numbers. That feature can be used
+to reconstruct exactly the same, "randomized" simulation condidtions.
+
+IMPORTANT! set it just after calling constructor of the calss. Otherwise
+some RNG calls could be unseeded.
+
+**Kind**: instance method of <code>[Simulation](#Simulation)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| seed | <code>Number</code> | rng seed data |
+
+<a name="Simulation+getRandom"></a>
+
+### simulation.getRandom() ⇒
+**Kind**: instance method of <code>[Simulation](#Simulation)</code>  
+**Returns**: random number from seeded rng  
 <a name="Simulation+init"></a>
 
 ### simulation.init(width, height)

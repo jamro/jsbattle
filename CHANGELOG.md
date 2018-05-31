@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Architecture documentation
 
+### Fixed
+- making battles predictable when the same seed for RNG is used
+
 ## [1.4.7] - 2018-05-26
 ### Changed
 - update of libraries to latest versions

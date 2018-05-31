@@ -1,5 +1,7 @@
 'use strict';
 
+import seedrandom from "seedrandom";
+
 function normalizeAngle(a) {
   while(a > 180) a -= 360;
   while(a < -180) a += 360;
@@ -353,8 +355,12 @@ class Tank {
     }
   }
 
-  randomize() {
-    this._angle = Math.round(360*Math.random())-180;
+  randomize(seed) {
+    if(seed === undefined) {
+      seed = (new Date()).getTime() + Math.round(Math.random()*1000000);
+    }
+    let rng = seedrandom(seed);
+    this._angle = Math.round(360*rng())-180;
   }
 
   init(settings) {

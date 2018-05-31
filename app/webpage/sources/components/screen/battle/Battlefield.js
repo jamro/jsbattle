@@ -28,6 +28,7 @@ export default class Battlefield extends React.Component {
   onAssetsLoaded() {
     this.renderer.init(this.canvas);
     this.simulation = JsBattle.createSimulation(this.renderer);
+    this.simulation.setRngSeed(Math.random());
 
     if(this.props.onError) {
       this.simulation.onError((msg) => this.props.onError(msg));

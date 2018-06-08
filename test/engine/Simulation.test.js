@@ -471,4 +471,146 @@ describe('Simulation', function() {
     });
   });
 
+
+  describe('hasTeams', function() {
+
+    it('should return true when there are multiple tanks in one team', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      let ai1 = new AiDefinitionMock();
+      let ai2 = new AiDefinitionMock();
+      let ai3 = new AiDefinitionMock();
+      let ai4 = new AiDefinitionMock();
+
+      ai1.teamName = "team A";
+      ai2.teamName = "team A";
+      ai3.teamName = "team B";
+      ai4.teamName = "team C";
+
+      sim.addTank(ai1);
+      sim.addTank(ai2);
+      sim.addTank(ai3);
+      sim.addTank(ai4);
+
+      assert.equal(true, sim.hasTeams());
+    });
+
+    it('should return false when there are no team', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      let ai1 = new AiDefinitionMock();
+      let ai2 = new AiDefinitionMock();
+      let ai3 = new AiDefinitionMock();
+      let ai4 = new AiDefinitionMock();
+
+      ai1.teamName = "team A";
+      ai2.teamName = "team B";
+      ai3.teamName = "team C";
+      ai4.teamName = "team D";
+
+      sim.addTank(ai1);
+      sim.addTank(ai2);
+      sim.addTank(ai3);
+      sim.addTank(ai4);
+
+      assert.equal(false, sim.hasTeams());
+    });
+
+    it('should return false when there are no tank', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+
+      assert.equal(false, sim.hasTeams());
+    });
+
+  });
+
+
+  describe('createUltimateBattleDescriptor', function() {
+
+    it('should return UBD with list of AIs', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+
+      let ubd = sim.createUltimateBattleDescriptor();
+
+      assert.equal(4, ubd.getAiList().length);
+
+    });
+    it('should return UBD with proper RNG seed', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      sim.setRngSeed(994);
+
+      let ubd = sim.createUltimateBattleDescriptor();
+
+      assert.equal(994, ubd.getRngSeed());
+    });
+
+    it('should return UBD with team mode', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      let ai1 = new AiDefinitionMock();
+      let ai2 = new AiDefinitionMock();
+      let ai3 = new AiDefinitionMock();
+      let ai4 = new AiDefinitionMock();
+
+      ai1.teamName = "team A";
+      ai2.teamName = "team A";
+      ai3.teamName = "team B";
+      ai4.teamName = "team C";
+
+      sim.addTank(ai1);
+      sim.addTank(ai2);
+      sim.addTank(ai3);
+      sim.addTank(ai4);
+
+      let ubd = sim.createUltimateBattleDescriptor();
+
+      assert.equal(true, ubd.getTeamMode());
+    });
+
+
+    it('should return UBD without team mode', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+      let ai1 = new AiDefinitionMock();
+      let ai2 = new AiDefinitionMock();
+      let ai3 = new AiDefinitionMock();
+      let ai4 = new AiDefinitionMock();
+
+      ai1.teamName = "team A";
+      ai2.teamName = "team B";
+      ai3.teamName = "team C";
+      ai4.teamName = "team D";
+
+      sim.addTank(ai1);
+      sim.addTank(ai2);
+      sim.addTank(ai3);
+      sim.addTank(ai4);
+
+      let ubd = sim.createUltimateBattleDescriptor();
+
+      assert.equal(false, ubd.getTeamMode());
+    });
+
+    it('should return new object each time', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+
+      sim.setRngSeed(123);
+      let ubd1 = sim.createUltimateBattleDescriptor();
+      ubd1.setRngSeed(456);
+      let ubd2 = sim.createUltimateBattleDescriptor();
+
+      assert.equal(123, ubd2.getRngSeed());
+    });
+  });
+
+
+
 });

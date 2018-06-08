@@ -41,6 +41,7 @@ methods should be used to initialize the object
     * [.useSandbox](#AiDefinition+useSandbox) ⇒
     * [.toJSON()](#AiDefinition+toJSON) ⇒
     * [.fromJSON(data)](#AiDefinition+fromJSON)
+    * [.clone()](#AiDefinition+clone) ⇒
     * [.fromFile(tankName, initData)](#AiDefinition+fromFile)
     * [.fromCode(tankName, code, initData)](#AiDefinition+fromCode)
     * [.assignToTeam(name)](#AiDefinition+assignToTeam)
@@ -112,6 +113,11 @@ Creates AiDefinition. Constructor is not available outside of
 | --- | --- | --- |
 | data | <code>object</code> | JSON data to be parsed |
 
+<a name="AiDefinition+clone"></a>
+
+### aiDefinition.clone() ⇒
+**Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
+**Returns**: copy of the object  
 <a name="AiDefinition+fromFile"></a>
 
 ### aiDefinition.fromFile(tankName, initData)
@@ -175,6 +181,7 @@ and refreshing the renderer.
     * [.timeElapsed](#Simulation+timeElapsed) ⇒
     * [.timeLimit](#Simulation+timeLimit) ⇒
     * [.setRngSeed(seed)](#Simulation+setRngSeed)
+    * [.getRngSeed()](#Simulation+getRngSeed) ⇒
     * [.getRandom()](#Simulation+getRandom) ⇒
     * [.init(width, height)](#Simulation+init)
     * [.start()](#Simulation+start)
@@ -187,6 +194,8 @@ and refreshing the renderer.
     * [.onStart(callback)](#Simulation+onStart)
     * [.onFinish(callback)](#Simulation+onFinish)
     * [.onError(callback)](#Simulation+onError)
+    * [.createUltimateBattleDescriptor()](#Simulation+createUltimateBattleDescriptor) ⇒
+    * [.hasTeams()](#Simulation+hasTeams) ⇒
 
 <a name="new_Simulation_new"></a>
 
@@ -241,6 +250,11 @@ some RNG calls could be unseeded.
 | --- | --- | --- |
 | seed | <code>Number</code> | rng seed data |
 
+<a name="Simulation+getRngSeed"></a>
+
+### simulation.getRngSeed() ⇒
+**Kind**: instance method of <code>[Simulation](#Simulation)</code>  
+**Returns**: seed of random number generator  
 <a name="Simulation+getRandom"></a>
 
 ### simulation.getRandom() ⇒
@@ -390,6 +404,19 @@ The callback takes one arguments: error message
 | --- | --- | --- |
 | callback | <code>function</code> | callback that will be called on each event occurence. |
 
+<a name="Simulation+createUltimateBattleDescriptor"></a>
+
+### simulation.createUltimateBattleDescriptor() ⇒
+Create Ultimate Battle Descriptor that contains all data requied to replay
+the battle and reflect its exact course.
+
+**Kind**: instance method of <code>[Simulation](#Simulation)</code>  
+**Returns**: UltimateBattleDescriptor object  
+<a name="Simulation+hasTeams"></a>
+
+### simulation.hasTeams() ⇒
+**Kind**: instance method of <code>[Simulation](#Simulation)</code>  
+**Returns**: true if at least two tanks are cooperating within one team  
 <a name="Tank"></a>
 
 ## Tank

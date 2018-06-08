@@ -8,6 +8,7 @@ import EventStore from "./EventStore.js";
 import CollisionResolver from "./CollisionResolver.js";
 import AiWrapper from "./AiWrapper.js";
 import PerformanceMonitor from "./PerformanceMonitor.js";
+import UltimateBattleDescriptor from "./UltimateBattleDescriptor.js";
 import seedrandom from "seedrandom";
 
 /**
@@ -36,7 +37,8 @@ class Simulation {
     this._renderer = renderer;
     this._isRunning = false;
     this._collisionResolver = new CollisionResolver();
-    this._rng = seedrandom((new Date()).getTime() + Math.round(Math.random()*1000000));
+    this._rngSeed = (new Date()).getTime() + Math.round(Math.random()*1000000);
+    this._rng = seedrandom(this._rngSeed);
     this._speedMultiplier = 1;
     this._onSimulationStepCallback = [];
     this._onRenderStepCallback = [];
@@ -55,6 +57,7 @@ class Simulation {
     this._callStackCount = 0;
     this._teamMap = [];
     this._teamList = [];
+    this._ultimateBattleDescriptor = new UltimateBattleDescriptor();
   }
 
   /**
@@ -68,7 +71,16 @@ class Simulation {
     * @param {Number} seed - rng seed data
     */
   setRngSeed(seed) {
-    this._rng = seedrandom(seed);
+    this._rngSeed = seed;
+    this._ultimateBattleDescriptor.setRngSeed(seed);
+    this._rng = seedrandom(this._rngSeed);
+  }
+
+  /**
+   * @return seed of random number generator
+   */
+  getRngSeed() {
+    return this._rngSeed;
   }
 
   /**
@@ -234,6 +246,8 @@ class Simulation {
     if(!startSlot) {
       throw "No free space in the battlefield";
     }
+    this._ultimateBattleDescriptor.addAiDefinition(aiDefinition);
+    this._ultimateBattleDescriptor.setTeamMode(this.hasTeams());
     let tank = this._createTank(aiDefinition);
     tank.randomize(this.getRandom());
     tank.moveTo(startSlot.x, startSlot.y);
@@ -363,6 +377,22 @@ class Simulation {
    */
   onError(callback) {
     this._onErrorCallback.push(callback);
+  }
+
+  /**
+   * Create Ultimate Battle Descriptor that contains all data requied to replay
+   * the battle and reflect its exact course.
+   * @return UltimateBattleDescriptor object
+   */
+  createUltimateBattleDescriptor() {
+    return this._ultimateBattleDescriptor.clone();
+  }
+
+  /**
+   * @return true if at least two tanks are cooperating within one team
+   */
+  hasTeams() {
+    return this._teamList.length != this._tankList.length;
   }
 
   _activateAi(done, error) {

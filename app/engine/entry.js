@@ -6,6 +6,7 @@ import DebugRenderer from "./renderers/debug/DebugRenderer.js";
 import BWRenderer from "./renderers/bw/BWRenderer.js";
 import BrodyRenderer from "./renderers/brody/BrodyRenderer.js";
 import AiDefinition from "./AiDefinition.js";
+import UltimateBattleDescriptor from "./UltimateBattleDescriptor.js";
 
 module.exports  = {
 
@@ -17,6 +18,10 @@ module.exports  = {
 
   createAiDefinition: () => {
     return new AiDefinition();
+  },
+
+  createUBD: () => {
+    return new UltimateBattleDescriptor();
   },
 
   createRenderer: (name) => {

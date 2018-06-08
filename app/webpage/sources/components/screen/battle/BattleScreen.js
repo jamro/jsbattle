@@ -21,6 +21,7 @@ export default class BattleScreen extends React.Component {
       tankList: [],
       teamList: [],
       windowSize: 'md',
+      rngSeed: (props.settings && props.settings.rngSeed !== undefined) ? props.settings.rngSeed : Math.random(),
       error: ""
     };
   }
@@ -158,6 +159,7 @@ export default class BattleScreen extends React.Component {
           {fpsWarn}
           <Battlefield
             ref={(battlefield) => this.battlefield = battlefield }
+            rngSeed={this.state.rngSeed}
             width="900"
             height="600"
             speed={this.props.speed}

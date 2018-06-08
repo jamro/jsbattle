@@ -69,7 +69,7 @@ describe('AiDefinition', function() {
   });
 
   describe('to/fromJSON', function() {
-    it('should serialize and deserialize object', () => {
+    it('should serialize and deserialize the object', () => {
       let ai = new AiDefinition();
       let json1 = {
         name: "text_" + Math.round(Math.random()*1000000),
@@ -85,6 +85,22 @@ describe('AiDefinition', function() {
       let jsonText2 = JSON.stringify(json2);
 
       assert.equal(jsonText1, jsonText2);
+    });
+
+  });
+
+  describe('clone', function() {
+    it('should duplicate the object', () => {
+      let ai1 = new AiDefinition();
+      let json1 = ai1.toJSON();
+      let jsonText1 = JSON.stringify(json1);
+
+      let ai2 = ai1.clone();
+      let json2 = ai2.toJSON();
+      let jsonText2 = JSON.stringify(json2);
+
+      assert.equal(jsonText1, jsonText2);
+
     });
   });
 

@@ -1,8 +1,12 @@
 export default class Battlefield extends React.Component {
 
-  construct() {
+  constructor(props) {
+    super(props);
     this.simulation = null;
     this.renderer = null;
+    this.state = {
+      rngSeed: (props.rngSeed === undefined) ? Math.random() : props.rngSeed
+    };
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,7 +32,7 @@ export default class Battlefield extends React.Component {
   onAssetsLoaded() {
     this.renderer.init(this.canvas);
     this.simulation = JsBattle.createSimulation(this.renderer);
-    this.simulation.setRngSeed(Math.random());
+    this.simulation.setRngSeed(this.state.rngSeed);
 
     if(this.props.onError) {
       this.simulation.onError((msg) => this.props.onError(msg));
@@ -71,7 +75,8 @@ export default class Battlefield extends React.Component {
       teamWinner: teamWinner,
       tankList: this.simulation.tankList,
       teamList: this.simulation.teamList,
-      timeLeft: this.simulation.timeLimit - this.simulation.timeElapsed
+      timeLeft: this.simulation.timeLimit - this.simulation.timeElapsed,
+      ubd: this.simulation.createUltimateBattleDescriptor().encode()
     };
 
     let keepRendering = setInterval(() => {

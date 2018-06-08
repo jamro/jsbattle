@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Architecture documentation
+- Replays of battles (export to UBD files)
 
 ### Fixed
 - making battles predictable when the same seed for RNG is used

@@ -53,6 +53,14 @@ class AiDefinition {
     this._executionLimit = data.executionLimit;
   }
 
+  /**
+   * @return copy of the object
+   */
+  clone() {
+    let result = new AiDefinition();
+    result.fromJSON(this.toJSON());
+    return result;
+  }
 
   /**
    * @return name of the AI. The same name will be assigned to the tank

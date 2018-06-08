@@ -61,7 +61,7 @@ var JsBattle =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -89,7 +89,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractView2 = __webpack_require__(9);
+var _AbstractView2 = __webpack_require__(11);
 
 var _AbstractView3 = _interopRequireDefault(_AbstractView2);
 
@@ -379,17 +379,17 @@ exports.default = AbstractPixiTankView;
 // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
 // Period: ~2^116
 // Reported to pass all BigCrush tests.
-var alea = __webpack_require__(17);
+var alea = __webpack_require__(19);
 
 // xor128, a pure xor-shift generator by George Marsaglia.
 // Period: 2^128-1.
 // Reported to fail: MatrixRank and LinearComp.
-var xor128 = __webpack_require__(18);
+var xor128 = __webpack_require__(20);
 
 // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
 // Period: 2^192-2^32
 // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-var xorwow = __webpack_require__(19);
+var xorwow = __webpack_require__(21);
 
 // xorshift7, by François Panneton and Pierre L'ecuyer, takes
 // a different approach: it adds robustness by allowing more shifts
@@ -397,7 +397,7 @@ var xorwow = __webpack_require__(19);
 // with 256 bits, that passes BigCrush with no systmatic failures.
 // Period 2^256-1.
 // No systematic BigCrush failures reported.
-var xorshift7 = __webpack_require__(20);
+var xorshift7 = __webpack_require__(22);
 
 // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
 // very long period that also adds a Weyl generator. It also passes
@@ -406,18 +406,18 @@ var xorshift7 = __webpack_require__(20);
 // collisions.
 // Period: 2^4128-2^32.
 // No systematic BigCrush failures reported.
-var xor4096 = __webpack_require__(21);
+var xor4096 = __webpack_require__(23);
 
 // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
 // number generator derived from ChaCha, a modern stream cipher.
 // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
 // Period: ~2^127
 // No systematic BigCrush failures reported.
-var tychei = __webpack_require__(22);
+var tychei = __webpack_require__(24);
 
 // The original ARC4-based prng included in this library.
 // Period: ~2^1600
-var sr = __webpack_require__(23);
+var sr = __webpack_require__(25);
 
 sr.alea = alea;
 sr.xor128 = xor128;
@@ -444,7 +444,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractRenderer2 = __webpack_require__(36);
+var _AbstractRenderer2 = __webpack_require__(38);
 
 var _AbstractRenderer3 = _interopRequireDefault(_AbstractRenderer2);
 
@@ -456,11 +456,11 @@ var _AbstractPixiTankView = __webpack_require__(4);
 
 var _AbstractPixiTankView2 = _interopRequireDefault(_AbstractPixiTankView);
 
-var _PixiRendererClockModel = __webpack_require__(37);
+var _PixiRendererClockModel = __webpack_require__(39);
 
 var _PixiRendererClockModel2 = _interopRequireDefault(_PixiRendererClockModel);
 
-var _pixiPackerParser = __webpack_require__(38);
+var _pixiPackerParser = __webpack_require__(40);
 
 var _pixiPackerParser2 = _interopRequireDefault(_pixiPackerParser);
 
@@ -693,6 +693,441 @@ exports.default = AbstractPixiBulletView;
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _AiDefinition = __webpack_require__(9);
+
+var _AiDefinition2 = _interopRequireDefault(_AiDefinition);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var UltimateBattleDescriptor = function () {
+  function UltimateBattleDescriptor() {
+    _classCallCheck(this, UltimateBattleDescriptor);
+
+    this._version = 2;
+    this._aiList = [];
+    this._rngSeed = new Date().getTime();
+    this._teamMode = false;
+  }
+
+  _createClass(UltimateBattleDescriptor, [{
+    key: "addAiDefinition",
+    value: function addAiDefinition(ai) {
+      this._aiList.push(ai);
+    }
+  }, {
+    key: "setTeamMode",
+    value: function setTeamMode(v) {
+      this._teamMode = v;
+    }
+  }, {
+    key: "getTeamMode",
+    value: function getTeamMode() {
+      return this._teamMode;
+    }
+  }, {
+    key: "setRngSeed",
+    value: function setRngSeed(seed) {
+      this._rngSeed = seed;
+    }
+  }, {
+    key: "getVersion",
+    value: function getVersion() {
+      return this._version;
+    }
+  }, {
+    key: "getAiList",
+    value: function getAiList() {
+      return this._aiList;
+    }
+  }, {
+    key: "getRngSeed",
+    value: function getRngSeed() {
+      return this._rngSeed;
+    }
+  }, {
+    key: "encode",
+    value: function encode() {
+      var json = {
+        version: this._version,
+        rngSeed: this._rngSeed,
+        teamMode: this._teamMode,
+        aiList: []
+      };
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this._aiList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var ai = _step.value;
+
+          json.aiList.push(ai.toJSON());
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var raw = JSON.stringify(json);
+      return raw;
+    }
+  }, {
+    key: "decode",
+    value: function decode(data) {
+      var json = void 0;
+      try {
+        json = JSON.parse(data);
+      } catch (err) {
+        throw new Error("Cannot parse UBD file! " + err);
+      }
+      if (this._version != json.version) {
+        throw new Error("Version of UBD does not match. Version " + json.version + " is not supported. Please convert to version " + this._version);
+      }
+      this._rngSeed = json.rngSeed;
+      this._teamMode = json.teamMode;
+
+      var ai = void 0;
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = json.aiList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var aiJson = _step2.value;
+
+          ai = new _AiDefinition2.default();
+          ai.fromJSON(aiJson);
+          this._aiList.push(ai);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      var result = new UltimateBattleDescriptor();
+      result.setRngSeed(this.getRngSeed());
+      result.setTeamMode(this.getTeamMode());
+      var aiList = this.getAiList();
+      var aiClone = void 0;
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = aiList[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var ai = _step3.value;
+
+          aiClone = ai.clone();
+          result.addAiDefinition(ai);
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return result;
+    }
+  }]);
+
+  return UltimateBattleDescriptor;
+}();
+
+exports.default = UltimateBattleDescriptor;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SUSSPEND_AI_SANDBOX_WARNING = false;
+
+/**
+ * Describes AI algorithm of the tank. There could be two sources of AI scripts:
+ * files or string variable. Depending on source of scripts `fromFile()` or `fromCode()`
+ * methods should be used to initialize the object
+ */
+
+var AiDefinition = function () {
+
+  /**
+   * Creates AiDefinition. Constructor is not available outside of
+   * `JsBattle.min.js` library. To create AiDefinition object use
+   * `JsBattle.createAiDefinition()` instead
+   */
+  function AiDefinition() {
+    _classCallCheck(this, AiDefinition);
+
+    var uid = new Date().getTime().toString();
+    uid = uid.substr(uid.length - 6, 6) + "" + Math.round(10000000 * Math.random());
+    uid = Number(uid);
+    uid = uid.toString(35);
+    this._name = "";
+    this._team = uid;
+    this._code = null;
+    this._initData = null;
+    this._useSandbox = true;
+    this._executionLimit = 100;
+  }
+
+  /**
+   * @return JSON representation of AiDefiniton
+   */
+
+
+  _createClass(AiDefinition, [{
+    key: "toJSON",
+    value: function toJSON() {
+      return {
+        name: this._name,
+        team: this._team,
+        code: this._code,
+        initData: this._initData,
+        useSandbox: this._useSandbox,
+        executionLimit: this.executionLimit
+      };
+    }
+
+    /**
+     * @param {object} data - JSON data to be parsed
+     */
+
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      this._name = data.name;
+      this._team = data.team;
+      this._code = data.code;
+      this._initData = data.initData;
+      this._useSandbox = data.useSandbox;
+      this._executionLimit = data.executionLimit;
+    }
+
+    /**
+     * @return copy of the object
+     */
+
+  }, {
+    key: "clone",
+    value: function clone() {
+      var result = new AiDefinition();
+      result.fromJSON(this.toJSON());
+      return result;
+    }
+
+    /**
+     * @return name of the AI. The same name will be assigned to the tank
+     */
+
+  }, {
+    key: "fromFile",
+
+
+    /**
+     * Creates AI definition that has source codes in a file. All AI scripts
+     * are kept in `/tanks/[tankName].tank.js` files
+     * @param {String} tankName - name of the tank. Its source code is kept in `/tanks/[tankName].tank.js`
+     * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
+     */
+    value: function fromFile(tankName, initData) {
+      if (!tankName) throw "TankName is required";
+      this._name = tankName;
+      this._code = null;
+      this._initData = initData !== undefined ? initData : null;
+    }
+
+    /**
+     * Creates AI definition that has the algorithm codded in provided in string parameter.
+     * @param {String} tankName - name of the tank.
+     * @param {String} code - JavaScript code of AI script.
+     * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
+     */
+
+  }, {
+    key: "fromCode",
+    value: function fromCode(tankName, code, initData) {
+      if (!tankName) throw "TankName is required";
+      if (!code) throw "Code is required";
+      code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
+      this._name = tankName;
+      this._code = code;
+      this._initData = initData !== undefined ? initData : null;
+    }
+
+    /**
+     * Set name of the team. Tanks from the same team can coomunicate with eachother and cooperate
+     * @param {string} name - unique name of the team
+     */
+
+  }, {
+    key: "assignToTeam",
+    value: function assignToTeam(teamName) {
+      this._team = teamName;
+    }
+
+    /**
+     * Allows to running code of AI in the same sandbox as the core of JsBattle game. It is
+     * potentially dangerous since code of AI Script can access code of JS Battle and
+     * influence it. However disabling sandbox can significantly increase performance
+     * (especially if you run several simulations in concurrent). Use this approach
+     * only for trusted AI code.
+     */
+
+  }, {
+    key: "disableSandbox",
+    value: function disableSandbox() {
+      if (!this._code) {
+        throw "Sandbox can be disabled for AI created from code only.";
+      }
+      if (!SUSSPEND_AI_SANDBOX_WARNING) {
+        console.warn("Disabling sandbox for AI! It could be dangerous.");
+        SUSSPEND_AI_SANDBOX_WARNING = true;
+      }
+      this._useSandbox = false;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+
+    /**
+     * @return name of the team
+     */
+
+  }, {
+    key: "teamName",
+    get: function get() {
+      return this._team;
+    }
+
+    /**
+     * @return Maximum time for execution of AI script (in milliseconds)
+     */
+
+  }, {
+    key: "executionLimit",
+    get: function get() {
+      return this._executionLimit;
+    }
+
+    /**
+     * @param {Number} limit -  Maximum time for execution of AI script (in milliseconds)
+     */
+    ,
+    set: function set(v) {
+      this._executionLimit = v;
+    }
+
+    /**
+     * @return path to file with code of Web Worker where the AI will be ran.
+     */
+
+  }, {
+    key: "filePath",
+    get: function get() {
+      if (!this._useSandbox) return null;
+      if (this._code) {
+        return "tanks/lib/codeWorker.js";
+      } else {
+        return "tanks/" + this._name + ".tank.js";
+      }
+    }
+
+    /**
+     * @return source code of AI algorithm as a string. This property is not empty only for AIs created by `fromCode()` call
+     * @see AiDefinition.fromCode()
+     */
+
+  }, {
+    key: "code",
+    get: function get() {
+      return this._code;
+    }
+
+    /**
+     * @return optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
+     */
+
+  }, {
+    key: "initData",
+    get: function get() {
+      return this._initData;
+    }
+
+    /**
+     * @return true if AI should be sandboxed. Otherwise false. By default, all AIs are sandboxed.
+     */
+
+  }, {
+    key: "useSandbox",
+    get: function get() {
+      return this._useSandbox;
+    }
+  }]);
+
+  return AiDefinition;
+}();
+
+exports.default = AiDefinition;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 /**
  * Renders simulation of the battle. The object must be passed to
  * constructor of Simulation object
@@ -808,7 +1243,7 @@ var Renderer = function () {
 exports.default = Renderer;
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -862,7 +1297,7 @@ var AbstractView = function () {
 exports.default = AbstractView;
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1045,7 +1480,7 @@ exports['default'] = MiniSignal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1081,7 +1516,7 @@ module.exports = function parseURI(str, opts) {
 };
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1295,7 +1730,7 @@ function queue(worker, concurrency) {
 //# sourceMappingURL=async.js.map
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1313,11 +1748,11 @@ var _createClass = function () {
     };
 }();
 
-var _parseUri = __webpack_require__(11);
+var _parseUri = __webpack_require__(13);
 
 var _parseUri2 = _interopRequireDefault(_parseUri);
 
-var _miniSignals = __webpack_require__(10);
+var _miniSignals = __webpack_require__(12);
 
 var _miniSignals2 = _interopRequireDefault(_miniSignals);
 
@@ -2446,35 +2881,39 @@ function reqType(xhr) {
 //# sourceMappingURL=Resource.js.map
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Simulation = __webpack_require__(15);
+var _Simulation = __webpack_require__(17);
 
 var _Simulation2 = _interopRequireDefault(_Simulation);
 
-var _Renderer = __webpack_require__(8);
+var _Renderer = __webpack_require__(10);
 
 var _Renderer2 = _interopRequireDefault(_Renderer);
 
-var _DebugRenderer = __webpack_require__(35);
+var _DebugRenderer = __webpack_require__(37);
 
 var _DebugRenderer2 = _interopRequireDefault(_DebugRenderer);
 
-var _BWRenderer = __webpack_require__(46);
+var _BWRenderer = __webpack_require__(48);
 
 var _BWRenderer2 = _interopRequireDefault(_BWRenderer);
 
-var _BrodyRenderer = __webpack_require__(51);
+var _BrodyRenderer = __webpack_require__(53);
 
 var _BrodyRenderer2 = _interopRequireDefault(_BrodyRenderer);
 
-var _AiDefinition = __webpack_require__(57);
+var _AiDefinition = __webpack_require__(9);
 
 var _AiDefinition2 = _interopRequireDefault(_AiDefinition);
+
+var _UltimateBattleDescriptor = __webpack_require__(8);
+
+var _UltimateBattleDescriptor2 = _interopRequireDefault(_UltimateBattleDescriptor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2488,6 +2927,10 @@ module.exports = {
 
   createAiDefinition: function createAiDefinition() {
     return new _AiDefinition2.default();
+  },
+
+  createUBD: function createUBD() {
+    return new _UltimateBattleDescriptor2.default();
   },
 
   createRenderer: function createRenderer(name) {
@@ -2505,7 +2948,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2519,37 +2962,41 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Tank = __webpack_require__(16);
+var _Tank = __webpack_require__(18);
 
 var _Tank2 = _interopRequireDefault(_Tank);
 
-var _Team = __webpack_require__(25);
+var _Team = __webpack_require__(27);
 
 var _Team2 = _interopRequireDefault(_Team);
 
-var _Bullet = __webpack_require__(26);
+var _Bullet = __webpack_require__(28);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _Battlefield = __webpack_require__(27);
+var _Battlefield = __webpack_require__(29);
 
 var _Battlefield2 = _interopRequireDefault(_Battlefield);
 
-var _EventStore = __webpack_require__(28);
+var _EventStore = __webpack_require__(30);
 
 var _EventStore2 = _interopRequireDefault(_EventStore);
 
-var _CollisionResolver = __webpack_require__(29);
+var _CollisionResolver = __webpack_require__(31);
 
 var _CollisionResolver2 = _interopRequireDefault(_CollisionResolver);
 
-var _AiWrapper = __webpack_require__(31);
+var _AiWrapper = __webpack_require__(33);
 
 var _AiWrapper2 = _interopRequireDefault(_AiWrapper);
 
-var _PerformanceMonitor = __webpack_require__(34);
+var _PerformanceMonitor = __webpack_require__(36);
 
 var _PerformanceMonitor2 = _interopRequireDefault(_PerformanceMonitor);
+
+var _UltimateBattleDescriptor = __webpack_require__(8);
+
+var _UltimateBattleDescriptor2 = _interopRequireDefault(_UltimateBattleDescriptor);
 
 var _seedrandom = __webpack_require__(5);
 
@@ -2587,7 +3034,8 @@ var Simulation = function () {
     this._renderer = renderer;
     this._isRunning = false;
     this._collisionResolver = new _CollisionResolver2.default();
-    this._rng = (0, _seedrandom2.default)(new Date().getTime() + Math.round(Math.random() * 1000000));
+    this._rngSeed = new Date().getTime() + Math.round(Math.random() * 1000000);
+    this._rng = (0, _seedrandom2.default)(this._rngSeed);
     this._speedMultiplier = 1;
     this._onSimulationStepCallback = [];
     this._onRenderStepCallback = [];
@@ -2606,6 +3054,7 @@ var Simulation = function () {
     this._callStackCount = 0;
     this._teamMap = [];
     this._teamList = [];
+    this._ultimateBattleDescriptor = new _UltimateBattleDescriptor2.default();
   }
 
   /**
@@ -2623,7 +3072,19 @@ var Simulation = function () {
   _createClass(Simulation, [{
     key: "setRngSeed",
     value: function setRngSeed(seed) {
-      this._rng = (0, _seedrandom2.default)(seed);
+      this._rngSeed = seed;
+      this._ultimateBattleDescriptor.setRngSeed(seed);
+      this._rng = (0, _seedrandom2.default)(this._rngSeed);
+    }
+
+    /**
+     * @return seed of random number generator
+     */
+
+  }, {
+    key: "getRngSeed",
+    value: function getRngSeed() {
+      return this._rngSeed;
     }
 
     /**
@@ -2766,6 +3227,8 @@ var Simulation = function () {
       if (!startSlot) {
         throw "No free space in the battlefield";
       }
+      this._ultimateBattleDescriptor.addAiDefinition(aiDefinition);
+      this._ultimateBattleDescriptor.setTeamMode(this.hasTeams());
       var tank = this._createTank(aiDefinition);
       tank.randomize(this.getRandom());
       tank.moveTo(startSlot.x, startSlot.y);
@@ -2919,6 +3382,28 @@ var Simulation = function () {
     key: "onError",
     value: function onError(callback) {
       this._onErrorCallback.push(callback);
+    }
+
+    /**
+     * Create Ultimate Battle Descriptor that contains all data requied to replay
+     * the battle and reflect its exact course.
+     * @return UltimateBattleDescriptor object
+     */
+
+  }, {
+    key: "createUltimateBattleDescriptor",
+    value: function createUltimateBattleDescriptor() {
+      return this._ultimateBattleDescriptor.clone();
+    }
+
+    /**
+     * @return true if at least two tanks are cooperating within one team
+     */
+
+  }, {
+    key: "hasTeams",
+    value: function hasTeams() {
+      return this._teamList.length != this._tankList.length;
     }
   }, {
     key: "_activateAi",
@@ -3175,7 +3660,7 @@ var Simulation = function () {
 exports.default = Simulation;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3811,7 +4296,7 @@ var Tank = function () {
 exports.default = Tank;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3943,7 +4428,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4038,7 +4523,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4137,7 +4622,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4254,7 +4739,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4425,7 +4910,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4545,7 +5030,7 @@ __webpack_require__(0) // present with an AMD loader
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4814,7 +5299,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     module.exports = seedrandom;
     // When in node.js, try using crypto package for autoseeding.
     try {
-      nodecrypto = __webpack_require__(24);
+      nodecrypto = __webpack_require__(26);
     } catch (ex) {}
   } else if (true) {
     !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
@@ -4830,13 +5315,13 @@ Math // math: package containing random, pow, and seedrandom
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4960,7 +5445,7 @@ var Team = function () {
 exports.default = Team;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5063,7 +5548,7 @@ var Bullet = function () {
 exports.default = Bullet;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5193,7 +5678,7 @@ var Battlefield = function () {
 exports.default = Battlefield;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5243,7 +5728,7 @@ var EventStore = function () {
 exports.default = EventStore;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5255,7 +5740,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SAT = __webpack_require__(30);
+var _SAT = __webpack_require__(32);
 
 var _SAT2 = _interopRequireDefault(_SAT);
 
@@ -5588,7 +6073,7 @@ var CollisionResolver = function () {
 exports.default = CollisionResolver;
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6618,7 +7103,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6632,7 +7117,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _EvalWorker = __webpack_require__(32);
+var _EvalWorker = __webpack_require__(34);
 
 var _EvalWorker2 = _interopRequireDefault(_EvalWorker);
 
@@ -6937,7 +7422,7 @@ var AiWrapper = function () {
 exports.default = AiWrapper;
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6951,7 +7436,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var extendedMath = __webpack_require__(33);
+var extendedMath = __webpack_require__(35);
 
 var TankController = function () {
   function TankController() {
@@ -7033,7 +7518,7 @@ var EvalWorker = function () {
 exports.default = EvalWorker;
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7096,7 +7581,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7221,7 +7706,7 @@ var PerformanceMonitor = function () {
 exports.default = PerformanceMonitor;
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7240,19 +7725,19 @@ var _AbstractPixiRenderer2 = __webpack_require__(6);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
-var _DebugBattlefieldView = __webpack_require__(42);
+var _DebugBattlefieldView = __webpack_require__(44);
 
 var _DebugBattlefieldView2 = _interopRequireDefault(_DebugBattlefieldView);
 
-var _DebugClockView = __webpack_require__(43);
+var _DebugClockView = __webpack_require__(45);
 
 var _DebugClockView2 = _interopRequireDefault(_DebugClockView);
 
-var _DebugBulletView = __webpack_require__(44);
+var _DebugBulletView = __webpack_require__(46);
 
 var _DebugBulletView2 = _interopRequireDefault(_DebugBulletView);
 
-var _DebugTankView = __webpack_require__(45);
+var _DebugTankView = __webpack_require__(47);
 
 var _DebugTankView2 = _interopRequireDefault(_DebugTankView);
 
@@ -7370,7 +7855,7 @@ var DebugRenderer = function (_AbstractPixiRenderer) {
 exports.default = DebugRenderer;
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7382,11 +7867,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Renderer2 = __webpack_require__(8);
+var _Renderer2 = __webpack_require__(10);
 
 var _Renderer3 = _interopRequireDefault(_Renderer2);
 
-var _AbstractView = __webpack_require__(9);
+var _AbstractView = __webpack_require__(11);
 
 var _AbstractView2 = _interopRequireDefault(_AbstractView);
 
@@ -7491,7 +7976,7 @@ var AbstractRenderer = function (_Renderer) {
 exports.default = AbstractRenderer;
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7554,13 +8039,13 @@ var PixiRendererClockModel = function () {
 exports.default = PixiRendererClockModel;
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Resource = __webpack_require__(39).Resource;
+var Resource = __webpack_require__(41).Resource;
 
 function pathWithoutFile(path) {
     var elements = path.split("/");
@@ -7657,7 +8142,7 @@ module.exports = function (PIXI) {
 };
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7670,10 +8155,10 @@ module.exports = function (PIXI) {
 
 /* eslint-disable no-undef */
 
-var Loader = __webpack_require__(40).default;
-var Resource = __webpack_require__(13).default;
-var async = __webpack_require__(12);
-var b64 = __webpack_require__(41);
+var Loader = __webpack_require__(42).default;
+var Resource = __webpack_require__(15).default;
+var async = __webpack_require__(14);
+var b64 = __webpack_require__(43);
 
 Loader.Resource = Resource;
 Loader.async = async;
@@ -7686,7 +8171,7 @@ module.exports.default = Loader;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7702,19 +8187,19 @@ var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "sym
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 };
 
-var _miniSignals = __webpack_require__(10);
+var _miniSignals = __webpack_require__(12);
 
 var _miniSignals2 = _interopRequireDefault(_miniSignals);
 
-var _parseUri = __webpack_require__(11);
+var _parseUri = __webpack_require__(13);
 
 var _parseUri2 = _interopRequireDefault(_parseUri);
 
-var _async = __webpack_require__(12);
+var _async = __webpack_require__(14);
 
 var async = _interopRequireWildcard(_async);
 
-var _Resource = __webpack_require__(13);
+var _Resource = __webpack_require__(15);
 
 var _Resource2 = _interopRequireDefault(_Resource);
 
@@ -8322,7 +8807,7 @@ exports.default = Loader;
 //# sourceMappingURL=Loader.js.map
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8395,7 +8880,7 @@ function encodeBinary(input) {
 //# sourceMappingURL=b64.js.map
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8456,7 +8941,7 @@ var DebugBattlefieldView = function (_AbstractPixiView) {
 exports.default = DebugBattlefieldView;
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8517,7 +9002,7 @@ var DebugClockView = function (_AbstractPixiView) {
 exports.default = DebugClockView;
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8568,7 +9053,7 @@ var DebugBulletView = function (_AbstractPixiBulletVi) {
 exports.default = DebugBulletView;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8684,7 +9169,7 @@ var DebugTankView = function (_AbstractPixiTankView) {
 exports.default = DebugTankView;
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8703,19 +9188,19 @@ var _AbstractPixiRenderer2 = __webpack_require__(6);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
-var _BWBattlefieldView = __webpack_require__(47);
+var _BWBattlefieldView = __webpack_require__(49);
 
 var _BWBattlefieldView2 = _interopRequireDefault(_BWBattlefieldView);
 
-var _BWClockView = __webpack_require__(48);
+var _BWClockView = __webpack_require__(50);
 
 var _BWClockView2 = _interopRequireDefault(_BWClockView);
 
-var _BWBulletView = __webpack_require__(49);
+var _BWBulletView = __webpack_require__(51);
 
 var _BWBulletView2 = _interopRequireDefault(_BWBulletView);
 
-var _BWTankView = __webpack_require__(50);
+var _BWTankView = __webpack_require__(52);
 
 var _BWTankView2 = _interopRequireDefault(_BWTankView);
 
@@ -8827,7 +9312,7 @@ var BWRenderer = function (_AbstractPixiRenderer) {
 exports.default = BWRenderer;
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8878,7 +9363,7 @@ var BWBattlefieldView = function (_AbstractPixiView) {
 exports.default = BWBattlefieldView;
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8939,7 +9424,7 @@ var BWClockView = function (_AbstractPixiView) {
 exports.default = BWClockView;
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8988,7 +9473,7 @@ var BWBulletView = function (_AbstractPixiBulletVi) {
 exports.default = BWBulletView;
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9101,7 +9586,7 @@ var BWTankView = function (_AbstractPixiTankView) {
 exports.default = BWTankView;
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9120,23 +9605,23 @@ var _AbstractPixiRenderer2 = __webpack_require__(6);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
-var _BrodyBattlefieldView = __webpack_require__(52);
+var _BrodyBattlefieldView = __webpack_require__(54);
 
 var _BrodyBattlefieldView2 = _interopRequireDefault(_BrodyBattlefieldView);
 
-var _BrodyClockView = __webpack_require__(53);
+var _BrodyClockView = __webpack_require__(55);
 
 var _BrodyClockView2 = _interopRequireDefault(_BrodyClockView);
 
-var _BrodyBulletView = __webpack_require__(54);
+var _BrodyBulletView = __webpack_require__(56);
 
 var _BrodyBulletView2 = _interopRequireDefault(_BrodyBulletView);
 
-var _BrodyTankView = __webpack_require__(55);
+var _BrodyTankView = __webpack_require__(57);
 
 var _BrodyTankView2 = _interopRequireDefault(_BrodyTankView);
 
-var _BrodySettings = __webpack_require__(56);
+var _BrodySettings = __webpack_require__(58);
 
 var _BrodySettings2 = _interopRequireDefault(_BrodySettings);
 
@@ -9418,7 +9903,7 @@ var BrodyRenderer = function (_AbstractPixiRenderer) {
 exports.default = BrodyRenderer;
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9565,7 +10050,7 @@ var BrodyBattlefieldView = function (_AbstractPixiView) {
 exports.default = BrodyBattlefieldView;
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9626,7 +10111,7 @@ var BrodyClockView = function (_AbstractPixiView) {
 exports.default = BrodyClockView;
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9694,7 +10179,7 @@ var BrodyBulletView = function (_AbstractPixiBulletVi) {
 exports.default = BrodyBulletView;
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9839,7 +10324,7 @@ var BrodyTankView = function (_AbstractPixiTankView) {
 exports.default = BrodyTankView;
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9927,240 +10412,6 @@ var BrodySettings = function () {
 }();
 
 exports.default = BrodySettings;
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var SUSSPEND_AI_SANDBOX_WARNING = false;
-
-/**
- * Describes AI algorithm of the tank. There could be two sources of AI scripts:
- * files or string variable. Depending on source of scripts `fromFile()` or `fromCode()`
- * methods should be used to initialize the object
- */
-
-var AiDefinition = function () {
-
-  /**
-   * Creates AiDefinition. Constructor is not available outside of
-   * `JsBattle.min.js` library. To create AiDefinition object use
-   * `JsBattle.createAiDefinition()` instead
-   */
-  function AiDefinition() {
-    _classCallCheck(this, AiDefinition);
-
-    var uid = new Date().getTime().toString();
-    uid = uid.substr(uid.length - 6, 6) + "" + Math.round(10000000 * Math.random());
-    uid = Number(uid);
-    uid = uid.toString(35);
-    this._name = "";
-    this._team = uid;
-    this._code = null;
-    this._initData = null;
-    this._useSandbox = true;
-    this._executionLimit = 100;
-  }
-
-  /**
-   * @return JSON representation of AiDefiniton
-   */
-
-
-  _createClass(AiDefinition, [{
-    key: "toJSON",
-    value: function toJSON() {
-      return {
-        name: this._name,
-        team: this._team,
-        code: this._code,
-        initData: this._initData,
-        useSandbox: this._useSandbox,
-        executionLimit: this.executionLimit
-      };
-    }
-
-    /**
-     * @param {object} data - JSON data to be parsed
-     */
-
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(data) {
-      this._name = data.name;
-      this._team = data.team;
-      this._code = data.code;
-      this._initData = data.initData;
-      this._useSandbox = data.useSandbox;
-      this._executionLimit = data.executionLimit;
-    }
-
-    /**
-     * @return name of the AI. The same name will be assigned to the tank
-     */
-
-  }, {
-    key: "fromFile",
-
-
-    /**
-     * Creates AI definition that has source codes in a file. All AI scripts
-     * are kept in `/tanks/[tankName].tank.js` files
-     * @param {String} tankName - name of the tank. Its source code is kept in `/tanks/[tankName].tank.js`
-     * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
-     */
-    value: function fromFile(tankName, initData) {
-      if (!tankName) throw "TankName is required";
-      this._name = tankName;
-      this._code = null;
-      this._initData = initData !== undefined ? initData : null;
-    }
-
-    /**
-     * Creates AI definition that has the algorithm codded in provided in string parameter.
-     * @param {String} tankName - name of the tank.
-     * @param {String} code - JavaScript code of AI script.
-     * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
-     */
-
-  }, {
-    key: "fromCode",
-    value: function fromCode(tankName, code, initData) {
-      if (!tankName) throw "TankName is required";
-      if (!code) throw "Code is required";
-      code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
-      this._name = tankName;
-      this._code = code;
-      this._initData = initData !== undefined ? initData : null;
-    }
-
-    /**
-     * Set name of the team. Tanks from the same team can coomunicate with eachother and cooperate
-     * @param {string} name - unique name of the team
-     */
-
-  }, {
-    key: "assignToTeam",
-    value: function assignToTeam(teamName) {
-      this._team = teamName;
-    }
-
-    /**
-     * Allows to running code of AI in the same sandbox as the core of JsBattle game. It is
-     * potentially dangerous since code of AI Script can access code of JS Battle and
-     * influence it. However disabling sandbox can significantly increase performance
-     * (especially if you run several simulations in concurrent). Use this approach
-     * only for trusted AI code.
-     */
-
-  }, {
-    key: "disableSandbox",
-    value: function disableSandbox() {
-      if (!this._code) {
-        throw "Sandbox can be disabled for AI created from code only.";
-      }
-      if (!SUSSPEND_AI_SANDBOX_WARNING) {
-        console.warn("Disabling sandbox for AI! It could be dangerous.");
-        SUSSPEND_AI_SANDBOX_WARNING = true;
-      }
-      this._useSandbox = false;
-    }
-  }, {
-    key: "name",
-    get: function get() {
-      return this._name;
-    }
-
-    /**
-     * @return name of the team
-     */
-
-  }, {
-    key: "teamName",
-    get: function get() {
-      return this._team;
-    }
-
-    /**
-     * @return Maximum time for execution of AI script (in milliseconds)
-     */
-
-  }, {
-    key: "executionLimit",
-    get: function get() {
-      return this._executionLimit;
-    }
-
-    /**
-     * @param {Number} limit -  Maximum time for execution of AI script (in milliseconds)
-     */
-    ,
-    set: function set(v) {
-      this._executionLimit = v;
-    }
-
-    /**
-     * @return path to file with code of Web Worker where the AI will be ran.
-     */
-
-  }, {
-    key: "filePath",
-    get: function get() {
-      if (!this._useSandbox) return null;
-      if (this._code) {
-        return "tanks/lib/codeWorker.js";
-      } else {
-        return "tanks/" + this._name + ".tank.js";
-      }
-    }
-
-    /**
-     * @return source code of AI algorithm as a string. This property is not empty only for AIs created by `fromCode()` call
-     * @see AiDefinition.fromCode()
-     */
-
-  }, {
-    key: "code",
-    get: function get() {
-      return this._code;
-    }
-
-    /**
-     * @return optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
-     */
-
-  }, {
-    key: "initData",
-    get: function get() {
-      return this._initData;
-    }
-
-    /**
-     * @return true if AI should be sandboxed. Otherwise false. By default, all AIs are sandboxed.
-     */
-
-  }, {
-    key: "useSandbox",
-    get: function get() {
-      return this._useSandbox;
-    }
-  }]);
-
-  return AiDefinition;
-}();
-
-exports.default = AiDefinition;
 
 /***/ })
 /******/ ]);

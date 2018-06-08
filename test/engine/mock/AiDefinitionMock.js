@@ -9,6 +9,10 @@ export default class AiDefinitionMock {
     this.useSandbox = true;
     this.code = "";
     this.initData = null;
+
+    this.toJSON = sinon.stub().returns({serialized: "AiDefinitionMock object"});
+    this.fromJSON = sinon.spy();
+    this.clone = sinon.spy();
   }
 
 };

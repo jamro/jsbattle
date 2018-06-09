@@ -5,12 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.5.0] - 2018-06-09
 ### Added
-- Architecture documentation
 - Replays of battles (export to UBD files)
+- Architecture documentation
 
 ### Changed
-- adding more automatic tests (CasperJS)
+- adding and improving more automatic tests (CasperJS)
 
 ### Fixed
 - making battles predictable when the same seed for RNG is used

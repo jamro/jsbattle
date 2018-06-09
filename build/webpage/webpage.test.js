@@ -5,8 +5,13 @@ module.exports = function (gulp, config, plugins) {
       root: config.tmp + 'dist/',
       port: 8070
     });
+
+    const options = {
+      binPath: './node_modules/.bin/casperjs'
+    }
+
     return gulp.src(config.webpage.test)
-      .pipe(plugins.casperjs({binPath: './node_modules/.bin/casperjs'}))
+      .pipe(plugins.casperjs(options))
       .on('error', function(){
         process.emit('exit');
       })

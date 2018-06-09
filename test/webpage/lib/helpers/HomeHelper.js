@@ -53,4 +53,13 @@ module.exports = function(casper, test) {
   this.clickTankEdit = function(index) {
     this._casper.click("table.tank-table tbody tr:nth-of-type(" + index + ") button.tank-edit");
   }
+
+  this.hasStartBattleButton = function() {
+    var count = this._casper.getElementsInfo('button.start-battle').length;
+    return count > 0;
+  }
+
+  this.clickStartBattle = function() {
+    this._casper.click("button.start-battle");
+  }
 };

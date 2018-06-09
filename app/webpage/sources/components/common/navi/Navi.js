@@ -29,12 +29,14 @@ export default class Navi extends React.Component {
 
   renderSpeedButton(speed) {
     let label = this.speedToName(speed);
-    return <a href="#" className="dropdown-item" onClick={() => this.setSpeed(speed)}>{label}</a>;
+    let classNames = "dropdown-item sim-speed-" + speed;
+    return <a href="#" className={classNames} onClick={() => this.setSpeed(speed)}>{label}</a>;
   }
 
   renderQualityButton(q) {
     let label = this.qualityToName(q);
-    return <a href="#" className="dropdown-item" onClick={() => this.setQuality(q)}>{label}</a>;
+    let classNames = "dropdown-item sim-quality-" + q;
+    return <a href="#" className={classNames} onClick={() => this.setQuality(q)}>{label}</a>;
   }
 
   setQuality(q) {
@@ -60,7 +62,7 @@ export default class Navi extends React.Component {
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
-              <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality: {this.qualityToName(this.state.quality)} <span className="caret"></span></a>
+              <a href="#" className="dropdown-toggle sim-quality-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality: {this.qualityToName(this.state.quality)} <span className="caret"></span></a>
               <div className="nav-item dropdown-menu">
                 {this.renderQualityButton('auto')}
                 <li role="separator" className="dropdown-divider"></li>
@@ -70,7 +72,7 @@ export default class Navi extends React.Component {
               </div>
             </li>
             <li className="nav-item dropdown">
-              <a href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Speed: {this.speedToName(this.state.speed)} <span className="caret"></span></a>
+              <a href="#" className="dropdown-toggle sim-speed-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Speed: {this.speedToName(this.state.speed)} <span className="caret"></span></a>
               <div className="dropdown-menu">
                 {this.renderSpeedButton(0.05)}
                 {this.renderSpeedButton(0.3)}

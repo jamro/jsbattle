@@ -261,7 +261,7 @@ export default class StartScreen extends React.Component {
 
   renderStartButton() {
     let listComplete = this.state.aiDefList.length >= 2;
-    let classNames = "btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
+    let classNames = "start-battle btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
     return <button type="button" className={classNames} onClick={() => this.startBattle()}>
       <i className="fa fa-play" aria-hidden="true"></i> START
     </button>;

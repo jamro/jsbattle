@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Architecture documentation
 - Replays of battles (export to UBD files)
 
+### Changed
+- adding more automatic tests (CasperJS)
+
 ### Fixed
 - making battles predictable when the same seed for RNG is used
 

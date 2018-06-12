@@ -1,6 +1,7 @@
 import FullRow from "../../common/bootstrap/FullRow.js";
 import Row from "../../common/bootstrap/Row.js";
 import Col from "../../common/bootstrap/Col.js";
+import UbdDownload from "../../common/ubd/UbdDownload.js";
 
 export default class WinnerScreen extends React.Component {
 
@@ -11,10 +12,6 @@ export default class WinnerScreen extends React.Component {
   getWinnerName() {
     let result = this.props.result;
     return result.teamMode ? "Team " + result.teamWinner.name : result.tankWinner.fullName;
-  }
-
-  getUBD() {
-    return this.props.result.ubd;
   }
 
   getWinnerSkin() {
@@ -55,7 +52,6 @@ export default class WinnerScreen extends React.Component {
 
   render() {
     let previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
-    let ubdUri = 'data:text/plain;base64,' + btoa(this.getUBD());
 
     let restartButton = <button className="btn btn-secondary btn-lg" onClick={() => this.props.onRestart()}>
       <i className="fa fa-refresh" aria-hidden="true"></i> Next Battle
@@ -84,13 +80,7 @@ export default class WinnerScreen extends React.Component {
             </div>
           </div>
         </div>
-        <div className="card text-white bg-dark" style={{marginTop: '10px'}}>
-          <div className="card-body">
-            <h5 className="card-title">Ultimate Battle Descriptor</h5>
-            <p className="card-text">UBD file contains all the information required to replay the battle later.</p>
-            <a href={ubdUri} download="battle.ubd" className="btn btn-light" style={{width: "100%"}}>Download <strong>battle.ubd</strong> file</a>
-          </div>
-        </div>
+        <UbdDownload ubd={this.props.result.ubd} />
       </Col>
       <Col lg={8} md={6}>
         <table className="table">

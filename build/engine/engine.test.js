@@ -5,7 +5,7 @@ module.exports = function (gulp, config, plugins) {
       return gulp.src(config.engine.test, { read: false })
         .pipe(plugins.mocha({
           reporter: 'spec',
-          compilers: "js:babel-core/register",
+          require: "babel-core/register",
           globals: {
             should: require('should')
           }

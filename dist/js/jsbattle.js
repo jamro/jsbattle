@@ -433,6 +433,126 @@ module.exports = sr;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+/**
+ * Renders simulation of the battle. The object must be passed to
+ * constructor of Simulation object
+ * @see Simulation
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Renderer = function () {
+  function Renderer() {
+    _classCallCheck(this, Renderer);
+  }
+
+  /**
+   * Renders the battlefield. Called only at the beginning. Used usually to render
+   * background of the Simulation
+   * @param {Battlefield} - battlefield object
+   */
+
+
+  _createClass(Renderer, [{
+    key: 'initBatlefield',
+    value: function initBatlefield(battlefield) {}
+
+    /**
+     * @return value from 0 to 1 that represents the current quality of the renderer. This parameter is controlled by Simulation object
+     * @see Simulation.setRendererQuality()
+     */
+
+  }, {
+    key: 'preRender',
+
+
+    /**
+     * Called before rendering of each frame
+     */
+    value: function preRender() {}
+
+    /**
+     * Called after rendering of each frame
+     */
+
+  }, {
+    key: 'postRender',
+    value: function postRender() {}
+
+    /**
+     * Render a tank
+     * @param {Tank} tank - a tank to be rendered
+     * @param {Array} events - list of events related to the tank that occurred since the last call of this method
+     */
+
+  }, {
+    key: 'renderTank',
+    value: function renderTank(tank, events) {}
+
+    /**
+     * Renders clock of the battle
+     * @param {Number} msElapsed - time that has elapsed (in milliseconds)
+     * @param {Number} msLimit - maximum battle duration (in milliseconds)
+     */
+
+  }, {
+    key: 'renderClock',
+    value: function renderClock(msElapsed, msLimit) {}
+
+    /**
+     * Renders statistics of all tanks. Called once per frame
+     * @param {Array} tankList - list of all tanks that are involved in the battle
+     */
+
+  }, {
+    key: 'renderTankStats',
+    value: function renderTankStats(tankList) {}
+
+    /**
+     * Render a bullet
+     * @param {Bullet} bullet - a bullet to be rendered
+     * @param {Array} events - list of events related to the bullet that occurred since the last call of this method
+     */
+
+  }, {
+    key: 'renderBullet',
+    value: function renderBullet(bullet, events) {}
+    /**
+     * Sets speed of the simulation. Could be used to time-scale animations so they match simulation speed
+     * @pram {Number} multiplier - simulation speed multiplier
+     */
+
+  }, {
+    key: 'setSpeed',
+    value: function setSpeed(v) {}
+  }, {
+    key: 'stop',
+    value: function stop() {}
+  }, {
+    key: 'quality',
+    get: function get() {
+      return 1;
+    },
+    set: function set(v) {}
+  }]);
+
+  return Renderer;
+}();
+
+exports.default = Renderer;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* globals PIXI */
 
 
@@ -635,7 +755,7 @@ var AbstractPixiRenderer = function (_AbstractRenderer) {
 exports.default = AbstractPixiRenderer;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -688,7 +808,7 @@ var AbstractPixiBulletView = function (_AbstractPixiView) {
 exports.default = AbstractPixiBulletView;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -700,7 +820,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _AiDefinition = __webpack_require__(9);
+var _AiDefinition = __webpack_require__(10);
 
 var _AiDefinition2 = _interopRequireDefault(_AiDefinition);
 
@@ -877,7 +997,7 @@ var UltimateBattleDescriptor = function () {
 exports.default = UltimateBattleDescriptor;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1121,126 +1241,6 @@ var AiDefinition = function () {
 }();
 
 exports.default = AiDefinition;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Renders simulation of the battle. The object must be passed to
- * constructor of Simulation object
- * @see Simulation
- */
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Renderer = function () {
-  function Renderer() {
-    _classCallCheck(this, Renderer);
-  }
-
-  /**
-   * Renders the battlefield. Called only at the beginning. Used usually to render
-   * background of the Simulation
-   * @param {Battlefield} - battlefield object
-   */
-
-
-  _createClass(Renderer, [{
-    key: 'initBatlefield',
-    value: function initBatlefield(battlefield) {}
-
-    /**
-     * @return value from 0 to 1 that represents the current quality of the renderer. This parameter is controlled by Simulation object
-     * @see Simulation.setRendererQuality()
-     */
-
-  }, {
-    key: 'preRender',
-
-
-    /**
-     * Called before rendering of each frame
-     */
-    value: function preRender() {}
-
-    /**
-     * Called after rendering of each frame
-     */
-
-  }, {
-    key: 'postRender',
-    value: function postRender() {}
-
-    /**
-     * Render a tank
-     * @param {Tank} tank - a tank to be rendered
-     * @param {Array} events - list of events related to the tank that occurred since the last call of this method
-     */
-
-  }, {
-    key: 'renderTank',
-    value: function renderTank(tank, events) {}
-
-    /**
-     * Renders clock of the battle
-     * @param {Number} msElapsed - time that has elapsed (in milliseconds)
-     * @param {Number} msLimit - maximum battle duration (in milliseconds)
-     */
-
-  }, {
-    key: 'renderClock',
-    value: function renderClock(msElapsed, msLimit) {}
-
-    /**
-     * Renders statistics of all tanks. Called once per frame
-     * @param {Array} tankList - list of all tanks that are involved in the battle
-     */
-
-  }, {
-    key: 'renderTankStats',
-    value: function renderTankStats(tankList) {}
-
-    /**
-     * Render a bullet
-     * @param {Bullet} bullet - a bullet to be rendered
-     * @param {Array} events - list of events related to the bullet that occurred since the last call of this method
-     */
-
-  }, {
-    key: 'renderBullet',
-    value: function renderBullet(bullet, events) {}
-    /**
-     * Sets speed of the simulation. Could be used to time-scale animations so they match simulation speed
-     * @pram {Number} multiplier - simulation speed multiplier
-     */
-
-  }, {
-    key: 'setSpeed',
-    value: function setSpeed(v) {}
-  }, {
-    key: 'stop',
-    value: function stop() {}
-  }, {
-    key: 'quality',
-    get: function get() {
-      return 1;
-    },
-    set: function set(v) {}
-  }]);
-
-  return Renderer;
-}();
-
-exports.default = Renderer;
 
 /***/ }),
 /* 11 */
@@ -2891,7 +2891,7 @@ var _Simulation = __webpack_require__(17);
 
 var _Simulation2 = _interopRequireDefault(_Simulation);
 
-var _Renderer = __webpack_require__(10);
+var _Renderer = __webpack_require__(6);
 
 var _Renderer2 = _interopRequireDefault(_Renderer);
 
@@ -2907,11 +2907,15 @@ var _BrodyRenderer = __webpack_require__(53);
 
 var _BrodyRenderer2 = _interopRequireDefault(_BrodyRenderer);
 
-var _AiDefinition = __webpack_require__(9);
+var _VoidRenderer = __webpack_require__(59);
+
+var _VoidRenderer2 = _interopRequireDefault(_VoidRenderer);
+
+var _AiDefinition = __webpack_require__(10);
 
 var _AiDefinition2 = _interopRequireDefault(_AiDefinition);
 
-var _UltimateBattleDescriptor = __webpack_require__(8);
+var _UltimateBattleDescriptor = __webpack_require__(9);
 
 var _UltimateBattleDescriptor2 = _interopRequireDefault(_UltimateBattleDescriptor);
 
@@ -2941,6 +2945,8 @@ module.exports = {
         return new _BWRenderer2.default();
       case 'brody':
         return new _BrodyRenderer2.default();
+      case 'void':
+        return new _VoidRenderer2.default();
       default:
         throw "Unknown rederer " + name;
     }
@@ -2994,7 +3000,7 @@ var _PerformanceMonitor = __webpack_require__(36);
 
 var _PerformanceMonitor2 = _interopRequireDefault(_PerformanceMonitor);
 
-var _UltimateBattleDescriptor = __webpack_require__(8);
+var _UltimateBattleDescriptor = __webpack_require__(9);
 
 var _UltimateBattleDescriptor2 = _interopRequireDefault(_UltimateBattleDescriptor);
 
@@ -7721,7 +7727,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractPixiRenderer2 = __webpack_require__(6);
+var _AbstractPixiRenderer2 = __webpack_require__(7);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
@@ -7867,7 +7873,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Renderer2 = __webpack_require__(10);
+var _Renderer2 = __webpack_require__(6);
 
 var _Renderer3 = _interopRequireDefault(_Renderer2);
 
@@ -9015,7 +9021,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _AbstractPixiBulletView = __webpack_require__(7);
+var _AbstractPixiBulletView = __webpack_require__(8);
 
 var _AbstractPixiBulletView2 = _interopRequireDefault(_AbstractPixiBulletView);
 
@@ -9184,7 +9190,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractPixiRenderer2 = __webpack_require__(6);
+var _AbstractPixiRenderer2 = __webpack_require__(7);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
@@ -9437,7 +9443,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _AbstractPixiBulletView = __webpack_require__(7);
+var _AbstractPixiBulletView = __webpack_require__(8);
 
 var _AbstractPixiBulletView2 = _interopRequireDefault(_AbstractPixiBulletView);
 
@@ -9601,7 +9607,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractPixiRenderer2 = __webpack_require__(6);
+var _AbstractPixiRenderer2 = __webpack_require__(7);
 
 var _AbstractPixiRenderer3 = _interopRequireDefault(_AbstractPixiRenderer2);
 
@@ -10126,7 +10132,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _AbstractPixiBulletView = __webpack_require__(7);
+var _AbstractPixiBulletView = __webpack_require__(8);
 
 var _AbstractPixiBulletView2 = _interopRequireDefault(_AbstractPixiBulletView);
 
@@ -10412,6 +10418,61 @@ var BrodySettings = function () {
 }();
 
 exports.default = BrodySettings;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Renderer2 = __webpack_require__(6);
+
+var _Renderer3 = _interopRequireDefault(_Renderer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var VoidRenderer = function (_Renderer) {
+  _inherits(VoidRenderer, _Renderer);
+
+  function VoidRenderer() {
+    _classCallCheck(this, VoidRenderer);
+
+    return _possibleConstructorReturn(this, (VoidRenderer.__proto__ || Object.getPrototypeOf(VoidRenderer)).apply(this, arguments));
+  }
+
+  _createClass(VoidRenderer, [{
+    key: "renderTank",
+    value: function renderTank(tank, events) {}
+  }, {
+    key: "renderBullet",
+    value: function renderBullet(bullet, events) {}
+  }, {
+    key: "loadAssets",
+    value: function loadAssets(done) {
+      done();
+    }
+  }, {
+    key: "init",
+    value: function init() {}
+  }]);
+
+  return VoidRenderer;
+}(_Renderer3.default);
+
+exports.default = VoidRenderer;
 
 /***/ })
 /******/ ]);

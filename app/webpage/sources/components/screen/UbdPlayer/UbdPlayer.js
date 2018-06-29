@@ -12,7 +12,7 @@ export default class UbdPlayer extends React.Component {
       rngSeed: null,
       teamMode: false,
       errorMessage: ""
-    }
+    };
   }
 
   startBattle() {
@@ -32,7 +32,7 @@ export default class UbdPlayer extends React.Component {
         rngSeed: descriptor.getRngSeed()
       },
       () => {
-        this.battlefield.buildSimulation()
+        this.battlefield.buildSimulation();
       }
     );
   }
@@ -65,14 +65,14 @@ export default class UbdPlayer extends React.Component {
         fullName: tank.fullName,
         skin: tank.skin,
         score: Math.round(tank.score*100)/100
-      }
+      };
     });
     output.teamList = result.teamList.map((team) => {
       return {
         name: team.name,
         size: team.size,
         score: Math.round(team.score*100)/100
-      }
+      };
     });
     output.winner = {
       tank: result.tankWinner.id,
@@ -109,21 +109,21 @@ export default class UbdPlayer extends React.Component {
   render() {
     let views = [];
     let ubdSample ='{"version":2,"rngSeed":0.13398684952602968,"teamMode":false,"aiList":[{"name":"jamro","team":"1qdhdbot4","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"jamro","team":"1qdh9wa9n","code":null,"initData":null,"useSandbox":true,"executionLimit":100}]}';
-    views['form'] = <div>
+    views.form = <div>
       <p>Paste content of *.UBD file and click Play</p>
       <p><textarea id="ubdInput" ref="input" style={{width: "100%", height: "300px"}} >{ubdSample}</textarea></p>
       <p><button id="playButton" onClick={() => this.startBattle()}>Play</button></p>
     </div>;
 
-    views['result'] = <div>
+    views.result = <div>
       <pre id="result" style={{border: "1px solid black", padding: "10px"}}>{this.state.result}</pre>
     </div>;
 
-    views['loading'] = <div>
+    views.loading = <div>
       <pre id="loading" style={{border: "1px solid black", padding: "10px"}}>Battle in progress...</pre>
     </div>;
 
-    views['error'] = <div>
+    views.error = <div>
       <pre id="error" style={{border: "1px solid black", padding: "10px", backgroundColor: 'red', color: 'white'}}>
         {this.state.errorMessage}
       </pre>
@@ -133,7 +133,7 @@ export default class UbdPlayer extends React.Component {
       <h1>UBD Player</h1>
       {views[this.state.view]}
       {this.getBattlefield(this.state.rngSeed)}
-    </div>
+    </div>;
   }
 
 }

@@ -1,0 +1,25 @@
+# UBD files
+Ultimate Battle Descriptor (UBD) contains all the information required to replay a battle. Battle launched from UBD file is deterministic and always has the same outcome.
+
+## Changelog
+
+Date         | Version  | Description
+-------------|----------|-------------------
+2018-05-31   |        1 | Initial Version
+2018-06-04   |        2 | Adding teamMode information
+
+
+## UBD Format
+UBD is a JSON file of the following format
+
+### .version
+An integer that represents the version of UBD file. Each version may introduce changes that brake the compatibility.
+
+### .rngSeed
+Seed used by the random number generator. Using the same seed ensures that outcome of the game is predictive and the same each time. It could be any number.
+
+### .teamMode
+Determine if the battle is played in cooperative mode. Possible values are true or false.
+
+### .aiList
+Array of AI definitions that participate in the battle. Each AI definition is a JSON object.

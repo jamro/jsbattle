@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import App from "./components/App.js";
+import UbdPlayer from "./components/screen/UbdPlayer/UbdPlayer.js";
 
 function getHashParameters() {
   let serial = window.location.hash ? window.location.hash.substring(1) : "";
@@ -15,8 +16,16 @@ function getHashParameters() {
 
 let params = getHashParameters();
 let stateless = (params.stateless !== undefined && params.stateless != false);
+let ubdPlayer = (params.ubdPlayer !== undefined && params.ubdPlayer != false);
+
+let content;
+if(ubdPlayer) {
+  content = <UbdPlayer />;
+} else {
+  content = <App renderer="brody" stateless={stateless} />;
+}
 
 ReactDOM.render(
-  <App renderer="brody" stateless={stateless} />,
+  content,
   document.getElementById('root')
 );

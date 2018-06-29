@@ -4,7 +4,7 @@ import Col from "../../common/bootstrap/Col.js";
 import InfoBox from "../../common/InfoBox.js";
 import DebugView from "./debugView/DebugView.js";
 import ScoreBoard from "./scoreBoard/ScoreBoard.js";
-import Battlefield from "./Battlefield.js";
+import Battlefield from "../../common/Battlefield.js";
 import BootstrapRWD from "../../../lib/BootstrapRWD.js";
 import Loading from "../../common/Loading.js";
 

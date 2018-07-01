@@ -12,6 +12,10 @@
 ## About
 JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a game for JavaScript developers. The goal is to program artificial intelligence of a tank that will destroy all opponents and win the competition.
 
+## Demo
+
+Give JsBattle a try and play the demo here: [http://jsbattle.jamro.net](http://jsbattle.jamro.net)
+
 ## How to play?
 
 Read [Getting Started](/docs/getting_started.md) to learn how to build your first tank.

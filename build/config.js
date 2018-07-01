@@ -11,6 +11,9 @@ module.exports = {
       'node_modules/pixi-packer-parser/index.js'
     ],
   },
+  tools: {
+    sources: ['app/tools/**/*'],
+  },
   webpage: {
     sources: ['app/webpage/sources/**/*'],
     static: ['app/webpage/static/**/*'],

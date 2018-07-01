@@ -2,7 +2,7 @@
 
 const yargs = require('yargs');
 const express = require('express');
-
+const path = require('path');
 
 yargs
   .option('s', {
@@ -14,7 +14,7 @@ yargs
   .option('w', {
     alias: 'webroot',
     demandOption: false,
-    default: "./public",
+    default: path.resolve(__dirname + '/public'),
     describe: 'path to jsbattle web folder'
   })
   .option('p', {

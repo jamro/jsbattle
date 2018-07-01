@@ -6,7 +6,7 @@ module.exports = function (gulp, config, plugins) {
 
     plugins.connect.server({
       name: 'Test Server',
-      root: config.tmp + 'dist/',
+      root: config.tmp + 'dist/public/',
       port: 8070
     });
 

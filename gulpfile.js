@@ -30,7 +30,7 @@ gulp.task('webpage.sources', require('./build/webpage/webpage.sources.js')(gulp,
 gulp.task('webpage.copy', require('./build/webpage/webpage.copy.js')(gulp, config, plugins));
 gulp.task('webpage.test', require('./build/webpage/webpage.test.js')(gulp, config, plugins));
 
-gulp.task('tools.copy', require('./build/tools/tools.copy.js')(gulp, config, plugins));
+gulp.task('server.copy', require('./build/server/server.copy.js')(gulp, config, plugins));
 
 gulp.task('test', require('./build/test.js')(gulp, config, plugins));
 gulp.task('watch', require('./build/watch.js')(gulp, config, plugins));

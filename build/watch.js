@@ -1,7 +1,7 @@
 module.exports = function (gulp, config, plugins) {
 
   gulp.task('connect-reload', function() {
-    return gulp.src(config.tmp + 'dist/')
+    return gulp.src(config.tmp + 'dist/public/')
       .pipe(plugins.connect.reload());
   });
 
@@ -38,7 +38,7 @@ module.exports = function (gulp, config, plugins) {
 
   return function() {
     plugins.connect.server({
-      root: config.tmp + 'dist/',
+      root: config.tmp + 'dist/public/',
       livereload: true,
       name: 'Development Server'
     });

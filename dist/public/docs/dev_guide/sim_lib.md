@@ -14,8 +14,8 @@ At the beginning create initial structure of your project with empty folders:
 ```
 You will need two files from JsBattle projects. Download them and put into your project structure:
 
- - `/dist/js/jsbattle.min.js` should saved in `/js/jsbattle.min.js`
- - `/dist/tanks/lib/tank.js` should saved in `/tanks/lib/tank.js`
+ - `/dist/public/js/jsbattle.min.js` should saved in `/js/jsbattle.min.js`
+ - `/dist/public/tanks/lib/tank.js` should saved in `/tanks/lib/tank.js`
 
 `jsbattle.min.js` contains core modules of battle simulation. `tank.js` includes helper modules for Web Workers where the code of tanks AI will run.
 

@@ -70,5 +70,5 @@ typings/
 /art
 
 #others
-/app/tools/ubdplayer/battleOutput.json
-/dist/tools/ubdplayer/battleOutput.json
+/app/server/battleOutput.json
+/dist/battleOutput.json

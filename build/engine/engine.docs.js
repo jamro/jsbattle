@@ -5,7 +5,7 @@ module.exports = function (gulp, config, plugins) {
         .pipe(plugins.jsdocToMarkdown({
           template: "# JsBattle API\n{{>main}}"
         }))
-        .pipe(gulp.dest(config.tmp + 'dist/docs/dev_guide'))
+        .pipe(gulp.dest(config.tmp + 'dist/public/docs/dev_guide'))
         .pipe(gulp.dest(config.docs.apiDist))
     };
 };

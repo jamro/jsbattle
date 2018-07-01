@@ -32,7 +32,7 @@ Start web server that is required to run JsBattle simulator:
 The command will output URL of the server:
 
 ```
-  Starting up http-server, serving ./
+  Starting up web server, serving ./
   Available on:
     http://127.0.0.1:8080
   Hit CTRL-C to stop the server

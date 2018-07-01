@@ -10,7 +10,7 @@ module.exports = function (gulp, config, plugins) {
     var pixiPacker = new PixiPacker(
         packerConfig,
         __dirname + "/../../" + config.engine.resources,
-        config.tmp + "dist/img",
+        config.tmp + "dist/public/img",
         "tmp/cache"
     );
 

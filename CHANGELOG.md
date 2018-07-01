@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - UBD Player (command line tool)
+- JsBattle server (hosting of static content)
+
+### Changed
+- structure of /dist folder
+
+### Removed
+- http-server is no more bundled with JsBattle. Dedicated web-server is used
 
 ## [1.5.0] - 2018-06-09
 ### Added

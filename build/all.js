@@ -14,7 +14,7 @@ module.exports = function (gulp, config, plugins) {
       'engine.sprites',
       'tanks.copy',
       'tanks.sources',
-      'tools.copy',
+      'server.copy',
       'webpage.test',
       'dist.clean',
       'dist.copy',

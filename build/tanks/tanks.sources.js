@@ -30,6 +30,6 @@ module.exports = function (gulp, config, plugins) {
           }
         }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(config.tmp + "dist/tanks/lib/"));
+        .pipe(gulp.dest(config.tmp + "dist/public/tanks/lib/"));
     };
 };

@@ -11,15 +11,15 @@ module.exports = function (gulp, config, plugins) {
         }
       }
       gulp.src(config.webpage.static)
-        .pipe(gulp.dest(config.tmp + 'dist/'))
+        .pipe(gulp.dest(config.tmp + 'dist/public/'))
         .on('end', onComplete);
 
       gulp.src(config.webpage.externalLib, { base : 'node_modules' })
-        .pipe(gulp.dest(config.tmp + "dist/vendor/"))
+        .pipe(gulp.dest(config.tmp + "dist/public/vendor/"))
         .on('end', onComplete);
 
       gulp.src(config.docs.sources)
-        .pipe(gulp.dest(config.tmp + "dist/docs/"))
+        .pipe(gulp.dest(config.tmp + "dist/public/docs/"))
         .on('end', onComplete);
 
       gulp.src(config.docs.plantuml.sources)
@@ -38,7 +38,7 @@ module.exports = function (gulp, config, plugins) {
           });
 
         }))
-        .pipe(gulp.dest(config.tmp + 'dist/' + config.docs.plantuml.target))
+        .pipe(gulp.dest(config.tmp + 'dist/public/' + config.docs.plantuml.target))
         .pipe(gulp.dest(config.docs.plantuml.target))
         .on('end', onComplete);
     };

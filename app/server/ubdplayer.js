@@ -29,7 +29,7 @@ yargs
   .option('w', {
     alias: 'webroot',
     demandOption: false,
-    default: path.resolve(__dirname + '/../../'),
+    default: path.resolve(__dirname + '/public'),
     describe: 'path to jsbattle web folder'
   })
   .option('p', {

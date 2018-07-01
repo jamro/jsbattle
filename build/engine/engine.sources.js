@@ -37,6 +37,6 @@ module.exports = function (gulp, config, plugins, minify) {
             ]
           }
         }))
-        .pipe(gulp.dest(config.tmp + 'dist/js/'));
+        .pipe(gulp.dest(config.tmp + 'dist/public/js/'));
     };
 };

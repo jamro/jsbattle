@@ -1,7 +1,7 @@
 {
   "name": "jsbattle",
   "description": "",
-  "main": "dist/js/jsbattle.min.js",
+  "main": "dist/public/js/jsbattle.min.js",
   "authors": [
     "Krzysztof Jamroz <jamro@jamro.net>"
   ],

@@ -38,6 +38,6 @@ module.exports = function (gulp, config, plugins) {
           }
         }))
         .pipe(plugins.injectVersion())
-        .pipe(gulp.dest(config.tmp + "dist/js/"))
+        .pipe(gulp.dest(config.tmp + "dist/public/js/"))
     };
 };

@@ -5,8 +5,8 @@ module.exports = function (gulp, config, plugins) {
     return function (done) {
       var completeCount = 0;
 
-      gulp.src(config.tools.sources)
-        .pipe(gulp.dest(config.tmp + 'dist/tools/'))
+      gulp.src(config.server.sources)
+        .pipe(gulp.dest(config.tmp + 'dist/'))
         .on('end', done);
 
     };

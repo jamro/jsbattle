@@ -1,8 +1,9 @@
 module.exports = function (gulp, config, plugins) {
   return function (done) {
     plugins.sequence(
-      'engine.jshint',
-      'webpage.jshint',
+      'engine.lint',
+      'webpage.lint',
+      'server.lint',
       'engine.test',
       'tanks.test',
       'clean',

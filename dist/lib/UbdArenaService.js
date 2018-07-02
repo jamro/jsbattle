@@ -21,7 +21,7 @@ module.exports = class UbdArenaService {
     return new Promise((resolve, reject) => {
       this._log(`Launching web server from ${this._options.webroot}`);
       this._webapp = express();
-      this._webapp.use(express.static(this._options.webroot))
+      this._webapp.use(express.static(this._options.webroot));
       this._webserver = this._webapp.listen(
         this._options.webport,
         this._options.webhost,
@@ -52,7 +52,7 @@ module.exports = class UbdArenaService {
         this._log("Starting browser...");
         let browser = await puppeteer.launch();
         let page = await browser.newPage();
-        let url = `http://${this._options.webhost}:${this._options.webport}#ubdPlayer`
+        let url = `http://${this._options.webhost}:${this._options.webport}#ubdPlayer`;
         this._log(`Loading ${url}`);
         await page.goto(url);
         this._log(`Passing ${ubdContent.length} bytes of UBD data`);
@@ -109,4 +109,4 @@ module.exports = class UbdArenaService {
     }
   }
 
-}
+};

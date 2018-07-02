@@ -78,10 +78,10 @@ yargs
         } else {
           console.log(String(err));
         }
-        process.exit(1)
+        process.exit(1);
       }
     }
   )
   .help()
   .version()
-  .argv
+  .argv;

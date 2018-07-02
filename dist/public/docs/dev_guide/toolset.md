@@ -41,3 +41,4 @@ Tool                                                 | Description
 [Mocha](https://mochajs.org/)                        | Unit Tests Framework
 [SinonJS](http://sinonjs.org/)                       | Test spies, stubs and mocks for unit tests
 [JSHint](http://jshint.com/)                         | JavaScript code validation
+[ESLint](https://eslint.org/)                        | JavaScript code validation (better ES6 support)

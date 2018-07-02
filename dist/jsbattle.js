@@ -38,7 +38,7 @@ yargs
     (argv) => {
       let app = express();
       console.log(`Starting up web server, serving ${argv.webroot}`);
-      app.use(express.static(argv.webroot))
+      app.use(express.static(argv.webroot));
       app.listen(
         argv.port,
         argv.host,
@@ -52,4 +52,4 @@ yargs
   )
   .help()
   .version()
-  .argv
+  .argv;

@@ -5833,7 +5833,10 @@ var CollisionResolver = function () {
         if (hitTest) {
           var energyBefore = enemyShape.tank.energy;
           bullet.onEnemyHit(enemyShape.tank);
-          bullet.owner.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+          var areAllies = bullet.owner.isAlly(enemyShape.tank);
+          if (!areAllies) {
+            bullet.owner.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+          }
           if (enemyShape.tank.energy == 0) {
             bullet.owner.onEnemyKillScore();
           }

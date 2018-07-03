@@ -75,7 +75,10 @@ export default class CollisionResolver {
       if(hitTest) {
         let energyBefore = enemyShape.tank.energy;
         bullet.onEnemyHit(enemyShape.tank);
-        bullet.owner.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+        let areAllies = bullet.owner.isAlly(enemyShape.tank);
+        if(!areAllies) {
+          bullet.owner.onEnemyHitScore(energyBefore - enemyShape.tank.energy);
+        }
         if(enemyShape.tank.energy == 0) {
           bullet.owner.onEnemyKillScore();
         }

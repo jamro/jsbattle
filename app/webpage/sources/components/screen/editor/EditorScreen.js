@@ -16,6 +16,7 @@ export default class EditorScreen extends React.Component {
       script: script,
       unsavedCode: script.code
     };
+    this._hasUnsavedChanges = false;
   }
 
   onRename(newValue, oldValue) {
@@ -30,14 +31,21 @@ export default class EditorScreen extends React.Component {
   }
 
   onCodeChanged(code) {
+    let hasUnsaved = (this.state.script.code != code);
+    if(this._hasUnsavedChanges != hasUnsaved) {
+      this._hasUnsavedChanges = hasUnsaved;
+      this.props.onUnsavedCode(hasUnsaved);
+    }
     this.setState({unsavedCode: code});
   }
 
   hasUnsavedChanges() {
-    return this.state.script.code != this.state.unsavedCode;
+    return this._hasUnsavedChanges;
   }
 
   onClose(testNow) {
+    this._hasUnsavedChanges = false;
+    this.props.onUnsavedCode(false);
     if(testNow) {
       this.props.onTest();
     } else {
@@ -50,6 +58,8 @@ export default class EditorScreen extends React.Component {
     if(this.hasUnsavedChanges()) {
       this.props.aiRepository.updateScript(name, this.state.unsavedCode);
       this.setState({script: this.props.aiRepository.getScript(name)});
+      this._hasUnsavedChanges = false;
+      this.props.onUnsavedCode(false);
     }
   }
 

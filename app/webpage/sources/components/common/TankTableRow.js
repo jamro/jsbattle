@@ -1,7 +1,7 @@
-import FullRow from "../../common/bootstrap/FullRow.js";
-import Row from "../../common/bootstrap/Row.js";
-import Col from "../../common/bootstrap/Col.js";
-import NumericInput from "../../common/NumericInput.js";
+import FullRow from "./bootstrap/FullRow.js";
+import Row from "./bootstrap/Row.js";
+import Col from "./bootstrap/Col.js";
+import NumericInput from "./NumericInput.js";
 
 export default class TankTableRow extends React.Component {
 
@@ -12,6 +12,13 @@ export default class TankTableRow extends React.Component {
       mode: 'normal'
     };
     this.fadeLoop = null;
+    this.columns = 4;
+    if(this.props.difficulty === undefined) {
+      this.columns--;
+    }
+    if(this.props.count === undefined) {
+      this.columns--;
+    }
   }
 
   getBgColor() {
@@ -84,7 +91,7 @@ export default class TankTableRow extends React.Component {
 
   renderConfirmDelete() {
       return <tr>
-        <td colSpan={4} className="tank-remove-confirm">
+        <td colSpan={this.columns} className="tank-remove-confirm">
           <button type="button" className="btn btn-danger tank-remove-confirm-yes" onClick={() => this.deleteRow()}>
             Yes, delete AI Script of {this.props.name} tank!
           </button>
@@ -100,18 +107,16 @@ export default class TankTableRow extends React.Component {
 
     let style = this.state.light ? {backgroundColor: this.getBgColor()} : null;
 
-    return <tr style={style}>
-      <td className="tank-name">{this.props.name}</td>
-      <td className="text-center tank-difficulty">
+    let difficultyCell = null;
+    if(this.props.difficulty !== undefined) {
+      difficultyCell = <td className="text-center tank-difficulty">
         {this.renderDifficulty(this.props.name, this.props.difficulty)}
-      </td>
-      <td className="text-right tank-actions">
-        <div className="btn-group" role="group" aria-label="...">
-          {this.props.onEdit ? this.renderEditButton() : null}
-          {this.props.onDelete ? this.renderDeleteButton() : null}
-        </div>
-      </td>
-      <td className="block-center tank-count">
+      </td>;
+    }
+
+    let countCell = null;
+    if(this.props.count !== undefined) {
+      countCell = <td className="block-center tank-count">
         <NumericInput
           className="pull-right"
           defaultValue={this.props.count}
@@ -119,7 +124,19 @@ export default class TankTableRow extends React.Component {
           min={0}
           max={10}
         />
+      </td>;
+    }
+
+    return <tr style={style}>
+      <td className="tank-name">{this.props.name}</td>
+      {difficultyCell}
+      <td className="text-right tank-actions">
+        <div className="btn-group" role="group" aria-label="...">
+          {this.props.onEdit ? this.renderEditButton() : null}
+          {this.props.onDelete ? this.renderDeleteButton() : null}
+        </div>
       </td>
+      {countCell}
     </tr>;
   }
 

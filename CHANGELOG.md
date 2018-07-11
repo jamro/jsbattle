@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JsBattle server (hosting of static content)
 
 ### Changed
-- structure of /dist folder
+- structure of /dist folder holds server and client parts
+- UI improvements
 
 ### Removed
 - http-server is no more bundled with JsBattle. Dedicated web-server is used

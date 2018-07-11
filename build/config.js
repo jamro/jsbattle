@@ -32,7 +32,8 @@ module.exports = {
      'node_modules/codemirror/mode/javascript/**/*',
      'node_modules/codemirror/addon/hint/**/*',
      'node_modules/codemirror/theme/ambiance.css',
-     'node_modules/core-js/client/core.js'
+     'node_modules/core-js/client/core.js',
+     'node_modules/popper.js/dist/umd/**/*'
     ]
   },
   docs: {

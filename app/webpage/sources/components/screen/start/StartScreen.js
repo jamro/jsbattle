@@ -3,7 +3,7 @@ import Row from "../../common/bootstrap/Row.js";
 import Col from "../../common/bootstrap/Col.js";
 import NumericInput from "../../common/NumericInput.js";
 import Loading from "../../common/Loading.js";
-import TankTableRow from "./TankTableRow.js";
+import TankTableRow from "../../common/TankTableRow.js";
 import UbdUpload from "../../common/ubd/UbdUpload.js";
 
 export default class StartScreen extends React.Component {

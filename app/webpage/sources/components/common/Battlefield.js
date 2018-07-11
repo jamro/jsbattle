@@ -9,6 +9,10 @@ export default class Battlefield extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.stop();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if(this.simulation) {
       this.simulation.setSpeed(this.props.speed ? this.props.speed : 1);

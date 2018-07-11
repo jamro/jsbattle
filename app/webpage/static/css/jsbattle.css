@@ -37,3 +37,10 @@ debug-container {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.nav-item > .active {
+  background-color: #ffffff;
+  color: #343a40 !important;
+  border-radius: 5px;
+  padding: 8px !important;
+}

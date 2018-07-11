@@ -50,15 +50,38 @@ export default class Navi extends React.Component {
   }
 
   render() {
+    let activeClasses = "nav-link active";
+    let inactiveClasses = "nav-link";
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <a className="navbar-brand" href="http://jsbattle.jamro.net"><strong>JsBattle</strong> <small style={{color: '#666666', fontSize: '10px'}}>%%GULP_INJECT_VERSION%%</small></a>
+        <a className="navbar-brand" href="http://jsbattle.jamro.net" style={{borderRight: '1px solid #888', paddingRight: '15px'}}>
+          <img src="./img/logo.png" alt="JsBattle" />
+        </a>
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item"><a className="nav-link" href="https://github.com/jamro/jsbattle" target="_blank"><i className="fa fa-github-alt" aria-hidden="true"></i> GitHub</a></li>
-            <li className="nav-item"><a className="nav-link" href="./docs" target="_blank"><i className="fa fa-file-text-o" aria-hidden="true"></i> Docs</a></li>
+            <li className="nav-item">
+              <a
+                className={this.props.page == 'editor' ? activeClasses : inactiveClasses}
+                href="#"
+                onClick={() => this.props.openPage('editor')}>
+                <i className="fa fa-pencil" aria-hidden="true"></i> Editor
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className={this.props.page == 'testroom' ? activeClasses : inactiveClasses}
+                href="#"
+                onClick={() => this.props.openPage('testroom')}>
+                <i className="fa fa-line-chart" aria-hidden="true"></i> Battle
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className={inactiveClasses} href="./docs" target="_blank">
+                <i className="fa fa-file-text-o" aria-hidden="true"></i> Docs<
+              /a>
+            </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">

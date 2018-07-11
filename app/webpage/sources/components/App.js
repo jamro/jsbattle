@@ -1,11 +1,8 @@
-import BattleScreen from "./screen/battle/BattleScreen.js";
-import WinnerScreen from "./screen/winner/WinnerScreen.js";
-import StartScreen from "./screen/start/StartScreen.js";
-import EditorScreen from "./screen/editor/EditorScreen.js";
-import FullRow from "./common/bootstrap/FullRow.js";
 import Navi from "./common/navi/Navi.js";
-import InfoBox from "./common/InfoBox.js";
 import AiRepository from "../lib/AiRepository.js";
+import TestRoomPage from "./TestRoomPage.js";
+import EditorPage from "./EditorPage.js";
+import FullRow from "./common/bootstrap/FullRow.js";
 
 export default class App extends React.Component {
 
@@ -22,15 +19,11 @@ export default class App extends React.Component {
     this.state = {
       simSpeed: simSpeed,
       qualitySettings: qualitySettings,
-      errorMessage: null,
-      phase: "start",
-      battleResult: null,
-      aiDefList: [],
-      editorTank: null,
-      quickBattleMode: false,
-      battleSettings: {}
+      page: "testroom",
+      pageData: {}
     };
     this.aiRepository = new AiRepository(props.stateless);
+    this.hasUnsavedCode = false;
   }
 
   setSimulationSpeed(v) {
@@ -43,98 +36,50 @@ export default class App extends React.Component {
     localStorage.setItem("settings.quality", v);
   }
 
-  showError(msg) {
-    this.setState({errorMessage: msg});
+  onUnsavedCode(hasUnsaved) {
+    this.hasUnsavedCode = hasUnsaved;
   }
 
-  onBattleFinish(result) {
-    this.setState({
-      phase: 'winner',
-      battleResult: result
-    });
-  }
-
-  onPrepareForBattle() {
-    this.setState({
-      phase: 'start',
-      battleResult: null,
-      quickBattleMode: false,
-      errorMessage: null
-    });
-  }
-
-  onBattleStart(aiDefList, settings) {
-    this.setState({
-      phase: 'battle',
-      aiDefList: aiDefList,
-      battleSettings: settings,
-      errorMessage: null
-    });
-  }
-
-  onBattleExit() {
-    if(this.state.editorTank && this.state.quickBattleMode) {
-      this.onScriptEdit(this.state.editorTank);
+  openPage(name, data) {
+    if(this.state.page == 'editor' && this.hasUnsavedCode) {
+      if(confirm('Changes that you made may not be saved. Are you sure?')) {
+        this.setState({
+          page: name,
+          pageData: data
+        });
+      }
     } else {
-      this.onPrepareForBattle();
+      this.setState({
+        page: name,
+        pageData: data
+      });
     }
   }
 
-  onScriptEdit(name) {
-    this.setState({
-      phase: 'editor',
-      editorTank: name,
-      quickBattleMode: false,
-      errorMessage: null
-    });
-  }
-
-  onQuickBattle() {
-    this.setState({
-      phase: 'start',
-      quickBattleMode: true,
-      errorMessage: null
-    });
-  }
-
   renderContent() {
-    switch(this.state.phase) {
-      case 'start':
-        return <StartScreen
-          onStart={(aiDefList, settings) => this.onBattleStart(aiDefList, settings)}
-          onError={(msg) => this.showError(msg)}
-          onScriptEdit={(name) => this.onScriptEdit(name)}
-          aiRepository={this.aiRepository}
-          fastForward={this.state.quickBattleMode}
-          stateless={this.props.stateless}
-        />;
-      case 'battle':
-        return <BattleScreen
+    switch(this.state.page) {
+      case 'testroom':
+        return <TestRoomPage
           renderer={this.props.renderer}
+          stateless={this.props.stateless}
           speed={this.state.simSpeed}
           quality={this.state.qualitySettings}
-          aiDefList={this.state.aiDefList}
-          settings={this.state.battleSettings}
-          onError={(msg) => this.showError(msg)}
-          onFinish={(result) => this.onBattleFinish(result)}
-          onExit={() => this.onBattleExit()}
-          stateless={this.props.stateless}
-        />;
-      case 'winner':
-        return <WinnerScreen
-          result={this.state.battleResult}
-          onRestart={() => this.onPrepareForBattle()}
-          onEdit={this.state.editorTank && this.state.quickBattleMode ? (() => this.onScriptEdit(this.state.editorTank)) : null}
+          aiRepository={this.aiRepository}
+          openPage={(name, data) => this.openPage(name, data)}
+          quickBattleTank={this.state.pageData ? this.state.pageData.quickBattleTank : null}
         />;
       case 'editor':
-        return <EditorScreen
+        this.hasUnsavedCode = false;
+        return <EditorPage
+          stateless={this.props.stateless}
           aiRepository={this.aiRepository}
-          name={this.state.editorTank}
-          onClose={() => this.setState({phase: 'start'})}
-          onTest={() => this.onQuickBattle()}
-          onRename={(newName) => this.setState({editorTank: newName})}
+          back={this.state.pageData ? this.state.pageData.back : null}
+          tankName={this.state.pageData ? this.state.pageData.tankName : null}
+          openPage={(name, data) => this.openPage(name, data)}
+          onUnsavedCode={(hasUnsaved) => this.onUnsavedCode(hasUnsaved)}
         />;
-      default: return null;
+      default:
+        return <FullRow>Oops! Page not found :/</FullRow>;
     }
   }
 
@@ -145,11 +90,17 @@ export default class App extends React.Component {
         quality={this.state.qualitySettings}
         onSpeedChange={(v) => this.setSimulationSpeed(v)}
         onQualityChange={(v) => this.setSimulationQuality(v)}
+        page={this.state.page}
+        openPage={(name, data) => this.openPage(name, data)}
       />
-      <FullRow>
-        <InfoBox message={this.state.errorMessage} level="danger"/>
-      </FullRow>
       {this.renderContent()}
+      <FullRow>
+        <small style={{color: '#999', textAlign: 'center', borderTop: '1px solid #999', width: "100%", display: 'inline-block', padding: '5px'}}>
+          Hosted on <a href="https://github.com/jamro/jsbattle" target="_blank"><i className="fa fa-github-alt" aria-hidden="true"></i> GitHub</a>.
+          This project is licensed under the terms of the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.
+          Version: %%GULP_INJECT_VERSION%%.
+        </small>
+      </FullRow>
     </div>;
   }
 }

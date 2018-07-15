@@ -112,9 +112,10 @@ describe('PerformanceMonitor', function() {
           mon.onSimulationStep();
         }, 1);
         setTimeout(() => {
-          assert(mon.qualityLevel > lowPerformance, "quality level is " + mon.qualityLevel + " but should be above " + lowPerformance);
+          
           clearInterval(loop);
           mon.stop();
+          assert(mon.qualityLevel > lowPerformance, "quality level is " + mon.qualityLevel + " but should be above " + lowPerformance);
           done();
         }, 20);
       }, 20);

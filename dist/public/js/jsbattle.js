@@ -3186,8 +3186,7 @@ var Simulation = function () {
         }
         if (self._isRunning) {
           var processingTime = new Date().getTime() - startTime;
-          var dt = self._simulationStepDuration - processingTime;
-          dt /= self._speedMultiplier;
+          var dt = self._simulationStepDuration / self._speedMultiplier - processingTime;
           dt = Math.round(dt);
           for (i = 0; i < self._onSimulationStepCallback.length; i++) {
             self._onSimulationStepCallback[i]();

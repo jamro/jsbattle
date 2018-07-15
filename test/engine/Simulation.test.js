@@ -86,8 +86,8 @@ describe('Simulation', function() {
       sim2.onStep(function () {
         stepCount2++;
       });
-      sim1.setSpeed(1);
-      sim2.setSpeed(2);
+      sim1.setSpeed(0.2);
+      sim2.setSpeed(0.4);
       sim1.start();
       sim2.start();
 
@@ -96,9 +96,10 @@ describe('Simulation', function() {
         assert(stepCount2 > 1, "Simulation2 steps were counted multiple times");
         sim1.stop();
         sim2.stop();
+        console.log("stepCount1 (x1): " + stepCount1 + ", stepCount2 (x2): " + stepCount2);
         assert(
           stepCount2 > stepCount1*1.2 && stepCount2 < stepCount1*2.8,
-          "stepCount1: " + stepCount1 + ", stepCount2: " + stepCount2
+          "stepCount1 (x1): " + stepCount1 + ", stepCount2 (x2): " + stepCount2
         );
         done();
       }, 1500);

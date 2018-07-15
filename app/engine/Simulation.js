@@ -203,8 +203,7 @@ class Simulation {
         }
         if(self._isRunning) {
           let processingTime = (new Date()).getTime() - startTime;
-          let dt = self._simulationStepDuration - processingTime;
-          dt /= self._speedMultiplier;
+          let dt = self._simulationStepDuration/self._speedMultiplier - processingTime;
           dt = Math.round(dt);
           for(i=0; i < self._onSimulationStepCallback.length; i++) self._onSimulationStepCallback[i]();
           self._timeElapsed = Math.min(self._timeElapsed + self._simulationStepDuration, self._timeLimit);

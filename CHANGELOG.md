@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - calculation of simulation step duration is more precise
+- fixing tests (basing on local instance of Mocha to remove global dependency)
 
 ### Removed
 - http-server is no more bundled with JsBattle. Dedicated web-server is used

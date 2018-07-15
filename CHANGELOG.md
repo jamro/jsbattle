@@ -11,7 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - structure of /dist folder holds server and client parts
+- update of external libs
 - UI improvements
+
+### Fixed
+- calculation of simulation step duration is more precise
 
 ### Removed
 - http-server is no more bundled with JsBattle. Dedicated web-server is used

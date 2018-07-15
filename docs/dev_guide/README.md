@@ -9,4 +9,5 @@ This section is unnecessary to play JsBattle however, if you would like to exten
 - [Project Structure](/docs/dev_guide/structure.md)
 - [Toolset](/docs/dev_guide/toolset.md)
 - [Adding Bundled Tanks](/docs/dev_guide/adding_bundled_tanks.md)
+- [Release Procedure](/docs/dev_guide/release.md)
 - [UBD files](/docs/dev_guide/ubd_files.md)

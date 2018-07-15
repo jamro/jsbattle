@@ -20,6 +20,7 @@
     - [Renderers](/docs/dev_guide/architecture/renderers.md)
     - [Artificial Intelligence](/docs/dev_guide/architecture/ai.md)
   - [Building Process](/docs/dev_guide/building.md)
+  - [Release Procedure](/docs/dev_guide/release.md)
   - [JsBattle Library Tutorial](/docs/dev_guide/sim_lib.md)
   - [JsBattle API](/docs/dev_guide/api.md)
   - [Project Structure](/docs/dev_guide/structure.md)

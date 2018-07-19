@@ -360,11 +360,10 @@ Find a target by scanning surroundings and keep shooting it. Sniper never moves
 ```javascript
 importScripts('lib/tank.js');
 
-var enemyMap, power;
+var power;
 
 tank.init(function(settings, info) {
   settings.SKIN = 'forest';
-  enemyMap = [];
   power = Math.random()*0.9 + 0.1;
 })
 

@@ -29,13 +29,13 @@ export default class Navi extends React.Component {
 
   renderSpeedButton(speed) {
     let label = this.speedToName(speed);
-    let classNames = "dropdown-item sim-speed-" + speed;
+    let classNames = "dropdown-item sim-speed-" + String(speed).replace(".", "_");
     return <a href="#" className={classNames} onClick={() => this.setSpeed(speed)}>{label}</a>;
   }
 
   renderQualityButton(q) {
     let label = this.qualityToName(q);
-    let classNames = "dropdown-item sim-quality-" + q;
+    let classNames = "dropdown-item sim-quality-" + String(q).replace(".", "_");
     return <a href="#" className={classNames} onClick={() => this.setQuality(q)}>{label}</a>;
   }
 
@@ -50,8 +50,8 @@ export default class Navi extends React.Component {
   }
 
   render() {
-    let activeClasses = "nav-link active";
-    let inactiveClasses = "nav-link";
+    let activeClasses = "nav-link main-nav-link active";
+    let inactiveClasses = "nav-link main-nav-link";
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

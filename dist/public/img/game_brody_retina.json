@@ -11,8 +11,8 @@
     },
     "spritesheets": [
         {
-            "image": "58dd0368917877c772ab25897f8ea288b1251e3a.png",
-            "filesize": 1610505,
+            "image": "cf61ffa4a61777866f26f680293a022d5de598f1.png",
+            "filesize": 1608877,
             "sprites": [
                 {
                     "name": "battlefield",
@@ -786,8 +786,8 @@
             ]
         },
         {
-            "image": "a01a4fc64bc33a32efb6703e17db1534d5ed450f.png",
-            "filesize": 30782,
+            "image": "ccc38d5463d33c31910321ba2c7177298683fbaf.png",
+            "filesize": 30749,
             "sprites": [
                 {
                     "name": "big_boom_022",

@@ -37,20 +37,20 @@ export default class SaveButtons extends React.Component {
   renderStandard() {
     let saveButton;
     if(this.props.unsavedChanges) {
-      saveButton = <button type="button" className="btn btn-secondary"  onClick={() => this.onSave()}>
+      saveButton = <button type="button" className="btn btn-secondary editor-save"  onClick={() => this.onSave()}>
           <i className="fa fa-save" aria-hidden="true"></i> Save
       </button>;
     } else {
-      saveButton = <button type="button" className="btn btn-secondary disabled" >
+      saveButton = <button type="button" className="btn btn-secondary disabled editor-save" >
           <i className="fa fa-check" aria-hidden="true"></i> Saved
       </button>;
     }
     return <div>
-      <button type="button" className="btn btn-primary" onClick={() => this.onCloseRequest(true)}>
+      <button type="button" className="btn btn-primary editor-quick-fight" onClick={() => this.onCloseRequest(true)}>
         <i className="fa fa-play" aria-hidden="true"></i> Quick Fight
       </button> &nbsp;
       {saveButton} &nbsp;
-      <button type="button" className="btn btn-secondary" onClick={() => this.onCloseRequest(false)}>
+      <button type="button" className="btn btn-secondary editor-close" onClick={() => this.onCloseRequest(false)}>
         <i className="fa fa-times" aria-hidden="true"></i> Close
       </button> &nbsp;
 

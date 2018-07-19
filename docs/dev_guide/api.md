@@ -23,7 +23,9 @@ constructor of Simulation object</p>
 <a name="AiDefinition"></a>
 
 ## AiDefinition
-Describes AI algorithm of the tank. There could be two sources of AI scripts:files or string variable. Depending on source of scripts `fromFile()` or `fromCode()`methods should be used to initialize the object
+Describes AI algorithm of the tank. There could be two sources of AI scripts:
+files or string variable. Depending on source of scripts `fromFile()` or `fromCode()`
+methods should be used to initialize the object
 
 **Kind**: global class  
 
@@ -48,7 +50,9 @@ Describes AI algorithm of the tank. There could be two sources of AI scripts:fi
 <a name="new_AiDefinition_new"></a>
 
 ### new AiDefinition()
-Creates AiDefinition. Constructor is not available outside of`JsBattle.min.js` library. To create AiDefinition object use`JsBattle.createAiDefinition()` instead
+Creates AiDefinition. Constructor is not available outside of
+`JsBattle.min.js` library. To create AiDefinition object use
+`JsBattle.createAiDefinition()` instead
 
 <a name="AiDefinition+name"></a>
 
@@ -117,7 +121,8 @@ Creates AiDefinition. Constructor is not available outside of`JsBattle.min.js` 
 <a name="AiDefinition+fromFile"></a>
 
 ### aiDefinition.fromFile(tankName, initData)
-Creates AI definition that has source codes in a file. All AI scriptsare kept in `/tanks/[tankName].tank.js` files
+Creates AI definition that has source codes in a file. All AI scripts
+are kept in `/tanks/[tankName].tank.js` files
 
 **Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
 
@@ -153,13 +158,18 @@ Set name of the team. Tanks from the same team can coomunicate with eachother an
 <a name="AiDefinition+disableSandbox"></a>
 
 ### aiDefinition.disableSandbox()
-Allows to running code of AI in the same sandbox as the core of JsBattle game. It ispotentially dangerous since code of AI Script can access code of JS Battle andinfluence it. However disabling sandbox can significantly increase performance(especially if you run several simulations in concurrent). Use this approachonly for trusted AI code.
+Allows to running code of AI in the same sandbox as the core of JsBattle game. It is
+potentially dangerous since code of AI Script can access code of JS Battle and
+influence it. However disabling sandbox can significantly increase performance
+(especially if you run several simulations in concurrent). Use this approach
+only for trusted AI code.
 
 **Kind**: instance method of <code>[AiDefinition](#AiDefinition)</code>  
 <a name="Simulation"></a>
 
 ## Simulation
-Battle simulation component. Process the simulation updating all related objectsand refreshing the renderer.
+Battle simulation component. Process the simulation updating all related objects
+and refreshing the renderer.
 
 **Kind**: global class  
 
@@ -190,7 +200,9 @@ Battle simulation component. Process the simulation updating all related objects
 <a name="new_Simulation_new"></a>
 
 ### new Simulation(renderer)
-Create Simulation object. Constructor is not available outside of`JsBattle.min.js` library. To create Simulation object use`JsBattle.createSimulation(renderer)` instead
+Create Simulation object. Constructor is not available outside of
+`JsBattle.min.js` library. To create Simulation object use
+`JsBattle.createSimulation(renderer)` instead
 
 
 | Param | Type | Description |
@@ -225,7 +237,12 @@ Create Simulation object. Constructor is not available outside of`JsBattle.min.
 <a name="Simulation+setRngSeed"></a>
 
 ### simulation.setRngSeed(seed)
-Seed random number generator. Each time when you seed rng with the same datait will return the same sequence of numbers. That feature can be usedto reconstruct exactly the same, "randomized" simulation condidtions.IMPORTANT! set it just after calling constructor of the calss. Otherwisesome RNG calls could be unseeded.
+Seed random number generator. Each time when you seed rng with the same data
+it will return the same sequence of numbers. That feature can be used
+to reconstruct exactly the same, "randomized" simulation condidtions.
+
+IMPORTANT! set it just after calling constructor of the calss. Otherwise
+some RNG calls could be unseeded.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -246,7 +263,8 @@ Seed random number generator. Each time when you seed rng with the same datait 
 <a name="Simulation+init"></a>
 
 ### simulation.init(width, height)
-Initialize the battle field. Must be called before any other callsto simulation object
+Initialize the battle field. Must be called before any other calls
+to simulation object
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -258,14 +276,18 @@ Initialize the battle field. Must be called before any other callsto simulation
 <a name="Simulation+start"></a>
 
 ### simulation.start()
-Starts simulation of the battle. It will initialize all AI scripts, trigger `onStart` eventand launch rendering and simulation processing loops. Remember to call `Simulation.init()` and`Simulation.addTank()` before executing this method.
+Starts simulation of the battle. It will initialize all AI scripts, trigger `onStart` event
+and launch rendering and simulation processing loops. Remember to call `Simulation.init()` and
+`Simulation.addTank()` before executing this method.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 **See**: Simulation.onStart()  
 <a name="Simulation+addTank"></a>
 
 ### simulation.addTank(aiDefinition)
-Create a tank according to provided `AiDefinition`. Remember to add atleast two tanks to the battle. Otherwise, it will stop immediately andthe winner will be recognized
+Create a tank according to provided `AiDefinition`. Remember to add at
+least two tanks to the battle. Otherwise, it will stop immediately and
+the winner will be recognized
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -276,7 +298,9 @@ Create a tank according to provided `AiDefinition`. Remember to add atleast two
 <a name="Simulation+setSpeed"></a>
 
 ### simulation.setSpeed(multiplier)
-Set speed multiplier of the simulation. Setting to `2`means that everything will betwo times faster than usual. Setting to `0.5` will simulate the battle 2 times slowerthan usual
+Set speed multiplier of the simulation. Setting to `2`means that everything will be
+two times faster than usual. Setting to `0.5` will simulate the battle 2 times slower
+than usual
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -287,7 +311,12 @@ Set speed multiplier of the simulation. Setting to `2`means that everything will
 <a name="Simulation+setRendererQuality"></a>
 
 ### simulation.setRendererQuality(qualityLevel)
-Sets quality of renderer controlled by simulation object.You can specify a value between 0 (lowest quality) and 1 (highest quality)or allow the simulation to adjust it automatically by passing 'auto' stringAutomatic quality adjustment try to keep the speed of the animation at proper level.If simulation is lagging, quality will be reduced to ensure that the simulationdoes not take longer than it should
+Sets quality of renderer controlled by simulation object.
+You can specify a value between 0 (lowest quality) and 1 (highest quality)
+or allow the simulation to adjust it automatically by passing 'auto' string
+Automatic quality adjustment try to keep the speed of the animation at proper level.
+If simulation is lagging, quality will be reduced to ensure that the simulation
+does not take longer than it should
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -298,13 +327,18 @@ Sets quality of renderer controlled by simulation object.You can specify a valu
 <a name="Simulation+stop"></a>
 
 ### simulation.stop()
-Stops battle simulation. It also stops rendering loop.After calling this method you should not try to callstart to resume the battle but rather create a newSimulation object and initialize it from the beginning
+Stops battle simulation. It also stops rendering loop.
+After calling this method you should not try to call
+start to resume the battle but rather create a new
+Simulation object and initialize it from the beginning
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 <a name="Simulation+onStep"></a>
 
 ### simulation.onStep(callback)
-Allow adding a callback that will be called after each step of simulationprocessing loop. The callback takes no arguments. The frequency of this eventdepends on simulation speed.
+Allow adding a callback that will be called after each step of simulation
+processing loop. The callback takes no arguments. The frequency of this event
+depends on simulation speed.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 **See**: `Simulation.setSpeed()`  
@@ -316,7 +350,11 @@ Allow adding a callback that will be called after each step of simulationproces
 <a name="Simulation+onRender"></a>
 
 ### simulation.onRender(callback)
-Allow adding a callback that will be called after each refresh of the renderer.The callback takes no arguments. `onRender` and `onStep` event are not synchronizedand may be called at different intervals. Increasing of animation speed will notincrease rendering frequency. Rendering frequency is affected by quality ofrendering parameter
+Allow adding a callback that will be called after each refresh of the renderer.
+The callback takes no arguments. `onRender` and `onStep` event are not synchronized
+and may be called at different intervals. Increasing of animation speed will not
+increase rendering frequency. Rendering frequency is affected by quality of
+rendering parameter
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 **See**
@@ -332,7 +370,9 @@ Allow adding a callback that will be called after each refresh of the renderer.
 <a name="Simulation+onStart"></a>
 
 ### simulation.onStart(callback)
-Allow adding a callback that will be called when the battle is started.It is executed after initialization of all AI Scripts, just beforefirst step of simulation processing loop. The callback takes no arguments.
+Allow adding a callback that will be called when the battle is started.
+It is executed after initialization of all AI Scripts, just before
+first step of simulation processing loop. The callback takes no arguments.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -343,7 +383,8 @@ Allow adding a callback that will be called when the battle is started.It is ex
 <a name="Simulation+onFinish"></a>
 
 ### simulation.onFinish(callback)
-Allow adding a callback that will be called when the battle is over.The callback takes no arguments.
+Allow adding a callback that will be called when the battle is over.
+The callback takes no arguments.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -354,7 +395,8 @@ Allow adding a callback that will be called when the battle is over.The callbac
 <a name="Simulation+onError"></a>
 
 ### simulation.onError(callback)
-Allow adding a callback that will be called when an error occur.The callback takes one arguments: error message
+Allow adding a callback that will be called when an error occur.
+The callback takes one arguments: error message
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 
@@ -365,7 +407,8 @@ Allow adding a callback that will be called when an error occur.The callback ta
 <a name="Simulation+createUltimateBattleDescriptor"></a>
 
 ### simulation.createUltimateBattleDescriptor() ⇒
-Create Ultimate Battle Descriptor that contains all data requied to replaythe battle and reflect its exact course.
+Create Ultimate Battle Descriptor that contains all data requied to replay
+the battle and reflect its exact course.
 
 **Kind**: instance method of <code>[Simulation](#Simulation)</code>  
 **Returns**: UltimateBattleDescriptor object  
@@ -410,7 +453,8 @@ Object represents a tank that is involved in the battle during simulation
 <a name="new_Tank_new"></a>
 
 ### new Tank(aiDefinition, id, team)
-Constructor should not be called directly but through`Simulation.addTank()` method
+Constructor should not be called directly but through
+`Simulation.addTank()` method
 
 
 | Param | Type | Description |
@@ -537,7 +581,8 @@ Constructor should not be called directly but through`Simulation.addTank()` met
 <a name="Renderer"></a>
 
 ## Renderer
-Renders simulation of the battle. The object must be passed toconstructor of Simulation object
+Renders simulation of the battle. The object must be passed to
+constructor of Simulation object
 
 **Kind**: global class  
 **See**: Simulation  
@@ -562,7 +607,8 @@ Renders simulation of the battle. The object must be passed toconstructor of Si
 <a name="Renderer+initBatlefield"></a>
 
 ### renderer.initBatlefield(battlefield)
-Renders the battlefield. Called only at the beginning. Used usually to renderbackground of the Simulation
+Renders the battlefield. Called only at the beginning. Used usually to render
+background of the Simulation
 
 **Kind**: instance method of <code>[Renderer](#Renderer)</code>  
 

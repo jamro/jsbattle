@@ -60,7 +60,7 @@ export default class CodeRepositoryScreen extends React.Component {
       <button type="button" className="btn btn-success btn-lg pull-right create-tank" onClick={() => this.createTank()} style={{margin: "15px"}}>
         <i className="fa fa-plus-circle" aria-hidden="true"></i> Create Tank
       </button>
-      <table className="table tank-table" >
+      <table className="table ai-table" >
         <thead>
           <tr>
             <th>Tank Name</th>

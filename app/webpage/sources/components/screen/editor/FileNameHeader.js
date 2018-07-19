@@ -16,8 +16,8 @@ export default class FileNameHeader extends React.Component {
 
   renderView() {
     return <h3 className={this.props.className} style={{width: '300px'}}>
-      <strong>{this.state.name}</strong>.tank.js &nbsp;
-      <a href="#" onClick={() => this.setState({mode: 'edit'})}>
+      <strong class="tank-name-view">{this.state.name}</strong>.tank.js &nbsp;
+      <a href="#" className="rename-button" onClick={() => this.setState({mode: 'edit'})}>
         <small><i className="fa fa-pencil" aria-hidden="true"></i></small>
       </a>
     </h3>;
@@ -62,14 +62,14 @@ export default class FileNameHeader extends React.Component {
       <h3>
         <div className="btn-toolbar">
           <div className="input-group">
-            <input ref={(input) => input ? this.onInputCreated(input) : null} type="text" className="form-control" aria-label="..." defaultValue={this.state.name} onChange={(v) => this.onChange(v)}/>
+            <input ref={(input) => input ? this.onInputCreated(input) : null} type="text" className="form-control ai-name-input" aria-label="..." defaultValue={this.state.name} onChange={(v) => this.onChange(v)}/>
             <div className="input-group-prepend">
-              <button type="button" className="btn btn-primary" onClick={() => this.onEdit()}>
+              <button type="button" className="btn btn-primary button-name-confirm" onClick={() => this.onEdit()}>
                 <i className="fa fa-check" aria-hidden="true"></i>
               </button>
             </div>
             <div className="input-group-append">
-              <button type="button" className="btn btn-secondary" onClick={() => this.setState({mode: 'normal', error: ''})}>
+              <button type="button" className="btn btn-secondary button-name-cancel" onClick={() => this.setState({mode: 'normal', error: ''})}>
                 <i className="fa fa-times" aria-hidden="true"></i>
               </button>
             </div>

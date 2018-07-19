@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- tests of website are based on Puppeteer + Mocha instead of PhantomJS + CasperJS ([PhantomJS project is discontinued](https://github.com/ariya/phantomjs/issues/15344))
+
+### Fixed
+- renaming of AI script to the same name results in removing it
+
+### Removed
+- removed CasperJS dependency (replaced by Mocha)
+- removed PhantomJS dependency (replaced by Puppeteer)
+- removing gulp-mocha dependency (running Mocha directly)
+
 ## [2.0.1] - 2018-07-15
 ### Added
 - documentation of release procedure

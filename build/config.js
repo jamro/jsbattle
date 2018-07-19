@@ -4,7 +4,6 @@ module.exports = {
     sources: ['app/engine/**/*.js'],
     test: ['test/engine/**/*.test.js'],
     resources: ['resources/images'],
-
     lib: [
       'node_modules/sat/SAT.js',
       'node_modules/seedrandom/seedrandom.js',

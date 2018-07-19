@@ -146,10 +146,12 @@ export default class CodeArea extends React.Component {
     });
 
     this.codeMirror.setSize("100%", "100%");
+    this.textArea.codeMirror = this.codeMirror; // expose for testing purposes
   }
 
   render() {
     return <textarea
+      className="code-editor"
       ref={(txt) => this.textArea = txt}
       defaultValue={this.props.defaultValue}
       onChange={(e) => this.props.onChange(e.target.value)}

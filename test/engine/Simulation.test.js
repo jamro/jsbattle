@@ -96,7 +96,6 @@ describe('Simulation', function() {
         assert(stepCount2 > 1, "Simulation2 steps were counted multiple times");
         sim1.stop();
         sim2.stop();
-        console.log("stepCount1 (x1): " + stepCount1 + ", stepCount2 (x2): " + stepCount2);
         assert(
           stepCount2 > stepCount1*1.2 && stepCount2 < stepCount1*2.8,
           "stepCount1 (x1): " + stepCount1 + ", stepCount2 (x2): " + stepCount2

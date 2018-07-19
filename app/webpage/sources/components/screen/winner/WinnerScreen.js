@@ -53,7 +53,7 @@ export default class WinnerScreen extends React.Component {
   render() {
     let previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
 
-    let restartButton = <button className="btn btn-secondary btn-lg" onClick={() => this.props.onRestart()}>
+    let restartButton = <button className="btn btn-secondary btn-lg restart-battle" onClick={() => this.props.onRestart()}>
       <i className="fa fa-refresh" aria-hidden="true"></i> Next Battle
     </button>;
     let editButton = <button className="btn btn-primary btn-lg" onClick={() => this.props.onEdit()}>
@@ -72,7 +72,7 @@ export default class WinnerScreen extends React.Component {
           <div className="card-body">
             <img src={previewUrl} alt="Winner preview" style={{paddingLeft: '50px'}} />
             <div className="caption">
-              <h3>{this.getWinnerName()}</h3>
+              <h3 className="winner-name">{this.getWinnerName()}</h3>
               <p>has won the battle</p>
               {restartButton}
               &nbsp;

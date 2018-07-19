@@ -34,11 +34,10 @@ Tool                                                 | Description
 
 ## Tests and code validation
 
-Tool                                                 | Description
------------------------------------------------------|-----------------------------------------
-[CasperJS](http://casperjs.org/)                     | Website navigation test Framework
-[PhantomJS](http://phantomjs.org/)                   | Scriptable, headless WebKit used by CasperJS
-[Mocha](https://mochajs.org/)                        | Unit Tests Framework
-[SinonJS](http://sinonjs.org/)                       | Test spies, stubs and mocks for unit tests
-[JSHint](http://jshint.com/)                         | JavaScript code validation
-[ESLint](https://eslint.org/)                        | JavaScript code validation (better ES6 support)
+Tool                                                  | Description
+------------------------------------------------------|-----------------------------------------
+[Puppeteer](https://github.com/GoogleChrome/puppeteer)| Headless Chromium used to run functional tests in it
+[Mocha](https://mochajs.org/)                         | Unit Tests Framework
+[SinonJS](http://sinonjs.org/)                        | Test spies, stubs and mocks for unit tests
+[JSHint](http://jshint.com/)                          | JavaScript code validation
+[ESLint](https://eslint.org/)                         | JavaScript code validation (better ES6 support)

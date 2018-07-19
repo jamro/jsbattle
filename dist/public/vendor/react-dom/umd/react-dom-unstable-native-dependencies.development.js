@@ -1,4 +1,4 @@
-/** @license React v16.3.2
+/** @license React v16.4.1
  * react-dom-unstable-native-dependencies.development.js
  *
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -215,17 +215,6 @@ var injection = {
   }
 };
 
-function isEndish(topLevelType) {
-  return topLevelType === 'topMouseUp' || topLevelType === 'topTouchEnd' || topLevelType === 'topTouchCancel';
-}
-
-function isMoveish(topLevelType) {
-  return topLevelType === 'topMouseMove' || topLevelType === 'topTouchMove';
-}
-function isStartish(topLevelType) {
-  return topLevelType === 'topMouseDown' || topLevelType === 'topTouchStart';
-}
-
 var validateEventDispatches = void 0;
 {
   validateEventDispatches = function (event) {
@@ -329,7 +318,7 @@ var HostComponent = 5;
 
 function getParent(inst) {
   do {
-    inst = inst['return'];
+    inst = inst.return;
     // TODO: If this is a HostRoot we might want to bail out.
     // That is depending on if we want nested subtrees (layers) to bubble
     // events to their parent. We could also go through parentNode on the
@@ -1013,6 +1002,35 @@ var ResponderSyntheticEvent = SyntheticEvent$1.extend({
   }
 });
 
+// Note: ideally these would be imported from DOMTopLevelEventTypes,
+// but our build system currently doesn't let us do that from a fork.
+
+var TOP_TOUCH_START = 'touchstart';
+var TOP_TOUCH_MOVE = 'touchmove';
+var TOP_TOUCH_END = 'touchend';
+var TOP_TOUCH_CANCEL = 'touchcancel';
+var TOP_SCROLL = 'scroll';
+var TOP_SELECTION_CHANGE = 'selectionchange';
+var TOP_MOUSE_DOWN = 'mousedown';
+var TOP_MOUSE_MOVE = 'mousemove';
+var TOP_MOUSE_UP = 'mouseup';
+
+function isStartish(topLevelType) {
+  return topLevelType === TOP_TOUCH_START || topLevelType === TOP_MOUSE_DOWN;
+}
+
+function isMoveish(topLevelType) {
+  return topLevelType === TOP_TOUCH_MOVE || topLevelType === TOP_MOUSE_MOVE;
+}
+
+function isEndish(topLevelType) {
+  return topLevelType === TOP_TOUCH_END || topLevelType === TOP_TOUCH_CANCEL || topLevelType === TOP_MOUSE_UP;
+}
+
+var startDependencies = [TOP_TOUCH_START, TOP_MOUSE_DOWN];
+var moveDependencies = [TOP_TOUCH_MOVE, TOP_MOUSE_MOVE];
+var endDependencies = [TOP_TOUCH_CANCEL, TOP_TOUCH_END, TOP_MOUSE_UP];
+
 /**
  * Tracks the position and time of each active touch by `touch.identifier`. We
  * should typically only see IDs in the range of 1-20 because IDs get recycled
@@ -1213,11 +1231,6 @@ var responderInst = null;
  */
 var trackedTouchCount = 0;
 
-/**
- * Last reported number of active touches.
- */
-var previousActiveTouches = 0;
-
 var changeResponder = function (nextResponderInst, blockHostResponder) {
   var oldResponderInst = responderInst;
   responderInst = nextResponderInst;
@@ -1235,7 +1248,8 @@ var eventTypes = {
     phasedRegistrationNames: {
       bubbled: 'onStartShouldSetResponder',
       captured: 'onStartShouldSetResponderCapture'
-    }
+    },
+    dependencies: startDependencies
   },
 
   /**
@@ -1251,7 +1265,8 @@ var eventTypes = {
     phasedRegistrationNames: {
       bubbled: 'onScrollShouldSetResponder',
       captured: 'onScrollShouldSetResponderCapture'
-    }
+    },
+    dependencies: [TOP_SCROLL]
   },
 
   /**
@@ -1265,7 +1280,8 @@ var eventTypes = {
     phasedRegistrationNames: {
       bubbled: 'onSelectionChangeShouldSetResponder',
       captured: 'onSelectionChangeShouldSetResponderCapture'
-    }
+    },
+    dependencies: [TOP_SELECTION_CHANGE]
   },
 
   /**
@@ -1276,22 +1292,45 @@ var eventTypes = {
     phasedRegistrationNames: {
       bubbled: 'onMoveShouldSetResponder',
       captured: 'onMoveShouldSetResponderCapture'
-    }
+    },
+    dependencies: moveDependencies
   },
 
   /**
    * Direct responder events dispatched directly to responder. Do not bubble.
    */
-  responderStart: { registrationName: 'onResponderStart' },
-  responderMove: { registrationName: 'onResponderMove' },
-  responderEnd: { registrationName: 'onResponderEnd' },
-  responderRelease: { registrationName: 'onResponderRelease' },
-  responderTerminationRequest: {
-    registrationName: 'onResponderTerminationRequest'
+  responderStart: {
+    registrationName: 'onResponderStart',
+    dependencies: startDependencies
   },
-  responderGrant: { registrationName: 'onResponderGrant' },
-  responderReject: { registrationName: 'onResponderReject' },
-  responderTerminate: { registrationName: 'onResponderTerminate' }
+  responderMove: {
+    registrationName: 'onResponderMove',
+    dependencies: moveDependencies
+  },
+  responderEnd: {
+    registrationName: 'onResponderEnd',
+    dependencies: endDependencies
+  },
+  responderRelease: {
+    registrationName: 'onResponderRelease',
+    dependencies: endDependencies
+  },
+  responderTerminationRequest: {
+    registrationName: 'onResponderTerminationRequest',
+    dependencies: []
+  },
+  responderGrant: {
+    registrationName: 'onResponderGrant',
+    dependencies: []
+  },
+  responderReject: {
+    registrationName: 'onResponderReject',
+    dependencies: []
+  },
+  responderTerminate: {
+    registrationName: 'onResponderTerminate',
+    dependencies: []
+  }
 };
 
 /**
@@ -1485,7 +1524,7 @@ to return true:wantsResponderID|                            |
  */
 
 function setResponderAndExtractTransfer(topLevelType, targetInst, nativeEvent, nativeEventTarget) {
-  var shouldSetEventType = isStartish(topLevelType) ? eventTypes.startShouldSetResponder : isMoveish(topLevelType) ? eventTypes.moveShouldSetResponder : topLevelType === 'topSelectionChange' ? eventTypes.selectionChangeShouldSetResponder : eventTypes.scrollShouldSetResponder;
+  var shouldSetEventType = isStartish(topLevelType) ? eventTypes.startShouldSetResponder : isMoveish(topLevelType) ? eventTypes.moveShouldSetResponder : topLevelType === TOP_SELECTION_CHANGE ? eventTypes.selectionChangeShouldSetResponder : eventTypes.scrollShouldSetResponder;
 
   // TODO: stop one short of the current responder.
   var bubbleShouldSetFrom = !responderInst ? targetInst : getLowestCommonAncestor(responderInst, targetInst);
@@ -1557,7 +1596,7 @@ function canTriggerTransfer(topLevelType, topLevelInst, nativeEvent) {
   // responderIgnoreScroll: We are trying to migrate away from specifically
   // tracking native scroll events here and responderIgnoreScroll indicates we
   // will send topTouchCancel to handle canceling touch events instead
-  topLevelType === 'topScroll' && !nativeEvent.responderIgnoreScroll || trackedTouchCount > 0 && topLevelType === 'topSelectionChange' || isStartish(topLevelType) || isMoveish(topLevelType));
+  topLevelType === TOP_SCROLL && !nativeEvent.responderIgnoreScroll || trackedTouchCount > 0 && topLevelType === TOP_SELECTION_CHANGE || isStartish(topLevelType) || isMoveish(topLevelType));
 }
 
 /**
@@ -1636,7 +1675,7 @@ var ResponderEventPlugin = {
       extracted = accumulate(extracted, gesture);
     }
 
-    var isResponderTerminate = responderInst && topLevelType === 'topTouchCancel';
+    var isResponderTerminate = responderInst && topLevelType === TOP_TOUCH_CANCEL;
     var isResponderRelease = responderInst && !isResponderTerminate && isEndish(topLevelType) && noResponderTouches(nativeEvent);
     var finalTouch = isResponderTerminate ? eventTypes.responderTerminate : isResponderRelease ? eventTypes.responderRelease : null;
     if (finalTouch) {
@@ -1647,17 +1686,10 @@ var ResponderEventPlugin = {
       changeResponder(null);
     }
 
-    var numberActiveTouches = ResponderTouchHistoryStore.touchHistory.numberActiveTouches;
-    if (ResponderEventPlugin.GlobalInteractionHandler && numberActiveTouches !== previousActiveTouches) {
-      ResponderEventPlugin.GlobalInteractionHandler.onChange(numberActiveTouches);
-    }
-    previousActiveTouches = numberActiveTouches;
-
     return extracted;
   },
 
   GlobalResponderHandler: null,
-  GlobalInteractionHandler: null,
 
   injection: {
     /**
@@ -1667,14 +1699,6 @@ var ResponderEventPlugin = {
      */
     injectGlobalResponderHandler: function (GlobalResponderHandler) {
       ResponderEventPlugin.GlobalResponderHandler = GlobalResponderHandler;
-    },
-
-    /**
-     * @param {{onChange: (numberActiveTouches) => void} GlobalInteractionHandler
-     * Object that handles any change in the number of active touches.
-     */
-    injectGlobalInteractionHandler: function (GlobalInteractionHandler) {
-      ResponderEventPlugin.GlobalInteractionHandler = GlobalInteractionHandler;
     }
   }
 };

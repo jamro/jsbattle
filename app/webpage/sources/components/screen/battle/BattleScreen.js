@@ -21,7 +21,7 @@ export default class BattleScreen extends React.Component {
       tankList: [],
       teamList: [],
       windowSize: 'md',
-      rngSeed: (props.settings && props.settings.rngSeed !== undefined) ? props.settings.rngSeed : Math.random(),
+      rngSeed: (props.rngSeed !== undefined) ? props.rngSeed : Math.random(),
       error: ""
     };
   }
@@ -43,8 +43,9 @@ export default class BattleScreen extends React.Component {
 
   onBattleReady() {
     let self = this;
-    this.props.aiDefList.forEach((ai) => {
-      if(self.props.settings.teamMode) {
+    let aiDefList = this.props.aiDefList;
+    aiDefList.forEach((ai) => {
+      if(self.props.teamMode) {
         ai.assignToTeam(ai.name);
       }
       self.battlefield.addTank(ai);
@@ -59,7 +60,7 @@ export default class BattleScreen extends React.Component {
   }
 
   onBattleFinish(result) {
-    result.teamMode = this.props.settings.teamMode;
+    result.teamMode = this.props.teamMode;
     if(this.props.onFinish) {
       this.props.onFinish(result);
     }
@@ -123,7 +124,7 @@ export default class BattleScreen extends React.Component {
       <i className="fa fa-power-off" aria-hidden="true"></i> Exit the battle
     </button>;
     let scoreboard = <ScoreBoard
-      tankList={this.props.settings.teamMode ? this.state.teamList : this.state.tankList}
+      tankList={this.props.teamMode ? this.state.teamList : this.state.tankList}
       refreshTime={200+1300*(1-this.state.qualityLevel)}
     />;
     let debugView = <DebugView

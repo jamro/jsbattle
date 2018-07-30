@@ -31,10 +31,8 @@ export default class UbdUpload extends React.Component {
       });
       self.props.onStart(
         descriptor.getAiList(),
-        {
-          teamMode: descriptor.getTeamMode(),
-          rngSeed: descriptor.getRngSeed()
-        }
+        descriptor.getTeamMode(),
+        descriptor.getRngSeed()
       );
     };
     reader.readAsDataURL(event.target.files[0]);

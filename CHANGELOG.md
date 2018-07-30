@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - tests of website are based on Puppeteer + Mocha instead of PhantomJS + CasperJS ([PhantomJS project is discontinued](https://github.com/ariya/phantomjs/issues/15344))
+- refactoring of the website
 
 ### Fixed
 - renaming of AI script to the same name results in removing it

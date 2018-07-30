@@ -11,12 +11,6 @@ export default class EditorScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    let script = this.props.aiRepository.getScript(this.props.name);
-    this.state = {
-      script: script,
-      unsavedCode: script.code
-    };
-    this._hasUnsavedChanges = false;
   }
 
   onRename(newValue, oldValue) {
@@ -26,43 +20,19 @@ export default class EditorScreen extends React.Component {
     if(newValue != oldValue && !this.props.aiRepository.isNameAllowed(newValue)) {
       return "Name must be unique, at least 3 characters long";
     }
-
-    this.props.aiRepository.renameScript(newValue, oldValue);
-    this.setState({script: this.props.aiRepository.getScript(newValue)});
-    this.props.onRename(newValue, oldValue);
+    this.props.onRename(newValue);
     return null;
   }
 
-  onCodeChanged(code) {
-    let hasUnsaved = (this.state.script.code != code);
-    if(this._hasUnsavedChanges != hasUnsaved) {
-      this._hasUnsavedChanges = hasUnsaved;
-      this.props.onUnsavedCode(hasUnsaved);
-    }
-    this.setState({unsavedCode: code});
-  }
-
   hasUnsavedChanges() {
-    return this._hasUnsavedChanges;
+    return this.props.originalCode != this.props.unsavedCode;
   }
 
   onClose(testNow) {
-    this._hasUnsavedChanges = false;
-    this.props.onUnsavedCode(false);
     if(testNow) {
       this.props.onTest();
     } else {
       this.props.onClose();
-    }
-  }
-
-  onSave() {
-    let name = this.state.script.name;
-    if(this.hasUnsavedChanges()) {
-      this.props.aiRepository.updateScript(name, this.state.unsavedCode);
-      this.setState({script: this.props.aiRepository.getScript(name)});
-      this._hasUnsavedChanges = false;
-      this.props.onUnsavedCode(false);
     }
   }
 
@@ -149,7 +119,7 @@ export default class EditorScreen extends React.Component {
             <SaveButtons
               unsavedChanges={this.hasUnsavedChanges()}
               onClose={(testNow) => this.onClose(testNow)}
-              onSave={() => this.onSave()}
+              onSave={() => this.props.onCodeSave()}
             />
           </div>
       </FullRow>
@@ -173,8 +143,8 @@ export default class EditorScreen extends React.Component {
         <Col lg={9} md={8} sm={12} xs={12}>
           <CodeArea
             className="form-control"
-            defaultValue={this.state.script.code}
-            onChange={(e) => this.onCodeChanged(e)}
+            defaultValue={this.props.unsavedCode}
+            onChange={(code) => this.props.onCodeChanged(code)}
           />
         </Col>
       </Row>

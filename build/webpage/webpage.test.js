@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 require('babel-register')();
 const through = require("through2");
 const child_process = require('child_process');

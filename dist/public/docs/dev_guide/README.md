@@ -7,6 +7,7 @@ This section is unnecessary to play JsBattle however, if you would like to exten
 - [JsBattle Library Tutorial](/docs/dev_guide/sim_lib.md)
 - [JsBattle API](/docs/dev_guide/api.md)
 - [Project Structure](/docs/dev_guide/structure.md)
+- [Spritesheets](/docs/dev_guide/spritesheets.md)
 - [Toolset](/docs/dev_guide/toolset.md)
 - [Adding Bundled Tanks](/docs/dev_guide/adding_bundled_tanks.md)
 - [Release Procedure](/docs/dev_guide/release.md)

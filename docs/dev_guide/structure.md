@@ -27,9 +27,8 @@
     |-- docs
     |-- node_modules
     |-- resources
-    |   |-- brody
-    |   |-- ...
-    |   +-- images.js
+    |   |-- images
+    |   +-- spritesheets
     |-- test
     |-- tmp
     |-- gulpfile.js
@@ -59,5 +58,7 @@
   * `/dist/ubdplayer.js` - Command line player of UBD files
 * **`/docs`** - Documentation in markdown format. There is an `index.html` in the directory that comes from [Docsify](https://docsify.js.org/) and allows to display docs as HTML
 * **`/node_modules`** - NPM dependencies
-* **`/resources`** -  graphical assets that are used in the game. Each directory has contains assets of different renderer. Graphics are converted to sprite sheets by [Pixi Packer](https://github.com/gamevy/pixi-packer). ``images.js`` contains information about conversion process. For more documentation read documentation of [Pixi Packer](https://github.com/gamevy/pixi-packer)
+* **`/resources`** - static resources
+  * `/resources/images` - images that are source for all spritesheets
+  * `/resources/spritesheets` - generated spritesheets to be included in the project
 * **`/test`** - Test scripts

@@ -1,44 +1,14 @@
 # Building Process
 
-### Prerequisites
+## Install JsBattle
+
+The process is described in details in [Installation](/docs/installation.md) section.
+
+## Prerequisites
 
 You will need these before you start:
-
- - [**NPM**](https://www.npmjs.com/) - NPM is a package manager used heavily during building process. You cannot start without it.
- - [**PhantomJS**](http://phantomjs.org/) - Headless WebKit scriptable with a JavaScript API
- - [**CasperJS**](http://casperjs.org/) - Navigation scripting & testing for PhantomJS
- - [**ImageMagick**](http://www.imagemagick.org/) - During the building process, sprite sheets are generated with [Pixi Packer](https://github.com/gamevy/pixi-packer). This tool requires ImageMagick. Make sure you have installed it locally. On OSX you can do so via `brew install imagemagick`, other operating systems will vary.
- - [**Python**](https://www.python.org/) -[CasperJS](http://casperjs.org/) and [PhantomJS](http://phantomjs.org/) that are used in testing process require Python 2.6 or grater. Download and install it if you don't have it in your system yet.
-
-## Download Project & Dependencies
-
-At the beginning, download JsBattle. There are at least two ways to do that:
-
-### Option 1: Download from GitHub
-
-Download sources of latest release from here: [https://github.com/jamro/jsbattle/releases](https://github.com/jamro/jsbattle/releases) and unpack the archive.
-
-Go to the directory with the game and install all NPM dependencies:
-
-```bash
-  npm install
-```
-
-### Option 2: Use NPM
-
-Install JsBattle in selected directory:
-
-```bash
-  npm install jsbattle
-```
-
-Go to `node_modules/jsbattle` directory
-
-Next, go to directory with the project where `package.json` is located and install all dependencies:
-
-```bash
-  npm install
-```
+- [Graphviz](http://www.graphviz.org/) - required by PlantUML to generate UML diagrams in documentation
+- [Java SE Development Kit](https://www.oracle.com/technetwork/java/javase/downloads/index.html) - required by PlantUML to generate UML diagrams in documentation
 
 ## Build Process
 

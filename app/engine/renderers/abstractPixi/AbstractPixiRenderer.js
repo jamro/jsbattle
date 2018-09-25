@@ -5,7 +5,6 @@ import AbstractRenderer from "../abstract/AbstractRenderer.js";
 import AbstractPixiView from "./AbstractPixiView.js";
 import AbstractPixiTankView from "./AbstractPixiTankView.js";
 import PixiRendererClockModel from "./PixiRendererClockModel.js";
-import PixiPackerParser from "pixi-packer-parser";
 
 export default class AbstractPixiRenderer extends AbstractRenderer  {
 
@@ -56,7 +55,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       view: this._canvas,
       antialias: false,
       backgroundColor: 0xffffff,
-      resolution: window.devicePixelRatio
+      resolution: this._rendererScale
     };
 
     this._renderer = new PIXI.autoDetectRenderer(
@@ -85,16 +84,25 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       done();
       return;
     }
-    let loader = new PIXI.loaders.Loader();
-    loader.after(PixiPackerParser(PIXI));
-    let resolution = (this._rendererScale == 2) ? "retina" : "web";
-    loader.add("img/game_" + this._name + "_" + resolution + ".json");
-    let self = this;
-    loader.load(() => {
-      self.onAssetsLoaded();
+    let loader = PIXI.loader;
+    let loadedResources = [];
+    for(let res in loader.resources) {
+      loadedResources.push(res)
+    }
+
+    this._getSpritesheetUrls(this._name, this._rendererScale)
+      .filter((url) => {
+        return loadedResources.indexOf(url) == -1;
+      })
+      .forEach((url) => {
+        loader.add(url);
+      });
+    loader.load((loader, resources) => {
+      this.onAssetsLoaded();
       done();
     });
   }
+
 
   onAssetsLoaded() {
 
@@ -129,6 +137,13 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
   postRender() {
     super.postRender();
     this._renderer.render(this._stage);
+  }
+
+  _getSpritesheetUrls(rendererName, rendererScale) {
+    let resolution = (rendererScale == 2) ? "retina@2x" : "web";
+    return [
+      `img/spritesheets/${rendererName}/${resolution}/jsbattle.json`
+    ];
   }
 
   _createTankView(tank) {

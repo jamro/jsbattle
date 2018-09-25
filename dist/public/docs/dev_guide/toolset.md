@@ -27,7 +27,6 @@ Tool                                                 | Description
 [Gulp](https://gulpjs.com/)                          | Build automation
 [Weback](https://webpack.github.io/)                 | Module bundler
 [BabelJs](https://babeljs.io/)                       | Converts ES6 to most web browsers compliant code
-[Pixi Packer](https://github.com/gamevy/pixi-packer) | Build sprite sheets
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator
 [Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
 [PlantUML](http://plantuml.com/)                     | Generates UML diagrams from text

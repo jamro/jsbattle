@@ -24,6 +24,7 @@
   - [JsBattle Library Tutorial](/docs/dev_guide/sim_lib.md)
   - [JsBattle API](/docs/dev_guide/api.md)
   - [Project Structure](/docs/dev_guide/structure.md)
+  - [Spritesheets](/docs/dev_guide/spritesheets.md)
   - [Toolset](/docs/dev_guide/toolset.md)
   - [Adding Bundled Tanks](/docs/dev_guide/adding_bundled_tanks.md)
   - [UBD files](/docs/dev_guide/ubd_files.md)

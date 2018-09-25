@@ -161,6 +161,21 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
     }
   }
 
+  _getSpritesheetUrls(rendererName, rendererScale) {
+    let resolution = (rendererScale == 2) ? "retina@2x" : "web";
+    if(rendererScale >= 2) {
+      return [
+        `img/spritesheets/${rendererName}/retina@2x/jsbattle_0.json`,
+        `img/spritesheets/${rendererName}/retina@2x/jsbattle_1.json`
+      ];
+    } else {
+      return [
+        `img/spritesheets/${rendererName}/web/jsbattle.json`
+      ]
+    }
+
+  }
+
   _addTankExplosion(tank) {
     this._addExplosion(tank.x, tank.y, this._bigBoomAnim);
     this.battlefieldView.addCrater(tank.x, tank.y);

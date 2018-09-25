@@ -1,0 +1,40 @@
+@startuml
+
+class Renderer {
+    + preRender()
+    + postRender()
+    + renderTank()
+    + renderBullet()
+}
+
+class AbstractRenderer {
+    - tankMap : AbstractView[]
+    - bulletMap : AbstractView[]
+    # renderModel()
+}
+
+class AbstractPixiRenderer {
+    - stage
+    + loadAssets()
+}
+
+class BrodyRenderer {
+
+}
+
+class BWRenderer {
+
+}
+
+class DebugRenderer {
+
+}
+
+
+Renderer <|-- AbstractRenderer
+AbstractRenderer <|-- AbstractPixiRenderer
+AbstractPixiRenderer <|-- BrodyRenderer
+AbstractPixiRenderer <|-- BWRenderer
+AbstractPixiRenderer <|-- DebugRenderer
+
+@enduml

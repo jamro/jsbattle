@@ -1,5 +1,11 @@
 # Installation
 
+## Prerequisites
+
+You will need these before you start:
+
+ - [**NodeJS**](https://nodejs.org/) - NodeJS and NPM is heavily used during building process. You cannot start without it.
+
 
 ## Option 1: Download from GitHub
 

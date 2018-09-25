@@ -1,19 +1,7 @@
-const through = require('through2');
-const PixiPacker = require('pixi-packer');
-
 module.exports = function (gulp, config, plugins) {
-  return function () {
-    // Hack: Avoid require-cache
-    delete require.cache[__dirname + "/../../" + config.engine.resources + "/images.js"];
-    var packerConfig = require(__dirname + "/../../" + config.engine.resources + "/images.js");
-
-    var pixiPacker = new PixiPacker(
-        packerConfig,
-        __dirname + "/../../" + config.engine.resources,
-        config.tmp + "dist/public/img",
-        "tmp/cache"
-    );
-
-    return pixiPacker.process();
-  }
-}
+    return function (done) {
+      gulp.src(__dirname + "/../../" + config.engine.spritesheets)
+        .pipe(gulp.dest(config.tmp + "dist/public/img/spritesheets/"))
+        .on('end', done);
+    };
+};

@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -58,8 +58,6 @@
     "json-loader": "^0.5.7",
     "mocha": "^5.2.0",
     "node-plantuml": "^0.6.2",
-    "pixi-packer": "^3.2.1",
-    "pixi-packer-parser": "^2.0.0",
     "should": "^13.2.1",
     "sinon": "^5.0.7",
     "through2": "^2.0.3",
@@ -78,7 +76,7 @@
     "npm": "^6.2.0",
     "pixi.js": "^4.7.3",
     "popper.js": "^1.14.3",
-    "puppeteer": "^1.5.0",
+    "puppeteer": "^1.8.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-highlight": "^0.12.0",

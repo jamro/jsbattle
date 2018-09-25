@@ -3,11 +3,10 @@ module.exports = {
     entry: "./app/engine/entry.js",
     sources: ['app/engine/**/*.js'],
     test: ['test/engine/**/*.test.js'],
-    resources: ['resources/images'],
+    spritesheets: ['resources/spritesheets/**/*.*'],
     lib: [
       'node_modules/sat/SAT.js',
-      'node_modules/seedrandom/seedrandom.js',
-      'node_modules/pixi-packer-parser/index.js'
+      'node_modules/seedrandom/seedrandom.js'
     ],
   },
   server: {

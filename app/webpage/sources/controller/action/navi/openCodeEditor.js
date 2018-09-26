@@ -3,6 +3,7 @@ export default (stateHolder, aiRepository) => {
   return (tankName, back) => {
     let script = aiRepository.getScript(tankName).code;
     stateHolder.setState((state) => {
+      /* jshint ignore:start */
       return {
         navi: {
           ...state.navi,
@@ -18,8 +19,9 @@ export default (stateHolder, aiRepository) => {
           back: back
         },
         errorMessage: null
-      }
+      };
+      /* jshint ignore:end */
     });
-  }
+  };
 
 };

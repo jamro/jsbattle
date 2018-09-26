@@ -5,6 +5,7 @@ export default (stateHolder) => {
       throw new Error('result.tankWinner is mandatory!');
     }
     stateHolder.setState((state) => {
+      /* jshint ignore:start */
       return {
         navi: {
           section: 'BATTLE',
@@ -17,6 +18,7 @@ export default (stateHolder) => {
         },
         errorMessage: null
       };
+      /* jshint ignore:end */
     });
-  }
+  };
 };

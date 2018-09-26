@@ -9,7 +9,7 @@ export default (stateHolder) => {
           pageData: {}
         },
         errorMessage: null
-      }
+      };
     });
-  }
+  };
 };

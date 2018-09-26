@@ -2,6 +2,7 @@ export default (stateHolder) => {
 
   return (aiDefList, teamMode, rngSeed) => {
     stateHolder.setState((state) => {
+      /* jshint ignore:start */
       return {
         navi: {
           section: 'BATTLE',
@@ -16,8 +17,9 @@ export default (stateHolder) => {
           quickBattleTank: null
         },
         errorMessage: null
-      }
+      };
+      /* jshint ignore:end */
     });
-  }
+  };
 
 };

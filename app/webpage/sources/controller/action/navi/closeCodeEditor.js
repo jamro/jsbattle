@@ -6,6 +6,6 @@ export default (stateHolder, controller) => {
     } else {
       controller.openCodeRepository();
     }
-  }
+  };
 
 };

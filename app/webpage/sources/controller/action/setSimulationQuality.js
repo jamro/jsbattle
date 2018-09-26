@@ -5,6 +5,6 @@ export default (stateHolder) => {
     stateHolder.setState({
       qualitySettings: quality
     });
-  }
+  };
 
 };

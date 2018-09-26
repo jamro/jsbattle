@@ -9,6 +9,6 @@ export default (stateHolder) => {
       },
       errorMessage: null
     });
-  }
+  };
 
 };

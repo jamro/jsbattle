@@ -7,6 +7,7 @@ export default (stateHolder, aiRepository) => {
       let battleSet = state.battle.battleSet;
       battleSet.removeTankByName(name);
 
+      /* jshint ignore:start */
       return {
         battle: {
           ...state.battle,
@@ -16,7 +17,8 @@ export default (stateHolder, aiRepository) => {
           ...state.codeRepository,
           tankList: aiRepository.getScriptNameList()
         }
-      }
+      };
+      /* jshint ignore:end */
     });
   };
 };

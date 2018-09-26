@@ -18,6 +18,7 @@ export default (stateHolder, aiRepository) => {
       tank.count = 1;
       tank.userCreated = true;
 
+      /* jshint ignore:start */
       return {
         battle: {
           ...state.battle,
@@ -27,7 +28,8 @@ export default (stateHolder, aiRepository) => {
           ...state.codeRepository,
           tankList: aiRepository.getScriptNameList()
         }
-      }
+      };
+      /* jshint ignore:end */
     });
   };
 };

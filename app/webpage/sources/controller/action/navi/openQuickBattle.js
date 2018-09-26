@@ -15,6 +15,7 @@ export default (stateHolder, aiRepository) => {
         totalTankCount++;
       }
 
+      /* jshint ignore:start */
       return {
         navi: {
           section: 'BATTLE',
@@ -28,8 +29,9 @@ export default (stateHolder, aiRepository) => {
           aiDefList: battleSet.getAiDefList(aiRepository),
         },
         errorMessage: null
-      }
+      };
+      /* jshint ignore:end */
     });
-  }
+  };
 
 };

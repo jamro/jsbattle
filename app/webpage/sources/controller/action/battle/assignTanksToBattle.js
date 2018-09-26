@@ -12,11 +12,13 @@ export default (stateHolder, aiRepository) => {
 
       localStorage.setItem("settings.battleSet", JSON.stringify(battleSet.toJSON()));
 
+      /* jshint ignore:start */
       return {
         ...state.battle,
         battleSet: battleSet
-      }
+      };
+      /* jshint ignore:end */
     });
-  }
+  };
 
 };

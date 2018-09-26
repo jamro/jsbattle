@@ -98,5 +98,5 @@ export default (stateHolder, aiRepository, controller) => {
         errorMessage: "Cannot load and parse tanks/index.json"
       });
     });
-  }
+  };
 };

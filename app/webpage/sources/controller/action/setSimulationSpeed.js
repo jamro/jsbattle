@@ -5,6 +5,6 @@ export default (stateHolder) => {
     stateHolder.setState({
       simSpeed: speed
     });
-  }
+  };
 
 };

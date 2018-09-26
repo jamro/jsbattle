@@ -33,7 +33,7 @@ describe('Web Page', function() {
 
   before(async () => {
     this.mlog.log('Starting Chrome...');
-    this.browser = await puppeteer.launch();
+    this.browser = await puppeteer.launch({args: ['--no-sandbox']});
     await this.createNewPage();
     this.mlog.log('Chrome page loaded');
   });

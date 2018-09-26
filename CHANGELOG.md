@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - refactoring of the website
 - build process revised and simplified
 - documentation update (related with changes in build process)
-
+- dependencies/libraries update
 
 ### Fixed
 - Bugfix: renaming of AI script to the same name results in removing it

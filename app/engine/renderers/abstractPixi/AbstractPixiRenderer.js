@@ -87,7 +87,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     let loader = PIXI.loader;
     let loadedResources = [];
     for(let res in loader.resources) {
-      loadedResources.push(res)
+      loadedResources.push(res);
     }
 
     this._getSpritesheetUrls(this._name, this._rendererScale)

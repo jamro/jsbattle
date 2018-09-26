@@ -171,7 +171,7 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
     } else {
       return [
         `img/spritesheets/${rendererName}/web/jsbattle.json`
-      ]
+      ];
     }
 
   }

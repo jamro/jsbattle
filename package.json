@@ -32,7 +32,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "beepbeep": "^1.2.2",
-    "brfs": "^1.6.1",
+    "brfs": "^2.0.1",
     "chai": "^4.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

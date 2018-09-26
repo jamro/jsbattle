@@ -4174,9 +4174,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SAT = __webpack_require__(28);
+var _sat = __webpack_require__(28);
 
-var _SAT2 = _interopRequireDefault(_SAT);
+var _sat2 = _interopRequireDefault(_sat);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4203,13 +4203,13 @@ var CollisionResolver = function () {
         maxY: battlefield.maxY
       };
       var wall = void 0;
-      wall = new _SAT2.default.Box(new _SAT2.default.Vector(battlefield.minX - 10, battlefield.minY), 10, battlefield.height).toPolygon();
+      wall = new _sat2.default.Box(new _sat2.default.Vector(battlefield.minX - 10, battlefield.minY), 10, battlefield.height).toPolygon();
       this._wallList.push(wall);
-      wall = new _SAT2.default.Box(new _SAT2.default.Vector(battlefield.minX, battlefield.minY - 10), battlefield.width, 10).toPolygon();
+      wall = new _sat2.default.Box(new _sat2.default.Vector(battlefield.minX, battlefield.minY - 10), battlefield.width, 10).toPolygon();
       this._wallList.push(wall);
-      wall = new _SAT2.default.Box(new _SAT2.default.Vector(battlefield.maxX, battlefield.minY), 10, battlefield.height).toPolygon();
+      wall = new _sat2.default.Box(new _sat2.default.Vector(battlefield.maxX, battlefield.minY), 10, battlefield.height).toPolygon();
       this._wallList.push(wall);
-      wall = new _SAT2.default.Box(new _SAT2.default.Vector(battlefield.minX, battlefield.maxY), battlefield.width, 10).toPolygon();
+      wall = new _sat2.default.Box(new _sat2.default.Vector(battlefield.minX, battlefield.maxY), battlefield.width, 10).toPolygon();
       this._wallList.push(wall);
     }
   }, {
@@ -4244,7 +4244,7 @@ var CollisionResolver = function () {
       var wall = void 0;
       for (i in this._wallList) {
         wall = this._wallList[i];
-        hitTest = _SAT2.default.testCirclePolygon(bulletShape, wall);
+        hitTest = _sat2.default.testCirclePolygon(bulletShape, wall);
         if (hitTest) {
           bullet.onWallHit();
           return true;
@@ -4257,7 +4257,7 @@ var CollisionResolver = function () {
         if (enemyShape == tankShape) {
           continue;
         }
-        hitTest = _SAT2.default.testCircleCircle(bulletShape, enemyShape);
+        hitTest = _sat2.default.testCircleCircle(bulletShape, enemyShape);
         if (hitTest) {
           var energyBefore = enemyShape.tank.energy;
           bullet.onEnemyHit(enemyShape.tank);
@@ -4286,7 +4286,7 @@ var CollisionResolver = function () {
       var wall = void 0;
       for (i in this._wallList) {
         wall = this._wallList[i];
-        hitTest = _SAT2.default.testCirclePolygon(tankShape, wall);
+        hitTest = _sat2.default.testCirclePolygon(tankShape, wall);
         if (hitTest) {
           tank.onWallHit();
           return false;
@@ -4299,7 +4299,7 @@ var CollisionResolver = function () {
         if (enemyShape == tankShape) {
           continue;
         }
-        hitTest = _SAT2.default.testCircleCircle(tankShape, enemyShape);
+        hitTest = _sat2.default.testCircleCircle(tankShape, enemyShape);
         var areAllies = tank.isAlly(enemyShape.tank);
         if (hitTest) {
           if (!areAllies) {
@@ -4336,7 +4336,7 @@ var CollisionResolver = function () {
         if (enemyShape == tankShape) {
           continue;
         }
-        hitTest = _SAT2.default.testPolygonCircle(radarBeamShape, enemyShape);
+        hitTest = _sat2.default.testPolygonCircle(radarBeamShape, enemyShape);
         if (hitTest) {
           enemies.push(enemyShape.tank);
         }
@@ -4392,7 +4392,7 @@ var CollisionResolver = function () {
         bulletShape = this._bulletMap[i];
         if (!bulletShape) continue;
         if (bulletShape.bullet.owner == tank) continue;
-        hitTest = _SAT2.default.testCirclePolygon(bulletShape, radarBeamShape);
+        hitTest = _sat2.default.testCirclePolygon(bulletShape, radarBeamShape);
         if (hitTest) {
           tank.onBulletSpot(bulletShape.bullet);
           spottedBullets = true;
@@ -4468,7 +4468,7 @@ var CollisionResolver = function () {
         if (tank.energy == 0) {
           throw "Cannot create shape for destroyed tank";
         }
-        var shape = new _SAT2.default.Circle(new _SAT2.default.Vector(tank.x, tank.y), 18);
+        var shape = new _sat2.default.Circle(new _sat2.default.Vector(tank.x, tank.y), 18);
         this._tankMap[tank.id] = shape;
         shape.tank = tank;
       }
@@ -4481,7 +4481,7 @@ var CollisionResolver = function () {
         if (bullet.exploded) {
           throw "Cannot create shape for exploded bullet";
         }
-        var shape = new _SAT2.default.Circle(new _SAT2.default.Vector(bullet.x, bullet.y), 3);
+        var shape = new _sat2.default.Circle(new _sat2.default.Vector(bullet.x, bullet.y), 3);
         this._bulletMap[bullet.id] = shape;
         shape.bullet = bullet;
       }
@@ -4495,7 +4495,7 @@ var CollisionResolver = function () {
           throw "Cannot create radar beam shape for destroyed tank";
         }
         var width = tank.radarRange * Math.tan(tank.radarFocal * (Math.PI / 180)) / 2;
-        var shape = new _SAT2.default.Polygon(new _SAT2.default.Vector(tank.x, tank.y), [new _SAT2.default.Vector(0, 3), new _SAT2.default.Vector(0, -3), new _SAT2.default.Vector(tank.radarRange, -width), new _SAT2.default.Vector(tank.radarRange, width)]);
+        var shape = new _sat2.default.Polygon(new _sat2.default.Vector(tank.x, tank.y), [new _sat2.default.Vector(0, 3), new _sat2.default.Vector(0, -3), new _sat2.default.Vector(tank.radarRange, -width), new _sat2.default.Vector(tank.radarRange, width)]);
 
         this._radarBeamMap[tank.id] = shape;
         shape.tank = tank;

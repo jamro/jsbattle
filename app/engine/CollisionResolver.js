@@ -1,6 +1,6 @@
 'use strict';
 
-import SAT from 'SAT';
+import SAT from 'sat';
 
 export default class CollisionResolver {
 

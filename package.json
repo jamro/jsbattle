@@ -53,7 +53,6 @@
     "gulp-stats": "^0.0.4",
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.8",
-    "imagemin-pngquant": "^5.1.0",
     "jshint": "^2.9.6",
     "json-loader": "^0.5.7",
     "mocha": "^5.2.0",

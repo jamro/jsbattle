@@ -1,0 +1,14 @@
+version: "2"
+services:
+  node:
+    image: "node:10"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "127.0.0.1:8090:8080"
+    command: "./dist/jsbattle.js -h=0.0.0.0 start"
+#    command: "npm start"

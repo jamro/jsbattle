@@ -62,13 +62,16 @@ typings/
 # Mac files
 .DS_Store
 
-#temporary files
+# temporary files
 /tmp
 /temp
 
-#art
+# art
 /art
 
-#others
+# others
 /app/server/battleOutput.json
 /dist/battleOutput.json
+
+# ansible ignore
+/deployment/ansible.cfg

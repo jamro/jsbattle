@@ -14,7 +14,7 @@ JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a ga
 
 ## Demo
 
-Give JsBattle a try and play the demo here: [http://jsbattle.jamro.net](http://jsbattle.jamro.net)
+Give JsBattle a try and play the demo here: [http://jsbattle.jmrlab.com](http://jsbattle.jmrlab.com)
 
 ## How to play?
 

@@ -31,7 +31,7 @@ yargs
   })
   .command(
     'start',
-    'starts JsBattle server',
+    'Launch JsBattle server',
     (yargs) => {
 
     },
@@ -50,6 +50,9 @@ yargs
       );
     }
   )
+  .command("*", "", (argv) => {
+    console.log("Nothing happened :( Run 'jsbattle.js --help' for more info\n");
+  })
   .help()
   .version()
   .argv;

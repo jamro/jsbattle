@@ -1,0 +1,14 @@
+---
+# tasks file for node
+  - name: Install epel
+    shell: curl -sL https://rpm.nodesource.com/setup_8.x | bash -
+    args:
+      warn: False
+
+  - name: Install nodejs
+    yum: name=nodejs
+
+  - name: Install pm2
+    npm:
+      name: pm2
+      global: yes

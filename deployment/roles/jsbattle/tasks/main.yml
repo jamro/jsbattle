@@ -1,0 +1,24 @@
+---
+# tasks file for jsbattle
+  - name: Install git
+    yum:
+      name: git
+
+  - name: Clean app path
+    file:
+      state: absent
+      path: "~/jsbattle"
+
+  - name: Get JsBattle from GitHub
+    git:
+      repo: https://github.com/jamro/jsbattle.git
+      dest: ~/jsbattle
+      version: HEAD
+
+  - name: Install dependencies
+    command: npm install --unsafe-perm=true --allow-root
+    args:
+      chdir: ~/jsbattle
+
+  - name: Start APP
+    shell: pm2 start ~/jsbattle/dist/jsbattle.js -- start -h 0.0.0.0 -p 80

@@ -8,6 +8,7 @@
     |   |-- tools
     |   +-- webpage
     |-- build
+    |-- deployment
     |-- dist
     |   |-- lib
     |   |-- public
@@ -43,6 +44,7 @@
   * `/app/tools` - command line tools (requires node.js) such as UbdPlayer
   * `/app/website` - source codes of website where battle simulation is embedded
 * **`/build`** - Gulp tasks. Each file is a separate task imported by `/gulpfile.js`. Configuration of Gulp is kept in `config.js`
+* **`/deployment`** - Deployment scripts
 * **`/dist`** - build output goes here. It contains built version of the game.
   * `/dist/public` - the frontend (static content)
     * `/dist/public/css` - style sheets files

@@ -75,3 +75,4 @@ typings/
 
 # ansible ignore
 /deployment/ansible.cfg
+/deployment/*.retry

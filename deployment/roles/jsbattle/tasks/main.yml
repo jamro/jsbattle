@@ -7,18 +7,18 @@
   - name: Clean app path
     file:
       state: absent
-      path: "~/jsbattle"
+      path: "{{ jsbattle_dest }}/jsbattle"
 
   - name: Get JsBattle from GitHub
     git:
       repo: https://github.com/jamro/jsbattle.git
-      dest: ~/jsbattle
-      version: HEAD
+      dest: "{{ jsbattle_dest }}/jsbattle"
+      version: "{{ jsbattle_version }}"
 
   - name: Install dependencies
     command: npm install --unsafe-perm=true --allow-root
     args:
-      chdir: ~/jsbattle
+      chdir: "{{ jsbattle_dest }}/jsbattle"
 
   - name: Stop APP
     shell: pm2 stop jsbattle || true
@@ -27,4 +27,4 @@
     shell: pm2 del jsbattle || true
 
   - name: Start APP
-    shell: pm2 start ~/jsbattle/dist/jsbattle.js -- start -h 0.0.0.0 -p 80
+    shell: pm2 start {{ jsbattle_dest }}/jsbattle/dist/jsbattle.js -- start -h {{ jsbattle_address }} -p {{ jsbattle_port }}

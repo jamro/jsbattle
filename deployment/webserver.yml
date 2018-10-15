@@ -3,5 +3,7 @@
     become: true
     become_method: sudo
     roles:
-      - node
-      - jsbattle
+      - role: node
+
+      - role: jsbattle
+        jsbattle_port: 80

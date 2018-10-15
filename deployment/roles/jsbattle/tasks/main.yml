@@ -20,5 +20,11 @@
     args:
       chdir: ~/jsbattle
 
+  - name: Stop APP
+    shell: pm2 stop jsbattle || true
+
+  - name: Delete APP
+    shell: pm2 del jsbattle || true
+
   - name: Start APP
     shell: pm2 start ~/jsbattle/dist/jsbattle.js -- start -h 0.0.0.0 -p 80

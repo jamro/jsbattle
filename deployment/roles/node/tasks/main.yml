@@ -7,8 +7,3 @@
 
   - name: Install nodejs
     yum: name=nodejs
-
-  - name: Install pm2
-    npm:
-      name: pm2
-      global: yes

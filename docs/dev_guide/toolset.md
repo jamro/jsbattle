@@ -31,6 +31,7 @@ Tool                                                 | Description
 [Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
 [PlantUML](http://plantuml.com/)                     | Generates UML diagrams from text
 [Ansible](https://www.ansible.com/)                  | Provisioning scripts
+[PM2](https://pm2.io/runtime)                        | Process manager for node.js
 
 
 ## Tests and code validation

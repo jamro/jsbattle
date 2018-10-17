@@ -4,47 +4,63 @@
     yum:
       name: git
 
-  - name: Clean app path
-    file:
-      state: absent
-      path: "{{ jsbattle_dest }}"
-
-  - name: Create app directory
-    file:
-      path: "{{ jsbattle_dest }}"
-      state: directory
-
-  - name: Get JsBattle from GitHub
-    git:
-      repo: https://github.com/jamro/jsbattle.git
-      dest: "{{ jsbattle_dest }}"
-      version: "{{ jsbattle_version }}"
-
-  - name: Install dependencies
-    command: npm install --unsafe-perm=true --allow-root
-    args:
-      chdir: "{{ jsbattle_dest }}"
-
   - name: Add app user
     user:
       name: "{{ jsbattle_user }}"
 
-  - name: Install pm2
-    npm:
-      name: pm2
-      global: yes
+  - name: Clean app path
+    file:
+      state: absent
+      path: "~{{ jsbattle_user }}/jsbattle"
+
+  - name: Create app directory
+    file:
+      path: "~{{ jsbattle_user }}/jsbattle"
+      state: directory
+    become: yes
+    become_user: "{{ jsbattle_user }}"
+
+  - name: Get JsBattle from GitHub
+    git:
+      repo: https://github.com/jamro/jsbattle.git
+      dest: "~{{ jsbattle_user }}/jsbattle"
+      version: "{{ jsbattle_version }}"
+      force: yes
+    become: yes
+    become_user: "{{ jsbattle_user }}"
+
+  - name: Install dependencies
+    command: npm install --unsafe-perm=true --allow-root
+    args:
+      chdir: "~{{ jsbattle_user }}/jsbattle"
+    become: yes
+    become_user: "{{ jsbattle_user }}"
 
   - name: Stop APP
-    shell: pm2 stop jsbattle || true
+    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 stop jsbattle || true"
+    args:
+      chdir: ~
     become: yes
     become_user: "{{ jsbattle_user }}"
 
   - name: Delete APP
-    shell: pm2 del jsbattle || true
+    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 del jsbattle || true"
+    args:
+      chdir: /tmp
+    become: yes
+    become_user: "{{ jsbattle_user }}"
+
+  - name: deploy APP ecosystem config
+    template:
+      src: ecosystem.config.js
+      dest: "~/ecosystem.config.js"
+      owner: "{{ jsbattle_user }}"
     become: yes
     become_user: "{{ jsbattle_user }}"
 
   - name: Start APP
-    shell: pm2 start {{ jsbattle_dest }}/dist/jsbattle.js -- start -h {{ jsbattle_address }} -p {{ jsbattle_port }}
+    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 start ~{{ jsbattle_user }}/ecosystem.config.js"
+    args:
+      chdir: "~{{ jsbattle_user }}/"
     become: yes
     become_user: "{{ jsbattle_user }}"

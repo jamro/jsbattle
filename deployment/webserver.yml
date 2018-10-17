@@ -7,3 +7,5 @@
 
       - role: jsbattle
         jsbattle_port: 80
+        jsbattle_address: 0.0.0.0
+        jsbattle_user: root

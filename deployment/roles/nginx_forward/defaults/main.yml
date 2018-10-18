@@ -1,0 +1,5 @@
+---
+# defaults file for nginx_forward
+  nginx_forward_name: forward
+  nginx_forward_pass: http://localhost:8080
+  nginx_forward_port: 80

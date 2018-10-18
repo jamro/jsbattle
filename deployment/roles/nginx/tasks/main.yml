@@ -1,0 +1,23 @@
+---
+# tasks file for node
+  - name: Install epel
+    yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+  - name: Install nginx
+    yum: name=nginx
+
+  - name: Make sure a nginx is running
+    systemd:
+      state: started
+      name: nginx
+
+  - name: Configure Nginx
+    template:
+      src: nginx.conf
+      dest: "/etc/nginx/nginx.conf"
+
+  - name: Restart Nginx
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: nginx

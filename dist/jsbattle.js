@@ -38,7 +38,7 @@ yargs
     (argv) => {
       let app = express();
       console.log(`Starting up web server, serving ${argv.webroot}`);
-      app.use(express.static(argv.webroot));
+      app.use(express.static(argv.webroot, { maxAge: 12*60*60*1000, etag: true }));
       app.listen(
         argv.port,
         argv.host,

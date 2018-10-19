@@ -16,6 +16,7 @@
   - [Constants and Formulas](/docs/manual/consts.md)
 - [**Development Guide**](/docs/dev_guide/README.md)
   - [Architecture](/docs/dev_guide/architecture/README.md)
+    - [Infrastructure](/docs/dev_guide/architecture/infrastructure.md)
     - [Simulation](/docs/dev_guide/architecture/simulation.md)
     - [Renderers](/docs/dev_guide/architecture/renderers.md)
     - [Artificial Intelligence](/docs/dev_guide/architecture/ai.md)

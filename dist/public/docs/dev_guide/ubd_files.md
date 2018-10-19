@@ -26,3 +26,31 @@ Determine if the battle is played in cooperative mode. Possible values are true 
 
 ### .aiList
 Array of AI definitions that participate in the battle. Each AI definition is a JSON object.
+
+## UBD example
+
+```json
+{
+  "version": 2,
+  "rngSeed": 0.850067584253805,
+  "teamMode": false,
+  "aiList": [
+    {
+      "name": "User Created Tank",
+      "team": "10i42s2ca",
+      "code": "//AI code ...",
+      "initData": null,
+      "useSandbox": true,
+      "executionLimit": 100
+    },
+    {
+      "name": "crawler",
+      "team": "10i4054sb",
+      "code": null,
+      "initData": null,
+      "useSandbox": true,
+      "executionLimit": 100
+    }
+  ]
+}
+```

@@ -1,0 +1,12 @@
+@startuml
+
+node "CentOS Server" {
+  [nginx]
+  [jsbattle server]
+}
+
+
+[web browser] --> [nginx] : :80
+[nginx] -> [jsbattle server] : localhost:8080
+
+@enduml

@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - deployment scripts
 
+### Changed
+- documentation update
+
 ## [2.0.2] - 2018-09-26
 ### Added
 - adding spritesheets as static resources

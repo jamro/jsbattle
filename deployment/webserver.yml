@@ -3,16 +3,4 @@
     become: true
     become_method: sudo
     roles:
-      - role: node
-
       - role: nginx
-
-      - role: jsbattle
-        jsbattle_port: 8080
-        jsbattle_address: 127.0.0.1
-        jsbattle_user: tankmaster
-
-      - role: nginx_forward
-        nginx_forward_name: jsbattle_forward
-        nginx_forward_pass: http://127.0.0.1:8080
-        nginx_forward_port: 80

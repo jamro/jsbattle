@@ -1,0 +1,9 @@
+---
+  - hosts: webserver
+    become: true
+    become_method: sudo
+    roles:
+      - role: jsbattle
+        jsbattle_port: 8080
+        jsbattle_address: 127.0.0.1
+        jsbattle_user: tankmaster

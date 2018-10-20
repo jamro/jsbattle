@@ -1,2 +1,4 @@
 ---
+  - import_playbook: appserver.yml
+  - import_playbook: app.yml
   - import_playbook: webserver.yml

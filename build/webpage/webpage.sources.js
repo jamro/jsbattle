@@ -1,5 +1,8 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack-stream');
+const through = require('through2');
+const fs = require('fs');
+
 
 module.exports = function (gulp, config, plugins) {
     return function () {
@@ -39,6 +42,20 @@ module.exports = function (gulp, config, plugins) {
           }
         }))
         .pipe(plugins.injectVersion())
+        .pipe(through.obj(
+          function(file, enc, cb) {
+
+            var filename = __dirname + '/../../build_number.json';
+            var buildInfo = JSON.parse(fs.readFileSync(filename, 'utf8'));
+
+            var contents = String(file.contents);
+            contents = contents.replace(/%%GULP_INJECT_BUILD%%/g, buildInfo.build);
+
+            file.contents = new Buffer(contents)
+
+            cb(null, file);
+          }
+        ))
         .pipe(gulp.dest(config.tmp + "dist/public/js/"))
     };
 };

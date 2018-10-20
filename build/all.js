@@ -1,6 +1,7 @@
 module.exports = function (gulp, config, plugins) {
   return function (done) {
     plugins.sequence(
+      'dist.buildno',
       'engine.lint',
       'webpage.lint',
       'server.lint',

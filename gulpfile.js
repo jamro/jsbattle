@@ -12,6 +12,7 @@ gulp.task('beep', require('./build/beep.js')(gulp, config, plugins));
 
 gulp.task('dist.clean', require('./build/dist/dist.clean.js')(gulp, config, plugins));
 gulp.task('dist.copy', require('./build/dist/dist.copy.js')(gulp, config, plugins));
+gulp.task('dist.buildno', require('./build/dist/dist.buildno.js')(gulp, config, plugins));
 
 gulp.task('engine.sprites', require('./build/engine/engine.sprites.js')(gulp, config, plugins));
 gulp.task('engine.lint', require('./build/engine/engine.lint.js')(gulp, config, plugins));

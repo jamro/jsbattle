@@ -17,12 +17,17 @@ function getHashParameters() {
 let params = getHashParameters();
 let stateless = (params.stateless !== undefined && params.stateless != false);
 let ubdPlayer = (params.ubdPlayer !== undefined && params.ubdPlayer != false);
+let replayBattleId = (params.replay !== undefined && params.replay != false) ? params.replay : null;
 
 let content;
 if(ubdPlayer) {
   content = <UbdPlayer />;
 } else {
-  content = <App renderer="brody" stateless={stateless} />;
+  content = <App
+      renderer="brody"
+      stateless={stateless}
+      replay={replayBattleId}
+    />;
 }
 
 ReactDOM.render(

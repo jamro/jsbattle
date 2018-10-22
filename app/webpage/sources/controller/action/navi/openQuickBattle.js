@@ -27,6 +27,7 @@ export default (stateHolder, aiRepository) => {
           quickBattleTank: tankName,
           battleSet: battleSet,
           aiDefList: battleSet.getAiDefList(aiRepository),
+          shareLink: null
         },
         errorMessage: null
       };

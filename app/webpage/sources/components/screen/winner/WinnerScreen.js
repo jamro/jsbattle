@@ -1,7 +1,7 @@
 import FullRow from "../../common/bootstrap/FullRow.js";
 import Row from "../../common/bootstrap/Row.js";
 import Col from "../../common/bootstrap/Col.js";
-import UbdDownload from "../../common/ubd/UbdDownload.js";
+import BattleShareLink from "./BattleShareLink.js";
 
 export default class WinnerScreen extends React.Component {
 
@@ -44,8 +44,8 @@ export default class WinnerScreen extends React.Component {
     return this.getScoreBoardData()
     .map((tank) => {
       return <tr key={tank.id}>
-        <td>{tank.name}</td>
-        <td className="text-right">{tank.score.toFixed(2)}</td>
+        <td className="battle-result-name">{tank.name}</td>
+        <td className="battle-result-score text-right">{tank.score.toFixed(2)}</td>
       </tr>;
     });
   }
@@ -80,7 +80,10 @@ export default class WinnerScreen extends React.Component {
             </div>
           </div>
         </div>
-        <UbdDownload ubd={this.props.result.ubd} />
+        <BattleShareLink
+          shareLink={this.props.shareLink}
+          onShare={(done) => this.props.onShare(done)}
+        />
       </Col>
       <Col lg={8} md={6}>
         <table className="table">

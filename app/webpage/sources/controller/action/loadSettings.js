@@ -1,6 +1,6 @@
 import BattleSet from '../../lib/BattleSet.js';
 
-export default (stateHolder, aiRepository, controller) => {
+export default (stateHolder, aiRepository) => {
 
   function getDifficulty(tankName) {
     let difficultyMap = {};
@@ -17,7 +17,7 @@ export default (stateHolder, aiRepository, controller) => {
     return 0;
   }
 
-  return (stateless) => {
+  return (stateless, done) => {
     $.getJSON("tanks/index.json", (tankList) => {
       let simSpeed;
       let qualitySettings;
@@ -91,7 +91,7 @@ export default (stateHolder, aiRepository, controller) => {
         },
         errorMessage: null
       });
-      controller.openTankList();
+      done();
     })
     .fail(() => {
       stateHolder.setState({

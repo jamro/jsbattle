@@ -1,6 +1,6 @@
 export default (stateHolder) => {
 
-  return (aiDefList, teamMode, rngSeed) => {
+  return (aiDefList, teamMode, rngSeed, shareLink) => {
     stateHolder.setState((state) => {
       /* jshint ignore:start */
       return {
@@ -14,7 +14,8 @@ export default (stateHolder) => {
           teamMode: teamMode,
           rngSeed: rngSeed,
           aiDefList: aiDefList,
-          quickBattleTank: null
+          quickBattleTank: null,
+          shareLink: shareLink ? shareLink : null
         },
         errorMessage: null
       };

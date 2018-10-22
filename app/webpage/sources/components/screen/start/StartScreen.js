@@ -4,7 +4,6 @@ import Col from "../../common/bootstrap/Col.js";
 import NumericInput from "../../common/NumericInput.js";
 import Loading from "../../common/Loading.js";
 import TankTableRow from "../../common/TankTableRow.js";
-import UbdUpload from "../../common/ubd/UbdUpload.js";
 
 export default class StartScreen extends React.Component {
 
@@ -122,7 +121,6 @@ export default class StartScreen extends React.Component {
            </div>
           </div>
         </div>
-        <UbdUpload onStart={this.props.onStart} />
       </Col>
       <Col lg={8} md={7}>
         {this.renderSettings()}

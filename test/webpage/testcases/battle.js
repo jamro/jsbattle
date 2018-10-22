@@ -18,7 +18,10 @@ import {
   setNavBarQuality
 } from '../helper/NaviHelper.js';
 import {
-  getWinnerName
+  getWinnerName,
+  getWinnerScore,
+  clickGetShareLink,
+  getShareLink
 } from '../helper/WinnerHelper.js';
 
 module.exports = function() {
@@ -34,7 +37,7 @@ module.exports = function() {
       await clickStartBattle(this.page);
       await waitForBattlefield(this.page);
     });
-    
+
     it('should exit the battle', async () => {
       await clickExitBattle(this.page);
 
@@ -52,6 +55,30 @@ module.exports = function() {
       await restartBattle(this.page);
       let count = await getTotalTankCounter(this.page);
       assert.equal(count, this.config.DEFAULT_TANK_COUNT);
+    });
+
+    it('should generate battle share link', async () => {
+      await setNavBarSpeed(this.page, '50');
+      await setNavBarQuality(this.page, '0');
+      await waitForBattlefieldHide(this.page);
+      let winnerName1 = await getWinnerName(this.page);
+      let winnerScore1 = await getWinnerScore(this.page);
+      await clickGetShareLink(this.page)
+      let shareLink = await getShareLink(this.page);
+      let urlPattern = /^https?:\/\/localhost.*\/.*$/;
+      assert(urlPattern.test(shareLink), "Battle share link has proper format");
+
+      await this.createNewPage();
+      await this.page.goto(shareLink);
+      await waitForBattlefield(this.page);
+      await setNavBarSpeed(this.page, '50');
+      await setNavBarQuality(this.page, '0');
+      await waitForBattlefieldHide(this.page);
+      let winnerName2 = await getWinnerName(this.page);
+      let winnerScore2 = await getWinnerScore(this.page);
+
+      assert.equal(winnerName1, winnerName2);
+      assert.equal(winnerScore1, winnerScore2);
     });
 
 

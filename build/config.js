@@ -31,7 +31,8 @@ module.exports = {
      'node_modules/codemirror/addon/hint/**/*',
      'node_modules/codemirror/theme/ambiance.css',
      'node_modules/core-js/client/core.js',
-     'node_modules/popper.js/dist/umd/**/*'
+     'node_modules/popper.js/dist/umd/**/*',
+     'node_modules/clipboard/dist/clipboard.min.js'
     ]
   },
   docs: {

@@ -9,6 +9,7 @@ import BattleScreen from "./screen/battle/BattleScreen.js";
 import WinnerScreen from "./screen/winner/WinnerScreen.js";
 import StartScreen from "./screen/start/StartScreen.js";
 import Loading from "./common/Loading.js";
+import state from "../state.js";
 
 export default class App extends React.Component {
 
@@ -16,16 +17,16 @@ export default class App extends React.Component {
     super(props);
     this.aiRepository = new AiRepository(props.stateless);
 
-    this.state = {
-      navi: {
-        section: "LOADING",
-        page: "LOADING",
-        pageData: {}
-      }
-    };
+    this.state = state;
 
     this.controller = new Controller(this, this.aiRepository);
-    this.controller.loadSettings(props.stateless);
+    this.controller.loadSettings(props.stateless, () => {
+      if(props.replay) {
+        this.controller.replayBattle(props.replay);
+      } else {
+        this.controller.openTankList();
+      }
+    });
   }
 
   showError(msg) {
@@ -71,6 +72,7 @@ export default class App extends React.Component {
       return <WinnerScreen
         {...this.state.battle}
         onRestart={() => this.controller.openTankList()}
+        onShare={(done) => this.controller.shareBattle(this.state.battle.result.ubd, done)}
         onEdit={this.state.battle.quickBattleTank ? (() => this.controller.openCodeEditor(this.state.battle.quickBattleTank, 'TANK_LIST')) : null}
       />;
       case 'CODE_EDITOR':

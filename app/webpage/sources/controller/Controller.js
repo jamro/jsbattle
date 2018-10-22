@@ -5,6 +5,7 @@ import openTankList from './action/navi/openTankList.js';
 import openQuickBattle from './action/navi/openQuickBattle.js';
 import openBattle from './action/navi/openBattle.js';
 import openBattleResults from './action/navi/openBattleResults.js';
+import replayBattle from './action/navi/replayBattle.js';
 
 import createTank from './action/codeRepository/createTank.js';
 import removeTank from './action/codeRepository/removeTank.js';
@@ -15,6 +16,7 @@ import renameCurrentAiScript from './action/editor/renameCurrentAiScript.js';
 
 import toggleTeamMode from './action/battle/toggleTeamMode.js';
 import assignTanksToBattle from './action/battle/assignTanksToBattle.js';
+import shareBattle from './action/battle/shareBattle.js';
 
 import loadSettings from './action/loadSettings.js';
 import setSimulationSpeed from './action/setSimulationSpeed.js';
@@ -33,6 +35,7 @@ export default class Controller  {
     this.addActon('openQuickBattle',         openQuickBattle(this.stateHolder, aiRepository));
     this.addActon('openBattle',              openBattle(this.stateHolder));
     this.addActon('openBattleResults',       openBattleResults(this.stateHolder));
+    this.addActon('replayBattle',            replayBattle(this.stateHolder, this));
 
     this.addActon('createTank',              createTank(this.stateHolder, aiRepository));
     this.addActon('removeTank',              removeTank(this.stateHolder, aiRepository));
@@ -43,8 +46,9 @@ export default class Controller  {
 
     this.addActon('toggleTeamMode',          toggleTeamMode(this.stateHolder));
     this.addActon('assignTanksToBattle',     assignTanksToBattle(this.stateHolder, aiRepository));
+    this.addActon('shareBattle',             shareBattle(this.stateHolder));
 
-    this.addActon('loadSettings',            loadSettings(this.stateHolder, aiRepository, this));
+    this.addActon('loadSettings',            loadSettings(this.stateHolder, aiRepository));
     this.addActon('setSimulationSpeed',      setSimulationSpeed(this.stateHolder));
     this.addActon('setSimulationQuality',    setSimulationQuality(this.stateHolder));
 

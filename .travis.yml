@@ -1,12 +1,10 @@
 language: node_js
 os:
-  - osx
+  - linux
 node_js:
-  - "node"
-before_install:
-  - brew install imagemagick
+  - 8
 install:
   - npm install
 before_script:
-  - npm install -g gulp-cli casperjs
+  - npm install -g gulp-cli
 script: gulp

@@ -11,6 +11,7 @@ module.exports = {
   },
   server: {
     sources: ['app/server/**/*'],
+    test: ['test/server/**/*.test.js'],
   },
   webpage: {
     sources: ['app/webpage/sources/**/*'],

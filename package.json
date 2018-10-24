@@ -84,6 +84,9 @@
     "react-highlight": "^0.12.0",
     "sat": "^0.7.0",
     "seedrandom": "^2.4.4",
+    "seneca": "^3.7.0",
+    "seneca-entity": "^2.3.0",
+    "seneca-jsonfile-store": "^1.0.1",
     "sillyname": "^0.1.0",
     "uuid": "^3.3.2",
     "yargs": "^12.0.2"

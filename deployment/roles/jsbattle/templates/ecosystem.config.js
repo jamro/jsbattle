@@ -6,6 +6,7 @@ module.exports = {
     args: "start -h {{ jsbattle_address }} -p {{ jsbattle_port }}",
     instances: 1,
     autorestart: true,
-    watch: false
+    watch: false,
+    wait_ready: true
   }]
 };

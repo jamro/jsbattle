@@ -7,6 +7,7 @@ module.exports = function (gulp, config, plugins) {
       'server.lint',
       'engine.test',
       'tanks.test',
+      'server.test',
       'clean',
       'webpage.copy',
       'engine.docs',

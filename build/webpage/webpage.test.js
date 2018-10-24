@@ -27,6 +27,7 @@ module.exports = function (gulp, config, plugins) {
               name: 'jsbattle-test',
               script: config.tmp + '/dist/jsbattle.js',
               args: "start -h localhost -p 8070 -d " + config.tmp + "/jsbattle-test-data",
+              wait_ready: true
             }, (err, apps) => {
               if (err) {
                 throw err

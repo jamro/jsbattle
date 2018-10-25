@@ -17,11 +17,10 @@ module.exports = function() {
         let html = await self.page.content();
         let size = (html.length/1000);
 
-
         // fetch links
         let links = await self.page.evaluate(() => {
           const allLinks = document.querySelectorAll('a');
-          return Object.values(allLinks).map(el => el.href);
+          return Object.values(allLinks).map(el => el.href.replace(/\?.*$/, '')); // ignore anchor links in websites
         });
         links = links.filter((el, index, list) => {
           return (new RegExp(self.config.BASE_URL)).test(el)

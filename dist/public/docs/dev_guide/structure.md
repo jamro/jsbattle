@@ -4,8 +4,9 @@
 +-- JsBattle
     |-- app
     |   |-- engine
+    |   |-- schema
+    |   |-- server
     |   |-- tanks
-    |   |-- tools
     |   +-- webpage
     |-- build
     |-- deployment
@@ -41,8 +42,9 @@
 * **`/app`** - source codes of the projects. They are split into 3 sub-folders
   * `/app/engine` - engine of battle simulation
   * `/app/tanks` - pre-built AI scripts of tanks and libraries used imported by those scripts
-  * `/app/tools` - command line tools (requires node.js) such as UbdPlayer
-  * `/app/website` - source codes of website where battle simulation is embedded
+  * `/app/schema` - JSON schemas
+  * `/app/server` - JsBattle server
+  * `/app/website` - source codes of website where battle simulation is embedded (frontend)
 * **`/build`** - Gulp tasks. Each file is a separate task imported by `/gulpfile.js`. Configuration of Gulp is kept in `config.js`
 * **`/deployment`** - Deployment scripts
 * **`/dist`** - build output goes here. It contains built version of the game.

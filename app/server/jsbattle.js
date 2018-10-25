@@ -43,6 +43,7 @@ yargs
 
     },
     (argv) => {
+      console.log("\n\n\n\n\n");
       let gateway = new Gateway();
       gateway.init({
         data: argv.data,

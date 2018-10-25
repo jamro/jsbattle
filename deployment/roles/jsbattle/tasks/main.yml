@@ -36,31 +36,24 @@
     become: yes
     become_user: "{{ jsbattle_user }}"
 
-  - name: Stop APP
-    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 stop jsbattle || true"
-    args:
-      chdir: ~
-    become: yes
-    become_user: "{{ jsbattle_user }}"
-
-  - name: Delete APP
-    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 del jsbattle || true"
-    args:
-      chdir: /tmp
-    become: yes
-    become_user: "{{ jsbattle_user }}"
-
   - name: deploy APP ecosystem config
     template:
       src: ecosystem.config.js
-      dest: "~/ecosystem.config.js"
+      dest: "~/jsbattle/dist/ecosystem.config.js"
       owner: "{{ jsbattle_user }}"
     become: yes
     become_user: "{{ jsbattle_user }}"
 
-  - name: Start APP
-    shell: "~{{ jsbattle_user }}/jsbattle/node_modules/pm2/bin/pm2 start ~{{ jsbattle_user }}/ecosystem.config.js"
+  - name: Stop APP
+    shell: "npm stop || true"
     args:
-      chdir: "~{{ jsbattle_user }}/"
+      chdir: "~{{ jsbattle_user }}/jsbattle"
+    become: yes
+    become_user: "{{ jsbattle_user }}"
+
+  - name: Start APP
+    shell: "npm start || true"
+    args:
+      chdir: "~{{ jsbattle_user }}/jsbattle"
     become: yes
     become_user: "{{ jsbattle_user }}"

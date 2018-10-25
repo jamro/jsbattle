@@ -6,11 +6,6 @@
   - name: Install nginx
     yum: name=nginx
 
-  - name: Make sure a nginx is running
-    systemd:
-      state: started
-      name: nginx
-
   - name: Configure Nginx
     template:
       src: nginx.conf

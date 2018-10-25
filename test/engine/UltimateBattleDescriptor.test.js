@@ -123,6 +123,78 @@ describe('UltimateBattleDescriptor', function() {
         desc.decode("safdasdfs");
       })
     })
+
+    it('should support secure mode', function() {
+      let ubd = {
+        "version": 2,
+        "rngSeed": 0.850067584253805,
+        "teamMode": false,
+        "aiList": [
+          {
+            "name": "User Created Tank",
+            "team": "10i42s2ca",
+            "code": "//AI code ...",
+            "initData": {},
+            "useSandbox": false,
+            "executionLimit": 1
+          },
+          {
+            "name": "crawler",
+            "team": "10i4054sb",
+            "code": null,
+            "initData": null,
+            "useSandbox": true,
+            "executionLimit": 100
+          }
+        ]
+      };
+      ubd = JSON.stringify(ubd);
+
+      let desc = new UltimateBattleDescriptor();
+      desc.decode(ubd);
+
+      let tanks = desc.getAiList();
+      assert.equal(100, tanks[0].executionLimit);
+      assert.equal(true, tanks[0].useSandbox);
+      assert.equal(null, tanks[0].initData);
+    });
+
+    it('should support unsecure mode', function() {
+      let ubd = {
+        "version": 2,
+        "rngSeed": 0.850067584253805,
+        "teamMode": false,
+        "aiList": [
+          {
+            "name": "User Created Tank",
+            "team": "10i42s2ca",
+            "code": "//AI code ...",
+            "initData": {},
+            "useSandbox": false,
+            "executionLimit": 1
+          },
+          {
+            "name": "crawler",
+            "team": "10i4054sb",
+            "code": null,
+            "initData": null,
+            "useSandbox": true,
+            "executionLimit": 100
+          }
+        ]
+      };
+      ubd = JSON.stringify(ubd);
+
+      let desc = new UltimateBattleDescriptor();
+      desc.decode(ubd, true);
+
+      let tanks = desc.getAiList();
+      assert.equal(1, tanks[0].executionLimit);
+      assert.equal(false, tanks[0].useSandbox);
+      assert(tanks[0].initData != null);
+    });
+
+
   });
 
   describe('setTeamMode', function() {

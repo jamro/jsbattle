@@ -922,7 +922,7 @@ var UltimateBattleDescriptor = function () {
     }
   }, {
     key: "decode",
-    value: function decode(data) {
+    value: function decode(data, unsecureMode) {
       var json = void 0;
       try {
         json = JSON.parse(data);
@@ -945,6 +945,11 @@ var UltimateBattleDescriptor = function () {
           var aiJson = _step2.value;
 
           ai = new _AiDefinition2.default();
+          if (!unsecureMode) {
+            aiJson.useSandbox = true;
+            aiJson.executionLimit = 100;
+            aiJson.initData = null;
+          }
           ai.fromJSON(aiJson);
           this._aiList.push(ai);
         }

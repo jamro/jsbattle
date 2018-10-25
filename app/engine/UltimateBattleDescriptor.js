@@ -53,7 +53,7 @@ class UltimateBattleDescriptor {
     return raw;
   }
 
-  decode(data) {
+  decode(data, unsecureMode) {
     let json;
     try {
       json = JSON.parse(data);
@@ -69,6 +69,11 @@ class UltimateBattleDescriptor {
     let ai;
     for(let aiJson of json.aiList) {
       ai = new AiDefinition();
+      if(!unsecureMode) {
+        aiJson.useSandbox = true;
+        aiJson.executionLimit = 100;
+        aiJson.initData = null;
+      }
       ai.fromJSON(aiJson);
       this._aiList.push(ai);
     }

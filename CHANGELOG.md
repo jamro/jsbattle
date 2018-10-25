@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - documentation update
 
+### Security
+- UBD cannot set useSandbox, executionLimit and initData of AI
+
 ### Removed
 - UBD replays (use battle sharing instead)
 

@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Deployment scripts
 - Share battle link
+- Deployment scripts
 - Tracking build numbers
+- UBD files schemas
 
 ### Changed
 - documentation update

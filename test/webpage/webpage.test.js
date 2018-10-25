@@ -44,6 +44,7 @@ describe('Web Page', function() {
     this.mlog.log("Tests completed. Bye bye");
   });
 
+  require('./testcases/schema.js').bind(this)();
   require('./testcases/docs.js').bind(this)();
   require('./testcases/navi.js').bind(this)();
   require('./testcases/tanklist.js').bind(this)();

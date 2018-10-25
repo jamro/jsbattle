@@ -6,7 +6,7 @@ module.exports = function (gulp, config, plugins) {
       var completeCount = 0;
       function onComplete() {
         completeCount++;
-        if(completeCount == 4) {
+        if(completeCount == 5) {
           done();
         }
       }
@@ -20,6 +20,10 @@ module.exports = function (gulp, config, plugins) {
 
       gulp.src(config.docs.sources)
         .pipe(gulp.dest(config.tmp + "dist/public/docs/"))
+        .on('end', onComplete);
+
+      gulp.src(config.schema.sources)
+        .pipe(gulp.dest(config.tmp + "dist/public/schema/"))
         .on('end', onComplete);
 
       gulp.src(config.docs.plantuml.sources)

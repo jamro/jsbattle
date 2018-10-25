@@ -9,6 +9,9 @@ module.exports = {
       'node_modules/seedrandom/seedrandom.js'
     ],
   },
+  schema: {
+    sources: 'app/schema/**/*'
+  },
   server: {
     sources: ['app/server/**/*'],
     test: ['test/server/**/*.test.js'],

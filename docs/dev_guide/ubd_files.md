@@ -6,10 +6,10 @@ Distribution of JsBattle contains command line tool that allows processing of UB
 
 ## Changelog
 
-Date         | Version  | Description
--------------|----------|-------------------
-2018-05-31   |        1 | Initial Version
-2018-06-04   |        2 | Adding teamMode information
+Date       | Version | Schema Location                 | Description                 
+-----------|---------|---------------------------------|-----------------------------
+2018-05-31 |       1 | `app/schema/ubd-schema-v1.json` | Initial Version
+2018-06-04 |       2 | `app/schema/ubd-schema-v1.json` | Adding teamMode information
 
 
 ## UBD Format

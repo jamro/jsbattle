@@ -7,3 +7,4 @@
         jsbattle_port: 8080
         jsbattle_address: 127.0.0.1
         jsbattle_user: tankmaster
+        jsbattle_home: /home/tankmaster

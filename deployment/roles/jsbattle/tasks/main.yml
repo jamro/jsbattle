@@ -11,11 +11,11 @@
   - name: Clean app path
     file:
       state: absent
-      path: "~{{ jsbattle_user }}/jsbattle"
+      path: "{{ jsbattle_home }}/jsbattle"
 
   - name: Create app directory
     file:
-      path: "~{{ jsbattle_user }}/jsbattle"
+      path: "{{ jsbattle_home }}/jsbattle"
       state: directory
     become: yes
     become_user: "{{ jsbattle_user }}"
@@ -23,7 +23,7 @@
   - name: Get JsBattle from GitHub
     git:
       repo: https://github.com/jamro/jsbattle.git
-      dest: "~{{ jsbattle_user }}/jsbattle"
+      dest: "{{ jsbattle_home }}/jsbattle"
       version: "{{ jsbattle_version }}"
       force: yes
     become: yes
@@ -32,14 +32,14 @@
   - name: Install dependencies
     command: npm install --unsafe-perm=true --allow-root
     args:
-      chdir: "~{{ jsbattle_user }}/jsbattle"
+      chdir: "{{ jsbattle_home }}/jsbattle"
     become: yes
     become_user: "{{ jsbattle_user }}"
 
   - name: deploy APP ecosystem config
     template:
       src: ecosystem.config.js
-      dest: "~/jsbattle/dist/ecosystem.config.js"
+      dest: "{{ jsbattle_home }}/jsbattle/dist/ecosystem.config.js"
       owner: "{{ jsbattle_user }}"
     become: yes
     become_user: "{{ jsbattle_user }}"
@@ -47,13 +47,13 @@
   - name: Stop APP
     shell: "npm stop || true"
     args:
-      chdir: "~{{ jsbattle_user }}/jsbattle"
+      chdir: "{{ jsbattle_home }}/jsbattle"
     become: yes
     become_user: "{{ jsbattle_user }}"
 
   - name: Start APP
     shell: "npm start || true"
     args:
-      chdir: "~{{ jsbattle_user }}/jsbattle"
+      chdir: "{{ jsbattle_home }}/jsbattle"
     become: yes
     become_user: "{{ jsbattle_user }}"

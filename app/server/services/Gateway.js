@@ -91,6 +91,8 @@ class Gateway {
           resolve();
         }
       );
+      console.log('reload');
+      reload(this.app);
 
     });
   }

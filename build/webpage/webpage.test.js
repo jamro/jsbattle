@@ -3,7 +3,7 @@ require('babel-register')();
 const through = require("through2");
 const child_process = require('child_process');
 const Mocha = require('mocha');
-const pm2 = require('pm2')
+const pm2 = require('pm2');
 
 module.exports = function (gulp, config, plugins) {
   return function(done) {

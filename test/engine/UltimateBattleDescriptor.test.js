@@ -2,6 +2,7 @@ import assert from "assert";
 import sinon from "sinon";
 import UltimateBattleDescriptor from "../../app/engine/UltimateBattleDescriptor.js"
 import AiDefinitionMock from "./mock/AiDefinitionMock.js";
+import UbdJsonMock from "./mock/UbdJsonMock.js";
 
 describe('UltimateBattleDescriptor', function() {
   describe('constructor', function() {
@@ -194,6 +195,39 @@ describe('UltimateBattleDescriptor', function() {
       assert(tanks[0].initData != null);
     });
 
+    it('should validate json', function() {
+      let ubd = {
+        "version": 2,
+        "rngSeed": 0.850067584253805,
+        "teamMode": false,
+        "aiList": [
+          {
+            "name": "User Created Tank",
+            "team": "10i42s2ca",
+            "code": "//AI code ...",
+            "initData": null,
+            "useSandbox": true,
+            "executionLimit": 100
+          },
+          {
+            "name": "crawler",
+            "team": "10i4054sb",
+            "code": null,
+            "initData": null,
+            "useSandbox": true,
+            "executionLimit": "WRONG VALUE TYPE"
+          }
+        ]
+      };
+      ubd = JSON.stringify(ubd);
+      let desc = new UltimateBattleDescriptor();
+      try {
+        desc.decode(ubd);
+      } catch(err) {
+        assert(err, "Throws error when json is invalid")
+      }
+
+    });
 
   });
 

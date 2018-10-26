@@ -14,7 +14,7 @@
     "version": {
       "$id": "#/properties/version",
       "enum": [1],
-      "title": "Version of the schema",
+      "title": "Version of the schema"
     },
     "rngSeed": {
       "$id": "#/properties/rngSeed",
@@ -81,12 +81,14 @@
             "default": "",
             "examples": [
               "var a = 1;"
-            ],
-            "pattern": "^(.*)$"
+            ]
           },
           "initData": {
             "$id": "#/properties/aiList/items/properties/initData",
-            "type": "null",
+            "anyOf": [
+              {"type": "object"},
+              {"type": "null"}
+            ],
             "title": "Initial data of AI",
             "default": null,
             "examples": [

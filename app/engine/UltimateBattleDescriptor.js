@@ -1,6 +1,8 @@
 'use strict';
 
 import AiDefinition from "./AiDefinition.js";
+import Ajv from 'ajv';
+import schema from '../schema/ubd-schema-v2.json';
 
 class UltimateBattleDescriptor {
 
@@ -63,6 +65,7 @@ class UltimateBattleDescriptor {
     if(this._version !=json.version) {
       throw new Error(`Version of UBD does not match. Version ${json.version} is not supported. Please convert to version ${this._version}`);
     }
+    this.validateJsonData(json);
     this._rngSeed = json.rngSeed;
     this._teamMode = json.teamMode;
 
@@ -76,6 +79,15 @@ class UltimateBattleDescriptor {
       }
       ai.fromJSON(aiJson);
       this._aiList.push(ai);
+    }
+  }
+
+  validateJsonData(json) {
+    var ajv = new Ajv();
+    var validate = ajv.compile(schema);
+    var valid = validate(json);
+    if (!valid) {
+      throw new Error("UBD validation failed - " + validate.errors[0].message);
     }
   }
 

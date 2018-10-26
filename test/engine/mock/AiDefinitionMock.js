@@ -10,7 +10,14 @@ export default class AiDefinitionMock {
     this.code = "";
     this.initData = null;
 
-    this.toJSON = sinon.stub().returns({serialized: "AiDefinitionMock object"});
+    this.toJSON = sinon.stub().returns({
+      name: "AiNameMock",
+      code: null,
+      team: "abc",
+      initData: null,
+      useSandbox: true,
+      executionLimit: 100
+    });
     this.fromJSON = sinon.spy();
     this.clone = sinon.spy();
   }

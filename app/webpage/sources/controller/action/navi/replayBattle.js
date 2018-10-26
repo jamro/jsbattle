@@ -20,7 +20,19 @@ export default (stateHolder, controller) => {
         let ubd = JSON.stringify(data.ubd);
 
         let descriptor = JsBattle.createUBD();
-        descriptor.decode(ubd);
+        try{
+          descriptor.decode(ubd);
+        } catch (err) {
+          console.error(err);
+          stateHolder.setState((state) => {
+            /* jshint ignore:start */
+            return {
+              errorMessage: "Cannot parse battle replay"
+            };
+            /* jshint ignore:end */
+          });
+          return;
+        }
         controller.openBattle(
           descriptor.getAiList(),
           descriptor.getTeamMode(),

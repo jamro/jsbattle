@@ -14,19 +14,32 @@ module.exports = function battleStore( options ) {
       msg.ubd = JSON.stringify(msg.ubd);
     }
 
-    let battleId = uuidv1();
-    this.log.info({notice: `Storing battle data for ${battleId}`});
-
-    let battle = this.make('UltimateBattleDescriptor');
-    battle.id = battleId;
-    battle.ubd = msg.ubd;
-    battle.save$( (err, result) => {
+    this.act({
+      role: 'ubdValidator',
+      cmd: 'validate',
+      ubd: msg.ubd
+    }, (err, result) => {
       if(err) {
-        return respond(new Error(err));
+        return respond(err);
       }
-      respond(null, {
-        battleId: result.id,
-        ubd: result.ubd
+      if(!result.valid) {
+        return respond(new Error(result.error));
+      }
+
+      let battleId = uuidv1();
+      this.log.info({notice: `Storing battle data for ${battleId}`});
+
+      let battle = this.make('UltimateBattleDescriptor');
+      battle.id = battleId;
+      battle.ubd = msg.ubd;
+      battle.save$( (err, result) => {
+        if(err) {
+          return respond(new Error(err));
+        }
+        respond(null, {
+          battleId: result.id,
+          ubd: result.ubd
+        });
       });
     });
   }

@@ -2,7 +2,6 @@ import assert from "assert";
 import sinon from "sinon";
 import UltimateBattleDescriptor from "../../app/engine/UltimateBattleDescriptor.js"
 import AiDefinitionMock from "./mock/AiDefinitionMock.js";
-import UbdJsonMock from "./mock/UbdJsonMock.js";
 
 describe('UltimateBattleDescriptor', function() {
   describe('constructor', function() {

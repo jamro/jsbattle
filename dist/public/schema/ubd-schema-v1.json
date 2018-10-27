@@ -37,6 +37,8 @@
     "aiList": {
       "$id": "#/properties/aiList",
       "type": "array",
+      "minItems": 2,
+      "maxItems": 40,
       "title": "List of AIs that joins the battle",
       "items": {
         "$id": "#/properties/aiList/items",

@@ -45,6 +45,7 @@ class Gateway {
           folder: this.options.data
         })
         .use(require(__dirname + '/battleStore/battleStore.js'), {data: this.options.data})
+        .use(require(__dirname + '/ubdValidator/ubdValidator.js'), {data: this.options.data})
         .ready((err) => {
           if(err) {
             console.error(err);
@@ -83,6 +84,10 @@ class Gateway {
         );
 
       });
+      this.app.get('/ping', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ping: "pong"}));
+      });
       this.app.listen(
         this.options.port,
         this.options.host,
@@ -91,8 +96,6 @@ class Gateway {
           resolve();
         }
       );
-      console.log('reload');
-      reload(this.app);
 
     });
   }

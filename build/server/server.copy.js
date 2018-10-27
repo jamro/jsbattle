@@ -1,13 +1,20 @@
 const through = require('through2');
-const plantuml = require('node-plantuml');
 
 module.exports = function (gulp, config, plugins) {
     return function (done) {
       var completeCount = 0;
-
+      function onComplete() {
+        completeCount++;
+        if(completeCount == 2) {
+          done();
+        }
+      }
       gulp.src(config.server.sources)
         .pipe(gulp.dest(config.tmp + 'dist/'))
-        .on('end', done);
+        .on('end', onComplete);
 
+      gulp.src(config.schema.sources)
+        .pipe(gulp.dest(config.tmp + 'dist/schema/'))
+        .on('end', onComplete);
     };
 };

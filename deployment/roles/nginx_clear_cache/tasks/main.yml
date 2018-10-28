@@ -1,0 +1,12 @@
+---
+# tasks file for nginx_clear_cache
+  - name: Clean cache
+    file:
+      state: absent
+      path: "{{ nginx_cache_path }}"
+
+  - name: Restart Nginx
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: nginx

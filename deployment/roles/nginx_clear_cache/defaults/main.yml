@@ -1,3 +1,3 @@
 ---
-# defaults file for nginx
+# defaults file for nginx_clear_cache
   nginx_cache_path: /var/cache/nginx/

@@ -22,9 +22,9 @@ module.exports = function() {
       await waitForNavBar(this.page);
     });
 
-    it('should have quality set to Auto by default', async () => {
+    it('should have quality set to Normal by default', async () => {
       let value = await getNavBarQuality(this.page);
-      assert.equal(value, "Auto");
+      assert.equal(value, "Normal");
     });
 
     it('should change quality level', async () => {

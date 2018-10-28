@@ -31,7 +31,7 @@ export default (stateHolder, aiRepository) => {
         battleSetData = localStorage.getItem("settings.battleSet");
       }
       simSpeed = simSpeed ? simSpeed : 1;
-      qualitySettings = qualitySettings ? qualitySettings : "auto";
+      qualitySettings = qualitySettings ? qualitySettings : 0.5;
       teamMode = (teamMode == 'true');
       battleSetData = battleSetData ? JSON.parse(battleSetData) : [];
 

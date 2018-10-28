@@ -15,7 +15,7 @@ export default (stateHolder, controller) => {
       /* jshint ignore:end */
     });
 
-    $.get("./replay/" + battleID)
+    $.get("./api/battleReplay?battleId=" + battleID)
       .done((data) => {
         let ubd = JSON.stringify(data.ubd);
 

@@ -1,0 +1,12 @@
+@startuml
+http - [Gateway]
+
+package "Micro Services" {
+    [battleStore]
+    [ubdValidator]
+    [api]
+}
+
+[Gateway] -- [api]
+
+@enduml

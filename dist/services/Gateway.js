@@ -44,8 +44,9 @@ class Gateway {
         .use(senecaJsonFileStore, {
           folder: this.options.data
         })
-        .use(require(__dirname + '/battleStore/battleStore.js'), {data: this.options.data})
-        .use(require(__dirname + '/ubdValidator/ubdValidator.js'), {data: this.options.data})
+        .use(require(__dirname + '/battleStore/battleStore.js'), this.options)
+        .use(require(__dirname + '/ubdValidator/ubdValidator.js'), this.options)
+        .use(require(__dirname + '/api/api.js'), this.options)
         .ready((err) => {
           if(err) {
             console.error(err);
@@ -64,29 +65,11 @@ class Gateway {
       this.app.use(bodyParser.urlencoded({
         extended: true
       }));
-      this.app.post('/share',  (req, res) => {
-
-        this._mapSenecaCall(
-          res,
-          {role:"battleStore", cmd:"write", ubd: req.body.ubd},
-          "Cannot write battle data to the store",
-          (result) => { return {battleId: result.battleId}; }
-        );
-
+      this.app.get('/api/:action', (req, res) => {
+        this._senecaApiCall(req, res, req.params.action, 'get');
       });
-      this.app.get('/replay/:battleId', (req, res) => {
-
-        this._mapSenecaCall(
-          res,
-          {role:"battleStore", cmd:"read", battleId:req.params.battleId},
-          "Cannot read battle data from the store",
-          (result) => { return {ubd: result.ubd}; }
-        );
-
-      });
-      this.app.get('/ping', (req, res) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ping: "pong"}));
+      this.app.post('/api/:action', (req, res) => {
+        this._senecaApiCall(req, res, req.params.action, 'post');
       });
       this.app.listen(
         this.options.port,
@@ -100,17 +83,23 @@ class Gateway {
     });
   }
 
-  _mapSenecaCall(res, msg, errMessage, responseMapper) {
+  _senecaApiCall(req, res, action, method) {
     this.seneca
-      .act(msg, (err, result) => {
+      .act({
+        role:"api",
+        cmd: action,
+        req:req,
+        method: method || 'get'
+      }, (err, result) => {
         if(err) {
-          res.status(500);
-          res.send("Error 500: " + errMessage);
+          let status = err.httpStatus || 500;
+          res.status(status);
+          res.send(`Error ${status}: ${err.message}`);
           this.seneca.log.error({notice: err});
           return;
         }
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(responseMapper(result)));
+        res.send(JSON.stringify(result));
       });
   }
 

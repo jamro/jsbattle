@@ -1,7 +1,7 @@
 export default (stateHolder) => {
 
   return (ubd, done) => {
-    $.post("./share", {ubd: ubd})
+    $.post("./api/battleReplay", {ubd: ubd})
       .done((data) => {
         stateHolder.setState((state) => {
           /* jshint ignore:start */

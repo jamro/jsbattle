@@ -66,7 +66,7 @@ module.exports = function (gulp, config, plugins) {
       pm2.start({
         name: 'jsbattle-watch',
         script: config.tmp + '/dist/jsbattle.js',
-        args: "start -h localhost -p 8080 -l info -d " + config.tmp + "/jsbattle-test-data",
+        args: "start -h localhost -p 8080 -l debug -d " + config.tmp + "/jsbattle-test-data",
         wait_ready: true
       }, (err, apps) => {
         if (err) {

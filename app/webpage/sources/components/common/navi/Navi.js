@@ -56,7 +56,7 @@ export default class Navi extends React.Component {
             className={this.props.section == 'EDITOR' ? activeClasses : inactiveClasses}
             href="#"
             onClick={() => this.props.controller.openCodeRepository()}>
-            <i className="fa fa-pencil" aria-hidden="true"></i> Editor
+            <i className="fas fa-pen" aria-hidden="true"></i> Editor
           </a>
         </li>
         <li className="nav-item">
@@ -64,12 +64,12 @@ export default class Navi extends React.Component {
             className={this.props.section == 'BATTLE' ? activeClasses : inactiveClasses}
             href="#"
             onClick={() => this.props.controller.openTankList()}>
-            <i className="fa fa-line-chart" aria-hidden="true"></i> Battle
+            <i className="fas fa-shield-alt" aria-hidden="true"></i> Battle
           </a>
         </li>
         <li className="nav-item">
           <a className={inactiveClasses} href="./docs" target="_blank">
-            <i className="fa fa-file-text-o" aria-hidden="true"></i> Docs<
+            <i className="far fa-file-alt" aria-hidden="true"></i> Docs<
           /a>
         </li>
       </ul>

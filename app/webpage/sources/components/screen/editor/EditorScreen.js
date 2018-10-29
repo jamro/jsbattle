@@ -115,7 +115,7 @@ export default class EditorScreen extends React.Component {
             defaultName={this.props.name}
             onChange={(newValue, oldValue) => this.onRename(newValue, oldValue)}
           />
-          <div className="pull-right" style={{paddingTop: '15px'}}>
+          <div className="float-right" style={{paddingTop: '15px'}}>
             <SaveButtons
               unsavedChanges={this.hasUnsavedChanges()}
               onClose={(testNow) => this.onClose(testNow)}

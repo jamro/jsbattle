@@ -54,10 +54,10 @@ export default class WinnerScreen extends React.Component {
     let previewUrl = "img/tank_skin_" + this.getWinnerSkin() + ".png";
 
     let restartButton = <button className="btn btn-secondary btn-lg restart-battle" onClick={() => this.props.onRestart()}>
-      <i className="fa fa-refresh" aria-hidden="true"></i> Next Battle
+      <i className="fas fa-sync" aria-hidden="true"></i> Next Battle
     </button>;
     let editButton = <button className="btn btn-primary btn-lg" onClick={() => this.props.onEdit()}>
-      <i className="fa fa-pencil" aria-hidden="true"></i> Edit AI Script
+      <i className="fas fa-pen" aria-hidden="true"></i> Edit AI Script
     </button>;
     if(!this.props.onEdit) {
       editButton = null;

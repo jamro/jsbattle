@@ -121,7 +121,7 @@ export default class BattleScreen extends React.Component {
   render() {
     let loading = null;
     let exitButton = <button className="btn btn-danger btn-lg exit-battle" style={{width: '100%', marginBottom: '5px'}} onClick={() => this.exit()}>
-      <i className="fa fa-power-off" aria-hidden="true"></i> Exit the battle
+      <i className="fas fa-power-off" aria-hidden="true"></i> Exit the battle
     </button>;
     let scoreboard = <ScoreBoard
       tankList={this.props.teamMode ? this.state.teamList : this.state.tankList}

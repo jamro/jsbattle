@@ -37,7 +37,8 @@ module.exports = {
      'node_modules/core-js/client/core.js',
      'node_modules/popper.js/dist/umd/**/*',
      'node_modules/clipboard/dist/clipboard.min.js',
-     'node_modules/ajv/dist/ajv.min.js'
+     'node_modules/ajv/dist/ajv.min.js',
+     'node_modules/@fortawesome/fontawesome-free/**/*'
     ]
   },
   docs: {

@@ -67,13 +67,13 @@ export default class TankTableRow extends React.Component {
 
   renderDeleteButton() {
     return <button type="button" className="btn btn-danger tank-remove"  onClick={() => this.setState({mode: 'confirmDelete'})}>
-      <i className="fa fa-trash" aria-hidden="true"></i>
+      <i className="fas fa-trash" aria-hidden="true"></i>
     </button>;
   }
 
   renderEditButton() {
     return <button type="button" className="btn btn-secondary tank-edit" onClick={() => this.props.onEdit(this.props.name)}>
-      <i className="fa fa-pencil" aria-hidden="true"></i>
+      <i className="fas fa-pen" aria-hidden="true"></i>
     </button>;
   }
 
@@ -81,7 +81,7 @@ export default class TankTableRow extends React.Component {
     let difficultyStars = [];
     if(rank) {
       for(let i=0; i < rank; i++) {
-        difficultyStars.push(<i key={id + "-" + i} className="fa fa-star" aria-hidden="true"></i>);
+        difficultyStars.push(<i key={id + "-" + i} className="fas fa-star" aria-hidden="true"></i>);
       }
     } else {
       difficultyStars = <span style={{color: '#999999'}}>unknown</span>;
@@ -118,7 +118,7 @@ export default class TankTableRow extends React.Component {
     if(this.props.count !== undefined) {
       countCell = <td className="block-center tank-count">
         <NumericInput
-          className="pull-right"
+          className="float-right"
           defaultValue={this.props.count}
           onChange={(v) => this.props.onChange(v)}
           min={0}

@@ -73,8 +73,8 @@ export default class StartScreen extends React.Component {
 
   renderSettings() {
     return <div>
-      <button type="button" className="btn btn-success btn-lg pull-right create-tank" onClick={() => this.props.onTankCreate()} style={{margin: "15px"}}>
-        <i className="fa fa-plus-circle" aria-hidden="true"></i> Create Tank
+      <button type="button" className="btn btn-success btn-lg float-right create-tank" onClick={() => this.props.onTankCreate()} style={{margin: "15px"}}>
+        <i className="fas fa-plus-circle" aria-hidden="true"></i> Create Tank
       </button>
       <table className="table tank-table" >
         <thead>
@@ -96,7 +96,7 @@ export default class StartScreen extends React.Component {
     let listComplete = this.getTankCount() >= 2;
     let classNames = "start-battle btn btn-primary btn-lg " + (!listComplete ? "disabled" : "");
     return <button type="button" className={classNames} onClick={() => this.startBattle()}>
-      <i className="fa fa-play" aria-hidden="true"></i> START
+      <i className="fas fa-play" aria-hidden="true"></i> START
     </button>;
   }
 

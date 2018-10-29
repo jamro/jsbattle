@@ -117,7 +117,7 @@ export default class App extends React.Component {
       {this.renderContent()}
       <FullRow>
         <small style={{color: '#999', textAlign: 'center', borderTop: '1px solid #999', width: "100%", display: 'inline-block', padding: '5px'}}>
-          Hosted on <a href="https://github.com/jamro/jsbattle" target="_blank"><i className="fa fa-github-alt" aria-hidden="true"></i> GitHub</a>.
+          Hosted on <a href="https://github.com/jamro/jsbattle" target="_blank"><i className="fab fa-github" aria-hidden="true"></i> GitHub</a>.
           This project is licensed under the terms of the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.
           Version: %%GULP_INJECT_VERSION%% (build #%%GULP_INJECT_BUILD%%)
         </small>

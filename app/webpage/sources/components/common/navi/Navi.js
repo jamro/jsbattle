@@ -53,10 +53,10 @@ export default class Navi extends React.Component {
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
           <a
-            className={this.props.section == 'EDITOR' ? activeClasses : inactiveClasses}
+            className={this.props.section == 'CHALLENGES' ? activeClasses : inactiveClasses}
             href="#"
-            onClick={() => this.props.controller.openCodeRepository()}>
-            <i className="fas fa-pen" aria-hidden="true"></i> Editor
+            onClick={() => this.props.controller.openChallenges()}>
+            <i className="fas fa-trophy" aria-hidden="true"></i> Challenges
           </a>
         </li>
         <li className="nav-item">
@@ -64,7 +64,15 @@ export default class Navi extends React.Component {
             className={this.props.section == 'BATTLE' ? activeClasses : inactiveClasses}
             href="#"
             onClick={() => this.props.controller.openTankList()}>
-            <i className="fas fa-shield-alt" aria-hidden="true"></i> Battle
+            <i className="fas fa-shield-alt" aria-hidden="true"></i> Battlefield
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className={this.props.section == 'EDITOR' ? activeClasses : inactiveClasses}
+            href="#"
+            onClick={() => this.props.controller.openCodeRepository()}>
+            <i className="fas fa-pen" aria-hidden="true"></i> Editor
           </a>
         </li>
         <li className="nav-item">

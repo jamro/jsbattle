@@ -59,11 +59,9 @@ Open your favorite web browser and navigate to URL from the previous step
   http://localhost:8080
 ```
 
-It will open battle starting page
+It will open JsBattle:
 
-![alt text](/docs/img/start_screen_001.png)
-
-Just click the **Start** button to watch the battle.
+![alt text](/docs/img/challenges.png)
 
 ## Stopping JsBattle
 

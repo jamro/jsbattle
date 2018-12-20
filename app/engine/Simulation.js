@@ -154,6 +154,9 @@ class Simulation {
    * @see Simulation.onStart()
    */
   start() {
+    if(this._tankList.length == 0) {
+      throw new Error("To start simulation, the tank list cannot be empty!");
+    }
     this._isRunning = true;
     let i;
     let self = this;

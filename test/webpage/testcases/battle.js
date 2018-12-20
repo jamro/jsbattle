@@ -15,7 +15,8 @@ import {
 } from '../helper/BattleHelper.js';
 import {
   setNavBarSpeed,
-  setNavBarQuality
+  setNavBarQuality,
+  clickNavLink
 } from '../helper/NaviHelper.js';
 import {
   getWinnerName,
@@ -33,9 +34,11 @@ module.exports = function() {
       let url = this.config.BASE_URL + "#stateless";
       this.mlog.log(`Opening ${url}`);
       await this.page.goto(url);
+      await clickNavLink(this.page, "battlefield");
       await waitForTankCounter(this.page);
       await clickStartBattle(this.page);
       await waitForBattlefield(this.page);
+
     });
 
     it('should exit the battle', async () => {

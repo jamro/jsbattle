@@ -63,13 +63,13 @@ module.exports = function() {
 
     it('should navigate betweeen sections', async () => {
       let navLink;
-      await clickNavLink(this.page, 0);
+      await clickNavLink(this.page, "editor");
       navLink = await getActiveNavLink(this.page);
       assert.equal('Editor', navLink);
 
-      await clickNavLink(this.page, 1);
+      await clickNavLink(this.page, "battlefield");
       navLink = await getActiveNavLink(this.page);
-      assert.equal('Battle', navLink);
+      assert.equal('Battlefield', navLink);
 
     });
 

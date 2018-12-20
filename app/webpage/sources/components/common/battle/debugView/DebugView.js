@@ -1,6 +1,6 @@
-import JsonCode from "../../../common/JsonCode.js";
-import UnfreshComponent from "../../../common/UnfreshComponent.js";
-import InfoBox from "../../../common/InfoBox.js";
+import JsonCode from "../../JsonCode.js";
+import UnfreshComponent from "../../UnfreshComponent.js";
+import InfoBox from "../../InfoBox.js";
 
 export default class DebugView extends UnfreshComponent {
 

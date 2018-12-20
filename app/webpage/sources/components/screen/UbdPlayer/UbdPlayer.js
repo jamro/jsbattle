@@ -1,4 +1,4 @@
-import Battlefield from "../../common/Battlefield.js";
+import Battlefield from "../../common/battle/Battlefield.js";
 
 export default class UbdPlayer extends React.Component {
 

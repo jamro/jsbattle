@@ -10,7 +10,7 @@ import {
   writeCode,
   getCode,
   isSavingEnabled,
-  clickQuickFight,
+  clickFight,
   clickSave
 } from "../helper/EditorHelper.js"
 import {
@@ -29,7 +29,7 @@ module.exports = function() {
       let url = this.config.BASE_URL + "#stateless";
       this.mlog.log(`Opening ${url}`);
       await this.page.goto(url);
-      await clickNavLink(this.page, 0);
+      await clickNavLink(this.page, "editor");
       await clickCreateTank(this.page);
       await clickEditTank(this.page, 0);
     });
@@ -59,10 +59,10 @@ module.exports = function() {
     });
 
     it('should start a quick fight', async () => {
-      await clickQuickFight(this.page);
+      await clickFight(this.page);
       await waitForBattlefield(this.page);
       let navLink = await getActiveNavLink(this.page);
-      assert.equal('Battle', navLink)
+      assert.equal('Battlefield', navLink)
     });
 
     it('should allow code editing', async () => {

@@ -46,7 +46,7 @@ export default class SaveButtons extends React.Component {
       </button>;
     }
     return <div>
-      <button type="button" className="btn btn-primary editor-quick-fight" onClick={() => this.onCloseRequest(true)}>
+      <button type="button" className="btn btn-primary editor-fight" onClick={() => this.onCloseRequest(true)}>
         <i className="fas fa-play" aria-hidden="true"></i> Quick Fight
       </button> &nbsp;
       {saveButton} &nbsp;

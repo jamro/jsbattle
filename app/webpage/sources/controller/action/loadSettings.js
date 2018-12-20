@@ -1,6 +1,6 @@
 import BattleSet from '../../lib/BattleSet.js';
 
-export default (stateHolder, aiRepository) => {
+export default (stateHolder, aiRepository, challengeLibrary) => {
 
   function getDifficulty(tankName) {
     let difficultyMap = {};
@@ -23,17 +23,20 @@ export default (stateHolder, aiRepository) => {
       let qualitySettings;
       let teamMode;
       let battleSetData;
+      let completedChallenges;
 
       if(!stateless) {
         simSpeed = localStorage.getItem("settings.simSpeed");
         qualitySettings = localStorage.getItem("settings.quality");
         teamMode = localStorage.getItem("settings.teamMode");
         battleSetData = localStorage.getItem("settings.battleSet");
+        completedChallenges = localStorage.getItem("challenges.completed");
       }
       simSpeed = simSpeed ? simSpeed : 1;
       qualitySettings = qualitySettings ? qualitySettings : 0.5;
       teamMode = (teamMode == 'true');
       battleSetData = battleSetData ? JSON.parse(battleSetData) : [];
+      completedChallenges = completedChallenges ? JSON.parse(completedChallenges) : [];
 
       let userTankNames = aiRepository.getScriptNameList();
       aiRepository.reserveName(tankList);
@@ -71,6 +74,8 @@ export default (stateHolder, aiRepository) => {
       battleSetData = battleSetData.concat(newTanks).concat(userTanks);
       let battleSet =  new BattleSet();
       battleSet.fromJSON(battleSetData);
+
+      completedChallenges.forEach((id) => challengeLibrary.completeChallenge(id));
 
       stateHolder.setState({
         simSpeed: simSpeed,

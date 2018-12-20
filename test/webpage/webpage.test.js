@@ -43,6 +43,18 @@ describe('Web Page', function() {
     await this.browser.close();
     this.mlog.log("Tests completed. Bye bye");
   });
+  let self = this;
+
+  afterEach(async function () {
+
+    if(this.currentTest.state == 'failed') {
+      let filename = this.currentTest.title.replace(/[\\\?\%\*]/g, '_');
+      await self.page.screenshot({
+        path: __dirname + `/../../tmp/${filename}.png`
+      });
+    }
+
+  });
 
   require('./testcases/schema.js').bind(this)();
   require('./testcases/docs.js').bind(this)();
@@ -51,6 +63,7 @@ describe('Web Page', function() {
   require('./testcases/battle.js').bind(this)();
   require('./testcases/airepo.js').bind(this)();
   require('./testcases/editor.js').bind(this)();
+  require('./testcases/challenge.js').bind(this)();
 
 
 });

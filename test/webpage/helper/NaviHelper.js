@@ -51,7 +51,17 @@ export const getActiveNavLink = async (page) => {
     .replace(/\s*$/, "");
 }
 
-export const clickNavLink = async (page, index) => {
+export const clickNavLink = async (page, linkName) => {
+  let links = [
+    "challenges",
+    "battlefield",
+    "editor",
+    "docs"
+  ];
+  let index = links.indexOf(linkName);
+  if(index == -1) {
+    throw new Error(`Unknown link name: ${linkName}`);
+  }
   let css = 'nav .nav-item:nth-of-type(' + (index+1) + ') a.main-nav-link';
   await page.waitFor(css);
   await page.click(css);

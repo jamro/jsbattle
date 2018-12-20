@@ -1,5 +1,5 @@
 import ScoreBoardRow from "./ScoreBoardRow.js";
-import UnfreshComponent from "../../../common/UnfreshComponent.js";
+import UnfreshComponent from "../../UnfreshComponent.js";
 
 export default class ScoreBoard extends UnfreshComponent {
 

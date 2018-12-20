@@ -2,10 +2,11 @@ import generateName from "sillyname";
 
 export default class AiRepository {
 
-  constructor(stateless) {
+  constructor(stateless, storageName) {
+    this.storageName = storageName;
     let storedScripts;
     if(!stateless) {
-      storedScripts = localStorage.getItem('aiRepository.scriptMap');
+      storedScripts = localStorage.getItem(this.storageName);
     }
     this._scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
     this._reservedNames = [];
@@ -39,7 +40,7 @@ export default class AiRepository {
       name: name,
       code: "importScripts(\'lib\/tank.js\');\n\n\/\/ Don\'t know where to start?\n\/\/ Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t\/\/ initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t\/\/ write your tank logic here\n  \n});\n\n\n"
     };
-    localStorage.setItem('aiRepository.scriptMap', JSON.stringify(this._scriptMap));
+    localStorage.setItem(this.storageName, JSON.stringify(this._scriptMap));
   }
 
   renameScript(newValue, oldValue) {
@@ -49,11 +50,15 @@ export default class AiRepository {
     this._scriptMap[newValue] = this._scriptMap[oldValue];
     this._scriptMap[newValue].name = newValue;
     this.deleteScript(oldValue);
-    localStorage.setItem('aiRepository.scriptMap', JSON.stringify(this._scriptMap));
+    localStorage.setItem(this.storageName, JSON.stringify(this._scriptMap));
   }
 
   getCompiledScript(name) {
     return this.getScript(name).code;
+  }
+
+  existsScript(name) {
+    return this._scriptMap[name] != undefined;
   }
 
   getScriptNameList() {
@@ -69,7 +74,7 @@ export default class AiRepository {
       throw "Script " + name + " does not exists";
     }
     this._scriptMap[name].code = code;
-    localStorage.setItem('aiRepository.scriptMap', JSON.stringify(this._scriptMap));
+    localStorage.setItem(this.storageName, JSON.stringify(this._scriptMap));
   }
 
   deleteScript(name) {
@@ -79,7 +84,7 @@ export default class AiRepository {
       newMap[i] = this._scriptMap[i];
     }
     this._scriptMap = newMap;
-    localStorage.setItem('aiRepository.scriptMap', JSON.stringify(this._scriptMap));
+    localStorage.setItem(this.storageName, JSON.stringify(this._scriptMap));
   }
 
   reserveName(names) {

@@ -5,7 +5,7 @@ import JsonCode from "../../common/JsonCode.js";
 import ExitWarning from "../../common/ExitWarning.js";
 import FileNameHeader from "./FileNameHeader.js";
 import SaveButtons from "./SaveButtons.js";
-import CodeArea from "./CodeArea.js";
+import CodeEditorWidget from "../../common/editor/CodeEditorWidget.js";
 
 export default class EditorScreen extends React.Component {
 
@@ -20,7 +20,7 @@ export default class EditorScreen extends React.Component {
     if(newValue != oldValue && !this.props.aiRepository.isNameAllowed(newValue)) {
       return "Name must be unique, at least 3 characters long";
     }
-    this.props.onRename(newValue);
+    this.props.onRename(newValue, oldValue);
     return null;
   }
 
@@ -126,28 +126,10 @@ export default class EditorScreen extends React.Component {
       <FullRow>
         <hr style={{marginTop: '5px'}}/>
       </FullRow>
-      <Row>
-        <Col lg={3} md={4} className="visible-md visible-lg">
-        <div className="card">
-          <div className="card-header">
-            <strong className="card-title">Cheat Sheet</strong>
-          </div>
-          <div className="card-body">
-            <JsonCode className="debug" highlight={true} data={settingsData} varName="settings"/>
-            <JsonCode className="debug" highlight={true} data={infoData} varName="info"/>
-            <JsonCode className="debug" highlight={true} data={controlData} varName="control" />
-            <JsonCode className="debug" highlight={true} data={stateData} varName="state" />
-          </div>
-        </div>
-        </Col>
-        <Col lg={9} md={8} sm={12} xs={12}>
-          <CodeArea
-            className="form-control"
-            defaultValue={this.props.unsavedCode}
-            onChange={(code) => this.props.onCodeChanged(code)}
-          />
-        </Col>
-      </Row>
+      <CodeEditorWidget
+        initCode={this.props.unsavedCode}
+        onCodeChanged={(code) => this.props.onCodeChanged(code)}
+      />
     </div>;
   }
 }

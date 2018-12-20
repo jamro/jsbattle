@@ -1,9 +1,10 @@
 class Tank {
 
-  constructor(name) {
+  constructor(name, count, userCreated) {
     this.name = name;
-    this.count = 0;
-    this.userCreated = false;
+    this.displayName = name;
+    this.count = count || 0;
+    this.userCreated = userCreated || false;
   }
 
 }
@@ -14,8 +15,8 @@ export default class BattleSet {
     this.data = [];
   }
 
-  addTank(name) {
-    let tank = new Tank(name);
+  addTank(name, count, userCreated) {
+    let tank = new Tank(name, count, userCreated);
     this.data.push(tank);
     this.sort();
     return tank;
@@ -27,6 +28,10 @@ export default class BattleSet {
 
   getTankByName(name) {
     return this.data.filter((tank) => (tank.name == name))[0];
+  }
+
+  setTankDisplayName(name, displayName) {
+    this.getTankByName(name).displayName = displayName;
   }
 
   removeTankByName(name) {
@@ -90,7 +95,7 @@ export default class BattleSet {
       for(j=0; j < tank.count; j++) {
         let aiDef = JsBattle.createAiDefinition();
         if(tank.userCreated) {
-          aiDef.fromCode(tank.name, aiRepository.getCompiledScript(tank.name));
+          aiDef.fromCode(tank.displayName, aiRepository.getCompiledScript(tank.name));
         } else {
           aiDef.fromFile(tank.name);
         }

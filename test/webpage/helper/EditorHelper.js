@@ -91,8 +91,8 @@ export const isSavingEnabled = async (page) => {
   return result;
 }
 
-export const clickQuickFight = async (page) => {
-  let css = ".editor-quick-fight";
+export const clickFight = async (page) => {
+  let css = ".editor-fight";
   await page.waitFor(css);
   await page.click(css);
 }

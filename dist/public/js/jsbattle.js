@@ -3137,6 +3137,9 @@ var Simulation = function () {
      * @see Simulation.onStart()
      */
     value: function start() {
+      if (this._tankList.length == 0) {
+        throw new Error("To start simulation, the tank list cannot be empty!");
+      }
       this._isRunning = true;
       var i = void 0;
       var self = this;

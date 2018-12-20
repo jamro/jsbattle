@@ -13,7 +13,8 @@ import {
   clickEditTank
 } from '../helper/TankListHelper.js';
 import {
-  getActiveNavLink
+  getActiveNavLink,
+  clickNavLink
 } from '../helper/NaviHelper.js';
 import {
   getEditorTankName
@@ -30,6 +31,7 @@ module.exports = function() {
       let url = this.config.BASE_URL + "#stateless";
       this.mlog.log(`Opening ${url}`);
       await this.page.goto(url);
+      await clickNavLink(this.page, "battlefield");
       await waitForTankCounter(this.page);
     });
 

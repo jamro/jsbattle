@@ -9,6 +9,7 @@ export default {
   battle: {
     battleSet: null,
     teamMode: false,
+    aiDefList: null,
     quickBattleTank: null,
     rngSeed: 0,
     shareLink: null
@@ -20,6 +21,13 @@ export default {
     originalCode: "",
     tankName: "",
     unsavedCode: ""
+  },
+  currentChallenge: {
+    id: null,
+    battleSet: null,
+    aiDefList: null,
+    teamMode: false,
+    result: null
   },
   errorMessage: null
 };

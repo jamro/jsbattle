@@ -20,7 +20,7 @@ module.exports = function() {
       let url = this.config.BASE_URL + "#stateless";
       this.mlog.log(`Opening ${url}`);
       await this.page.goto(url);
-      await clickNavLink(this.page, 0);
+      await clickNavLink(this.page, "editor");
     });
 
     it('should have empty list of tanks by default', async () => {

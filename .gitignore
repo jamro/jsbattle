@@ -63,8 +63,8 @@ typings/
 .DS_Store
 
 # temporary files
-/tmp
-/temp
+tmp
+temp
 
 # art
 /art

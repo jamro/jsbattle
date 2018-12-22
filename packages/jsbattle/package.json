@@ -44,7 +44,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-cli": "^2.0.1",
     "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.6.1",
+    "gulp-connect": "^5.7.0",
     "gulp-inject-version": "^1.0.1",
     "gulp-jsdoc-to-markdown": "^1.2.2",
     "gulp-jshint": "^2.1.0",

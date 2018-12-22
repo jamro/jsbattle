@@ -38,7 +38,7 @@ module.exports = function() {
       assert(challengeCount > 0, "Challenge count is grater than zero");
     });
 
-    it.only('should win the battle', async () => {
+    it('should win the battle', async () => {
       this.retries(3);
       let code = 'importScripts("lib/tank.js");var tartgetAngle;tank.init(function(a,t){tartgetAngle=0}),tank.loop(function(a,t){var e=Math.deg.normalize(tartgetAngle-a.angle);if(t.TURN=.2*e,Math.abs(e)<5?t.THROTTLE=1:t.THROTTLE=0,a.collisions.wall&&(tartgetAngle+=Math.randomRange(45,180),t.THROTTLE=0),t.DEBUG={tartgetAngle:tartgetAngle},t.RADAR_TURN=1,a.radar.enemy){t.THROTTLE=0,t.TURN=0,t.RADAR_TURN=0;var n=Math.deg.atan2(a.radar.enemy.y-a.y,a.radar.enemy.x-a.x),g=Math.deg.normalize(n-a.angle-a.gun.angle);t.GUN_TURN=.2*g,t.SHOOT=1}});';
 

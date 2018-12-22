@@ -6,7 +6,7 @@
     "stop": "npm stop --prefix=./packages/jsbattle",
     "restart": "npm restart --prefix=./packages/jsbattle",
 
-    "lint": "lerna bootstrap --loglevel=debug && lerna run lint --stream",
+    "lint": "lerna bootstrap && lerna run lint --stream",
     "build": "lerna bootstrap && lerna run build --stream",
     "test": "lerna bootstrap && lerna run test --stream",
 

@@ -7,7 +7,6 @@
     "start": "./node_modules/pm2/bin/pm2 start ./dist/ecosystem.config.js && ./node_modules/pm2/bin/pm2 logs --nostream --out --lines 5 jsbattle",
     "stop": "./node_modules/pm2/bin/pm2 stop ./dist/ecosystem.config.js | ./node_modules/pm2/bin/pm2 del ./dist/ecosystem.config.js",
     "restart": "./node_modules/pm2/bin/pm2 restart ./dist/ecosystem.config.js",
-
     "lint": "./node_modules/.bin/gulp lint",
     "build": "./node_modules/.bin/gulp",
     "test": "./node_modules/.bin/gulp test",

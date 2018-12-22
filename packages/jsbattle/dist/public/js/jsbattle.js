@@ -2054,6 +2054,14 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
   var $errorKeyword;
   var $typeSchema = it.schema.type,
       $typeIsArray = Array.isArray($typeSchema);
+  if ($typeSchema && it.opts.nullable && it.schema.nullable === true) {
+    if ($typeIsArray) {
+      if ($typeSchema.indexOf('null') == -1) $typeSchema = $typeSchema.concat('null');
+    } else if ($typeSchema != 'null') {
+      $typeSchema = [$typeSchema, 'null'];
+      $typeIsArray = true;
+    }
+  }
   if ($typeIsArray && $typeSchema.length == 1) {
     $typeSchema = $typeSchema[0];
     $typeIsArray = false;
@@ -7791,10 +7799,6 @@ function Ajv(opts) {
   this._refs = {};
   this._fragments = {};
   this._formats = formats(opts.format);
-  var schemaUriFormat = this._schemaUriFormat = this._formats['uri-reference'];
-  this._schemaUriFormatFunc = function (str) {
-    return schemaUriFormat.test(str);
-  };
 
   this._cache = opts.cache || new Cache();
   this._loadingSchemas = {};
@@ -7808,8 +7812,9 @@ function Ajv(opts) {
   this._metaOpts = getMetaSchemaOptions(this);
 
   if (opts.formats) addInitialFormats(this);
-  addDraft6MetaSchema(this);
+  addDefaultMetaSchema(this);
   if (_typeof(opts.meta) == 'object') this.addMetaSchema(opts.meta);
+  if (opts.nullable) this.addKeyword('nullable', { metaSchema: { const: true } });
   addInitialSchemas(this);
 }
 
@@ -7901,14 +7906,7 @@ function validateSchema(schema, throwOrLogError) {
     this.errors = null;
     return true;
   }
-  var currentUriFormat = this._formats.uri;
-  this._formats.uri = typeof currentUriFormat == 'function' ? this._schemaUriFormatFunc : this._schemaUriFormat;
-  var valid;
-  try {
-    valid = this.validate($schema, schema);
-  } finally {
-    this._formats.uri = currentUriFormat;
-  }
+  var valid = this.validate($schema, schema);
   if (!valid && throwOrLogError) {
     var message = 'schema is invalid: ' + this.errorsText();
     if (this._opts.validateSchema == 'log') this.logger.error(message);else throw new Error(message);
@@ -8158,7 +8156,7 @@ function addFormat(name, format) {
   return this;
 }
 
-function addDraft6MetaSchema(self) {
+function addDefaultMetaSchema(self) {
   var $dataSchema;
   if (self._opts.$data) {
     $dataSchema = __webpack_require__(76);
@@ -10188,7 +10186,7 @@ formats.full = {
   'uri-reference': URIREF,
   'uri-template': URITEMPLATE,
   url: URL,
-  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   hostname: hostname,
   ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
   ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,

@@ -5,10 +5,8 @@ addons:
     packages:
       # This is required to run new chrome on old trusty
       - libnss3
-cache:
-  directories:
-    - node_modules
-# allow headful tests
+  sonarcloud:
+    organization: "jamro-github"
 before_install:
   # Enable user namespace cloning
   - "sudo sysctl kernel.unprivileged_userns_clone=1"
@@ -19,9 +17,6 @@ node_js:
   - 8
 install:
   - npm install
-script: npm run-script all
-addons:
-  sonarcloud:
-    organization: "jamro-github"
 script:
+  - npm run-script all
   - sonar-scanner -Dsonar.verbose=true -X

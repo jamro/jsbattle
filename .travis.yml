@@ -24,4 +24,4 @@ addons:
   sonarcloud:
     organization: "jamro-github"
 script:
-  - sonar-scanner
+  - sonar-scanner -Dsonar.verbose=true -X

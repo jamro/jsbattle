@@ -4,7 +4,6 @@ import mlog from './lib/mlog.js';
 import puppeteer from 'puppeteer';
 
 describe('Web Page', function() {
-  /*
   this.slow(10000);
   this.timeout(30000);
   this.browser = null;
@@ -66,5 +65,4 @@ describe('Web Page', function() {
   require('./testcases/editor.js').bind(this)();
   require('./testcases/challenge.js').bind(this)();
 
-*/
 });

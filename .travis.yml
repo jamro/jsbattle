@@ -20,5 +20,8 @@ node_js:
 install:
   - npm install
 script: npm run-script all
-after_script:
-    - kill -9 $(ps aux | grep 'pm2' | awk '{print $2}')
+addons:
+  sonarcloud:
+    organization: "jamro-github"
+script:
+  - sonar-scanner

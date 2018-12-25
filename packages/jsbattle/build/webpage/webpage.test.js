@@ -51,6 +51,7 @@ module.exports = function (gulp, config, plugins) {
                     } else {
                       done();
                     }
+                    process.exit();
                   });
                 });
               });
@@ -60,7 +61,6 @@ module.exports = function (gulp, config, plugins) {
       ))
       .on('error', function(){
         process.emit('exit');
-
         process.exit();
       })
   }

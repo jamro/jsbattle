@@ -30,13 +30,21 @@ module.exports = function (gulp, config, plugins) {
               wait_ready: true
             }, (err, apps) => {
               if (err) {
-                throw err
+                console.error(err);
+                done("Starting PM2 failed. " + err);
               }
 
               mocha.run(function(failures){
-                plugins.connect.serverClose();
                 pm2.stop('jsbattle-test', (err, apps) => {
+                  if(err) {
+                    console.log("cannot stop PM2 process");
+                    console.log(err);
+                  }
                   pm2.delete('jsbattle-test', (err, apps) => {
+                    if(err) {
+                      console.log("cannot delete PM2 process");
+                      console.log(err);
+                    }
                     pm2.disconnect();
                   });
                 });

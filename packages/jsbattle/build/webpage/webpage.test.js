@@ -45,7 +45,14 @@ module.exports = function (gulp, config, plugins) {
                       console.log("cannot delete PM2 process");
                       console.log(err);
                     }
-                    pm2.disconnect();
+                    pm2.killDaemon((err, desc) => {
+                      if(err) {
+                        console.log("cannot kill PM2 daemon");
+                        console.log(err);
+                      }
+                      pm2.disconnect();
+                    });
+
                   });
                 });
                 if(failures) {

@@ -45,21 +45,14 @@ module.exports = function (gulp, config, plugins) {
                       console.log("cannot delete PM2 process");
                       console.log(err);
                     }
-                    pm2.killDaemon((err, desc) => {
-                      if(err) {
-                        console.log("cannot kill PM2 daemon");
-                        console.log(err);
-                      }
-                      pm2.disconnect();
-                    });
-
+                    pm2.disconnect();
+                    if(failures) {
+                      done("Tests failed");
+                    } else {
+                      done();
+                    }
                   });
                 });
-                if(failures) {
-                  done("Tests failed");
-                } else {
-                  done();
-                }
               });
             })
           })
@@ -67,6 +60,8 @@ module.exports = function (gulp, config, plugins) {
       ))
       .on('error', function(){
         process.emit('exit');
+
+        process.exit();
       })
   }
 };

@@ -3,7 +3,6 @@ require('babel-register')();
 
 const childProcess = require('child_process');
 const through = require("through2");
-const child_process = require('child_process');
 const Mocha = require('mocha');
 
 module.exports = function (gulp, config, plugins) {
@@ -24,19 +23,25 @@ module.exports = function (gulp, config, plugins) {
             "-p", "8070",
             "-d", config.tmp + "jsbattle-test-data"
           ];
-          console.log(scriptArgs);
           console.log("Starting server process");
-          let serverProcess = childProcess.fork(scriptPath, scriptArgs);
 
-          mocha.run(function(failures){
-            console.log("Killing server process");
-            serverProcess.kill();
-            if(failures) {
-              done("Tests failed");
-            } else {
-              done();
+          let serverProcess = childProcess.fork(scriptPath, scriptArgs, {silent: false});
+          serverProcess.on('message', (msg) => {
+            if(msg == 'ready') {
+
+              mocha.run(function(failures){
+                console.log("Killing server process");
+                serverProcess.kill();
+                if(failures) {
+                  done("Tests failed");
+                } else {
+                  done();
+                }
+              });
+
             }
-          });
+          })
+
         }
       ))
       .on('error', function(){

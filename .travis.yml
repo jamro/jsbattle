@@ -19,6 +19,6 @@ node_js:
   - 8
 install:
   - npm install
-script: npm run-script all
+script: npm run-script lint
 after_script:
     - kill -9 $(ps aux | grep 'pm2' | awk '{print $2}')

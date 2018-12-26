@@ -4,20 +4,10 @@
 
 You will need these before you start:
 
- - [**NodeJS**](https://nodejs.org/) - NodeJS and NPM is heavily used during building process. You cannot start without it.
+ - [**NodeJS**](https://nodejs.org/) - JsBattle is written in JavaScript so NodeJS and NPM are required
 
 
-## Option 1: Download from GitHub
-
-Download sources of the latest release from here: [https://github.com/jamro/jsbattle/releases](https://github.com/jamro/jsbattle/releases) and unpack the archive.
-
-Go to the directory with the game and install all NPM dependencies:
-
-```bash
-  npm install
-```
-
-## Option 2: Use NPM
+## Install NPM package
 
 Install JsBattle in selected directory:
 

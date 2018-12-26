@@ -18,6 +18,9 @@
   },
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
+  "bin": {
+    "jsbattle" : "./dist/jsbattle.js"
+  },
   "babel": {
     "presets": [
       "es2015"

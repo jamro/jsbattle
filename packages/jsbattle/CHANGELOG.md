@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.1.3] - 2018-12-26
+## [2.1.4] - 2018-12-26
 ### Added
 - Share battle link
 - Challenges section

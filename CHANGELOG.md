@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Challenges section
 - Deployment scripts (see [ansible-role-jsbattle](https://github.com/jamro/ansible-role-jsbattle))
 - Tracking build numbers
-- Introducting LernaJS
+- Introducing LernaJS (refactoring to monorepo)
 - UBD files schemas
 
 ### Changed

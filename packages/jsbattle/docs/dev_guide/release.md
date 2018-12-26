@@ -2,16 +2,18 @@
 
 Follow those steps to release a new version of JsBattle
 
-1. Add version number and release date to **Unreleased** changes in `/CHANGELOG.md` file.
+1. Make sure that all changes are merged to `master` branch and switch to `master`.
 
-2. Make sure that `/package.json` and `/package-lock.json` have proper version number.
+2. Add version number and release date to **Unreleased** changes in `/CHANGELOG.md` and `/packages/*/CHANGELOG.md` files.
 
-3. Rebuild the project to make sure that new version number is included in the **distribution**.
+3. Commit and push changes made in the changelog.
 
-4. Commit and push changes to **GitHub** repository. Use new version number in commit message.
+4. Test the project by `npm run-script all` to make sure that everything works correctly.
+
+5. Increase the version by `lerna version x.y.z` (it will push changes to git)
 
 5. Create release in **GitHub**. Tag and Release Title should have format of "v1.0.0"
 
-6. Publish new version to NPM by `npm publish`.
+6. Rebuild the project to make sure that the build artifacts have new version number built-in.
 
-7. Increase version in `/package.json` and `/package-lock.json` so you will not introduce more changes to the released version.
+7. Publish new version to NPM by `lerna publish from-package`.

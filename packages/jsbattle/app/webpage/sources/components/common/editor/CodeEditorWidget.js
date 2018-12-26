@@ -1,4 +1,3 @@
-import FullRow from "../bootstrap/FullRow.js";
 import Row from "../bootstrap/Row.js";
 import Col from "../bootstrap/Col.js";
 import JsonCode from "../JsonCode.js";

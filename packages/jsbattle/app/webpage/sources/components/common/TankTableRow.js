@@ -1,6 +1,3 @@
-import FullRow from "./bootstrap/FullRow.js";
-import Row from "./bootstrap/Row.js";
-import Col from "./bootstrap/Col.js";
 import NumericInput from "./NumericInput.js";
 
 export default class TankTableRow extends React.Component {

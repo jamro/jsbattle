@@ -1,8 +1,5 @@
-import FullRow from "../../common/bootstrap/FullRow.js";
 import Row from "../../common/bootstrap/Row.js";
 import Col from "../../common/bootstrap/Col.js";
-import NumericInput from "../../common/NumericInput.js";
-import Loading from "../../common/Loading.js";
 import TankTableRow from "../../common/TankTableRow.js";
 
 export default class StartScreen extends React.Component {

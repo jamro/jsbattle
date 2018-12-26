@@ -1,6 +1,4 @@
 import FullRow from "../../common/bootstrap/FullRow.js";
-import Row from "../../common/bootstrap/Row.js";
-import Col from "../../common/bootstrap/Col.js";
 import CodeEditorWidget from "../../common/editor/CodeEditorWidget.js";
 
 export default class ChallengeEditorScreen extends React.Component {

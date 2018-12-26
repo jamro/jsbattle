@@ -1,7 +1,3 @@
-import FullRow from "../../common/bootstrap/FullRow.js";
-import Row from "../../common/bootstrap/Row.js";
-import Col from "../../common/bootstrap/Col.js";
-
 export default class ChallengeResultScreen extends React.Component {
 
   constructor(props) {

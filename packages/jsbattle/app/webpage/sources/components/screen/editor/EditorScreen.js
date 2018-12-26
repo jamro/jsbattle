@@ -1,7 +1,4 @@
 import FullRow from "../../common/bootstrap/FullRow.js";
-import Row from "../../common/bootstrap/Row.js";
-import Col from "../../common/bootstrap/Col.js";
-import JsonCode from "../../common/JsonCode.js";
 import ExitWarning from "../../common/ExitWarning.js";
 import FileNameHeader from "./FileNameHeader.js";
 import SaveButtons from "./SaveButtons.js";

@@ -27,10 +27,6 @@ canvas {
   max-height: 600px;
 }
 
-debug-container {
-  padding: 2px;
-}
-
 .debug {
   font-size: 10px;
   padding: 2px;

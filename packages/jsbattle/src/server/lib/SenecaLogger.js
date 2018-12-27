@@ -4,7 +4,7 @@ module.exports = function (level) {
   SenecaLogger.preload = function () {
     var seneca = this;
 
-    var logLevelMap = [];
+    var logLevelMap = {};
     logLevelMap['FATAL'] = 0;
     logLevelMap['ERROR'] = 1;
     logLevelMap['WARN'] = 2;

@@ -1,17 +1,4 @@
 module.exports = {
-  engine: {
-    entry: "./src/engine/entry.js",
-    sources: ['src/engine/**/*.js'],
-    test: ['test/engine/**/*.test.js'],
-    spritesheets: ['resources/spritesheets/**/*.*'],
-    lib: [
-      'node_modules/sat/SAT.js',
-      'node_modules/seedrandom/seedrandom.js'
-    ],
-  },
-  schema: {
-    sources: 'src/schema/**/*'
-  },
   server: {
     sources: ['src/server/**/*'],
     test: ['test/server/**/*.test.js'],
@@ -48,18 +35,6 @@ module.exports = {
       sources: 'docs/puml/**/*.puml',
       target: 'docs/img/puml/'
     }
-  },
-  tanks: {
-    resourcesBase: 'src/tanks/',
-    resources: [
-      'src/tanks/*.tank.js',
-      'src/tanks/index.json',
-      'src/tanks/lib/codeWorker.js'
-    ],
-    test: ['test/tanks/**/*.test.js'],
-    entry: "./src/tanks/lib/tank.js",
-    sources: ['src/tanks/lib/**/*.js'],
-    lib: ['node_modules/seedrandom/seedrandom.js'],
   },
   dist: 'dist/',
   tmp: 'tmp/'

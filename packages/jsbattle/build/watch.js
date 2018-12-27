@@ -15,17 +15,6 @@ module.exports = function (gulp, config, plugins) {
     });
   });
 
-  gulp.task('rebuild-engine', function(done) {
-    plugins.sequence(
-      'engine.sources.min',
-      'engine.sprites',
-      'engine.docs',
-      'reload-server',
-      'beep',
-      done
-    );
-  });
-
   gulp.task('rebuild-webpage', function(done) {
     plugins.sequence(
       'webpage.copy',
@@ -36,15 +25,6 @@ module.exports = function (gulp, config, plugins) {
     );
   });
 
-  gulp.task('rebuild-tanks', function(done) {
-    plugins.sequence(
-      'tanks.sources',
-      'tanks.copy',
-      'reload-server',
-      'beep',
-      done
-    );
-  });
 
   gulp.task('rebuild-server', function(done) {
     plugins.sequence(
@@ -93,10 +73,8 @@ module.exports = function (gulp, config, plugins) {
           });
           return tail;
         })
-        gulp.watch('src/engine/**/*', ['rebuild-engine'])
         gulp.watch('src/webpage/**/*', ['rebuild-webpage'])
         gulp.watch('docs/**/*', ['rebuild-webpage'])
-        gulp.watch('src/tanks/**/*', ['rebuild-tanks'])
         gulp.watch('src/server/**/*', ['rebuild-server'])
       });
     })

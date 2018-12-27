@@ -1,0 +1,67 @@
+{
+	"frames": {
+		"big_boom_000": {
+			"frame": {
+				"h": 256,
+				"w": 256,
+				"x": 514,
+				"y": 0
+			},
+			"rotated": false,
+			"spriteSourceSize": {
+				"h": 256,
+				"w": 256,
+				"x": 0,
+				"y": 0
+			},
+			"sourceSize": {
+				"h": 256,
+				"w": 256
+			},
+			"trimmed": false
+		},
+		"big_boom_021": {
+			"frame": {
+				"h": 256,
+				"w": 256,
+				"x": 0,
+				"y": 0
+			},
+			"rotated": false,
+			"spriteSourceSize": {
+				"h": 256,
+				"w": 256,
+				"x": 0,
+				"y": 0
+			},
+			"sourceSize": {
+				"h": 256,
+				"w": 256
+			},
+			"trimmed": false
+		},
+		"big_boom_022": {
+			"frame": {
+				"h": 256,
+				"w": 256,
+				"x": 257,
+				"y": 0
+			},
+			"rotated": false,
+			"spriteSourceSize": {
+				"h": 256,
+				"w": 256,
+				"x": 0,
+				"y": 0
+			},
+			"sourceSize": {
+				"h": 256,
+				"w": 256
+			},
+			"trimmed": false
+		}
+	},
+	"meta": {
+		"image": "jsbattle_1.png"
+	}
+}

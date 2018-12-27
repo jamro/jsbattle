@@ -1,0 +1,48 @@
+{
+  "name": "jsbattle-engine",
+  "private": true,
+  "version": "2.1.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "jshint --config ./jshint.config.json src/",
+    "build": "npm run-script build:sources && npm run-script build:sprites && npm run-script build:tanks && npm run-script build:html && npm run-script build:schema && npm run-script build:docs",
+    "test": "npm run-script test:engine && npm run-script test:tanks",
+    "build:sources": "webpack --config ./webpack.engine.config.js",
+    "build:sprites": "cpx ./resources/spritesheets/**/*.* ./dist/img/spritesheets",
+    "build:tanks": "npm run-script build:tanks-build && npm run-script build:tanks-copy && npm run-script build:codeworker-build",
+    "build:tanks-copy": "cpx './src/tanks/*.*' './dist/tanks'",
+    "build:tanks-build": "webpack --config ./webpack.tanks.config.js",
+    "build:codeworker-build": "webpack --config ./webpack.codeworker.config.js",
+    "build:schema": "cpx './src/schema/*' './dist/schema'",
+    "build:html": "cpx ./src/index.html ./dist",
+    "build:docs": "jsdoc2md --template api-doc-template.hbs -f ./src/engine/**/*.* > ./docs/api.md",
+    "test:engine": "mocha --require @babel/register test/engine/*.test.js",
+    "test:tanks": "mocha --require @babel/register test/tanks/*.test.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamro/jsbattle"
+  },
+  "author": "Krzysztof Jamroz <jamro@jamro.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.4",
+    "cpx": "^1.5.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "jshint": "^2.9.7",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.2",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "sat": "^0.7.1",
+    "seedrandom": "^2.4.4"
+  }
+}

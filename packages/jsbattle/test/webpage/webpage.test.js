@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import assert from "assert";
 import config from './lib/config.js';
 import mlog from './lib/mlog.js';

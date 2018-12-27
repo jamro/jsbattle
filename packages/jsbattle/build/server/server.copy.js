@@ -5,7 +5,7 @@ module.exports = function (gulp, config, plugins) {
       var completeCount = 0;
       function onComplete() {
         completeCount++;
-        if(completeCount == 2) {
+        if(completeCount == 1) {
           done();
         }
       }
@@ -13,8 +13,5 @@ module.exports = function (gulp, config, plugins) {
         .pipe(gulp.dest(config.dist))
         .on('end', onComplete);
 
-      gulp.src(config.schema.sources)
-        .pipe(gulp.dest(config.dist + 'schema/'))
-        .on('end', onComplete);
     };
 };

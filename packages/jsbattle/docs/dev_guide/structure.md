@@ -19,12 +19,6 @@ repo structure is:
 
 ```
 +-- JsBattle/packages/jsbattle
-    |-- app
-    |   |-- engine
-    |   |-- schema
-    |   |-- server
-    |   |-- tanks
-    |   +-- webpage
     |-- build
     |-- deployment
     |-- dist
@@ -48,6 +42,12 @@ repo structure is:
     |-- resources
     |   |-- images
     |   +-- spritesheets
+    |-- src
+    |   |-- engine
+    |   |-- schema
+    |   |-- server
+    |   |-- tanks
+    |   +-- webpage
     |-- test
     |-- tmp
     |-- gulpfile.js
@@ -55,13 +55,6 @@ repo structure is:
     +-- ...
 
 ```
-
-* **`/app`** - source codes of the projects. They are split into 3 sub-folders
-  * `/app/engine` - engine of battle simulation
-  * `/app/tanks` - pre-built AI scripts of tanks and libraries used imported by those scripts
-  * `/app/schema` - JSON schemas
-  * `/app/server` - JsBattle server
-  * `/app/website` - source codes of website where battle simulation is embedded (frontend)
 * **`/build`** - Gulp tasks. Each file is a separate task imported by `/gulpfile.js`. Configuration of Gulp is kept in `config.js`
 * **`/deployment`** - Deployment scripts
 * **`/dist`** - build output goes here. It contains built version of the game.
@@ -82,4 +75,10 @@ repo structure is:
 * **`/resources`** - static resources
   * `/resources/images` - images that are source for all spritesheets
   * `/resources/spritesheets` - generated spritesheets to be included in the project
+* **`/src`** - source codes of the projects. They are split into 3 sub-folders
+  * `/src/engine` - engine of battle simulation
+  * `/src/tanks` - pre-built AI scripts of tanks and libraries used imported by those scripts
+  * `/src/schema` - JSON schemas
+  * `/src/server` - JsBattle server
+  * `/src/website` - source codes of website where battle simulation is embedded (frontend)
 * **`/test`** - Test scripts

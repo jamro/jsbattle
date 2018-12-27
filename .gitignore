@@ -68,7 +68,7 @@ temp
 /art
 
 # others
-/app/server/battleOutput.json
+/src/server/battleOutput.json
 /dist/battleOutput.json
 
 # ansible ignore

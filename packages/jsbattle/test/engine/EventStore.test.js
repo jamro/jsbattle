@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import EventStore from "../../app/engine/EventStore.js"
+import EventStore from "../../src/engine/EventStore.js"
 
 describe('EventStore', function() {
   describe('add', function() {

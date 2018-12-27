@@ -1,6 +1,6 @@
 import assert from "assert";
 import sinon from "sinon";
-import AiDefinition from "../../app/engine/AiDefinition.js"
+import AiDefinition from "../../src/engine/AiDefinition.js"
 
 describe('AiDefinition', function() {
   describe('constructor', function() {

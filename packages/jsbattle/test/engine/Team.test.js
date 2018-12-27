@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 import TankMock from "./mock/TankMock.js";
-import Team from "../../app/engine/Team.js"
+import Team from "../../src/engine/Team.js"
 
 describe('Team', function() {
   describe('constructor', function() {

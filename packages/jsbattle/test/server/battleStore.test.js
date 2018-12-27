@@ -19,8 +19,8 @@ describe('battleStore', function() {
     });
     seneca
       .use(senecaEntity)
-      .use(require(__dirname + '/../../app/server/services/battleStore/battleStore.js'))
-      .use(require(__dirname + '/../../app/server/services/ubdValidator/ubdValidator.js'), {schemaPath: __dirname + '/../../app/schema'})
+      .use(require(__dirname + '/../../src/server/services/battleStore/battleStore.js'))
+      .use(require(__dirname + '/../../src/server/services/ubdValidator/ubdValidator.js'), {schemaPath: __dirname + '/../../src/schema'})
       .ready((err) => {
         if(err) {
           console.error(err);

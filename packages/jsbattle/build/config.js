@@ -1,7 +1,7 @@
 module.exports = {
   engine: {
-    entry: "./app/engine/entry.js",
-    sources: ['app/engine/**/*.js'],
+    entry: "./src/engine/entry.js",
+    sources: ['src/engine/**/*.js'],
     test: ['test/engine/**/*.test.js'],
     spritesheets: ['resources/spritesheets/**/*.*'],
     lib: [
@@ -10,16 +10,16 @@ module.exports = {
     ],
   },
   schema: {
-    sources: 'app/schema/**/*'
+    sources: 'src/schema/**/*'
   },
   server: {
-    sources: ['app/server/**/*'],
+    sources: ['src/server/**/*'],
     test: ['test/server/**/*.test.js'],
   },
   webpage: {
-    sources: ['app/webpage/sources/**/*'],
-    static: ['app/webpage/static/**/*'],
-    entry: './app/webpage/sources/entry.js',
+    sources: ['src/webpage/sources/**/*'],
+    static: ['src/webpage/static/**/*'],
+    entry: './src/webpage/sources/entry.js',
     test: ['test/webpage/**/*.test.js'],
     lib: [
       'node_modules/sillyname/index.js'
@@ -50,15 +50,15 @@ module.exports = {
     }
   },
   tanks: {
-    resourcesBase: 'app/tanks/',
+    resourcesBase: 'src/tanks/',
     resources: [
-      'app/tanks/*.tank.js',
-      'app/tanks/index.json',
-      'app/tanks/lib/codeWorker.js'
+      'src/tanks/*.tank.js',
+      'src/tanks/index.json',
+      'src/tanks/lib/codeWorker.js'
     ],
     test: ['test/tanks/**/*.test.js'],
-    entry: "./app/tanks/lib/tank.js",
-    sources: ['app/tanks/lib/**/*.js'],
+    entry: "./src/tanks/lib/tank.js",
+    sources: ['src/tanks/lib/**/*.js'],
     lib: ['node_modules/seedrandom/seedrandom.js'],
   },
   dist: 'dist/',

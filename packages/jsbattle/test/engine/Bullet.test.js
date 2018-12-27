@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import Bullet from "../../app/engine/Bullet.js"
+import Bullet from "../../src/engine/Bullet.js"
 import TankMock from "./mock/TankMock.js";
 
 describe('Bullet', function() {

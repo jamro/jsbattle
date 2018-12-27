@@ -1,6 +1,6 @@
 import assert from "assert";
 import sinon from "sinon";
-import AiWrapper from '../../app/engine/AiWrapper.js';
+import AiWrapper from '../../src/engine/AiWrapper.js';
 import WorkerMock from "./mock/WorkerMock.js";
 import TankMock from "./mock/TankMock.js";
 import AiDefinitionMock from "./mock/AiDefinitionMock.js";

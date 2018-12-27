@@ -8,8 +8,8 @@ Distribution of JsBattle contains command line tool that allows processing of UB
 
 Date       | Version | Schema Location                 | Description                 
 -----------|---------|---------------------------------|-----------------------------
-2018-05-31 |       1 | `app/schema/ubd-schema-v1.json` | Initial Version
-2018-06-04 |       2 | `app/schema/ubd-schema-v2.json` | Adding teamMode information
+2018-05-31 |       1 | `src/schema/ubd-schema-v1.json` | Initial Version
+2018-06-04 |       2 | `src/schema/ubd-schema-v2.json` | Adding teamMode information
 
 
 ## UBD Format

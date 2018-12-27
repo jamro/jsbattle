@@ -1,6 +1,6 @@
 import assert from "assert";
 import sinon from "sinon";
-import Battlefield from "../../app/engine/Battlefield.js"
+import Battlefield from "../../src/engine/Battlefield.js"
 
 describe('Battlefield', function() {
   describe('setSize', function() {
@@ -107,7 +107,7 @@ describe('Battlefield', function() {
 
       battlefield.setSize(1000, 1000);
       battlefield.randomize();
-      
+
       let slotCount = 0;
       while(battlefield.getStartSlot()) slotCount++;
 

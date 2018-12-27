@@ -93,11 +93,11 @@ module.exports = function (gulp, config, plugins) {
           });
           return tail;
         })
-        gulp.watch('app/engine/**/*', ['rebuild-engine'])
-        gulp.watch('app/webpage/**/*', ['rebuild-webpage'])
+        gulp.watch('src/engine/**/*', ['rebuild-engine'])
+        gulp.watch('src/webpage/**/*', ['rebuild-webpage'])
         gulp.watch('docs/**/*', ['rebuild-webpage'])
-        gulp.watch('app/tanks/**/*', ['rebuild-tanks'])
-        gulp.watch('app/server/**/*', ['rebuild-server'])
+        gulp.watch('src/tanks/**/*', ['rebuild-tanks'])
+        gulp.watch('src/server/**/*', ['rebuild-server'])
       });
     })
   }

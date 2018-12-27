@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import Tank from "../../app/engine/Tank.js"
+import Tank from "../../src/engine/Tank.js"
 import TankMock from "./mock/TankMock.js";
 import CollisionResolverMock from "./mock/CollisionResolverMock.js";
 

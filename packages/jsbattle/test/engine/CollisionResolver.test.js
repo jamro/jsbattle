@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import CollisionResolver from "../../app/engine/CollisionResolver.js"
+import CollisionResolver from "../../src/engine/CollisionResolver.js"
 import BattlefieldMock from "./mock/BattlefieldMock.js";
 import TankMock from "./mock/TankMock.js";
 import BulletMock from "./mock/BulletMock.js";

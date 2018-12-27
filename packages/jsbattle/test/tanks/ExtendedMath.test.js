@@ -1,7 +1,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
 
-var extendedMath = require('../../app/tanks/lib/extendedMath.js');
+var extendedMath = require('../../src/tanks/lib/extendedMath.js');
 var Math = extendedMath();
 
 describe('ExtendedMath', function() {

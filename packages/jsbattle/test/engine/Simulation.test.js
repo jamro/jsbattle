@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 
-import Simulation from "../../app/engine/Simulation.js"
+import Simulation from "../../src/engine/Simulation.js"
 import RendererMock from "./mock/RendererMock.js";
 import BattlefieldMock from "./mock/BattlefieldMock.js";
 import TankMock from "./mock/TankMock.js";

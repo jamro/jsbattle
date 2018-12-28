@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf dist",
     "lint": "jshint --config ./jshint.config.json src/",
     "build": "npm run-script build:sources && npm run-script build:sprites && npm run-script build:tanks && npm run-script build:html && npm run-script build:schema && npm run-script build:docs",
     "test": "npm run-script test:engine && npm run-script test:tanks",
@@ -36,6 +37,7 @@
     "jsdoc-to-markdown": "^4.0.1",
     "jshint": "^2.9.7",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "sinon": "^7.2.2",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2"

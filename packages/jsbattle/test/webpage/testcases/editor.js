@@ -58,7 +58,7 @@ module.exports = function() {
       assert.equal(1, names.length);
     });
 
-    it('should start a quick fight', async () => {
+    it.only('should start a quick fight', async () => {
       await clickFight(this.page);
       await waitForBattlefield(this.page);
       let navLink = await getActiveNavLink(this.page);

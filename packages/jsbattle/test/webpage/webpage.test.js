@@ -13,11 +13,19 @@ describe('Web Page', function() {
   //this.mlog.disabled = false;
   this.config = config;
 
+  this.consoleLog = [];
+
   this.createNewPage = async () => {
     if(this.page) {
       await this.page.close();
     }
     this.page = await this.browser.newPage();
+    this.consoleLog = [];
+    this.page.on('console', msg => {
+      for (let i = 0; i < msg.args().length; ++i) {
+        this.consoleLog.push(`${i}: ${msg.args()[i]}`);
+      }
+    });
     await this.page.emulate({
       'name': 'Desktop',
       'userAgent': 'Chrome',
@@ -53,6 +61,7 @@ describe('Web Page', function() {
       await self.page.screenshot({
         path: __dirname + `/../../tmp/${filename}.png`
       });
+      console.log("Browser console output:\n\n" + self.consoleLog.join("\n"));
     }
 
   });

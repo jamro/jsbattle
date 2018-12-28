@@ -10,8 +10,7 @@
     "clean": "rimraf dist",
     "lint": "./node_modules/.bin/gulp lint",
     "build": "./node_modules/.bin/gulp",
-    "test": "./node_modules/.bin/gulp test",
-    "ci": "npm run-script clean && npm run-script lint && npm run-script build && npm run-script test"
+    "test": "./node_modules/.bin/gulp test"
   },
   "repository": {
     "type": "git",

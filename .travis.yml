@@ -18,5 +18,5 @@ node_js:
 install:
   - npm install
 script:
-  - npm run-script all
+  - npm run-script ci
   - sonar-scanner -Dsonar.verbose=true -X

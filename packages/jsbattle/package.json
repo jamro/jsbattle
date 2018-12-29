@@ -76,6 +76,7 @@
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
+    "jsbattle-docs": "*",
     "jsbattle-engine": "*",
     "@fortawesome/fontawesome-free": "^5.4.2",
     "ajv": "^6.5.4",

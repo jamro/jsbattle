@@ -6,7 +6,7 @@ module.exports = function (gulp, config, plugins) {
       var completeCount = 0;
       function onComplete() {
         completeCount++;
-        if(completeCount == 6) {
+        if(completeCount == 5) {
           done();
         }
       }
@@ -28,10 +28,6 @@ module.exports = function (gulp, config, plugins) {
 
       gulp.src('node_modules/jsbattle-engine/dist/schema/**/*.*')
         .pipe(gulp.dest(config.dist + 'schema/'))
-        .on('end', onComplete);
-
-      gulp.src('node_modules/jsbattle-engine/api.md')
-        .pipe(gulp.dest(config.docs.apiDist))
         .on('end', onComplete);
 
     }

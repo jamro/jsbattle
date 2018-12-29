@@ -28,14 +28,6 @@ module.exports = {
      'node_modules/@fortawesome/fontawesome-free/**/*'
     ]
   },
-  docs: {
-    sources: ['docs/**/*'],
-    apiDist: 'docs/dev_guide',
-    plantuml: {
-      sources: 'docs/puml/**/*.puml',
-      target: 'docs/img/puml/'
-    }
-  },
   dist: 'dist/',
   tmp: 'tmp/'
 };

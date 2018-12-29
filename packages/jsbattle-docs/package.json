@@ -1,0 +1,42 @@
+{
+  "name": "jsbattle-docs",
+  "private": true,
+  "version": "2.1.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "puml testdot",
+    "build": "npm run-script build:api && npm run-script build:puml && npm run-script build:copy",
+    "test": "npm run-script test:start && npm run-script test:exec && npm run-script test:stop",
+    "build:api": "cpx ./node_modules/jsbattle-engine/docs/api.md ./docs/dev_guide",
+    "build:puml": "./build/puml-batch.js generate -i ./src/puml -o ./docs/img/puml",
+    "build:copy": "npm run-script build:copy-docs && npm run-script build:copy-html",
+    "build:copy-docs": "cpx './docs/**/*' ./dist/docs",
+    "build:copy-html": "cpx './src/**/*' ./dist",
+    "test:start": "./build/test-server.js start -p 8070 -r ./dist &",
+    "test:exec": "mocha --require @babel/register test/*.test.js",
+    "test:stop": "./build/test-server.js stop -p 8070"
+  },
+  "keywords": [],
+  "author": "Krzysztof Jamroz <jamro@jamro.net>",
+  "license": "MIT",
+  "dependencies": {
+    "jsbattle-engine": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "babel-polyfill": "^6.26.0",
+    "cpx": "^1.5.0",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "node-plantuml": "^0.7.0",
+    "puppeteer": "^1.11.0",
+    "rimraf": "^2.6.2",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "yargs": "^12.0.5"
+  }
+}

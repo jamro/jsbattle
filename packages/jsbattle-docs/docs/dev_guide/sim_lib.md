@@ -25,7 +25,7 @@ After that, Install `http-server`, we will need it later to serve website with t
 npm install -g http-server
 ```
 
-Next, create a simple [AI Script](/docs/manual/ai_script.md) and save it at `/tanks/test.task.js`
+Next, create a simple [AI Script](../manual/ai_script.md) and save it at `/tanks/test.task.js`
 
 ```javascript
 importScripts('lib/tank.js');
@@ -136,7 +136,7 @@ http-server -c-1
 ```
 
 You should see something like that:
-![alt text](/docs/img/debug_renderer_001.png)
+![alt text](./img/debug_renderer_001.png)
 
 ## AiDefinition Internals
 

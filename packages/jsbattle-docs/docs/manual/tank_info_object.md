@@ -1,6 +1,6 @@
 # Tank Info Object
 
-Initial information about the tank is passed to `tank.init(function(settings, info) { ... })` of [AI Scripts](/docs/manual/ai_script.md) as a second argument.  For example:
+Initial information about the tank is passed to `tank.init(function(settings, info) { ... })` of [AI Scripts](./ai_script.md) as a second argument.  For example:
 
 ```javascript
   {

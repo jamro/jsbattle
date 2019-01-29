@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
-![alt text](/docs/img/screenshot.png)
+![alt text](./img/screenshot.png)
 
 ## About
 JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a game for JavaScript developers. The goal is to program artificial intelligence of a tank that will destroy all opponents and win the competition.
@@ -18,8 +18,8 @@ Give JsBattle a try and play the demo here: [http://jsbattle.jmrlab.com](http://
 
 ## How to play?
 
-Read [Getting Started](/docs/getting_started.md) to learn how to build your first tank.
+Read [Getting Started](./getting_started.md) to learn how to build your first tank.
 
-You will find more information about **JsBattle** in the [Manual](/docs/manual/README.md)
+You will find more information about **JsBattle** in the [Manual](./manual/README.md)
 
-Want to extend or develop **JsBattle**? Read [Development Guide](/docs/dev_guide/README.md)
+Want to extend or develop **JsBattle**? Read [Development Guide](./dev_guide/README.md)

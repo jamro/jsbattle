@@ -1,3 +1,3 @@
 # Infrastructure
 
-![Simulation sequence diagram](/docs/img/puml/infrastructure.png)
+![Simulation sequence diagram](./img/puml/infrastructure.png)

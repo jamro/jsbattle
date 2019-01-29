@@ -1,4 +1,5 @@
-# JsBattle API\n<a name="Renderer"></a>
+# JsBattle API
+<a name="Renderer"></a>
 
 ## Renderer
 Renders simulation of the battle. The object must be passed to
@@ -102,4 +103,3 @@ Sets speed of the simulation. Could be used to time-scale animations so they mat
 
 **Kind**: instance method of [<code>Renderer</code>](#Renderer)  
 **Pram**: <code>Number</code> multiplier - simulation speed multiplier  
-

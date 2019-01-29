@@ -83,8 +83,9 @@ describe('Web Page', function() {
 
         // fetch links
         let links = await self.page.evaluate(() => {
-          const allLinks = document.querySelectorAll('a');
-          return Object.values(allLinks).map(el => el.href.replace(/\?.*$/, '')); // ignore anchor links in websites
+          let aLinks = document.querySelectorAll('a');
+          aLinks = Object.values(aLinks).map(el => el.href);
+          return aLinks;
         });
         links = links.filter((el, index, list) => {
           return (new RegExp(self.config.BASE_URL)).test(el)
@@ -106,6 +107,7 @@ describe('Web Page', function() {
       }
 
       await visit(this.config.BASE_URL, this.page, this.visitedLinks, this.unvisitedLinks);
+      console.log(`Links visited: ${this.visitedLinks.length}`);
       assert(this.visitedLinks.length > 10, `Amount of links in docs is more than ten (${this.visitedLinks.length})`)
 
     });

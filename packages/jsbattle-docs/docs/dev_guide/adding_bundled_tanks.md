@@ -1,10 +1,10 @@
 # Adding bundled tanks
 
-In some cases, you may wish to extend or modify set of [bundled tanks](/docs/manual/bundled_tanks.md)
+In some cases, you may wish to extend or modify set of [bundled tanks](../manual/bundled_tanks.md)
 that comes with the distribution of JsBattle. It requires just a few simple steps.
 
 ## Create `*.tank.js` file
-Create script of your tank as described in [**AI Script**](/docs/manual/ai_script.md) section.
+Create script of your tank as described in [**AI Script**](../manual/ai_script.md) section.
 Save the file in `/tanks/` folder of JsBattle. If you are a developer and you wish to add the
 tank to source codes to include it within each built, the file should be stored in
 `/src/tanks/`. Remember to follow the file name convention:

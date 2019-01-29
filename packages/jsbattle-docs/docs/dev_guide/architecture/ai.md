@@ -3,7 +3,7 @@
 `AIWrapper` is created according to setup of `AiDefinition`. Most common case
 is running of AI script within isolated Web Worker:
 
-![diagram](/docs/img/puml/ai.png)
+![diagram](./img/puml/ai.png)
 (Blue arrows represent messages between WebWorker and the main application)
 
 After each `AiWrapper.simulationStep()`, control data is sent to the `Tank`

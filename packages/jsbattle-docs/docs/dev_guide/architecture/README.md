@@ -1,7 +1,7 @@
 # Architecture
 
-- [Infrastructure](/docs/dev_guide/architecture/infrastructure.md)
-- [Server](/docs/dev_guide/architecture/server.md)
-- [Simulation](/docs/dev_guide/architecture/simulation.md)
-- [Renderers](/docs/dev_guide/architecture/renderers.md)
-- [Artificial Intelligence](/docs/dev_guide/architecture/ai.md)
+- [Infrastructure](./infrastructure.md)
+- [Server](./server.md)
+- [Simulation](./simulation.md)
+- [Renderers](./renderers.md)
+- [Artificial Intelligence](./ai.md)

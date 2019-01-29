@@ -4,7 +4,7 @@
 
 Server architecture is based on micro-services powered by [SenecaJS](http://senecajs.org) engine.
 
-![Overview](/docs/img/puml/microservices.png)
+![Overview](./img/puml/microservices.png)
 
 ### API service
 

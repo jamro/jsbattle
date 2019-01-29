@@ -51,7 +51,7 @@ Open your favorite web browser and navigate to URL from the previous step
 
 It will open JsBattle:
 
-![alt text](/docs/img/challenges.png)
+![alt text](./img/challenges.png)
 
 ## Stopping JsBattle
 

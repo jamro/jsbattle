@@ -4,7 +4,7 @@
 
 Each tank consists of following components: body, gun and radar.
 
-![alt text](/docs/img/tank_parts.png)
+![alt text](./img/tank_parts.png)
 
 ### Tank Movement
 
@@ -23,7 +23,7 @@ The angle of radar is normalized and is always between -180° and 180°.
 
 ### Radar
 
-The radar can be rotated around to detect other tanks, bullets and walls. The speed of the rotation is defined as a number between -1 and 1. Positive values cause clockwise rotation, negative - counter clockwise. Zero means that the radar is not rotating. The radar has limited range (see [Constants and Formulas](/docs/manual/consts.md)). The position of the radar is specified in degrees and is always in relation to tank's body. For example:
+The radar can be rotated around to detect other tanks, bullets and walls. The speed of the rotation is defined as a number between -1 and 1. Positive values cause clockwise rotation, negative - counter clockwise. Zero means that the radar is not rotating. The radar has limited range (see [Constants and Formulas](./consts.md)). The position of the radar is specified in degrees and is always in relation to tank's body. For example:
 
 ```javascript
 radar.angle == 0;   // aiming at the same direction where front of the tank

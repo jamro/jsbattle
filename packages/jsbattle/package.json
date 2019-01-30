@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -76,8 +76,6 @@
     "webpack-stream": "^4.0.3"
   },
   "dependencies": {
-    "jsbattle-docs": "^2.1.5",
-    "jsbattle-engine": "^2.1.5",
     "@fortawesome/fontawesome-free": "^5.4.2",
     "ajv": "^6.5.4",
     "body-parser": "^1.18.3",
@@ -88,6 +86,8 @@
     "gulp-eslint": "^5.0.0",
     "highlight.js": "^9.12.0",
     "jquery": "^3.3.1",
+    "jsbattle-docs": "^2.1.6",
+    "jsbattle-engine": "^2.1.6",
     "npm": "^6.4.1",
     "pixi.js": "^4.8.2",
     "popper.js": "^1.14.4",
@@ -102,6 +102,9 @@
     "uuid": "^3.3.2",
     "yargs": "^12.0.2"
   },
-  "bundledDependencies": ["jsbattle-engine", "jsbattle-docs"],
+  "bundledDependencies": [
+    "jsbattle-engine",
+    "jsbattle-docs"
+  ],
   "gitHead": "e2a2212e0b586449a0e080078ac233a96ddb05f8"
 }

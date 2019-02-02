@@ -3,7 +3,7 @@
 const yargs = require('yargs');
 const fs = require('fs');
 const path = require('path');
-const UbdArenaService = require('./lib/UbdArenaService.js');
+const UbdArenaService = require('jsbattle-server').UbdArenaService;
 
 yargs
   .option('f', {

@@ -1,5 +1,6 @@
 const uuidv1 = require('uuid/v1');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = function battleStore( options ) {
 
   this.add('role:battleStore,cmd:write', write);

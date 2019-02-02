@@ -18,7 +18,7 @@ module.exports = class UbdArenaService {
   }
 
   init() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this._log(`Launching web server from ${this._options.webroot}`);
       this._webapp = express();
       this._webapp.use(express.static(this._options.webroot));
@@ -77,7 +77,6 @@ module.exports = class UbdArenaService {
         ]);
 
         let error = await page.$('#error');
-        let result = await page.$('#result');
         let html;
         let dt = (new Date()).getTime() - startTime;
 

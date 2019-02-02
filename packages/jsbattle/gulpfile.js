@@ -20,8 +20,6 @@ gulp.task('webpage.copy', require('./build/webpage/webpage.copy.js')(gulp, confi
 gulp.task('webpage.test', require('./build/webpage/webpage.test.js')(gulp, config, plugins));
 
 gulp.task('server.copy', require('./build/server/server.copy.js')(gulp, config, plugins));
-gulp.task('server.lint', require('./build/server/server.lint.js')(gulp, config, plugins));
-gulp.task('server.test', require('./build/server/server.test.js')(gulp, config, plugins));
 
 gulp.task('lint', require('./build/lint.js')(gulp, config, plugins));
 gulp.task('test', require('./build/test.js')(gulp, config, plugins));

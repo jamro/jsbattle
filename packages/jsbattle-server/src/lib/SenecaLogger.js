@@ -2,7 +2,6 @@ module.exports = function (level) {
   function SenecaLogger () {}
 
   SenecaLogger.preload = function () {
-    var seneca = this;
 
     var logLevelMap = {};
     logLevelMap['FATAL'] = 0;

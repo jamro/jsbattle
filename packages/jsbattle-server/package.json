@@ -1,0 +1,38 @@
+{
+  "name": "jsbattle-server",
+  "private": true,
+  "version": "2.1.4",
+  "description": "",
+  "main": "dist/jsbattle-server.js",
+  "keywords": [],
+  "author": "Krzysztof Jamroz <jamro@jamro.net>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint src/",
+    "build": "webpack --config ./webpack.config.js --mode=production",
+    "test": "mocha --require @babel/register test/*.test.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "eslint": "^5.13.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsbattle-engine": "*",
+    "puppeteer": "^1.12.1",
+    "seneca": "^3.8.0",
+    "seneca-entity": "^2.4.0",
+    "seneca-jsonfile-store": "^1.1.0"
+  },
+  "bundledDependencies": [
+    "jsbattle-engine"
+  ]
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Gateway = require('./services/Gateway.js');
+const Gateway = require('jsbattle-server').Gateway;
 const path = require('path');
 const yargs = require('yargs');
 

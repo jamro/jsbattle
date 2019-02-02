@@ -1,6 +1,7 @@
 const NotFoundError = require('./httpError/NotFoundError.js');
 const InternalServerError = require('./httpError/InternalServerError.js');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = function api( options ) {
 
   this.add('role:api,cmd:ping,method:get', ping);

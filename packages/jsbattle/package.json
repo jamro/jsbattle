@@ -73,36 +73,32 @@
     "transform-loader": "^0.2.4",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^4.20.2",
-    "webpack-stream": "^4.0.3"
+    "webpack-stream": "^4.0.3",
+    "gulp-eslint": "^5.0.0",
+    "puppeteer": "^1.8.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.2",
     "ajv": "^6.5.4",
-    "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
     "clipboard": "^2.0.1",
     "codemirror": "^5.40.2",
-    "express": "^4.16.3",
-    "gulp-eslint": "^5.0.0",
     "highlight.js": "^9.12.0",
     "jquery": "^3.3.1",
     "jsbattle-docs": "^2.1.6",
     "jsbattle-engine": "^2.1.6",
-    "npm": "^6.4.1",
-    "pixi.js": "^4.8.2",
+    "jsbattle-server": "^2.1.4",
     "popper.js": "^1.14.4",
-    "puppeteer": "^1.8.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-highlight": "^0.12.0",
-    "seneca": "^3.7.0",
-    "seneca-entity": "^2.3.0",
-    "seneca-jsonfile-store": "^1.0.1",
     "sillyname": "^0.1.0",
     "uuid": "^3.3.2",
-    "yargs": "^12.0.2"
+    "yargs": "^12.0.2",
+    "pixi.js": "^4.8.2"
   },
   "bundledDependencies": [
+    "jsbattle-server",
     "jsbattle-engine",
     "jsbattle-docs"
   ],

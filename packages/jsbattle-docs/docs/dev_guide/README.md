@@ -6,6 +6,7 @@ This section is unnecessary to play JsBattle however, if you would like to exten
 - [Building Process](./building.md)
 - [JsBattle Library Tutorial](./sim_lib.md)
 - [JsBattle API](./api.md)
+- [Monorepo](./monorepo.md)
 - [Project Structure](./structure.md)
 - [Spritesheets](./spritesheets.md)
 - [Toolset](./toolset.md)

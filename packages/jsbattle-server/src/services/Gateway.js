@@ -1,5 +1,4 @@
 const express = require('express');
-const uuidv1 = require('uuid/v1');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +11,7 @@ const SenecaLogger = require('../lib/SenecaLogger.js');
 class Gateway {
 
   init(options) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.options = options;
 
       this.seneca = seneca({
@@ -57,7 +56,7 @@ class Gateway {
   }
 
   start() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       this.app = express();
       this.app.use(express.static(this.options.webroot, { maxAge: 12*60*60*1000, etag: true }));

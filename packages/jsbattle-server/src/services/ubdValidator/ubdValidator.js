@@ -1,11 +1,11 @@
 const Ajv = require('ajv');
+const JsBattleSchema = require('jsbattle-engine/schema');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = function battleStore( options ) {
 
-  let schemaPath = options.schemaPath || __dirname + '/../../schema';
-
-  const schema_v1 = require(schemaPath + '/ubd-schema-v1.json');
-  const schema_v2 = require(schemaPath + '/ubd-schema-v2.json');
+  const schema_v1 = JsBattleSchema.getVersion(1);
+  const schema_v2 = JsBattleSchema.getVersion(2);
 
   this.add('role:ubdValidator,cmd:validate', validate);
 

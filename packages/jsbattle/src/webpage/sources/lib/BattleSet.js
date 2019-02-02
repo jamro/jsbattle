@@ -54,6 +54,7 @@ export default class BattleSet {
 
   fromJSON(data) {
     this.data = JSON.parse(JSON.stringify(data));
+    this.data = this.data.map((record) => new Tank(record.name, record.count, record.userCreated));
     this.sort();
   }
 

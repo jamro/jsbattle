@@ -18,8 +18,8 @@ Give JsBattle a try and play the demo here: [http://jsbattle.jmrlab.com](http://
 
 ## How to play?
 
-Read [Getting Started](/packages/jsbattle/docs/getting_started.md) to learn how to build your first tank.
+Read [Getting Started](/packages/jsbattle-docs/docs/getting_started.md) to learn how to build your first tank.
 
-You will find more information about **JsBattle** in the [Manual](/packages/jsbattle/docs/manual/README.md)
+You will find more information about **JsBattle** in the [Manual](/packages/jsbattle-docs/docs/manual/README.md)
 
-Want to extend or develop **JsBattle**? Read [Development Guide](/packages/jsbattle/docs/dev_guide/README.md)
+Want to extend or develop **JsBattle**? Read [Development Guide](/packages/jsbattle-docs/docs/dev_guide/README.md)

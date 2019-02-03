@@ -1,7 +1,0 @@
----
-# defaults file for jsbattle
-  jsbattle_address: 127.0.0.1
-  jsbattle_port: 8080
-  jsbattle_version: HEAD
-  jsbattle_user: jsbattle-user
-  jsbattle_home: /home/jsbattle-user

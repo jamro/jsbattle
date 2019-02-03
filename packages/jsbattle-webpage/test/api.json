@@ -1,0 +1,8 @@
+{
+  "ping": {
+    "ping": "pong"
+  },
+  "battleReplay":
+    {"battleId":"84eef5f0-272f-11e9-a8d6-ab6edf0b83b7","ubd":{"version":2,"rngSeed":0.21937791885483682,"teamMode":false,"aiList":[{"name":"raptor","team":"8wm54trf","code":";\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n","initData":null,"useSandbox":true,"executionLimit":100},{"name":"crawler","team":"8wm5j76l","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"crawler","team":"8wm5cvb3","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"crazy","team":"8wm84r0v","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"dummy","team":"8wmac7uw","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"chicken","team":"8wm77kr0","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"dodge","team":"8wm5npmf","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"sniper","team":"8wm5j3av","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"jamro","team":"8wm72amr","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"kamikaze","team":"8wm4gss4","code":null,"initData":null,"useSandbox":true,"executionLimit":100}]}}
+  
+}

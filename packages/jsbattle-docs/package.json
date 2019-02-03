@@ -4,6 +4,12 @@
   "version": "2.1.6",
   "description": "",
   "main": "index.js",
+  "watch": {
+    "build:copy-docs": {
+      "patterns": ["docs/**/*"],
+      "verbose": true
+    }
+  },
   "scripts": {
     "start": "http-server -c-1 ./dist",
     "clean": "rimraf dist",
@@ -17,7 +23,8 @@
     "build:copy-html": "cpx './src/**/*' ./dist",
     "test:start": "./build/test-server.js start -p 8070 -r ./dist &",
     "test:exec": "mocha --require @babel/register test/*.test.js",
-    "test:stop": "./build/test-server.js stop -p 8070"
+    "test:stop": "./build/test-server.js stop -p 8070",
+    "watch": "npm-watch"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

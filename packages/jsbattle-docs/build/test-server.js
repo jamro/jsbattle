@@ -50,7 +50,11 @@ require('yargs') // eslint-disable-line
     },
     (argv) => {
       let socketClient = ioClient.connect('http://localhost:' + argv.port);
-      console.log("Conecting to test server...");
+      setTimeout(function() {
+        socketClient.close();
+        console.log("Connection timeout");
+      }, 5000);
+
       socketClient.on('connect', () => {
         console.log("Sending exit signal...");
         socketClient.emit('npmStop');

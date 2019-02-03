@@ -1,0 +1,19 @@
+[
+  {"from": "/node_modules/jsbattle-engine/dist/**/*",           "to": "/dist"},
+  {"from": "/static/**/*",                                      "to": "/dist"},
+  {"from": "/node_modules/jsbattle-docs/dist/**/*",             "to": "/dist/docs"},
+  {"from": "/node_modules/pixi.js/dist/pixi.min.js",            "to": "/dist/vendor"},
+  {"from": "/node_modules/jquery/dist/jquery.min.js",           "to": "/dist/vendor"},
+  {"from": "/node_modules/core-js/client/core.js",              "to": "/dist/vendor"},
+  {"from": "/node_modules/clipboard/dist/clipboard.min.js",     "to": "/dist/vendor"},
+  {"from": "/node_modules/ajv/dist/ajv.min.js",                 "to": "/dist/vendor"},
+  {"from": "/node_modules/bootstrap/dist/**/*",                 "to": "/dist/vendor/bootstrap"},
+  {"from": "/node_modules/react/umd/**/*",                      "to": "/dist/vendor/react"},
+  {"from": "/node_modules/react-dom/umd/**/*",                  "to": "/dist/vendor/react-dom"},
+  {"from": "/node_modules/codemirror/lib/**/*",                 "to": "/dist/vendor/codemirror/lib"},
+  {"from": "/node_modules/codemirror/mode/javascript/**/*",     "to": "/dist/vendor/codemirror/mode"},
+  {"from": "/node_modules/codemirror/addon/hint/**/*",          "to": "/dist/vendor/codemirror/addon/hint"},
+  {"from": "/node_modules/codemirror/theme/ambiance.css",       "to": "/dist/vendor/codemirror/theme"},
+  {"from": "/node_modules/popper.js/dist/umd/**/*",             "to": "/dist/vendor/popperjs"},
+  {"from": "/node_modules/@fortawesome/fontawesome-free/**/*",  "to": "/dist/vendor/fontawesome"}
+]

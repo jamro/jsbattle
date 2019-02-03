@@ -31,8 +31,5 @@
     "seneca": "^3.8.0",
     "seneca-entity": "^2.4.0",
     "seneca-jsonfile-store": "^1.1.0"
-  },
-  "bundledDependencies": [
-    "jsbattle-engine"
-  ]
+  }
 }

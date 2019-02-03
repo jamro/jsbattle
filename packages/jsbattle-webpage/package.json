@@ -31,10 +31,6 @@
     "uuid": "^3.3.2",
     "pixi.js": "^4.8.2"
   },
-  "bundledDependencies": [
-    "jsbattle-engine",
-    "jsbattle-docs"
-  ],
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",

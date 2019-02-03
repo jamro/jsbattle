@@ -1,0 +1,10 @@
+@startuml
+
+[jsbattle] --> [jsbattle-webpage]
+[jsbattle] --> [jsbattle-server]
+[jsbattle-docs] --> [jsbattle-engine]
+[jsbattle-server] --> [jsbattle-engine]
+[jsbattle-webpage] --> [jsbattle-engine]
+[jsbattle-webpage] --> [jsbattle-docs]
+
+@enduml

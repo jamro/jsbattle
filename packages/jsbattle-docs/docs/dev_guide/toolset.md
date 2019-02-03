@@ -24,7 +24,6 @@ Tool                                                  | Description
 Tool                                                 | Description
 -----------------------------------------------------|-----------------------------------------
 [NPM](https://www.npmjs.com/)                        | Package manager
-[Gulp](https://gulpjs.com/)                          | Build automation
 [Weback](https://webpack.github.io/)                 | Module bundler
 [BabelJs](https://babeljs.io/)                       | Converts ES6 to most web browsers compliant code
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator

@@ -59,6 +59,18 @@ npm init -y
 ```
 5. Link all internal dependencies by running `lerna bootstrap`
 
+6. Update sonar config at `sonar-project.properties`:
+
+```
+...
+sonar.modules=jsbattle,...,packageName
+...
+packageName.sonar.projectName=packageName
+packageName.sonar.sources=src
+packageName.sonar.projectBaseDir=packages/packageName
+
+```
+
 ### Managing Monorepo
 
 All common operation can be done from root directory of the project by calling proper npm script (`npm run scriptName`). Check `package.json` for more details. Some examples are:

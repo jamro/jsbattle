@@ -24,10 +24,10 @@ Name             | Possible Values   | Description
 ## Tank Skins
 Preview                                  | Configuration
 -----------------------------------------|--------------------------
-![alt text](./img/tank_skin_forest.png)    | `settings.SKIN = 'forest'`
-![alt text](./img/tank_skin_desert.png)    | `settings.SKIN = 'desert'`
-![alt text](./img/tank_skin_ocean.png)     | `settings.SKIN = 'ocean'`
-![alt text](./img/tank_skin_lava.png)      | `settings.SKIN = 'lava'`
-![alt text](./img/tank_skin_black.png)     | `settings.SKIN = 'black'`
-![alt text](./img/tank_skin_zebra.png)     | `settings.SKIN = 'zebra'`
-![alt text](./img/tank_skin_tiger.png)     | `settings.SKIN = 'tiger'`
+![alt text](../img/tank_skin_forest.png)    | `settings.SKIN = 'forest'`
+![alt text](../img/tank_skin_desert.png)    | `settings.SKIN = 'desert'`
+![alt text](../img/tank_skin_ocean.png)     | `settings.SKIN = 'ocean'`
+![alt text](../img/tank_skin_lava.png)      | `settings.SKIN = 'lava'`
+![alt text](../img/tank_skin_black.png)     | `settings.SKIN = 'black'`
+![alt text](../img/tank_skin_zebra.png)     | `settings.SKIN = 'zebra'`
+![alt text](../img/tank_skin_tiger.png)     | `settings.SKIN = 'tiger'`

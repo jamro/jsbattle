@@ -136,7 +136,7 @@ http-server -c-1
 ```
 
 You should see something like that:
-![alt text](./img/debug_renderer_001.png)
+![alt text](../img/debug_renderer_001.png)
 
 ## AiDefinition Internals
 

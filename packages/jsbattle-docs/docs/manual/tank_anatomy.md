@@ -4,7 +4,7 @@
 
 Each tank consists of following components: body, gun and radar.
 
-![alt text](./img/tank_parts.png)
+![alt text](../img/tank_parts.png)
 
 ### Tank Movement
 

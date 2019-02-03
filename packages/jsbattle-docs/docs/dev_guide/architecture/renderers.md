@@ -1,7 +1,7 @@
 # Renderers
 There are several renderers that could be used to visualize the simulation:
 
-![diagram](./img/puml/renderer.png)
+![diagram](../../img/puml/renderer.png)
 
 `Renderer` does not contain any implementation and can be used as a mock if
 there is no need to provide visual layer. It is an interface and thus acts
@@ -24,7 +24,7 @@ the default one used in *JSBattle*
 `Model` and visualize its state. There are several types of Views used by
 different Renderers
 
-![diagram](./img/puml/view.png)
+![diagram](../../img/puml/view.png)
 
 Each view stores reference to the linked model. Properties of the model are read
 during `View.update()` call and the view is being updated accordingly.

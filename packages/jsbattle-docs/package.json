@@ -30,9 +30,9 @@
     "build:copy": "npm run-script build:copy-img && npm run-script build:copy-static",
     "build:copy-img": "cpx './docs/img/**/*' ./dist/img",
     "build:copy-static": "cpx './src/style.css' ./dist/",
-    "test:start": "./build/test-server.js start -p 8070 -r ./dist &",
+    "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
     "test:exec": "mocha --require @babel/register test/*.test.js",
-    "test:stop": "./build/test-server.js stop -p 8070",
+    "test:stop": "./build/test-server.js stop -p 8077",
     "watch": "npm-watch"
   },
   "keywords": [],

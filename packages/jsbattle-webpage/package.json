@@ -1,7 +1,7 @@
 {
   "name": "jsbattle-webpage",
   "private": true,
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,15 +23,15 @@
     "codemirror": "^5.40.2",
     "highlight.js": "^9.12.0",
     "jquery": "^3.3.1",
-    "jsbattle-engine": "^2.1.6",
-    "jsbattle-docs": "^2.1.6",
+    "jsbattle-docs": "^2.1.8",
+    "jsbattle-engine": "^2.1.8",
+    "pixi.js": "^4.8.2",
     "popper.js": "^1.14.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-highlight": "^0.12.0",
     "sillyname": "^0.1.0",
-    "uuid": "^3.3.2",
-    "pixi.js": "^4.8.2"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

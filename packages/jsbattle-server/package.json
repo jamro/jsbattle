@@ -30,5 +30,6 @@
     "seneca": "^3.8.0",
     "seneca-entity": "^2.4.0",
     "seneca-jsonfile-store": "^1.1.0"
-  }
+  },
+  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

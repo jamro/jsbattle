@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-webpage",
-  "private": true,
+
   "version": "2.1.8",
   "description": "",
   "main": "index.js",

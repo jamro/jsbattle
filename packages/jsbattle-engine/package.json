@@ -1,6 +1,5 @@
 {
   "name": "jsbattle-engine",
-  "private": true,
   "version": "2.1.8",
   "description": "",
   "main": "index.js",

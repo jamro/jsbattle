@@ -1,6 +1,5 @@
 {
   "name": "jsbattle-server",
-  "private": true,
   "version": "2.1.8",
   "description": "",
   "main": "dist/jsbattle-server.js",

@@ -1,9 +1,6 @@
 # Spritesheets
 
-To simplify build process and reduce amount of project dependencies, all
-spritsheets are kept as static images in `/resources/spritesheets`. They can be
-always regenerated if needed from source images that are kept in
-`/resources/images`.
+To simplify build process and reduce amount of project dependencies, all spritsheets are kept as static images in `/resources/spritesheets`. They can be always regenerated if needed from source images that are kept in `/resources/images`.
 
 
 ## Texture Packer

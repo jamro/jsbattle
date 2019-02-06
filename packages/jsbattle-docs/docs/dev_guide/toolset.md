@@ -27,7 +27,6 @@ Tool                                                 | Description
 [Weback](https://webpack.github.io/)                 | Module bundler
 [BabelJs](https://babeljs.io/)                       | Converts ES6 to most web browsers compliant code
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator
-[Docsify](https://docsify.js.org/)                   | Displays markdown documentation as a HTML so it can be bundled with the game
 [PlantUML](http://plantuml.com/)                     | Generates UML diagrams from text
 [Ansible](https://www.ansible.com/)                  | Provisioning scripts
 [PM2](https://pm2.io/runtime)                        | Process manager for node.js

@@ -8,9 +8,7 @@ Server architecture is based on micro-services powered by [SenecaJS](http://sene
 
 ### API service
 
-All internal services are exposed via API service (that is actually also one of
-SenecaJS services). The API service does not host any business logic however,
-it may include some routing and validation functionality.
+All internal services are exposed via API service (that is actually also one of SenecaJS services). The API service does not host any business logic however, it may include some routing and validation functionality.
 
 ## Gateway
 

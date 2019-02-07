@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
-    "start": "pm2 start ./dist/ecosystem.config.js && ./node_modules/pm2/bin/pm2 logs --nostream --out --lines 5 jsbattle",
-    "stop": "pm2 stop ./dist/ecosystem.config.js | ./node_modules/pm2/bin/pm2 del ./dist/ecosystem.config.js",
+    "start": "pm2 start ./dist/ecosystem.config.js && pm2 logs --nostream --out --lines 5 jsbattle",
+    "stop": "pm2 stop ./dist/ecosystem.config.js | pm2 del ./dist/ecosystem.config.js",
     "restart": "pm2 restart ./dist/ecosystem.config.js",
     "clean": "rimraf dist",
     "build": "npm run build:server && npm run build:webpage",

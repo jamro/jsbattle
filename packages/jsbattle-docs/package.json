@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-docs",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -38,7 +38,7 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^2.1.8"
+    "jsbattle-engine": "^2.1.9"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

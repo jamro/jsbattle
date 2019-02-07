@@ -1,7 +1,6 @@
 # Getting Started
-
+The easiest way to start JsBattle is to visit the demo server at [http://jsbattle.jmrlab.com](http://jsbattle.jmrlab.com).
 If you are interested in running JsBattle locally, please read the [Installation](./installation.md) section.
-
 
 ## Starting a challenge
 

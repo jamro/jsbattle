@@ -49,21 +49,36 @@ thead> tr > th {
   text-align: left;
 }
 
+a, a:hover, a:visited, a:active {
+  color: #25b;
+}
+
 
 #side {
   display: block;
-  width: 300px;
+  width: 280px;
   position: fixed;
+  top: 0px;
+  left: 0px;
   height: 100%;
+  padding-left: 20px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #e4e4e4;
+}
+
+#side h1 {
+  font-weight: 100;
+  border-bottom: 1px solid #000;
+  display: inline-block;
+  margin-bottom: 0px;
 }
 
 #side ul {
-  padding-left: 1em;
-
+  padding: 0.6em 1em;
 }
 
 #side li {
-  margin: 0.25em auto;
+  margin: 0.5em auto;
 }
 
 #main {

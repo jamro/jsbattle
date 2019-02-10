@@ -40,6 +40,7 @@
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.26.0",
+    "chai": "^4.2.0",
     "copy-webpack-plugin": "^4.6.0",
     "cpx": "^1.5.0",
     "cucumber": "^5.1.0",

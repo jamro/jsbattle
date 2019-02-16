@@ -6,6 +6,32 @@ const urlLib = require('url');
 
 var baseUrl = 'http://localhost:8070/';
 
+var naviHelper = {
+  gotoSection: async (page, linkName) => {
+    await page.waitFor('a.main-nav-link.active');
+
+    var links = await page.evaluate(() => {
+      var links = document.querySelectorAll('a.main-nav-link');
+      var names = [];
+      for(var i=0; i < links.length; i++) {
+        names[i] = links[i].innerHTML
+      }
+      return names;
+    });
+
+    var index;
+    for(index=0; index < links.length; index++) {
+      var pattern = new RegExp(linkName);
+      if(linkName, pattern.test(links[index])) {
+        break;
+      }
+    }
+    var css = 'nav .nav-item:nth-of-type(' + (index+1) + ') a.main-nav-link';
+    await page.waitFor(css);
+    await page.click(css);
+  }
+};
+
 After(async function () {
   if(this.client && this.client.browser) {
     await this.client.browser.close();
@@ -39,30 +65,14 @@ Given('there is JsBattle open in the browser', async function () {
   await this.client.page.goto(baseUrl);
 });
 
+Given('{string} section is open', async function (section) {
+  await naviHelper.gotoSection(this.client.page, section);
+});
+
 // WHEN ------------------------------------------------------------------------
 
-When('navigate to {string} section', async function (linkName) {
-  await this.client.page.waitFor('a.main-nav-link.active');
-
-  var links = await this.client.page.evaluate(() => {
-    var links = document.querySelectorAll('a.main-nav-link');
-    var names = [];
-    for(var i=0; i < links.length; i++) {
-      names[i] = links[i].innerHTML
-    }
-    return names;
-  });
-
-  var index;
-  for(index=0; index < links.length; index++) {
-    var pattern = new RegExp(linkName);
-    if(linkName, pattern.test(links[index])) {
-      break;
-    }
-  }
-  var css = 'nav .nav-item:nth-of-type(' + (index+1) + ') a.main-nav-link';
-  await this.client.page.waitFor(css);
-  await this.client.page.click(css);
+When('navigate to {string} section', async function (section) {
+  await naviHelper.gotoSection(this.client.page, section);
 });
 
 When('visited all pages at {string}', async function (uri) {

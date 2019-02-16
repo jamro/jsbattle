@@ -16,7 +16,8 @@ import removeTank from './action/codeRepository/removeTank.js';
 
 import editCurrentAiScript from './action/editor/editCurrentAiScript.js';
 import saveCurrentAiScript from './action/editor/saveCurrentAiScript.js';
-import renameCurrentAiScript from './action/editor/renameCurrentAiScript.js';
+import renameAiScript from './action/editor/renameAiScript.js';
+import setAiScript from './action/editor/setAiScript.js';
 
 import toggleTeamMode from './action/battle/toggleTeamMode.js';
 import assignTanksToBattle from './action/battle/assignTanksToBattle.js';
@@ -52,7 +53,8 @@ export default class Controller  {
 
     this.addActon('editCurrentAiScript',     editCurrentAiScript(this.stateHolder));
     this.addActon('saveCurrentAiScript',     saveCurrentAiScript(this.stateHolder, aiRepository));
-    this.addActon('renameCurrentAiScript',   renameCurrentAiScript(this.stateHolder, aiRepository));
+    this.addActon('setAiScript',             setAiScript(this.stateHolder, aiRepository));
+    this.addActon('renameAiScript',          renameAiScript(this.stateHolder, aiRepository));
 
     this.addActon('toggleTeamMode',          toggleTeamMode(this.stateHolder));
     this.addActon('assignTanksToBattle',     assignTanksToBattle(this.stateHolder));

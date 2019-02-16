@@ -2,7 +2,7 @@ export default (stateHolder, aiRepository) => {
 
   return (newName, oldName) => {
     stateHolder.setState((state) => {
-      aiRepository.renameScript(newName, state.editor.tankName);
+      aiRepository.renameScript(newName, oldName);
 
       let battleSet = state.battle.battleSet;
       battleSet.getTankByName(oldName).name = newName;

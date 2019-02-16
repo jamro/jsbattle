@@ -27,6 +27,7 @@ export default class App extends React.Component {
     this.state = initState;
 
     this.controller = new Controller(this, this.aiRepository, this.challengeLibrary);
+    window.appController = this.controller;
     this.controller.loadSettings(props.stateless, () => {
       if(props.replay) {
         this.controller.replayBattle(props.replay);
@@ -34,6 +35,10 @@ export default class App extends React.Component {
         this.controller.openChallenges();
       }
     });
+  }
+
+  getController() {
+    return this.controller;
   }
 
   showError(msg) {
@@ -89,7 +94,7 @@ export default class App extends React.Component {
           name={this.state.editor.tankName}
           onClose={() => this.controller.closeCodeEditor()}
           onTest={() => this.controller.openQuickBattle(this.state.editor.tankName)}
-          onRename={(newName, oldName) => this.controller.renameCurrentAiScript(newName, oldName)}
+          onRename={(newName, oldName) => this.controller.renameAiScript(newName, oldName)}
           onCodeChanged={(code) => this.controller.editCurrentAiScript(code)}
           onCodeSave={() => this.controller.saveCurrentAiScript()}
         />;

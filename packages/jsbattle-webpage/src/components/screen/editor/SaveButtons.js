@@ -56,10 +56,10 @@ export default class SaveButtons extends React.Component {
   renderConfirm() {
     return <div>
       <label>Save Changes? </label> &nbsp;
-      <button type="button" className="btn btn-primary" onClick={() => this.onSaveAndClose()}>
+      <button type="button" className="btn btn-primary editor-exit-warn-save" onClick={() => this.onSaveAndClose()}>
           <i className="fas fa-check" aria-hidden="true"></i> Yes
       </button> &nbsp;
-      <button type="button" className="btn btn-secondary"  onClick={() => this.onClose()}>
+      <button type="button" className="btn btn-secondary editor-exit-warn-close"  onClick={() => this.onClose()}>
           <i className="fas fa-times" aria-hidden="true"></i> No
       </button>
     </div>;

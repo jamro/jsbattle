@@ -9,8 +9,9 @@
     "build": "npm run build:copy && npm run build:bundle",
     "build:copy": "build/copy-libs.js",
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
-    "test": "mocha --require @babel/register test/*.test.js",
-    "cucumber": "cucumber-js"
+    "test": "npm run test:mocha && npm run test:cucumber",
+    "test:mocha": "mocha --require @babel/register test/*.test.js",
+    "test:cucumber": "cucumber-js"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

@@ -18,7 +18,7 @@ var editorHelper = {
 };
 
 // GIVEN -----------------------------------------------------------------------
-Given('there are {int} AI scripts', async function (count) {
+Given('{int} AI script(s)', async function (count) {
   let css = "button.create-tank";
   await this.client.page.waitFor(css);
 
@@ -27,13 +27,14 @@ Given('there are {int} AI scripts', async function (count) {
   }
 });
 
-Given('there are AI scripts named {stringList}', async function (newNames) {
-  await this.client.page.evaluate((newNames) => {
+Given('AI script(s) named {stringList}', async function (newNames) {
+  let oldNames = await this.client.page.evaluate((newNames) => {
     for(let i in newNames) {
       appController.createTank();
     }
+    return appController.stateHolder.state.battle.battleSet.data.map(el => el.name);
   }, newNames);
-  let oldNames = await editorHelper.getAiScriptNames(this.client.page);
+
   await this.client.page.evaluate((oldNames, newNames) => {
     for(let i in newNames) {
       appController.renameAiScript(newNames[i], oldNames[i])
@@ -41,11 +42,11 @@ Given('there are AI scripts named {stringList}', async function (newNames) {
   }, oldNames, newNames);
 });
 
-Given('AI Script no {int} is open', function (index) {
+Given('AI Script no {int} open', function (index) {
   editorHelper.editAiScript(this.client.page, index);
 });
 
-Given('code of AI Script {string} is {string}', async function (name, code) {
+Given('AI Script {string} containing {string}', async function (name, code) {
   await this.client.page.evaluate((name, code) => {
     appController.setAiScript(name, code);
   }, name, code);
@@ -181,4 +182,12 @@ Then('AI Script editor contains {string}', async function (expectedCode) {
 
   expect(code).to.be.equal(expectedCode);
 
+});
+
+Then('Edited AI Script name is {string}', async function (name) {
+  let result = await this.client.page.evaluate(() => {
+    const name = document.querySelector('.tank-name-view');
+    return name.innerHTML;
+  });
+  expect(result).to.be.equal(name);
 });

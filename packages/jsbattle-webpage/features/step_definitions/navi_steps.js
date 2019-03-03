@@ -42,7 +42,7 @@ After(async function () {
 
 // GIVEN -----------------------------------------------------------------------
 
-Given('there is JsBattle open in the browser', async function () {
+Given('JsBattle open in the browser', async function () {
   this.client = {};
   this.client.browser = await puppeteer.launch({args: ['--no-sandbox']});
   if(this.client.page) {
@@ -65,7 +65,7 @@ Given('there is JsBattle open in the browser', async function () {
   await this.client.page.goto(baseUrl);
 });
 
-Given('{string} section is open', async function (section) {
+Given('{string} section open', async function (section) {
   await naviHelper.gotoSection(this.client.page, section);
 });
 
@@ -172,7 +172,6 @@ Then('new tab named {string} is open', async function (tabTitle) {
   await delay(100);
   var docsOpen = await check(tabTitle);
   expect(!!docsOpen, 'Tab open with title ' + tabTitle).to.be.ok;
-
 });
 
 Then('visited more than {int} pages', function (threshold) {

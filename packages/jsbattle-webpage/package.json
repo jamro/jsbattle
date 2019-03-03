@@ -11,7 +11,7 @@
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
     "test": "npm run test:mocha && npm run test:cucumber",
     "test:mocha": "mocha --require @babel/register test/*.test.js",
-    "test:cucumber": "cucumber-js"
+    "test:cucumber": "cucumber-js -f ./features/support/SimpleFormatter.js"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

@@ -140,6 +140,10 @@ When('visited all pages at {string}', async function (uri) {
 
 });
 
+When('open URI {string}', async function (uri) {
+  this.client.lastResponse = await this.client.page.goto(baseUrl + "/" + uri);
+});
+
 // THEN ------------------------------------------------------------------------
 Then('{string} section is selected in the navigation bar', async function (page) {
   let result = await this.client.page.evaluate(() => {
@@ -213,4 +217,19 @@ Then('all visited images loaded successfully', async function () {
     expect(isOk, 'HTTP Status of ' + images[i]).to.be.ok;
   }
 
+});
+
+Then('server response is ok', function () {
+  expect(this.client.lastResponse.ok()).to.be.ok;
+});
+
+Then('server response is valid JSON', async function () {
+  let text = await this.client.lastResponse.text();
+  let error = null;
+  try{
+    JSON.parse(text);
+  } catch(err) {
+    error = err;
+  }
+  expect(error, "response: " + text).to.be.equal(null);
 });

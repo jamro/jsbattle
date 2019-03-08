@@ -32,6 +32,15 @@ Given('no tanks selected for the battle', async function () {
   });
 });
 
+Given('tanks {stringList} selected for the battle', async function (initTanks) {
+  await this.client.page.evaluate((initTanks) => {
+    let names = appController.stateHolder.state.battle.battleSet.data.map(e => e.name);
+    names.forEach((name) => {
+      appController.assignTanksToBattle(name, (initTanks.indexOf(name) == -1) ? 0 : 1);
+    });
+  }, initTanks);
+});
+
 // WHEN ------------------------------------------------------------------------
 When('press plus button of {string} tank {int} time(s)', async function (name, count) {
   for(let i=0; i < count; i++) {
@@ -87,6 +96,12 @@ When('edit tank {string}', async function (name) {
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
 
   let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-edit";
+  await this.client.page.waitFor(css);
+  await this.client.page.click(css);
+});
+
+When('press play battle button', async function () {
+  let css = "button.start-battle";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });

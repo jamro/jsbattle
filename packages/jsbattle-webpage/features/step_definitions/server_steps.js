@@ -16,7 +16,7 @@ After(async function () {
 Before(async function (done) {
   this.server = {};
   this.server.mock = jsonServer.create();
-  var router = jsonServer.router(require(__dirname + '/../../test/api.json'));
+  var router = jsonServer.router(require(__dirname + '/../support/api.json'));
   var middlewares = jsonServer.defaults({
     static: __dirname + '/../../dist',
     logger: false

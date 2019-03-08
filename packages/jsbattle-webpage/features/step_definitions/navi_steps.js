@@ -1,7 +1,6 @@
 const expect = require('chai').expect
 const {After, Given, When, Then } = require('cucumber');
 const puppeteer = require('puppeteer');
-const jsonServer = require('json-server');
 const urlLib = require('url');
 
 var baseUrl = 'http://localhost:8070/';
@@ -63,6 +62,29 @@ Given('JsBattle open in the browser', async function () {
     }
   });
   await this.client.page.goto(baseUrl);
+});
+
+Given('JsBattle replay for battle {string} open in the browser', async function (battleId) {
+  this.client = {};
+  this.client.browser = await puppeteer.launch({args: ['--no-sandbox']});
+  if(this.client.page) {
+    await this.client.page.close();
+  }
+  this.client.page = await this.client.browser.newPage();
+  this.client.page.setCacheEnabled(false);
+  await this.client.page.emulate({
+    'name': 'Desktop',
+    'userAgent': 'Chrome',
+    'viewport': {
+      'width': 1200,
+      'height': 800,
+      'deviceScaleFactor': 1,
+      'isMobile': false,
+      'hasTouch': false,
+      'isLandscape': true
+    }
+  });
+  await this.client.page.goto(baseUrl + "/#replay=" + battleId);
 });
 
 Given('{string} section open', async function (section) {

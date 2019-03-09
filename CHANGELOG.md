@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.11] - 2019-03-09
+
+### Changed
+- documentation improvements (style, linking, etc)
+
+### Security
+- Update Bootstrap to fix security issue CVE-2019-8331
+
 ## [2.1.4] - 2018-12-26
 ### Added
 - Share battle link

@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -31,10 +31,10 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "jsbattle-docs": "^2.1.9",
-    "jsbattle-engine": "^2.1.9",
-    "jsbattle-server": "^2.1.9",
-    "jsbattle-webpage": "^2.1.9",
+    "jsbattle-docs": "^2.1.11",
+    "jsbattle-engine": "^2.1.11",
+    "jsbattle-server": "^2.1.11",
+    "jsbattle-webpage": "^2.1.11",
     "path": "^0.12.7",
     "pm2": "^3.2.9",
     "yargs": "^12.0.5"

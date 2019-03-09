@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-webpage",
-  "version": "2.1.9",
+  "version": "2.1.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,8 +22,8 @@
     "codemirror": "^5.40.2",
     "highlight.js": "^9.12.0",
     "jquery": "^3.3.1",
-    "jsbattle-docs": "^2.1.9",
-    "jsbattle-engine": "^2.1.9",
+    "jsbattle-docs": "^2.1.11",
+    "jsbattle-engine": "^2.1.11",
     "pixi.js": "^4.8.2",
     "popper.js": "^1.14.4",
     "react": "^16.5.2",

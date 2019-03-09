@@ -12,7 +12,6 @@ export const clickChallengeStart = async (page, index) => {
   await page.click(css);
 }
 
-
 export const hasWonChallenge = async (page) => {
   await page.waitFor('.result-msg');
   let result = await page.evaluate(() => {

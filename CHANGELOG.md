@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - simplify release process
+- make challenge battles predictive
 
 ## [2.1.11] - 2019-03-09
 

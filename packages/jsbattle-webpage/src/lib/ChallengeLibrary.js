@@ -6,6 +6,7 @@ class ChallengeDefinition {
     this.id = initData.id || 0;
     this.level = initData.level || 0;
     this.name = initData.name || "";
+    this._rngSeed = initData.rngSeed || Math.random();
     this.isCompleted = false;
     this._aiRepository = aiRepository;
     this._battleSet = new BattleSet();
@@ -16,6 +17,10 @@ class ChallengeDefinition {
     tankList.forEach((tank) => {
       this._battleSet.addTank(tank, 1, false);
     });
+  }
+
+  getRngSeed() {
+    return this._rngSeed;
   }
 
   getTeamMode() {
@@ -42,43 +47,50 @@ export default class ChallengeLibrary {
         id: 'challenge-kjFrZAUe',
         level: 1,
         name: 'Dummy Duel',
-        tankList: ['dummy']
+        tankList: ['dummy'],
+        rngSeed: 0.34408169134692157
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-My6Lj5RF',
         level: 2,
         name: 'Crawler Duel',
-        tankList: ['crawler']
+        tankList: ['crawler'],
+        rngSeed: 0.38835849114718024
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-y87hO9aT',
         level: 3,
         name: 'Crazy Duel',
-        tankList: ['crazy']
+        tankList: ['crazy'],
+        rngSeed: 0.6793472503409135
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-pFmJhcrV',
         level: 4,
         name: 'Chicken Duel',
-        tankList: ['chicken']
+        tankList: ['chicken'],
+        rngSeed: 0.8940944190401741
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-aSdf9xP',
         level: 5,
         name: 'Sniper Duel',
-        tankList: ['sniper']
+        tankList: ['sniper'],
+        rngSeed: 0.9972155038002273
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-M1nsn8s3',
         level: 6,
         name: 'Kamikaze Duel',
-        tankList: ['kamikaze']
+        tankList: ['kamikaze'],
+        rngSeed: 0.7613653519041235
       }, this._aiRepository),
       new ChallengeDefinition({
         id: 'challenge-i8s2UnS9',
         level: 7,
         name: 'Dodge Duel',
-        tankList: ['dodge']
+        tankList: ['dodge'],
+        rngSeed: 0.5448669137930873
       }, this._aiRepository)
     ];
 

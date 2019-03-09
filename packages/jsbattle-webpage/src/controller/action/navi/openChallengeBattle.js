@@ -9,6 +9,7 @@ export default (stateHolder, challengeLibrary) => {
       let battleSet = challenge.getBattleSet();
       let aiDefList = challenge.getAiDefList();
       let teamMode = challenge.getTeamMode();
+      let rngSeed = challenge.getRngSeed();
 
       /* jshint ignore:start */
       return {
@@ -21,6 +22,7 @@ export default (stateHolder, challengeLibrary) => {
           ...state.currentChallenge,
           aiDefList: aiDefList,
           battleSet: battleSet,
+          rngSeed: rngSeed,
           teamMode: teamMode
         },
         errorMessage: null

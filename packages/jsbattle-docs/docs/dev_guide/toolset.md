@@ -29,7 +29,6 @@ Tool                                                 | Description
 [JSDocs](http://usejsdoc.org/)                       |  API documentation generator
 [PlantUML](http://plantuml.com/)                     | Generates UML diagrams from text
 [Ansible](https://www.ansible.com/)                  | Provisioning scripts
-[PM2](https://pm2.io/runtime)                        | Process manager for node.js
 [Lerna](https://github.com/lerna/lerna)              | Monorepo management tool
 
 

@@ -33,7 +33,7 @@ yargs
   .option('l', {
     alias: 'loglevel',
     demandOption: false,
-    default: 'warn',
+    default: 'info',
     describe: 'One of logger levels: fatal, error, warn, info, debug'
   })
   .command(
@@ -43,7 +43,6 @@ yargs
 
     },
     (argv) => {
-      console.log("\n\n\n\n\n");
       let gateway = new Gateway();
       gateway.init({
         data: argv.data,

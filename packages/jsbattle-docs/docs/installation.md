@@ -28,19 +28,8 @@ Start web server that is required to run JsBattle simulator:
 The command will output URL of the server:
 
 ```
-[PM2] App [jsbattle] launched (1 instances)
-┌──────────┬────┬─────────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┬──────────┐
-│ App name │ id │ version │ mode │ pid  │ status │ restart │ uptime │ cpu │ mem       │ user     │ watching │
-├──────────┼────┼─────────┼──────┼──────┼────────┼─────────┼────────┼─────┼───────────┼──────────┼──────────┤
-│ jsbattle │ 0  │ 2.0.3   │ fork │ 8473 │ online │ 0       │ 0s     │ 0%  │ 49.6 MB   │ jsbattle │ disabled │
-└──────────┴────┴─────────┴──────┴──────┴────────┴─────────┴────────┴─────┴───────────┴──────────┴──────────┘
- Use `pm2 show <id|name>` to get more details about an app
-[TAILING] Tailing last 5 lines for [jsbattle] process (change the value with --lines option)
-/Users/kjamroz/.pm2/logs/jsbattle-out-0.log last 5 lines:
-0|jsbattle | 2018-10-25 13:15:16.681   INFO     -               Creating data folder for battle store at ~/jsbattle/dist/jsbattle-data
-0|jsbattle | 2018-10-25 13:15:16.719   INFO     -               hello seneca sy8hfass9gcx/1540479923643/8413/3.7.0/-
-0|jsbattle | 2018-10-25 13:15:16.737   INFO     -               webserver started at http://localhost:8080
-
+2019-03-10 12:57:41.816   INFO     -               Creating data folder for battle store at /Users/kjamroz/Documents/dev/jsbattle/...
+2019-03-10 12:57:41.879   INFO     -               webserver started at http://localhost:8080
 ```
 
 Open your favorite web browser and navigate to URL from the previous step

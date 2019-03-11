@@ -97,7 +97,7 @@ When('navigate to {string} section', async function (section) {
   await naviHelper.gotoSection(this.client.page, section);
 });
 
-When('visited all pages at {string}', async function (uri) {
+When('visited all pages at {string}', {timeout: 60 * 1000}, async function (uri) {
   var visitedLinks = [];
   var unvisitedLinks = [];
   var self = this;

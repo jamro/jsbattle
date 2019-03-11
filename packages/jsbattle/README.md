@@ -5,6 +5,7 @@
 [![Technical debt](https://sonarcloud.io/api/project_badges/measure?project=jamro-github%3Ajsbattle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=jamro-github%3Ajsbattle)
 [![License](https://img.shields.io/github/license/jamro/jsbattle.svg)](https://opensource.org/licenses/MIT)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/jamro/jsbattle.svg?columns=all)](https://waffle.io/jamro/jsbattle)
 
 ![alt text](../jsbattle-docs/docs/img/screenshot.png)
 

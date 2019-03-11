@@ -14,7 +14,7 @@ export default class EditorScreen extends React.Component {
     if(oldValue == newValue) {
       return null;
     }
-    if(newValue != oldValue && !this.props.aiRepository.isNameAllowed(newValue)) {
+    if(!this.props.aiRepository.isNameAllowed(newValue)) {
       return "Name must be unique, at least 3 characters long";
     }
     this.props.onRename(newValue, oldValue);

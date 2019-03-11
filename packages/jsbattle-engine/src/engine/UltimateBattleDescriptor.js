@@ -99,7 +99,7 @@ class UltimateBattleDescriptor {
     let aiClone;
     for(let ai of aiList) {
       aiClone = ai.clone();
-      result.addAiDefinition(ai);
+      result.addAiDefinition(aiClone);
     }
     return result;
   }

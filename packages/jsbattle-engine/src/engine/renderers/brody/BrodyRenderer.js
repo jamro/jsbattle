@@ -162,7 +162,6 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
   }
 
   _getSpritesheetUrls(rendererName, rendererScale) {
-    let resolution = (rendererScale == 2) ? "retina@2x" : "web";
     if(rendererScale >= 2) {
       return [
         `img/spritesheets/${rendererName}/retina@2x/jsbattle_0.json`,

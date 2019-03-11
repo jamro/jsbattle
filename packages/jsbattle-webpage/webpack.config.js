@@ -32,10 +32,28 @@ let config = {
 };
 
 module.exports = (env, argv) => {
+  let now = new Date();
+  let buildno = "";
+  buildno += now.getFullYear();
+  buildno += ((now.getMonth()+1)  < 10) ? "0" : "";
+  buildno += (now.getMonth()+1);
+  buildno += ((now.getDate())  < 10) ? "0" : "";
+  buildno += (now.getDate());
+  buildno += ((now.getHours())  < 10) ? "0" : "";
+  buildno += (now.getHours());
+  buildno += ((now.getMinutes())  < 10) ? "0" : "";
+  buildno += (now.getMinutes());
+  buildno += ((now.getSeconds())  < 10) ? "0" : "";
+  buildno += (now.getSeconds());
+
+  let version = JSON.stringify(require("./package.json").version).replace(/"/g, '');
+  version += "-" + buildno;
+  version = '"' + version + '"';
+
   config.plugins.push(
     new webpack.DefinePlugin({
       'DEBUG_MODE': (argv.mode === 'development'),
-      'VERSION': JSON.stringify(require("./package.json").version)
+      'VERSION':  version
     })
   );
   if (argv.mode === 'development') {

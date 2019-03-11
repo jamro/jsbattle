@@ -3,13 +3,23 @@
   "version": "2.2.1",
   "description": "",
   "main": "index.js",
+  "watch": {
+    "build:bundle": {
+      "patterns": [
+        "src/**/*"
+      ],
+      "verbose": true
+    }
+  },
   "scripts": {
     "clean": "rimraf dist",
     "lint": "eslint src/",
     "build": "npm run build:copy && npm run build:bundle",
     "build:copy": "build/copy-libs.js",
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
-    "test": "cucumber-js -f ./features/support/SimpleFormatter.js"
+    "test": "cucumber-js -f ./features/support/SimpleFormatter.js",
+    "watch": "npm-watch",
+    "start": "http-server -c-1 ./dist"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
@@ -45,7 +55,9 @@
     "cucumber": "^5.1.0",
     "eslint": "^5.13.0",
     "eslint-plugin-react": "^7.12.4",
+    "http-server": "^0.11.1",
     "json-server": "^0.14.2",
+    "npm-watch": "^0.6.0",
     "puppeteer": "^1.12.1",
     "rimraf": "^2.6.3",
     "webpack": "^4.29.0",

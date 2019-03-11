@@ -26,8 +26,6 @@ Above command will rebuild the whole project and put results to `/packages/jsbat
 Script Name     | Description
 ----------------|-------------------------------------
 start           | Starts JsBattle
-stop            | Stop JsBattle
-restart         | Restart JsBattle
 clean           | clean distribution directores for all [packages](./monorepo.md)
 lint            | analyzes source codes for all [packages](./monorepo.md)
 build           | build all [packages](./monorepo.md)

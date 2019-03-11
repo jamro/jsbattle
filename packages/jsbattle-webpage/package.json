@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-webpage",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -32,8 +32,8 @@
     "codemirror": "^5.40.2",
     "highlight.js": "^9.12.0",
     "jquery": "^3.3.1",
-    "jsbattle-docs": "^2.3.0",
-    "jsbattle-engine": "^2.3.0",
+    "jsbattle-docs": "^2.4.0",
+    "jsbattle-engine": "^2.4.0",
     "pixi.js": "^4.8.2",
     "popper.js": "^1.14.4",
     "react": "^16.5.2",

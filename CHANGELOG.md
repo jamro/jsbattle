@@ -16,39 +16,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **jsbattle-webpage:** add buildno to the version in footer ([d51b42c](https://github.com/jamro/jsbattle/commit/d51b42c))
 
 
-
-
-
-# [2.3.0](https://github.com/jamro/jsbattle/compare/v2.2.1...v2.3.0) (2019-03-11)
-
-
-### Bug Fixes
-
-* **jsbattle-webpage:** fix blank page after starting a challenge with empty script ([1f924cb](https://github.com/jamro/jsbattle/commit/1f924cb))
-
-
-### Features
-
-* **jsbattle-webpage:** add buildno to the version in footer ([d51b42c](https://github.com/jamro/jsbattle/commit/d51b42c))
-
-
-
-
-
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-## [2.2.1] - 2019-03-10
+# [2.2.1](https://github.com/jamro/jsbattle) (2019-03-10)
 
 ### Fixed
 - version in the footer
 
-## [2.2.0] - 2019-03-10
+# [2.2.0](https://github.com/jamro/jsbattle) (2019-03-10)
 
 ### Changed
 - simplify release process
@@ -58,7 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - PM2 dependency
 
-## [2.1.11] - 2019-03-09
+# [2.1.11](https://github.com/jamro/jsbattle) (2019-03-09)
 
 ### Changed
 - documentation improvements (style, linking, etc)
@@ -66,7 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 - Update Bootstrap to fix security issue CVE-2019-8331
 
-## [2.1.4] - 2018-12-26
+# [2.1.4](https://github.com/jamro/jsbattle) (2018-12-26)
 ### Added
 - Share battle link
 - Challenges section
@@ -84,7 +57,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - UBD replays (use battle sharing instead)
 
-## [2.0.2] - 2018-09-26
+# [2.0.2](https://github.com/jamro/jsbattle) (2018-09-26)
 ### Added
 - adding spritesheets as static resources
 
@@ -106,14 +79,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - removing gulp-mocha dependency (running Mocha directly)
 - removing building spritesheets from build process to make it simpler
 
-## [2.0.1] - 2018-07-15
+# [2.0.1](https://github.com/jamro/jsbattle) (2018-07-15)
 ### Added
 - documentation of release procedure
 
 ### Fixed
 - fixing missing UML diagrams in docs
 
-## [2.0.0] - 2018-07-15
+# [2.0.0](https://github.com/jamro/jsbattle) (2018-07-15)
 ### Added
 - JsBattle server (hosting of static content)
 - UBD Player (command line tool)
@@ -130,7 +103,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - http-server is no more bundled with JsBattle. Dedicated web-server is used
 
-## [1.5.0] - 2018-06-09
+# [1.5.0](https://github.com/jamro/jsbattle) (2018-06-09)
 ### Added
 - Replays of battles (export to UBD files)
 - Architecture documentation
@@ -141,7 +114,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - making battles predictable when the same seed for RNG is used
 
-## [1.4.7] - 2018-05-26
+# [1.4.7](https://github.com/jamro/jsbattle) (2018-05-26)
 ### Changed
 - update of libraries to latest versions
 - migration from Bootstrap v3 to v4
@@ -156,7 +129,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixing vulnerability in marked 0.3.6 by lib upgrade (CVE-2017-1000427, CVE-2017-17461)
 - Fixing vulnerability in UglifyJS2 2.3.6 by lib upgrade (CVE-2015-8858, CVE-2015-8857)
 
-## [1.4.6] - 2017-12-31
+# [1.4.6](https://github.com/jamro/jsbattle) (2017-12-31)
 ### Added
 - warn before exiting without saving AI Script
 - Building also unminified version of JsBattle (dist/js/jsbattle.js)
@@ -169,24 +142,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - technical debt reduction
 
-## [1.4.5] - 2017-08-21
+# [1.4.5](https://github.com/jamro/jsbattle) (2017-08-21)
 ### Fixed
 - info object not passed to tanks outside a sandbox
 - info object passed in a wrong field to AI Scripts
 - clearing PIXI.TextField.setText warnings
 
-## [1.4.2] - 2017-08-21
+# [1.4.2](https://github.com/jamro/jsbattle) (2017-08-21)
 ### Added
 - Publishing of the package via Bower
 
-## [1.4.1] - 2017-08-15
+# [1.4.1](https://github.com/jamro/jsbattle) (2017-08-15)
 ### Changed
 - update of jamro.tank.js to v1.2.0 (support for cooperative mode)
 
 ### Fixed
 - fixing critical bug in chicken.tank.js
 
-## [1.4.0] - 2017-08-15
+# [1.4.0](https://github.com/jamro/jsbattle) (2017-08-15)
 ### Added
 - Cooperative Mode
 
@@ -194,14 +167,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Usability improvements in AI script editor
 - Development Guide update
 
-## [1.3.3] - 2017-08-14
+# [1.3.3](https://github.com/jamro/jsbattle) (2017-08-14)
 ### Added
 - Adding new bundled tank AI: Chicken
 
 ### Changed
 - Improved performance of battle simulation
 
-## [1.3.2] - 2017-08-13
+# [1.3.2](https://github.com/jamro/jsbattle) (2017-08-13)
 ### Added
 - code autocomplete in scripts editor
 
@@ -210,16 +183,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - update of jamro.tank.js (ver 1.1.0)
 - small UI improvements
 
-## [1.3.1] - 2017-08-11
+# [1.3.1](https://github.com/jamro/jsbattle) (2017-08-11)
 ### Fixed
 - Being hit by another tank is not reported as state.collisions.enemy
 
-## [1.3.0] - 2017-08-10
+# [1.3.0](https://github.com/jamro/jsbattle) (2017-08-10)
 ### Added
 - Built-in, web based scripts editor. Now you can play the game over the web without downloading and launching it locally.
 - possibility to exit from the battle without refreshing of the window
 
-## [1.2.0] - 2017-08-09
+# [1.2.0](https://github.com/jamro/jsbattle) (2017-08-09)
 ### Added
 - You can now customize look of your tank
 - Retina support (on Macs it looks awesome :))
@@ -233,7 +206,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - optimization and bugfixing
 
-## [1.1.2] - 2017-08-04
+# [1.1.2](https://github.com/jamro/jsbattle) (2017-08-04)
 ### Added
 - More powerful AI - jamro.tank.js
 - bundling http-server with NPM package
@@ -241,7 +214,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - minor UI improvements and bugfixes
 
-## [1.1.0] - 2017-08-03
+# [1.1.0](https://github.com/jamro/jsbattle) (2017-08-03)
 ### Added
 - New Graphics
 - Introducing radar indicator
@@ -254,7 +227,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Bugfixes and optimisation
 
-## [1.0.2] - 2017-07-30
+# [1.0.2](https://github.com/jamro/jsbattle) (2017-07-30)
 ### Added
 - Restarting simulation without reloading of the page
 

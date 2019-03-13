@@ -5,6 +5,7 @@ let config = {
   mode: "production",
   entry: path.resolve(__dirname, 'src/index.js'),
   target: 'node',
+  externals: ['express'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'jsbattle-server.js',

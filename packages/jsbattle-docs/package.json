@@ -3,6 +3,23 @@
   "version": "2.4.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "serve": "http-server -c-1 ./dist",
+    "watch": "npm-watch",
+    "clean": "rimraf dist",
+    "lint": "puml testdot",
+    "build": "npm run-script build:api && npm run-script build:puml && npm run-script build:html && npm run-script build:copy",
+    "test": "npm run-script test:start && npm run-script test:exec && npm run-script test:stop",
+    "build:api": "cpx ./node_modules/jsbattle-engine/docs/api.md ./docs/dev_guide",
+    "build:puml": "./build/puml-batch.js generate -i ./src/puml -o ./docs/img/puml",
+    "build:html": "./build/md2html.js",
+    "build:copy": "npm run-script build:copy-img && npm run-script build:copy-static",
+    "build:copy-img": "cpx './docs/img/**/*' ./dist/img",
+    "build:copy-static": "cpx './src/style.css' ./dist/",
+    "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
+    "test:exec": "mocha --require @babel/register test/*.test.js",
+    "test:stop": "./build/test-server.js stop -p 8077"
+  },
   "watch": {
     "build:html": {
       "patterns": [
@@ -16,23 +33,6 @@
       ],
       "verbose": true
     }
-  },
-  "scripts": {
-    "start": "http-server -c-1 ./dist",
-    "clean": "rimraf dist",
-    "lint": "puml testdot",
-    "build": "npm run-script build:api && npm run-script build:puml && npm run-script build:html && npm run-script build:copy",
-    "test": "npm run-script test:start && npm run-script test:exec && npm run-script test:stop",
-    "build:api": "cpx ./node_modules/jsbattle-engine/docs/api.md ./docs/dev_guide",
-    "build:puml": "./build/puml-batch.js generate -i ./src/puml -o ./docs/img/puml",
-    "build:html": "./build/md2html.js",
-    "build:copy": "npm run-script build:copy-img && npm run-script build:copy-static",
-    "build:copy-img": "cpx './docs/img/**/*' ./dist/img",
-    "build:copy-static": "cpx './src/style.css' ./dist/",
-    "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
-    "test:exec": "mocha --require @babel/register test/*.test.js",
-    "test:stop": "./build/test-server.js stop -p 8077",
-    "watch": "npm-watch"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

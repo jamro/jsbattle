@@ -19,7 +19,7 @@
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
     "test": "cucumber-js -f ./features/support/SimpleFormatter.js",
     "watch": "npm-watch",
-    "start": "http-server -c-1 ./dist"
+    "serve": "http-server -c-1 ./dist"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

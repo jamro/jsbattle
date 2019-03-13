@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "http-server -c-1 ./dist",
+    "watch": "npm-watch",
     "clean": "rimraf dist",
     "lint": "jshint --config ./jshint.config.json src/",
     "build": "npm run-script build:sources && npm run-script build:sprites && npm run-script build:tanks && npm run-script build:html && npm run-script build:schema && npm run-script build:docs",
@@ -20,6 +22,32 @@
     "test:engine": "mocha --require @babel/register test/engine/*.test.js",
     "test:tanks": "mocha --require @babel/register test/tanks/*.test.js "
   },
+  "watch": {
+    "build:sources": {
+      "patterns": [
+        "src/engine/**/*"
+      ],
+      "verbose": true
+    },
+    "build:tanks": {
+      "patterns": [
+        "src/tanks/**/*"
+      ],
+      "verbose": true
+    },
+    "build:schema": {
+      "patterns": [
+        "src/schema/**/*"
+      ],
+      "verbose": true
+    },
+    "build:html": {
+      "patterns": [
+        "src/index.html"
+      ],
+      "verbose": true
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jamro/jsbattle"
@@ -33,9 +61,11 @@
     "babel": "^6.23.0",
     "babel-loader": "^8.0.4",
     "cpx": "^1.5.0",
+    "http-server": "^0.11.1",
     "jsdoc-to-markdown": "^4.0.1",
     "jshint": "^2.9.7",
     "mocha": "^5.2.0",
+    "npm-watch": "^0.6.0",
     "rimraf": "^2.6.2",
     "sinon": "^7.2.2",
     "webpack": "^4.28.2",

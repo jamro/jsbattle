@@ -7,20 +7,33 @@
     <script type="text/javascript" src="js/jsbattle.min.js"></script>
   </head>
   <body>
+    <div style="margin: 5px 0px; padding: 5px; width: 900px; border: 1px solid #000">
+      Change renderer:
+      <a href="/?debug#debug">debug</a> |
+      <a href="/?bw#bw">bw</a> |
+      <a href="/?brody#brody">brody</a>
+    </div>
+    <div id="loading">LOADNIG...</div>
     <canvas id="battlefield" style="width: 900px; height: 600px"/>
     <script type="text/javascript">
       var canvas = document.getElementById('battlefield');
-      var renderer = JsBattle.createRenderer('debug');
-      renderer.init(canvas);
+      var rendererList = ['debug', 'brody', 'bw'];
+      var rendererName = window.location.hash.substring(1);
+      rendererName = (rendererList.indexOf(rendererName) == -1) ? rendererList[0] : rendererName;
 
-      var simulation = JsBattle.createSimulation(renderer);
-      simulation.init(900, 600);
-      for(var i=0; i < 5; i++) {
-        var ai = JsBattle.createAiDefinition();
-        ai.fromFile('jamro');
-        simulation.addTank(ai);
-      }
-      simulation.start();
+      var renderer = JsBattle.createRenderer(rendererName);
+      renderer.init(canvas);
+      renderer.loadAssets(() => {
+        var simulation = JsBattle.createSimulation(renderer);
+        simulation.init(900, 600);
+        for(var i=0; i < 5; i++) {
+          var ai = JsBattle.createAiDefinition();
+          ai.fromFile('jamro');
+          simulation.addTank(ai);
+        }
+        simulation.start();
+        document.getElementById("loading").style.display ='none';
+      });
     </script>
   </body>
 </html>

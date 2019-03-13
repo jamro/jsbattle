@@ -10,7 +10,9 @@
     "watch": "npm-watch",
     "clean": "rimraf dist",
     "lint": "eslint src/",
-    "build": "webpack --config ./webpack.config.js --mode=production",
+    "build": "npm run build:sources && npm run build:runner",
+    "build:sources": "webpack --config ./webpack.config.js --mode=production",
+    "build:runner": "cpx ./src/runner.js ./dist/",
     "test": "mocha --require @babel/register test/*.test.js"
   },
   "watch": {
@@ -25,6 +27,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
+    "cpx": "^1.5.0",
     "eslint": "^5.13.0",
     "mocha": "^5.2.0",
     "npm-watch": "^0.6.0",

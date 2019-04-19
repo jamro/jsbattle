@@ -19,9 +19,9 @@ npm run build
 
 # SonarCloud analytics
 cd /home/rof/src/github.com/jamro/jsbattle
-wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
-unzip sonar-runner-dist-2.4.zip
-./sonar-runner-2.4/bin/sonar-runner -Dsonar.branch.name=$CI_BRANCH
+wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+./sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner -Dsonar.branch.name=$CI_BRANCH
 ```
 The script requires setting `SONAR_TOKEN` environmental variable to access Sonar Cube service
 

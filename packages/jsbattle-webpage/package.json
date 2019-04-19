@@ -6,7 +6,13 @@
   "watch": {
     "build:bundle": {
       "patterns": [
-        "src/**/*"
+        "src/**/*.*"
+      ],
+      "verbose": true
+    },
+    "build:copy": {
+      "patterns": [
+        "static/**/*.*"
       ],
       "verbose": true
     }

@@ -1,13 +1,14 @@
-import Row from "../bootstrap/Row.js";
-import Col from "../bootstrap/Col.js";
+import FullRow from "../bootstrap/FullRow.js";
 import JsonCode from "../JsonCode.js";
 import CodeArea from "./CodeArea.js";
+import VerticalSplit from "../VerticalSplit.js";
 
 export default class CodeEditorWidget extends React.Component {
 
   constructor(props) {
     super(props);
   }
+
 
   render() {
     let settingsData = {
@@ -81,28 +82,26 @@ export default class CodeEditorWidget extends React.Component {
       }
     };
     return <div>
-      <Row>
-        <Col lg={3} md={4} className="visible-md visible-lg">
-        <div className="card">
-          <div className="card-header">
-            <strong className="card-title">Cheat Sheet</strong>
+      <FullRow>
+        <VerticalSplit>
+          <div className="card">
+            <div className="card-header">
+              <strong className="card-title">Cheat Sheet</strong>
+            </div>
+            <div className="card-body">
+              <JsonCode className="debug" highlight={true} data={settingsData} varName="settings"/>
+              <JsonCode className="debug" highlight={true} data={infoData} varName="info"/>
+              <JsonCode className="debug" highlight={true} data={controlData} varName="control" />
+              <JsonCode className="debug" highlight={true} data={stateData} varName="state" />
+            </div>
           </div>
-          <div className="card-body">
-            <JsonCode className="debug" highlight={true} data={settingsData} varName="settings"/>
-            <JsonCode className="debug" highlight={true} data={infoData} varName="info"/>
-            <JsonCode className="debug" highlight={true} data={controlData} varName="control" />
-            <JsonCode className="debug" highlight={true} data={stateData} varName="state" />
-          </div>
-        </div>
-        </Col>
-        <Col lg={9} md={8} sm={12} xs={12}>
           <CodeArea
             className="form-control"
             defaultValue={this.props.initCode}
             onChange={(code) => this.props.onCodeChanged(code)}
           />
-        </Col>
-      </Row>
+        </VerticalSplit>
+      </FullRow>
     </div>;
   }
 }

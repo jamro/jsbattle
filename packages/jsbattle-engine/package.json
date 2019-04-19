@@ -25,19 +25,19 @@
   "watch": {
     "build:sources": {
       "patterns": [
-        "src/engine/**/*"
+        "src/engine/**/*.*"
       ],
       "verbose": true
     },
     "build:tanks": {
       "patterns": [
-        "src/tanks/**/*"
+        "src/tanks/**/*.*"
       ],
       "verbose": true
     },
     "build:schema": {
       "patterns": [
-        "src/schema/**/*"
+        "src/schema/**/*.*"
       ],
       "verbose": true
     },

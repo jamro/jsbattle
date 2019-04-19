@@ -23,7 +23,7 @@
   "watch": {
     "build:html": {
       "patterns": [
-        "docs/**/*"
+        "docs/**/*.*"
       ],
       "verbose": true
     },

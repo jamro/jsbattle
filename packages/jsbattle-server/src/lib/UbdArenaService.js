@@ -52,6 +52,7 @@ module.exports = class UbdArenaService {
         this._log("Starting browser...");
         let browser = await puppeteer.launch();
         let page = await browser.newPage();
+        await this.page.setUserAgent("UbdArenaService");
         let url = `http://${this._options.webhost}:${this._options.webport}#ubdPlayer`;
         this._log(`Loading ${url}`);
         await page.goto(url);

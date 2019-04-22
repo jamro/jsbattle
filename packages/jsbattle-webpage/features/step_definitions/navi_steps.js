@@ -48,6 +48,7 @@ Given('JsBattle open in the browser', async function () {
     await this.client.page.close();
   }
   this.client.page = await this.client.browser.newPage();
+  await this.client.page.setUserAgent("puppeteer-test");
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
     'name': 'Desktop',
@@ -71,6 +72,7 @@ Given('JsBattle replay for battle {string} open in the browser', async function 
     await this.client.page.close();
   }
   this.client.page = await this.client.browser.newPage();
+  await this.client.page.setUserAgent("puppeteer-test");
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
     'name': 'Desktop',
@@ -228,6 +230,7 @@ Then('all visited images loaded successfully', async function () {
   });
 
   let testPage = await this.client.browser.newPage();
+  await testPage.setUserAgent("puppeteer-test");
   testPage.setCacheEnabled(false);
 
   for(var i=0; i < images.length; i++) {

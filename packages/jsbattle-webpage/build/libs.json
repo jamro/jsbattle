@@ -1,6 +1,16 @@
 [
   {"from": "/node_modules/jsbattle-engine/dist/**/*",           "to": "/dist"},
-  {"from": "/static/**/*",                                      "to": "/dist"},
+  {
+    "from": "/static/**/*",
+    "to": "/dist",
+    "replace": [
+      {
+        "pattern": "\\.(html?|js)$",
+        "match": "GA:XX-XXXXXXXXX-X",
+        "env": "JSBATTLE_GA_CODE"
+      }
+    ]
+  },
   {"from": "/node_modules/jsbattle-docs/dist/**/*",             "to": "/dist/docs"},
   {"from": "/node_modules/pixi.js/dist/pixi.min.js",            "to": "/dist/vendor"},
   {"from": "/node_modules/jquery/dist/jquery.min.js",           "to": "/dist/vendor"},

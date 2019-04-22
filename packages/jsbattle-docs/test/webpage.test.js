@@ -20,6 +20,7 @@ describe('Web Page', function() {
       await this.page.close();
     }
     this.page = await this.browser.newPage();
+    await this.page.setUserAgent("puppeteer-test");
     this.consoleLog = [];
     this.page.on('console', msg => {
       for (let i = 0; i < msg.args().length; ++i) {

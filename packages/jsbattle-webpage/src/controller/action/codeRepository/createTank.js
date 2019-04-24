@@ -1,6 +1,11 @@
+import Stats from '../../../lib/Stats.js';
+
 export default (stateHolder, aiRepository) => {
 
   return () => {
+
+    Stats.onAiScriptCreate();
+
     let name = aiRepository.getRandomScriptName(true);
     let retry = 0;
     while(!aiRepository.isNameAllowed(name)) {

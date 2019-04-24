@@ -14,3 +14,4 @@ This section is unnecessary to play JsBattle however, if you would like to exten
 - [JsBattle Library Tutorial](./sim_lib.md)
 - [Adding Bundled Tanks](./adding_bundled_tanks.md)
 - [UBD files](./ubd_files.md)
+- [Statistics](./stats.md)

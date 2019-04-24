@@ -1,3 +1,4 @@
+import Stats from '../../../lib/Stats.js';
 export default (stateHolder, challengeLibrary) => {
 
   return () => {
@@ -10,6 +11,8 @@ export default (stateHolder, challengeLibrary) => {
       let aiDefList = challenge.getAiDefList();
       let teamMode = challenge.getTeamMode();
       let rngSeed = challenge.getRngSeed();
+
+      Stats.onChallengeBattle(challenge.level);
 
       /* jshint ignore:start */
       return {

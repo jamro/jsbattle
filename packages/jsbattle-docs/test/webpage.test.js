@@ -29,7 +29,7 @@ describe('Web Page', function() {
     });
     await this.page.emulate({
       'name': 'Desktop',
-      'userAgent': 'Chrome',
+      'userAgent': 'puppeteer-test',
       'viewport': {
         'width': 1200,
         'height': 800,

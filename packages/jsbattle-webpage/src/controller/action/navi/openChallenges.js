@@ -1,6 +1,9 @@
+import Stats from '../../../lib/Stats.js';
+
 export default (stateHolder, challengeLibrary) => {
 
   return () => {
+    Stats.onChallengesList();
     stateHolder.setState((state) => {
       /* jshint ignore:start */
       return {

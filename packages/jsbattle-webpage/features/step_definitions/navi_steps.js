@@ -52,7 +52,7 @@ Given('JsBattle open in the browser', async function () {
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
     'name': 'Desktop',
-    'userAgent': 'Chrome',
+    'userAgent': 'puppeteer-test',
     'viewport': {
       'width': 1200,
       'height': 800,
@@ -63,6 +63,22 @@ Given('JsBattle open in the browser', async function () {
     }
   });
   await this.client.page.goto(baseUrl);
+  await this.client.page.exposeFunction('gtag_alt', (event, action, data) => {
+    let serial = "";
+    serial += data.event_category !== undefined ? data.event_category : "";
+    serial += "/" + action;
+
+    if(data.event_label !== undefined) {
+      serial += "/" + data.event_label;
+    }
+    if(data.value !== undefined) {
+      serial += "/" + data.value;
+    }
+    this.gaEvents.push(serial);
+  });
+  await this.client.page.evaluate(() => {
+    window.gtag = window.gtag_alt;
+  });
 });
 
 Given('JsBattle replay for battle {string} open in the browser', async function (battleId) {
@@ -76,7 +92,7 @@ Given('JsBattle replay for battle {string} open in the browser', async function 
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
     'name': 'Desktop',
-    'userAgent': 'Chrome',
+    'userAgent': 'puppeteer-test',
     'viewport': {
       'width': 1200,
       'height': 800,

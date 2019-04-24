@@ -41,6 +41,12 @@ Given('tanks {stringList} selected for the battle', async function (initTanks) {
   }, initTanks);
 });
 
+Given('{int} {string} tanks selected for the battle', async function (count, tank) {
+  await this.client.page.evaluate((count, tank) => {
+    appController.assignTanksToBattle(tank, count);
+  }, count, tank);
+});
+
 // WHEN ------------------------------------------------------------------------
 When('press plus button of {string} tank {int} time(s)', async function (name, count) {
   for(let i=0; i < count; i++) {
@@ -98,6 +104,28 @@ When('edit tank {string}', async function (name) {
   let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-edit";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
+});
+
+When('select team mode', async function () {
+  await this.client.page.waitFor("input.team-mode");
+  let checked = await this.client.page.evaluate(() => {
+    const checked = document.querySelector("input.team-mode").checked;
+    return checked;
+  });
+  if(!checked) {
+    await this.client.page.click("input.team-mode");
+  }
+});
+
+When('deselect team mode', async function () {
+  await this.client.page.waitFor("input.team-mode");
+  let checked = await this.client.page.evaluate(() => {
+    const checked = document.querySelector("input.team-mode").checked;
+    return checked;
+  });
+  if(checked) {
+    await this.client.page.click("input.team-mode");
+  }
 });
 
 When('press play battle button', async function () {

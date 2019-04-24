@@ -1,7 +1,11 @@
+import Stats from '../../../lib/Stats.js';
+
 export default (stateHolder, aiRepository) => {
 
   return (name) => {
     aiRepository.deleteScript(name);
+
+    Stats.onAiScriptRemove();
 
     stateHolder.setState((state) => {
       let battleSet = state.battle.battleSet;

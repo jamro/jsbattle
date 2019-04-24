@@ -27,6 +27,10 @@ When('battle is completed', async function () {
   await this.client.page.waitFor('canvas.battlefield', {visible:false});
 });
 
+When('battle results are shown', async function () {
+  await this.client.page.waitFor('.winner-name');
+});
+
 When('press exit battle', async function () {
   let css = "button.exit-battle";
   await this.client.page.waitFor(css);

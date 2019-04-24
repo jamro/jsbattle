@@ -112,7 +112,7 @@ export default class StartScreen extends React.Component {
           <div className="card-footer" style={{padding: '5px'}}>
             <div className="checkbox" style={{margin: "0px"}}>
              <label>
-               <input type="checkbox" checked={this.props.teamMode} onChange={() => this.onTeamModeChange()} style={{margin: "0px 5px"}} />
+               <input type="checkbox" className="team-mode" checked={this.props.teamMode} onChange={() => this.onTeamModeChange()} style={{margin: "0px 5px"}} />
                Enable <strong>Team Mode</strong> for tanks of the same type
              </label>
            </div>

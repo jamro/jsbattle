@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JsBattle Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <script type="text/javascript" src="../js/jsbattle.min.js"></script>
+  </head>
+  <body>
+    <canvas id="battlefield" style="width: 900px; height: 600px"/>
+    <script type="text/javascript">
+      var canvas = document.getElementById('battlefield');
+
+      var renderer = JsBattle.createRenderer('debug');
+      renderer.init(canvas);
+      renderer.loadAssets(() => {
+        var simulation = JsBattle.createSimulation(renderer);
+        simulation.init(900, 600);
+
+        var ai, aiDef, x, y;
+
+        aiDef = JsBattle.createAiDefinition();
+        aiDef.fromFile('dummy');
+        ai = simulation.addTank(aiDef);
+
+        // coordinates of the battlefiled are shifted by a random offset
+        // to avoid hardcoding coordinates in code of AI. Use simulation.battlefield.minX
+        // and simulation.battlefield.minY as a point of reference when setting position
+        // of a tank
+        x = simulation.battlefield.minX + 200;
+        y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+        ai.tank.moveTo(x, y, 0);
+
+        aiDef = JsBattle.createAiDefinition();
+        aiDef.fromFile('dummy');
+        ai = simulation.addTank(aiDef);
+
+        x = simulation.battlefield.maxX - 200;
+        y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+        ai.tank.moveTo(x, y, 180);
+
+        simulation.start();
+      });
+    </script>
+  </body>
+</html>

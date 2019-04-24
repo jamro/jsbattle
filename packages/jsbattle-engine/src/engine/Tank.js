@@ -315,11 +315,14 @@ class Tank {
     this._energy = Math.max(0, this._energy - damage);
   }
 
-  moveTo(xPosition, yPosition) {
+  moveTo(xPosition, yPosition, angle) {
     this._x = xPosition;
     this._y = yPosition;
     this._lastX = xPosition;
     this._lastY = yPosition;
+    if(angle !== undefined) {
+      this._angle = angle;
+    }
   }
 
   /**

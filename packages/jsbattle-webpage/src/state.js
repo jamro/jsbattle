@@ -13,7 +13,8 @@ export default {
     aiDefList: null,
     quickBattleTank: null,
     rngSeed: 0,
-    shareLink: null
+    shareLink: null,
+    modifier: null
   },
   codeRepository: {
     tankList: []
@@ -28,7 +29,8 @@ export default {
     battleSet: null,
     aiDefList: null,
     teamMode: false,
-    result: null
+    result: null,
+    modifier: null
   },
   errorMessage: null
 };

@@ -11,6 +11,7 @@ export default (stateHolder, challengeLibrary) => {
       let aiDefList = challenge.getAiDefList();
       let teamMode = challenge.getTeamMode();
       let rngSeed = challenge.getRngSeed();
+      let modifier = challenge.getModifier();
 
       Stats.onChallengeBattle(challenge.level);
 
@@ -26,7 +27,8 @@ export default (stateHolder, challengeLibrary) => {
           aiDefList: aiDefList,
           battleSet: battleSet,
           rngSeed: rngSeed,
-          teamMode: teamMode
+          teamMode: teamMode,
+          modifier: modifier
         },
         errorMessage: null
       };

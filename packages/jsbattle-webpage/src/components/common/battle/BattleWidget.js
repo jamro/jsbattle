@@ -53,7 +53,9 @@ export default class BattleWidget extends React.Component {
       }
       self.battlefield.addTank(ai);
     });
-
+    if(this.props.modifier) {
+      this.props.modifier(this.battlefield.simulation);
+    }
     this.updateTankList();
     this.battlefield.start();
   }

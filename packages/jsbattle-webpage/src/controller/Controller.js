@@ -24,6 +24,7 @@ import assignTanksToBattle from './action/battle/assignTanksToBattle.js';
 import shareBattle from './action/battle/shareBattle.js';
 
 import saveCurrentChallengeScript from './action/challenge/saveCurrentChallengeScript.js';
+import unlockAllChallenges from './action/challenge/unlockAllChallenges.js';
 
 import loadSettings from './action/loadSettings.js';
 import setSimulationSpeed from './action/setSimulationSpeed.js';
@@ -61,6 +62,7 @@ export default class Controller  {
     this.addActon('shareBattle',             shareBattle(this.stateHolder));
 
     this.addActon('saveCurrentChallengeScript', saveCurrentChallengeScript(this.stateHolder, challengeLibrary));
+    this.addActon('unlockAllChallenges',     unlockAllChallenges(this.stateHolder, challengeLibrary));
 
     this.addActon('loadSettings',            loadSettings(this.stateHolder, aiRepository, challengeLibrary));
     this.addActon('setSimulationSpeed',      setSimulationSpeed(this.stateHolder));

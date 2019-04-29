@@ -24,8 +24,15 @@ export default {
     tankName: "",
     unsavedCode: ""
   },
+  challenges: {
+    list: []
+  },
   currentChallenge: {
     id: null,
+    level: null,
+    name: null,
+    description: null,
+    showInfo: false,
     battleSet: null,
     aiDefList: null,
     teamMode: false,

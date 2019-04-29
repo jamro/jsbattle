@@ -13,12 +13,21 @@ Feature: Statistics
     When open challenge 1
     Then GA event "challenges/challenge_1/open" is sent
 
-  Scenario: Notify about starting a challenge battle
+  Scenario Outline: Notify about starting challenge #<index> battle
     Given JsBattle open in the browser
+    And all challenges unlocked
     And "Challenges" section open
-    When open challenge 1
+    When open challenge <index>
+    And close challenge info
     And start current challenge
-    Then GA event "challenges/challenge_1/battle" is sent
+    Then GA event "challenges/challenge_<index>/battle" is sent
+
+    Examples:
+      | index |
+      |     1 |
+      |     2 |
+      |     5 |
+      |     8 |
 
   Scenario: Notify about winning a challenge
     Given JsBattle open in the browser
@@ -26,6 +35,7 @@ Feature: Statistics
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge 1
+    And close challenge info
     And type "<<jamro code>>" in AI Script editor
     And start current challenge
     And battle view is displayed
@@ -39,6 +49,7 @@ Feature: Statistics
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge 1
+    And close challenge info
     And start current challenge
     And battle view is displayed
     And battle is completed

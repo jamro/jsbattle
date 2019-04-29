@@ -14,6 +14,8 @@ The same rule applies to the radar. Its rotation is also relative to the body (*
   let radarAngle = Math.deg.normalize(90 - state.angle);
 ```
 
+Notice that results are normalized. Learn more about it [here](./algorithms_geometry.md).
+
 ## Aim at the target angle
 
 Once you know the angle where the tank should point its gun, we need to write a proper algorithm in `tank.loop(...)` to start to move it in the proper direction and stop when it is on the target. Two examples are shown here. In both cases, we will be pointing the gun at the north (`targetAngle = -90`).

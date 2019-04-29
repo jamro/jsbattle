@@ -22,6 +22,10 @@ export default (stateHolder, challengeLibrary) => {
           page: 'CHALLENGE_RESULT',
           pageData: {}
         },
+        challenges: {
+          ...state.challenges,
+          list: challengeLibrary.getAll()
+        },
         currentChallenge: {
           ...state.currentChallenge,
           battleWon: battleWon

@@ -109,7 +109,7 @@ export default class App extends React.Component {
       case 'CHALLENGE_LIST':
         return <ChallengesListScreen
           {...this.state.challenges}
-          onChallengeOpen={(id) => this.controller.openChallengeEditor(id)}
+          onChallengeOpen={(id) => this.controller.openChallengeEditor(id, true)}
         />;
       case 'CHALLENGE_EDITOR':
         return <ChallengeEditorScreen

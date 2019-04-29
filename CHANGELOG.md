@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/jamro/jsbattle/compare/v2.4.0...v2.5.0) (2019-04-29)
+
+
+### Bug Fixes
+
+* fix security issues by upgrade of old npm packages ([08ed1c6](https://github.com/jamro/jsbattle/commit/08ed1c6))
+
+
+### Features
+
+* **jsbattle-docs:** add algorithms sections to docs to improve learning curve ([e0d3765](https://github.com/jamro/jsbattle/commit/e0d3765))
+* **jsbattle-engine:** allow changing of renderers ([6cf532b](https://github.com/jamro/jsbattle/commit/6cf532b))
+* **jsbattle-engine:** allow manual placement of tanks in the battlefield ([6e44133](https://github.com/jamro/jsbattle/commit/6e44133))
+* **jsbattle-server:** add JsBattle Server runner (for package testing/debugging purposes) ([ecad5ee](https://github.com/jamro/jsbattle/commit/ecad5ee))
+* **jsbattle-webpage:** add basic GA tracking ([2f023d3](https://github.com/jamro/jsbattle/commit/2f023d3))
+* **jsbattle-webpage:** add description to each challenge ([5be7ec1](https://github.com/jamro/jsbattle/commit/5be7ec1))
+* **jsbattle-webpage:** add resizing of coding area in script editor ([0bc5bcd](https://github.com/jamro/jsbattle/commit/0bc5bcd))
+* **jsbattle-webpage:** add simpler challanges at the begining ([346d0d7](https://github.com/jamro/jsbattle/commit/346d0d7))
+* **jsbattle-webpage:** extend GA statistics (new events) ([284b580](https://github.com/jamro/jsbattle/commit/284b580))
+
+
+
+
+
 # [2.4.0](https://github.com/jamro/jsbattle/compare/v2.2.1...v2.4.0) (2019-03-11)
 
 

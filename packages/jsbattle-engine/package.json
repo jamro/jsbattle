@@ -62,26 +62,26 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/register": "^7.0.0",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
     "babel": "^6.23.0",
     "babel-loader": "^8.0.4",
     "cpx": "^1.5.0",
     "http-server": "^0.11.1",
     "jsdoc-to-markdown": "^4.0.1",
-    "jshint": "^2.9.7",
-    "mocha": "^5.2.0",
+    "jshint": "^2.10.2",
+    "mocha": "^6.1.4",
     "npm-watch": "^0.6.0",
     "rimraf": "^2.6.2",
-    "sinon": "^7.2.2",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "sinon": "^7.3.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "sat": "^0.7.1",
-    "seedrandom": "^2.4.4"
+    "seedrandom": "^3.0.1"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

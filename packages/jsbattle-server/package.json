@@ -24,27 +24,27 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
     "bufferutil": "^4.0.1",
     "cpx": "^1.5.0",
-    "eslint": "^5.13.0",
-    "mocha": "^5.2.0",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
     "npm-watch": "^0.6.0",
     "rimraf": "^2.6.3",
     "utf-8-validate": "^5.0.2",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
-    "ws": "^6.2.0"
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "ws": "^6.2.1"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "jsbattle-engine": "^2.5.0",
-    "puppeteer": "^1.12.1",
-    "seneca": "^3.8.0",
-    "seneca-entity": "^2.4.0",
+    "puppeteer": "^1.15.0",
+    "seneca": "^3.8.4",
+    "seneca-entity": "^3.3.0",
     "seneca-jsonfile-store": "^1.1.0"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"

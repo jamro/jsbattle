@@ -61,3 +61,6 @@ To make debugging of your AI scripts easier, it is possible to pass some data fr
 - [Tank Settings Object](./tank_settings_object.md)
 - [Tank Info Object](./tank_info_object.md)
 - [Extended Math Object](./extended_math.md)
+- [Algorithms: Geometry Basics](./algorithms_geometry.md)
+- [Algorithms: Shooting](./algorithms_shooting.md)
+- [Algorithms: Aiming](./algorithms_aiming.md)

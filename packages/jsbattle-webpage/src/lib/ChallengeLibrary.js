@@ -135,7 +135,7 @@ export default class ChallengeLibrary {
         id: 'challenge-kjFrZAUe',
         level: 4,
         name: 'Dummy Duel',
-        description: 'Time for the first duel! The opponent is not difficult - it will stand still and wait for you. You just need to find and destroy it. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'Time for the first duel! The opponent is not difficult - it will stand still and wait for you. You just need to find and destroy it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['dummy'],
         rngSeed: 0.34408169134692157,
         modifier: (simulation) => {
@@ -162,7 +162,7 @@ export default class ChallengeLibrary {
         id: 'challenge-My6Lj5RF',
         level: 5,
         name: 'Crawler Duel',
-        description: 'Things get a little bit more complicated. Your opponent drives around and will shoot you when there is a good chance. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'Things get a little bit more complicated. Your opponent drives around and will shoot you when there is a good chance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['crawler'],
         rngSeed: 0.38835849114718024
       }, this._aiRepository),
@@ -170,7 +170,7 @@ export default class ChallengeLibrary {
         id: 'challenge-y87hO9aT',
         level: 6,
         name: 'Crazy Duel',
-        description: 'That guy got crazy and shoot around in all directions. It should not be hard to take him down. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'That guy got crazy and shoot around in all directions. It should not be hard to take him down. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['crazy'],
         rngSeed: 0.6793472503409135
       }, this._aiRepository),
@@ -178,7 +178,7 @@ export default class ChallengeLibrary {
         id: 'challenge-pFmJhcrV',
         level: 7,
         name: 'Chicken Duel',
-        description: 'This coward tries to hide in a corner and shoot from the safe spot. Put that camper in his place. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'This coward tries to hide in a corner and shoot from the safe spot. Put that camper in his place. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['chicken'],
         rngSeed: 0.8940944190401741
       }, this._aiRepository),
@@ -186,7 +186,7 @@ export default class ChallengeLibrary {
         id: 'challenge-aSdf9xP',
         level: 8,
         name: 'Sniper Duel',
-        description: 'The sniper is not mobile, but when you are in the range of his gun, he will track you quickly. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'The sniper is not mobile, but when you are in the range of his gun, he will track you quickly. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['sniper'],
         rngSeed: 0.9972155038002273
       }, this._aiRepository),
@@ -194,7 +194,7 @@ export default class ChallengeLibrary {
         id: 'challenge-M1nsn8s3',
         level: 9,
         name: 'Kamikaze Duel',
-        description: 'Nothing will stop Kamikaze to take you down. Even if it means significant damage to himself. Try to keep him at distance. \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'Nothing will stop Kamikaze to take you down. Even if it means significant damage to himself. Try to keep him at distance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['kamikaze'],
         rngSeed: 0.7613653519041235
       }, this._aiRepository),
@@ -202,7 +202,7 @@ export default class ChallengeLibrary {
         id: 'challenge-i8s2UnS9',
         level: 10,
         name: 'Dodge Duel',
-        description: 'It\'s hard to take that guy down since he is avoiding bullets at all cost. Do you accept that challenge? \n\nIf you need the manual, it is available [here](./docs/manual/algorithms_aiming.html)',
+        description: 'It\'s hard to take that guy down since he is avoiding bullets at all cost. Do you accept that challenge? \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['dodge'],
         rngSeed: 0.5448669137930873
       }, this._aiRepository)

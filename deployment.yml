@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: guidesmiths-battle-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: guidesmiths-battle
+    spec:     # pod spec
+      containers:
+      - name: guidesmiths-battle
+        image: guidesmiths-battle-image:v1 # image we pushed
+        ports:
+        - containerPort: 3000

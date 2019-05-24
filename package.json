@@ -8,15 +8,15 @@
     "lint": "lerna bootstrap && lerna run lint --stream",
     "build": "lerna bootstrap && lerna run build --stream",
     "test": "lerna bootstrap && lerna run test --stream",
-    "heroku-prebuild": "npm install",
+    "heroku-prebuild": "npm install webpack webpack-cli babel-loader",
     "all": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "commit": "git-cz"
   },
   "devDependencies": {
-    "commitizen": "^3.1.1",
+    "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
-    "lerna": "^3.14.1"
+    "lerna": "^3.7.1"
   },
   "config": {
     "commitizen": {

@@ -15,7 +15,7 @@ yargs
   .option('p', {
     alias: 'port',
     demandOption: false,
-    default: "8080",
+    default: process.env.PORT,
     describe: 'listening port of the web server'
   })
   .option('h', {

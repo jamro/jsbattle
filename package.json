@@ -14,9 +14,9 @@
     "commit": "git-cz"
   },
   "devDependencies": {
-    "commitizen": "^3.0.5",
+    "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "lerna": "^3.7.1"
+    "lerna": "^3.14.1"
   },
   "config": {
     "commitizen": {

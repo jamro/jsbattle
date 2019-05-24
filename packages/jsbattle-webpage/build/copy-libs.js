@@ -31,8 +31,8 @@ function copyAsync(cmdlist) {
           patten = new RegExp(replace.pattern);
           if(patten.test(filename)) {
             if(process.env[replace.env] === undefined) {
-              console.error(`Error: No ENV "${replace.env}" is defined. Replacement for "${replace.match}" in ${filename} cannot be done`);
-              process.exit(1);
+              console.warn(`Warning: No ENV "${replace.env}" is defined. Replacement for "${replace.match}" in ${filename} cannot be done`);
+              continue
             }
             let text = chunk.toString(encoding);
             pattern = new RegExp(replace.match, 'g')

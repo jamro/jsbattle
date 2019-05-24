@@ -18,19 +18,25 @@ import Loading from "./common/Loading.js";
 import initState from "../state.js";
 
 export default class App extends React.Component {
-
   constructor(props) {
     super(props);
-    this.aiRepository = new AiRepository(props.stateless, 'aiRepository.scriptMap');
+    this.aiRepository = new AiRepository(
+      props.stateless,
+      "aiRepository.scriptMap"
+    );
     this.challengeLibrary = new ChallengeLibrary(props.stateless);
 
     initState.api = props.api;
     this.state = initState;
 
-    this.controller = new Controller(this, this.aiRepository, this.challengeLibrary);
+    this.controller = new Controller(
+      this,
+      this.aiRepository,
+      this.challengeLibrary
+    );
     window.appController = this.controller;
     this.controller.loadSettings(props.stateless, () => {
-      if(props.replay) {
+      if (props.replay) {
         this.controller.replayBattle(props.replay);
       } else {
         this.controller.openChallenges();
@@ -47,8 +53,11 @@ export default class App extends React.Component {
   }
 
   onBattleExit() {
-    if(this.state.battle.quickBattleTank) {
-      this.controller.openCodeEditor(this.state.battle.quickBattleTank, 'TANK_LIST');
+    if (this.state.battle.quickBattleTank) {
+      this.controller.openCodeEditor(
+        this.state.battle.quickBattleTank,
+        "TANK_LIST"
+      );
     } else {
       this.controller.openTankList();
     }
@@ -57,7 +66,7 @@ export default class App extends React.Component {
   renderContent() {
     switch(this.state.navi.page) {
       case 'PROFILE':
-        return <Profile/>
+        return <Profile/>;
       case 'TANK_LIST':
         return <StartScreen
           {...this.state.battle}
@@ -149,26 +158,33 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <div>
-      <Navi
-        {...this.state.navi}
-        speed={this.state.simSpeed}
-        quality={this.state.qualitySettings}
-        onSpeedChange={(v) => this.controller.setSimulationSpeed(v)}
-        onQualityChange={(v) => this.controller.setSimulationQuality(v)}
-        controller={this.controller}
-      />
-      <FullRow>
-        <InfoBox message={this.state.errorMessage} level="danger"/>
-      </FullRow>
-      {this.renderContent()}
-      <FullRow>
-        <small style={{color: '#999', textAlign: 'center', borderTop: '1px solid #999', width: "100%", display: 'inline-block', padding: '5px'}}>
-          Hosted on <a href="https://github.com/jamro/jsbattle" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" aria-hidden="true"></i> GitHub</a>.
-          This project is licensed under the terms of the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT license</a>.
-          Version: {VERSION}
-        </small>
-      </FullRow>
-    </div>;
+    return (
+      <div>
+        <Navi
+          {...this.state.navi}
+          speed={this.state.simSpeed}
+          quality={this.state.qualitySettings}
+          onSpeedChange={(v) => this.controller.setSimulationSpeed(v)}
+          onQualityChange={(v) => this.controller.setSimulationQuality(v)}
+          controller={this.controller}
+        />
+        <FullRow>
+          <InfoBox message={this.state.errorMessage} level="danger" />
+        </FullRow>
+        {this.renderContent()}
+        <FullRow>
+          <small
+            style={{
+              color: "#999",
+              textAlign: "center",
+              borderTop: "1px solid #999",
+              width: "100%",
+              display: "inline-block",
+              padding: "5px"
+            }}
+          />
+        </FullRow>
+      </div>
+    );
   }
 }

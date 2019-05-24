@@ -9,6 +9,7 @@ import CodeRepositoryScreen from "./screen/editor/CodeRepositoryScreen.js";
 import BattleScreen from "./screen/battle/BattleScreen.js";
 import WinnerScreen from "./screen/winner/WinnerScreen.js";
 import StartScreen from "./screen/start/StartScreen.js";
+import Profile from './screen/profile/profile.js';
 import ChallengesListScreen from "./screen/challenges/ChallengesListScreen.js";
 import ChallengeEditorScreen from "./screen/challenges/ChallengeEditorScreen.js";
 import ChallengeBattleScreen from "./screen/challenges/ChallengeBattleScreen.js";
@@ -55,6 +56,8 @@ export default class App extends React.Component {
 
   renderContent() {
     switch(this.state.navi.page) {
+      case 'PROFILE':
+        return <Profile/>
       case 'TANK_LIST':
         return <StartScreen
           {...this.state.battle}

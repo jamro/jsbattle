@@ -2,6 +2,7 @@ import openCodeRepository from './action/navi/openCodeRepository.js';
 import openCodeEditor from './action/navi/openCodeEditor.js';
 import closeCodeEditor from './action/navi/closeCodeEditor.js';
 import openTankList from './action/navi/openTankList.js';
+import openProfile from './action/navi/openProfile.js';
 import openQuickBattle from './action/navi/openQuickBattle.js';
 import openBattle from './action/navi/openBattle.js';
 import openBattleResults from './action/navi/openBattleResults.js';
@@ -67,6 +68,8 @@ export default class Controller  {
     this.addActon('loadSettings',            loadSettings(this.stateHolder, aiRepository, challengeLibrary));
     this.addActon('setSimulationSpeed',      setSimulationSpeed(this.stateHolder));
     this.addActon('setSimulationQuality',    setSimulationQuality(this.stateHolder));
+
+    this.addActon('openProfile',    openProfile(this.stateHolder));
 
   }
 

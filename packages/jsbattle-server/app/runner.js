@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Gateway = require('./jsbattle-server.js').Gateway;
+const Gateway = require('./services/Gateway.js')
 
 let gateway = new Gateway();
 gateway.init({

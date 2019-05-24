@@ -1,4 +1,4 @@
-import assert from "assert";
+const assert = require('assert');
 const senecaFactory = require('seneca');
 const senecaEntity = require('seneca-entity');
 const SenecaLogger = require('./lib/SenecaLogger.js');
@@ -19,8 +19,8 @@ describe('battleStore', function() {
     });
     seneca
       .use(senecaEntity)
-      .use(require(__dirname + '/../src/services/battleStore/battleStore.js'))
-      .use(require(__dirname + '/../src/services/ubdValidator/ubdValidator.js'), {schemaPath: __dirname + '/../../src/schema'})
+      .use(require(__dirname + '/../app/services/battleStore/battleStore.js'))
+      .use(require(__dirname + '/../app/services/ubdValidator/ubdValidator.js'), {schemaPath: __dirname + '/../../src/schema'})
       .ready((err) => {
         if(err) {
           console.error(err);

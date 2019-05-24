@@ -7,7 +7,6 @@ const senecaEntity = require('seneca-entity');
 const senecaJsonFileStore = require('seneca-jsonfile-store');
 const SenecaLogger = require('../lib/SenecaLogger.js');
 
-
 class Gateway {
 
   init(options) {

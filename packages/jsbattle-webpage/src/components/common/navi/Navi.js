@@ -56,7 +56,7 @@ export default class Navi extends React.Component {
       return null;
     }
     let activeClasses = "nav-link  active";
-    let inactiveClasses = "nav-link text-secondary";
+    let inactiveClasses = "nav-link text-muted";
     return (
       <div
         className="collapse navbar-collapse"

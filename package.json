@@ -8,7 +8,7 @@
     "lint": "lerna bootstrap && lerna run lint --stream",
     "build": "lerna bootstrap && lerna run build --stream",
     "test": "lerna bootstrap && lerna run test --stream",
-    "heroku-prebuild": "npm install webpack webpack-cli --save-dev",
+    "heroku-prebuild": "npm install",
     "all": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "commit": "git-cz"

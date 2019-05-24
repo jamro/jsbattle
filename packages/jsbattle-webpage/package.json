@@ -37,7 +37,7 @@
     "clipboard": "^2.0.1",
     "codemirror": "^5.46.0",
     "highlight.js": "^9.12.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.4.1",
     "jsbattle-docs": "^2.5.0",
     "jsbattle-engine": "^2.5.0",
     "pixi.js": "^4.8.7",

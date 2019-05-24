@@ -44,6 +44,7 @@ export default class WinnerScreen extends React.Component {
                 <p>
                   Death: 5
                 </p>
+                <img style={{width: '80%'}} src="https://i.ibb.co/55t9kQy/Screenshot-2019-05-24-at-16-49-13.png" alt="Screenshot-2019-05-24-at-16-49-13" border="0" />
               </div>
               <div>
                 <img src="https://img.freepik.com/free-vector/star-rating-with-numbers_1017-6183.jpg?size=338&ext=jpg" />

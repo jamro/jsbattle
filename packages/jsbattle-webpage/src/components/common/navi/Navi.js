@@ -103,7 +103,7 @@ export default class Navi extends React.Component {
             className={this.props.section == 'PROFILE' ? activeClasses : inactiveClasses}
             href="#"
             onClick={() => this.props.controller.openProfile()}>
-            <i className="fas fa-pen" aria-hidden="true"></i> PROFILE
+            <i className="fas fa-user" aria-hidden="true"></i> Profile
           </a>
         </li>
           <li className="nav-item">

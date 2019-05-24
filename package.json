@@ -3,10 +3,10 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "npm start --prefix=./packages/jsbattle",
+    "start": "npm build && npm start --prefix=./packages/jsbattle",
     "clean": "lerna run clean --stream",
     "lint": "lerna bootstrap && lerna run lint --stream",
-    "build": "lerna bootstrap && lerna run build --stream",
+    "build": "JSBATTLE_GA_CODE=12-123456789-1 lerna bootstrap && lerna run build --stream",
     "test": "lerna bootstrap && lerna run test --stream",
     "all": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",

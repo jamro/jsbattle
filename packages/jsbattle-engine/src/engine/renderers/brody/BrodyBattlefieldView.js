@@ -16,7 +16,7 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   _create(container) {
-    let background = PIXI.Sprite.fromFrame('battlefield');
+    let background = PIXI.Sprite.from('battlefield');
     container.addChild(background);
 
     let groundMask = new PIXI.Graphics();
@@ -59,7 +59,7 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   addCrater(x, y) {
-    let crater = PIXI.Sprite.fromFrame('crater');
+    let crater = PIXI.Sprite.from('crater');
     crater.anchor.set(0.5);
     crater.x = x - this.model.offsetX;
     crater.y = y - this.model.offsetY;
@@ -90,7 +90,7 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
       return;
     }
 
-    let hole = PIXI.Sprite.fromFrame('hole');
+    let hole = PIXI.Sprite.from('hole');
     hole.anchor.set(0.5);
     hole.x = x - this.model.offsetX;
     hole.y = y - this.model.offsetY;

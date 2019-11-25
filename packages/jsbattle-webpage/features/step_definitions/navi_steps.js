@@ -3,6 +3,12 @@ const {After, Given, When, Then } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
 
+async function createPage(browser) {
+  var page = await browser.newPage();
+  return page;
+}
+
+
 var baseUrl = 'http://localhost:8070/';
 
 var naviHelper = {
@@ -47,7 +53,7 @@ Given('JsBattle open in the browser', async function () {
   if(this.client.page) {
     await this.client.page.close();
   }
-  this.client.page = await this.client.browser.newPage();
+  this.client.page = await createPage(this.client.browser);
   await this.client.page.setUserAgent("puppeteer-test");
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
@@ -87,7 +93,7 @@ Given('JsBattle replay for battle {string} open in the browser', async function 
   if(this.client.page) {
     await this.client.page.close();
   }
-  this.client.page = await this.client.browser.newPage();
+  this.client.page = await createPage(this.client.browser);
   await this.client.page.setUserAgent("puppeteer-test");
   this.client.page.setCacheEnabled(false);
   await this.client.page.emulate({
@@ -245,7 +251,7 @@ Then('all visited images loaded successfully', async function () {
     return self.indexOf(value) === index && (new RegExp(baseUrl)).test(value);
   });
 
-  let testPage = await this.client.browser.newPage();
+  let testPage = await createPage(this.client.browser);
   await testPage.setUserAgent("puppeteer-test");
   testPage.setCacheEnabled(false);
 

@@ -15,6 +15,9 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     if(typeof PIXI === 'undefined') {
       throw "Pixi.js is required!";
     }
+
+    PIXI.settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
+
     this._masterContainer = new PIXI.Container();
     this._tankContainer = new PIXI.Container();
     this._bulletContainer = new PIXI.Container();
@@ -55,12 +58,12 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       view: this._canvas,
       antialias: false,
       backgroundColor: 0xffffff,
-      resolution: this._rendererScale
+      resolution: this._rendererScale,
+      width: battlefield.width + 2 * battlefield.margin,
+      height: battlefield.height + 2 * battlefield.margin
     };
 
     this._renderer = new PIXI.autoDetectRenderer(
-      battlefield.width + 2 * battlefield.margin,
-      battlefield.height + 2 * battlefield.margin,
       rendererSettings
     );
     this._stage = new PIXI.Container();
@@ -79,12 +82,13 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     this._canvas = canvas;
   }
 
-  loadAssets(done) {
+  loadAssets(done, urlPrefix) {
+    urlPrefix = urlPrefix || '';
     if(!this._name) {
       done();
       return;
     }
-    let loader = PIXI.loader;
+    let loader = PIXI.Loader.shared;
     let loadedResources = [];
     for(let res in loader.resources) {
       loadedResources.push(res);
@@ -95,7 +99,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
         return loadedResources.indexOf(url) == -1;
       })
       .forEach((url) => {
-        loader.add(url);
+        loader.add(urlPrefix + url);
       });
     loader.load((loader, resources) => {
       this.onAssetsLoaded();

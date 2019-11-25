@@ -23,7 +23,7 @@ module.exports = function (level) {
     }
 
     function adapter (context, payload) {
-      var when = pad((new Date(payload.when)).toISOString().replace("T", " ").replace("Z", ""), 25);
+      var when = pad(new Date(payload.when).toISOString().replace("T", " ").replace("Z", ""), 25);
       var level = pad(payload.level_name || '-', 8).toUpperCase();
       var text = payload.notice || payload.pattern || payload.msg || '-';
       var plugin = pad(payload.plugin_name || '-', 15);

@@ -65,7 +65,7 @@ module.exports = class UbdArenaService {
           ubdContent
         );
         this._log(`Starting the battle...`);
-        let startTime = (new Date()).getTime();
+        let startTime = new Date().getTime();
         await page.click("#playButton");
         await Promise.race([
           page.waitForSelector("#loading"),
@@ -79,7 +79,7 @@ module.exports = class UbdArenaService {
 
         let error = await page.$('#error');
         let html;
-        let dt = (new Date()).getTime() - startTime;
+        let dt = new Date().getTime() - startTime;
 
         if(error) {
           html = await page.$eval('#error', (element) => element.innerHTML);

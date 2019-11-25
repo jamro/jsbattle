@@ -19,9 +19,9 @@ export default class BrodyBulletView extends AbstractPixiBulletView  {
   }
 
   _create(container) {
-    let bullet = PIXI.Sprite.fromFrame('bullet');
+    let bullet = PIXI.Sprite.from('bullet');
     bullet.anchor.set(0.5);
-    let glow = PIXI.Sprite.fromFrame('glow');
+    let glow = PIXI.Sprite.from('glow');
     glow.anchor.set(0.5);
     glow.blendMode = PIXI.BLEND_MODES.ADD;
     glow.alpha = 0.1;

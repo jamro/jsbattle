@@ -19,7 +19,7 @@ class SimpleFormatter extends SummaryFormatter {
   }
 
   logTestCaseName({sourceLocation}) {
-    const {gherkinDocument, pickle} = this.eventDataCollector.getTestCaseData(sourceLocation)
+    const {gherkinDocument, pickle} = this.eventDataCollector.getTestCaseAttempt({sourceLocation})
     this.log(gherkinDocument.feature.name + ' / ' + pickle.name + ": ");
   }
   logTestStep({testCase, index, result}) {

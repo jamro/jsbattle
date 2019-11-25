@@ -15,7 +15,7 @@ export default class BWTankView extends AbstractPixiTankView  {
   }
 
   _createBody() {
-    let body = PIXI.Sprite.fromFrame('tank_body');
+    let body = PIXI.Sprite.from('tank_body');
     body.anchor.set(0.5);
     return body;
   }
@@ -23,11 +23,11 @@ export default class BWTankView extends AbstractPixiTankView  {
   _createGun() {
     let gunContainer = new PIXI.Container();
 
-    let tankGun = PIXI.Sprite.fromFrame('tank_gun');
+    let tankGun = PIXI.Sprite.from('tank_gun');
     tankGun.anchor.set(0.3, 0.5);
     gunContainer.addChild(tankGun);
 
-    this._shoot = PIXI.Sprite.fromFrame('tank_shoot');
+    this._shoot = PIXI.Sprite.from('tank_shoot');
     this._shoot.anchor.set(-1.2, 0.5);
     this._shoot.alpha = 0;
     gunContainer.addChild(this._shoot);
@@ -36,7 +36,7 @@ export default class BWTankView extends AbstractPixiTankView  {
   }
 
   _createRadar() {
-    let tankRadar = PIXI.Sprite.fromFrame('tank_radar');
+    let tankRadar = PIXI.Sprite.from('tank_radar');
     tankRadar.anchor.set(0.5);
     return tankRadar;
   }

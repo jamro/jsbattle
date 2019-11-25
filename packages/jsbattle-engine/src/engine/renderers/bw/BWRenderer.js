@@ -18,8 +18,8 @@ export default class BWRenderer extends AbstractPixiRenderer  {
 
   onAssetsLoaded() {
     for(let i=0; i <= 9; i++) {
-      this._bigBoomAnim.push(PIXI.Texture.fromFrame('big_boom_00' + i));
-      this._smallBoomAnim.push(PIXI.Texture.fromFrame('small_boom_00' + i));
+      this._bigBoomAnim.push(PIXI.Texture.from('big_boom_00' + i));
+      this._smallBoomAnim.push(PIXI.Texture.from('small_boom_00' + i));
     }
   }
 
@@ -71,7 +71,7 @@ export default class BWRenderer extends AbstractPixiRenderer  {
   }
 
   _addExplosion(x, y, type) {
-    let anim = new PIXI.extras.AnimatedSprite(type);
+    let anim = new PIXI.AnimatedSprite(type);
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
     anim.x = x;

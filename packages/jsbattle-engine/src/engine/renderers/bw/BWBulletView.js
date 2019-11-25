@@ -10,7 +10,7 @@ export default class BWBulletView extends AbstractPixiBulletView  {
   }
 
   _create(container) {
-    let bullet = PIXI.Sprite.fromFrame('bullet');
+    let bullet = PIXI.Sprite.from('bullet');
     bullet.anchor.set(0.5);
     container.addChild(bullet);
   }

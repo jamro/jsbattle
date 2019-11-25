@@ -33,7 +33,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createBody() {
-    let body = PIXI.Sprite.fromFrame('tank_body_' + this.model.skin);
+    let body = PIXI.Sprite.from('tank_body_' + this.model.skin);
     body.anchor.set(0.3, 0.5);
     return body;
   }
@@ -41,16 +41,16 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   _createGun() {
     let gunContainer = new PIXI.Container();
 
-    let tankGun = PIXI.Sprite.fromFrame('tank_gun_' + this.model.skin);
+    let tankGun = PIXI.Sprite.from('tank_gun_' + this.model.skin);
     tankGun.anchor.set(0.3, 0.5);
     gunContainer.addChild(tankGun);
     this._tankGun = tankGun;
 
-    this._shoot = PIXI.Sprite.fromFrame('tank_shoot');
+    this._shoot = PIXI.Sprite.from('tank_shoot');
     this._shoot.anchor.set(0.3, 0.5);
     this._shoot.alpha = 0;
 
-    this._light = PIXI.Sprite.fromFrame('tank_light');
+    this._light = PIXI.Sprite.from('tank_light');
     this._light.anchor.set(0.3, 0.5);
     this._light.alpha = 0;
 
@@ -61,7 +61,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createRadar() {
-    let tankRadar = PIXI.Sprite.fromFrame('tank_radar_' + this.model.skin);
+    let tankRadar = PIXI.Sprite.from('tank_radar_' + this.model.skin);
     tankRadar.anchor.set(0.2, 0.5);
     tankRadar.x=-5;
     return tankRadar;

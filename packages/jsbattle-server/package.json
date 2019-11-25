@@ -27,7 +27,8 @@
     "puppeteer": "^1.20.0",
     "seneca": "^3.17.0",
     "seneca-entity": "^3.3.0",
-    "seneca-jsonfile-store": "^1.1.0"
+    "seneca-jsonfile-store": "^1.1.0",
+    "uuid": "^3.3.3"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

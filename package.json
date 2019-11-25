@@ -9,13 +9,12 @@
     "build": "lerna bootstrap && lerna run build --stream",
     "test": "lerna bootstrap && lerna run test --stream",
     "all": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
-    
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "commit": "git-cz",
-    "outdated": "lerna exec -- npm outdated || true",
+    "outdated": "lerna exec -- 'npm outdated || true'",
     "update": "lerna exec -- npm update",
-    "audit": "lerna exec -- npm audit || true",
-    "audit-fix": "lerna exec -- npm audit-fix || true"
+    "audit": "lerna exec -- 'npm audit || true'",
+    "audit-fix": "lerna exec -- 'npm audit-fix || true'"
   },
   "devDependencies": {
     "commitizen": "^4.0.3",

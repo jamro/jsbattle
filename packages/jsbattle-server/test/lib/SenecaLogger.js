@@ -36,11 +36,11 @@ module.exports = function (initLogLevel) {
 
     function adapter (context, payload) {
       var when = pad((new Date(payload.when)).toISOString().replace("T", " ").replace("Z", ""), 25);
-      var level = pad(payload.level || '-', 8).toUpperCase();
+      var level = pad(payload.level_name || '-', 8).toUpperCase();
       var text = payload.notice || payload.info || payload.pattern || '-';
       var plugin = pad(payload.plugin_name || '-', 15);
 
-      var logLevel = SenecaLogger.logLevelToInt(payload.level.toUpperCase());
+      var logLevel = SenecaLogger.logLevelToInt(payload.level_name.toUpperCase());
 
       if(logLevel > SenecaLogger.logThreshold) return;
 

@@ -18,7 +18,9 @@
     "build:copy-static": "cpx './src/style.css' ./dist/",
     "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
     "test:exec": "mocha --require @babel/register test/*.test.js",
-    "test:stop": "./build/test-server.js stop -p 8077"
+    "test:stop": "./build/test-server.js stop -p 8077",
+    "audit": "npm audit",
+    "audit-fix": "npm audit fix"
   },
   "watch": {
     "build:html": {
@@ -41,22 +43,22 @@
     "jsbattle-engine": "^2.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/register": "^7.4.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/register": "^7.7.4",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "http-server": "^0.11.1",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.2",
     "node-plantuml": "^0.8.1",
     "npm-watch": "^0.6.0",
-    "puppeteer": "^1.15.0",
-    "rimraf": "^2.6.2",
-    "showdown": "^1.9.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "yargs": "^13.2.2"
+    "puppeteer": "^1.20.0",
+    "rimraf": "^2.7.1",
+    "showdown": "^1.9.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "yargs": "^13.3.0"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

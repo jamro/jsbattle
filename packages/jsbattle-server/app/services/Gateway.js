@@ -1,4 +1,5 @@
 const express = require('express');
+const stringReplace = require('string-replace-middleware');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
@@ -56,8 +57,14 @@ class Gateway {
 
   start() {
     return new Promise((resolve) => {
+      let replacements = {};
+
+      if(process.env['JSBATTLE_GA_CODE']) {
+        replacements['GA:XX-XXXXXXXXX-X'] = process.env['JSBATTLE_GA_CODE'];
+      }
 
       this.app = express();
+      this.app.use(stringReplace(replacements));
       this.app.use(express.static(this.options.webroot, { maxAge: 12*60*60*1000, etag: true }));
       this.app.use(bodyParser.json());
       this.app.use(bodyParser.urlencoded({

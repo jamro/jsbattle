@@ -25,5 +25,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "string-replace-middleware": "0.0.1"
   }
 }

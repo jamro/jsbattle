@@ -59,8 +59,9 @@ class Gateway {
     return new Promise((resolve) => {
       let replacements = {};
 
-      if(process.env['JSBATTLE_GA_CODE']) {
-        replacements['GA:XX-XXXXXXXXX-X'] = process.env['JSBATTLE_GA_CODE'];
+      if(this.options.gaCode) {
+        this.seneca.log.info({notice: `GA tracking enabled: ${this.options.gaCode}`});
+        replacements['GA:XX-XXXXXXXXX-X'] = this.options.gaCode;
       }
 
       this.app = express();

@@ -8,7 +8,8 @@ gateway.init({
   webroot: './public_html',
   host: '127.0.0.1',
   port: '9000',
-  loglevel: 'debug'
+  loglevel: 'debug',
+  gaCode: "AB-123456789-Z"
 })
 .then(() => gateway.start())
 .catch(console.error);

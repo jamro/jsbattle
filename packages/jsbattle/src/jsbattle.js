@@ -36,6 +36,11 @@ yargs
     default: 'info',
     describe: 'One of logger levels: fatal, error, warn, info, debug'
   })
+  .option('gaCode', {
+    demandOption: false,
+    default: '',
+    describe: 'Google Analytics tracking code'
+  })
   .command(
     'start',
     'Launch JsBattle server',
@@ -49,7 +54,8 @@ yargs
         webroot: argv.webroot,
         host: argv.host,
         port: argv.port,
-        loglevel: argv.loglevel
+        loglevel: argv.loglevel,
+        gaCode: argv.gaCode
       })
       .then(() => gateway.start())
       .then(() => {

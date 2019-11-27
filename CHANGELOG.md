@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/jamro/jsbattle/compare/v2.5.0...v2.6.0) (2019-11-27)
+
+
+### Bug Fixes
+
+* upgrade lerna to include security fixes ([e9f5ddc](https://github.com/jamro/jsbattle/commit/e9f5ddcd6c9a8371e77a96076674b0846cd0e6c6))
+* **jsbattle-server:** add missing dependency on string-replace-middleware ([5b21992](https://github.com/jamro/jsbattle/commit/5b21992acbc89b9e8a46f699b1cad94faf97022c))
+* **jsbattle-server:** add missing uuid package dependency ([9ccf708](https://github.com/jamro/jsbattle/commit/9ccf70839cefc07b72438fc56f14193d95b0b0ed))
+* **jsbattle-server:** fix sonar cube ([22f74ec](https://github.com/jamro/jsbattle/commit/22f74ecee1a50c54523365a4b6f5f89786f2f9ab))
+* **jsbattle-webpage:** improve challenge description ([492443d](https://github.com/jamro/jsbattle/commit/492443dfb7204a35b87417c9e571829a2516d2d4))
+* **jsbattle-webpage:** make Google Analytics optional ([9e6c6de](https://github.com/jamro/jsbattle/commit/9e6c6de6c6708562c0cf185e852dfcb4a3977c4c)), closes [#25](https://github.com/jamro/jsbattle/issues/25)
+
+
+### Features
+
+* **jsbattle-server:** remove babel and webpack dependency ([e19cde0](https://github.com/jamro/jsbattle/commit/e19cde0c9f49a9c6dcf832230be401c31616bcae))
+
+
+
+
+
 # [2.5.0](https://github.com/jamro/jsbattle/compare/v2.4.0...v2.5.0) (2019-04-29)
 
 

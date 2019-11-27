@@ -28,6 +28,7 @@
     "seneca": "^3.17.0",
     "seneca-entity": "^5.2.0",
     "seneca-jsonfile-store": "^1.1.0",
+    "string-replace-middleware": "0.0.1",
     "uuid": "^3.3.3"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"

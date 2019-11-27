@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.1](https://github.com/jamro/jsbattle/compare/v2.6.0...v2.6.1) (2019-11-27)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** fix serving images ([c47f881](https://github.com/jamro/jsbattle/commit/c47f881050bba16eb4a873446a6056e9ab3e5dc8))
+
+
+
+
+
 # [2.6.0](https://github.com/jamro/jsbattle/compare/v2.5.0...v2.6.0) (2019-11-27)
 
 

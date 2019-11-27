@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-server",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "",
   "main": "app/index.js",
   "keywords": [],
@@ -25,7 +25,7 @@
     "escape-string-regexp": "^2.0.0",
     "express": "^4.17.1",
     "hijackresponse": "^4.0.0",
-    "jsbattle-engine": "^2.6.0",
+    "jsbattle-engine": "^2.6.1",
     "puppeteer": "^2.0.0",
     "seneca": "^3.17.0",
     "seneca-entity": "^5.2.0",

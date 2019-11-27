@@ -22,13 +22,15 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "escape-string-regexp": "^2.0.0",
     "express": "^4.17.1",
+    "hijackresponse": "^4.0.0",
     "jsbattle-engine": "^2.6.0",
     "puppeteer": "^2.0.0",
     "seneca": "^3.17.0",
     "seneca-entity": "^5.2.0",
     "seneca-jsonfile-store": "^1.1.0",
-    "string-replace-middleware": "0.0.1",
+    "stream": "0.0.2",
     "uuid": "^3.3.3"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"

@@ -1,5 +1,5 @@
 const express = require('express');
-const stringReplace = require('string-replace-middleware');
+const stringReplace = require('../lib/stringReplaceMiddleware.js');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');

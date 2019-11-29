@@ -41,6 +41,46 @@ function processHtml(txt, level, sidebarContent) {
     <div id="main">
       ${txt}
     </div>
+    <script>
+
+      function showParent(node) {
+        let parent = node.parentElement;
+        if(!parent) {
+          return;
+        }
+        if(node.tagName == 'UL') {
+          node.style.display = 'block'
+        }
+        showParent(parent)
+      }
+
+      // hide all containers
+      document
+        .querySelectorAll('#side ul ul')
+        .forEach(el => el.style.display = 'none')
+
+      // find selected item
+      let pathname = window.location.pathname;
+      pathname = pathname == '/' ? 'README.html' : pathname;
+      let items = document.querySelectorAll('#side li');
+      items = Array.prototype.slice.call(items);
+      let selectedItem = items
+        .find(li => {
+          let children = Array.prototype.slice.call(li.childNodes);
+          let aLink = children.find(el => el.tagName == 'A');
+          return (aLink.href.substr(aLink.href.length - pathname.length, pathname.length) == pathname);
+        })
+
+      // show parents
+      showParent(selectedItem);
+
+      // show children
+      let children = Array.prototype.slice.call(selectedItem.childNodes);
+      let ulLink = children.find(el => el.tagName == 'UL');
+      if(ulLink) {
+        ulLink.style.display = 'block'
+      }
+    </script>
   </body>
 </html>`;
   return txt;

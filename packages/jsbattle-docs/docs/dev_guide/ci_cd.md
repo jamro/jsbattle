@@ -20,8 +20,8 @@ npm run build
 # SonarCloud analytics
 cd /home/rof/src/github.com/jamro/jsbattle
 wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-unzip sonar-scanner-cli-3.3.0.1492-linux.zip
-./sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner -Dsonar.branch.name=$CI_BRANCH
+unzip sonar-scanner-cli-3.3.0.1492-linux.zip > /dev/null 2>&1
+./sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner -Dsonar.branch.name=$CI_BRANCH > /dev/null 2>&1
 ```
 The script requires setting `SONAR_TOKEN` environmental variable to access Sonar Cube service
 
@@ -69,7 +69,7 @@ module.exports = {
     name: 'jsbattle',
     script: "/home/tankdev/jsbattle/dist/jsbattle.js",
     cwd: __dirname,
-    args: "start -h 127.0.0.1 -p 8090 -l info -d /home/tankdev/jsbattle-data",
+    args: "start -h 127.0.0.1 -p 8090 -l info -d /home/tankdev/jsbattle-data --gaCode XX-XXXXXXXXX-X",
     instances: 1,
     autorestart: true,
     watch: false,

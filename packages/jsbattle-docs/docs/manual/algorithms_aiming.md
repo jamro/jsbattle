@@ -3,7 +3,7 @@
 ## Consider rotation of the tank
 Remember that the angle of the gun is relative to the body of the tank:
 
-![alt text](../img/angles.png)
+![Aiming angles](../img/angles.png)
 
 During aiming, you should take into account the rotation of the tank body. If you want to  point the gun to the south (`90°`) following formula should be applied to do it despite rotation of the tank body:
 ```
@@ -15,6 +15,14 @@ The same rule applies to the radar. Its rotation is also relative to the body (*
 ```
 
 Notice that results are normalized. Learn more about it [here](./algorithms_geometry.md).
+
+## Consider width of radar beam
+
+Radar detects objects even if they are only partially covered by the beam. In some cases, it may mean that the enemy is at the edge of the beam:
+
+![Radar beam](../img/radar_beam.png)
+
+For aiming purposed, do not rely on the fact that the enemy is detected, and the gun is pointing in the same direction as the radar. In the situation above, the shot will miss the target. To aim precisely you have to base on `state.radar.enemy.x` and `state.radar.enemy.y` of [State Object](./tank_state_object.md) and rotate the gun accordingly. Read sections below to learn how to aim at target coordinates.
 
 ## Aim at the target angle
 
@@ -100,7 +108,7 @@ control.GUN_TURN   | -3.00| -2.10| -1.20| -0.30| -0.03|  0.00|   0.00|   0.00|  
 
 This algorithm will slow down when it is closer to the target value stopping eventually. Where `0.3` factor comes from? It was adjusted experimentally. In general, using higher values will result in an unstable movement. A too low value will make the gun reach target rotation slower. Here are a few examples:
 
-![alt text](../img/stable_movement.png)
+![Aiming graph](../img/stable_movement.png)
 
 ## Aim at target coordinates
 

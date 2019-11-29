@@ -4,7 +4,7 @@
 
 Each tank consists of following components: body, gun and radar.
 
-![alt text](../img/tank_parts.png)
+![Tank Parts](../img/tank_parts.png)
 
 ### Tank Movement
 
@@ -34,7 +34,11 @@ radar.angle == 180; // aiming backward
 
 The angle of radar is normalized and is always between -180° and 180°.
 
-Whenever the radar detects an enemy, its indicator light will start blinking.
+The beam of the radar has a triangular shape. Its parameters are described by  `Radar Beam Range` and `Radar Beam Focal` (see [Constants and Formulas](./consts.md)).
+
+![Radar Beam](../img/radar_beam.png)
+
+Whenever the radar detects an enemy, its indicator light will start blinking. The radar detects objects even when they are only partially covered by the beam (see picture above). To get precise position of detected enemy refer to `state.radar.enemy.x` and `state.radar.enemy.y` of [State Object](./tank_state_object.md).
 
 ### Gun
 

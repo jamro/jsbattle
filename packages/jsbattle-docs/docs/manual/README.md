@@ -11,6 +11,7 @@
   - [Algorithms: Geometry Basics](./algorithms_geometry.md)
   - [Algorithms: Shooting](./algorithms_shooting.md)
   - [Algorithms: Aiming](./algorithms_aiming.md)
+  - [Algorithms: Movement](./algorithms_movement.md)
 - [Cooperative Mode](./cooperative.md)
 - [Bundled Enemies](./bundled_tanks.md)
 - [Scoring System](./scoring_system.md)

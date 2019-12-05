@@ -7,6 +7,8 @@ The simplest algorithm to move across the battlefield and seek for an enemy coul
 3. After a collision with a wall, stop and turn any direction
 4. Go to point #1
 
+![bouncing](../img/bouncing.png)
+
 A quite obvious downside of such an approach is that each collision will damage the tank. However, stopping the tank after each wall hit should limit the damage, so it is acceptable when fighting easy enemies.
 
 ```javascript

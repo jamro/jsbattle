@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JsBattle Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
+    <script type="text/javascript" src="../js/jsbattle.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <textarea id="editor" rows="20" style="width: 100%; font-family: courier" onkeyup="notifyChange()">importScripts('lib/tank.js');
+tank.init(function(settings, info) {
+
+});
+
+tank.loop(function(state, control) {
+  control.TURN = 1;
+  control.THROTTLE = 0.5;
+  control.SHOOT = 0.2;
+});
+    </textarea>
+    <script type="text/javascript">
+      var editor = document.getElementById('editor');
+      var oldCode = '';
+      var reloadTimeout = null;
+      var simulation = null;
+      var renderer = null;
+
+      function notifyChange() {
+        if(oldCode == editor.value) {
+          return;
+        }
+        oldCode = editor.value;
+        if(reloadTimeout) {
+          clearTimeout(reloadTimeout);
+        }
+        reloadTimeout = setTimeout(reload, 700)
+      }
+
+      function clearRoot() {
+        var root = document.getElementById('root');
+        var child = root.lastElementChild;
+        while (child) {
+          root.removeChild(child);
+          child = root.lastElementChild;
+        }
+      }
+
+      function reload () {
+        if(reloadTimeout) {
+          clearTimeout(reloadTimeout);
+        }
+        var canvas = document.createElement('canvas');
+        var root = document.getElementById('root');
+
+        clearRoot();
+        canvas.style.width='450px';
+        canvas.style.height='300px';
+        root.appendChild(canvas);
+        if(renderer) {
+          renderer.dispose();
+          renderer = null;
+        }
+        renderer = JsBattle.createRenderer('debug');
+        renderer.init(canvas);
+        renderer.loadAssets(() => {
+          if(simulation) {
+            simulation.stop();
+            simulation = null;
+          }
+          simulation = JsBattle.createSimulation(renderer);
+          simulation.init(900, 600);
+          simulation.onFinish(() => reload());
+          simulation.onError((err) => {
+            var msg = document.createElement('div');
+            msg.innerHTML = "ERROR: " + err;
+            msg.style.width='450px';
+            msg.style.height='300px';
+            msg.style.padding = '5px';
+            msg.style.backgroundColor = 'black';
+            msg.style.color = 'red';
+            clearRoot();
+            root.appendChild(msg);
+          })
+          var ai;
+
+          ai = JsBattle.createAiDefinition();
+          ai.fromFile('dummy');
+          simulation.addTank(ai);
+
+          ai = JsBattle.createAiDefinition();
+          ai.fromCode('my-tank', editor.value);
+          simulation.addTank(ai);
+
+          simulation.start();
+        });
+      }
+
+      reload();
+    </script>
+  </body>
+</html>

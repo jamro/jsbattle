@@ -53,7 +53,7 @@ Create `/index.html` in project root directory and fill it with following conten
     <script type="text/javascript" src="js/jsbattle.min.js"></script>
   </head>
   <body>
-    <canvas id="battlefield" style="width: 900px; height: 600px"/>
+    <canvas id="battlefield" style="width: 900px; height: 600px"></canvas>
     <script type="text/javascript">
       // put your code here...
     </script>

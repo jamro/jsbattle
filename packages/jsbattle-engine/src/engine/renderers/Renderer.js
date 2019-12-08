@@ -87,7 +87,17 @@ class Renderer {
 
   }
 
+  /**
+   * Stops renderinf loop of the battle. After this call, renderinig cannot be resumed.
+   */
   stop() {
+
+  }
+
+  /**
+   * Clean up and remove all resources used by renderer
+   */
+  dispose() {
 
   }
 }

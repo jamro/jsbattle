@@ -166,4 +166,12 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     return new AbstractPixiView(clock);
   }
 
+  dispose() {
+    this._renderer.context.gl.getExtension('WEBGL_lose_context').loseContext();
+    this._renderer.destroy();
+    this._renderer = null;
+    this._canvas = null;
+    this._stage = null;
+  }
+
 }

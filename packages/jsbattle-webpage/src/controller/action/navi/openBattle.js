@@ -1,7 +1,7 @@
 import Stats from '../../../lib/Stats.js';
 export default (stateHolder) => {
 
-  return (aiDefList, teamMode, rngSeed, shareLink) => {
+  return (aiDefList, teamMode, rngSeed, timeLimit, shareLink) => {
     stateHolder.setState((state) => {
 
       Stats.onCustomBattleStart(teamMode);
@@ -31,6 +31,7 @@ export default (stateHolder) => {
           ...state.battle,
           teamMode: teamMode,
           rngSeed: rngSeed,
+          timeLimit: timeLimit,
           aiDefList: aiDefList,
           quickBattleTank: null,
           shareLink: shareLink ? shareLink : null

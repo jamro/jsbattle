@@ -5,7 +5,8 @@ export default class Battlefield extends React.Component {
     this.simulation = null;
     this.renderer = null;
     this.state = {
-      rngSeed: (props.rngSeed === undefined) ? Math.random() : props.rngSeed
+      rngSeed: (props.rngSeed === undefined) ? Math.random() : props.rngSeed,
+      timeLimit: (props.timeLimit === undefined) ? 30000 : props.timeLimit,
     };
   }
 
@@ -37,6 +38,7 @@ export default class Battlefield extends React.Component {
     this.renderer.init(this.canvas);
     this.simulation = JsBattle.createSimulation(this.renderer);
     this.simulation.setRngSeed(this.state.rngSeed);
+    this.simulation.timeLimit = this.state.timeLimit;
 
     if(this.props.onError) {
       this.simulation.onError((msg) => this.props.onError(msg));

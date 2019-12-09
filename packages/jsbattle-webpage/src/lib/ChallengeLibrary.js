@@ -8,6 +8,7 @@ class ChallengeDefinition {
     this.description = initData.description || "";
     this.name = initData.name || "";
     this._rngSeed = initData.rngSeed || Math.random();
+    this._timeLimit = initData.timeLimit || 30000;
     this.isCompleted = false;
     this._aiRepository = aiRepository;
     this._battleSet = new BattleSet();
@@ -22,6 +23,10 @@ class ChallengeDefinition {
 
   getRngSeed() {
     return this._rngSeed;
+  }
+
+  getTimeLimit() {
+    return this._timeLimit;
   }
 
   getTeamMode() {

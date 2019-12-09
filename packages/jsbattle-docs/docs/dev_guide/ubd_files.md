@@ -2,7 +2,7 @@
 Ultimate Battle Descriptor (UBD) contains all the information required to replay a battle. Battle launched from UBD file is deterministic and always has the same outcome.
 
 ## UBD Player
-Distribution of JsBattle contains command line tool that allows processing of UBD files to get result of the battle without watching it. It is located in `/dist/server/ubdplayer.js`. You can run as any shell command (`./ubdplayer.js`) or via NodeJs (`node ubdplayer.js`). For more information, run `./ubdplayer.js --help`.
+Distribution of JsBattle contains command line tool that allows processing of UBD files to get result of the battle without watching it. It is located in `/dist/ubdplayer.js`. You can run as any shell command (`./ubdplayer.js`) or via NodeJs (`node ubdplayer.js`). For more information, run `./ubdplayer.js --help`.
 
 ## Changelog
 
@@ -10,7 +10,7 @@ Date       | Version | Schema Location                 | Description
 -----------|---------|---------------------------------|-----------------------------
 2018-05-31 |       1 | `src/schema/ubd-schema-v1.json` | Initial Version
 2018-06-04 |       2 | `src/schema/ubd-schema-v2.json` | Adding teamMode information
-
+2019-12-09 |       3 | `src/schema/ubd-schema-v3.json` | Adding timeLimit information
 
 ## UBD Format
 UBD is a JSON file of the following format
@@ -27,6 +27,9 @@ Determine if the battle is played in cooperative mode. Possible values are true 
 ### .aiList
 Array of AI definitions that participate in the battle. Each AI definition is a JSON object.
 
+### .timeLimit
+Maximum duration of the battle in milliseconds, or zero if unlimited
+
 ## UBD example
 
 ```json
@@ -34,6 +37,7 @@ Array of AI definitions that participate in the battle. Each AI definition is a 
   "version": 2,
   "rngSeed": 0.850067584253805,
   "teamMode": false,
+  "timeLimit": 30000,
   "aiList": [
     {
       "name": "User Created Tank",
@@ -54,3 +58,50 @@ Array of AI definitions that participate in the battle. Each AI definition is a 
   ]
 }
 ```
+
+## Updating UBD schema
+
+Follow those steps when releasing new version of UBD schema
+
+1. Create JSON Schema in `packages/jsbattle-engine/src/schema/ubd-schema-v[version].json`
+2. Update version number in ubd-schema file
+3. Update documentation at `packages/jsbattle-docs/docs/dev_guide/ubd_files.md`
+   - modify change log
+   - describe changed fields
+4. update version of schema at `packages/jsbattle-engine/src/engine/UltimateBattleDescriptor.js`
+    ```javascript
+    import schema from '../schema/ubd-schema-v[version].json';
+    // ...
+
+    class UltimateBattleDescriptor {
+        constructor() {
+            this._version = [version];
+        }
+    }
+    ```
+5. update `encode` and `decode` methods of at `UltimateBattleDescriptor`
+6. Update UbdValidator at `packages/jsbattle-server/app/services/ubdValidator/ubdValidator.js`
+
+    ```javascript
+    const schema_v[version] = JsBattleSchema.getVersion([version]);
+
+    // ...
+
+    function validate(msg, respond ) {
+        // ...
+        switch (version) {
+            // ...
+            case [version]:
+            schema = schema_v[version];
+            break;
+        }
+    }
+    ```
+7. Update sample UBD at `packages/jsbattle-webpage/src/components/screen/UbdPlayer/UbdPlayer.js`
+    ```javascript
+        render() {
+            // ...
+            let ubdSample ='{"version": [version], ... }';
+            // ...
+        }
+    ```

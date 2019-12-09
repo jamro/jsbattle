@@ -10,6 +10,7 @@ export default class UbdPlayer extends React.Component {
       view: "form",
       descriptor: null,
       rngSeed: null,
+      timeLimit: 0,
       teamMode: false,
       errorMessage: ""
     };
@@ -29,7 +30,8 @@ export default class UbdPlayer extends React.Component {
         view: "loading",
         descriptor: descriptor,
         teamMode: descriptor.getTeamMode(),
-        rngSeed: descriptor.getRngSeed()
+        rngSeed: descriptor.getRngSeed(),
+        timeLimit: descriptor.getTimeLimit()
       },
       () => {
         this.battlefield.buildSimulation();
@@ -87,11 +89,12 @@ export default class UbdPlayer extends React.Component {
     });
   }
 
-  getBattlefield(seed) {
+  getBattlefield(seed, timeLimit) {
     if(seed === undefined || seed === null) return null;
     return <Battlefield
       ref={(battlefield) => this.battlefield = battlefield }
       rngSeed={seed}
+      timeLimit={timeLimit}
       width="100"
       height="100"
       speed="1000000"
@@ -108,7 +111,7 @@ export default class UbdPlayer extends React.Component {
 
   render() {
     let views = [];
-    let ubdSample ='{"version":2,"rngSeed":0.13398684952602968,"teamMode":false,"aiList":[{"name":"jamro","team":"1qdhdbot4","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"jamro","team":"1qdh9wa9n","code":null,"initData":null,"useSandbox":true,"executionLimit":100}]}';
+    let ubdSample ='{"version":3, "timeLimit":0, "rngSeed":0.13398684952602968,"teamMode":false,"aiList":[{"name":"jamro","team":"1qdhdbot4","code":null,"initData":null,"useSandbox":true,"executionLimit":100},{"name":"jamro","team":"1qdh9wa9n","code":null,"initData":null,"useSandbox":true,"executionLimit":100}]}';
     let txt = <p><textarea id="ubdInput" ref="input" style={{width: "100%", height: "300px"}} >{ubdSample}</textarea></p>; // eslint-disable-line react/no-string-refs
     views.form = <div>
       <p>Paste content of *.UBD file and click Play</p>
@@ -133,7 +136,7 @@ export default class UbdPlayer extends React.Component {
     return <div>
       <h1>UBD Player</h1>
       {views[this.state.view]}
-      {this.getBattlefield(this.state.rngSeed)}
+      {this.getBattlefield(this.state.rngSeed, this.state.timeLimt)}
     </div>;
   }
 

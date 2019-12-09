@@ -1,0 +1,134 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jsbattle.jmrlab.com/schema/ubd-schema-v3.json",
+  "type": "object",
+  "title": "The Ultimate Battle Descriptor Schema",
+  "version": 3.0,
+  "required": [
+    "version",
+    "rngSeed",
+    "timeLimit",
+    "teamMode",
+    "aiList"
+  ],
+  "properties": {
+    "version": {
+      "$id": "#/properties/version",
+      "enum": [3],
+      "title": "Version of the schema"
+    },
+    "rngSeed": {
+      "$id": "#/properties/rngSeed",
+      "type": "number",
+      "title": "Battle RNG seed",
+      "default": 0.0,
+      "examples": [
+        0.850067584253805
+      ]
+    },
+    "timeLimit": {
+      "$id": "#/properties/timeLimit",
+      "type": "number",
+      "title": "Duration of the battle in ms (or zero if no limit defined",
+      "default": 0,
+      "examples": [
+        0,
+        20000
+      ]
+    },
+    "teamMode": {
+      "$id": "#/properties/teamMode",
+      "type": "boolean",
+      "title": "Team death match",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "aiList": {
+      "$id": "#/properties/aiList",
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 40,
+      "title": "List of AIs that joins the battle",
+      "items": {
+        "$id": "#/properties/aiList/items",
+        "type": "object",
+        "title": "Tank AI",
+        "required": [
+          "name",
+          "team",
+          "code",
+          "initData",
+          "useSandbox",
+          "executionLimit"
+        ],
+        "properties": {
+          "name": {
+            "$id": "#/properties/aiList/items/properties/name",
+            "type": "string",
+            "title": "Name of tank",
+            "default": "",
+            "examples": [
+              "User Created Tank"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "team": {
+            "$id": "#/properties/aiList/items/properties/team",
+            "type": "string",
+            "title": "Team of the tank",
+            "default": "",
+            "examples": [
+              "10i42s2ca"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "code": {
+            "$id": "#/properties/aiList/items/properties/code",
+            "anyOf": [
+              {"type": "string"},
+              {"type": "null"}
+            ],
+            "title": "Code of the AI",
+            "default": "",
+            "examples": [
+              "var a = 1;"
+            ]
+          },
+          "initData": {
+            "$id": "#/properties/aiList/items/properties/initData",
+            "default": null,
+            "title": "Initial data of AI",
+            "anyOf": [
+              {"type": "object"},
+              {"type": "null"}
+            ],
+            "examples": [
+              null
+            ]
+          },
+          "useSandbox": {
+            "$id": "#/properties/aiList/items/properties/useSandbox",
+            "type": "boolean",
+            "title": "Use sandbox for AI execution",
+            "default": true,
+            "examples": [
+              true
+            ]
+          },
+          "executionLimit": {
+            "$id": "#/properties/aiList/items/properties/executionLimit",
+            "type": "integer",
+            "title": "AI code execution time limit in ms",
+            "default": 100,
+            "examples": [
+              100
+            ]
+          }
+        }
+      }
+    }
+  }
+}

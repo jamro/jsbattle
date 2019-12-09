@@ -58,7 +58,7 @@ export default class App extends React.Component {
       case 'TANK_LIST':
         return <StartScreen
           {...this.state.battle}
-          onStart={(aiDefList, teamMode, rngSeed) => this.controller.openBattle(aiDefList, teamMode, rngSeed)}
+          onStart={(aiDefList, teamMode, rngSeed, timeLimit) => this.controller.openBattle(aiDefList, teamMode, rngSeed, timeLimit)}
           onError={(msg) => this.showError(msg)}
           onScriptEdit={(name) => this.controller.openCodeEditor(name, 'TANK_LIST')}
           onTeamModeToggle={(isEnabled) => this.controller.toggleTeamMode(isEnabled)}

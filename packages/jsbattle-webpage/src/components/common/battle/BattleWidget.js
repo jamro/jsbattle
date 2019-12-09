@@ -22,6 +22,7 @@ export default class BattleWidget extends React.Component {
       teamList: [],
       windowSize: 'md',
       rngSeed: (props.rngSeed !== undefined) ? props.rngSeed : Math.random(),
+      timeLimt: (props.timeLimt !== undefined) ? props.timeLimt : 30000,
       error: ""
     };
   }
@@ -166,6 +167,7 @@ export default class BattleWidget extends React.Component {
           <Battlefield
             ref={(battlefield) => this.battlefield = battlefield }
             rngSeed={this.state.rngSeed}
+            timeLimit={this.state.timeLimit}
             width="900"
             height="600"
             speed={this.props.speed}

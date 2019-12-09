@@ -35,7 +35,7 @@ export default class StartScreen extends React.Component {
   startBattle() {
     let listComplete = this.getTankCount() >= 2;
     if(!listComplete) return;
-    this.props.onStart(this.props.battleSet.getAiDefList(this.props.aiRepository), this.props.teamMode, Math.random());
+    this.props.onStart(this.props.battleSet.getAiDefList(this.props.aiRepository), this.props.teamMode, Math.random(), 30000);
   }
 
   onTeamModeChange() {

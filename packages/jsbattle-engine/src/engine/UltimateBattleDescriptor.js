@@ -2,15 +2,16 @@
 
 import AiDefinition from "./AiDefinition.js";
 import Ajv from 'ajv';
-import schema from '../schema/ubd-schema-v2.json';
+import schema from '../schema/ubd-schema-v3.json';
 
 class UltimateBattleDescriptor {
 
   constructor() {
-    this._version = 2;
+    this._version = 3;
     this._aiList = [];
     this._rngSeed = (new Date()).getTime();
     this._teamMode = false;
+    this._timeLimit = 0;
   }
 
   addAiDefinition(ai) {
@@ -37,6 +38,14 @@ class UltimateBattleDescriptor {
     return this._aiList;
   }
 
+  setTimeLimit(limit) {
+    this._timeLimit = limit;
+  }
+
+  getTimeLimit() {
+    return this._timeLimit;
+  }
+
   getRngSeed() {
     return this._rngSeed;
   }
@@ -46,6 +55,7 @@ class UltimateBattleDescriptor {
       version: this._version,
       rngSeed: this._rngSeed,
       teamMode: this._teamMode,
+      timeLimit: this._timeLimit,
       aiList: []
     };
     for(let ai of this._aiList) {
@@ -68,6 +78,7 @@ class UltimateBattleDescriptor {
     this.validateJsonData(json);
     this._rngSeed = json.rngSeed;
     this._teamMode = json.teamMode;
+    this._timeLimit = json.timeLimit;
 
     let ai;
     for(let aiJson of json.aiList) {

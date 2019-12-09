@@ -156,6 +156,7 @@ class Simulation {
   }
 
   set timeLimit(v) {
+    this._ultimateBattleDescriptor.setTimeLimit(v);
     this._timeLimit = v;
   }
 

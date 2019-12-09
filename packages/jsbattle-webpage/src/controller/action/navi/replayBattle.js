@@ -33,10 +33,12 @@ export default (stateHolder, controller) => {
           });
           return;
         }
+        //@// TODO: pass timeLimit data
         controller.openBattle(
           descriptor.getAiList(),
           descriptor.getTeamMode(),
           descriptor.getRngSeed(),
+          descriptor.getTimeLimit(),
           window.location.href
         );
       })

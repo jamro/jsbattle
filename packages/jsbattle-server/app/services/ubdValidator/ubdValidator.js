@@ -6,6 +6,7 @@ module.exports = function battleStore( options ) {
 
   const schema_v1 = JsBattleSchema.getVersion(1);
   const schema_v2 = JsBattleSchema.getVersion(2);
+  const schema_v3 = JsBattleSchema.getVersion(3);
 
   this.add('role:ubdValidator,cmd:validate', validate);
 
@@ -39,6 +40,9 @@ module.exports = function battleStore( options ) {
         break;
       case 2:
         schema = schema_v2;
+        break;
+      case 3:
+        schema = schema_v3;
         break;
       default:
         return respond(null, {valid: false, error: `UBD version ${version} is not supported`});

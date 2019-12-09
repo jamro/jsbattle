@@ -6,9 +6,10 @@
   {
     "battleId":"12345678-1234-1234-1234-123456789012",
     "ubd":{
-      "version":2,
+      "version":3,
       "rngSeed":0.9590806159338761,
       "teamMode":false,
+      "timeLimit":30000,
       "aiList":[
          {
             "name":"dodge",

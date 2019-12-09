@@ -13,6 +13,7 @@ export default {
     aiDefList: null,
     quickBattleTank: null,
     rngSeed: 0,
+    timeLimit: 30000,
     shareLink: null,
     modifier: null
   },

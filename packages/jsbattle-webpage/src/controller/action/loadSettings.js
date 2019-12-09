@@ -70,7 +70,8 @@ export default (stateHolder, aiRepository, challengeLibrary) => {
           battleSet: battleSet,
           teamMode: teamMode,
           quickBattleTank: null,
-          rngSeed: Math.random()
+          rngSeed: Math.random(),
+          timeLimit: 30000
         },
         codeRepository: {
           tankList: aiRepository.getScriptNameList()

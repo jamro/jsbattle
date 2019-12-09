@@ -8,7 +8,7 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should create empty descriptor with current version', function () {
       let desc = new UltimateBattleDescriptor();
-      assert.equal(2, desc.getVersion());
+      assert.equal(3, desc.getVersion());
       assert.equal(0, desc.getAiList().length);
     });
   });
@@ -96,6 +96,7 @@ describe('UltimateBattleDescriptor', function() {
       desc.setRngSeed(87);
 
       let raw = desc.encode();
+      console.log(raw);
       desc = new UltimateBattleDescriptor();
       desc.decode(raw);
 
@@ -126,9 +127,10 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should support secure mode', function() {
       let ubd = {
-        "version": 2,
+        "version": 3,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
+        "timeLimit": 30000,
         "aiList": [
           {
             "name": "User Created Tank",
@@ -161,9 +163,10 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should support unsecure mode', function() {
       let ubd = {
-        "version": 2,
+        "version": 3,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
+        "timeLimit": 30000,
         "aiList": [
           {
             "name": "User Created Tank",
@@ -196,9 +199,10 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should validate json', function() {
       let ubd = {
-        "version": 2,
+        "version": 3,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
+        "timeLimit": 30000,
         "aiList": [
           {
             "name": "User Created Tank",

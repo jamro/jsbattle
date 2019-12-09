@@ -528,6 +528,18 @@ describe('Simulation', function() {
 
   describe('createUltimateBattleDescriptor', function() {
 
+    it('should throw error when custom finish condition is used', function() {
+      let sim = createSimulation();
+      sim.setFinishCondition(() => false);
+      sim.init(600, 600);
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+      sim.addTank(new AiDefinitionMock());
+
+      assert.throws(() => sim.createUltimateBattleDescriptor());
+    });
+
     it('should return UBD with list of AIs', function() {
       let sim = createSimulation();
       sim.init(600, 600);

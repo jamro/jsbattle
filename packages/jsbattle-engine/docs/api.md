@@ -301,6 +301,7 @@ and refreshing the renderer.
     * [.setRngSeed(seed)](#Simulation+setRngSeed)
     * [.getRngSeed()](#Simulation+getRngSeed) ⇒
     * [.getRandom()](#Simulation+getRandom) ⇒
+    * [.setFinishCondition(callback)](#Simulation+setFinishCondition)
     * [.init(width, height)](#Simulation+init)
     * [.start()](#Simulation+start)
     * [.addTank(aiDefinition)](#Simulation+addTank)
@@ -378,6 +379,17 @@ some RNG calls could be unseeded.
 ### simulation.getRandom() ⇒
 **Kind**: instance method of [<code>Simulation</code>](#Simulation)  
 **Returns**: random number from seeded rng  
+<a name="Simulation+setFinishCondition"></a>
+
+### simulation.setFinishCondition(callback)
+set custom condition of battle finish. Once provided callbacl return true, the simulation will be over
+
+**Kind**: instance method of [<code>Simulation</code>](#Simulation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | callback determining end of the battle. It takes one argument (simulation object) and return true (stop simulation) or false (continue simulation) |
+
 <a name="Simulation+init"></a>
 
 ### simulation.init(width, height)

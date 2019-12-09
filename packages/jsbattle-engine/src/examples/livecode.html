@@ -69,6 +69,8 @@ tank.loop(function(state, control) {
             simulation = null;
           }
           simulation = JsBattle.createSimulation(renderer);
+          simulation.setFinishCondition(() => false);
+          simulation.timeLimit = 0;
           simulation.init(900, 600);
           simulation.onFinish(() => reload());
           simulation.onError((err) => {
@@ -83,10 +85,6 @@ tank.loop(function(state, control) {
             root.appendChild(msg);
           })
           var ai;
-
-          ai = JsBattle.createAiDefinition();
-          ai.fromFile('dummy');
-          simulation.addTank(ai);
 
           ai = JsBattle.createAiDefinition();
           ai.fromCode('my-tank', editor.value);

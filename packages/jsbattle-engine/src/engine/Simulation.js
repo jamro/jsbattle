@@ -10,6 +10,7 @@ import AiWrapper from "./AiWrapper.js";
 import PerformanceMonitor from "./PerformanceMonitor.js";
 import UltimateBattleDescriptor from "./UltimateBattleDescriptor.js";
 import seedrandom from "seedrandom";
+import finishCondition from "./finishCondition.js";
 
 /**
  * Battle simulation component. Process the simulation updating all related objects
@@ -47,6 +48,8 @@ class Simulation {
     this._onStartCallback = [];
     this._timeElapsed = 0;
     this._timeLimit = 30000;
+    this._finishCondition = finishCondition;
+    this._customFinishCondition = false;
     this._eventStore = new EventStore();
     this._nextTankId = 1;
     this._nextBulletId = 1;
@@ -88,6 +91,15 @@ class Simulation {
    */
   getRandom() {
     return this._rng();
+  }
+
+  /**
+   * set custom condition of battle finish. Once provided callbacl return true, the simulation will be over
+   * @param {Function} callback - callback determining end of the battle. It takes one argument (simulation object) and return true (stop simulation) or false (continue simulation)
+   */
+  setFinishCondition(callback) {
+    this._customFinishCondition = true;
+    this._finishCondition = callback;
   }
 
   /**
@@ -198,7 +210,7 @@ class Simulation {
           clearTimeout(self._simulationTimeout);
           self._simulationTimeout = null;
         }
-        if(self._getTeamsLeft() <= 1 || self._timeElapsed == self._timeLimit) {
+        if((self._timeLimit > 0 && self._timeElapsed == self._timeLimit) || self._finishCondition(self)) {
           self.stop();
           self._updateModel();
           self._updateView();
@@ -209,7 +221,10 @@ class Simulation {
           let dt = self._simulationStepDuration/self._speedMultiplier - processingTime;
           dt = Math.round(dt);
           for(i=0; i < self._onSimulationStepCallback.length; i++) self._onSimulationStepCallback[i]();
-          self._timeElapsed = Math.min(self._timeElapsed + self._simulationStepDuration, self._timeLimit);
+          self._timeElapsed += self._simulationStepDuration;
+          if(self._timeLimit > 0) {
+            self._timeElapsed = Math.min(self._timeElapsed, self._timeLimit);
+          }
           if(dt > 0) {
             self._callStackCount=0;
             self._simulationTimeout = setTimeout(self._simulationStep.bind(self), dt);
@@ -255,7 +270,7 @@ class Simulation {
     tank.moveTo(startSlot.x, startSlot.y);
     this._tankList.push(tank);
     this._allTankList.push(tank);
-    if(this._allTankList.length > 2) {
+    if(this._timeLimit > 0 && this._allTankList.length > 2) {
       this._timeLimit += 2000;
     }
 
@@ -387,6 +402,9 @@ class Simulation {
    * @return UltimateBattleDescriptor object
    */
   createUltimateBattleDescriptor() {
+    if(this._customFinishCondition) {
+      throw new Error('Cannot create UBD for battles with custom battle finish condition!');
+    }
     return this._ultimateBattleDescriptor.clone();
   }
 
@@ -551,15 +569,6 @@ class Simulation {
     this._renderer.postRender();
     for(i=0; i < this._onRenderStepCallback.length; i++) this._onRenderStepCallback[i]();
     this._eventStore.clear();
-  }
-
-  _getTeamsLeft() {
-    let teamsLeft = 0;
-    for(let i in this._teamMap) {
-      if(!this._teamMap[i].isAlive) continue;
-      teamsLeft++;
-    }
-    return teamsLeft;
   }
 
   _createAiWrapper(tank, aiDefinition) {

@@ -133,7 +133,9 @@ export default class CodeArea extends React.Component {
       mode: "javascript",
       theme: 'ambiance',
       tabSize: 2,
-      viewportMargin: Infinity
+      viewportMargin: Infinity,
+      foldGutter: true,
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });
     this.codeMirror.on('change', () => {
       this.props.onChange(this.codeMirror.getValue());

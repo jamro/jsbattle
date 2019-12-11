@@ -11,6 +11,32 @@ async function createPage(browser) {
 
 var baseUrl = 'http://localhost:8070/';
 
+async function createWebClient() {
+  let client = {};
+  client.browser = await puppeteer.launch({args: ['--no-sandbox']});
+  if(client.page) {
+    await client.page.close();
+  }
+  client.page = await createPage(client.browser);
+  await client.page.setUserAgent("puppeteer-test");
+  client.page.setCacheEnabled(false);
+  await client.page.emulate({
+    'name': 'Desktop',
+    'userAgent': 'puppeteer-test',
+    'viewport': {
+      'width': 1200,
+      'height': 800,
+      'deviceScaleFactor': 1,
+      'isMobile': false,
+      'hasTouch': false,
+      'isLandscape': true
+    }
+  });
+  client.log = [];
+  client.page.on('console', msg => client.log.push(msg));
+  return client;
+}
+
 var naviHelper = {
   gotoSection: async (page, linkName) => {
     await page.waitFor('a.main-nav-link.active');
@@ -37,7 +63,13 @@ var naviHelper = {
   }
 };
 
-After(async function () {
+After(async function (scenario) {
+  if(this.client) {
+    let dump = "\n-- CONSOLE LOG DUMP ---------------------\n";
+    dump += this.client.log.map(msg => `[${msg.type()}] ${msg.text()}`).join("\n");
+    dump += "\n-----------------------------------------";
+    this.attach(dump)
+  }
   if(this.client && this.client.browser) {
     await this.client.browser.close();
     this.client.browser = null;
@@ -48,26 +80,8 @@ After(async function () {
 // GIVEN -----------------------------------------------------------------------
 
 Given('JsBattle open in the browser', async function () {
-  this.client = {};
-  this.client.browser = await puppeteer.launch({args: ['--no-sandbox']});
-  if(this.client.page) {
-    await this.client.page.close();
-  }
-  this.client.page = await createPage(this.client.browser);
-  await this.client.page.setUserAgent("puppeteer-test");
-  this.client.page.setCacheEnabled(false);
-  await this.client.page.emulate({
-    'name': 'Desktop',
-    'userAgent': 'puppeteer-test',
-    'viewport': {
-      'width': 1200,
-      'height': 800,
-      'deviceScaleFactor': 1,
-      'isMobile': false,
-      'hasTouch': false,
-      'isLandscape': true
-    }
-  });
+  this.client = await createWebClient();
+
   await this.client.page.goto(baseUrl);
   await this.client.page.exposeFunction('gtag_alt', (event, action, data) => {
     let serial = "";
@@ -88,26 +102,7 @@ Given('JsBattle open in the browser', async function () {
 });
 
 Given('JsBattle replay for battle {string} open in the browser', async function (battleId) {
-  this.client = {};
-  this.client.browser = await puppeteer.launch({args: ['--no-sandbox']});
-  if(this.client.page) {
-    await this.client.page.close();
-  }
-  this.client.page = await createPage(this.client.browser);
-  await this.client.page.setUserAgent("puppeteer-test");
-  this.client.page.setCacheEnabled(false);
-  await this.client.page.emulate({
-    'name': 'Desktop',
-    'userAgent': 'puppeteer-test',
-    'viewport': {
-      'width': 1200,
-      'height': 800,
-      'deviceScaleFactor': 1,
-      'isMobile': false,
-      'hasTouch': false,
-      'isLandscape': true
-    }
-  });
+  this.client = await createWebClient();
   await this.client.page.goto(baseUrl + "/#replay=" + battleId);
 });
 

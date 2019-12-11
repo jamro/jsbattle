@@ -84,7 +84,7 @@ export default class ChallengeLibrary {
       new ChallengeDefinition({
         id: 'challenge-Du7tyrCB',
         level: 2,
-        name: 'Look right',
+        name: 'Look at me',
         description: 'You know how to shoot, right? Now it\'s time to move a little bit. Your enemy is located on the southern-east. Point your gun at that direction, then... you know what to do next :) Notice that your tank is slightly rotated what needs to be taken into account during aiming. \n\nNeed more help? You\'ll find it in [the docs](./docs/manual/algorithms_aiming.html).',
         tankList: ['dummy'],
         rngSeed: 0.2590328450293485,
@@ -139,8 +139,8 @@ export default class ChallengeLibrary {
       new ChallengeDefinition({
         id: 'challenge-kjFrZAUe',
         level: 4,
-        name: 'Dummy Duel',
-        description: 'Time for the first duel! The opponent is not difficult - it will stand still and wait for you. You just need to find and destroy it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        name: 'Find me',
+        description: 'The opponent is not difficult - it will stand still and wait for you. You just need to find and destroy it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['dummy'],
         rngSeed: 0.34408169134692157,
         modifier: (simulation) => {
@@ -166,7 +166,7 @@ export default class ChallengeLibrary {
       new ChallengeDefinition({
         id: 'challenge-My6Lj5RF',
         level: 5,
-        name: 'Crawler Duel',
+        name: 'Chase me',
         description: 'Things get a little bit more complicated. Your opponent drives around and will shoot you when there is a good chance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['crawler'],
         rngSeed: 0.38835849114718024

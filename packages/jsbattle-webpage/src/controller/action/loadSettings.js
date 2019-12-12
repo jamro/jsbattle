@@ -17,6 +17,8 @@ export default (stateHolder, aiRepository, challengeLibrary) => {
         teamMode = localStorage.getItem("settings.teamMode");
         battleSetData = localStorage.getItem("settings.battleSet");
         completedChallenges = localStorage.getItem("challenges.completed");
+      } else {
+        console.log("Stateless mode enabled");
       }
       simSpeed = simSpeed ? simSpeed : 1;
       qualitySettings = qualitySettings ? qualitySettings : 0.5;
@@ -63,6 +65,11 @@ export default (stateHolder, aiRepository, challengeLibrary) => {
 
       completedChallenges.forEach((id) => challengeLibrary.completeChallenge(id));
 
+      console.log('simSpeed: ' + simSpeed);
+      console.log('qualitySettings: ' + qualitySettings);
+      console.log('teamMode: ' + teamMode);
+      console.log('completedChallenges: Array(' + completedChallenges.length + ')');
+
       stateHolder.setState({
         simSpeed: simSpeed,
         qualitySettings: qualitySettings,
@@ -86,6 +93,7 @@ export default (stateHolder, aiRepository, challengeLibrary) => {
       done();
     })
     .fail(() => {
+      console.log("Unable to read settings");
       stateHolder.setState({
         errorMessage: "Cannot load and parse tanks/index.json"
       });

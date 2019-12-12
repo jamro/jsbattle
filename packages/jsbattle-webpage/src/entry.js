@@ -1,6 +1,10 @@
 import 'babel-polyfill';
 import App from "./components/App.js";
 import UbdPlayer from "./components/screen/UbdPlayer/UbdPlayer.js";
+import ConsoleLogger from './lib/ConsoleLogger.js';
+
+let logger = new ConsoleLogger();
+logger.apply(console);
 
 function getHashParameters() {
   let serial = window.location.hash ? window.location.hash.substring(1) : "";

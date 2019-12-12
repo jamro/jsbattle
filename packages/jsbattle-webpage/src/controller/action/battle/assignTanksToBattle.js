@@ -6,10 +6,11 @@ export default (stateHolder) => {
       let tank = battleSet.getTankByName(tankName);
       tank.count = amount;
 
-      console.log(tankName, amount, tank);
-      console.log(battleSet);
+      console.log(`Assigning ${amount} x '${tankName}' to the battle`, tank);
+      console.log(`Battleset updated`, battleSet);
 
       localStorage.setItem("settings.battleSet", JSON.stringify(battleSet.toJSON()));
+      console.log('Battleset stored in localStorage');
 
       /* jshint ignore:start */
       return {

@@ -2,6 +2,8 @@ export default (stateHolder, controller) => {
 
   return (battleID) => {
 
+    console.log("Replay ID: " + battleID);
+
     stateHolder.setState(() => {
       /* jshint ignore:start */
       return {
@@ -15,8 +17,10 @@ export default (stateHolder, controller) => {
       /* jshint ignore:end */
     });
 
+    console.log(`CALL GET ` + stateHolder.state.api + "/battleReplay?battleId=" + battleID);
     $.get(stateHolder.state.api + "/battleReplay?battleId=" + battleID)
       .done((data) => {
+        console.log('UBD data received');
         let ubd = JSON.stringify(data.ubd);
 
         let descriptor = JsBattle.createUBD();

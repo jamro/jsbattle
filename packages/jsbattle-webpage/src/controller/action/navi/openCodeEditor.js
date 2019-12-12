@@ -1,6 +1,7 @@
 export default (stateHolder, aiRepository) => {
 
   return (tankName, back) => {
+    console.log(`Tank name: '${tankName}'`);
     let script = aiRepository.getScript(tankName).code;
     stateHolder.setState((state) => {
       /* jshint ignore:start */

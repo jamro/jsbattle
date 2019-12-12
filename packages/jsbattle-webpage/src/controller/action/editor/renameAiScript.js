@@ -6,6 +6,7 @@ export default (stateHolder, aiRepository) => {
 
       let battleSet = state.battle.battleSet;
       battleSet.getTankByName(oldName).name = newName;
+      console.log(`Tank '${oldName}' renamed to '${newName}'`);
 
       /* jshint ignore:start */
       return {

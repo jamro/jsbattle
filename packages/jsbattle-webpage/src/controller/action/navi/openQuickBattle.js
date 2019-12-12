@@ -6,6 +6,8 @@ export default (stateHolder, aiRepository) => {
       let totalTankCount = battleSet.getTankCount();
       let tank = battleSet.getTankByName(tankName);
 
+      console.log(`Tank name: '${tankName}'`);
+
       if(tank.count == 0) {
         tank.count++;
         totalTankCount++;

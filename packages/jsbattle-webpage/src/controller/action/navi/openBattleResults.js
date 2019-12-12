@@ -6,6 +6,14 @@ export default (stateHolder) => {
       throw new Error('result.tankWinner is mandatory!');
     }
     Stats.onCustomBattleComplete();
+    if(result.tankWinner) {
+      console.log(`Tank winner: '${result.tankWinner.name}'`);
+    }
+    if(result.teamWinner) {
+      console.log(`Team winner: '${result.teamWinner.name}'`);
+    }
+    console.log("Battle results:", result);
+
     stateHolder.setState((state) => {
       /* jshint ignore:start */
       return {

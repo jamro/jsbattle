@@ -8,6 +8,8 @@ export default (stateHolder, challengeLibrary) => {
       showInfo = showInfo || false;
       let challenge = challengeLibrary.getChallenge(challengeId);
 
+      console.log(`Challenge #${challenge.level} (ID: ${challengeId})`);
+
       Stats.onChallengeOpen(challenge.level);
 
       /* jshint ignore:start */

@@ -7,6 +7,9 @@ export default (stateHolder, challengeLibrary) => {
     let survivors = result.tankList.filter((el) => el.energy > 0);
     let battleWon = (survivors.length == 1 && survivors[0].name == "Player");
 
+    console.log(`Challenge #${challenge.level} (ID: ${challenge.id})`);
+    console.log('Result: ' + (battleWon ? 'win' : 'lose'));
+
     if(battleWon) {
       challengeLibrary.completeChallenge(stateHolder.state.currentChallenge.id);
       localStorage.setItem("challenges.completed", JSON.stringify(challengeLibrary.getCompletedChallenges()));

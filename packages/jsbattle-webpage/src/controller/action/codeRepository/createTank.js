@@ -16,12 +16,15 @@ export default (stateHolder, aiRepository) => {
       }
     }
 
+    console.log('Creating new tank: ' + name);
     aiRepository.createScript(name);
     stateHolder.setState((state) => {
       let battleSet = state.battle.battleSet;
       let tank = battleSet.addTank(name);
       tank.count = 1;
       tank.userCreated = true;
+
+      console.log('New tank created');
 
       /* jshint ignore:start */
       return {

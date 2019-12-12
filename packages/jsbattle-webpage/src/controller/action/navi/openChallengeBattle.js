@@ -14,6 +14,8 @@ export default (stateHolder, challengeLibrary) => {
       let timeLimit = challenge.getTimeLimit();
       let modifier = challenge.getModifier();
 
+      console.log(`Challenge #${challenge.level} (ID: ${challengeId})`);
+
       Stats.onChallengeBattle(challenge.level);
 
       /* jshint ignore:start */

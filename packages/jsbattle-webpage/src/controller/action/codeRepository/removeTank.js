@@ -6,7 +6,7 @@ export default (stateHolder, aiRepository) => {
     aiRepository.deleteScript(name);
 
     Stats.onAiScriptRemove();
-
+    console.log(`Tank '${name}' removed`);
     stateHolder.setState((state) => {
       let battleSet = state.battle.battleSet;
       battleSet.removeTankByName(name);

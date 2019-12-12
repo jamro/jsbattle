@@ -4,6 +4,9 @@ export default (stateHolder) => {
   return (aiDefList, teamMode, rngSeed, timeLimit, shareLink) => {
     stateHolder.setState((state) => {
 
+      console.log("aiDefList.length: " + aiDefList.length);
+      console.log("teamMode: " + (teamMode ? 'true' : 'false'));
+      console.log("RNG Seed: " + rngSeed);
       Stats.onCustomBattleStart(teamMode);
 
       let counters = aiDefList

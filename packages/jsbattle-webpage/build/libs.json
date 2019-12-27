@@ -2,7 +2,6 @@
   {"from": "/node_modules/jsbattle-engine/dist/**/*",           "to": "/dist"},
   {"from": "/static/**/*",                                      "to": "/dist"},
   {"from": "/node_modules/jsbattle-docs/dist/**/*",             "to": "/dist/docs"},
-  {"from": "/node_modules/pixi.js/dist/pixi.min.js",            "to": "/dist/vendor"},
   {"from": "/node_modules/jquery/dist/jquery.min.js",           "to": "/dist/vendor"},
   {"from": "/node_modules/core-js/client/core.js",              "to": "/dist/vendor"},
   {"from": "/node_modules/clipboard/dist/clipboard.min.js",     "to": "/dist/vendor"},

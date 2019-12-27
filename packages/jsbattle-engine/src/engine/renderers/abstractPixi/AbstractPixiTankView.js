@@ -1,13 +1,14 @@
-/* globals PIXI */
 'use strict';
-
+import { Container } from 'pixi.js';
+import { Sprite } from 'pixi.js';
+import { Text } from 'pixi.js';
 import AbstractPixiView from "./AbstractPixiView.js";
 
 export default class AbstractPixiTankView extends AbstractPixiView {
 
   constructor(model) {
     super(model);
-    this._hudView = new PIXI.Container();
+    this._hudView = new Container();
     this._createHud(this._hudView);
   }
 
@@ -91,27 +92,27 @@ export default class AbstractPixiTankView extends AbstractPixiView {
   }
 
   _createBody() {
-    return new PIXI.Sprite();
+    return new Sprite();
   }
 
   _createGun() {
-    return new PIXI.Sprite();
+    return new Sprite();
   }
 
   _createRadar() {
-    return new PIXI.Sprite();
+    return new Sprite();
   }
 
   _createHudBackground() {
-    return new PIXI.Sprite();
+    return new Sprite();
   }
 
   _createEnergyBar() {
-    return new PIXI.Sprite();
+    return new Sprite();
   }
 
   _createLabel() {
-    return new PIXI.Text();
+    return new Text();
   }
   destroy() {
     super.destroy();

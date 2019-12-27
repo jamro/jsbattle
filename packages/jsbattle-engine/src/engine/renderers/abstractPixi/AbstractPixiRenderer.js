@@ -1,6 +1,9 @@
-/* globals PIXI */
 'use strict';
-
+import { Application } from 'pixi.js';
+import { Container } from 'pixi.js';
+import { Loader } from 'pixi.js';
+import { autoDetectRenderer } from 'pixi.js';
+import { settings } from 'pixi.js';
 import AbstractRenderer from "../abstract/AbstractRenderer.js";
 import AbstractPixiView from "./AbstractPixiView.js";
 import AbstractPixiTankView from "./AbstractPixiTankView.js";
@@ -12,16 +15,12 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     super();
     this._name = name;
 
-    if(typeof PIXI === 'undefined') {
-      throw "Pixi.js is required!";
-    }
+    settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 
-    PIXI.settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
-
-    this._masterContainer = new PIXI.Container();
-    this._tankContainer = new PIXI.Container();
-    this._bulletContainer = new PIXI.Container();
-    this._hudContainer = new PIXI.Container();
+    this._masterContainer = new Container();
+    this._tankContainer = new Container();
+    this._bulletContainer = new Container();
+    this._hudContainer = new Container();
     this._masterContainer.addChild(this._tankContainer );
     this._masterContainer.addChild(this._bulletContainer);
     this._masterContainer.addChild(this._hudContainer);
@@ -63,10 +62,10 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       height: battlefield.height + 2 * battlefield.margin
     };
 
-    this._renderer = new PIXI.autoDetectRenderer(
+    this._renderer = new autoDetectRenderer(
       rendererSettings
     );
-    this._stage = new PIXI.Container();
+    this._stage = new Container();
 
     this._battlefieldView = this._createBattlefieldView(battlefield);
     this._clockView = this._createClockView(this._clockModel);
@@ -88,7 +87,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       done();
       return;
     }
-    let loader = PIXI.Loader.shared;
+    let loader = Loader.shared;
     let loadedResources = [];
     for(let res in loader.resources) {
       loadedResources.push(res);

@@ -1,6 +1,8 @@
-/* globals PIXI */
 'use strict';
-
+import { Container } from 'pixi.js';
+import { Sprite } from 'pixi.js';
+import { BLEND_MODES } from 'pixi.js';
+import { Graphics } from 'pixi.js';
 import AbstractPixiView from "../abstractPixi/AbstractPixiView.js";
 
 export default class BrodyBattlefieldView extends AbstractPixiView  {
@@ -16,10 +18,10 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
   }
 
   _create(container) {
-    let background = PIXI.Sprite.from('battlefield');
+    let background = Sprite.from('battlefield');
     container.addChild(background);
 
-    let groundMask = new PIXI.Graphics();
+    let groundMask = new Graphics();
     groundMask.beginFill(0x0000ff, 1);
     groundMask.moveTo(25, 25);
     groundMask.lineTo(900-25, 25);
@@ -30,12 +32,12 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
     groundMask.lineTo(25, 25);
     groundMask.endFill();
 
-    this._craterContainer = new PIXI.Container();
+    this._craterContainer = new Container();
     this._craterContainer.mask = groundMask;
     container.addChild(this._craterContainer);
     container.addChild(groundMask);
 
-    let wallMask = new PIXI.Graphics();
+    let wallMask = new Graphics();
     wallMask.beginFill(0x0000ff, 0.4);
     wallMask.moveTo(15, 15);
     wallMask.lineTo(900-15, 15);
@@ -52,18 +54,18 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
     wallMask.lineTo(900-25, 25);
     wallMask.lineTo(25, 25);
     wallMask.endFill();
-    this._holesContainer = new PIXI.Container();
+    this._holesContainer = new Container();
     this._holesContainer.mask = wallMask;
     container.addChild(this._holesContainer);
     container.addChild(wallMask);
   }
 
   addCrater(x, y) {
-    let crater = PIXI.Sprite.from('crater');
+    let crater = Sprite.from('crater');
     crater.anchor.set(0.5);
     crater.x = x - this.model.offsetX;
     crater.y = y - this.model.offsetY;
-    crater.blendMode = PIXI.BLEND_MODES.MULTIPLY;
+    crater.blendMode = BLEND_MODES.MULTIPLY;
     crater.alpha = 0.8;
     this._craterContainer.addChild(crater);
   }
@@ -90,7 +92,7 @@ export default class BrodyBattlefieldView extends AbstractPixiView  {
       return;
     }
 
-    let hole = PIXI.Sprite.from('hole');
+    let hole = Sprite.from('hole');
     hole.anchor.set(0.5);
     hole.x = x - this.model.offsetX;
     hole.y = y - this.model.offsetY;

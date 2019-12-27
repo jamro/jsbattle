@@ -9,7 +9,6 @@ import VoidRenderer from "./renderers/void/VoidRenderer.js";
 import AiDefinition from "./AiDefinition.js";
 import UltimateBattleDescriptor from "./UltimateBattleDescriptor.js";
 
-
 (function(self) {
   if(!self) {
     console.warn("self is not defined");

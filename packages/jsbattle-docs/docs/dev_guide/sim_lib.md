@@ -49,7 +49,6 @@ Create `/index.html` in project root directory and fill it with following conten
   <head>
     <meta charset="utf-8">
     <title>JsBattle Tutorial</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
     <script type="text/javascript" src="js/jsbattle.min.js"></script>
   </head>
   <body>

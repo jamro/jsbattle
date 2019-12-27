@@ -1,6 +1,11 @@
-/* globals PIXI */
 'use strict';
-
+import { Sprite } from 'pixi.js';
+import {
+  Text,
+  TextStyle
+} from 'pixi.js';
+import { Container } from 'pixi.js';
+import { Graphics } from 'pixi.js';
 import AbstractPixiTankView from "../abstractPixi/AbstractPixiTankView.js";
 
 export default class BrodyTankView extends AbstractPixiTankView  {
@@ -33,24 +38,24 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createBody() {
-    let body = PIXI.Sprite.from('tank_body_' + this.model.skin);
+    let body = Sprite.from('tank_body_' + this.model.skin);
     body.anchor.set(0.3, 0.5);
     return body;
   }
 
   _createGun() {
-    let gunContainer = new PIXI.Container();
+    let gunContainer = new Container();
 
-    let tankGun = PIXI.Sprite.from('tank_gun_' + this.model.skin);
+    let tankGun = Sprite.from('tank_gun_' + this.model.skin);
     tankGun.anchor.set(0.3, 0.5);
     gunContainer.addChild(tankGun);
     this._tankGun = tankGun;
 
-    this._shoot = PIXI.Sprite.from('tank_shoot');
+    this._shoot = Sprite.from('tank_shoot');
     this._shoot.anchor.set(0.3, 0.5);
     this._shoot.alpha = 0;
 
-    this._light = PIXI.Sprite.from('tank_light');
+    this._light = Sprite.from('tank_light');
     this._light.anchor.set(0.3, 0.5);
     this._light.alpha = 0;
 
@@ -61,21 +66,21 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createRadar() {
-    let tankRadar = PIXI.Sprite.from('tank_radar_' + this.model.skin);
+    let tankRadar = Sprite.from('tank_radar_' + this.model.skin);
     tankRadar.anchor.set(0.2, 0.5);
     tankRadar.x=-5;
     return tankRadar;
   }
 
   _createLabel() {
-    let labelStyle = new PIXI.TextStyle({
+    let labelStyle = new TextStyle({
         fontFamily: 'Arial',
         fontSize: 10,
         stroke: 0x000000,
         strokeThickness: 2,
         fill: 0xffffbb
     });
-    let label = new PIXI.Text("", labelStyle);
+    let label = new Text("", labelStyle);
     label.anchor.set(0.5, 0.5);
     label.x = 0;
     label.y = -40;
@@ -83,7 +88,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createHudBackground() {
-    let statusBarBg =  new PIXI.Graphics();
+    let statusBarBg =  new Graphics();
     statusBarBg.beginFill(0x000000, 1);
     statusBarBg.drawRect(-26, -3, 52, 6);
     statusBarBg.y = -30;
@@ -91,7 +96,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
   }
 
   _createEnergyBar() {
-    let energyBar =  new PIXI.Graphics();
+    let energyBar =  new Graphics();
     energyBar.beginFill(0xffff99, 1);
     energyBar.drawRect(0, -2, 50, 4);
     energyBar.x = -25;

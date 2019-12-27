@@ -1,6 +1,9 @@
-/* globals PIXI */
 'use strict';
-
+import {
+  Text,
+  TextStyle
+} from 'pixi.js';
+import { Graphics } from 'pixi.js';
 import AbstractPixiTankView from "../abstractPixi/AbstractPixiTankView.js";
 
 export default class DebugTankView extends AbstractPixiTankView  {
@@ -10,7 +13,7 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createBody() {
-    let body = new PIXI.Graphics();
+    let body = new Graphics();
     body.lineStyle(1, 0xffff00, 0.8);
     body.beginFill(0x00ff00, 0.5);
     body.drawRect(-15, -15, 30, 30);
@@ -19,7 +22,7 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createGun() {
-    let body = new PIXI.Graphics();
+    let body = new Graphics();
     body.beginFill(0x00ff00, 0.5);
     body.lineStyle(1, 0xffff00, 0.8);
     body.drawCircle(0, 0, 10);
@@ -29,7 +32,7 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createRadar() {
-    let body = new PIXI.Graphics();
+    let body = new Graphics();
     body.beginFill(0x00ff00, 0.5);
     body.lineStyle(1, 0xffff00, 0.8);
     body.drawRect(-3, -10, 6, 20);
@@ -47,12 +50,12 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createLabel() {
-    let labelStyle = new PIXI.TextStyle({
+    let labelStyle = new TextStyle({
         fontFamily: 'Arial',
         fontSize: 12,
         fill: 0x00ff00
     });
-    let label = new PIXI.Text("", labelStyle);
+    let label = new Text("", labelStyle);
     label.anchor.set(0.5, 0.5);
     label.x = 0;
     label.y = -40;
@@ -60,7 +63,7 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createHudBackground() {
-    let statusBarBg =  new PIXI.Graphics();
+    let statusBarBg =  new Graphics();
     statusBarBg.beginFill(0x000000, 1);
     statusBarBg.lineStyle(1, 0xffff00, 0.8);
     statusBarBg.drawRect(-26, -3, 52, 6);
@@ -69,7 +72,7 @@ export default class DebugTankView extends AbstractPixiTankView  {
   }
 
   _createEnergyBar() {
-    let energyBar =  new PIXI.Graphics();
+    let energyBar =  new Graphics();
     energyBar.beginFill(0x00ff00, 1);
     energyBar.drawRect(0, -2, 50, 4);
     energyBar.x = -25;

@@ -82,6 +82,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "pixi.js": "^5.2.0",
     "sat": "^0.8.0",
     "seedrandom": "^3.0.5"
   },

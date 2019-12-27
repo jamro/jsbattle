@@ -1,6 +1,8 @@
-/* globals PIXI */
 'use strict';
-
+import {
+  Text,
+  TextStyle
+} from 'pixi.js';
 import AbstractPixiRenderer from "../abstractPixi/AbstractPixiRenderer.js";
 import DebugBattlefieldView from "./DebugBattlefieldView.js";
 import DebugClockView from "./DebugClockView.js";
@@ -19,13 +21,13 @@ export default class DebugRenderer extends AbstractPixiRenderer  {
   initBatlefield(battlefield) {
     super.initBatlefield(battlefield);
 
-    let labelStyle = new PIXI.TextStyle({
+    let labelStyle = new TextStyle({
       fontFamily: 'Arial',
       fontSize: 12,
       fill: '#00ff00'
     });
 
-    this._fpsLabel = new PIXI.Text("FPS", labelStyle);
+    this._fpsLabel = new Text("FPS", labelStyle);
     this._fpsLabel.x = 100;
     this._fpsLabel.y = 5;
     this.stage.addChild(this._fpsLabel);
@@ -36,13 +38,13 @@ export default class DebugRenderer extends AbstractPixiRenderer  {
       self._frameCounter = 0;
     }, 1000);
 
-    labelStyle = new PIXI.TextStyle({
+    labelStyle = new TextStyle({
       fontFamily: 'Arial',
       fontSize: 12,
       fill: '#00ff00'
     });
 
-    this._scoreBoard = new PIXI.Text("scores", labelStyle);
+    this._scoreBoard = new Text("scores", labelStyle);
     this._scoreBoard.x = battlefield.margin+2;
     this._scoreBoard.y = battlefield.margin+2;
     this._scoreBoard.alpha = 0.5;

@@ -1,5 +1,5 @@
-/* globals PIXI */
 'use strict';
+import { Sprite } from 'pixi.js';
 
 import AbstractPixiBulletView from "../abstractPixi/AbstractPixiBulletView.js";
 
@@ -10,7 +10,7 @@ export default class BWBulletView extends AbstractPixiBulletView  {
   }
 
   _create(container) {
-    let bullet = PIXI.Sprite.from('bullet');
+    let bullet = Sprite.from('bullet');
     bullet.anchor.set(0.5);
     container.addChild(bullet);
   }

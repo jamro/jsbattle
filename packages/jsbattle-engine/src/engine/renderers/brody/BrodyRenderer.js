@@ -1,6 +1,9 @@
-/* globals PIXI */
 'use strict';
-
+import { Sprite } from 'pixi.js';
+import { BLEND_MODES } from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
+import { ParticleContainer } from 'pixi.js';
+import { Texture } from 'pixi.js';
 import AbstractPixiRenderer from "../abstractPixi/AbstractPixiRenderer.js";
 import BrodyBattlefieldView from "./BrodyBattlefieldView.js";
 import BrodyClockView from "./BrodyClockView.js";
@@ -28,7 +31,7 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
   onAssetsLoaded() {
     let i;
     for(i=0; i <= 22; i++) {
-      this._bigBoomAnim.push(PIXI.Texture.from('big_boom_0' + (i < 10 ? "0" + i : i)));
+      this._bigBoomAnim.push(Texture.from('big_boom_0' + (i < 10 ? "0" + i : i)));
     }
   }
 
@@ -43,7 +46,7 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
   initBatlefield(battlefield) {
     super.initBatlefield(battlefield);
     this.battlefieldView.configure(this._settings);
-    this._particleContainer = new PIXI.ParticleContainer(1000, {
+    this._particleContainer = new ParticleContainer(1000, {
       position: true,
       rotation: true,
       alpha: true
@@ -214,14 +217,14 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
   _addExplosion(x, y, type) {
     this._addGlow(x, y, 5);
 
-    let anim = new PIXI.AnimatedSprite(type);
+    let anim = new AnimatedSprite(type);
     anim.animationSpeed = this.speedMultiplier;
     anim.anchor.set(0.5);
     this.masterContainer.addChild(anim);
     anim.x = x;
     anim.y = y;
     anim.loop = false;
-    anim.blendMode = PIXI.BLEND_MODES.ADD;
+    anim.blendMode = BLEND_MODES.ADD;
     anim.onComplete = function() {
       this.stop();
       this.parent.removeChild(this);
@@ -231,11 +234,11 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
 
   _addGlow(x, y, scale) {
     if(!this._settings.showGlow) return;
-    let glow = PIXI.Sprite.from('glow');
+    let glow = Sprite.from('glow');
     glow.anchor.set(0.5);
     glow.scale.x = glow.scale.y = scale;
     glow.alpha = 0.4;
-    glow.blendMode = PIXI.BLEND_MODES.ADD;
+    glow.blendMode = BLEND_MODES.ADD;
     glow.x = x;
     glow.y = y;
     this.masterContainer.addChild(glow);
@@ -245,7 +248,7 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
   _addSparks(x, y, amount) {
     amount = Math.ceil(amount*this._settings.quality);
     for(let i=0; i < amount; i++) {
-      let particle = PIXI.Sprite.from('spark');
+      let particle = Sprite.from('spark');
       particle.x = x;
       particle.y = y;
       particle.alphaSpeed = 0;
@@ -262,7 +265,7 @@ export default class BrodyRenderer extends AbstractPixiRenderer  {
     if(!this._settings.showDirt) return;
     for(let i=0; i < 5; i++) {
       let index = Math.floor(Math.random()*3);
-      let particle = PIXI.Sprite.from('dirt_' + index);
+      let particle = Sprite.from('dirt_' + index);
       particle.x = x+Math.random()*4-2;
       particle.y = y+Math.random()*4-2;
       particle.anchor.set(0.5);

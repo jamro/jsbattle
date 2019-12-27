@@ -1,6 +1,5 @@
-/* globals PIXI */
 'use strict';
-
+import { Container } from 'pixi.js';
 import AbstractView from "../abstract/AbstractView.js";
 
 export default class AbstractPixiView extends AbstractView {
@@ -8,7 +7,7 @@ export default class AbstractPixiView extends AbstractView {
   constructor(model) {
     super(model);
     this._model = model;
-    this._view = new PIXI.Container();
+    this._view = new Container();
     this._create(this._view);
   }
 

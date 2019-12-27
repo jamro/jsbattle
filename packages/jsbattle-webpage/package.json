@@ -40,7 +40,6 @@
     "jquery": "^3.4.1",
     "jsbattle-docs": "^2.6.1",
     "jsbattle-engine": "^2.6.1",
-    "pixi.js": "^5.2.0",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

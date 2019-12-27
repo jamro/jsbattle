@@ -1,4 +1,3 @@
-/* globals PIXI */
 'use strict';
 
 import AbstractPixiView from "./AbstractPixiView.js";

@@ -5,6 +5,7 @@ Feature: Navigation
     Given JsBattle open in the browser
     Then "Challenges" section is selected in the navigation bar
 
+  @smoke
   Scenario Outline: Navigate through sections
     Given JsBattle open in the browser
     When navigate to <page1> section

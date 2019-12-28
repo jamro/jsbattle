@@ -20,11 +20,11 @@ Given('battle speed set to {string}', async function (value) {
 
 // WHEN ------------------------------------------------------------------------
 When('battle view is displayed', async function () {
-  await this.client.page.waitFor('canvas.battlefield');
+  await this.client.page.waitFor('canvas.jsbattle_battlefield');
 });
 
 When('battle is completed', async function () {
-  await this.client.page.waitFor('canvas.battlefield', {visible:false});
+  await this.client.page.waitFor('canvas.jsbattle_battlefield', {visible:false});
 });
 
 When('battle results are shown', async function () {
@@ -73,7 +73,7 @@ Then('tanks leaderboard is {stringList}', async function (targetNames) {
 
 Then('battle is not displayed', async function () {
   let view = await this.client.page.evaluate(() => {
-    return document.querySelector('canvas.battlefield');
+    return document.querySelector('canvas.jsbattle_battlefield');
   });
   expect(view).to.not.be.ok;
 });

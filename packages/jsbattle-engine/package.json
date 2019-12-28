@@ -2,7 +2,7 @@
   "name": "jsbattle-engine",
   "version": "2.6.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/engine/lib.js",
   "scripts": {
     "serve": "http-server -c-1 ./dist",
     "watch": "npm-watch",
@@ -76,7 +76,7 @@
     "mocha": "^6.2.2",
     "npm-watch": "^0.6.0",
     "rimraf": "^3.0.0",
-    "sinon": "^7.5.0",
+    "sinon": "^8.0.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   },

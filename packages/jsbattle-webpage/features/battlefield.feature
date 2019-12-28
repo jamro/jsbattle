@@ -20,6 +20,7 @@ Feature: Battlefield
     And there are 1 "jamro" tanks selected
     And there are 1 "kamikaze" tanks selected
 
+  @smoke
   Scenario: Changing amount of tanks
     Given JsBattle open in the browser
     And "Battlefield" section open
@@ -39,6 +40,7 @@ Feature: Battlefield
     When press plus button of "crawler" tank 20 times
     Then there are 10 "crawler" tanks selected
 
+  @smoke
   Scenario: Create a custom tank
     Given JsBattle open in the browser
     And "Battlefield" section open
@@ -78,6 +80,7 @@ Feature: Battlefield
     Then there are 1 tank selected for a battle
     And Start Battle button is disabled
 
+  @smoke
   Scenario: Editing custom tank
     Given JsBattle open in the browser
     And "Battlefield" section open

@@ -49,28 +49,4 @@ function copyAsync(cmdlist) {
 
 copyAsync(libsdata);
 
-/*
-libsdata.forEach((cmd) => {
-  let replaceInfo = '';
-  if(cmd.replace) {
-    replaceInfo = '(REPLACE)';
-  }
-  console.log(`  ${cmd.from} -> ${cmd.to} ${replaceInfo}`);
-  let from = path.resolve(__dirname + "/../" + cmd.from);
-  let to = path.resolve(__dirname + "/../" + cmd.to);
-  let ops = {};
-
-  if(cmd.replace) {
-    ops.transform = (filename) => {
-      console.log(filename);
-    }
-  }
-
-  cpx.copySync(from, to, ops);
-});
-*/
-
-
-
-
 console.log("Done");

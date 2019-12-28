@@ -1,4 +1,5 @@
-import Battlefield from "../../common/battle/Battlefield.js";
+import JsBattleBattlefield from "jsbattle-react";
+import JsBattle from "jsbattle-engine";
 
 export default class UbdPlayer extends React.Component {
 
@@ -25,29 +26,13 @@ export default class UbdPlayer extends React.Component {
       this.showError(String(err));
       return;
     }
-    this.setState(
-      {
-        view: "loading",
-        descriptor: descriptor,
-        teamMode: descriptor.getTeamMode(),
-        rngSeed: descriptor.getRngSeed(),
-        timeLimit: descriptor.getTimeLimit()
-      },
-      () => {
-        this.battlefield.buildSimulation();
-      }
-    );
-  }
-
-  onBattleReady() {
-    let self = this;
-    this.state.descriptor.getAiList().forEach((ai) => {
-      if(self.state.teamMode) {
-        ai.assignToTeam(ai.name);
-      }
-      self.battlefield.addTank(ai);
+    this.setState({
+      view: "loading",
+      descriptor: descriptor,
+      teamMode: descriptor.getTeamMode(),
+      rngSeed: descriptor.getRngSeed(),
+      timeLimit: descriptor.getTimeLimit()
     });
-    this.battlefield.start();
   }
 
   showError(msg) {
@@ -91,17 +76,18 @@ export default class UbdPlayer extends React.Component {
 
   getBattlefield(seed, timeLimit) {
     if(seed === undefined || seed === null) return null;
-    return <Battlefield
+    console.log(this.state.descriptor.getAiList());
+    return <JsBattleBattlefield
       ref={(battlefield) => this.battlefield = battlefield }
+      aiDefList={this.state.descriptor.getAiList()}
       rngSeed={seed}
       timeLimit={timeLimit}
-      width="100"
-      height="100"
-      speed="1000000"
-      quality="0"
+      teamMode={this.state.teamMode}
+      width={100}
+      height={100}
+      speed={1000000}
+      quality={0}
       renderer="void"
-      visible="true"
-      onReady={() => this.onBattleReady()}
       onStart={() => {}}
       onError={(msg) => this.showError(msg)}
       onRender={() => {}}

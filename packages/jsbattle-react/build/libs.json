@@ -1,0 +1,4 @@
+[
+  {"from": "/node_modules/jsbattle-engine/dist/tanks/**/*",           "to": "/public/tanks"},
+  {"from": "/node_modules/jsbattle-engine/dist/img/**/*",           "to": "/public/img"}
+]

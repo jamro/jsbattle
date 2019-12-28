@@ -24,6 +24,7 @@
     "build:copy": "build/copy-libs.js",
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
     "test": "cucumber-js -f ./features/support/SimpleFormatter.js",
+    "test:smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js",
     "watch": "npm-watch",
     "serve": "http-server -c-1 ./dist"
   },
@@ -40,6 +41,7 @@
     "jquery": "^3.4.1",
     "jsbattle-docs": "^2.6.1",
     "jsbattle-engine": "^2.6.1",
+    "jsbattle-react": "^2.6.1",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

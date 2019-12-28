@@ -1,6 +1,7 @@
 Feature: Battle
   Simulates battles of tanks
 
+  @smoke
   Scenario: Play the battle
     Given JsBattle open in the browser
     And tanks [dummy, jamro] selected for the battle

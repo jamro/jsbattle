@@ -4,6 +4,7 @@ import { Container } from 'pixi.js';
 import { Loader } from 'pixi.js';
 import { autoDetectRenderer } from 'pixi.js';
 import { settings } from 'pixi.js';
+import { utils } from 'pixi.js';
 import AbstractRenderer from "../abstract/AbstractRenderer.js";
 import AbstractPixiView from "./AbstractPixiView.js";
 import AbstractPixiTankView from "./AbstractPixiTankView.js";
@@ -87,7 +88,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       done();
       return;
     }
-    let loader = Loader.shared;
+    let loader = new Loader();
     let loadedResources = [];
     for(let res in loader.resources) {
       loadedResources.push(res);
@@ -171,6 +172,8 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     this._renderer = null;
     this._canvas = null;
     this._stage = null;
+
+    utils.clearTextureCache();
   }
 
 }

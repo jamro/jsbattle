@@ -4,9 +4,9 @@ import Col from "../bootstrap/Col.js";
 import InfoBox from "../InfoBox.js";
 import DebugView from "./debugView/DebugView.js";
 import ScoreBoard from "./scoreBoard/ScoreBoard.js";
-import Battlefield from "../battle/Battlefield.js";
 import BootstrapRWD from "../../../lib/BootstrapRWD.js";
 import Loading from "../Loading.js";
+import JsBattleBattlefield from "jsbattle-react";
 
 export default class BattleWidget extends React.Component {
 
@@ -28,7 +28,6 @@ export default class BattleWidget extends React.Component {
   }
 
   componentDidMount() {
-    this.buildSimulation();
     this.rwd.onChange((s) => this.setState({windowSize: s}));
     this.setState({windowSize: this.rwd.size});
   }
@@ -38,27 +37,8 @@ export default class BattleWidget extends React.Component {
     this.rwd = null;
   }
 
-  buildSimulation() {
-    this.battlefield.buildSimulation();
-  }
-
   onBattleReady() {
-    let self = this;
-    let aiDefList = this.props.aiDefList;
-    if(!this.props.aiDefList) {
-      throw new Error("aiDefList proerty was not defined");
-    }
-    aiDefList.forEach((ai) => {
-      if(self.props.teamMode) {
-        ai.assignToTeam(ai.name);
-      }
-      self.battlefield.addTank(ai);
-    });
-    if(this.props.modifier) {
-      this.props.modifier(this.battlefield.simulation);
-    }
     this.updateTankList();
-    this.battlefield.start();
   }
 
   onBattleStart() {
@@ -74,7 +54,8 @@ export default class BattleWidget extends React.Component {
 
   updateTankList() {
     let rank;
-    let tankList = this.battlefield.tankList.map((tank) => {
+    let simulation = this.battlefield.getSimulation();
+    let tankList = simulation.tankList.map((tank) => {
       return {
         id: tank.id,
         name: tank.fullName,
@@ -91,7 +72,7 @@ export default class BattleWidget extends React.Component {
       tankList[rank].rank = rank;
     }
 
-    let teamList = this.battlefield.teamList.map((team) => {
+    let teamList = simulation.teamList.map((team) => {
       return {
         name: team.name,
         score: team.score,
@@ -120,7 +101,6 @@ export default class BattleWidget extends React.Component {
   }
 
   exit() {
-    this.battlefield.stop();
     this.props.onExit();
   }
 
@@ -164,22 +144,24 @@ export default class BattleWidget extends React.Component {
       <Row>
         <Col lg={8} md={8} sm={12}>
           {fpsWarn}
-          <Battlefield
-            ref={(battlefield) => this.battlefield = battlefield }
-            rngSeed={this.state.rngSeed}
-            timeLimit={this.state.timeLimit}
-            width="900"
-            height="600"
-            speed={this.props.speed}
-            quality={this.props.quality}
-            renderer={this.props.renderer}
-            visible={this.state.phase == "battle"}
-            onReady={() => this.onBattleReady()}
-            onStart={() => this.onBattleStart()}
-            onError={(msg) => this.showError(msg)}
-            onRender={() => this.updateTankList()}
-            onFinish={(result) => this.onBattleFinish(result)}
-          />
+          <div style={{visibility: (this.state.phase == "battle") ? 'visible' : 'hidden'}}>
+            <JsBattleBattlefield
+              ref={(battlefield) => this.battlefield = battlefield }
+              aiDefList={this.props.aiDefList}
+              autoResize={true}
+              speed={this.props.speed}
+              quality={this.props.quality}
+              renderer={this.props.renderer}
+              rngSeed={this.state.rngSeed}
+              timeLimit={this.state.timeLimit}
+              teamMode={this.props.teamMode}
+              onReady={() => this.onBattleReady()}
+              onStart={() => this.onBattleStart()}
+              onError={(msg) => this.showError(msg)}
+              onRender={() => this.updateTankList()}
+              onFinish={(result) => this.onBattleFinish(result)}
+            />
+          </div>
           {this.rwd.equalOrBiggerThan('md') ? scoreboard : null}
         </Col>
         <Col lg={4} md={4} sm={12} >

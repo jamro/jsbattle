@@ -1,0 +1,40 @@
+{
+  "name": "jsbattle-react",
+  "version": "2.6.1",
+  "private": true,
+  "description": "",
+  "main": "src/JsBattleBattlefield.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "clean": "rimraf public/img && rimraf public/tanks",
+    "lint": "eslint src/",
+    "build": "build/copy-libs.js",
+    "test": "echo \"Warning: no test script specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "jsbattle-engine": "^2.6.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "eslint": "^6.8.0",
+    "react-scripts": "^3.3.0",
+    "rimraf": "^3.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

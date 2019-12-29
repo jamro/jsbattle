@@ -41,7 +41,6 @@ class ChallengeDefinition {
     return this._battleSet.getAiDefList(this._aiRepository);
   }
 
-
   getModifier() {
     return this._modifier;
   }

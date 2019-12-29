@@ -4,6 +4,7 @@ export default class CodeArea extends React.Component {
     super(props);
     this.textArea = null;
     this.codeMirror = null;
+    this.oldValue = this.props.defaultValue;
   }
 
   componentDidMount() {
@@ -138,7 +139,11 @@ export default class CodeArea extends React.Component {
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });
     this.codeMirror.on('change', () => {
-      this.props.onChange(this.codeMirror.getValue());
+      let newValue = this.codeMirror.getValue();
+      if(this.oldValue != newValue) {
+        this.props.onChange(newValue);
+        this.oldValue = newValue;
+      }
     });
     this.codeMirror.on('keyup', (cm, event) => {
       let ignoreKeys = [37, 38, 39, 40, 32, 13];

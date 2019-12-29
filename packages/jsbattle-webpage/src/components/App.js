@@ -114,6 +114,9 @@ export default class App extends React.Component {
       case 'CHALLENGE_EDITOR':
         return <ChallengeEditorScreen
           {...this.state.currentChallenge}
+          renderer={this.props.renderer}
+          speed={this.state.simSpeed}
+          quality={this.state.qualitySettings}
           onCodeChanged={(code) => this.controller.saveCurrentChallengeScript(code)}
           onStart={() => this.controller.openChallengeBattle()}
           onClose={() => this.controller.openChallenges()}

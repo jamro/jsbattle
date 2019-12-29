@@ -8,7 +8,9 @@
     "start": "react-scripts start",
     "clean": "rimraf public/img && rimraf public/tanks",
     "lint": "eslint src/",
-    "build": "build/copy-libs.js",
+    "build": "npm run build:libs && npm run build:docs",
+    "build:libs": "build/copy-libs.js",
+    "build:docs": "jsdoc2md --template api-doc-template.hbs -f 'src/**/*' > docs/jsbattle_react_api.md",
     "test": "echo \"Warning: no test script specified\" && exit 0"
   },
   "keywords": [],
@@ -22,6 +24,7 @@
   "devDependencies": {
     "cpx": "^1.5.0",
     "eslint": "^6.8.0",
+    "jsdoc-to-markdown": "^5.0.3",
     "react-scripts": "^3.3.0",
     "rimraf": "^3.0.0"
   },

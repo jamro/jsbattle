@@ -1,17 +1,33 @@
 import FullRow from "../../common/bootstrap/FullRow.js";
-import CodeEditorWidget from "../../common/editor/CodeEditorWidget.js";
+import Row from "../../common/bootstrap/Row.js";
+import Col from "../../common/bootstrap/Col.js";
+import JsonCode from "../../common/JsonCode.js";
+import CodeArea from "../../common/editor/CodeArea.js";
+import VerticalSplit from "../../common/VerticalSplit.js";
+import JsBattleBattlefield from "jsbattle-react";
 
 export default class ChallengeEditorScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    this.battlefield = null;
+    this.reloadTimeout = null;
   }
 
   componentDidMount() {
     if(this.props.showInfo) {
       $('#challengeInfo').modal('show');
     }
+  }
 
+  onCodeChanged(code) {
+    this.props.onCodeChanged(code);
+    if(this.reloadTimeout) {
+      clearTimeout(this.reloadTimeout);
+    }
+    this.reloadTimeout = setTimeout(() => {
+      this.battlefield.restart();
+    }, 700);
   }
 
   parseDescription(txt) {
@@ -34,6 +50,7 @@ export default class ChallengeEditorScreen extends React.Component {
   }
 
   render() {
+    console.log(this.props.aiDefList);
     return <div>
       <FullRow>
         <button type="button" className="btn btn-secondary float-right close-challenge" onClick={() => this.props.onClose()}>
@@ -65,12 +82,28 @@ export default class ChallengeEditorScreen extends React.Component {
         </div>
 
       </FullRow>
-      <FullRow>
-        <CodeEditorWidget
-          initCode={this.props.code}
-          onCodeChanged={(code) => this.props.onCodeChanged(code)}
-        />
-      </FullRow>
+      <Row>
+        <Col md={6}>
+          <JsBattleBattlefield
+            ref={(battlefield) => this.battlefield = battlefield }
+            autoResize={true}
+            aiDefList={this.props.aiDefList}
+            rngSeed={this.props.rngSeed}
+            timeLimit={this.props.timeLimit}
+            speed={this.props.speed}
+            quality={this.props.quality}
+            renderer={this.props.renderer}
+            modifier={this.props.modifier}
+          />
+        </Col>
+        <Col md={6}>
+          <CodeArea
+            className="form-control"
+            defaultValue={this.props.code}
+            onChange={(code) => this.onCodeChanged(code)}
+          />
+        </Col>
+      </Row>
     </div>;
   }
 }

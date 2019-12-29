@@ -19,7 +19,7 @@
     "build:schema": "cpx './src/schema/*' './dist/schema'",
     "build:html": "cpx ./src/index.html ./dist",
     "build:examples": "cpx './src/examples/**/*.*' './dist/examples/' && cpx './dist/tanks/**/*.*' './dist/examples/tanks/'",
-    "build:docs": "jsdoc2md --template api-doc-template.hbs -f 'src/engine/**/*'  > docs/api.md",
+    "build:docs": "jsdoc2md --template api-doc-template.hbs -f 'src/engine/**/*'  > docs/jsbattle_engine_api.md",
     "test:engine": "mocha --require @babel/register test/engine/*.test.js",
     "test:tanks": "mocha --require @babel/register test/tanks/*.test.js",
     "audit": "npm audit",

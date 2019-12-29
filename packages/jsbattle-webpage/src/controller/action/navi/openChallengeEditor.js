@@ -5,8 +5,15 @@ export default (stateHolder, challengeLibrary) => {
 
     stateHolder.setState((state) => {
       challengeId = challengeId || state.currentChallenge.id;
-      showInfo = showInfo || false;
       let challenge = challengeLibrary.getChallenge(challengeId);
+      let battleSet = challenge.getBattleSet();
+      let aiDefList = challenge.getAiDefList();
+      let teamMode = challenge.getTeamMode();
+      let rngSeed = challenge.getRngSeed();
+      let timeLimit = challenge.getTimeLimit();
+      let modifier = challenge.getModifier();
+
+      showInfo = showInfo || false;
 
       console.log(`Challenge #${challenge.level} (ID: ${challengeId})`);
 
@@ -26,7 +33,13 @@ export default (stateHolder, challengeLibrary) => {
           id: challengeId,
           level: challenge.level,
           name: challenge.name,
-          description: challenge.description
+          description: challenge.description,
+          aiDefList: aiDefList,
+          battleSet: battleSet,
+          rngSeed: rngSeed,
+          timeLimit: timeLimit,
+          teamMode: teamMode,
+          modifier: modifier
         },
         errorMessage: null
       };

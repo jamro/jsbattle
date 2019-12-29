@@ -2,6 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsBattle from 'jsbattle-engine';
 
+/**
+ * For easier integration with [ReactJs](https://reactjs.org/) applications,
+ * `jsbattle-react` package contains React component of JsBattle
+ * @property {Array} aiDefList - requred. array of AiDefinition objects that describes tanks that fight in the battlefield
+ * @property {Number} width - width of battlefield canvas in pixels
+ * @property {Number} height - height of battlefield canvas in pixels
+ * @property {Number} battlefieldWidth - width of battlefield area
+ * @property {Number} battlefieldHeight - height of battlefield area
+ * @property {String} renderer - name of renderer to be used
+ * @property {Number} rngSeed - rngSeed to be used for the simulation. Random seed will be used if not provided
+ * @property {Number} timeLimit - duration of the battle. A battle without limit is started when not defined or set to zero
+ * @property {Number} speed - speed multiplier of the battle. For example 2 means that the battle is playes at doubled speed
+ * @property {Number} quality - Number between 0 and 1 that define rendering quality (if renderer supports it). String 'auto' can be also provided. In such case, quality will be automatialy adjusted to keep proper performance
+ * @property {Boolean} teamMode - whether the battle is played in team mode or not
+ * @property {Boolean} autoResize - if true, size of battlefield canvas will be automaticaly adjusted. Otherwise, fixed values from `width` and `height` properties will be used
+ * @property {Function} modifier - function applied before the battle that allow changes in the battlefield setup
+ * @property {Function} onError - callback for handling errors
+ * @property {Function} onInit - callback executed when battlefield is initialized (at the beginning or just after restart)
+ * @property {Function} onReady - callback executed when battle is ready to be started (e.g. after loading all assets)
+ * @property {Function} onStart - callback executed when battle is started
+ * @property {Function} onRender - callback executed on each rendering loop of the battle simulation
+ * @property {Function} onFinish - callback executed when battle is finished
+ */
 class JsBattleBattlefield extends React.Component {
 
   constructor(props) {
@@ -70,10 +93,19 @@ class JsBattleBattlefield extends React.Component {
     }
   }
 
+  /**
+   * Stops battle simulation. It also stops rendering loop.
+   * After stop, you cannot resume the battle. Use restart instead.
+   * @returns {undefined}
+   */
   stop() {
     this.simulation.stop();
   }
 
+  /**
+   * Restarts battle simulation.
+   * @returns {undefined}
+   */
   restart() {
     if(this.simulation) {
       this.simulation.stop();
@@ -152,6 +184,11 @@ class JsBattleBattlefield extends React.Component {
     this.simulation.start();
   }
 
+  /**
+   * Create a tank according to provided `AiDefinition` and adds it to the battle
+   * @param {AiDefinition} aiDefinition - defintion of tank AI script
+   * @returns {undefined}
+   */
   addTank(aiDefinition) {
     try {
       this.simulation.addTank(aiDefinition);
@@ -200,18 +237,30 @@ class JsBattleBattlefield extends React.Component {
     }, 500);
   }
 
+  /**
+   * @return {Array} all tanks that were added to the battle
+   */
   get tankList() {
     return this.simulation.tankList;
   }
 
+  /**
+   * @return {Array} list of teams
+   */
   get teamList() {
     return this.simulation.teamList;
   }
 
+  /**
+   * @return {Number} actual quality of renderer. If the quality was set as a number, that number will be returned. If the quality is set as 'auto', current numeric value of quality will be returned
+   */
   get actualRendererQuality() {
     return this.renderer.quality;
   }
 
+  /**
+   * @return {Simulation} JsBattle simulation object
+   */
   getSimulation() {
     return this.simulation;
   }
@@ -267,6 +316,5 @@ JsBattleBattlefield.propTypes = {
   onInit: PropTypes.func,
   onFinish: PropTypes.func,
 };
-
 
 export default JsBattleBattlefield;

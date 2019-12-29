@@ -1,4 +1,4 @@
-# JsBattle API
+# JsBattle Engine API
 ## Classes
 
 <dl>

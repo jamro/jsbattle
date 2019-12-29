@@ -6,15 +6,16 @@
   "scripts": {
     "serve": "http-server -c-1 ./dist",
     "watch": "npm-watch",
-    "clean": "rimraf dist",
+    "clean": "rimraf ./dist && rimraf ./docs/dev_guide/howtos/engine && rimraf ./docs/dev_guide/howtos/react",
     "lint": "puml testdot",
-    "build": "npm run-script build:api && npm run-script build:puml && npm run-script build:html && npm run-script build:copy",
+    "build": "npm run build:engine && npm run build:react && npm run build:puml && npm run build:html && npm run build:copy",
     "test": "npm run-script test:start && npm run-script test:exec && npm run-script test:stop",
-    "build:api": "cpx ./node_modules/jsbattle-engine/docs/api.md ./docs/dev_guide",
+    "build:react": "cpx './node_modules/jsbattle-react/docs/**/*.*' ./docs/dev_guide/howtos/react/",
+    "build:engine": "cpx './node_modules/jsbattle-engine/docs/**/*.*' ./docs/dev_guide/howtos/engine/",
     "build:puml": "./build/puml-batch.js generate -i ./src/puml -o ./docs/img/puml",
     "build:html": "./build/md2html.js",
     "build:copy": "npm run-script build:copy-img && npm run-script build:copy-static",
-    "build:copy-img": "cpx './docs/img/**/*' ./dist/img",
+    "build:copy-img": "cpx './docs/img/**/*' ./dist/img && cpx './docs/dev_guide/howtos/engine/img/**/*' ./dist/dev_guide/howtos/engine/img",
     "build:copy-static": "cpx './src/style.css' ./dist/",
     "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
     "test:exec": "mocha --require @babel/register test/*.test.js",
@@ -40,7 +41,8 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^2.6.1"
+    "jsbattle-engine": "^2.6.1",
+    "jsbattle-react": "^2.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

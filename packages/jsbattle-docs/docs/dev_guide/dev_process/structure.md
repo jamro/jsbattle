@@ -16,7 +16,7 @@ The repo's structure is:
 
 ## Packages
 
-![Package dependencies](../img/puml/packages.png)
+![Package dependencies](../../img/puml/packages.png)
 
 - **jsbattle** - the main package with the app. It integrates all other packages.
 - **jsbattle-server** - JsBattle server. It hosts static files and provide API for backend services

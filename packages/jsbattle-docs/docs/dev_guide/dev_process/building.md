@@ -2,7 +2,7 @@
 
 ## Install JsBattle
 
-The process is described in details in [Installation](../installation.md) section.
+The process is described in details in [Installation](../../installation.md) section.
 
 ## Prerequisites
 

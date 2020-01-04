@@ -7,20 +7,12 @@ Feature: Statistics
     And navigate to "Challenges" section
     Then GA event "challenges/list" is sent
 
-  Scenario: Notify about opening a challenge
-    Given JsBattle open in the browser
-    And "Challenges" section open
-    When open challenge 1
-    Then GA event "challenges/challenge_1/open" is sent
-
-  Scenario Outline: Notify about starting challenge #<index> battle
+  Scenario Outline: Notify about opening challenge #<index>
     Given JsBattle open in the browser
     And all challenges unlocked
     And "Challenges" section open
     When open challenge <index>
-    And close challenge info
-    And start current challenge
-    Then GA event "challenges/challenge_<index>/battle" is sent
+    Then GA event "challenges/challenge_<index>/open" is sent
 
     Examples:
       | index |
@@ -37,24 +29,10 @@ Feature: Statistics
     When open challenge 1
     And close challenge info
     And type "<<jamro code>>" in AI Script editor
-    And start current challenge
-    And battle view is displayed
-    And battle is completed
+    And challenge battle is restarted
+    And challenge battle is completed
     And the challenge is won
     Then GA event "challenges/challenge_1/win" is sent
-
-  Scenario: Notify about losing a challenge
-    Given JsBattle open in the browser
-    And "Challenges" section open
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When open challenge 1
-    And close challenge info
-    And start current challenge
-    And battle view is displayed
-    And battle is completed
-    And the challenge is lost
-    Then GA event "challenges/challenge_1/lose" is sent
 
   Scenario: Notify about opening custom battle section
     Given JsBattle open in the browser

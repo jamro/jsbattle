@@ -2,7 +2,7 @@ import AiRepository from "./AiRepository.js";
 import BattleSet from "./BattleSet.js";
 
 class ChallengeDefinition {
-  constructor(initData, aiRepository) {
+  constructor(initData) {
     this.id = initData.id || 0;
     this.level = initData.level || 0;
     this.description = initData.description || "";
@@ -10,10 +10,7 @@ class ChallengeDefinition {
     this._rngSeed = initData.rngSeed || Math.random();
     this._timeLimit = initData.timeLimit || 30000;
     this.isCompleted = false;
-    this._aiRepository = aiRepository;
     this._battleSet = new BattleSet();
-    this._battleSet.addTank(this.id, 1, true);
-    this._battleSet.setTankDisplayName(this.id, "Player");
     this._modifier = initData.modifier || function() {};
     let tankList = initData.tankList || [];
     tankList.forEach((tank) => {
@@ -38,7 +35,7 @@ class ChallengeDefinition {
   }
 
   getAiDefList() {
-    return this._battleSet.getAiDefList(this._aiRepository);
+    return this._battleSet.getAiDefList();
   }
 
   getModifier() {
@@ -79,7 +76,7 @@ export default class ChallengeLibrary {
             }
           });
         }
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-Du7tyrCB',
         level: 2,
@@ -106,7 +103,7 @@ export default class ChallengeLibrary {
             }
           });
         }
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-4syTf6ph',
         level: 3,
@@ -134,7 +131,7 @@ export default class ChallengeLibrary {
             }
           });
         }
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-kjFrZAUe',
         level: 4,
@@ -161,7 +158,7 @@ export default class ChallengeLibrary {
             }
           });
         }
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-My6Lj5RF',
         level: 5,
@@ -169,7 +166,7 @@ export default class ChallengeLibrary {
         description: 'Things get a little bit more complicated. Your opponent drives around and will shoot you when there is a good chance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['crawler'],
         rngSeed: 0.38835849114718024
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-y87hO9aT',
         level: 6,
@@ -177,7 +174,7 @@ export default class ChallengeLibrary {
         description: 'That guy got crazy and shoot around in all directions. It should not be hard to take him down. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['crazy'],
         rngSeed: 0.6793472503409135
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-pFmJhcrV',
         level: 7,
@@ -185,7 +182,7 @@ export default class ChallengeLibrary {
         description: 'This coward tries to hide in a corner and shoot from the safe spot. Put that camper in his place. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['chicken'],
         rngSeed: 0.8940944190401741
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-aSdf9xP',
         level: 8,
@@ -193,7 +190,7 @@ export default class ChallengeLibrary {
         description: 'The sniper is not mobile, but when you are in the range of his gun, he will track you quickly. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['sniper'],
         rngSeed: 0.9972155038002273
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-M1nsn8s3',
         level: 9,
@@ -201,7 +198,7 @@ export default class ChallengeLibrary {
         description: 'Nothing will stop Kamikaze to take you down. Even if it means significant damage to himself. Try to keep him at distance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: ['kamikaze'],
         rngSeed: 0.7613653519041235
-      }, this._aiRepository),
+      }),
       new ChallengeDefinition({
         id: 'challenge-i8s2UnS9',
         level: 10,

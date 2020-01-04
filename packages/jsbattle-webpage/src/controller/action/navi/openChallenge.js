@@ -23,7 +23,7 @@ export default (stateHolder, challengeLibrary) => {
       return {
         navi: {
           section: 'CHALLENGES',
-          page: 'CHALLENGE_EDITOR',
+          page: 'CHALLENGE',
           pageData: {}
         },
         currentChallenge: {

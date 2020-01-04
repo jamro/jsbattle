@@ -69,6 +69,6 @@ export default class JsonCode extends React.Component {
     if(this.props.varName) {
       prefix = this.props.varName + " = ";
     }
-    return <pre className={classes}>{prefix}{output}</pre>;
+    return <pre className={classes} style={{margin: 'inherit'}}>{prefix}{output}</pre>;
   }
 }

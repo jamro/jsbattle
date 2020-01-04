@@ -16,20 +16,12 @@ class Stats {
     this._gaSubmit('challenges', 'challenge_' + levelId, 'open');
   }
 
-  onChallengeBattle(levelId) {
+  onChallengeComplete(levelId) {
     if(isNaN(levelId)) {
       console.warn("Warning: levelId must be a number");
       return;
     }
-    this._gaSubmit('challenges', 'challenge_' + levelId, 'battle');
-  }
-
-  onChallengeResult(levelId, hasWon) {
-    if(isNaN(levelId)) {
-      console.warn("Warning: levelId must be a number");
-      return;
-    }
-    this._gaSubmit('challenges', 'challenge_' + levelId, hasWon ? 'win' : 'lose');
+    this._gaSubmit('challenges', 'challenge_' + levelId, 'win');
   }
 
   onCustomBattleStart(teamMode) {
@@ -57,6 +49,7 @@ class Stats {
   }
 
   _gaSubmit(category, action, label, value) {
+    console.log(`[STATS] ${category} / ${action} / ${label} / ${value}`);
     let data = {};
     if(category !== undefined) {
       data.event_category = category; // eslint-disable-line camelcase

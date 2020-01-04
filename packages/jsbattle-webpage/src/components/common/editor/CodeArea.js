@@ -7,6 +7,15 @@ export default class CodeArea extends React.Component {
     this.oldValue = this.props.defaultValue;
   }
 
+  componentWillUnmount() {
+    if(!this.codeMirror) {
+      return;
+    }
+    this.codeMirror.setOption("mode", "text/x-csrc");
+    this.codeMirror.getWrapperElement().parentNode.removeChild(this.codeMirror.getWrapperElement());
+    this.codeMirror=null;
+  }
+
   componentDidMount() {
 
     let orig = CodeMirror.hint.javascript;
@@ -162,7 +171,7 @@ export default class CodeArea extends React.Component {
       ref={(txt) => this.textArea = txt}
       defaultValue={this.props.defaultValue}
       onChange={(e) => this.props.onChange(e.target.value)}
-      style={{height: 'auto'}}
+
     />;
 
   }

@@ -88,18 +88,14 @@ export default class BattleSet {
     });
   }
 
-  getAiDefList(aiRepository) {
+  getAiDefList() {
     let i, j, tank;
     let aiDefList = [];
     for(i=0; i < this.length; i++) {
       tank = this.getTankByIndex(i);
       for(j=0; j < tank.count; j++) {
         let aiDef = JsBattle.createAiDefinition();
-        if(tank.userCreated) {
-          aiDef.fromCode(tank.displayName, aiRepository.getCompiledScript(tank.name));
-        } else {
-          aiDef.fromFile(tank.name);
-        }
+        aiDef.fromFile(tank.name);
         aiDefList.push(aiDef);
       }
     }

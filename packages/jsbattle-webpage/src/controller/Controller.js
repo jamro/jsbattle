@@ -5,10 +5,8 @@ import openTankList from './action/navi/openTankList.js';
 import openQuickBattle from './action/navi/openQuickBattle.js';
 import openBattle from './action/navi/openBattle.js';
 import openBattleResults from './action/navi/openBattleResults.js';
-import openChallenges from './action/navi/openChallenges.js';
-import openChallengeEditor from './action/navi/openChallengeEditor.js';
-import openChallengeBattle from './action/navi/openChallengeBattle.js';
-import openChallengeResult from './action/navi/openChallengeResult.js';
+import openChallengeList from './action/navi/openChallengeList.js';
+import openChallenge from './action/navi/openChallenge.js';
 import replayBattle from './action/navi/replayBattle.js';
 
 import createTank from './action/codeRepository/createTank.js';
@@ -25,6 +23,7 @@ import shareBattle from './action/battle/shareBattle.js';
 
 import saveCurrentChallengeScript from './action/challenge/saveCurrentChallengeScript.js';
 import unlockAllChallenges from './action/challenge/unlockAllChallenges.js';
+import completeCurrentChallenge from './action/challenge/completeCurrentChallenge.js';
 
 import loadSettings from './action/loadSettings.js';
 import setSimulationSpeed from './action/setSimulationSpeed.js';
@@ -43,10 +42,8 @@ export default class Controller  {
     this.addActon('openQuickBattle',         openQuickBattle(this.stateHolder, aiRepository));
     this.addActon('openBattle',              openBattle(this.stateHolder));
     this.addActon('openBattleResults',       openBattleResults(this.stateHolder));
-    this.addActon('openChallenges',          openChallenges(this.stateHolder, challengeLibrary));
-    this.addActon('openChallengeEditor',     openChallengeEditor(this.stateHolder, challengeLibrary));
-    this.addActon('openChallengeBattle',     openChallengeBattle(this.stateHolder, challengeLibrary));
-    this.addActon('openChallengeResult',     openChallengeResult(this.stateHolder, challengeLibrary));
+    this.addActon('openChallengeList',       openChallengeList(this.stateHolder, challengeLibrary));
+    this.addActon('openChallenge',           openChallenge(this.stateHolder, challengeLibrary));
     this.addActon('replayBattle',            replayBattle(this.stateHolder, this));
 
     this.addActon('createTank',              createTank(this.stateHolder, aiRepository));
@@ -63,6 +60,7 @@ export default class Controller  {
 
     this.addActon('saveCurrentChallengeScript', saveCurrentChallengeScript(this.stateHolder, challengeLibrary));
     this.addActon('unlockAllChallenges',     unlockAllChallenges(this.stateHolder, challengeLibrary));
+    this.addActon('completeCurrentChallenge', completeCurrentChallenge(this.stateHolder, challengeLibrary));
 
     this.addActon('loadSettings',            loadSettings(this.stateHolder, aiRepository, challengeLibrary));
     this.addActon('setSimulationSpeed',      setSimulationSpeed(this.stateHolder));

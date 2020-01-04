@@ -55,7 +55,7 @@ export default class Navi extends React.Component {
           <a
             className={this.props.section == 'CHALLENGES' ? activeClasses : inactiveClasses}
             href="#"
-            onClick={() => this.props.controller.openChallenges()}>
+            onClick={() => this.props.controller.openChallengeList()}>
             <i className="fas fa-trophy" aria-hidden="true"></i> Challenges
           </a>
         </li>

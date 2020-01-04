@@ -10,9 +10,7 @@ import BattleScreen from "./screen/battle/BattleScreen.js";
 import WinnerScreen from "./screen/winner/WinnerScreen.js";
 import StartScreen from "./screen/start/StartScreen.js";
 import ChallengesListScreen from "./screen/challenges/ChallengesListScreen.js";
-import ChallengeEditorScreen from "./screen/challenges/ChallengeEditorScreen.js";
-import ChallengeBattleScreen from "./screen/challenges/ChallengeBattleScreen.js";
-import ChallengeResultScreen from "./screen/challenges/ChallengeResultScreen.js";
+import ChallengeScreen from "./screen/challenges/ChallengeScreen.js";
 import Loading from "./common/Loading.js";
 import initState from "../state.js";
 
@@ -32,7 +30,7 @@ export default class App extends React.Component {
       if(props.replay) {
         this.controller.replayBattle(props.replay);
       } else {
-        this.controller.openChallenges();
+        this.controller.openChallengeList();
       }
     });
   }
@@ -109,37 +107,18 @@ export default class App extends React.Component {
       case 'CHALLENGE_LIST':
         return <ChallengesListScreen
           {...this.state.challenges}
-          onChallengeOpen={(id) => this.controller.openChallengeEditor(id, true)}
+          onChallengeOpen={(id) => this.controller.openChallenge(id, true)}
         />;
-      case 'CHALLENGE_EDITOR':
-        return <ChallengeEditorScreen
+      case 'CHALLENGE':
+        return <ChallengeScreen
           {...this.state.currentChallenge}
           renderer={this.props.renderer}
           speed={this.state.simSpeed}
           quality={this.state.qualitySettings}
           onCodeChanged={(code) => this.controller.saveCurrentChallengeScript(code)}
-          onStart={() => this.controller.openChallengeBattle()}
-          onClose={() => this.controller.openChallenges()}
-        />;
-      case 'CHALLENGE_BATTLE':
-        return <ChallengeBattleScreen
-          {...this.state.currentChallenge}
-          quickBattleTank={null}
-          shareLink={null}
-          renderer={this.props.renderer}
-          speed={this.state.simSpeed}
-          quality={this.state.qualitySettings}
-          onError={(msg) => this.showError(msg)}
-          onFinish={(result) => this.controller.openChallengeResult(result)}
-          onExit={() => this.controller.openChallengeEditor()}
-          stateless={this.props.stateless}
-          aiRepository={this.aiRepository}
-        />;
-      case 'CHALLENGE_RESULT':
-        return <ChallengeResultScreen
-          {...this.state.currentChallenge}
-          onRetry={() => this.controller.openChallengeEditor()}
-          onNextChallenge={() => this.controller.openChallenges()}
+          onNextChallenge={() => this.controller.openChallengeList()}
+          onClose={() => this.controller.openChallengeList()}
+          onComplete={() => this.controller.completeCurrentChallenge()}
         />;
       case 'LOADING':
         return <FullRow><Loading /></FullRow>;

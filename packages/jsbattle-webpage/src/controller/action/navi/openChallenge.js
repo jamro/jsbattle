@@ -6,7 +6,6 @@ export default (stateHolder, challengeLibrary) => {
     stateHolder.setState((state) => {
       challengeId = challengeId || state.currentChallenge.id;
       let challenge = challengeLibrary.getChallenge(challengeId);
-      let battleSet = challenge.getBattleSet();
       let aiDefList = challenge.getAiDefList();
       let teamMode = challenge.getTeamMode();
       let rngSeed = challenge.getRngSeed();
@@ -35,7 +34,6 @@ export default (stateHolder, challengeLibrary) => {
           name: challenge.name,
           description: challenge.description,
           aiDefList: aiDefList,
-          battleSet: battleSet,
           rngSeed: rngSeed,
           timeLimit: timeLimit,
           teamMode: teamMode,

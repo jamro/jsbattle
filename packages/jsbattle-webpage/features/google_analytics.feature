@@ -19,7 +19,6 @@ Feature: Statistics
       |     1 |
       |     2 |
       |     5 |
-      |     8 |
 
   Scenario: Notify about winning a challenge
     Given JsBattle open in the browser

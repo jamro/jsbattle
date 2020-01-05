@@ -1,8 +1,9 @@
 import AiRepository from "./AiRepository.js";
-import BattleSet from "./BattleSet.js";
+import JsBattle from 'jsbattle-engine';
 
 class ChallengeDefinition {
   constructor(initData) {
+    this._aiDefList = [];
     this.id = initData.id || 0;
     this.level = initData.level || 0;
     this.description = initData.description || "";
@@ -10,11 +11,20 @@ class ChallengeDefinition {
     this._rngSeed = initData.rngSeed || Math.random();
     this._timeLimit = initData.timeLimit || 30000;
     this.isCompleted = false;
-    this._battleSet = new BattleSet();
     this._modifier = initData.modifier || function() {};
     let tankList = initData.tankList || [];
+
     tankList.forEach((tank) => {
-      this._battleSet.addTank(tank, 1, false);
+      let aiDef = JsBattle.createAiDefinition();
+      switch(tank.source) {
+        case 'file':
+          aiDef.fromFile(tank.name);
+          break;
+        case 'code':
+          aiDef.fromCode(tank.name, tank.code);
+          break;
+      }
+      this._aiDefList.push(aiDef);
     });
   }
 
@@ -30,12 +40,8 @@ class ChallengeDefinition {
     return false;
   }
 
-  getBattleSet() {
-    return this._battleSet;
-  }
-
   getAiDefList() {
-    return this._battleSet.getAiDefList();
+    return this._aiDefList;
   }
 
   getModifier() {
@@ -54,8 +60,8 @@ export default class ChallengeLibrary {
         id: 'challenge-8UCUaNvC',
         level: 1,
         name: 'Shoot me',
-        description: 'Let\'s get started. It should be a piece of cake. Your enemy is in front of you, the gun is pointed at him. All you need to do is to pull the trigger and fire! \n\nNo idea where to start? Read [the docs](./docs/manual/ai_script.html).',
-        tankList: ['dummy'],
+        description: 'Let\'s get started. It should be a piece of cake. Your enemy is in front of you, the gun is pointed at it. All you need to do is to pull the trigger and fire! \n\nNo idea where to start? Read [the docs](./docs/manual/ai_script.html).',
+        tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.98287429583523,
         modifier: (simulation) => {
           simulation.tankList.forEach((tank) => {
@@ -82,7 +88,7 @@ export default class ChallengeLibrary {
         level: 2,
         name: 'Look at me',
         description: 'You know how to shoot, right? Now it\'s time to move a little bit. Your enemy is located on the southern-east. Point your gun at that direction, then... you know what to do next :) Notice that your tank is slightly rotated what needs to be taken into account during aiming. \n\nNeed more help? You\'ll find it in [the docs](./docs/manual/algorithms_aiming.html).',
-        tankList: ['dummy'],
+        tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.2590328450293485,
         modifier: (simulation) => {
           simulation.tankList.forEach((tank) => {
@@ -108,8 +114,8 @@ export default class ChallengeLibrary {
         id: 'challenge-4syTf6ph',
         level: 3,
         name: 'Scan me',
-        description: 'There is usually no static targets at predefined positions in the battlefield. In this case, your target will be located at a random spot. Your job is to use the radar attached to your tank, locate the enemy and eliminate it. \n\nAs always, more guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
-        tankList: ['dummy'],
+        description: 'There is usually no targets at predefined positions in the battlefield. In this case, your enemy will be located at a random spot somewhere nearby. Your job is to use the radar attached to your tank, locate the enemy and eliminate it. \n\nAs always, more guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
+        tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.430984523409582730,
         modifier: (simulation) => {
           simulation.tankList.forEach((tank) => {
@@ -133,25 +139,26 @@ export default class ChallengeLibrary {
         }
       }),
       new ChallengeDefinition({
-        id: 'challenge-kjFrZAUe',
+        id: 'challenge-hXMwLdZw',
         level: 4,
-        name: 'Find me',
-        description: 'The opponent is not difficult - it will stand still and wait for you. You just need to find and destroy it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['dummy'],
-        rngSeed: 0.34408169134692157,
+        name: 'Predict me',
+        description: 'Things get complicated - your target is moving back and forth. Since it takes some time for the bullet to travel the distance and hit it, you need to consider that and predict your enemy\'s future position before shooting. \n\nMore guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
+        tankList: [{source: 'code', name: 'Mover', code: 'importScripts("lib/tank.js");var direction=0.8,isTurning=!1;tank.init(function(i,a){i.SKIN="forest"}),tank.loop(function(i,a){let n=null===i.radar.wallDistance||i.radar.wallDistance>120,t=direction>0?0:180,r=Math.deg.normalize(t-i.radar.angle);a.RADAR_TURN=r;let e=Math.abs(r)>1;e||n||(e=!0,direction*=-1),a.THROTTLE=!e&&n?direction:0});'}],
+        rngSeed: 0.7113695353800222,
         modifier: (simulation) => {
           simulation.tankList.forEach((tank) => {
-            let x, y;
+            let x, y, a;
             switch(tank.name.toLowerCase()) {
               case "player":
-                x = simulation.battlefield.minX + Math.random()*250+50;
-                y = simulation.battlefield.minY + Math.random()*250+50;
-                tank.moveTo(x, y, 360*Math.random());
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+                tank.moveTo(x, y, 0);
                 break;
-              case "dummy":
-                x = simulation.battlefield.maxX - Math.random()*250 - 50;
-                y = simulation.battlefield.maxY - Math.random()*250 - 50;
-                tank.moveTo(x, y, 360*Math.random());
+              case "mover":
+                a = 65;
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 + 140;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+                tank.moveTo(x, y, a);
                 break;
               default:
                 console.log(tank.name);
@@ -160,53 +167,46 @@ export default class ChallengeLibrary {
         }
       }),
       new ChallengeDefinition({
-        id: 'challenge-My6Lj5RF',
+        id: 'challenge-tV3fKHBw',
         level: 5,
         name: 'Chase me',
-        description: 'Things get a little bit more complicated. Your opponent drives around and will shoot you when there is a good chance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['crawler'],
-        rngSeed: 0.38835849114718024
+        description: 'Your opponent drives around trying to run away from you. Can you catch it? \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        tankList: [{source: 'file', name: 'crawler'}],
+        rngSeed: 0.38835849114718024,
+        modifier: (simulation) => {
+          simulation.tankList.forEach((tank) => {
+            let x, y;
+            switch(tank.name.toLowerCase()) {
+              case "player":
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 - 350;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+                tank.moveTo(x, y, 0);
+                break;
+              case "crawler":
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 - 100;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
+                tank.moveTo(x, y, 0);
+                break;
+              default:
+                console.log(tank.name);
+            }
+          });
+        }
       }),
       new ChallengeDefinition({
-        id: 'challenge-y87hO9aT',
+        id: 'challenge-6iZxC1FP',
         level: 6,
-        name: 'Crazy Duel',
-        description: 'That guy got crazy and shoot around in all directions. It should not be hard to take him down. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['crazy'],
-        rngSeed: 0.6793472503409135
-      }),
-      new ChallengeDefinition({
-        id: 'challenge-pFmJhcrV',
-        level: 7,
-        name: 'Chicken Duel',
-        description: 'This coward tries to hide in a corner and shoot from the safe spot. Put that camper in his place. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['chicken'],
-        rngSeed: 0.8940944190401741
-      }),
-      new ChallengeDefinition({
-        id: 'challenge-aSdf9xP',
-        level: 8,
-        name: 'Sniper Duel',
-        description: 'The sniper is not mobile, but when you are in the range of his gun, he will track you quickly. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['sniper'],
-        rngSeed: 0.9972155038002273
-      }),
-      new ChallengeDefinition({
-        id: 'challenge-M1nsn8s3',
-        level: 9,
-        name: 'Kamikaze Duel',
-        description: 'Nothing will stop Kamikaze to take you down. Even if it means significant damage to himself. Try to keep him at distance. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['kamikaze'],
-        rngSeed: 0.7613653519041235
-      }),
-      new ChallengeDefinition({
-        id: 'challenge-i8s2UnS9',
-        level: 10,
-        name: 'Dodge Duel',
-        description: 'It\'s hard to take that guy down since he is avoiding bullets at all cost. Do you accept that challenge? \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
-        tankList: ['dodge'],
-        rngSeed: 0.5448669137930873
-      }, this._aiRepository)
+        name: 'Find me',
+        description: 'Time for some explotation of the battlefield. The opponent is not difficult - it will stand still and wait for you. You just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        tankList: [
+          {source: 'file', name: 'dummy'},
+          {source: 'file', name: 'dummy'},
+          {source: 'file', name: 'dummy'},
+          {source: 'file', name: 'dummy'}
+        ],
+        timeLimit: 60000,
+        rngSeed: 0.18940819134692157
+      })
     ];
 
     this._completedChallenges = [];

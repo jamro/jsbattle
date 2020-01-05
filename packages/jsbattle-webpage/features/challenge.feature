@@ -5,10 +5,10 @@ Feature: Challenge
   Scenario: List all challenges
     Given JsBattle open in the browser
     And "Challenges" section open
-    Then list of challenges contains 10 items
+    Then list of challenges contains 6 items
     And challenge [1] are unlocked
-    And challenge [2, 3, 4, 5, 6, 7, 8, 9, 10] are locked
-    And challenge [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] are incomplete
+    And challenge [2, 3, 4, 5, 6] are locked
+    And challenge [1, 2, 3, 4, 5, 6] are incomplete
 
   Scenario Outline: Lose challenge #<index>
     Given JsBattle open in the browser
@@ -30,10 +30,6 @@ Feature: Challenge
     |     4 |
     |     5 |
     |     6 |
-    |     7 |
-    |     8 |
-    |     9 |
-    |    10 |
 
   Scenario: Win a challenge
     Given JsBattle open in the browser
@@ -59,8 +55,8 @@ Feature: Challenge
     And challenge battle is completed
     And the challenge is won
     And click next challenge
-    Then list of challenges contains 10 items
+    Then list of challenges contains 6 items
     And challenge [1, 2] are unlocked
-    And challenge [3, 4, 5, 6, 7, 8, 9, 10] are locked
+    And challenge [3, 4, 5, 6] are locked
     And challenge [1] are complete
-    And challenge [2, 3, 4, 5, 6, 7, 8, 9, 10] are incomplete
+    And challenge [2, 3, 4, 5, 6] are incomplete

@@ -49,11 +49,15 @@ export default class ChallengeScreen extends React.Component {
   }
 
   parseDescription(txt) {
-    txt = txt.replace(/(\[.*\]\(.*\))/g, '<break-line>$1<break-line>');
+    txt = txt.replace(/(!?\[.*\]\(.*\))/g, '<break-line>$1<break-line>');
     txt = txt.replace(/\n/g, '<break-line><br/><break-line>');
     txt = txt.split('<break-line>');
     txt = txt.map((line) => {
       let result;
+      result = (/^!\[(.*)\]\((.*)\)$/).exec(line);
+      if(result) {
+        return <img src={result[2]} alt={result[1]} />;
+      }
       result = (/^\[(.*)\]\((.*)\)$/).exec(line);
       if(result) {
         return <a href={result[2]} target="_blank" rel="noopener noreferrer">{result[1]}</a>;
@@ -130,12 +134,12 @@ export default class ChallengeScreen extends React.Component {
       </div>;
 
     tabs.info = <div style={{marginTop: '0.7em'}}>
-        {this.parseDescription(this.props.description)}
-        <p style={{paddingTop: '2em'}}>
-          <button className="btn btn-primary btn-lg start-coding-button"  onClick={() => this.setState({tab: 'code'})}>
+        <p style={{paddingTop: '1em'}}>
+          <button className="btn btn-primary start-coding-button"  onClick={() => this.setState({tab: 'code'})}>
             <i className="fa fa-code"></i> Start Coding
           </button>
         </p>
+        {this.parseDescription(this.props.description)}
       </div>;
 
     tabs.debug = <div style={{fontSize: '0.8em'}}>

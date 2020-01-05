@@ -60,7 +60,7 @@ export default class ChallengeLibrary {
         id: 'challenge-8UCUaNvC',
         level: 1,
         name: 'Shoot me',
-        description: 'Let\'s get started. It should be a piece of cake. Your enemy is in front of you, the gun is pointed at it. All you need to do is to pull the trigger and fire! \n\nNo idea where to start? Read [the docs](./docs/manual/ai_script.html).',
+        description: 'Let\'s get started. It should be a piece of cake. Your enemy is in front of you, the gun is pointed at it. All you need to do is to pull the trigger and fire! \n\n![preview](./img/challenge01.png)\n\nNo idea where to start? Read [the docs](./docs/manual/ai_script.html).',
         tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.98287429583523,
         modifier: (simulation) => {
@@ -87,7 +87,7 @@ export default class ChallengeLibrary {
         id: 'challenge-Du7tyrCB',
         level: 2,
         name: 'Look at me',
-        description: 'You know how to shoot, right? Now it\'s time to move a little bit. Your enemy is located on the southern-east. Point your gun at that direction, then... you know what to do next :) Notice that your tank is slightly rotated what needs to be taken into account during aiming. \n\nNeed more help? You\'ll find it in [the docs](./docs/manual/algorithms_aiming.html).',
+        description: 'You know how to shoot, right? Now it\'s time to move a little bit. Your enemy is located on the southern-east. Point your gun at that direction, then... you know what to do next :) Notice that your tank is slightly rotated what needs to be taken into account during aiming. \n\n![preview](./img/challenge02.png) \n\nNeed more help? You\'ll find it in [the docs](./docs/manual/algorithms_aiming.html).',
         tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.2590328450293485,
         modifier: (simulation) => {
@@ -114,7 +114,7 @@ export default class ChallengeLibrary {
         id: 'challenge-4syTf6ph',
         level: 3,
         name: 'Scan me',
-        description: 'There is usually no targets at predefined positions in the battlefield. In this case, your enemy will be located at a random spot somewhere nearby. Your job is to use the radar attached to your tank, locate the enemy and eliminate it. \n\nAs always, more guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
+        description: 'There is usually no targets at predefined positions in the battlefield. In this case, your enemy will be located at a random spot somewhere nearby. Your job is to use the radar attached to your tank, locate the enemy and eliminate it. \n\n![preview](./img/challenge03.png) \n\nAs always, more guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
         tankList: [{source: 'file', name: 'dummy'}],
         rngSeed: 0.430984523409582730,
         modifier: (simulation) => {
@@ -142,7 +142,7 @@ export default class ChallengeLibrary {
         id: 'challenge-hXMwLdZw',
         level: 4,
         name: 'Predict me',
-        description: 'Things get complicated - your target is moving back and forth. Since it takes some time for the bullet to travel the distance and hit it, you need to consider that and predict your enemy\'s future position before shooting. \n\nMore guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
+        description: 'Things get complicated - your target is moving back and forth. Since it takes some time for the bullet to travel the distance and hit it, you need to consider that and predict your enemy\'s future position before shooting. \n\n![preview](./img/challenge04.png) \n\nMore guidelines in [the docs](./docs/manual/algorithms_aiming.html).',
         tankList: [{source: 'code', name: 'Mover', code: 'importScripts("lib/tank.js");var direction=0.8,isTurning=!1;tank.init(function(i,a){i.SKIN="forest"}),tank.loop(function(i,a){let n=null===i.radar.wallDistance||i.radar.wallDistance>120,t=direction>0?0:180,r=Math.deg.normalize(t-i.radar.angle);a.RADAR_TURN=r;let e=Math.abs(r)>1;e||n||(e=!0,direction*=-1),a.THROTTLE=!e&&n?direction:0});'}],
         rngSeed: 0.7113695353800222,
         modifier: (simulation) => {
@@ -155,7 +155,7 @@ export default class ChallengeLibrary {
                 tank.moveTo(x, y, 0);
                 break;
               case "mover":
-                a = 65;
+                a = -115;
                 x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 + 140;
                 y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
                 tank.moveTo(x, y, a);
@@ -170,7 +170,7 @@ export default class ChallengeLibrary {
         id: 'challenge-tV3fKHBw',
         level: 5,
         name: 'Chase me',
-        description: 'Your opponent drives around trying to run away from you. Can you catch it? \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        description: 'Your opponent drives around trying to run away from you. Can you catch it? \n\n![preview](./img/challenge05.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: [{source: 'file', name: 'crawler'}],
         rngSeed: 0.38835849114718024,
         modifier: (simulation) => {
@@ -197,7 +197,7 @@ export default class ChallengeLibrary {
         id: 'challenge-6iZxC1FP',
         level: 6,
         name: 'Find me',
-        description: 'Time for some explotation of the battlefield. The opponent is not difficult - it will stand still and wait for you. You just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        description: 'Time for some explotation of the battlefield. The opponent is not difficult - it will stand still and wait for you. You just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\n![preview](./img/challenge06.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: [
           {source: 'file', name: 'dummy'},
           {source: 'file', name: 'dummy'},

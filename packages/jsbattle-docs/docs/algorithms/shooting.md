@@ -1,9 +1,9 @@
 # Algorithms: Shooting
 
 ## Power vs rate of fire
-As described in [Battle Anatomy Section](./battle_anatomy.md), you can decide about the power of fire. More powerful shots will increase reload time reducing the rate of fire.
+As described in [Battle Anatomy Section](../manual/battle_anatomy.md), you can decide about the power of fire. More powerful shots will increase reload time reducing the rate of fire.
 
-Amount of damage that can be dealt over the same amount of time is not constant. Formulas required to calculate that can be found in [Constants and Formulas Section](./consts.md).
+Amount of damage that can be dealt over the same amount of time is not constant. Formulas required to calculate that can be found in [Constants and Formulas Section](../manual/consts.md).
 
 Using most powerful shots (`control.SHOOT=1`) can be 25% more efficient than firing weaker bullets at the maximum rate of fire (`control.SHOOT=0.1`). However, this calculation is right only under an assumption of 100% accuracy. When shooting a moving target that is hard to hit, it may be better to use a hail of bullets and increase the probability that at least some of them will hit the target.
 
@@ -30,7 +30,7 @@ Assume that we know the following:
 - position of the enemy (`state.radar.enemy.x`, `state.radar.enemy.y`)
 - speed of the bullet (`4`)
 
-First of all, we need to calculate the distance between your tank and the enemy. It can be easily achieved using [Extended Math Object](./extended_math.md):
+First of all, we need to calculate the distance between your tank and the enemy. It can be easily achieved using [Extended Math Object](../manual/extended_math.md):
 
 ```javascript
   let bulletDistance = Math.distance(state.x, state.y, state.radar.enemy.x, state.radar.enemy.y);
@@ -57,7 +57,7 @@ At first, we need to calculate the distance travelled over time `dt`:
   let enemyDistance = state.radar.enemy.speed * dt;
 ```
 
-knowing the distance, the new position can be calculated using sine and cosine functions (as explained in [Geometry Algorithms](./algorithms_geometry.md)):
+knowing the distance, the new position can be calculated using sine and cosine functions (as explained in [Geometry Algorithms](./geometry.md)):
 
 ```
   let enemyAngle = Math.deg2rad(state.radar.enemy.angle);
@@ -66,7 +66,7 @@ knowing the distance, the new position can be calculated using sine and cosine f
 ```
 
 ### Calculate angle where the gun should be pointed
-A similar case was explained in [Geometry Algorithms](./algorithms_geometry.md):
+A similar case was explained in [Geometry Algorithms](./geometry.md):
 
 ```javascript
   let targetAngle = Math.deg.atan2(targetY - state.y, targetX - state.x);

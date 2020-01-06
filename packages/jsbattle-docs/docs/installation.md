@@ -40,11 +40,4 @@ Open your favorite web browser and navigate to URL from the previous step
 
 It will open JsBattle:
 
-![alt text](./img/challenges.png)
-
-## Stopping JsBattle
-
-Run following command to stop JsBattle server:
-```bash
-  npm stop
-```
+![challenges screen](./img/challenges.png)

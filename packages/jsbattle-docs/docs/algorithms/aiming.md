@@ -14,7 +14,7 @@ The same rule applies to the radar. Its rotation is also relative to the body (*
   let radarAngle = Math.deg.normalize(90 - state.angle);
 ```
 
-Notice that results are normalized. Learn more about it [here](./algorithms_geometry.md).
+Notice that results are normalized. Learn more about it [here](./geometry.md).
 
 ## Consider width of radar beam
 
@@ -22,7 +22,7 @@ Radar detects objects even if they are only partially covered by the beam. In so
 
 ![Radar beam](../img/radar_beam.png)
 
-For aiming purposed, do not rely on the fact that the enemy is detected, and the gun is pointing in the same direction as the radar. In the situation above, the shot will miss the target. To aim precisely you have to base on `state.radar.enemy.x` and `state.radar.enemy.y` of [State Object](./tank_state_object.md) and rotate the gun accordingly. Read sections below to learn how to aim at target coordinates.
+For aiming purposed, do not rely on the fact that the enemy is detected, and the gun is pointing in the same direction as the radar. In the situation above, the shot will miss the target. To aim precisely you have to base on `state.radar.enemy.x` and `state.radar.enemy.y` of [State Object](../manual/tank_state_object.md) and rotate the gun accordingly. Read sections below to learn how to aim at target coordinates.
 
 ## Aim at the target angle
 
@@ -47,8 +47,8 @@ if(angleDiff > 1) {
 **How does it work?**
 First three lines are quite simple and you have seen similar examples previously:
 1. define the target angle where you want to aim
-2. calculate the angle of gun taking into account rotation of tank body. [Normalize](./algorithms_geometry.md) the angle so the value is between -180° and 180°
-3. calculate the difference between the current angle of the gun and desired rotation (also [normalize](./algorithms_geometry.md) it at the end)
+2. calculate the angle of gun taking into account rotation of tank body. [Normalize](./geometry.md) the angle so the value is between -180° and 180°
+3. calculate the difference between the current angle of the gun and desired rotation (also [normalize](./geometry.md) it at the end)
 
 Depending on the difference between target and current target we want to take a different action (please notice that after normalization it will be always between -180° and 180°):
 - if `angleDiff` is more then 1° turn the gun clockwise
@@ -69,7 +69,7 @@ if(angleDiff > 0) {
 - `state.angle = 10`: let's assume any rotation of the tank, it does not matter
 - `targetAngle = -90`: this is our target at the north
 - `gunAngle = -100`: it is constant since it result of `targetAngle - state.angle` (-90 - 10 = -100)
-- turning speed of the gun is `3`. See more in [Constants and Formulas](./consts.md)
+- turning speed of the gun is `3`. See more in [Constants and Formulas](../manual/consts.md)
 
 Simulation step  |    1 |    2 |    3 |    4 |    5 |    6 |    7 |    8 |    9 |   10 |
 -----------------|------|------|------|------|------|------|------|------|------|------|
@@ -114,7 +114,7 @@ This algorithm will slow down when it is closer to the target value stopping eve
 
 Usually, the data that you have are `x` and `y` coordinates, not the angle where you want to aim. In such case all the process needs to be split into a few steps:
 
-1. Calculate the angle using the arctangents function. See details [here](./algorithms_geometry.md)
+1. Calculate the angle using the arctangents function. See details [here](./geometry.md)
 2. Calculate the angle of the gun taking into account rotation of your tank body (as described above)
 3. Aim the gun at your target (as described above)
 
@@ -141,9 +141,9 @@ if(!state.radar.enemy) {
 ```
 
 ### Follow the target by radar
-When your radar spot an enemy, `state.radar.enemy` will contain all its, data including the coordinates (see [Tank State Object](./tank_state_object.md) for more details). Detected target may be located somewhere at the edge of the radar beam. To avoid losing it soon, you need to keep the target in the centre of the beam. In can be achieved in a few steps:
+When your radar spot an enemy, `state.radar.enemy` will contain all its, data including the coordinates (see [Tank State Object](../manual/tank_state_object.md) for more details). Detected target may be located somewhere at the edge of the radar beam. To avoid losing it soon, you need to keep the target in the centre of the beam. In can be achieved in a few steps:
 
-1. Calculate the angle where the radar must be aimed to, using arctangents function. See details [here](./algorithms_geometry.md)
+1. Calculate the angle where the radar must be aimed to, using arctangents function. See details [here](./geometry.md)
 2. Calculate the angle of the radar taking into account rotation of your tank body (as described above for gun rotation)
 3. Point the radar at your target (as described above for gun rotation)
 
@@ -165,7 +165,7 @@ To control the distance, you must turn your tank to the direction of the target.
 ```
 Notice that it should not impact any of code that rotates gun or radar since in all of those cases calculations consider rotation of tank's body (`state.angle`).
 
-Radar beam has a range of `300` (you can check it in [Constants and Formulas Section](./consts.md) ). Let's assume that a safe distance that avoids losing the target is half of that,  so `150`. The following code will ensure that the tank tries to keep that distance
+Radar beam has a range of `300` (you can check it in [Constants and Formulas Section](../manual/consts.md) ). Let's assume that a safe distance that avoids losing the target is half of that,  so `150`. The following code will ensure that the tank tries to keep that distance
 
 ```javascript
   let targetDistance = Math.distance(state.x, state.y, state.radar.enemy.x, state.radar.enemy.y);

@@ -22,7 +22,7 @@ radianValue = degreeValue * (Math.PI/180);
 degreeValue = radianValue * (180/Math.PI);
 ```
 
-Such operations are used pretty often so Math object in JsBattle was extended by `Math.deg2rad(degreeValue)` and `Math.rad2deg(radianValue)` functions. See [Extended Math Object](./extended_math.md) for more helper functions.
+Such operations are used pretty often so Math object in JsBattle was extended by `Math.deg2rad(degreeValue)` and `Math.rad2deg(radianValue)` functions. See [Extended Math Object](../manual/extended_math.md) for more helper functions.
 
 
 ## Normalize angle
@@ -39,7 +39,7 @@ To make your life easier, all angles in JsBattle are normalized to be in range o
 
 ![alt text](../img/tank_coordinates.png)
 
-If you need to normalize angles during your calculations you can use `Math.rad.normalize(value)` or `Math.deg.normalize(value)` [Extended Math Object](./extended_math.md). For example:
+If you need to normalize angles during your calculations you can use `Math.rad.normalize(value)` or `Math.deg.normalize(value)` [Extended Math Object](../manual/extended_math.md). For example:
 
 ```
   Math.deg.normalize(380) == 20
@@ -61,13 +61,13 @@ Let's say that you know coordinates of your target `(x2, y2)`, coordinates of yo
 
 ![alt text](../img/atan.png)
 
-The easiest way to do it is by arctangents function. [Extended Math Object](./extended_math.md) provides two implementations of that function for both radians and degrees (`Math.rad.atan2(y, x)` and `Math.deg.atan2(y, x)`). Following code will calculate the `angle` in degrees:
+The easiest way to do it is by arctangents function. [Extended Math Object](../manual/extended_math.md) provides two implementations of that function for both radians and degrees (`Math.rad.atan2(y, x)` and `Math.deg.atan2(y, x)`). Following code will calculate the `angle` in degrees:
 
 ```
   angle = Math.deg.atan2(y2 - y1, x2 - x1);
 ```
 
-For radians calculations you can use both: the native implementation (`Math.atan2(y, x)`) or the [Extended Math Object](./extended_math.md) (`Math.rad.atan2(y, x)`)
+For radians calculations you can use both: the native implementation (`Math.atan2(y, x)`) or the [Extended Math Object](../manual/extended_math.md) (`Math.rad.atan2(y, x)`)
 
 ### Calculate coordinates knowing the angle
 

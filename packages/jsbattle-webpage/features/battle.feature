@@ -43,6 +43,6 @@ Feature: Battle
     And battle speed set to "50"
     And battle is completed
     Then the winner tank is "Jamro"
-    And tank "jamro #3" score is 253.80
-    And tank "dodge #1" score is 95.49
+    And tank "jamro #3" score is 232.4
+    And tank "dodge #1" score is 84.16
     And tank "sniper #2" score is 18.60

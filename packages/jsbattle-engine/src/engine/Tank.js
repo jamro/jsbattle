@@ -454,7 +454,7 @@ class Tank {
         x: self._enemySpot.x,
         y: self._enemySpot.y,
         angle: self._enemySpot.angle,
-        speed: self._enemySpot.speed,
+        speed: self._enemySpot.speed * (self._enemySpot.throttle < 0 ? -1 : 1),
         energy: self._enemySpot.energy,
       };
     }

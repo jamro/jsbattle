@@ -118,7 +118,53 @@ Usually, the data that you have are `x` and `y` coordinates, not the angle where
 2. Calculate the angle of the gun taking into account rotation of your tank body (as described above)
 3. Aim the gun at your target (as described above)
 
-You can also try to improve the accuracy by predicting the position of the target in future if it is moving.
+Here is an example of implementation:
+
+```javascript
+let targetAngle = Math.deg.atan2(state.radar.enemy.y - state.y, state.radar.enemy.x - state.x);
+let gunAngle = Math.deg.normalize(targetAngle - state.angle);
+let gunAngleDiff = Math.deg.normalize(gunAngle - state.gun.angle);
+control.GUN_TURN = 0.3 * gunAngleDiff;
+```
+
+## Predictive targeting
+Aiming at moving targets is more complicated. The bullet is traveling at [a specific speed](../manual/consts.md) and needs some time to reach the target. When the enemy is moving, it will be most probably in a different position at the moment when the bullet travels the distance. To be accurate, you need to predict the future location of the target and aim there.
+
+Here is one of the most straightforward solutions. Inaccurate but good enough for the beginning:
+
+1. Calculate the `distance` between tanks (between point `A` and `B`)
+2. Knowing [the speed of the bullet](../manual/consts.md), calculate `bulletTime`, the time that it requires to travel the `distance`.
+3. Assuming that the enemy is moving at a constant speed in the same direction, calculate its position after `bulletTime` (point `C`)
+4. Aim at point `C` and shoot
+
+The algorithm assumes that distance between `A` and `B` is the same as `A` and `C` what is not necessarily the truth. That false assumption may result in inaccuracy. However, it gives an approximation that is acceptable in many cases.
+
+![moving_target](../img/moving_target.png)
+
+Implementation of the algorithm:
+
+```javascript
+// STEP #1
+let bulletSpeed = 4;
+let enemy = state.radar.enemy;
+let distance = Math.distance(state.x, state.y, enemy.x, enemy.y)
+
+// STEP #2
+let bulletTime = distance / bulletSpeed;
+
+// STEP #3
+let targetX = enemy.x + bulletTime * enemy.speed * Math.cos(Math.deg2rad(enemy.angle));
+let targetY = enemy.y + bulletTime * enemy.speed * Math.sin(Math.deg2rad(enemy.angle));
+
+// STEP #4
+let targetAngle = Math.deg.atan2(targetY - state.y, targetX - state.x);
+let gunAngle = Math.deg.normalize(targetAngle - state.angle);
+let angleDiff = Math.deg.normalize(gunAngle - state.gun.angle);
+control.GUN_TURN = 0.3 * angleDiff;
+if(Math.abs(angleDiff) < 1) {
+  control.SHOOT = 0.5;
+}
+```
 
 ## Use the radar
 
@@ -178,26 +224,42 @@ Radar beam has a range of `300` (you can check it in [Constants and Formulas Sec
 At the end the code should look like this:
 
 ```javascript
-if(!state.radar.enemy) {
+let enemy = state.radar.enemy;
+
+if(!enemy) {
   control.RADAR_TURN = 1;
 } else {
   control.RADAR_TURN = 0;
 
-  let targetAngle = Math.deg.atan2(state.radar.enemy.y - state.y, state.radar.enemy.x - state.x);
-  let radarAngle = Math.deg.normalize(targetAngle - state.angle)
+  // predict position of target
+  let bulletSpeed = 4;
+  let distance = Math.distance(state.x, state.y, enemy.x, enemy.y)
+  let bulletTime = distance / bulletSpeed;
+  let targetX = enemy.x + bulletTime * enemy.speed * Math.cos(Math.deg2rad(enemy.angle));
+  let targetY = enemy.y + bulletTime * enemy.speed * Math.sin(Math.deg2rad(enemy.angle));
+
+  let targetAngle = Math.deg.atan2(targetY - state.y, targetX - state.x);
+  let enemyAngle = Math.deg.atan2(enemy.y - state.y, enemy.x - state.x);
+
+  // keep enemy in the radar beam
+  let radarAngle = Math.deg.normalize(enemyAngle - state.angle);
   let radarAngleDiff = Math.deg.normalize(radarAngle - state.radar.angle);
   control.RADAR_TURN = 0.3 * radarAngleDiff;
 
-  let bodyAngleDiff = Math.deg.normalize(targetAngle - state.angle);
+  // keep proper enemy distance
+  let bodyAngleDiff = Math.deg.normalize(enemyAngle - state.angle);
   control.TURN = 0.5 * bodyAngleDiff;
-
-  let targetDistance = Math.distance(state.x, state.y, state.radar.enemy.x, state.radar.enemy.y);
+  let targetDistance = Math.distance(state.x, state.y, enemy.x, enemy.y);
   let distanceDiff = targetDistance - 150;
   control.THROTTLE = distanceDiff/100;
 
+  // aim and shoot
   let gunAngle = Math.deg.normalize(targetAngle - state.angle);
-  let gunAngleDiff = Math.deg.normalize(gunAngle - state.gun.angle);
+  let angleDiff = Math.deg.normalize(gunAngle - state.gun.angle);
+  control.GUN_TURN = 0.3 * angleDiff;
+  if(Math.abs(angleDiff) < 1) {
+    control.SHOOT = 0.1;
+  }
 
-  control.GUN_TURN = 0.3 * gunAngleDiff;
 }
 ```

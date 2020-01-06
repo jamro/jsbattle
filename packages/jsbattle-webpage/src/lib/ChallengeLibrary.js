@@ -124,7 +124,7 @@ export default class ChallengeLibrary {
               case "player":
                 x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2;
                 y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
-                tank.moveTo(x, y, 0);
+                tank.moveTo(x, y, 180 + 180*Math.random());
                 break;
               case "dummy":
                 a = Math.random()*2*Math.PI;
@@ -152,7 +152,7 @@ export default class ChallengeLibrary {
               case "player":
                 x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2;
                 y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2;
-                tank.moveTo(x, y, 0);
+                tank.moveTo(x, y, 180 + 180*Math.random());
                 break;
               case "mover":
                 a = -115;

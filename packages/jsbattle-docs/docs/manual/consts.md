@@ -8,6 +8,7 @@ Bullet Damage       | 10*power + 3*power^2 | power is a value between 0.1 and 1
 Bullet Speed        | 4                    |
 Gun Reloading Time  | 70*power             | power is a value between 0.1 and 1
 Gun Turning Speed   | 3°                   | in degrees per simulation step
+Gun Length          | 25                   | length of the gun (from the center of the tank to end of the barrel)
 Hit Enemy Damage    | 0.2                  | damage received when colliding with another tank
 Hit Wall Damage     | 0.2                  | damage received when colliding with a wall
 Initial Energy      | 100                  |

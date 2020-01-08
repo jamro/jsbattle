@@ -202,10 +202,11 @@ export default class ChallengeLibrary {
           {
             source: 'code',
             name: 'Snake',
-            code: 'importScripts("lib/tank.js");let isActive=!1,hitFlag=!1,timer=0;tank.init(function(i,t){i.SKIN="forest"}),tank.loop(function(i,t){i.energy<80&&(isActive=!0),(i.collisions.wall||i.collisions.enemy||i.collisions.ally)&&(hitFlag=!0),isActive&&!hitFlag?(t.THROTTLE=1,t.BOOST=1,t.TURN=2*Math.cos(timer),timer+=.1):(t.THROTTLE=0,t.BOOST=0,t.TURN=0)});'
+            code: 'importScripts("lib/tank.js");let isActive=!1,timer=0,turnTime=0,prevEnergy=100,turnDirection=1;tank.init(function(i,t){i.SKIN="forest"}),tank.loop(function(i,t){i.energy<prevEnergy&&(isActive=!0),prevEnergy=i.energy,(i.collisions.wall||i.collisions.enemy||i.collisions.ally)&&(turnTime=Math.round(100*Math.random()+50),turnDirection=Math.random()<.5?1:-1,isActive=!1),turnTime>0?(t.THROTTLE=0,t.BOOST=0,t.TURN=turnDirection,turnTime--):isActive&&0==turnTime?(t.THROTTLE=1,t.BOOST=1,t.TURN=2*Math.cos(timer),timer+=.1):(t.THROTTLE=0,t.BOOST=0,t.TURN=0)});'
           }
         ],
         rngSeed: 0.18940819134692157,
+        timeLimit: 60000,
         modifier: (simulation) => {
           simulation.tankList.forEach((tank) => {
             let x, y, dx;

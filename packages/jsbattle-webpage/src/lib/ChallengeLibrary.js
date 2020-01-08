@@ -197,15 +197,35 @@ export default class ChallengeLibrary {
         id: 'challenge-6iZxC1FP',
         level: 6,
         name: 'Find me',
-        description: 'Time for some explotation of the battlefield. The opponent is not difficult - it will stand still and wait for you. You just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\n![preview](./img/challenge06.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
+        description: 'Time for some exploration of the battlefield. The opponent is not difficult - you just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\n![preview](./img/challenge06.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)',
         tankList: [
-          {source: 'file', name: 'dummy'},
-          {source: 'file', name: 'dummy'},
-          {source: 'file', name: 'dummy'},
-          {source: 'file', name: 'dummy'}
+          {
+            source: 'code',
+            name: 'Snake',
+            code: 'importScripts("lib/tank.js");let isActive=!1,hitFlag=!1,timer=0;tank.init(function(i,t){i.SKIN="forest"}),tank.loop(function(i,t){i.energy<80&&(isActive=!0),(i.collisions.wall||i.collisions.enemy||i.collisions.ally)&&(hitFlag=!0),isActive&&!hitFlag?(t.THROTTLE=1,t.BOOST=1,t.TURN=2*Math.cos(timer),timer+=.1):(t.THROTTLE=0,t.BOOST=0,t.TURN=0)});'
+          }
         ],
-        timeLimit: 60000,
-        rngSeed: 0.18940819134692157
+        rngSeed: 0.18940819134692157,
+        modifier: (simulation) => {
+          simulation.tankList.forEach((tank) => {
+            let x, y, dx;
+            switch(tank.name.toLowerCase()) {
+              case "player":
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 - 350;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2 - 200;
+                tank.moveTo(x, y, 0);
+                break;
+              case "snake":
+                dx = 350 - Math.random()*700;
+                x = (simulation.battlefield.minX + simulation.battlefield.maxX)/2 + dx;
+                y = (simulation.battlefield.minY + simulation.battlefield.maxY)/2 + 200;
+                tank.moveTo(x, y, dx > 0 ? 180 : 0);
+                break;
+              default:
+                console.log(tank.name);
+            }
+          });
+        }
       })
     ];
 

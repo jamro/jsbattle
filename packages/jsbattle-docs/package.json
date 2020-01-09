@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-docs",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -43,7 +43,7 @@
   "license": "MIT",
   "dependencies": {
     "jsbattle-engine": "^2.7.0",
-    "jsbattle-react": "^2.7.0"
+    "jsbattle-react": "^2.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

@@ -16,7 +16,7 @@
     "build:html": "./build/md2html.js",
     "build:copy": "npm run-script build:copy-img && npm run-script build:copy-static",
     "build:copy-img": "cpx './docs/img/**/*' ./dist/img && cpx './docs/dev_guide/howtos/engine/img/**/*' ./dist/dev_guide/howtos/engine/img",
-    "build:copy-static": "cpx './src/style.css' ./dist/",
+    "build:copy-static": "cpx './src/*.{css,js}' ./dist/",
     "test:start": "./build/test-server.js start -p 8077 -r ./dist &",
     "test:exec": "mocha --require @babel/register test/*.test.js",
     "test:stop": "./build/test-server.js stop -p 8077",
@@ -32,7 +32,8 @@
     },
     "build:copy-static": {
       "patterns": [
-        "src/style.css"
+        "src/*.css",
+        "src/*.js"
       ],
       "verbose": true
     }

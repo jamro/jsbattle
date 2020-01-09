@@ -55,6 +55,23 @@ tank.loop(function(state, control) {
     control.TURN = 0;
   }
 });
+```
 
+## Follow the target
+To control the distance between your tank and the enemy, you must turn your tank to the direction of the target (step #1). In this way, you can easily be farther or closer by going back and forth (step #2).
 
+```javascript
+  // Step #1
+  let targetAngle = Math.deg.atan2(state.radar.enemy.y - state.y, state.radar.enemy.x - state.x);
+  let bodyAngleDiff = Math.deg.normalize(targetAngle - state.angle);
+  control.TURN = 0.5 * bodyAngleDiff;
+```
+
+Radar beam has a range of `300` (you can check it in [Constants and Formulas Section](../manual/consts.md) ). Let's assume that a safe distance that avoids losing the target is half of that,  so `150`. The following code will ensure that the tank tries to keep that distance:
+
+```javascript
+  // Step #2
+  let targetDistance = Math.distance(state.x, state.y, state.radar.enemy.x, state.radar.enemy.y);
+  let distanceDiff = targetDistance - 150;
+  control.THROTTLE = distanceDiff/100;
 ```

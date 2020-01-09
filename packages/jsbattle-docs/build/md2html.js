@@ -26,13 +26,16 @@ function processMd(txt) {
 function processHtml(txt, level, sidebarContent) {
   sidebarContent = sidebarContent.replace(/(\[[^\]]*\]\()([^\)]*\.)md\)/gi, '$1' + ('../'.repeat(level)) + '$2html)');
   let htmlContent = converter.makeHtml(sidebarContent);
-  let css = '../'.repeat(level) +  'style.css';
+  let root = '../'.repeat(level);
   txt = `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
     <title>JsBattle Docs</title>
-    <link rel="stylesheet" href="${css}" type="text/css">
+    <link rel="stylesheet" href="${root}style.css" type="text/css">
+    <link rel="stylesheet" href="${root}highlight.css">
+    <script src="${root}highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div id="side">

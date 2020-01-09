@@ -16,7 +16,7 @@ The repository is managed by [Lerna](https://github.com/lerna/lerna). Most impor
 - **Publish** - publish packages to NPM repository
 
 ### Adding new package
-Follow those steps to add new monorepo package (private, not published to NPM)
+Follow those steps to add new monorepo package
 
 1. Create npm package:
 ```bash
@@ -24,11 +24,10 @@ mkdir packages/PackageName
 cd packages/PackageName
 npm init -y
 ```
-2. Update `package.json`. Make the package private, update version and other required fields:
+2. Update `package.json`. Update version and other required fields:
 ```json
 {
   "name": "PackageName",
-  "private": true,
   "version": "2.1.4",
   "license": "MIT"
   ...

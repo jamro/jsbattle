@@ -1,7 +1,6 @@
 {
   "name": "jsbattle-react",
   "version": "2.7.0",
-  "private": true,
   "description": "",
   "main": "src/JsBattleBattlefield.js",
   "scripts": {

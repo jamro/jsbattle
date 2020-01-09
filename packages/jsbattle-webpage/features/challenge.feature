@@ -31,6 +31,7 @@ Feature: Challenge
     |     5 |
     |     6 |
 
+  @smoke
   Scenario: Win a challenge
     Given JsBattle open in the browser
     And "Challenges" section open

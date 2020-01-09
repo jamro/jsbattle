@@ -16,6 +16,7 @@ export default class ChallengeScreen extends React.Component {
       aiDefList: this.createAiDefList(props.aiDefList, this.props.code),
       tab: 'info',
       hasWon: false,
+      loading: true,
       debug: {}
     };
     this.battlefield = null;
@@ -123,6 +124,12 @@ export default class ChallengeScreen extends React.Component {
           <InfoBox message={this.state.error} level="danger"/>
         </div>;
     }
+    let loadingBox = null;
+    if(this.state.loading) {
+      errBox = <div className="battle-overlay">
+          <i className="fas fa-sync fa-spin"></i> Loading the battle...
+        </div>;
+    }
     let tabs = {};
 
     tabs.code = <div style={{marginTop: '0.7em'}}>
@@ -222,6 +229,7 @@ export default class ChallengeScreen extends React.Component {
             </li>
           </ul>
           {errBox}
+          {loadingBox}
           {winBox}
           <JsBattleBattlefield
             ref={(battlefield) => this.battlefield = battlefield }
@@ -236,7 +244,8 @@ export default class ChallengeScreen extends React.Component {
             onRender={(sim) => this.updateDebug(sim)}
             onFinish={(result) => this.handleBattleFinish(result)}
             onError={(error) => this.setState({error})}
-            onInit={() => this.setState({error: null})}
+            onInit={() => this.setState({error: null, loading: true})}
+            onStart={() => this.setState({loading: false})}
           />
         </Col>
         <Col md={6}>

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/jamro/jsbattle/compare/v2.6.1...v2.7.0) (2020-01-09)
+
+
+### Bug Fixes
+
+* **jsbattle-engine:** set state.radar.enemy.speed to negative values when the tank is going backward ([6f53ff1](https://github.com/jamro/jsbattle/commit/6f53ff166aff7bf05bf1e7289ec72f23af8abb0b))
+
+
+### Features
+
+* **jsbattle-engine:** add battle time limt to UBD schema ([667a599](https://github.com/jamro/jsbattle/commit/667a599278acb06a7863f740885d583736ecbbc2))
+* **jsbattle-engine:** add custom finish conditions for battles ([441d69a](https://github.com/jamro/jsbattle/commit/441d69a4a0b2490bb719ad2396b74d6ade4bb6ec))
+
+
+
+
+
 ## [2.6.1](https://github.com/jamro/jsbattle/compare/v2.6.0...v2.6.1) (2019-11-27)
 
 **Note:** Version bump only for package jsbattle-engine

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/jamro/jsbattle/compare/v2.6.1...v2.7.0) (2020-01-09)
+
+
+### Bug Fixes
+
+* **jsbattle-engine:** set state.radar.enemy.speed to negative values when the tank is going backward ([6f53ff1](https://github.com/jamro/jsbattle/commit/6f53ff166aff7bf05bf1e7289ec72f23af8abb0b))
+* **jsbattle-webpage:** fix not working custom tanks in battle mode ([3c05049](https://github.com/jamro/jsbattle/commit/3c05049ba6aacb47bbcda600cfc9ca77f6e2492e))
+* **jsbattle-webpage:** update display name of tank when changing script name ([d16c1ef](https://github.com/jamro/jsbattle/commit/d16c1efd6745d1c24ce32f3498fb058337363e28))
+
+
+### Features
+
+* **jsbattle-docs:** add walkthroughs ([eb21a06](https://github.com/jamro/jsbattle/commit/eb21a069f1c42db9f962f493b3502d0fe0581c05))
+* **jsbattle-engine:** add battle time limt to UBD schema ([667a599](https://github.com/jamro/jsbattle/commit/667a599278acb06a7863f740885d583736ecbbc2))
+* **jsbattle-engine:** add custom finish conditions for battles ([441d69a](https://github.com/jamro/jsbattle/commit/441d69a4a0b2490bb719ad2396b74d6ade4bb6ec))
+* **jsbattle-webpage:** add code folding ([573e33a](https://github.com/jamro/jsbattle/commit/573e33aa5a578e8ff3746d51444fdbb627dc95cd))
+* **jsbattle-webpage:** add images to challenge descriptions ([d9c590d](https://github.com/jamro/jsbattle/commit/d9c590da95e4d3e8c1a37341d4a74089802f1ccf))
+* **jsbattle-webpage:** add live preview to challenges ([a9ef92e](https://github.com/jamro/jsbattle/commit/a9ef92e6bbcc3b42a0e8221b9c1fb6e0a7354d3d))
+* **jsbattle-webpage:** improve challenge set ([05d139d](https://github.com/jamro/jsbattle/commit/05d139d7aa2e903957dec58912f30a311da9affa))
+
+
+
+
+
 ## [2.6.1](https://github.com/jamro/jsbattle/compare/v2.6.0...v2.6.1) (2019-11-27)
 
 

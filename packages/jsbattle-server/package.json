@@ -7,13 +7,15 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "scripts": {
+    "start": "node ./app/runner.js",
     "lint": "eslint app/",
-    "test": "mocha test/*.test.js"
+    "test": "jest --coverage --verbose"
   },
   "devDependencies": {
     "bufferutil": "^4.0.1",
     "cpx": "^1.5.0",
     "eslint": "^6.7.1",
+    "jest": "^24.9.0",
     "mocha": "^6.2.2",
     "npm-watch": "^0.6.0",
     "rimraf": "^3.0.0",
@@ -26,12 +28,18 @@
     "express": "^4.17.1",
     "hijackresponse": "^4.0.0",
     "jsbattle-engine": "^2.7.0",
+    "moleculer": "^0.13.12",
+    "moleculer-db": "^0.8.4",
+    "moleculer-web": "^0.8.5",
     "puppeteer": "^2.0.0",
-    "seneca": "^3.17.0",
-    "seneca-entity": "^5.2.0",
-    "seneca-jsonfile-store": "^1.1.0",
     "stream": "0.0.2",
     "uuid": "^3.3.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/app/services/**/*.js",
+      "!**/node_modules/**"
+    ]
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

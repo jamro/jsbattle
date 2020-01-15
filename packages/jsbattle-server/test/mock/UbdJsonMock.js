@@ -1,9 +1,7 @@
-
 module.exports = class UbdJsonMock {
 
   constructor(version) {
-    version = version || 2;
-
+    version = version === undefined ? 1 : version;
 
     this.version = version;
     this.rngSeed = 0.43;
@@ -28,6 +26,9 @@ module.exports = class UbdJsonMock {
 
     if(version >= 2) {
       this.teamMode = false;
+    }
+    if(version >= 3) {
+      this.timeLimit = 30000;
     }
   }
 };

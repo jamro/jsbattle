@@ -17,6 +17,7 @@ Tool                                                  | Description
 [Express](https://expressjs.com/)                     | Node.js web application framework
 [Puppeteer](https://github.com/GoogleChrome/puppeteer)| Headless Chromium used to play battles on server side
 [yargs](http://yargs.js.org/)                         | Interactive command line library
+[Moleculer](https://moleculer.services/)              | Progressive microservices framework
 
 
 ## Build and Development
@@ -38,6 +39,7 @@ Tool                                                  | Description
 ------------------------------------------------------|-----------------------------------------
 [Puppeteer](https://github.com/GoogleChrome/puppeteer)| Headless Chromium used to run functional tests in it
 [Mocha](https://mochajs.org/)                         | Unit Tests Framework
+[Jest](https://jestjs.io/)                            | Unit Tests Framework
 [SinonJS](http://sinonjs.org/)                        | Test spies, stubs and mocks for unit tests
 [JSHint](http://jshint.com/)                          | JavaScript code validation
 [ESLint](https://eslint.org/)                         | JavaScript code validation (better ES6 support)

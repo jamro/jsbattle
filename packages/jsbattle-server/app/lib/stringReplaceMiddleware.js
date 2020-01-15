@@ -7,22 +7,22 @@ const defaultOptions = {
 }
 
 module.exports = (replacements, options = defaultOptions ) => (req, res, next) => {
-    hijackResponse(res, (err, res) => {
-        const contentType = res.get('content-type');
-        if (options.contentTypeFilterRegexp.test(contentType)) {
-            if (err) {
-                res.unhijack();
-                return next(err);
-            }
-            res.removeHeader('Content-Length');
-            res
-                .pipe(stringReplaceStream(replacements))
-                .pipe(res);
-        } else {
-            return res.unhijack();
-        }
-    });
-    next();
+  hijackResponse(res, (err, res) => {
+    const contentType = res.get('content-type');
+    if (options.contentTypeFilterRegexp.test(contentType)) {
+      if (err) {
+        res.unhijack();
+        return next(err);
+      }
+      res.removeHeader('Content-Length');
+      res
+        .pipe(stringReplaceStream(replacements))
+        .pipe(res);
+    } else {
+      return res.unhijack();
+    }
+  });
+  next();
 };
 
 function stringReplaceStream(replacements) {

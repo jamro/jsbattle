@@ -27,8 +27,8 @@ yargs
   .option('d', {
     alias: 'data',
     demandOption: false,
-    default: path.resolve(__dirname + '/jsbattle-data'),
-    describe: 'path to folder where jsbattle stores its files'
+    default: undefined,
+    describe: 'path to folder where jsbattle stores its files. If not defined, in-memory db will be used'
   })
   .option('l', {
     alias: 'loglevel',

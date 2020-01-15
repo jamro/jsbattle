@@ -28,11 +28,15 @@ Start web server that is required to run JsBattle simulator:
 The command will output URL of the server:
 
 ```
-2019-03-10 12:57:41.816   INFO     -               Creating data folder for battle store at /Users/kjamroz/Documents/dev/jsbattle/...
-2019-03-10 12:57:41.879   INFO     -               webserver started at http://localhost:8080
+[2020-01-15 16:47:42.426] INFO  BROKER: Moleculer is starting...
+[2020-01-15 16:47:42.429] INFO  BROKER: Namespace: jsbattle
+[2020-01-15 16:47:42.430] INFO  BROKER: Serializer: JSONSerializer
+[2020-01-15 16:47:42.567] INFO  API: API Gateway created!
+[2020-01-15 16:47:42.580] INFO  APIGATEWAY: webserver started at http://localhost:8080
+[2020-01-15 16:47:43.561] INFO  BROKER: ServiceBroker is started successfully.
 ```
 
-Open your favorite web browser and navigate to URL from the previous step
+Open your favourite web browser and navigate to URL from the previous step
 
 ```
   http://localhost:8080

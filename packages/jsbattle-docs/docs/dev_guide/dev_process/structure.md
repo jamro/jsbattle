@@ -20,6 +20,8 @@ The repo's structure is:
 
 - **jsbattle** - the main package with the app. It integrates all other packages.
 - **jsbattle-server** - JsBattle server. It hosts static files and provide API for backend services
+- **jsbattle-admin** - frontend of application's admin panel.
 - **jsbattle-webpage** - frontend part of the application.
+- **jsbattle-react** - React component with JsBattle
 - **jsbattle-engine** - Battle engine that simulate fights between tanks
 - **jsbattle-docs** - documentation for the project

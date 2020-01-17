@@ -1,0 +1,39 @@
+{
+  "name": "jsbattle-admin",
+  "version": "2.7.1",
+  "description": "",
+  "main": "index.js",
+  "watch": {
+    "build": {
+      "patterns": [
+        "src/**/*.*"
+      ],
+      "verbose": true
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint src/",
+    "build": "webpack --mode production",
+    "test": "echo \"WARN: no test script specified\"",
+    "watch": "npm-watch",
+    "serve": "http-server -c-1 ./dist"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.8.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

@@ -70,6 +70,8 @@ packageName.sonar.projectBaseDir=packages/packageName
 
 ```
 
+7. Update the docs at `packages/jsbattle-docs/docs/dev_guide/dev_process/structure.md`
+
 ### Managing Monorepo
 
 All common operation can be done from root directory of the project by calling proper npm script (`npm run scriptName`). Check `package.json` for more details. Some examples are:

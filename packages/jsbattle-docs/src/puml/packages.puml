@@ -2,9 +2,11 @@
 
 [jsbattle] --> [jsbattle-webpage]
 [jsbattle] --> [jsbattle-server]
+[jsbattle] --> [jsbattle-admin]
 [jsbattle-docs] --> [jsbattle-engine]
+[jsbattle-react] --> [jsbattle-engine]
 [jsbattle-server] --> [jsbattle-engine]
-[jsbattle-webpage] --> [jsbattle-engine]
+[jsbattle-webpage] --> [jsbattle-react]
 [jsbattle-webpage] --> [jsbattle-docs]
 
 @enduml

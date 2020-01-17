@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./dist/jsbattle.js start ...",
     "clean": "rimraf dist",
-    "build": "npm run build:server && npm run build:webpage",
+    "build": "npm run build:server && npm run build:webpage && npm run build:admin",
+    "build:admin": "cpx './node_modules/jsbattle-admin/dist/**/*' ./dist/public/admin",
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
     "build:server": "cpx './src/**/*' ./dist",
     "test": "npm run test:prep && npm run test:run && npm run test:server-stop",
@@ -43,6 +44,7 @@
     "jsbattle-engine": "^2.7.0",
     "jsbattle-server": "^2.7.0",
     "jsbattle-webpage": "^2.7.1",
+    "jsbattle-admin": "^2.7.1",
     "path": "^0.12.7",
     "yargs": "^15.0.2"
   },

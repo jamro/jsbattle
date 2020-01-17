@@ -1,0 +1,6 @@
+{
+  "web": {
+    "port": 8070,
+    "webroot": "./dist/public"
+  }
+}

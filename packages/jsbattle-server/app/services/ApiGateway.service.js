@@ -9,8 +9,6 @@ class ApiGatewayService extends Service {
   constructor(broker) {
     super(broker);
 
-    const config = broker.serviceConfig;
-
     this.parseServiceSchema({
       name: "apiGateway",
       started() {
@@ -43,23 +41,27 @@ class ApiGatewayService extends Service {
         });
 
         let replacements = {};
-        if(config.gaCode) {
-          this.logger.info(`GA tracking enabled: ${config.gaCode}`);
-          replacements['GA:XX-XXXXXXXXX-X'] = config.gaCode;
+        if(broker.serviceConfig.web.gaCode) {
+          this.logger.info(`GA tracking enabled: ${broker.serviceConfig.web.gaCode}`);
+          replacements['GA:XX-XXXXXXXXX-X'] = broker.serviceConfig.web.gaCode;
         }
 
         this.app = express();
         this.app.use(stringReplace(replacements));
+        let webroot = path.resolve(broker.serviceConfig.web.webroot || './public_html');
+        this.logger.info(`Web root: ${webroot}`);
         this.app.use(express.static(
-          path.resolve(config.webroot || './public_html'),
+          webroot,
           { maxAge: 12*60*60*1000, etag: true }
         ));
         this.app.use("/api", svc.express());
+        let port = broker.serviceConfig.web.port || 8080;
+        let host = broker.serviceConfig.web.host || '127.0.0.1';
         this.app.listen(
-          config.port,
-          config.host,
+          port,
+          host,
           () => {
-            this.logger.info(`webserver started at http://${config.host}:${config.port}`)
+            this.logger.info(`webserver started at http://${host}:${port}`)
           }
         );
       }

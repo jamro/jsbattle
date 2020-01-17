@@ -6,40 +6,17 @@ const yargs = require('yargs');
 
 
 yargs
-  .option('w', {
-    alias: 'webroot',
-    demandOption: false,
-    default: path.resolve(__dirname + '/public'),
-    describe: 'path to jsbattle web folder'
-  })
-  .option('p', {
-    alias: 'port',
-    demandOption: false,
-    default: "8080",
-    describe: 'listening port of the web server'
-  })
-  .option('h', {
-    alias: 'host',
-    demandOption: false,
-    default: "localhost",
-    describe: 'host of the web server'
-  })
-  .option('d', {
-    alias: 'data',
-    demandOption: false,
-    default: undefined,
-    describe: 'path to folder where jsbattle stores its files. If not defined, in-memory db will be used'
-  })
   .option('l', {
     alias: 'loglevel',
     demandOption: false,
-    default: 'info',
+    default: undefined,
     describe: 'One of logger levels: fatal, error, warn, info, debug'
   })
-  .option('gaCode', {
+  .option('c', {
+    alias: 'config',
     demandOption: false,
-    default: '',
-    describe: 'Google Analytics tracking code'
+    default: undefined,
+    describe: 'path to configuration file'
   })
   .command(
     'start',
@@ -48,15 +25,27 @@ yargs
 
     },
     (argv) => {
+      let config = {
+        "loglevel": "info",
+        "data": {
+          "path": "./jsbattle-data"
+        },
+        "web": {
+          "webroot": "./public",
+          "host": "127.0.0.1",
+          "port": "8080",
+          "gaCode": ""
+        }
+      };
+      if(argv.config) {
+        config = require(path.resolve(argv.config));
+      }
+      config.web = config.web || {};
+      config.data = config.data || {};
+      config.loglevel = argv.loglevel || config.loglevel || "info"
+
       let gateway = new Gateway();
-      gateway.init({
-        data: argv.data,
-        webroot: argv.webroot,
-        host: argv.host,
-        port: argv.port,
-        loglevel: argv.loglevel,
-        gaCode: argv.gaCode
-      })
+      gateway.init(config)
       .then(() => gateway.start())
       .then(() => {
         if(process.send) { // for child process only}

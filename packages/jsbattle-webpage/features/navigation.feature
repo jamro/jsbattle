@@ -6,6 +6,7 @@ Feature: Navigation
     Then "Challenges" section is selected in the navigation bar
 
   @smoke
+  @integration
   Scenario Outline: Navigate from <page1> to <page2>
     Given JsBattle open in the browser
     When navigate to <page1> section

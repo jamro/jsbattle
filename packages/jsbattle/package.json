@@ -8,7 +8,13 @@
     "clean": "rimraf dist",
     "build": "npm run build:server && npm run build:webpage",
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
-    "build:server": "cpx './src/**/*' ./dist"
+    "build:server": "cpx './src/**/*' ./dist",
+    "test": "npm run test:prep && npm run test:run && npm run test:server-stop",
+    "test:copy": "cpx './node_modules/jsbattle-webpage/features/**/*' ./features",
+    "test:server-start": "pm2 start './dist/jsbattle.js' --wait-ready --name jsbattle-test-server -- start -p 8070",
+    "test:server-stop": "pm2 del jsbattle-test-server",
+    "test:run": "cucumber-js -t @integration -f ./features/support/SimpleFormatter.js",
+    "test:prep": "(npm run test:server-stop > /dev/null 2>&1 || true) && npm run test:server-start && npm run test:copy"
   },
   "repository": {
     "type": "git",
@@ -25,7 +31,10 @@
     ]
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "cpx": "^1.5.0",
+    "cucumber": "^6.0.5",
+    "puppeteer": "^2.0.0",
     "rimraf": "^3.0.0"
   },
   "dependencies": {

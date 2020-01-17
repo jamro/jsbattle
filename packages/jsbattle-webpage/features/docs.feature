@@ -1,6 +1,7 @@
 Feature: Documentation
   Provide documentation via webpage
 
+  @integration
   Scenario: All subpages of docs are working
     Given JsBattle open in the browser
     When visited all pages at "/docs"

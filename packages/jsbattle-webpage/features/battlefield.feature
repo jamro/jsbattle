@@ -41,6 +41,7 @@ Feature: Battlefield
     Then there are 10 "crawler" tanks selected
 
   @smoke
+  @integration
   Scenario: Create a custom tank
     Given JsBattle open in the browser
     And "Battlefield" section open

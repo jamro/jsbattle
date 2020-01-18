@@ -2,6 +2,7 @@
 
 const Gateway = require('jsbattle-server').Gateway;
 const path = require('path');
+const _ = require('lodash');
 const yargs = require('yargs');
 
 
@@ -25,24 +26,15 @@ yargs
 
     },
     (argv) => {
-      let config = {
-        "loglevel": "info",
-        "data": {
-          "path": "./jsbattle-data"
-        },
-        "web": {
-          "webroot": "./public",
-          "host": "127.0.0.1",
-          "port": "8080",
-          "gaCode": ""
-        }
-      };
+      let config = {};
       if(argv.config) {
         config = require(path.resolve(argv.config));
       }
-      config.web = config.web || {};
-      config.data = config.data || {};
-      config.loglevel = argv.loglevel || config.loglevel || "info"
+      config = _.defaultsDeep(config, {
+        web: {
+          webroot: path.resolve(__dirname, 'public')
+        }
+      });
 
       let gateway = new Gateway();
       gateway.init(config)

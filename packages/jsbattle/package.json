@@ -43,6 +43,7 @@
     "jsbattle-engine": "^2.7.0",
     "jsbattle-server": "^2.7.0",
     "jsbattle-webpage": "^2.7.1",
+    "lodash": "^4.17.15",
     "path": "^0.12.7",
     "yargs": "^15.0.2"
   },

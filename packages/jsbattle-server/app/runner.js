@@ -7,10 +7,10 @@ let gateway = new Gateway();
 gateway.init({
   "loglevel": "info",
   "data": {
-    "path": path.join(__dirname, 'public_html')
+    "path": path.join(__dirname, 'jsbattle-data')
   },
   "web": {
-    "webroot": "./public",
+    "webroot": path.join(__dirname, 'public'),
     "host": "127.0.0.1",
     "port": "9000",
     "gaCode": "AB-123456789-Z"

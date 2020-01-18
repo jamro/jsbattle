@@ -12,7 +12,7 @@
     "build:server": "cpx './src/**/*' ./dist",
     "test": "npm run test:prep && npm run test:run && npm run test:server-stop",
     "test:copy": "cpx './node_modules/jsbattle-webpage/features/**/*' ./features",
-    "test:server-start": "pm2 start './dist/jsbattle.js' --wait-ready --name jsbattle-test-server -- start -p 8070",
+    "test:server-start": "pm2 start './dist/jsbattle.js' --wait-ready --name jsbattle-test-server -- start -c ./test/jsbattle.config.json",
     "test:server-stop": "pm2 del jsbattle-test-server",
     "test:run": "cucumber-js -t @integration -f ./features/support/SimpleFormatter.js",
     "test:prep": "(npm run test:server-stop > /dev/null 2>&1 || true) && npm run test:server-start && npm run test:copy"
@@ -45,6 +45,7 @@
     "jsbattle-server": "^2.7.0",
     "jsbattle-webpage": "^2.7.1",
     "jsbattle-admin": "^2.7.1",
+    "lodash": "^4.17.15",
     "path": "^0.12.7",
     "yargs": "^15.0.2"
   },

@@ -11,8 +11,8 @@ class BattleStoreService extends Service {
     super(broker);
 
     let dbAdapter;
-    if(broker.serviceConfig.data) {
-      dbAdapter = new MemoryAdapter({filename: path.join(broker.serviceConfig.data, 'battleStore.db')});
+    if(broker.serviceConfig.data && broker.serviceConfig.data.path) {
+      dbAdapter = new MemoryAdapter({filename: path.join(broker.serviceConfig.data.path, 'battleStore.db')});
     } else {
       dbAdapter = new MemoryAdapter();
     }

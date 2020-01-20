@@ -61,9 +61,21 @@ describe("Test 'Battlestore' service", () => {
 				broker.call("battleStore.publish", {})
 			).rejects.toThrow(MoleculerClientError)
 		});
+
+		it('should list all battles', async () => {
+			for(let i=0; i < 10; i++) {
+				const writeResult = await broker.call("battleStore.publish", {ubd: new UbdJsonMock()});
+				expect(writeResult.error).toBeUndefined();
+			}
+			const readResult = await broker.call("battleStore.listAll", {});
+			expect(readResult.battleList).toBeDefined();
+			expect(readResult.battleList.rows).toBeDefined();
+			expect(readResult.battleList.rows.length).toBe(10);
+		});
+
 	});
 
-	describe("ubdValidator always fail", () => {
+	describe("ubdValidator always fails", () => {
 
 		let broker = new ServiceBroker({ logger: false });
 		broker.serviceConfig = {};

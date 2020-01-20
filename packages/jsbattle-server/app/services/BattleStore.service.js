@@ -34,9 +34,21 @@ class BattleStoreService extends Service {
       dependencies: ['ubdValidator'],
       actions: {
         getReplay: this.getReplay,
+        listAll: this.listAll,
         publish: this.publish
       }
     });
+  }
+
+  async listAll(ctx) {
+    this.logger.info(`Listing battle data`)
+    let response;
+    response = await ctx.call('battleStore.list', {page: ctx.params.page, pageSize: ctx.params.pageSize});
+    response.rows = response.rows.map((row) => row.battleId);
+
+    return {
+      battleList: response
+    }
   }
 
   async getReplay(ctx) {

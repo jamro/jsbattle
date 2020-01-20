@@ -8,6 +8,88 @@
 	},
 	"item": [
 		{
+			"name": "ADMIN / get all battle replays",
+			"request": {
+				"url": {
+					"raw": "{{base_url}}/api/admin/allBattleReplays?pageSize=10&page=1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"allBattleReplays"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "{{base_url}}/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"secret\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login (fail)",
+			"request": {
+				"url": "{{base_url}}/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"hacker\",\n\t\"password\": \"god\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Share Battle",
 			"request": {
 				"url": "{{base_url}}/api/battleReplay",
@@ -28,10 +110,30 @@
 			"response": []
 		},
 		{
+			"name": "Share Battle (invalid UBD)",
+			"request": {
+				"url": "{{base_url}}/api/battleReplay",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ubd\": \"{\\\"version\\\":-1,\\\"rngSeed\\\":0.8186448997231914,\\\"teamMode\\\":false,\\\"timeLimit\\\":0,\\\"aiList\\\":[{\\\"name\\\":\\\"jamro\\\",\\\"team\\\":\\\"2m9po29ef\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100},{\\\"name\\\":\\\"kamikaze\\\",\\\"team\\\":\\\"97y2ckbx\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100}]}\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Get Battle Replay",
 			"request": {
 				"url": {
-					"raw": "{{base_url}}/api/battleReplay?battleId=ABCDEFGH",
+					"raw": "{{base_url}}/api/battleReplay?battleId=FPhOX1ijxPFrZ5zR",
 					"host": [
 						"{{base_url}}"
 					],
@@ -42,7 +144,7 @@
 					"query": [
 						{
 							"key": "battleId",
-							"value": "ABCDEFGH",
+							"value": "FPhOX1ijxPFrZ5zR",
 							"equals": true,
 							"description": ""
 						}

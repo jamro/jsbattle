@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "hijackresponse": "^4.0.0",
     "jsbattle-engine": "^2.7.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moleculer": "^0.13.12",
     "moleculer-db": "^0.8.4",

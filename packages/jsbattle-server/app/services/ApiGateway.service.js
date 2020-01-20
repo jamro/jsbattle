@@ -3,6 +3,7 @@ const ApiService = require("moleculer-web");
 const express = require('express');
 const path = require('path');
 const stringReplace = require('../lib/stringReplaceMiddleware.js');
+const { UnAuthorizedError, ERR_NO_TOKEN, ERR_INVALID_TOKEN } = require("moleculer-web").Errors;
 
 class ApiGatewayService extends Service {
 
@@ -17,11 +18,24 @@ class ApiGatewayService extends Service {
           settings: {
             routes: [
               {
+                authorization: true,
+                path: '/admin',
+                mappingPolicy: 'restrict',
+                aliases: {
+                  "GET allBattleReplays": "battleStore.listAll",
+                },
+                bodyParsers: {
+                  json: true,
+                  urlencoded: { extended: true }
+                }
+              },
+              {
                 path: '/',
                 mappingPolicy: 'restrict',
                 aliases: {
                   "GET battleReplay": "battleStore.getReplay",
-                  "POST battleReplay": "battleStore.publish"
+                  "POST battleReplay": "battleStore.publish",
+                  "POST login": "auth.login"
                 },
                 bodyParsers: {
                   json: true,
@@ -33,6 +47,22 @@ class ApiGatewayService extends Service {
               res.setHeader("Content-Type", "text/plain");
               res.writeHead(err.code || 501);
               res.end("Error: " + err.message);
+            }
+          },
+          methods: {
+            async authorize(ctx, route, req) {
+              let auth = req.headers["authorization"];
+              if (auth && auth.startsWith("Bearer ")) {
+                let token = auth.slice(7);
+                try {
+                  let user = await ctx.call('auth.resolveToken', {token});
+                  ctx.meta.user = user; // eslint-disable-line require-atomic-updates
+                } catch (err) {
+                  return Promise.reject(new UnAuthorizedError(ERR_INVALID_TOKEN));
+                }
+              } else {
+                return Promise.reject(new UnAuthorizedError(ERR_NO_TOKEN));
+              }
             }
           },
           started() {

@@ -1,11 +1,15 @@
 const Service = require("moleculer").Service;
 const { ValidationError } = require("moleculer").Errors;
-const { MoleculerClientError } = require("moleculer").Errors;
 const jsonwebtoken = require("jsonwebtoken");
-const _ = require('lodash')
+const _ = require('lodash');
 const crypto = require('crypto');
 
 const JWT_SECRET = crypto.randomBytes(256).toString('base64');
+const JWT_FIELDS = [
+  'userId',
+  'username',
+  'role'
+];
 
 class AuthService extends Service {
 
@@ -15,28 +19,32 @@ class AuthService extends Service {
     this.parseServiceSchema({
       name: "auth",
       actions: {
-        login: this.login,
-        resolveToken: this.resolveToken
+        authorize: this.authorize,
+        resolveToken: this.resolveToken,
+        whoami: this.whoami
+      },
+      events: {
+        "user.login": async (userId) => {
+          await broker.call("userStore.update", {id: userId, lastLoginAt: new Date()});
+        }
       }
     });
   }
 
-  login(ctx) {
-    if(!ctx.params.username) {
-      throw new ValidationError('username parameter is required', 400);
+  whoami(ctx) {
+    let userId = ctx.meta.user.userId;
+    let user = ctx.call('userStore.get', {id: userId});
+    return user;
+  }
+
+  authorize(ctx) {
+    if(!ctx.params.user) {
+      throw new ValidationError('user parameter is required', 400);
     }
-    if(!ctx.params.password) {
-      throw new ValidationError('password parameter is required', 400);
-    }
-    if(ctx.params.username !== 'admin' || ctx.params.password !== 'secret' ) {
-      throw new MoleculerClientError('Forbidden', 403);
-    }
+    let user = _.pick(ctx.params.user, JWT_FIELDS)
     return {
       token: jsonwebtoken.sign(
-        {
-          username: ctx.params.username,
-          role: 'admin'
-        },
+        user,
         JWT_SECRET,
         {
           expiresIn: '1d'
@@ -46,11 +54,11 @@ class AuthService extends Service {
   }
 
   resolveToken(ctx) {
+    if(!ctx.params.token) {
+      throw new ValidationError('token parameter is required', 400);
+    }
     let user = jsonwebtoken.verify(ctx.params.token, JWT_SECRET);
-    return _.pick(user, [
-      'username',
-      'role'
-    ]);
+    return _.pick(user, JWT_FIELDS);
   }
 
 }

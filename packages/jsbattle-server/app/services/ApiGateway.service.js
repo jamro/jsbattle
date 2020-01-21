@@ -1,9 +1,11 @@
 const Service = require("moleculer").Service;
 const ApiService = require("moleculer-web");
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const stringReplace = require('../lib/stringReplaceMiddleware.js');
-const { UnAuthorizedError, ERR_NO_TOKEN, ERR_INVALID_TOKEN } = require("moleculer-web").Errors;
+const authorize = require('./apiGateway/authorize.js');
+const configPassport = require('./apiGateway/configPassport.js');
 
 class ApiGatewayService extends Service {
 
@@ -18,11 +20,13 @@ class ApiGatewayService extends Service {
           settings: {
             routes: [
               {
-                authorization: true,
+                authorization: broker.serviceConfig.auth.enabled,
                 path: '/admin',
                 mappingPolicy: 'restrict',
+                use: [cookieParser()],
                 aliases: {
                   "GET allBattleReplays": "battleStore.listAll",
+                  "GET whoami": "auth.whoami"
                 },
                 bodyParsers: {
                   json: true,
@@ -32,10 +36,10 @@ class ApiGatewayService extends Service {
               {
                 path: '/',
                 mappingPolicy: 'restrict',
+                use: [cookieParser()],
                 aliases: {
                   "GET battleReplay": "battleStore.getReplay",
-                  "POST battleReplay": "battleStore.publish",
-                  "POST login": "auth.login"
+                  "POST battleReplay": "battleStore.publish"
                 },
                 bodyParsers: {
                   json: true,
@@ -50,20 +54,7 @@ class ApiGatewayService extends Service {
             }
           },
           methods: {
-            async authorize(ctx, route, req) {
-              let auth = req.headers["authorization"];
-              if (auth && auth.startsWith("Bearer ")) {
-                let token = auth.slice(7);
-                try {
-                  let user = await ctx.call('auth.resolveToken', {token});
-                  ctx.meta.user = user; // eslint-disable-line require-atomic-updates
-                } catch (err) {
-                  return Promise.reject(new UnAuthorizedError(ERR_INVALID_TOKEN));
-                }
-              } else {
-                return Promise.reject(new UnAuthorizedError(ERR_NO_TOKEN));
-              }
-            }
+            authorize: authorize(['admin'])
           },
           started() {
             // do not start listening since its an express middleware
@@ -85,6 +76,15 @@ class ApiGatewayService extends Service {
           { maxAge: 12*60*60*1000, etag: true }
         ));
         this.app.use("/api", svc.express());
+
+        this.app.use(cookieParser());
+
+        if(broker.serviceConfig.auth.enabled == false) {
+          this.logger.warn('Auth is disabled. Everyone can access admin panel. The configuration is not recommended for production purposes');
+        } else {
+          configPassport(this.app, this.logger, broker);
+        }
+
         let port = broker.serviceConfig.web.port || 8080;
         let host = broker.serviceConfig.web.host || '127.0.0.1';
         this.app.listen(
@@ -96,12 +96,6 @@ class ApiGatewayService extends Service {
         );
       }
     });
-  }
-
-  started() {
-    this.app = express();
-    this.app.use("/api", this.express());
-    this.app.listen(3000);
   }
 
 }

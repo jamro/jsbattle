@@ -36,6 +36,11 @@ yargs
         }
       });
 
+      // overrride config by CLI arguments
+      if(argv.loglevel) {
+        config.loglevel = argv.loglevel
+      }
+
       let gateway = new Gateway();
       gateway.init(config)
       .then(() => gateway.start())

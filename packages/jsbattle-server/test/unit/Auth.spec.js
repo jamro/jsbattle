@@ -12,28 +12,28 @@ describe("Test 'Auth' service", () => {
 	beforeAll(() => broker.start());
 	afterAll(() => broker.stop());
 
-  it('should login', async () => {
-		let response = await broker.call("auth.login", {username: "admin", password: "secret"});
+  it('should create JWT token', async () => {
+		let response = await broker.call("auth.authorize", {user: {username: "amy", role: "user"}});
+		expect(response).toBeDefined();
+		expect(response.token).toBeDefined();
 		let token = response.token;
-		expect(token).toBeDefined();
+
 		response = await broker.call("auth.resolveToken", {token});
 		expect(response).toBeDefined();
-		expect(response.username).toBe('admin');
-
+		expect(response.username).toBe('amy');
+		expect(response.role).toBe('user');
   });
 
-	it('should throw an error when incorrect credentials', async () => {
+	it('should throw an error when user is missing for authorize call', async () => {
 		expect(
-			broker.call("auth.login", {username: "hacker", password: "2345djkfaasdfcljiwencioasnca"})
+			broker.call("auth.authorize", {})
 		).rejects.toThrow(ValidationError)
 	});
 
-	it('should throw an error when missing login parameters', async () => {
+
+	it('should throw an error when token is missing for resolveToken call', async () => {
 		expect(
-			broker.call("auth.login", {username: "admin"})
-		).rejects.toThrow(ValidationError)
-		expect(
-			broker.call("auth.login", {password: "secret"})
+			broker.call("auth.resolveToken", {})
 		).rejects.toThrow(ValidationError)
 	});
 

@@ -53,13 +53,13 @@ describe("Test 'Battlestore' service", () => {
 		it('should throw an error when battleId is missing for getReplay call', async () => {
 			expect(
 				broker.call("battleStore.getReplay", {})
-			).rejects.toThrow(MoleculerClientError)
+			).rejects.toThrow(ValidationError)
 		});
 
 		it('should throw an error when ubd is missing for publish call', async () => {
 			expect(
 				broker.call("battleStore.publish", {})
-			).rejects.toThrow(MoleculerClientError)
+			).rejects.toThrow(ValidationError)
 		});
 
 		it('should list all battles', async () => {

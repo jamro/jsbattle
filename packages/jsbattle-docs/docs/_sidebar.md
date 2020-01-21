@@ -2,6 +2,7 @@
 
 - [**Home**](./README.md)
 - [**Installation**](./installation.md)
+- [**Configuration**](./configuration.md)
 - [**Getting Started**](./getting_started.md)
 - [**Manual**](./manual/README.md)
     - [Battle Anatomy](./manual/battle_anatomy.md)

@@ -22,55 +22,43 @@ describe("Test 'Battlestore' service", () => {
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());
 
-		it('should store battle as JSON data', async () => {
-			const ubd = new UbdJsonMock();
-			const writeResult = await broker.call("battleStore.publish", {ubd: ubd});
-			expect(writeResult.error).toBeUndefined();
-			const readResult = await broker.call("battleStore.getReplay", {battleId: writeResult.battleId});
-
-			expect(readResult.error).toBeUndefined();
-			expect(readResult.battleId).toBe(writeResult.battleId);
-			expect(JSON.stringify(readResult.ubd)).toBe(JSON.stringify(ubd));
-		});
-
 		it('should store battle as text data', async () => {
 			const ubd = new UbdJsonMock();
-			const writeResult = await broker.call("battleStore.publish", {ubd: JSON.stringify(ubd)});
+			const writeResult = await broker.call("battleStore.create", {ubd: JSON.stringify(ubd)});
 			expect(writeResult.error).toBeUndefined();
-			const readResult = await broker.call("battleStore.getReplay", {battleId: writeResult.battleId});
+			const readResult = await broker.call("battleStore.get", {id: writeResult.battleId});
 
 			expect(readResult.error).toBeUndefined();
 			expect(readResult.battleId).toBe(writeResult.battleId);
-			expect(JSON.stringify(readResult.ubd)).toBe(JSON.stringify(ubd));
+			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
 		it('should throw an error when a battle does not exists', async () => {
 			expect(
-				broker.call("battleStore.getReplay", {battleId: '00000-02345987134598'})
+				broker.call("battleStore.get", {id: '00000-02345987134598'})
 			).rejects.toThrow(MoleculerClientError)
 		});
 
-		it('should throw an error when battleId is missing for getReplay call', async () => {
+		it('should throw an error when battleId is missing for get call', async () => {
 			expect(
-				broker.call("battleStore.getReplay", {})
+				broker.call("battleStore.get", {})
 			).rejects.toThrow(ValidationError)
 		});
 
-		it('should throw an error when ubd is missing for publish call', async () => {
+		it('should throw an error when ubd is missing for create call', async () => {
 			expect(
-				broker.call("battleStore.publish", {})
+				broker.call("battleStore.create", {})
 			).rejects.toThrow(ValidationError)
 		});
 
 		it('should list all battles', async () => {
 			for(let i=0; i < 10; i++) {
-				const writeResult = await broker.call("battleStore.publish", {ubd: new UbdJsonMock()});
+				const writeResult = await broker.call("battleStore.create", {ubd: JSON.stringify(new UbdJsonMock())});
 				expect(writeResult.error).toBeUndefined();
 			}
-			const readResult = await broker.call("battleStore.listAll", {});
-			expect(readResult.battleList).toBeDefined();
-			expect(readResult.battleList.rows).toBeDefined();
-			expect(readResult.battleList.rows.length).toBe(10);
+			const readResult = await broker.call("battleStore.list", {});
+			expect(readResult.rows).toBeDefined();
+			expect(readResult.rows.length).toBe(10);
 		});
 
 	});
@@ -94,7 +82,7 @@ describe("Test 'Battlestore' service", () => {
 			const ubd = new UbdJsonMock();
 			ubd.version = -1;
 			expect(
-				broker.call("battleStore.publish", {ubd: JSON.stringify(ubd)})
+				broker.call("battleStore.create", {ubd: JSON.stringify(ubd)})
 			).rejects.toThrow(MoleculerClientError)
 		});
 	});

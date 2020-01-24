@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "bb4b8e03-00c1-4c66-aa09-ad9850382fec",
+		"name": "jsbattle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ADMIN: profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/profile",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: battles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/battles",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"battles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: battles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ubd\": \"{\\\"version\\\":3,\\\"rngSeed\\\":0.8186448997231914,\\\"teamMode\\\":false,\\\"timeLimit\\\":0,\\\"aiList\\\":[{\\\"name\\\":\\\"jamro\\\",\\\"team\\\":\\\"2m9po29ef\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100},{\\\"name\\\":\\\"kamikaze\\\",\\\"team\\\":\\\"97y2ckbx\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100}]}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/battles",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"battles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: battles",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/battles/32vOeDtJEocdhb1x",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"battles",
+						"32vOeDtJEocdhb1x"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: battles",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/battles/NsoHaGA4kMParuW9",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"battles",
+						"NsoHaGA4kMParuW9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\": \"adam\",\n\"displayName\": \"Adam Cage\",\n\"provider\": \"github\",\n\"extUserId\": \"github_433453\",\n\"email\": \"adam@gmail.com\",\n\"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/users/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: users",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"username\": \"adam3333\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/users/4P7qrBjkiHvBEWXU",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"users",
+						"4P7qrBjkiHvBEWXU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN: users",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/users/R7OEIYSiO7gGa3BS",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"users",
+						"R7OEIYSiO7gGa3BS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APP: Share Battle",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ubd\": \"{\\\"version\\\":3,\\\"rngSeed\\\":0.8186448997231914,\\\"teamMode\\\":false,\\\"timeLimit\\\":0,\\\"aiList\\\":[{\\\"name\\\":\\\"jamro\\\",\\\"team\\\":\\\"2m9po29ef\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100},{\\\"name\\\":\\\"kamikaze\\\",\\\"team\\\":\\\"97y2ckbx\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100}]}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/battleReplay",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"battleReplay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APP: Share Battle (invalid UBD)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ubd\": \"{\\\"version\\\":-1,\\\"rngSeed\\\":0.8186448997231914,\\\"teamMode\\\":false,\\\"timeLimit\\\":0,\\\"aiList\\\":[{\\\"name\\\":\\\"jamro\\\",\\\"team\\\":\\\"2m9po29ef\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100},{\\\"name\\\":\\\"kamikaze\\\",\\\"team\\\":\\\"97y2ckbx\\\",\\\"code\\\":null,\\\"initData\\\":null,\\\"useSandbox\\\":true,\\\"executionLimit\\\":100}]}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/battleReplay",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"battleReplay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APP: Get Battle Replay",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/battleReplay/lnAbBmefg673os2m",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"battleReplay",
+						"lnAbBmefg673os2m"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

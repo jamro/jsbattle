@@ -2,8 +2,8 @@ const Service = require("moleculer").Service;
 const DbService = require("moleculer-db");
 const path = require("path");
 const { ValidationError } = require("moleculer").Errors;
-const { MoleculerClientError } = require("moleculer").Errors;
 const MemoryAdapter = DbService.MemoryAdapter
+const _ = require('lodash');
 
 class BattleStoreService extends Service {
 
@@ -25,76 +25,63 @@ class BattleStoreService extends Service {
         idField: 'battleId',
         fields: [
           "battleId",
+          "createdAt",
           "ubd"
-        ],
-        entityValidator: {
-          ubd: "string"
-        }
+        ]
+      },
+      entityValidator: {
+        ubd: "string",
+        createdAt: "date"
       },
       dependencies: ['ubdValidator'],
       actions: {
-        getReplay: this.getReplay,
-        listAll: this.listAll,
-        publish: this.publish
+        create: {
+          params: {
+            ubd: { type: "string", min: 2 }
+          },
+          handler: this.create
+        }
+      },
+      hooks: {
+        before: {
+          publish: [
+            function addDefaults(ctx) {
+              ctx.params.createdAt = new Date();
+              ctx.params = _.omit(ctx.params, ['battleId']);
+              return ctx;
+            }
+          ],
+          create: [
+            function addDefaults(ctx) {
+              ctx.params.createdAt = new Date();
+              ctx.params = _.omit(ctx.params, ['battleId']);
+              return ctx;
+            }
+          ],
+          update: [
+            function omitReadOnly(ctx) {
+              ctx.params = _.omit(ctx.params, [
+                'ubd',
+                'createdAt',
+                'battleId'
+              ]);
+              return ctx;
+            }
+          ]
+        }
       }
     });
   }
 
-  async listAll(ctx) {
-    this.logger.info(`Listing battle data`)
-    let response;
-    response = await ctx.call('battleStore.list', {page: ctx.params.page, pageSize: ctx.params.pageSize});
-    response.rows = response.rows.map((row) => row.battleId);
-
-    return {
-      battleList: response
-    }
-  }
-
-  async getReplay(ctx) {
-    let battleId = ctx.params.battleId;
-    if(!battleId) {
-      throw new ValidationError('battleId parameter is required', 400);
-    }
-    this.logger.info(`Reading battle data for ${battleId}`)
-    let response;
-    try {
-      response = await ctx.call('battleStore.get', {id: battleId});
-    } catch (err) {
-      if (err.__proto__.constructor.name === 'EntityNotFoundError') {
-        throw new MoleculerClientError(`Battle not found`, 404);
-      } else {
-        throw err;
-      }
-    }
-
-    let ubd = response.ubd;
-    if(typeof ubd !== 'object') {
-      ubd = JSON.parse(ubd);
-    }
-
-    return {
-      battleId: response.battleId,
-      ubd: ubd
-    }
-  }
-
-  async publish(ctx) {
+  async create(ctx) {
     let ubd = ctx.params.ubd;
-    if(!ubd) {
-      throw new ValidationError('ubd parameter is required', 400);
-    }
-
-    if(typeof ubd == 'object') {
-      ubd = JSON.stringify(ubd);
-    }
 
     let validation = await ctx.call('ubdValidator.validate', {ubd});
     if(!validation.valid) {
       throw new ValidationError('ubd parameter is invalid. ' + validation.error, 400);
     }
-    this.logger.info(`Publishing UBD`)
-    let response = await ctx.call('battleStore.create', {ubd: ubd});
+    this.logger.info(`Publishing UBD`);
+    let response = await this._create(ctx, ctx.params);
 
     return response
   }

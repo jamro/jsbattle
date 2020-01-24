@@ -1,0 +1,19 @@
+{
+  "users": [
+
+  ],
+  "battles": [
+
+  ],
+  "profile": {
+    "userId": "8si8Su024sj2cZwo0",
+    "extUserId": "facebook_10477332",
+    "username": "fredric.mcdonald",
+    "provider": "facebook",
+    "email": "fredric.mcdonald@gmail.com",
+    "role": "admin",
+    "displayName": "Fredric McDonald",
+    "createdAt": "2020-01-01T00:00:00.000Z",
+    "lastLoginAt": "2020-01-01T00:00:00.000Z"
+  }
+}

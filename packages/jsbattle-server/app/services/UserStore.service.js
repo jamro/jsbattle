@@ -3,6 +3,7 @@ const DbService = require("moleculer-db");
 const path = require("path");
 const { ValidationError } = require("moleculer").Errors;
 const MemoryAdapter = DbService.MemoryAdapter;
+const _ = require('lodash');
 
 class UserStoreService extends Service {
 
@@ -46,6 +47,29 @@ class UserStoreService extends Service {
       },
       actions: {
         findOrCreate: this.findOrCreate
+      },
+      hooks: {
+        before: {
+          create: [
+            function addDefaults(ctx) {
+              ctx.params.createdAt = new Date();
+              ctx.params.lastLoginAt = new Date();
+              ctx.params.displayName = ctx.params.displayName || ctx.params.string;
+              ctx.params.role = ctx.params.role || 'user';
+              ctx.params = _.omit(ctx.params, ['userId']);
+              return ctx;
+            }
+          ],
+          update: [
+            function omitReadOnly(ctx) {
+              ctx.params = _.omit(ctx.params, [
+                'createdAt',
+                'userId'
+              ]);
+              return ctx;
+            }
+          ]
+        }
       }
     });
   }

@@ -25,8 +25,11 @@ class ApiGatewayService extends Service {
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
                 aliases: {
-                  "GET allBattleReplays": "battleStore.listAll",
-                  "GET whoami": "auth.whoami"
+                  "PATCH users/:id": "userStore.update",
+                  "REST users": "userStore",
+                  "PATCH battles/:id": "battleStore.update",
+                  "REST battles": "battleStore",
+                  "GET profile": "auth.whoami"
                 },
                 bodyParsers: {
                   json: true,
@@ -38,8 +41,8 @@ class ApiGatewayService extends Service {
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
                 aliases: {
-                  "GET battleReplay": "battleStore.getReplay",
-                  "POST battleReplay": "battleStore.publish"
+                  "GET battleReplay/:id": "battleStore.get",
+                  "POST battleReplay": "battleStore.create"
                 },
                 bodyParsers: {
                   json: true,

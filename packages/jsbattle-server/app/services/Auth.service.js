@@ -32,6 +32,19 @@ class AuthService extends Service {
   }
 
   whoami(ctx) {
+    if(!ctx.meta.user) {
+      return {
+        "userId": "0",
+        "username": "anonymous",
+        "displayName": "Anonymous",
+        "provider": "",
+        "extUserId": "",
+        "email": "",
+        "role": "user",
+        "createdAt": "2020-01-01T00:00:00.000Z",
+        "lastLoginAt": "2020-01-01T00:00:00.000Z"
+      };
+    }
     let userId = ctx.meta.user.userId;
     let user = ctx.call('userStore.get', {id: userId});
     return user;

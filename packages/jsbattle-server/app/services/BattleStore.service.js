@@ -22,9 +22,9 @@ class BattleStoreService extends Service {
       mixins: [DbService],
       adapter: dbAdapter,
       settings: {
-        idField: 'battleId',
+        idField: 'id',
         fields: [
-          "battleId",
+          "id",
           "createdAt",
           "ubd"
         ]
@@ -47,14 +47,14 @@ class BattleStoreService extends Service {
           publish: [
             function addDefaults(ctx) {
               ctx.params.createdAt = new Date();
-              ctx.params = _.omit(ctx.params, ['battleId']);
+              ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
           ],
           create: [
             function addDefaults(ctx) {
               ctx.params.createdAt = new Date();
-              ctx.params = _.omit(ctx.params, ['battleId']);
+              ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
           ],
@@ -63,7 +63,7 @@ class BattleStoreService extends Service {
               ctx.params = _.omit(ctx.params, [
                 'ubd',
                 'createdAt',
-                'battleId'
+                'id'
               ]);
               return ctx;
             }

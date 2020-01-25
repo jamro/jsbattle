@@ -1,12 +1,20 @@
 {
   "users": [
-
+    {
+      "username": "adam",
+      "displayName": "Adam Cage",
+      "provider": "github",
+      "extUserId": "github_433453",
+      "email": "adam@gmail.com",
+      "role": "user",
+      "id": "mWHI3l5oetN1NXIP",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "lastLoginAt": "2020-01-24T23:17:43.004Z"
+    }
   ],
-  "battles": [
-
-  ],
+  "battles": [],
   "profile": {
-    "userId": "8si8Su024sj2cZwo0",
+    "id": "8si8Su024sj2cZwo0",
     "extUserId": "facebook_10477332",
     "username": "fredric.mcdonald",
     "provider": "facebook",

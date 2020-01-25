@@ -9,7 +9,7 @@ const middlewares = jsonServer.defaults({static: path.resolve(__dirname , '..', 
 const _ = require('lodash');
 
 router.render = (req, res) => {
-  if(Array.isArray(res.locals.data) && Object.keys(req.query).filter((k) => (/id$/i).test(k)).length) {
+  if(Array.isArray(res.locals.data) && Object.keys(req.query).filter((k) => (/^id$/i).test(k)).length) {
     return res.jsonp(res.locals.data[0]);
   }
   if(!Array.isArray(res.locals.data)) {

@@ -17,11 +17,11 @@ export default (stateHolder, controller) => {
       /* jshint ignore:end */
     });
 
-    console.log(`CALL GET ` + stateHolder.state.api + "/battleReplay?battleId=" + battleID);
-    $.get(stateHolder.state.api + "/battleReplay?battleId=" + battleID)
+    console.log(`CALL GET ` + stateHolder.state.api + "/battleReplay/" + battleID);
+    $.get(stateHolder.state.api + "/battleReplay/" + battleID)
       .done((data) => {
         console.log('UBD data received');
-        let ubd = JSON.stringify(data.ubd);
+        let ubd = data.ubd;
 
         let descriptor = JsBattle.createUBD();
         try{

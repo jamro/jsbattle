@@ -1,4 +1,5 @@
 const jsonServer = require('json-server');
+const path = require('path');
 
 var port = 8070;
 
@@ -10,17 +11,14 @@ var middlewares = jsonServer.defaults({
   logger: false
 });
 
-middlewares.push((req, res, next) => {
-  if(req.url.substring(0, 5) == '/api/') {
-    return res.redirect(req.url.substring(4));
-  }
-  next();
-});
 server.mock.use(middlewares);
-server.mock.use(router)
+server.mock.use(jsonServer.rewriter(require(path.resolve(__dirname , "router.json"))));
+server.mock.use(router);
 server.http = server.mock.listen(port, () => {
   console.log("Mock server started at 127.0.0.1:" + port);
-  process.send('ready');
+  if(process.send) {
+    process.send('ready');
+  }
 });
 
 process.on('SIGINT', function() {

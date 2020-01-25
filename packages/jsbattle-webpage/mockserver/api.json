@@ -1,42 +1,10 @@
 {
-  "ping": {
-    "ping": "pong"
-  },
-  "battleReplay":
-  {
-    "battleId":"12345678-1234-1234-1234-123456789012",
-    "ubd":{
-      "version":3,
-      "rngSeed":0.9590806159338761,
-      "teamMode":false,
-      "timeLimit":30000,
-      "aiList":[
-         {
-            "name":"dodge",
-            "team":"2no47dugr",
-            "code":null,
-            "initData":null,
-            "useSandbox":true,
-            "executionLimit":100
-         },
-         {
-            "name":"sniper",
-            "team":"2no4dw5r6",
-            "code":null,
-            "initData":null,
-            "useSandbox":true,
-            "executionLimit":100
-         },
-         {
-            "name":"jamro",
-            "team":"2no4gci2t",
-            "code":null,
-            "initData":null,
-            "useSandbox":true,
-            "executionLimit":100
-         }
-      ]
+
+  "battleReplay":[
+    {
+      "id":"12345678-1234-1234-1234-123456789012",
+      "ubd":"{\"version\":3,\"rngSeed\":0.9590806159338761,\"teamMode\":false,\"timeLimit\":30000,\"aiList\":[{\"name\":\"dodge\",\"team\":\"2no47dugr\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"sniper\",\"team\":\"2no4dw5r6\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"jamro\",\"team\":\"2no4gci2t\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}"
     }
-  }
+  ]
 
 }

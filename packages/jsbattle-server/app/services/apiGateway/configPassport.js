@@ -45,7 +45,7 @@ function configPassport(app, logger, broker) {
       async (req, res) => {
         let user = await broker.call('userStore.findOrCreate', {user: req.user});
         let response = await broker.call('auth.authorize', { user });
-        broker.emit("user.login", user.userId);
+        broker.emit("user.login", user.id);
         res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
         res.redirect('/');
       }

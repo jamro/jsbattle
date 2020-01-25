@@ -5,7 +5,6 @@ module.exports =  () => {
   let userNumber = Math.round(1000000*Math.random());
   const user = {
     id: id,
-    userId: id,
     username: "anonymous_" + userNumber,
     displayName: "Anonymous " + userNumber,
     provider: "",

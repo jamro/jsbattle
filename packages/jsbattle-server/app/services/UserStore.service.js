@@ -22,9 +22,9 @@ class UserStoreService extends Service {
       mixins: [DbService],
       adapter: dbAdapter,
       settings: {
-        idField: 'userId',
+        idField: 'id',
         fields: [
-          "userId",
+          "id",
           "username",
           "displayName",
           "provider",
@@ -56,7 +56,7 @@ class UserStoreService extends Service {
               ctx.params.lastLoginAt = new Date();
               ctx.params.displayName = ctx.params.displayName || ctx.params.string;
               ctx.params.role = ctx.params.role || 'user';
-              ctx.params = _.omit(ctx.params, ['userId']);
+              ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
           ],
@@ -64,7 +64,7 @@ class UserStoreService extends Service {
             function omitReadOnly(ctx) {
               ctx.params = _.omit(ctx.params, [
                 'createdAt',
-                'userId'
+                'id'
               ]);
               return ctx;
             }

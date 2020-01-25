@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const JWT_SECRET = crypto.randomBytes(256).toString('base64');
 const JWT_FIELDS = [
-  'userId',
+  'id',
   'username',
   'role'
 ];
@@ -34,7 +34,7 @@ class AuthService extends Service {
   whoami(ctx) {
     if(!ctx.meta.user) {
       return {
-        "userId": "0",
+        "id": "0",
         "username": "anonymous",
         "displayName": "Anonymous",
         "provider": "",
@@ -45,7 +45,7 @@ class AuthService extends Service {
         "lastLoginAt": "2020-01-01T00:00:00.000Z"
       };
     }
-    let userId = ctx.meta.user.userId;
+    let userId = ctx.meta.user.id;
     let user = ctx.call('userStore.get', {id: userId});
     return user;
   }

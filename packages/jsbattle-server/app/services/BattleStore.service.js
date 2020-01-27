@@ -62,8 +62,7 @@ class BattleStoreService extends Service {
             function omitReadOnly(ctx) {
               ctx.params = _.omit(ctx.params, [
                 'ubd',
-                'createdAt',
-                'id'
+                'createdAt'
               ]);
               return ctx;
             }

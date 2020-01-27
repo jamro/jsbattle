@@ -20,7 +20,7 @@ class ApiGatewayService extends Service {
           settings: {
             routes: [
               {
-                authorization: broker.serviceConfig.auth.enabled,
+                authorization: true,
                 path: '/admin',
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
@@ -28,8 +28,7 @@ class ApiGatewayService extends Service {
                   "PATCH users/:id": "userStore.update",
                   "REST users": "userStore",
                   "PATCH battles/:id": "battleStore.update",
-                  "REST battles": "battleStore",
-                  "GET profile": "auth.whoami"
+                  "REST battles": "battleStore"
                 },
                 bodyParsers: {
                   json: true,
@@ -38,11 +37,14 @@ class ApiGatewayService extends Service {
               },
               {
                 path: '/',
+                authorization: true,
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
                 aliases: {
                   "GET battleReplay/:id": "battleStore.get",
-                  "POST battleReplay": "battleStore.create"
+                  "POST battleReplay": "battleStore.create",
+                  "GET profile": "auth.whoami",
+                  "GET authMethods": "auth.getAuthMethods",
                 },
                 bodyParsers: {
                   json: true,
@@ -57,7 +59,7 @@ class ApiGatewayService extends Service {
             }
           },
           methods: {
-            authorize: authorize(['admin'])
+            authorize: authorize(broker.serviceConfig.auth.enabled)
           },
           started() {
             // do not start listening since its an express middleware

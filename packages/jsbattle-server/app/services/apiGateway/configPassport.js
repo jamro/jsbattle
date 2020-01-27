@@ -3,7 +3,7 @@ const passport = require('passport');
 const authStrategies = [];
 authStrategies['github'] = require("passport-github2");
 authStrategies['facebook'] = require("passport-facebook");
-authStrategies['google'] = require("passport-google-oauth");
+authStrategies['google'] = require("passport-google-oauth").OAuth2Strategy;
 authStrategies['twitter'] = require("passport-twitter");
 authStrategies['linkedin'] = require("passport-linkedin-oauth2");
 authStrategies['slack'] = require("passport-slack");
@@ -38,28 +38,27 @@ function configPassport(app, logger, broker) {
         });
       }
     ));
+    app.get(
+      `/auth/logout`,
+      (req, res) => {
+        res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
+        res.redirect('/admin');
+      }
+    );
     app.get(`/auth/${provider.name}`, passport.authenticate(provider.name, { scope: 'email' }));
     app.get(
       `/auth/${provider.name}/callback`,
-      passport.authenticate(provider.name, { failureRedirect: '/' }),
+      passport.authenticate(provider.name, { failureRedirect: '/admin' }),
       async (req, res) => {
         let user = await broker.call('userStore.findOrCreate', {user: req.user});
         let response = await broker.call('auth.authorize', { user });
         broker.emit("user.login", user.id);
         res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
-        res.redirect('/');
+        res.redirect('/admin');
       }
     );
     logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/${provider.name}`);
   });
-
-  app.get(
-    `/auth/logout`,
-    (req, res) => {
-      res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
-      res.redirect('/');
-    }
-  );
 
   passport.serializeUser((user, done) => {
     done(null, user);

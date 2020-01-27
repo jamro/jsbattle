@@ -54,7 +54,8 @@ class UserStoreService extends Service {
             function addDefaults(ctx) {
               ctx.params.createdAt = new Date();
               ctx.params.lastLoginAt = new Date();
-              ctx.params.displayName = ctx.params.displayName || ctx.params.string;
+              ctx.params.username = ctx.params.username || ctx.params.email.replace(/@.*$/, '').toLowerCase() || ctx.params.displayName.replace(' ', '').toLowerCase()
+              ctx.params.displayName = ctx.params.displayName || ctx.params.username;
               ctx.params.role = ctx.params.role || 'user';
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
@@ -62,10 +63,7 @@ class UserStoreService extends Service {
           ],
           update: [
             function omitReadOnly(ctx) {
-              ctx.params = _.omit(ctx.params, [
-                'createdAt',
-                'id'
-              ]);
+              ctx.params = _.omit(ctx.params, ['createdAt']);
               return ctx;
             }
           ]
@@ -82,8 +80,8 @@ class UserStoreService extends Service {
     if(!user.extUserId) {
       throw new ValidationError('user.extUserId parameter is required', 400);
     }
-    if(!user.username) {
-      throw new ValidationError('user.username parameter is required', 400);
+    if(!user.username && !user.email && !user.displayName) {
+      throw new ValidationError('user.usernamem, user.email or user.displayName parameter is required', 400);
     }
     if(!user.provider) {
       throw new ValidationError('user.provider parameter is required', 400);

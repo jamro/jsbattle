@@ -26,10 +26,10 @@ describe("Test 'Battlestore' service", () => {
 			const ubd = new UbdJsonMock();
 			const writeResult = await broker.call("battleStore.create", {ubd: JSON.stringify(ubd)});
 			expect(writeResult.error).toBeUndefined();
-			const readResult = await broker.call("battleStore.get", {id: writeResult.battleId});
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
 
 			expect(readResult.error).toBeUndefined();
-			expect(readResult.battleId).toBe(writeResult.battleId);
+			expect(readResult.id).toBe(writeResult.id);
 			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
@@ -39,7 +39,7 @@ describe("Test 'Battlestore' service", () => {
 			).rejects.toThrow(MoleculerClientError)
 		});
 
-		it('should throw an error when battleId is missing for get call', async () => {
+		it('should throw an error when id is missing for get call', async () => {
 			expect(
 				broker.call("battleStore.get", {})
 			).rejects.toThrow(ValidationError)

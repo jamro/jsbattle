@@ -17,7 +17,7 @@ let config = {
     "gaCode": "AB-123456789-Z"
   },
   "auth": {
-    "enabled": false,
+    "enabled": true,
     "admins": [
       {
         provider: 'github',

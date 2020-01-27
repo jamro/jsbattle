@@ -6,18 +6,26 @@ const {
   ERR_INVALID_TOKEN
 } = require("moleculer-web").Errors;
 
-module.exports = () => {
+const guestUser = {
+  username: 'guest',
+  role: 'guest'
+}
+
+module.exports = (rejectOnFail) => {
 
   async function authorize(ctx, route, req) {
     let roles = [];
+    let publicAccess = false;
     switch(route.path) {
       case '/admin':
         roles = ['admin'];
         break;
       default:
+        publicAccess = true;
         roles = [
           'admin',
-          'user'
+          'user',
+          'guest'
         ];
         break;
     }
@@ -33,14 +41,24 @@ module.exports = () => {
       try {
         let user = await ctx.call('auth.resolveToken', {token});
         if(roles.indexOf(user.role) === -1) {
-          throw new ForbiddenError();
+          if(rejectOnFail && !publicAccess) {
+            throw new ForbiddenError();
+          } else {
+            ctx.meta.user = guestUser; // eslint-disable-line require-atomic-updates
+          }
         }
         ctx.meta.user = user; // eslint-disable-line require-atomic-updates
       } catch (err) {
-        throw new UnAuthorizedError(ERR_INVALID_TOKEN);
+        if(rejectOnFail && !publicAccess) {
+          throw new UnAuthorizedError(ERR_INVALID_TOKEN);
+        } else {
+          ctx.meta.user = guestUser; // eslint-disable-line require-atomic-updates
+        }
       }
-    } else {
+    } else if(rejectOnFail && !publicAccess) {
       throw new UnAuthorizedError(ERR_NO_TOKEN);
+    } else {
+      ctx.meta.user = guestUser;
     }
   }
 

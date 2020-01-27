@@ -21,7 +21,8 @@ class AuthService extends Service {
       actions: {
         authorize: this.authorize,
         resolveToken: this.resolveToken,
-        whoami: this.whoami
+        whoami: this.whoami,
+        getAuthMethods: this.getAuthMethods
       },
       events: {
         "user.login": async (userId) => {
@@ -31,18 +32,43 @@ class AuthService extends Service {
     });
   }
 
+  getAuthMethods(ctx) {
+    const providerName = {
+      github: "GitHub",
+      facebook: "Facebook",
+      google: "Google",
+      twitter: "Twitter",
+      linkedin: "LinkedIn",
+      slack: "Slack"
+    }
+
+    const authConfig = ctx.broker.serviceConfig.auth
+    const webConfig = ctx.broker.serviceConfig.web
+    if(!authConfig.enabled) {
+      return {};
+    }
+    let result = {};
+    for(let i=0; i < authConfig.providers.length; i++) {
+      let provider = authConfig.providers[i]
+      result[provider.name] = {
+        name: providerName[provider.name] || provider.name,
+        url: webConfig.baseUrl + '/auth/' + provider.name
+      }
+    }
+    return result;
+  }
+
   whoami(ctx) {
-    if(!ctx.meta.user) {
+    if(!ctx.meta.user || !ctx.meta.user.id) {
       return {
-        "id": "0",
-        "username": "anonymous",
-        "displayName": "Anonymous",
+        "username": "guest",
+        "displayName": "Guest",
         "provider": "",
         "extUserId": "",
         "email": "",
-        "role": "user",
-        "createdAt": "2020-01-01T00:00:00.000Z",
-        "lastLoginAt": "2020-01-01T00:00:00.000Z"
+        "role": "guest",
+        "createdAt": new Date(),
+        "lastLoginAt": new Date()
       };
     }
     let userId = ctx.meta.user.id;

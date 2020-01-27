@@ -1,12 +1,11 @@
 "use strict";
 
-const { ServiceBroker } = require("moleculer");
+const ConfigBroker = require("../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const UbdJsonMock = require('../mock/UbdJsonMock');
 
 describe("Test 'UbdValidator' service", () => {
-	let broker = new ServiceBroker({ logger: false });
-	broker.serviceConfig = {};
+	let broker = new ConfigBroker({ logger: false }, {}, false);
 	broker.loadService(__dirname + "../../../app/services/UbdValidator.service.js");
 
 	beforeAll(() => broker.start());

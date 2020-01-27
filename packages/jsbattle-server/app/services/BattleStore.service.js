@@ -44,13 +44,6 @@ class BattleStoreService extends Service {
       },
       hooks: {
         before: {
-          publish: [
-            function addDefaults(ctx) {
-              ctx.params.createdAt = new Date();
-              ctx.params = _.omit(ctx.params, ['id']);
-              return ctx;
-            }
-          ],
           create: [
             function addDefaults(ctx) {
               ctx.params.createdAt = new Date();

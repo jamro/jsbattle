@@ -1,12 +1,12 @@
 "use strict";
 
-const { ServiceBroker } = require("moleculer");
+const ConfigBroker = require("../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
 describe("Test 'UserStore' service", () => {
-	let broker = new ServiceBroker({ logger: false });
-	broker.serviceConfig = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
+	let config = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
+	let broker = new ConfigBroker({ logger: false }, config, false);
 	broker.loadService(__dirname + "../../../app/services/UserStore.service.js");
 
 	beforeAll(() => broker.start());

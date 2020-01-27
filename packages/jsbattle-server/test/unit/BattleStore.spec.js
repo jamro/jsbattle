@@ -1,6 +1,6 @@
 "use strict";
 
-const { ServiceBroker } = require("moleculer");
+const ConfigBroker = require("../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../mock/UbdJsonMock');
@@ -9,8 +9,7 @@ describe("Test 'Battlestore' service", () => {
 
 	describe("ubdValidator always pass", () => {
 
-		let broker = new ServiceBroker({ logger: false });
-		broker.serviceConfig = {};
+		let broker = new ConfigBroker({ logger: false }, {}, false);
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {
@@ -61,12 +60,24 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.rows.length).toBe(10);
 		});
 
+		it('should not update read-only fields', async () => {
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {ubd: JSON.stringify(ubd)});
+			ubd.rngSeed = 0.89273772;
+			const updateResult = await broker.call("battleStore.update", {id: writeResult.id, ubd: JSON.stringify(ubd), createdAt: new Date(0)});
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			expect(readResult.error).toBeUndefined();
+			expect(readResult.id).toBe(writeResult.id);
+			expect(readResult.ubd).toBe(writeResult.ubd);
+			expect(readResult.createdAt).toBe(writeResult.createdAt);
+		});
+
 	});
 
 	describe("ubdValidator always fails", () => {
 
-		let broker = new ServiceBroker({ logger: false });
-		broker.serviceConfig = {};
+		let broker = new ConfigBroker({ logger: false }, {}, false);
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {

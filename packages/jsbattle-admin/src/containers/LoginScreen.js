@@ -8,10 +8,7 @@ import Button from 'react-bootstrap/Button';
 import {
   faGithub,
   faFacebook,
-  faGoogle,
-  faTwitter,
-  faLinkedin,
-  faSlack,
+  faGoogle
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faLock
@@ -46,21 +43,6 @@ class LoginScreen extends Component {
         icon: faGoogle,
         color: '#fff',
         backgroundColor: '#ea4335'
-      },
-      twitter: {
-        icon: faTwitter,
-        color: '#fff',
-        backgroundColor: '#1da1f2'
-      },
-      linkedin: {
-        icon: faLinkedin,
-        color: '#fff',
-        backgroundColor: '#0077b5'
-      },
-      slack: {
-        icon: faSlack,
-        color: '#000',
-        backgroundColor: '#e9a820'
       }
     };
     let buttons = Object.keys(this.props.authMethods).map((providerName) => {

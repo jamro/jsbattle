@@ -25,6 +25,14 @@ class Gateway {
     });
   }
 
+  stop() {
+    return new Promise((resolve) => {
+      this.broker.stop()
+        .then(resolve)
+        .catch((err) => console.error(`Error occured! ${err.message}`));
+    });
+  }
+
 }
 
 module.exports = Gateway;

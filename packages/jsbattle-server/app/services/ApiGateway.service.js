@@ -18,6 +18,17 @@ class ApiGatewayService extends Service {
         const svc = broker.createService({
           mixins: [ApiService],
           settings: {
+            cors: {
+              origin: broker.serviceConfig.web.corsOrigin,
+              methods: [
+                "GET",
+                "OPTIONS",
+                "POST",
+                "PUT",
+                "DELETE",
+                "PATCH"
+              ]
+            },
             routes: [
               {
                 authorization: true,
@@ -92,13 +103,24 @@ class ApiGatewayService extends Service {
 
         let port = broker.serviceConfig.web.port || 8080;
         let host = broker.serviceConfig.web.host || '127.0.0.1';
-        this.app.listen(
+        if(this.server) {
+          this.server.close();
+          this.server = null;
+        }
+        this.logger.info(`CORS origin: ${broker.serviceConfig.web.corsOrigin.join(', ')}`)
+        this.server = this.app.listen(
           port,
           host,
           () => {
             this.logger.info(`webserver started at http://${host}:${port}`)
           }
         );
+      },
+      stopped() {
+        if(this.server) {
+          this.server.close();
+          this.server = null;
+        }
       }
     });
   }

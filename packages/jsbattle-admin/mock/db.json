@@ -187,10 +187,7 @@
   "authMethods": {
       "github":   {"name": "GitHub", "url": "../auth/github"},
       "facebook": {"name": "Facebook", "url": "../auth/facebook"},
-      "google":   {"name": "Google", "url": "../auth/google"},
-      "twitter":  {"name": "Twitter", "url": "../auth/twitter"},
-      "linkedin": {"name": "LinkedIn", "url": "../auth/linkedin"},
-      "slack":    {"name": "Slack", "url": "../auth/slack"}
+      "google":   {"name": "Google", "url": "../auth/google"}
   },
   "profile": {
     "id": "8si8Su024sj2cZwo0",

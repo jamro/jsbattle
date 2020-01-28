@@ -4,9 +4,6 @@ const authStrategies = [];
 authStrategies['github'] = require("passport-github2");
 authStrategies['facebook'] = require("passport-facebook");
 authStrategies['google'] = require("passport-google-oauth").OAuth2Strategy;
-authStrategies['twitter'] = require("passport-twitter");
-authStrategies['linkedin'] = require("passport-linkedin-oauth2");
-authStrategies['slack'] = require("passport-slack");
 
 function configPassport(app, logger, broker) {
   app.use(passport.initialize());

@@ -9,6 +9,7 @@ class ConfigBroker extends ServiceBroker {
     super(options);
     const defaultConfig = {
       "loglevel": "info",
+      "skipEnv": false,
       "data": {
         "path": null
       },
@@ -16,8 +17,9 @@ class ConfigBroker extends ServiceBroker {
         "webroot": path.resolve(__dirname, "../public"),
         "host": "127.0.0.1",
         "baseUrl": "http://localhost:8080",
+        "corsOrigin": ["http://localhost:8080"],
         "port": "8080",
-        "gaCode": ""
+        "gaCode": "",
       },
       "auth": {
         "enabled": true,
@@ -27,7 +29,7 @@ class ConfigBroker extends ServiceBroker {
     };
 
     // add auth strategioes defined in env vars
-    if(useEnv) {
+    if(useEnv && !config.skipEnv) {
       let authStrategies = Object.keys(process.env)
         .filter((keyName) => (/^OAUTH_([A-Z_\-0-9]*)_CLIENT_(SECRET|ID)$/).test(keyName))
         .map((keyName) => keyName.replace(/^OAUTH_([A-Z_\-0-9]*)_CLIENT_(SECRET|ID)$/, "$1"))

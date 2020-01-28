@@ -25,6 +25,9 @@ List of all settings of JsBattle:
   // supported log levels: "error", "warn", "info", "debug", "trace"
   "loglevel": "info",
 
+  // do not inject config data from environmental variables"
+  "skipEnv": false,
+
   // data persistence settings
   "data": {
 
@@ -46,6 +49,9 @@ List of all settings of JsBattle:
 
     // url where JsBattle is available. Required to generate URL links properly (e.g. oAth callback)
     "baseUrl": "http://localhost:8080",
+
+      // Configures the Access-Control-Allow-Origin CORS header.
+    "corsOrigin": ["http://localhost:8080"],
 
     // Google Analytics code (stats are disabled when not provided)
     "gaCode": ""
@@ -74,7 +80,7 @@ List of all settings of JsBattle:
 
       // define each provider as separate object
       {
-        // name of provider. Supported values are: github, facebook, google, twitter, linkedin, slack
+        // name of provider. Supported values are: github, facebook, google
         // authStrategies['github'] = require("passport-github2");
         "name": 'github',
 
@@ -90,7 +96,7 @@ List of all settings of JsBattle:
 
 ## Environment variables
 
-Part of the configuration could be provided as env vars.
+Part of the configuration could be provided as env vars. To disable this feature set `config.skipEnv` to `true`;
 
 ### OAuth providers
 To configure OAuth provider set up following env vars

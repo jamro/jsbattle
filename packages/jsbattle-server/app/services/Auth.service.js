@@ -36,10 +36,7 @@ class AuthService extends Service {
     const providerName = {
       github: "GitHub",
       facebook: "Facebook",
-      google: "Google",
-      twitter: "Twitter",
-      linkedin: "LinkedIn",
-      slack: "Slack"
+      google: "Google"
     }
 
     const authConfig = ctx.broker.serviceConfig.auth

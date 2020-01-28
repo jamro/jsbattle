@@ -3,7 +3,7 @@ const initState = {
   authMethods: {}
 };
 
-const reducer = (state, action) => {
+const authReducer = (state, action) => {
   state = state || {};
   state = {
     ...initState,
@@ -26,4 +26,4 @@ const reducer = (state, action) => {
 
 };
 
-export default reducer;
+export default authReducer;

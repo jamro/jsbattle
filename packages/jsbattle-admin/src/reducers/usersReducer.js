@@ -2,7 +2,7 @@ const initState = {
   page: null
 };
 
-const reducer = (state, action) => {
+const usersReducer = (state, action) => {
   state = state || {};
   state = {
     ...initState,
@@ -17,4 +17,4 @@ const reducer = (state, action) => {
 
 };
 
-export default reducer;
+export default usersReducer;

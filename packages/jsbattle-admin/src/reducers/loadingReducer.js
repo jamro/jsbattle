@@ -1,4 +1,4 @@
-const reducer = (state = {}, action) => {
+const loadingReducer = (state = {}, action) => {
   const {type} = action;
   const matches = (/(.*)_(REQUEST|SUCCESS|FAILURE)/).exec(type);
 
@@ -11,4 +11,4 @@ const reducer = (state = {}, action) => {
   };
 };
 
-export default reducer;
+export default loadingReducer;

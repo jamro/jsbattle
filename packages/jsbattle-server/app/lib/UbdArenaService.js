@@ -59,8 +59,8 @@ module.exports = class UbdArenaService {
         this._log(`Passing ${ubdContent.length} bytes of UBD data`);
         await page.$eval(
           '#ubdInput',
-          (el, ubdContent) => {
-            el.value = ubdContent;
+          (el, content) => {
+            el.value = content;
           },
           ubdContent
         );

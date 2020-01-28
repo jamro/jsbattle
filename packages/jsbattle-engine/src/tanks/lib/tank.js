@@ -18,7 +18,7 @@ Math.random = function() {
     constructor() {
       this._initCallback = function() {};
       this._loopCallback = function() {};
-      var self = this;
+      var selfObject = this;
 
       onmessage = function (tankStateEvent) {
         switch(tankStateEvent.data.command) {
@@ -29,15 +29,15 @@ Math.random = function() {
             var info = tankStateEvent.data.info;
 
             Math.random = seedrandom(seed);
-            self._initCallback(settings, info);
+            selfObject._initCallback(settings, info);
             postMessage({type: 'init', settings: settings});
             break;
 
           case 'update':
             var state = tankStateEvent.data.state;
             var control = tankStateEvent.data.control;
-            if(self._loopCallback) {
-              self._loopCallback(state, control);
+            if(selfObject._loopCallback) {
+              selfObject._loopCallback(state, control);
               postMessage(control);
             } else {
               postMessage(control);

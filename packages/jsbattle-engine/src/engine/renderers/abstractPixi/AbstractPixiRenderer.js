@@ -101,7 +101,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       .forEach((url) => {
         loader.add(urlPrefix + url);
       });
-    loader.load((loader, resources) => {
+    loader.load((resLoader, resources) => {
       this.onAssetsLoaded();
       done();
     });

@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-const authStrategies = [];
+const authStrategies = {};
 authStrategies['github'] = require("passport-github2");
 authStrategies['facebook'] = require("passport-facebook");
 authStrategies['google'] = require("passport-google-oauth").OAuth2Strategy;

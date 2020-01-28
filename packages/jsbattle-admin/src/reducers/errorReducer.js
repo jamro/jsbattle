@@ -1,4 +1,4 @@
-const reducer = (state = {}, action) => {
+const errorReducer = (state = {}, action) => {
   const {type, payload} = action;
   const matches = (/(.*)_(REQUEST|FAILURE|CLEAR_ERROR)/).exec(type);
 
@@ -11,4 +11,4 @@ const reducer = (state = {}, action) => {
   };
 };
 
-export default reducer;
+export default errorReducer;

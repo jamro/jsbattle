@@ -11,7 +11,11 @@ class ApiGatewayService extends Service {
 
   constructor(broker) {
     super(broker);
-
+    let corsOrigin = broker.serviceConfig.web.corsOrigin;
+    if(!Array.isArray(corsOrigin)) {
+      corsOrigin = [corsOrigin]
+    }
+    corsOrigin.push(broker.serviceConfig.web.baseUrl)
     this.parseServiceSchema({
       name: "apiGateway",
       started() {
@@ -19,7 +23,7 @@ class ApiGatewayService extends Service {
           mixins: [ApiService],
           settings: {
             cors: {
-              origin: broker.serviceConfig.web.corsOrigin,
+              origin: corsOrigin,
               methods: [
                 "GET",
                 "OPTIONS",
@@ -27,7 +31,8 @@ class ApiGatewayService extends Service {
                 "PUT",
                 "DELETE",
                 "PATCH"
-              ]
+              ],
+              credentials: true
             },
             routes: [
               {

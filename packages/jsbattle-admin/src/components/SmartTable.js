@@ -57,12 +57,6 @@ class SmartTable extends Component {
   }
 
   render() {
-    let activePage = 3;
-    let pageItems = [];
-    for (let pageNumber = 1; pageNumber <= 5; pageNumber++) {
-      pageItems.push(<Pagination.Item active={pageNumber === activePage}>{pageNumber}</Pagination.Item>);
-    }
-
     let data = this.props.data || {};
     data.rows = data.rows || [];
     data.total = data.total || 0;
@@ -95,17 +89,17 @@ class SmartTable extends Component {
         pageButtons.push(<Pagination.Ellipsis key={'ellipsis_' + i} />);
       }
       if(i == data.page) {
-        pageButtons.push(<Pagination.Item key={i} active onClick={() => this.openPage(i)}>{i}</Pagination.Item>);
+        pageButtons.push(<Pagination.Item key={i} className={'page-' + i} active onClick={() => this.openPage(i)}>{i}</Pagination.Item>);
       } else {
-        pageButtons.push(<Pagination.Item key={i} onClick={() => this.openPage(i)}>{i}</Pagination.Item>);
+        pageButtons.push(<Pagination.Item key={i} className={'page-' + i} onClick={() => this.openPage(i)}>{i}</Pagination.Item>);
       }
       prevPage = i;
     }
 
     let pagination = <Pagination className="justify-content-center">
-      <Pagination.Prev onClick={() => this.openPage(Number(data.page)-1)}/>
+      <Pagination.Prev className="page-prev" onClick={() => this.openPage(Number(data.page)-1)}/>
       {pageButtons}
-      <Pagination.Next onClick={() => this.openPage(Number(data.page)+1)}/>
+      <Pagination.Next className="page-next" onClick={() => this.openPage(Number(data.page)+1)}/>
     </Pagination>;
     if(pageButtons.length <= 1) {
       pagination = null;
@@ -113,7 +107,7 @@ class SmartTable extends Component {
 
     return (
         <div>
-          <Table striped bordered size="sm">
+          <Table striped bordered size="sm" className="smart-table">
             <thead>
               <tr>
                 {header}

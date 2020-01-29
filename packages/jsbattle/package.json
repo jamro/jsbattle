@@ -5,17 +5,20 @@
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
     "start": "./dist/jsbattle.js start ...",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf test/features*",
     "build": "npm run build:server && npm run build:webpage && npm run build:admin",
     "build:admin": "cpx './node_modules/jsbattle-admin/dist/**/*' ./dist/public/admin",
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
     "build:server": "cpx './src/**/*' ./dist",
-    "test": "npm run test:prep && npm run test:run && npm run test:server-stop",
-    "test:copy": "cpx './node_modules/jsbattle-webpage/features/**/*' ./features",
+    "test": "npm run test:prep && npm run test:run-all && npm run test:server-stop",
+    "test:copy-webpage": "cpx './node_modules/jsbattle-webpage/features/**/*' ./test/features-webpage",
+    "test:copy-admin": "cpx './node_modules/jsbattle-admin/features/**/*' ./test/features-admin",
     "test:server-start": "pm2 start './dist/jsbattle.js' --wait-ready --name jsbattle-test-server -- start -c ./test/jsbattle.config.json",
     "test:server-stop": "pm2 del jsbattle-test-server",
-    "test:run": "cucumber-js -t @integration -f ./features/support/SimpleFormatter.js",
-    "test:prep": "(npm run test:server-stop > /dev/null 2>&1 || true) && npm run test:server-start && npm run test:copy"
+    "test:run-all": "npm run test:run-webpage && npm run test:run-admin",
+    "test:run-webpage": "cucumber-js -t @integration -f ./test/features-webpage/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-webpage",
+    "test:run-admin": "cucumber-js -t @integration -f ./test/features-admin/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-admin",
+    "test:prep": "(npm run test:server-stop > /dev/null 2>&1 || true) && npm run test:server-start && npm run test:copy-webpage && npm run test:copy-admin"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,11 @@
 {
+  "loglevel": "debug",
   "web": {
-    "port": 8070,
-    "webroot": "./dist/public"
+    "port": 8100,
+    "webroot": "./dist/public",
+    "baseUrl": "http://localhost:8100"
+  },
+  "auth": {
+    "enabled": false
   }
 }

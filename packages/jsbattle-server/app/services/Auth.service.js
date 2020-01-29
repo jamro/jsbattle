@@ -56,6 +56,10 @@ class AuthService extends Service {
   }
 
   whoami(ctx) {
+    let role = 'guest';
+    if(!ctx.broker.serviceConfig.auth.enabled) {
+      role = 'admin';
+    }
     if(!ctx.meta.user || !ctx.meta.user.id) {
       return {
         "username": "guest",
@@ -63,7 +67,7 @@ class AuthService extends Service {
         "provider": "",
         "extUserId": "",
         "email": "",
-        "role": "guest",
+        "role": role,
         "createdAt": new Date(),
         "lastLoginAt": new Date()
       };

@@ -5,7 +5,7 @@ Feature: Battle
   @integration
   Scenario: Play the battle
     Given JsBattle open in the browser
-    And tanks [dummy, jamro] selected for the battle
+    And tanks [jamro, dummy] selected for the battle
     And "Battlefield" section open
     And battle quality set to "0"
     And battle speed set to "50"
@@ -25,6 +25,7 @@ Feature: Battle
     Then battle is not displayed
     And "Battlefield" section is selected in the navigation bar
 
+  @integration
   Scenario: Generate share link
     Given JsBattle open in the browser
     And tanks [dummy, jamro] selected for the battle

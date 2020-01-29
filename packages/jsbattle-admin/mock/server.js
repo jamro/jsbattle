@@ -11,6 +11,11 @@ const middlewares = jsonServer.defaults();
 const _ = require('lodash');
 
 let authorized = false;
+let noAuthMode = false;
+if(process.argv.indexOf('-noauth') != -1) {
+  noAuthMode = true;
+  authorized = true;
+}
 
 router.render = (req, res) => {
   if(req.url == '/profile' && !authorized) {
@@ -43,8 +48,10 @@ server.get('/', function (req, res) {
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 server.get('/auth/logout', function (req, res) {
-  console.log("Logout");
-  authorized = false;
+  if(!noAuthMode) {
+    console.log("Logout");
+    authorized = false;
+  }
   res.redirect('/admin')
 })
 server.get('/auth/:provider', function (req, res) {

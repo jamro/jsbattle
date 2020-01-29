@@ -8,9 +8,6 @@ async function createPage(browser) {
   return page;
 }
 
-
-var baseUrl = 'http://localhost:8070/';
-
 async function createWebClient() {
   let client = {};
   client.browser = await puppeteer.launch({args: ['--no-sandbox']});
@@ -82,6 +79,9 @@ After(async function (scenario) {
 Given('JsBattle open in the browser', async function () {
   this.client = await createWebClient();
 
+  const port = this.parameters.port || 8070;
+  const baseUrl = `http://localhost:${port}/`;
+
   await this.client.page.goto(baseUrl);
   await this.client.page.exposeFunction('gtag_alt', (event, action, data) => {
     let serial = "";
@@ -103,6 +103,8 @@ Given('JsBattle open in the browser', async function () {
 
 Given('JsBattle replay for battle {string} open in the browser', async function (battleId) {
   this.client = await createWebClient();
+  const port = this.parameters.port || 8070;
+  const baseUrl = `http://localhost:${port}/`;
   await this.client.page.goto(baseUrl + "/#replay=" + battleId);
 });
 
@@ -175,13 +177,17 @@ When('visited all pages at {string}', {timeout: 60 * 1000}, async function (uri)
     }
   }
 
-  var base = urlLib.resolve(baseUrl,uri);
+  const port = this.parameters.port || 8070;
+  const baseUrl = `http://localhost:${port}/`;
 
+  var base = urlLib.resolve(baseUrl, uri);
   await visit(base, base);
 
 });
 
 When('open URI {string}', async function (uri) {
+  const port = this.parameters.port || 8070;
+  const baseUrl = `http://localhost:${port}/`;
   this.client.lastResponse = await this.client.page.goto(baseUrl + "/" + uri);
 });
 
@@ -241,6 +247,9 @@ Then('all visited images loaded successfully', async function () {
   this.client.history.forEach((item) => {
     images = images.concat(item.images.map(i => i.url));
   });
+
+  const port = this.parameters.port || 8070;
+  const baseUrl = `http://localhost:${port}/`;
 
   images = images.filter((value, index, self) => {
     return self.indexOf(value) === index && (new RegExp(baseUrl)).test(value);

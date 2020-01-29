@@ -12,7 +12,7 @@ class Loading extends Component {
   }
 
   render() {
-    return <span><FontAwesomeIcon icon={faSpinner} spin /> Loading...</span>;
+    return <span className="loading"><FontAwesomeIcon icon={faSpinner} spin /> Loading...</span>;
   }
 
 }

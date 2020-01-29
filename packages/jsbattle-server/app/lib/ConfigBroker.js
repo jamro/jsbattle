@@ -17,7 +17,7 @@ class ConfigBroker extends ServiceBroker {
         "webroot": path.resolve(__dirname, "../public"),
         "host": "127.0.0.1",
         "baseUrl": "http://localhost:8080",
-        "corsOrigin": ["http://localhost:8080"],
+        "corsOrigin": [],
         "port": "8080",
         "gaCode": "",
       },

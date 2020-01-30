@@ -49,6 +49,7 @@ module.exports = (rejectOnFail) => {
         }
         ctx.meta.user = user; // eslint-disable-line require-atomic-updates
       } catch (err) {
+        this.logger.info('Cannot resolve JWT token: ' + err.message)
         if(rejectOnFail && !publicAccess) {
           throw new UnAuthorizedError(ERR_INVALID_TOKEN);
         } else {

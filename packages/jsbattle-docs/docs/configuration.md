@@ -31,6 +31,9 @@ List of all settings of JsBattle:
   // data persistence settings
   "data": {
 
+    // name of db adapter. See DB Adapters section for more details
+    "adapter": "nedb"
+
     // path to directory where the data is stored. When not provided, an in-memory DB is used
     "path": "./jsbattle-data"
   },
@@ -93,6 +96,39 @@ List of all settings of JsBattle:
   }
 }
 ```
+
+### DB Adapters
+
+### NeDb
+```js
+{
+  // name of the adapter
+  "adapter": "nedb",
+
+  // path to directory where the data is stored. When not provided, an in-memory DB is used
+  "path": "./jsbattle-data"
+}
+```
+
+### MongoDB
+```js
+{
+  // name of the adapter
+  "adapter": "mongo",
+
+  // DB connection string
+  "uri": "mongodb://localhost/jsbattle",
+
+  // Options passed to Mongo Client
+  "options": {
+
+    // example:
+    "useUnifiedTopology": true
+  }
+}
+```
+
+
 
 ## Environment variables
 

@@ -6,9 +6,6 @@ const path = require('path');
 let gateway = new Gateway();
 let config = {
   "loglevel": "debug",
-  "data": {
-    "path": path.join(__dirname, 'jsbattle-data')
-  },
   "web": {
     "webroot": path.join(__dirname, 'public'),
     "host": "127.0.0.1",
@@ -17,7 +14,7 @@ let config = {
     "gaCode": "AB-123456789-Z"
   },
   "auth": {
-    "enabled": true,
+    "enabled": false,
     "admins": [
       {
         provider: 'github',

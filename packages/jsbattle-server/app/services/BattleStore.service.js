@@ -1,26 +1,19 @@
 const Service = require("moleculer").Service;
 const DbService = require("moleculer-db");
-const path = require("path");
 const { ValidationError } = require("moleculer").Errors;
-const MemoryAdapter = DbService.MemoryAdapter
 const _ = require('lodash');
+const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 
 class BattleStoreService extends Service {
 
   constructor(broker) {
     super(broker);
 
-    let dbAdapter;
-    if(broker.serviceConfig.data && broker.serviceConfig.data.path) {
-      dbAdapter = new MemoryAdapter({filename: path.join(broker.serviceConfig.data.path, 'battleStore.db')});
-    } else {
-      dbAdapter = new MemoryAdapter();
-    }
-
+    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'userStore')
     this.parseServiceSchema({
+      ...adapterConfig,
       name: "battleStore",
       mixins: [DbService],
-      adapter: dbAdapter,
       settings: {
         idField: 'id',
         fields: [

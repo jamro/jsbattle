@@ -2,6 +2,7 @@ const Ajv = require('ajv');
 const JsBattleSchema = require('jsbattle-engine/schema');
 const Service = require("moleculer").Service;
 const { ValidationError } = require("moleculer").Errors;
+
 class UbdValidator extends Service {
 
   constructor(broker) {

@@ -38,6 +38,7 @@
     "lodash": "^4.17.15",
     "moleculer": "^0.13.12",
     "moleculer-db": "^0.8.4",
+    "moleculer-db-adapter-mongo": "^0.4.6",
     "moleculer-web": "^0.8.5",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",

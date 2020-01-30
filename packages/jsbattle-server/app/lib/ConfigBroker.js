@@ -11,6 +11,7 @@ class ConfigBroker extends ServiceBroker {
       "loglevel": "info",
       "skipEnv": false,
       "data": {
+        "adapter": "nedb",
         "path": null
       },
       "web": {

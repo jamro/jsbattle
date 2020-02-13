@@ -57,8 +57,6 @@ class ApiGatewayService extends Service {
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
                 aliases: {
-                  "GET battleReplay/:id": "battleStore.get",
-                  "POST battleReplay": "battleStore.create",
                   "GET profile": "auth.whoami",
                   "GET authMethods": "auth.getAuthMethods",
                 },

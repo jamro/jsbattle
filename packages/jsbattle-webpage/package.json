@@ -65,6 +65,7 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",

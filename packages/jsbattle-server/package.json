@@ -16,16 +16,17 @@
     "axios": "^0.19.2",
     "bufferutil": "^4.0.1",
     "cpx": "^1.5.0",
-    "eslint": "^6.7.1",
-    "jest": "^24.9.0",
-    "mocha": "^6.2.2",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "mocha": "^7.0.1",
     "nodemon": "^2.0.2",
     "npm-watch": "^0.6.0",
-    "rimraf": "^3.0.0",
+    "rimraf": "^3.0.2",
     "utf-8-validate": "^5.0.2",
-    "ws": "^7.2.0"
+    "ws": "^7.2.1"
   },
   "dependencies": {
+    "ajv": "^6.11.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
@@ -36,10 +37,10 @@
     "jsbattle-engine": "^2.7.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "moleculer": "^0.13.12",
-    "moleculer-db": "^0.8.4",
-    "moleculer-db-adapter-mongo": "^0.4.6",
-    "moleculer-web": "^0.8.5",
+    "moleculer": "^0.14.1",
+    "moleculer-db": "^0.8.5",
+    "moleculer-db-adapter-mongo": "^0.4.7",
+    "moleculer-web": "^0.9.0",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-github2": "^0.1.11",
@@ -47,9 +48,9 @@
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-slack": "0.0.7",
     "passport-twitter": "^1.0.4",
-    "puppeteer": "^2.0.0",
+    "puppeteer": "^2.1.1",
     "stream": "0.0.2",
-    "uuid": "^3.3.3"
+    "uuid": "^3.4.0"
   },
   "jest": {
     "collectCoverageFrom": [

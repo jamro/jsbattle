@@ -5,9 +5,9 @@ const puppeteer = require('puppeteer');
 
 var battlefieldHelper = {};
 battlefieldHelper.getTankNames = async (page) => {
-  await page.waitFor('table.tank-table tbody tr .tank-name');
+  await page.waitFor('table.ai-table tbody tr .tank-name');
   let result = await page.evaluate(() => {
-    const names = document.querySelectorAll('table.tank-table tbody tr .tank-name');
+    const names = document.querySelectorAll('table.ai-table tbody tr .tank-name');
     return Object.values(names).map((el) => el.innerHTML)
   });
   return result;
@@ -16,7 +16,7 @@ battlefieldHelper.changeAmountOfTanks = async (page, name, direction) => {
   let names = await battlefieldHelper.getTankNames(page);
   let index = names.indexOf(name);
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
-  let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") .numeric-input button." + (direction > 0 ? "plus" : "minus");
+  let css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") .numeric-input button." + (direction > 0 ? "plus" : "minus");
   await page.waitFor(css);
   await page.click(css);
 }
@@ -73,11 +73,11 @@ When('delete tank {string} and confirm', async function (name) {
   let index = names.indexOf(name);
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
 
-  let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove";
+  let css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") .tank-remove";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 
-  css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove-confirm-yes";
+  css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") .tank-remove-confirm-yes";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
@@ -87,11 +87,11 @@ When('delete tank {string} and abort', async function (name) {
   let index = names.indexOf(name);
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
 
-  let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove";
+  let css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 
-  css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove-confirm-no";
+  css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-remove-confirm-no";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
@@ -101,7 +101,7 @@ When('edit tank {string}', async function (name) {
   let index = names.indexOf(name);
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
 
-  let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-edit";
+  let css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") button.tank-edit";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
@@ -154,7 +154,7 @@ Then('there is/are {int} {string} tank(s) selected', async function (count, name
   let names = await battlefieldHelper.getTankNames(this.client.page);
   let index = names.indexOf(name);
   expect(index, `tank "${name}" is on the tank list`).to.not.equal(-1);
-  let css = "table.tank-table tbody tr:nth-of-type(" + (index+1) + ") .numeric-input input";
+  let css = "table.ai-table tbody tr:nth-of-type(" + (index+1) + ") .numeric-input input";
   await this.client.page.waitFor(css);
   let result = await this.client.page.evaluate((css) => {
     const field = document.querySelector(css);

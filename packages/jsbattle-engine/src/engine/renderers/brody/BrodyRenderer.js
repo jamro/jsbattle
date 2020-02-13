@@ -13,8 +13,8 @@ import BrodySettings from "./BrodySettings.js";
 
 export default class BrodyRenderer extends AbstractPixiRenderer  {
 
-  constructor() {
-    super('brody');
+  constructor(debug) {
+    super('brody', debug);
     this._bigBoomAnim = [];
     this._shakeTimer = 0;
     this._particleContainer = null;

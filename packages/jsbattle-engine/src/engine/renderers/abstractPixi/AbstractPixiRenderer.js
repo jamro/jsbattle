@@ -12,10 +12,10 @@ import PixiRendererClockModel from "./PixiRendererClockModel.js";
 
 export default class AbstractPixiRenderer extends AbstractRenderer  {
 
-  constructor(name) {
-    super();
+  constructor(name, debug) {
+    super(debug);
     this._name = name;
-
+    this._isDisposed = false;
     settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 
     this._masterContainer = new Container();
@@ -35,6 +35,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     } else {
       this._rendererScale = 1;
     }
+    this.log('Contructing Renderer');
   }
 
   get stage() {
@@ -50,9 +51,11 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
   }
 
   initBatlefield(battlefield) {
+    this.log('initializing the battlefield');
     super.initBatlefield(battlefield);
     this._masterContainer.x = -this.offsetX;
     this._masterContainer.y = -this.offsetY;
+    this.log(`battlefield offset: x=${this._masterContainer.x}, y=${this._masterContainer.y}`);
 
     let rendererSettings = {
       view: this._canvas,
@@ -62,6 +65,8 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       width: battlefield.width + 2 * battlefield.margin,
       height: battlefield.height + 2 * battlefield.margin
     };
+
+    this.log(`renderer settings: width=${rendererSettings.width}, height=${rendererSettings.width}`);
 
     this._renderer = new autoDetectRenderer(
       rendererSettings
@@ -76,6 +81,7 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
     this._stage.addChild(this._clockView.view);
 
     this._renderer.render(this._stage);
+    this.log(`battlefield initialized`);
   }
 
   init(canvas) {
@@ -83,14 +89,17 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
   }
 
   loadAssets(done, urlPrefix) {
+    this.log(`loading assets, urlPrefix: '${urlPrefix}'`);
     urlPrefix = urlPrefix || '';
     if(!this._name) {
+      this.log('No assets to load for that renderer. Done.');
       done();
       return;
     }
     let loader = new Loader();
     let loadedResources = [];
     for(let res in loader.resources) {
+      this.log(`adding resource to load '${res}'`);
       loadedResources.push(res);
     }
 
@@ -101,8 +110,17 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
       .forEach((url) => {
         loader.add(urlPrefix + url);
       });
+    this.log(`loading assets...`);
     loader.load((resLoader, resources) => {
+      if(this._isDisposed) {
+        this.log(`Renderer disposed: Clearing texture cache`);
+        utils.clearTextureCache();
+        this.log(`Renderer disposed: Skipping onAssetsLoaded handler`);
+        return;
+      }
+      this.log(`onAssetsLoaded()`);
       this.onAssetsLoaded();
+      this.log(`Assets loaded`);
       done();
     });
   }
@@ -167,12 +185,19 @@ export default class AbstractPixiRenderer extends AbstractRenderer  {
   }
 
   dispose() {
-    this._renderer.context.gl.getExtension('WEBGL_lose_context').loseContext();
-    this._renderer.destroy();
-    this._renderer = null;
+    this.log(`Disposing...`);
+    this._isDisposed = true;
+    if(this._renderer) {
+      this._renderer.context.gl.getExtension('WEBGL_lose_context').loseContext();
+      this._renderer.destroy();
+      this._renderer = null;
+    } else {
+      this.log(`Already disposed`);
+    }
     this._canvas = null;
     this._stage = null;
 
+    this.log(`Clearing texture cache`);
     utils.clearTextureCache();
   }
 

@@ -21,6 +21,7 @@ class App extends React.Component {
       quality: "auto",
       timeLimit: 30000,
       rngSeed: 123456,
+      isMounted: true,
       log: []
     };
   }
@@ -48,8 +49,24 @@ class App extends React.Component {
     });
   }
 
+  toggleMount() {
+    this.setState((state) => ({
+      isMounted: !state.isMounted
+    }));
+  }
+
   restartBattle() {
+    if(!this.jsbattle.current) {
+      return alert('Error: Not mounted!');
+    }
     this.jsbattle.current.restart();
+  }
+
+  stopBattle() {
+    if(!this.jsbattle.current) {
+      return alert('Error: Not mounted!');
+    }
+    this.jsbattle.current.stop();
   }
 
   onFinish(result) {
@@ -63,7 +80,6 @@ class App extends React.Component {
     alert(msg);
   }
 
-
   render() {
     let boxStyle = {
       display: 'inline-block',
@@ -72,23 +88,30 @@ class App extends React.Component {
     };
     let fullBoxStyle = {...boxStyle, width: '450px'};
     let halfBoxStyle = {...boxStyle, width: '225px'};
+
+    let battlefield = null;
+    if(this.state.isMounted) {
+      battlefield = <JsBattleBattlefield
+        ref={this.jsbattle}
+        debug={true}
+        autoResize={true}
+        rngSeed={this.state.rngSeed}
+        speed={Number(this.state.speed)}
+        quality={Number(this.state.quality)}
+        timeLimit={Number(this.state.timeLimit)}
+        aiDefList={this.state.aiDefList}
+        renderer={this.state.renderer}
+        onInit={() => this.addLog("EVENT: onInit()")}
+        onReady={() => this.addLog("EVENT: onReady()")}
+        onStart={() => this.addLog("EVENT: onStart()")}
+        onFinish={(result) => this.onFinish(result)}
+        onError={(msg) => this.onError(msg)}
+      />;
+    }
+
     return <div>
       <div style={fullBoxStyle}>
-        <JsBattleBattlefield
-          ref={this.jsbattle}
-          autoResize={true}
-          rngSeed={this.state.rngSeed}
-          speed={Number(this.state.speed)}
-          quality={Number(this.state.quality)}
-          timeLimit={Number(this.state.timeLimit)}
-          aiDefList={this.state.aiDefList}
-          renderer={this.state.renderer}
-          onInit={() => this.addLog("EVENT: onInit()")}
-          onReady={() => this.addLog("EVENT: onReady()")}
-          onStart={() => this.addLog("EVENT: onStart()")}
-          onFinish={(result) => this.onFinish(result)}
-          onError={(msg) => this.onError(msg)}
-        />
+        {battlefield}
       </div>
       <div style={halfBoxStyle}>
         <h4>Component Properties</h4>
@@ -148,7 +171,10 @@ class App extends React.Component {
       </div>
       <div style={halfBoxStyle}>
         <h4>Controls</h4>
-        <button onClick={() => this.jsbattle.current.stop()}>Stop</button> <button onClick={() => this.restartBattle()}>Restart</button> <button onClick={() => this.randomize()}>Randomize</button>
+        <button onClick={() => this.stopBattle()}>Stop</button>
+        <button onClick={() => this.restartBattle()}>Restart</button>
+        <button onClick={() => this.randomize()}>Randomize</button>
+        <button onClick={() => this.toggleMount()}>{this.state.isMounted ? 'Unmount' : 'Mount'}</button>
         <h4>Event Log</h4>
         <pre style={{border: '1px solid #000', fontSize: '0.7em', maxHeight: '21em', overflow: 'hidden'}}>{this.state.log.join('\n')}</pre>
       </div>

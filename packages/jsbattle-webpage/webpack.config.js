@@ -4,10 +4,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 let config = {
   mode: "production",
-  entry: path.resolve(__dirname, 'src/entry.js'),
+  entry: {
+    webpage: path.resolve(__dirname, 'src/index.js'),
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/webpage.min.js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[name].chunk.js',
     library: 'webpage',
     libraryTarget: 'var'
   },
@@ -18,17 +21,34 @@ let config = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           query: {
             presets: ['@babel/preset-react']
           }
         }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader"
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader','css-loader']
       }
     ]
   },
-  plugins: []
+  plugins: [],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 8080,
+    hot: true
+  }
 };
 
 module.exports = (env, argv) => {

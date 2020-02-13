@@ -22,8 +22,10 @@ class Simulation {
    * `JsBattle.min.js` library. To create Simulation object use
    * `JsBattle.createSimulation(renderer)` instead
    * @param {Renderer} renderer - Renderer used to present results of the simulation
+   * @param {Boolean} debug - turn on logging on the console
    */
-  constructor(renderer) {
+  constructor(renderer, debug) {
+    this._debug = debug;
     this._aiList = [];
     this._allTankList = [];
     this._tankList = [];
@@ -61,6 +63,7 @@ class Simulation {
     this._teamMap = [];
     this._teamList = [];
     this._ultimateBattleDescriptor = new UltimateBattleDescriptor();
+    this.log('Contructing Simulation');
   }
 
   /**
@@ -74,6 +77,7 @@ class Simulation {
     * @param {Number} seed - rng seed data
     */
   setRngSeed(seed) {
+    this.log(`Set renderer RNG Seed to '${seed}'`);
     this._rngSeed = seed;
     this._ultimateBattleDescriptor.setRngSeed(seed);
     this._rng = seedrandom(this._rngSeed);
@@ -94,10 +98,21 @@ class Simulation {
   }
 
   /**
+   * log message if logging is enabled
+   * @param {string} msg - message to log
+   */
+  log(msg) {
+    if(this._debug) {
+      console.log('[SIM] ' + msg);
+    }
+  }
+
+  /**
    * set custom condition of battle finish. Once provided callbacl return true, the simulation will be over
    * @param {Function} callback - callback determining end of the battle. It takes one argument (simulation object) and return true (stop simulation) or false (continue simulation)
    */
   setFinishCondition(callback) {
+    this.log(`Setting custom finish conditioins`);
     this._customFinishCondition = true;
     this._finishCondition = callback;
   }
@@ -109,11 +124,13 @@ class Simulation {
    * @param {Number} height - height of the battlefield
    */
   init(width, height) {
+    this.log(`Initialize the battlefield (width=${width}, height=${height})`);
     this._battlefield = new Battlefield();
     this._battlefield.setSize(width, height);
     this._battlefield.randomize(this._rng());
     this._renderer.initBatlefield(this._battlefield);
     this._collisionResolver.updateBattlefield(this._battlefield);
+    this.log(`The battlefiield initialized. Done.`);
   }
 
   /**
@@ -156,6 +173,7 @@ class Simulation {
   }
 
   set timeLimit(v) {
+    this.log(`Set time limit to '${v}'`);
     this._ultimateBattleDescriptor.setTimeLimit(v);
     this._timeLimit = v;
   }
@@ -167,6 +185,7 @@ class Simulation {
    * @see Simulation.onStart()
    */
   start() {
+    this.log(`Starting the simulation`);
     if(this._tankList.length == 0) {
       throw new Error("To start simulation, the tank list cannot be empty!");
     }
@@ -175,10 +194,12 @@ class Simulation {
     let self = this;
 
     if(this._renderInterval) {
+      this.log(`Clearing existing render interval`);
       clearInterval(this._renderInterval);
       this._renderInterval = null;
     }
 
+    this.log(`Activating AIs...`);
     this._activateAi(
       () => {
         self._renderInterval = setInterval(() => {
@@ -189,7 +210,9 @@ class Simulation {
           clearTimeout(self._simulationTimeout);
         }
         self._perfMon.start();
+        self.log(`Notify onStartCallback`);
         for(i=0; i < self._onStartCallback.length; i++) self._onStartCallback[i]();
+        self.log(`Run first simulation step`);
         self._simulationStep();
       },
       (err) => {
@@ -251,6 +274,7 @@ class Simulation {
    * @param {AiDefinition} - defintion of tank AI script
    */
   addTank(aiDefinition) {
+    this.log(`Adding tank...`);
     if(typeof aiDefinition != 'object') {
       throw "AI definition must be an object";
     }
@@ -294,6 +318,7 @@ class Simulation {
    * @param {Number} multiplier - simulation speed multiplier
    */
   setSpeed(v) {
+    this.log(`Set speed to '${v}'`);
     this._speedMultiplier = Math.max(0.01, Number(v));
     this._perfMon.setSimulationStepDuration(this._simulationStepDuration/this._speedMultiplier);
     this._renderer.setSpeed(v);
@@ -309,6 +334,7 @@ class Simulation {
    * @param {Number|String} qualityLevel - number between 0 and 1 or 'auto' string
    */
   setRendererQuality(v) {
+    this.log(`Set rederer quality to '${v}'`);
     if(isNaN(v) && v != 'auto') return;
     if(!isNaN(v)) {
       v = Math.min(1, Math.max(0, v));
@@ -323,6 +349,7 @@ class Simulation {
    * Simulation object and initialize it from the beginning
    */
   stop() {
+    this.log(`stopping the simulation`);
     this._isRunning = false;
     this._perfMon.stop();
     this._renderer.stop();

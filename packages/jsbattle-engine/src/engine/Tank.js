@@ -275,7 +275,7 @@ class Tank {
 
   onBeingRam(speed) {
     this._beingRammed = true;
-    this.onDamage(0.1 + Math.round(speed*8)*0.1);
+    this.onDamage(0.1 + Math.round(speed*4)*0.1);
   }
 
   onEnemySpot(enemy) {

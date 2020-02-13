@@ -1,4 +1,4 @@
-import generateName from "sillyname";
+import getRandomTankName from "./getRandomTankName.js";
 
 export default class AiRepository {
 
@@ -17,17 +17,13 @@ export default class AiRepository {
     return !this._scriptMap[name] && this._reservedNames.indexOf(name) == -1;
   }
 
-  getRandomScriptName(simple) {
-    if(simple) {
-      return generateName.randomNoun().toLowerCase();
-    } else {
-      return generateName.randomAdjective().toLowerCase() + generateName.randomNoun();
-    }
+  getRandomScriptName() {
+    return getRandomTankName().toLowerCase();
   }
 
   getScript(name) {
     if(!this._scriptMap[name]) {
-      throw "Script " + name + " does not exists";
+      throw "Script '" + name + "' does not exists";
     }
     return JSON.parse(JSON.stringify(this._scriptMap[name]));
   }

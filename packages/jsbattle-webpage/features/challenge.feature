@@ -1,7 +1,6 @@
 Feature: Challenge
   Go through set of challenges to develop your AI step by step
 
-
   Scenario: List all challenges
     Given JsBattle open in the browser
     And "Challenges" section open
@@ -17,7 +16,6 @@ Feature: Challenge
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge <index>
-    And close challenge info
     And challenge battle is completed
     Then the challenge is lost
     And challenge battle is restarted
@@ -39,9 +37,8 @@ Feature: Challenge
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge 1
-    And close challenge info
+    And open tab "code" of live code panel
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is restarted
     And challenge battle is completed
     Then the challenge is won
 
@@ -53,7 +50,6 @@ Feature: Challenge
     When open challenge 1
     And close challenge info
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is restarted
     And challenge battle is completed
     And the challenge is won
     And click next challenge

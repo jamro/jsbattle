@@ -52,8 +52,8 @@ class App extends Component {
         <Card bg="danger" border="danger" text="light" key={key}>
           <Card.Body>
             <Button variant="link" style={{color: '#fff'}} className="float-right" onClick={() => this.props.clearError(key)}>
-              <FontAwesomeIcon icon={faTimes} /><
-            /Button>
+              <FontAwesomeIcon icon={faTimes} />
+            </Button>
             <FontAwesomeIcon icon={faExclamationTriangle} /> {this.props.errors[key]}
           </Card.Body>
         </Card>

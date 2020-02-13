@@ -20,7 +20,7 @@
     "watch": "npm-watch",
     "serve": "node ./mock/server.js",
     "serve:slow": "node ./mock/server.js 700",
-    "test:run-all": "cucumber-js -f ./features/support/SimpleFormatter.js",
+    "test:run-all": "cucumber-js -f ./features/support/SimpleFormatter.js --retry 3",
     "test:mock-start": "pm2 start ./mock/server.js --wait-ready --name jsbattle-mock-server-admin -- -noauth",
     "test:mock-stop": "pm2 del jsbattle-mock-server-admin",
     "test:prep": "(npm run test:mock-stop > /dev/null 2>&1 || true) && npm run test:mock-start"

@@ -31,7 +31,7 @@ Given('all challenges unlocked', async function () {
 
 // WHEN ------------------------------------------------------------------------
 When('open challenge {int}', async function (index) {
-  let css = ".challenge-list > li:nth-child(" + index + ") > button";
+  let css = ".challenge-list > li:nth-child(" + index + ") > .start-challenge";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
@@ -53,7 +53,7 @@ When('challenge battle is completed', function (done) {
   let found = false;
   let listener = (msg) => {
     if(found) return;
-    if(/Challenge battle finished/.test(msg.text())) {
+    if(/battle finished/.test(msg.text())) {
       found = true;
       done();
     }
@@ -63,6 +63,12 @@ When('challenge battle is completed', function (done) {
 
 When('close challenge info', async function () {
   let css = ".start-coding-button";
+  await this.client.page.waitFor(css);
+  await this.client.page.click(css);
+});
+
+When('open tab {string} of live code panel', async function (tab) {
+  let css = `.live-code-right-tabs > .tab-link-${tab} > a`;
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
@@ -113,7 +119,7 @@ Then('the challenge is lost', function (done) {
   let found = false;
   let listener = (msg) => {
     if(found) return;
-    if(/Challenge battle lost/.test(msg.text())) {
+    if(/Challange lost/.test(msg.text())) {
       found = true;
       done();
     }
@@ -125,7 +131,7 @@ Then('challenge battle is restarted', function (done) {
   let found = false;
   let listener = (msg) => {
     if(found) return;
-    if(/Restarting battle of the challenge/.test(msg.text())) {
+    if(/Restarting the battle/.test(msg.text())) {
       found = true;
       done();
     }

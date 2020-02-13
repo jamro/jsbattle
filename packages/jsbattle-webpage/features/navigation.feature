@@ -15,9 +15,8 @@ Feature: Navigation
 
     Examples:
         | page1           | page2           |
-        | "Battlefield"   | "Challenges"    |
-        | "Challenges"    | "Editor"        |
-        | "Editor"        | "Battlefield"   |
+        | "Sandbox"       | "Challenges"    |
+        | "Challenges"    | "Sandbox"       |
 
   Scenario: Open documentation
     Given JsBattle open in the browser

@@ -4,8 +4,8 @@ class Stats {
     this._gaSubmit('challenges', 'list');
   }
 
-  onCustomBattleOpen() {
-    this._gaSubmit('custom_battle', 'open');
+  onSandboxOpen() {
+    this._gaSubmit('sandbox', 'open');
   }
 
   onChallengeOpen(levelId) {
@@ -24,32 +24,20 @@ class Stats {
     this._gaSubmit('challenges', 'challenge_' + levelId, 'win');
   }
 
-  onCustomBattleStart(teamMode) {
-    this._gaSubmit('custom_battle', 'start', teamMode ?'team_mode' : 'free_for_all');
-  }
-
-  onCustomBattleComplete() {
-    this._gaSubmit('custom_battle', 'complete');
-  }
-
-  onCustomBattleTankSelected(tank, count) {
-    if(isNaN(count)) {
-      console.warn("Warning: count must be a number");
-      return;
-    }
-    this._gaSubmit('custom_battle', 'tank', tank, count);
+  onSandboxEdit() {
+    this._gaSubmit('sandbox', 'edit');
   }
 
   onAiScriptCreate() {
-    this._gaSubmit('editor', 'create');
+    this._gaSubmit('sandbox', 'create');
   }
 
   onAiScriptRemove() {
-    this._gaSubmit('editor', 'remove');
+    this._gaSubmit('sandbox', 'remove');
   }
 
   _gaSubmit(category, action, label, value) {
-    console.log(`[STATS] ${category} / ${action} / ${label} / ${value}`);
+    console.log(`[STATS] ${category || '-'} / ${action || '-'} / ${label || '-'} / ${value || '-'}`);
     let data = {};
     if(category !== undefined) {
       data.event_category = category; // eslint-disable-line camelcase

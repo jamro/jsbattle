@@ -11,8 +11,8 @@ import DebugTankView from "./DebugTankView.js";
 
 export default class DebugRenderer extends AbstractPixiRenderer  {
 
-  constructor() {
-    super();
+  constructor(debug) {
+    super(undefined, debug);
     this._frameCounter = 0;
     this._fpsLabel = null;
     this._scoreBoard = null;

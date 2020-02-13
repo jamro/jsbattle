@@ -131,7 +131,7 @@ class AiDefinition {
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromFile(tankName, initData) {
-    if(!tankName) throw "TankName is required";
+    if(!tankName) throw "tankName is required";
     this._name = tankName;
     this._code = null;
     this._initData = initData !== undefined ? initData : null;
@@ -144,7 +144,7 @@ class AiDefinition {
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromCode(tankName, code, initData) {
-    if(!tankName) throw "TankName is required";
+    if(!tankName) throw "tankName is required";
     if(code === undefined) throw "Code is required";
     code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
     this._name = tankName;

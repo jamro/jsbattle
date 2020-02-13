@@ -15,6 +15,6 @@ Initial Energy      | 100                  |
 Radar Beam Focal    | 6°                   | angle that radar beam covers
 Radar Beam Range    | 300                  | how far away from the tank the radar scan
 Radar Turning Speed | 6°                   | in degrees per simulation step
-Ram Damage          | 0.1 + speed*0.8      | damage dealt to an opponent when you ram him
+Ram Damage          | 0.1 + speed * 0.4    | damage dealt to an opponent when you ram him
 Tank Moving Speed   | 2                    | enabling boost will double this value
 Tank Turning Speed  | 2                    | in degrees per simulation step

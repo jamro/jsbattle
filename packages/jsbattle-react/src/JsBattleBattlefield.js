@@ -36,12 +36,15 @@ class JsBattleBattlefield extends React.Component {
   }
 
   createCanvas(width, height) {
+    this.log(`Creating canvas (${width}x${height})`);
     let container = this.container.current;
     let child = container.lastElementChild;
+    this.log(`clearing canvas container`);
     while (child) {
       container.removeChild(child);
       child = container.lastElementChild;
     }
+    this.log(`Create canvas DOM element`);
     this.canvas = document.createElement('canvas');
     this.canvas.style.width = width + "px";
     this.canvas.style.height = height + "px";
@@ -49,26 +52,36 @@ class JsBattleBattlefield extends React.Component {
     this.canvas.className = 'jsbattle_battlefield';
     container.appendChild(this.canvas);
 
+    this.log(`call onWindowResizeHandler`);
     this.onWindowResizeHandler();
   }
 
   componentDidMount() {
+    this.log(`component did mount`);
     this.createCanvas(this.props.width, this.props.height);
-    this.renderer = JsBattle.createRenderer(this.props.renderer);
+    this.log(`creating renderer`);
+    this.renderer = JsBattle.createRenderer(this.props.renderer, this.props.debug);
+    this.log(`loading assets`);
     this.renderer.loadAssets(() => this.onAssetsLoaded());
     window.addEventListener('resize', this.onWindowResizeHandler);
     if(this.props.onInit) {
+      this.log(`call onInit`);
       this.props.onInit();
+    } else {
+      this.log(`no onInit listener`);
     }
   }
 
   componentWillUnmount() {
+    this.log(`component will unmount`);
     window.removeEventListener('resize', this.onWindowResizeHandler);
     if(this.simulation) {
+      this.log(`stopping simulation`);
       this.simulation.stop();
       this.simulation = null;
     }
     if(this.renderer) {
+      this.log(`disposing renderer`);
       this.renderer.dispose();
       this.renderer = null;
     }
@@ -97,6 +110,7 @@ class JsBattleBattlefield extends React.Component {
       hasChanged('modifier') ||
       hasChanged('timeLimit')
     ) {
+      this.log(`restart due to property change`);
       this.restart();
     }
   }
@@ -107,6 +121,7 @@ class JsBattleBattlefield extends React.Component {
    * @returns {undefined}
    */
   stop() {
+    this.log(`stop`);
     this.simulation.stop();
   }
 
@@ -115,6 +130,7 @@ class JsBattleBattlefield extends React.Component {
    * @returns {undefined}
    */
   restart() {
+    this.log(`restarting...`);
     if(this.simulation) {
       this.simulation.stop();
       this.simulation = null;
@@ -123,11 +139,23 @@ class JsBattleBattlefield extends React.Component {
       this.renderer.dispose();
       this.renderer = null;
     }
+    this.log(`creating canvas`);
     this.createCanvas(this.props.width, this.props.height);
-    this.renderer = JsBattle.createRenderer(this.props.renderer);
+    this.log(`create renderer`);
+    this.renderer = JsBattle.createRenderer(this.props.renderer, this.props.debug);
+    this.log(`load assets`);
     this.renderer.loadAssets(() => this.onAssetsLoaded());
     if(this.props.onInit) {
+      this.log(`call onInit`);
       this.props.onInit();
+    } else {
+      this.log(`no onInit listener`);
+    }
+  }
+
+  log(msg) {
+    if(this.props.debug) {
+      console.log('[JSB.REACT] ' + msg);
     }
   }
 
@@ -135,6 +163,8 @@ class JsBattleBattlefield extends React.Component {
     if(!this.props.autoResize) {
       return;
     }
+    this.log(`on window resize`);
+
     let w = this.canvas.parentElement.clientWidth;
     let ratio = w/900;
     this.canvas.style.width = (ratio * 900) + "px";
@@ -143,8 +173,10 @@ class JsBattleBattlefield extends React.Component {
   }
 
   onAssetsLoaded() {
+    this.log(`assets loaded`);
     this.renderer.init(this.canvas);
-    this.simulation = JsBattle.createSimulation(this.renderer);
+    this.log(`create simulation`);
+    this.simulation = JsBattle.createSimulation(this.renderer, this.props.debug);
     let rngSeed;
     if(this.props.rngSeed === undefined) {
       rngSeed = Math.random();
@@ -177,7 +209,7 @@ class JsBattleBattlefield extends React.Component {
     if(!this.props.aiDefList) {
       throw new Error("aiDefList property was not defined");
     }
-
+    this.log(`adding AIs`);
     this.props.aiDefList.forEach((ai) => {
       if(this.props.teamMode) {
         ai.assignToTeam(ai.name);
@@ -185,10 +217,11 @@ class JsBattleBattlefield extends React.Component {
       this.addTank(ai);
     });
 
+    this.log(`applying battle modifier`);
     if(this.props.modifier) {
       this.props.modifier(this.simulation);
     }
-
+    this.log(`start simulation`);
     this.simulation.start();
   }
 
@@ -198,6 +231,7 @@ class JsBattleBattlefield extends React.Component {
    * @returns {undefined}
    */
   addTank(aiDefinition) {
+    this.log(`add tank`);
     try {
       this.simulation.addTank(aiDefinition);
     } catch(err) {
@@ -209,6 +243,7 @@ class JsBattleBattlefield extends React.Component {
   }
 
   handleFinish() {
+    this.log(`battle finished`);
     let tankWinner = null;
     let i;
     for(i in this.simulation.tankList) {
@@ -291,6 +326,7 @@ JsBattleBattlefield.defaultProps = {
   teamMode: false,
   aiDefList: [],
   autoResize: false,
+  debug: false,
   modifier: undefined,
   onError: undefined,
   onStart: undefined,
@@ -315,6 +351,7 @@ JsBattleBattlefield.propTypes = {
   ]),
   teamMode: PropTypes.oneOf([true, false]),
   autoResize: PropTypes.oneOf([true, false]),
+  debug: PropTypes.oneOf([true, false]),
   aiDefList: PropTypes.arrayOf(PropTypes.instanceOf(JsBattle.createAiDefinition().constructor)).isRequired,
   modifier: PropTypes.func,
   onError: PropTypes.func,

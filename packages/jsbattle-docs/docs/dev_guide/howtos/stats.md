@@ -7,10 +7,7 @@ Category      | Action         | Label          | Value
 challenges    | list           |                |
 challenges    | challenge_[#]  | open           |
 challenges    | challenge_[#]  | win            |
-custom_battle | open           |                |
-custom_battle | start          | team_mode      |
-custom_battle | start          | free_for_all   |
-custom_battle | complete       |                |
-custom_battle | tank           | [tank_name]    | [#]
-editor        | create         |                |
-editor        | remove         |                |
+sandbox       | open           |                |
+sandbox       | edit           |                |
+sandbox       | create         |                |
+sandbox       | remove         |                |

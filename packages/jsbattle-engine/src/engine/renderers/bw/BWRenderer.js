@@ -9,8 +9,8 @@ import BWTankView from "./BWTankView.js";
 
 export default class BWRenderer extends AbstractPixiRenderer  {
 
-  constructor() {
-    super('bw');
+  constructor(debug) {
+    super('bw', debug);
     this._bigBoomAnim = [];
     this._smallBoomAnim = [];
     this._shakeTimer = 0;

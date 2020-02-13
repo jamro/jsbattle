@@ -292,7 +292,7 @@ and refreshing the renderer.
 **Kind**: global class  
 
 * [Simulation](#Simulation)
-    * [new Simulation(renderer)](#new_Simulation_new)
+    * [new Simulation(renderer, debug)](#new_Simulation_new)
     * [.tankList](#Simulation+tankList) ⇒
     * [.teamList](#Simulation+teamList) ⇒
     * [.renderer](#Simulation+renderer) ⇒
@@ -301,6 +301,7 @@ and refreshing the renderer.
     * [.setRngSeed(seed)](#Simulation+setRngSeed)
     * [.getRngSeed()](#Simulation+getRngSeed) ⇒
     * [.getRandom()](#Simulation+getRandom) ⇒
+    * [.log(msg)](#Simulation+log)
     * [.setFinishCondition(callback)](#Simulation+setFinishCondition)
     * [.init(width, height)](#Simulation+init)
     * [.start()](#Simulation+start)
@@ -318,7 +319,7 @@ and refreshing the renderer.
 
 <a name="new_Simulation_new"></a>
 
-### new Simulation(renderer)
+### new Simulation(renderer, debug)
 Create Simulation object. Constructor is not available outside of
 `JsBattle.min.js` library. To create Simulation object use
 `JsBattle.createSimulation(renderer)` instead
@@ -327,6 +328,7 @@ Create Simulation object. Constructor is not available outside of
 | Param | Type | Description |
 | --- | --- | --- |
 | renderer | [<code>Renderer</code>](#Renderer) | Renderer used to present results of the simulation |
+| debug | <code>Boolean</code> | turn on logging on the console |
 
 <a name="Simulation+tankList"></a>
 
@@ -379,6 +381,17 @@ some RNG calls could be unseeded.
 ### simulation.getRandom() ⇒
 **Kind**: instance method of [<code>Simulation</code>](#Simulation)  
 **Returns**: random number from seeded rng  
+<a name="Simulation+log"></a>
+
+### simulation.log(msg)
+log message if logging is enabled
+
+**Kind**: instance method of [<code>Simulation</code>](#Simulation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| msg | <code>string</code> | message to log |
+
 <a name="Simulation+setFinishCondition"></a>
 
 ### simulation.setFinishCondition(callback)

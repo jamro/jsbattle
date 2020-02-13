@@ -11,7 +11,7 @@ var editorHelper = {
     return result;
   },
   editAiScript: async (page, index) => {
-    let css = "table.ai-table tbody tr:nth-of-type(" + (index) + ") button.tank-edit";
+    let css = "table.ai-table tbody tr:nth-of-type(" + (index) + ") .tank-edit";
     await page.waitFor(css);
     await page.click(css);
   }
@@ -27,23 +27,17 @@ Given('{int} AI script(s)', async function (count) {
   }
 });
 
-Given('AI script(s) named {stringList}', async function (newNames) {
-  let oldNames = await this.client.page.evaluate((newNames) => {
-    for(let i in newNames) {
-      appController.createTank();
+Given('AI script(s) named {stringList}', async function (names) {
+  this.client.page.evaluate((names) => {
+    for(let i in names) {
+      appController.createAiScript(names[i])
     }
-    return appController.stateHolder.state.battle.battleSet.data.map(el => el.name);
-  }, newNames);
-
-  await this.client.page.evaluate((oldNames, newNames) => {
-    for(let i in newNames) {
-      appController.renameAiScript(newNames[i], oldNames[i])
-    }
-  }, oldNames, newNames);
+  }, names);
 });
 
-Given('AI Script no {int} open', function (index) {
-  editorHelper.editAiScript(this.client.page, index);
+Given('AI Script no {int} open', async function (index) {
+  await editorHelper.editAiScript(this.client.page, index);
+  await new Promise((resolve) => setTimeout(resolve, 100));
 });
 
 Given('AI Script {string} containing {string}', async function (name, code) {
@@ -93,6 +87,7 @@ When('confirm renaming AI Script name', async function () {
   let css = '.button-name-confirm';
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
+  await this.client.page.waitFor(() => !document.querySelector('.loading'));
 });
 
 When('abort renaming AI Script name', async function () {
@@ -126,9 +121,11 @@ When('click save AI Script', async function () {
 });
 
 When('edit AI Script no {int}', async function (index) {
-  let css = "table.ai-table tbody tr:nth-of-type(" + index + ") button.tank-edit";
+  let css = "table.ai-table tbody tr:nth-of-type(" + index + ") .tank-edit";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
+
+  await this.client.page.waitFor(() => !document.querySelector('.loading'));
 });
 
 When('confirm saving AI Script on exit warning', async function () {
@@ -142,6 +139,10 @@ When('abort saving AI Script on exit warning', async function () {
   let css = ".editor-exit-warn-close";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
+});
+
+When('wait {int} miliseconds', function (time, done) {
+  setTimeout(done, time)
 });
 
 // THEN ------------------------------------------------------------------------
@@ -167,10 +168,12 @@ Then('list of AI scripts consists of {stringList}', async function (scripts) {
 });
 
 Then('there is an error {string}', async function (msg) {
-  let error = await this.client.page.evaluate(() => {
-    const el = document.querySelector('.alert-danger');
-    return el.innerHTML;
-  });
+  let css = ".error-box";
+  await this.client.page.waitFor(css);
+  let error = await this.client.page.evaluate((css) => {
+    const el = document.querySelector(css);
+    return el.textContent;
+  }, css);
 
   expect(error).to.match(new RegExp(msg, "i"));
 });

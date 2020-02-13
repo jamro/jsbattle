@@ -21,7 +21,7 @@ async function createWebClient() {
     'name': 'Desktop',
     'userAgent': 'puppeteer-test',
     'viewport': {
-      'width': 1200,
+      'width': 1000,
       'height': 800,
       'deviceScaleFactor': 1,
       'isMobile': false,
@@ -66,6 +66,9 @@ After(async function (scenario) {
     dump += this.client.log.map(msg => `[${msg.type()}] ${msg.text()}`).join("\n");
     dump += "\n-----------------------------------------";
     this.attach(dump)
+    if(this.client.page && !this.client.page.isClosed()) {
+      this.attach((await this.client.page.screenshot({type: 'jpeg', quality: 10})).toString('base64'));
+    }
   }
   if(this.client && this.client.browser) {
     await this.client.browser.close();

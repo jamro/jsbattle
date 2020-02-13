@@ -5,13 +5,20 @@ import AbstractView from "./AbstractView.js";
 
 export default class AbstractRenderer extends Renderer  {
 
-  constructor() {
+  constructor(debug) {
     super();
+    this._debug = debug;
     this._tankMap = [];
     this._bulletMap = [];
     this._offsetX = 0;
     this._offsetY = 0;
     this._speedMultiplier = 1;
+  }
+
+  log(msg) {
+    if(this._debug) {
+      console.log('[RENDERER] ' + msg);
+    }
   }
 
   get offsetX() {

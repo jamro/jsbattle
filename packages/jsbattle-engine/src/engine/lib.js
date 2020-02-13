@@ -8,9 +8,9 @@ import AiDefinition from "./AiDefinition.js";
 import UltimateBattleDescriptor from "./UltimateBattleDescriptor.js";
 
 const JsBattleLib = {
-  createSimulation: (renderer) => {
-    renderer = renderer ? renderer : new Renderer();
-    let sim = new Simulation(renderer);
+  createSimulation: (renderer, debug) => {
+    renderer = renderer ? renderer : new Renderer(debug);
+    let sim = new Simulation(renderer, debug);
     return sim;
   },
 
@@ -22,12 +22,12 @@ const JsBattleLib = {
     return new UltimateBattleDescriptor();
   },
 
-  createRenderer: (name) => {
+  createRenderer: (name, debug) => {
     switch(name) {
-      case 'debug':   return new DebugRenderer();
-      case 'bw':      return new BWRenderer();
-      case 'brody':   return new BrodyRenderer();
-      case 'void':    return new VoidRenderer();
+      case 'debug':   return new DebugRenderer(debug);
+      case 'bw':      return new BWRenderer(debug);
+      case 'brody':   return new BrodyRenderer(debug);
+      case 'void':    return new VoidRenderer(debug);
       default:        throw "Unknown rederer " + name;
     }
   }

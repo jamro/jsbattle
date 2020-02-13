@@ -17,13 +17,15 @@ module.exports = {
     },
     "globals": {
         "VERSION": "readable",
+        "DEBUG_MODE": "readable",
         "$": "readable",
         "CodeMirror": "readable",
         "hljs": "readable",
         "ClipboardJS": "readable",
         "JsBattle": "readable",
         "ReactDOM": "readable",
-        "React": "readable"
+        "React": "readable",
+        "require": "readable"
     },
     "env": {
         "browser": true,
@@ -31,8 +33,9 @@ module.exports = {
     },
     "extends": [
       "eslint:recommended",
-      'plugin:react/recommended'
+      'plugin:react/recommended',
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -103,13 +106,10 @@ module.exports = {
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-names": "off",
-        "func-style": [
-            "error",
-            "declaration"
-        ],
+        "func-style": "off",
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
-        "global-require": "error",
+        "global-require": "off",
         "guard-for-in": "off",
         "handle-callback-err": "error",
         "id-blacklist": "error",
@@ -221,7 +221,7 @@ module.exports = {
         "no-restricted-syntax": "error",
         "no-return-assign": "off",
         "no-return-await": "error",
-        "no-script-url": "error",
+        "no-script-url": "off",
         "no-self-compare": "error",
         "no-sequences": "error",
         "no-shadow": "error",

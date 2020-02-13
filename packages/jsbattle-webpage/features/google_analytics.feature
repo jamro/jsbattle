@@ -3,7 +3,7 @@ Feature: Statistics
 
   Scenario: Notify about listing challenges
     Given JsBattle open in the browser
-    When navigate to "Battlefield" section
+    When navigate to "Sandbox" section
     And navigate to "Challenges" section
     Then GA event "challenges/list" is sent
 
@@ -26,88 +26,26 @@ Feature: Statistics
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge 1
-    And close challenge info
+    And open tab "code" of live code panel
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is restarted
     And challenge battle is completed
     And the challenge is won
     Then GA event "challenges/challenge_1/win" is sent
 
   Scenario: Notify about opening custom battle section
     Given JsBattle open in the browser
-    And "Battlefield" section open
-    Then GA event "custom_battle/open" is sent
+    And "Sandbox" section open
+    Then GA event "sandbox/open" is sent
 
-  Scenario: Notify about starting a custom battle (free for all)
+  Scenario: Notify about creating new AI Script
     Given JsBattle open in the browser
-    And tanks [dummy, jamro] selected for the battle
-    And "Battlefield" section open
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When press play battle button
-    And battle view is displayed
-    Then GA event "custom_battle/start/free_for_all" is sent
-
-  Scenario: Notify about starting a custom battle (team mode)
-    Given JsBattle open in the browser
-    And tanks [dummy, jamro] selected for the battle
-    And "Battlefield" section open
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When select team mode
-    And press play battle button
-    And battle view is displayed
-    Then GA event "custom_battle/start/team_mode" is sent
-
-  Scenario: Notify about completing a custom battle
-    Given JsBattle open in the browser
-    And tanks [dummy, jamro] selected for the battle
-    And "Battlefield" section open
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When press play battle button
-    And battle view is displayed
-    And battle results are shown
-    Then GA event "custom_battle/complete" is sent
-
-  Scenario: Notify about choosing a tank for a custom battle
-    Given JsBattle open in the browser
-    And "Battlefield" section open
-    And no tanks selected for the battle
-    And 2 "jamro" tanks selected for the battle
-    And 5 "sniper" tanks selected for the battle
-    And 1 "crazy" tanks selected for the battle
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When press play battle button
-    And battle view is displayed
-    Then GA event "custom_battle/tank/jamro/2" is sent
-    And GA event "custom_battle/tank/sniper/5" is sent
-    And GA event "custom_battle/tank/crazy/1" is sent
-
-  Scenario: Notify about creating new AI Script from custom battle section
-    Given JsBattle open in the browser
-    And "Battlefield" section open
+    And "Sandbox" section open
     When click create tank button
-    Then GA event "editor/create" is sent
+    Then GA event "sandbox/create" is sent
 
-  Scenario: Notify about creating new AI Script from editor section
+  Scenario: Notify about removing an AI Script
     Given JsBattle open in the browser
-    And "Editor" section open
-    When click create tank button
-    Then GA event "editor/create" is sent
-
-  Scenario: Notify about removing an AI Script from custom battle section
-    Given JsBattle open in the browser
-    And "Battlefield" section open
+    And "Sandbox" section open
     And AI scripts named [alpha]
     When delete tank "alpha" and confirm
-    Then GA event "editor/remove" is sent
-
-  Scenario: Notify about removing an AI Script from editor section
-    Given JsBattle open in the browser
-    And "Editor" section open
-    And AI scripts named [alpha, beta, gamma]
-    When click remove button of AI Script no 2
-    And confirm removal of AI Script no 2
-    Then GA event "editor/remove" is sent
+    Then GA event "sandbox/remove" is sent

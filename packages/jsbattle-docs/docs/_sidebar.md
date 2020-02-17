@@ -32,7 +32,6 @@
 - [**Development Guide**](./dev_guide/README.md)
     - [Architecture](./dev_guide/architecture/README.md)
         - [Infrastructure](./dev_guide/architecture/infrastructure.md)
-        - [Server](./dev_guide/architecture/server.md)
         - [Simulation](./dev_guide/architecture/simulation.md)
         - [Renderers](./dev_guide/architecture/renderers.md)
         - [Artificial Intelligence](./dev_guide/architecture/ai.md)

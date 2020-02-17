@@ -1,12 +1,13 @@
 import React from "react";
 import JsBattle from "jsbattle-engine";
-import JsonCode from './JsonCode.js';
 import Row from './Row.js';
 import Loading from './Loading.js';
-import CheatSheet from './CheatSheet.js';
 import Col from './Col.js';
-import CodeArea from './CodeArea.js';
 import InfoBox from './InfoBox.js';
+import LiveCodeInfoTab from './LiveCodeInfoTab.js';
+import LiveCodeCodeTab from './LiveCodeCodeTab.js';
+import LiveCodeCheatSheetTab from './LiveCodeCheatSheetTab.js';
+import LiveCodeDebugTab from './LiveCodeDebugTab.js';
 import JsBattleBattlefield from "jsbattle-react";
 import PropTypes from 'prop-types';
 
@@ -64,29 +65,6 @@ class LiveCode extends React.Component {
     }, 700);
   }
 
-  parseDescription(txt) {
-    txt = txt.replace(/(!?\[.*\]\(.*\))/g, '<break-line>$1<break-line>');
-    txt = txt.replace(/\n/g, '<break-line><br/><break-line>');
-    txt = txt.split('<break-line>');
-    txt = txt.map((line) => {
-      let result;
-      result = (/^!\[(.*)\]\((.*)\)$/).exec(line);
-      if(result) {
-        return <img src={result[2]} alt={result[1]} />;
-      }
-      result = (/^\[(.*)\]\((.*)\)$/).exec(line);
-      if(result) {
-        return <a href={result[2]} target="_blank" rel="noopener noreferrer">{result[1]}</a>;
-      }
-      if(line == '<br/>') {
-        return <br/>;
-      }
-      return line;
-    });
-
-    return txt;
-  }
-
   updateDebug(sim) {
     let result = sim.tankList.filter((t) => t.name == this.props.name);
     if(result.length < 1) {
@@ -132,9 +110,9 @@ class LiveCode extends React.Component {
 
   renderTabLink(id, icon, label) {
     return <li key={id} className={`nav-item tab-link-${id}`}>
-      <a href="javascript:void(0)" className={'nav-link ' + (this.state.tab == id ? 'active' : '')} onClick={() => this.setState({tab: id})}>
+      <span className={'nav-link clickable ' + (this.state.tab == id ? 'active' : '')} onClick={() => this.setState({tab: id})}>
         <i className={icon}></i> {label}
-      </a>
+      </span>
     </li>;
   }
 
@@ -158,42 +136,36 @@ class LiveCode extends React.Component {
     let loadingBox = null;
     if(this.state.loading) {
       loadingBox = <div className="battle-overlay">
-          <i className="fas fa-sync fa-spin"></i> Loading the battle...
+          <Loading />
         </div>;
     }
-    let tabs = {};
+    let tabLinks = [];
+    if(this.props.info) {
+      tabLinks.push(this.renderTabLink('info', "fa fa-info-circle", "Info"));
+    }
+    tabLinks.push(this.renderTabLink('code', "fa fa-code", "Code"));
+    tabLinks.push(this.renderTabLink('debug', "fa fa-bug", "Debug"));
+    tabLinks.push(this.renderTabLink('cheatsheet', "fa fa-life-ring", "Cheat Sheet"));
 
-    tabs.code = <div style={{marginTop: '0.7em'}}>
-        <CodeArea
-          className="form-control"
+    tabLinks = tabLinks.concat(this.props.extraTabs.map((tab) => (
+      this.renderTabLink(tab.id, tab.icon, tab.label)
+    )));
+
+    let tabs = {
+      info: <LiveCodeInfoTab
+          info={this.props.info}
+          onSkip={() => this.setState({tab: 'code'})}
+        />,
+      code: <LiveCodeCodeTab
           defaultValue={this.props.code}
           onChange={(code) => this.onCodeChanged(code)}
-        />
-      </div>;
-
-    tabs.info = <div style={{marginTop: '0.7em'}}>
-        <p style={{paddingTop: '1em'}}>
-          <button className="btn btn-primary start-coding-button"  onClick={() => this.setState({tab: 'code'})}>
-            <i className="fa fa-code"></i> Start Coding
-          </button>
-        </p>
-        {this.parseDescription(this.props.info)}
-      </div>;
-
-    tabs.debug = <div style={{fontSize: '0.8em'}}>
-      <div className="card" style={{marginTop: '1em'}}>
-        <div className="card-body debug-container" style={{padding: '1em'}}>
-          <JsonCode
-            data={this.state.debug}
-            highlight={true}
-            varName="control.DEBUG"
-          />
-        </div>
-      </div>
-    </div>;
-
-    tabs.cheatsheet = <CheatSheet />;
-
+        />,
+      debug: <LiveCodeDebugTab
+          data={this.state.debug}
+          highlight={true}
+        />,
+      cheatsheet: <LiveCodeCheatSheetTab />
+    };
     this.props.extraTabs.forEach((tab) => {
       tabs[tab.id] = tab.content;
     });
@@ -222,21 +194,7 @@ class LiveCode extends React.Component {
       />;
     }
 
-    let tabLinks = [];
-    if(this.props.info) {
-      tabLinks.push(this.renderTabLink('info', "fa fa-info-circle", "Info"));
-    }
-    tabLinks.push(this.renderTabLink('code', "fa fa-code", "Code"));
-    tabLinks.push(this.renderTabLink('debug', "fa fa-bug", "Debug"));
-    tabLinks.push(this.renderTabLink('cheatsheet', "fa fa-life-ring", "Cheat Sheet"));
-
-
-    tabLinks = tabLinks.concat(this.props.extraTabs.map((tab) => (
-      this.renderTabLink(tab.id, tab.icon, tab.label)
-    )));
-
-
-    return <div>
+    return <div className="live-code">
       <Row>
         <Col md={6}>
           <ul className="nav nav-tabs">

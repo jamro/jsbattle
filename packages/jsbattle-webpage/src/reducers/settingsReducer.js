@@ -11,9 +11,9 @@ function settingsReducer(state = {}, action) {
     ...state
   };
   switch (action.type) {
-    case 'SET_SIM_SPEED':
+    case 'SET_SIM_SPEED_REQUEST':
       return {...state, simSpeed: action.payload};
-    case 'SET_SIM_QUALITY':
+    case 'SET_SIM_QUALITY_REQUEST':
       return {...state, simQuality: action.payload};
     case 'SETTINGS_SUCCESS':
       console.log('simSpeed: ' + action.payload.simSpeed);

@@ -4,7 +4,6 @@
   {"from": "/node_modules/jsbattle-docs/dist/**/*",             "to": "/dist/docs"},
   {"from": "/node_modules/jquery/dist/jquery.min.js",           "to": "/dist/vendor"},
   {"from": "/node_modules/core-js/client/core.js",              "to": "/dist/vendor"},
-  {"from": "/node_modules/clipboard/dist/clipboard.min.js",     "to": "/dist/vendor"},
   {"from": "/node_modules/ajv/dist/ajv.min.js",                 "to": "/dist/vendor"},
   {"from": "/node_modules/bootstrap/dist/**/*",                 "to": "/dist/vendor/bootstrap"},
   {"from": "/node_modules/react/umd/**/*",                      "to": "/dist/vendor/react"},

@@ -4,13 +4,17 @@ import LiveCode from '../components/LiveCode.js';
 import {
   completeChallenge,
   getChallengeCode,
+  getChallenge,
   updateChallengeCode,
+} from '../actions/challengeAction.js';
+import {
   notifyStatsChallengeComplete,
   notifyStatsChallengeOpen,
-} from '../actions';
+} from '../actions/statsAction.js';
 import FullRow from '../components/FullRow.js';
+import Loading from '../components/Loading.js';
 import {Link} from 'react-router-dom';
-import {getChallengeModifier} from "../lib/ChallengeLibrary.js";
+import {getChallengeModifier} from "../services/challengeService.js";
 import JsBattle from 'jsbattle-engine';
 
 class ChallengeScreen extends React.Component {
@@ -21,23 +25,55 @@ class ChallengeScreen extends React.Component {
     this.battlefield = null;
     this.reloadTimeout = null;
 
+    this.state = {
+      code: props.code,
+      tab: 'info',
+      hasWon: false,
+      loading: true,
+      debug: {}
+    };
+
+    this._aiDefListTemplateCache = [];
+    this._lastAiDefList = [];
+
+    this.liveCode = React.createRef();
+  }
+
+  componentDidMount() {
     let challengeId = this.props.match.params.id;
-    let currentChallenge = null;
-    for(let i in this.props.list) {
-      if(i != 0 && !this.props.list[i].isCompleted && (!this.props.list[i-1] || !this.props.list[i-1].isCompleted)) continue;
-      if(this.props.list[i].id == challengeId) {
-        currentChallenge = this.props.list[i];
-        break;
-      }
-    }
-    if(!currentChallenge) {
-      this.state = {};
+    this.props.getChallengeCode(challengeId);
+    this.props.getChallenge(challengeId);
+  }
+
+  restartBattle() {
+    this.liveCode.current.restartBattle();
+  }
+
+  onCodeChanged(code) {
+    console.log("Challenge code changed");
+    this.props.updateChallengeCode(this.props.currentChallenge.id, code);
+  }
+
+  onChallengeComplete(result) {
+    let aliveTanks = result.tankList.filter((tank) => tank.energy > 0);
+    if(aliveTanks.length != 1 || aliveTanks[0].name.toLowerCase() != 'player') {
+      console.log("Challange lost... restarting");
+      this.restartBattle();
       return;
     }
+    console.log("Challange won");
+    this.setState({hasWon: true});
+    this.props.completeChallenge(this.props.currentChallenge.id);
+    this.props.notifyStatsChallengeComplete(this.props.currentChallenge.level);
+  }
 
+  getAiDefListTemplate() {
+    if(JSON.stringify(this._lastAiDefList) == JSON.stringify(this.props.currentChallenge.aiDefList)) {
+      return this._aiDefListTemplateCache;
+    }
     let aiDefListTemplate = [];
-
-    currentChallenge.aiDefList.forEach((tank) => {
+    this._lastAiDefList = this.props.currentChallenge.aiDefList;
+    this.props.currentChallenge.aiDefList.forEach((tank) => {
       let aiDef = JsBattle.createAiDefinition();
       switch(tank.source) {
         case 'file':
@@ -49,66 +85,30 @@ class ChallengeScreen extends React.Component {
       }
       aiDefListTemplate.push(aiDef);
     });
-
-    let modifier = getChallengeModifier(challengeId);
-
-    console.log(`Challenge #${currentChallenge.level} (ID: ${currentChallenge.id})`);
-
-    this.state = {
-      currentChallenge,
-      code: props.code,
-      aiDefListTemplate: aiDefListTemplate,
-      modifier: modifier,
-      tab: 'info',
-      hasWon: false,
-      loading: true,
-      debug: {}
-    };
-
-    this.liveCode = React.createRef();
-  }
-
-  componentDidMount() {
-    if(!this.state.currentChallenge) {
-      return;
-    }
-    this.props.notifyStatsChallengeOpen(this.state.currentChallenge.level);
-
-    console.log(`Challenge #${this.state.currentChallenge.level} (ID: ${this.state.currentChallenge.id})`);
-    this.props.getChallengeCode(this.state.currentChallenge.id);
-  }
-
-
-  restartBattle() {
-    this.liveCode.current.restartBattle();
-  }
-
-  onCodeChanged(code) {
-    console.log("Challenge code changed");
-    this.props.updateChallengeCode(this.state.currentChallenge.id, code);
-  }
-
-  onChallengeComplete(result) {
-
-    let aliveTanks = result.tankList.filter((tank) => tank.energy > 0);
-    if(aliveTanks.length != 1 || aliveTanks[0].name.toLowerCase() != 'player') {
-      console.log("Challange lost... restarting");
-      this.restartBattle();
-      return;
-    }
-    console.log("Challange won");
-    this.setState({hasWon: true});
-    this.props.completeChallenge(this.state.currentChallenge.id);
-    this.props.notifyStatsChallengeComplete(this.state.currentChallenge.level);
+    this._aiDefListTemplateCache = aiDefListTemplate;
+    return aiDefListTemplate;
   }
 
   render() {
-    if(!this.state.currentChallenge) {
-      return <div>Challenge not available</div>;
+    if(this.props.isLoading) {
+      return <Loading />;
+    }
+    if(!this.props.currentChallenge) {
+      return <FullRow>
+          <nav className="breadcrumb-container">
+            <ol className="breadcrumb">
+              <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
+              <li className="breadcrumb-item"><Link to="/challenge">Challenges</Link></li>
+              <li className="breadcrumb-item" aria-current="page">Challenge unavailable</li>
+            </ol>
+          </nav>
+        </FullRow>;
     }
 
     let congratsScreen = null;
-    if(this.state.hasWon) {
+    if(this.state.hasWon && this.props.isCompleting) {
+      congratsScreen = <Loading />;
+    } else if(this.state.hasWon) {
       congratsScreen = <div className="jumbotron text-center">
         <h4 className="congrats-msg result-msg"><i className="fas fa-trophy d-none d-lg-inline d-xl-inline"></i> Challenge Completed!</h4>
         <p className="d-none d-lg-block d-xl-block">Good job! You did it! Now try something more difficult - the next challenge is waiting for you.</p>
@@ -120,15 +120,17 @@ class ChallengeScreen extends React.Component {
       </div>;
     }
 
+    let modifier = getChallengeModifier(this.props.currentChallenge.id);
+
     return <div>
     <FullRow>
       <nav className="breadcrumb-container">
         <ol className="breadcrumb">
           <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
           <li className="breadcrumb-item"><Link to="/challenge">Challenges</Link></li>
-          <li className="breadcrumb-item active" aria-current="page">Level {this.state.currentChallenge.level}: {this.state.currentChallenge.name}</li>
+          <li className="breadcrumb-item active" aria-current="page">Level {this.props.currentChallenge.level}: {this.props.currentChallenge.name}</li>
         </ol>
-        <button type="button" className="btn btn-sm btn-primary restart-challenge-battle" disabled={this.props.isLoading} onClick={() => this.restartBattle()}>
+        <button type="button" className="btn btn-sm btn-primary restart-challenge-battle" onClick={() => this.restartBattle()}>
           <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
         </button>
       </nav>
@@ -136,19 +138,18 @@ class ChallengeScreen extends React.Component {
       <LiveCode
         ref={this.liveCode}
         challengeId={this.props.match.params.id}
-        aiDefList={this.state.aiDefListTemplate}
+        aiDefList={this.getAiDefListTemplate()}
         list={this.props.list}
         simQuality={this.props.simQuality}
         simSpeed={this.props.simSpeed}
-        isLoading={this.props.isLoading}
         code={this.props.code}
-        info={this.state.currentChallenge.description}
+        info={this.props.currentChallenge.description}
         onFinish={(result) => this.onChallengeComplete(result)}
         onCodeChanged={(code) => this.onCodeChanged(code)}
-        rngSeed={this.state.currentChallenge.rngSeed}
-        timeLimit={this.state.currentChallenge.timeLimit}
-        teamMode={this.state.currentChallenge.teamMode}
-        modifier={this.state.modifier}
+        rngSeed={this.props.currentChallenge.rngSeed}
+        timeLimit={this.props.currentChallenge.timeLimit}
+        teamMode={this.props.currentChallenge.teamMode}
+        modifier={modifier}
       >
         {congratsScreen}
       </LiveCode>
@@ -160,7 +161,9 @@ const mapStateToProps = (state) => ({
   list: state.challenge.list,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
-  isLoading: state.loading.CHALLENGE_CODE,
+  currentChallenge: state.challenge.currentChallenge,
+  isLoading: state.loading.CHALLENGE_CODE || state.loading.CHALLENGE,
+  isCompleting: state.loading.COMPLETE_CHALLENGE,
   code: state.challenge.code
 });
 
@@ -170,6 +173,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getChallengeCode: (id) => {
     dispatch(getChallengeCode(id));
+  },
+  getChallenge: (id) => {
+    dispatch(getChallenge(id));
   },
   updateChallengeCode: (id, code) => {
     dispatch(updateChallengeCode(id, code));

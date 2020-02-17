@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 
 class Loading extends Component {
 
@@ -7,16 +8,17 @@ class Loading extends Component {
   }
 
   render() {
-    return <span className="loading"><i className="fas fa-crosshairs fa-spin" /> Loading...</span>;
+    return <span className="loading"><i className="fas fa-crosshairs fa-spin" /> {this.props.label}</span>;
   }
 
 }
 
 Loading.defaultProps = {
-
+  label: "Loading..."
 };
 
 Loading.propTypes = {
-
+  label: PropTypes.string
 };
+
 export default Loading;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class JsonCode extends React.Component {
 
@@ -73,3 +74,17 @@ export default class JsonCode extends React.Component {
     return <pre className={classes} style={{margin: 'inherit'}}>{prefix}{output}</pre>;
   }
 }
+
+JsonCode.defaultProps = {
+  className: '',
+  highlight: false,
+  data: {},
+  varName: ''
+};
+
+JsonCode.propTypes = {
+  className: PropTypes.string,
+  highlight: PropTypes.bool,
+  data: PropTypes.object,
+  varName: PropTypes.string,
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class CodeArea extends React.Component {
 
@@ -182,3 +183,13 @@ export default class CodeArea extends React.Component {
 
   }
 }
+
+CodeArea.defaultProps = {
+  defaultValue: '',
+  onChange: () => {}
+};
+
+CodeArea.propTypes = {
+  defaultValue: PropTypes.string,
+  onChange: PropTypes.func,
+};

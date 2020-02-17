@@ -2,23 +2,25 @@ import React from "react";
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import FullRow from '../components/FullRow.js';
-import Stats from '../lib/Stats.js';
-
+import Loading from '../components/Loading.js';
+import {
+  getChallengeList
+} from '../actions/challengeAction.js';
+import {
+  notifyChallengesListOpen
+} from '../actions/statsAction.js';
 class ChallengeListScreen extends React.Component {
 
   componentDidMount() {
-    Stats.onChallengesList();
+    this.props.notifyChallengesListOpen();
+    this.props.getChallengeList();
   }
 
   render() {
-    let challengeList = this.props.list || [];
-    challengeList.sort((a, b) => a.level - b.level);
-    let completedThreshold = challengeList.length > 0 ? challengeList[0].level: 0;
-    for(let i=0; i < challengeList.length; i++) {
-      if(challengeList[i].isCompleted) {
-        completedThreshold = Math.max(completedThreshold, challengeList[i].level+1);
-      }
+    if(this.props.isLoading) {
+      return <Loading />;
     }
+    let challengeList = this.props.list || [];
     let items = challengeList.map((challenge) => {
       let completeBadge = <span className="badge badge-secondary completed-badge"><i className="fa fa-check" aria-hidden="true"></i> Completed</span>;
       let startButton = <Link to={'/challenge/' + challenge.id} className="start-challenge">
@@ -32,7 +34,7 @@ class ChallengeListScreen extends React.Component {
       return <li key={challenge.id} className="list-group-item d-flex justify-content-between align-items-center challenge-list-item">
         <div style={{width: '50%'}}>Level {challenge.level}: <strong>{challenge.name}</strong></div>
         { challenge.isCompleted ? completeBadge : null }
-        { challenge.level <= completedThreshold ? startButton : disabledButton }
+        { challenge.isUnlocked ? startButton : disabledButton }
       </li>;
     });
     return <div>
@@ -53,11 +55,17 @@ class ChallengeListScreen extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  list: state.challenge.list
+  list: state.challenge.list,
+  isLoading: state.loading.CHALLENGE_LIST,
 });
 
-const mapDispatchToProps = () => ({
-
+const mapDispatchToProps = (dispatch) => ({
+  notifyChallengesListOpen: () => {
+    dispatch(notifyChallengesListOpen());
+  },
+  getChallengeList: () => {
+    dispatch(getChallengeList());
+  },
 });
 export default connect(
   mapStateToProps,

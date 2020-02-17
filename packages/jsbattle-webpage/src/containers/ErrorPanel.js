@@ -2,7 +2,7 @@ import {withRouter} from 'react-router-dom';
 import FullRow from "../components/FullRow.js";
 import React from "react";
 import {connect} from 'react-redux';
-import {clearError} from '../actions';
+import {clearError} from '../actions/coreAction.js';
 
 class ErrorPanel extends React.Component {
 

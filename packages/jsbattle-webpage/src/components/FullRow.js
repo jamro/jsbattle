@@ -1,5 +1,6 @@
 import React from "react";
 import Col from "./Col.js";
+import PropTypes from 'prop-types';
 
 export default class FullRow extends React.Component {
 
@@ -11,3 +12,12 @@ export default class FullRow extends React.Component {
     </div>;
   }
 }
+
+
+FullRow.defaultProps = {
+  style: {},
+};
+
+FullRow.propTypes = {
+  style: PropTypes.object,
+};

@@ -12,6 +12,7 @@ Feature: Statistics
     And all challenges unlocked
     And "Challenges" section open
     When open challenge <index>
+    And wait for live code widget
     Then GA event "challenges/challenge_<index>/open" is sent
 
     Examples:
@@ -41,11 +42,14 @@ Feature: Statistics
     Given JsBattle open in the browser
     And "Sandbox" section open
     When click create tank button
+    And loading disappeared
     Then GA event "sandbox/create" is sent
 
+  @single
   Scenario: Notify about removing an AI Script
     Given JsBattle open in the browser
     And "Sandbox" section open
     And AI scripts named [alpha]
     When delete tank "alpha" and confirm
+    And loading disappeared
     Then GA event "sandbox/remove" is sent

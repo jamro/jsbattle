@@ -43,6 +43,10 @@ When('click share battle', async function () {
   await this.client.page.click(css);
 });
 
+When('wait for live code widget', async function () {
+  await this.client.page.waitFor('.live-code');
+});
+
 // THEN ------------------------------------------------------------------------
 
 Then('the winner tank is {string}', async function (targetName) {

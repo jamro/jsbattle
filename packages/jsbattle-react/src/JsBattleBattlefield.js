@@ -33,6 +33,7 @@ class JsBattleBattlefield extends React.Component {
     this.canvas = null;
     this.renderer = null;
     this.onWindowResizeHandler = this.onWindowResize.bind(this);
+    this._isMounted = false;
   }
 
   createCanvas(width, height) {
@@ -57,6 +58,7 @@ class JsBattleBattlefield extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.log(`component did mount`);
     this.createCanvas(this.props.width, this.props.height);
     this.log(`creating renderer`);
@@ -73,6 +75,7 @@ class JsBattleBattlefield extends React.Component {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     this.log(`component will unmount`);
     window.removeEventListener('resize', this.onWindowResizeHandler);
     if(this.simulation) {
@@ -92,6 +95,9 @@ class JsBattleBattlefield extends React.Component {
       return;
     }
     let hasChanged = (name) => {
+      if(typeof this.props[name] == 'object') {
+        return (JSON.stringify(prevProps[name]) !== JSON.stringify(this.props[name]));
+      }
       return (prevProps[name] !== this.props[name]);
     };
     if(hasChanged('speed')) {
@@ -100,17 +106,26 @@ class JsBattleBattlefield extends React.Component {
     if(hasChanged('quality')) {
       this.simulation.setRendererQuality(this.props.quality);
     }
-    if(
-      hasChanged('aiDefList') ||
-      hasChanged('renderer') ||
-      hasChanged('rngSeed') ||
-      hasChanged('teamMode') ||
-      hasChanged('battlefieldWidth') ||
-      hasChanged('battlefieldHeight') ||
-      hasChanged('modifier') ||
-      hasChanged('timeLimit')
-    ) {
-      this.log(`restart due to property change`);
+
+    let changedProperties = [];
+    let watchedProperties = [
+      'aiDefList',
+      'renderer',
+      'rngSeed',
+      'teamMode',
+      'battlefieldWidth',
+      'battlefieldHeight',
+      'modifier',
+      'timeLimit'
+    ];
+    for(let property of watchedProperties) {
+      if(hasChanged(property)) {
+        changedProperties.push(property);
+      }
+    }
+
+    if(changedProperties.length > 0) {
+      this.log(`restart due to property change: ${changedProperties.join(', ')}`);
       this.restart();
     }
   }
@@ -130,7 +145,7 @@ class JsBattleBattlefield extends React.Component {
    * @returns {undefined}
    */
   restart() {
-    this.log(`restarting...`);
+    this.log(this._isMounted ? `restarting...` : `WARN: restarting when component not mounted...`);
     if(this.simulation) {
       this.simulation.stop();
       this.simulation = null;
@@ -238,7 +253,7 @@ class JsBattleBattlefield extends React.Component {
       if(this.props.onError) {
         this.props.onError("Cannot add tank '" + aiDefinition.name + "': " +  (err.message ? err.message : err));
       }
-      console.error(err);
+      this.error(err);
     }
   }
 

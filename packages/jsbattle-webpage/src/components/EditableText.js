@@ -37,11 +37,15 @@ export default class EditableText extends React.Component {
   }
 
   renderView() {
+    let pen = null;
+    if(this.props.name) {
+      pen = <span className="rename-button clickable" onClick={() => this.setState({mode: 'edit'})}>
+        <small><i className="fas fa-pen" aria-hidden="true"></i></small>
+      </span>;
+    }
     return <span style={{width: '300px'}}>
       <strong className="tank-name-view">{this.props.name}</strong> &nbsp;
-      <a href="javascript:void(0)" className="rename-button" onClick={() => this.setState({mode: 'edit'})}>
-        <small><i className="fas fa-pen" aria-hidden="true"></i></small>
-      </a>
+      {pen}
     </span>;
   }
 

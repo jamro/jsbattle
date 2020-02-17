@@ -1,3 +1,16 @@
+import {
+  SETTINGS_SUCCESS,
+  AI_SCRIPT_REQUEST,
+  AI_SCRIPT_SUCCESS,
+  AI_SCRIPT_CHANGED_REQUEST,
+  AI_SCRIPT_RENAME_SUCCESS,
+  SANDBOX_OPPONENT_CHANGE,
+  SANDBOX_RNG_LOCK,
+  SANDBOX_RNG_UNLOCK,
+  SANDBOX_OPPONENT_TEAM_MODE,
+  SANDBOX_OPPONENT_DUEL_MODE,
+} from '../actions/actionTypes.js';
+
 const initState = {
   list: [],
   code: '',
@@ -19,28 +32,34 @@ function sanboxReducer(state = {}, action) {
     ...state
   };
   switch (action.type) {
-    case 'SETTINGS_SUCCESS':
+    case SETTINGS_SUCCESS:
       return {
         ...state,
         tankList: action.payload.bundledTanks
       };
-    case 'AI_SCRIPT_SUCCESS':
+      case AI_SCRIPT_REQUEST:
+        return {
+          ...state,
+          code: '',
+          name: '',
+        };
+    case AI_SCRIPT_SUCCESS:
       return {
         ...state,
         code: action.payload.code,
         name: action.payload.name,
       };
-    case 'AI_SCRIPT_CHANGED':
+    case AI_SCRIPT_CHANGED_REQUEST:
       return {
         ...state,
         code: action.payload.code
       };
-    case 'AI_SCRIPT_RENAME_SUCCESS':
+    case AI_SCRIPT_RENAME_SUCCESS:
       return {
         ...state,
         name: action.payload.newName
       };
-    case 'SANDBOX_OPPONENT_CHANGE':
+    case SANDBOX_OPPONENT_CHANGE:
       return {
         ...state,
         opponent: {
@@ -50,25 +69,25 @@ function sanboxReducer(state = {}, action) {
           code: action.payload.code || '',
         }
       };
-    case 'SANDBOX_RNG_LOCK':
+    case SANDBOX_RNG_LOCK:
       return {
         ...state,
         lockRng: true
       };
-    case 'SANDBOX_RNG_UNLOCK':
+    case SANDBOX_RNG_UNLOCK:
       return {
         ...state,
         lockRng: false
       };
-    case 'SANDBOX_OPPONENT_TEAM_MODE':
+    case SANDBOX_OPPONENT_TEAM_MODE:
       return {
         ...state,
         mode: 'team'
       };
-    case 'SANDBOX_OPPONENT_DUEL_MODE':
+    case SANDBOX_OPPONENT_DUEL_MODE:
       return {
         ...state,
-        mode: 'duuel'
+        mode: 'duel'
       };
     default:
       return state;

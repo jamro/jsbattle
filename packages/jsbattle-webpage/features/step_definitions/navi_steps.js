@@ -194,6 +194,10 @@ When('open URI {string}', async function (uri) {
   this.client.lastResponse = await this.client.page.goto(baseUrl + "/" + uri);
 });
 
+When('loading disappeared', async function () {
+  await this.client.page.waitFor(() => !document.querySelector('.loading'));
+});
+
 // THEN ------------------------------------------------------------------------
 Then('{string} section is selected in the navigation bar', async function (page) {
   let result = await this.client.page.evaluate(() => {

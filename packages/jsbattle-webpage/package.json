@@ -27,13 +27,13 @@
     "test:smoke": "npm run test:prep && npm run test:run-smoke && npm run test:mock-stop",
     "test:mock-start": "pm2 start mockserver/mock.js --wait-ready --name jsbattle-mock-server",
     "test:mock-stop": "pm2 del jsbattle-mock-server",
-    "test:run-all": "cucumber-js -f ./features/support/SimpleFormatter.js --retry 3",
-    "test:run-smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --retry 3",
+    "test:run-all": "cucumber-js -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast",
+    "test:run-smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast",
     "test:prep": "(npm run test:mock-stop > /dev/null 2>&1 || true) && npm run test:mock-start",
     "analyse": "webpack --profile --json --config ./webpack.config.js > bundle_stats.json && webpack-bundle-analyzer bundle_stats.json",
     "watch": "npm-watch",
     "start": "http-server -c-1 ./dist",
-    "start:dev": "webpack-dev-server --config ./webpack.config.js --mode=production"
+    "start:dev": "webpack-dev-server --config ./webpack.config.js --mode=development"
   },
   "keywords": [],
   "author": "Krzysztof Jamroz <jamro@jamro.net>",

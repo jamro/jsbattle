@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class Row extends React.Component {
 
@@ -8,3 +9,11 @@ export default class Row extends React.Component {
     </div>;
   }
 }
+
+Row.defaultProps = {
+  style: {},
+};
+
+Row.propTypes = {
+  style: PropTypes.object,
+};

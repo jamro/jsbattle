@@ -8,15 +8,17 @@ import {Link} from 'react-router-dom';
 import Row from '../components/Row.js';
 import Col from '../components/Col.js';
 import {
+  notifySandboxEdit
+} from '../actions/statsAction.js';
+import {
   getAiScript,
   updateAiScript,
   renameAiScript,
   setSandboxOpponent,
   setSandboxBattleMode,
-  lockSandboxRng
-} from '../actions';
+  lockSandboxRng,
+} from '../actions/sandboxAction.js';
 import JsBattle from 'jsbattle-engine';
-import Stats from '../lib/Stats.js';
 
 class SandboxScreen extends React.Component {
 
@@ -38,7 +40,7 @@ class SandboxScreen extends React.Component {
   componentDidMount() {
     let name = this.props.match.params.name;
     this.props.getAiScript(name);
-    Stats.onSandboxEdit();
+    this.props.notifySandboxEdit();
   }
 
   shouldComponentUpdate(nextProps) {
@@ -169,6 +171,23 @@ class SandboxScreen extends React.Component {
       </Row>;
   }
 
+  renderResults() {
+    return <div className="text-center">
+        <DuelResultScreen
+          hasWon={this.props.name == this.state.winner.name}
+          winnerName={this.state.winner.name}
+          winnerSkin={this.state.winner.skin}
+          winnerScore={this.state.winner.score}
+          loserName={this.state.loser.name}
+          loserSkin={this.state.loser.skin}
+          loserScore={this.state.loser.score}
+        />
+        <button className="btn btn-primary btn-lg next-challenge" role="button" onClick={() => this.restartBattle()} >
+          <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
+        </button>
+      </div>;
+  }
+
   render() {
     let teamMode = (this.props.mode == 'team');
     let count = teamMode ? 3 : 1;
@@ -216,20 +235,7 @@ class SandboxScreen extends React.Component {
               }
             ]}
           >
-            <div className="text-center">
-              <DuelResultScreen
-                hasWon={this.props.name == this.state.winner.name}
-                winnerName={this.state.winner.name}
-                winnerSkin={this.state.winner.skin}
-                winnerScore={this.state.winner.score}
-                loserName={this.state.loser.name}
-                loserSkin={this.state.loser.skin}
-                loserScore={this.state.loser.score}
-              />
-              <button className="btn btn-primary btn-lg next-challenge" role="button" onClick={() => this.restartBattle()} >
-                <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
-              </button>
-            </div>
+            {this.renderResults()}
           </LiveCode>
         </FullRow>
       </div>;
@@ -269,6 +275,9 @@ const mapDispatchToProps = (dispatch) => ({
   lockSandboxRng: (lock) => {
     dispatch(lockSandboxRng(lock));
   },
+  notifySandboxEdit: () => {
+    dispatch(notifySandboxEdit());
+  }
 });
 export default connect(
   mapStateToProps,

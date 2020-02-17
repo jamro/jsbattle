@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default class ScriptTableRow extends React.Component {
 
@@ -132,3 +133,17 @@ export default class ScriptTableRow extends React.Component {
   }
 
 }
+
+ScriptTableRow.defaultProps = {
+  name: 'unknown',
+  link: '',
+  difficulty: undefined,
+  onDelete: () => {},
+};
+
+ScriptTableRow.propTypes = {
+  name: PropTypes.string,
+  link: PropTypes.string,
+  difficulty: PropTypes.number,
+  onDelete: PropTypes.func,
+};

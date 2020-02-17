@@ -7,9 +7,25 @@ logger.apply(console);
 const root = document.getElementById("root");
 root.innerHTML = 'Loading...';
 
+
+function exposeActions(actions, store) {
+  let actionNameList = Object.keys(actions);
+  if(!window.appController) {
+    window.appController = {};
+  }
+  for(let actionName of actionNameList) {
+    window.appController[actionName] = (...args) => {
+      store.dispatch(actions[actionName].apply(null, args));
+    };
+  }
+}
+
 async function loadWebpage() {
   const {default: App} = await import(/* webpackChunkName: "app" */ './containers/App.js');
-  const actions = await import(/* webpackChunkName: "app" */ './actions');
+  const coreAction = await import(/* webpackChunkName: "app" */ './actions/coreAction.js');
+  const challengeAction = await import(/* webpackChunkName: "app" */ './actions/challengeAction.js');
+  const sandboxAction = await import(/* webpackChunkName: "app" */ './actions/sandboxAction.js');
+  const statsAction = await import(/* webpackChunkName: "app" */ './actions/statsAction.js');
   const {default: ReactDOM} = await import(/* webpackChunkName: "lib" */ 'react-dom');
   const {default: React} = await import(/* webpackChunkName: "lib" */ 'react');
   const {Provider} = await import(/* webpackChunkName: "lib" */ 'react-redux');
@@ -30,7 +46,7 @@ async function loadWebpage() {
     storeEnhancers = compose;
   }
 
-  function reduuxLogger() {
+  function reduxLogger() {
     return function(next) {
       return function (action) {
         console.log('Redux dispatch:', action.type || '<<no type>>');
@@ -39,22 +55,30 @@ async function loadWebpage() {
     };
   }
 
+  function errorHandler() {
+    return function(next) {
+      return function (action) {
+        if(action.payload instanceof Error) {
+          action.error = true;
+        }
+        return next(action);
+      };
+    };
+  }
+
   const store = createStore(
     reducer,
-    storeEnhancers(applyMiddleware(reduuxLogger, thunk))
+    storeEnhancers(applyMiddleware(errorHandler, reduxLogger, thunk))
   );
 
   root.innerHTML = '';
 
-  store.dispatch(actions.getSettings());
+  store.dispatch(coreAction.getSettings());
 
-  let actionNameList = Object.keys(actions);
-  window.appController = {};
-  for(let actionName of actionNameList) {
-    window.appController[actionName] = (...args) => {
-      store.dispatch(actions[actionName].apply(null, args));
-    };
-  }
+  exposeActions(coreAction, store);
+  exposeActions(challengeAction, store);
+  exposeActions(sandboxAction, store);
+  exposeActions(statsAction, store);
 
   ReactDOM.render(
     <Provider store={store}>

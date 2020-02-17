@@ -6,6 +6,7 @@ const urlLib = require('url');
 
 var challengeHelper = {
   getChallengeList: async (page) => {
+    await page.waitFor('.challenge-list');
     return await page.evaluate(() => {
       let data = [];
       const rows = document.querySelectorAll('.challenge-list-item');
@@ -27,6 +28,7 @@ Given('all challenges unlocked', async function () {
   await this.client.page.evaluate(() => {
     appController.unlockAllChallenges();
   });
+  await this.client.page.waitFor('.challenge-list > li:last-child > .start-challenge > button:enabled')
 });
 
 // WHEN ------------------------------------------------------------------------
@@ -68,7 +70,7 @@ When('close challenge info', async function () {
 });
 
 When('open tab {string} of live code panel', async function (tab) {
-  let css = `.live-code-right-tabs > .tab-link-${tab} > a`;
+  let css = `.live-code-right-tabs > .tab-link-${tab} > span.clickable`;
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });

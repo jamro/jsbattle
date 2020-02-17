@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 
 var editorHelper = {
   getAiScriptNames: async (page) => {
+    await page.waitFor('.ai-table');
     let result = await page.evaluate(() => {
       const names = document.querySelectorAll('table.ai-table tbody tr .tank-name');
       return Object.values(names).map((el) => el.innerHTML)

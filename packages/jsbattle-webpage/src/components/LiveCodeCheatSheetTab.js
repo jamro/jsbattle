@@ -4,7 +4,7 @@ import Row from './Row.js';
 import Col from './Col.js';
 import cheatsheet from '../lib/cheatsheet.js';
 
-class CheatSheet extends React.Component {
+class LiveCodeCheatSheetTab extends React.Component {
 
   render() {
     return <div style={{fontSize: '0.8em'}}>
@@ -54,4 +54,12 @@ class CheatSheet extends React.Component {
   }
 }
 
-export default CheatSheet;
+LiveCodeCheatSheetTab.defaultProps = {
+
+};
+
+LiveCodeCheatSheetTab.propTypes = {
+
+};
+
+export default LiveCodeCheatSheetTab;

@@ -29,7 +29,7 @@ Feature: Statistics
     When open challenge 1
     And open tab "code" of live code panel
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is completed
+    And battle is completed
     And the challenge is won
     Then GA event "challenges/challenge_1/win" is sent
 
@@ -42,14 +42,11 @@ Feature: Statistics
     Given JsBattle open in the browser
     And "Sandbox" section open
     When click create tank button
-    And loading disappeared
     Then GA event "sandbox/create" is sent
 
-  @single
   Scenario: Notify about removing an AI Script
     Given JsBattle open in the browser
     And "Sandbox" section open
     And AI scripts named [alpha]
     When delete tank "alpha" and confirm
-    And loading disappeared
     Then GA event "sandbox/remove" is sent

@@ -2,6 +2,21 @@ const expect = require('chai').expect
 const {After, Given, When, Then } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
+const { setDefinitionFunctionWrapper } = require('cucumber');
+
+setDefinitionFunctionWrapper(function(fn, options) {
+  if(Object.getPrototypeOf(fn).constructor.name == 'AsyncFunction') {
+    return async function(...args) {
+      if(this.client && this.client.page && (!options || !options.noLoadingWait)) {
+        await this.client.page.waitFor(() => !document.querySelector('.loading'));
+      }
+      return await fn.apply(this, args);
+    }
+  }
+  return function(...args) {
+    return fn.apply(this, args);
+  }
+})
 
 async function createPage(browser) {
   var page = await browser.newPage();
@@ -192,10 +207,6 @@ When('open URI {string}', async function (uri) {
   const port = this.parameters.port || 8070;
   const baseUrl = `http://localhost:${port}/`;
   this.client.lastResponse = await this.client.page.goto(baseUrl + "/" + uri);
-});
-
-When('loading disappeared', async function () {
-  await this.client.page.waitFor(() => !document.querySelector('.loading'));
 });
 
 // THEN ------------------------------------------------------------------------

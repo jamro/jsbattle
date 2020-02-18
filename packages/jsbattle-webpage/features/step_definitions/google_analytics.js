@@ -6,6 +6,6 @@ Before(async function (done) {
   this.gaEvents = [];
 });
 
-Then('GA event {string} is sent', function (eventSerial) {
+Then('GA event {string} is sent', async function (eventSerial) {
   expect(this.gaEvents, "GA Events:\n - " + this.gaEvents.join("\n - ") + "\n\n").to.contain(eventSerial);
 });

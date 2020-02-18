@@ -16,9 +16,9 @@ Feature: Challenge
     And battle quality set to "0"
     And battle speed set to "50"
     When open challenge <index>
-    And challenge battle is completed
+    And battle is completed
     Then the challenge is lost
-    And challenge battle is restarted
+    And battle is restarted
 
     Examples:
     | index |
@@ -39,7 +39,7 @@ Feature: Challenge
     When open challenge 1
     And open tab "code" of live code panel
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is completed
+    And battle is completed
     Then the challenge is won
 
   Scenario: Unlock a challenge
@@ -50,7 +50,7 @@ Feature: Challenge
     When open challenge 1
     And close challenge info
     And type "<<jamro code>>" in AI Script editor
-    And challenge battle is completed
+    And battle is completed
     And the challenge is won
     And click next challenge
     Then list of challenges contains 6 items

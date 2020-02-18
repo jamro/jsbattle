@@ -3,7 +3,6 @@ const {After, Given, When, Then } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
 
-
 var challengeHelper = {
   getChallengeList: async (page) => {
     await page.waitFor('.challenge-list');
@@ -38,20 +37,13 @@ When('open challenge {int}', async function (index) {
   await this.client.page.click(css);
 });
 
-When('restart challenge battle', async function () {
-  let css = ".restart-challenge-battle";
-  await this.client.page.waitFor(css);
-  await this.client.page.click(css);
-});
-
-
 When('click next challenge', async function () {
   let css = ".next-challenge";
   await this.client.page.waitFor(css);
   await this.client.page.click(css);
 });
 
-When('challenge battle is completed', function (done) {
+When('battle is completed', function (done) {
   let found = false;
   let listener = (msg) => {
     if(found) return;
@@ -129,7 +121,7 @@ Then('the challenge is lost', function (done) {
   this.client.page.on('console', listener);
 });
 
-Then('challenge battle is restarted', function (done) {
+Then('battle is restarted', function (done) {
   let found = false;
   let listener = (msg) => {
     if(found) return;

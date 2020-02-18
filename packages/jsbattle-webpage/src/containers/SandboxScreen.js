@@ -182,7 +182,7 @@ class SandboxScreen extends React.Component {
           loserSkin={this.state.loser.skin}
           loserScore={this.state.loser.score}
         />
-        <button className="btn btn-primary btn-lg next-challenge" role="button" onClick={() => this.restartBattle()} >
+        <button className="btn btn-primary btn-lg restart-sandbox-battle" role="button" onClick={() => this.restartBattle()} >
           <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
         </button>
       </div>;
@@ -206,7 +206,7 @@ class SandboxScreen extends React.Component {
                 />
               </li>
             </ol>
-            <button type="button" className="btn btn-sm btn-primary restart-challenge-battle" disabled={this.props.isLoading} onClick={() => this.restartBattle()}>
+            <button type="button" className="btn btn-sm btn-primary restart-battle" disabled={this.props.isLoading} onClick={() => this.restartBattle()}>
               <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
             </button>
           </nav>

@@ -1,13 +1,13 @@
 const expect = require('chai').expect
-const {After, Given, When, Then } = require('cucumber');
+const {After, Given, When, Then, AfterAll, BeforeAll } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
+const MockServer = require('jsbattle-mockserver');
 
 async function createPage(browser) {
   var page = await browser.newPage();
   return page;
 }
-
 
 async function createWebClient() {
   let client = {};
@@ -35,6 +35,30 @@ async function createWebClient() {
   return client;
 }
 
+BeforeAll(async function () {
+  let worldParameters = {};
+  for(let i=0; i < this.process.argv.length; i++) {
+    if(this.process.argv[i] == '--world-parameters' && i+1 < this.process.argv.length) {
+      worldParameters = JSON.parse(this.process.argv[i+1])
+    }
+  }
+  if(worldParameters.mockserver) {
+    this.mockserver = new MockServer();
+    await this.mockserver.start({
+      port: 8071,
+      public: './dist',
+      authorized: true,
+      silent: true
+    });
+  }
+});
+
+AfterAll(function () {
+  if(this.mockserver) {
+    this.mockserver.stop();
+    this.mockserver = null;
+  }
+});
 
 After(async function (scenario) {
   if(this.client) {

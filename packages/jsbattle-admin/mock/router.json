@@ -1,5 +1,0 @@
-{
-  "/api/authMethods": "/authMethods",
-  "/api/profile": "/profile",
-  "/api/admin/*": "/$1"
-}

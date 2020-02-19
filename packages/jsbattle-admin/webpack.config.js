@@ -1,8 +1,12 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
 module.exports = (env, argv) => {
   return {
+    output: {
+      path: path.resolve(__dirname, 'dist', 'admin'),
+    },
     devtool: (argv.mode === 'development') ? 'source-map' : '',
     module: {
       rules: [

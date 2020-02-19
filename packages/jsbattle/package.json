@@ -7,7 +7,7 @@
     "start": "./dist/jsbattle.js start ...",
     "clean": "rimraf dist && rimraf test/features*",
     "build": "npm run build:server && npm run build:webpage && npm run build:admin",
-    "build:admin": "cpx './node_modules/jsbattle-admin/dist/**/*' ./dist/public/admin",
+    "build:admin": "cpx './node_modules/jsbattle-admin/dist/**/*' ./dist/public",
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
     "build:server": "cpx './src/**/*' ./dist",
     "test": "npm run test:prep && npm run test:run-all && npm run test:server-stop",
@@ -48,6 +48,7 @@
     "jsbattle-server": "^2.7.0",
     "jsbattle-webpage": "^2.7.1",
     "jsbattle-admin": "^2.7.1",
+    "jsbattle-mockserver": "^2.7.1",
     "lodash": "^4.17.15",
     "path": "^0.12.7",
     "yargs": "^15.1.0"

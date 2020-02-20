@@ -5,16 +5,22 @@ import ChallengeListScreen from './ChallengeListScreen.js';
 import ChallengeScreen from './ChallengeScreen.js';
 import ScriptListScreen from './ScriptListScreen.js';
 import SandboxScreen from './SandboxScreen.js';
+import SignInScreen from './SignInScreen.js';
 import Navi from './Navi.js';
 import Footer from './Footer.js';
 import ErrorPanel from './ErrorPanel.js';
 import Loading from '../components/Loading.js';
-
+import {getSettings, getUserProfile} from '../actions/coreAction.js';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.getSettings();
+    this.props.getUserProfile();
   }
 
   render() {
@@ -33,6 +39,7 @@ class App extends Component {
               <Route exact path="/challenge" component={ChallengeListScreen} />
               <Route exact path="/sandbox/:name" component={SandboxScreen} />
               <Route exact path="/sandbox" component={ScriptListScreen} />
+              <Route exact path="/signin" component={SignInScreen} />
               <Route path="/" component={Footer} />
             </div>
           </Router>
@@ -51,10 +58,15 @@ App.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  isLoading: state.loading.SETTINGS
+  isLoading: state.loading.SETTINGS || state.loading.USER_PROFILE
 });
-const mapDispatchToProps = () => ({
-
+const mapDispatchToProps = (dispatch) => ({
+  getSettings: () => {
+    dispatch(getSettings());
+  },
+  getUserProfile: () => {
+    dispatch(getUserProfile());
+  },
 });
 export default connect(
   mapStateToProps,

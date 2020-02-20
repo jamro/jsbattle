@@ -47,7 +47,11 @@ let config = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 8080,
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:8081',
+      '/auth': 'http://localhost:8081'
+    }
   }
 };
 

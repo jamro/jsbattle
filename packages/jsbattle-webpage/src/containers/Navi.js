@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setSimQuality, setSimSpeed} from '../actions/coreAction.js';
 import Loading from '../components/Loading.js';
+import ProfileButton from '../components/ProfileButton.js';
 
 class Navi extends React.Component {
 
@@ -38,13 +39,13 @@ class Navi extends React.Component {
   renderSpeedButton(speed) {
     let label = this.speedToName(speed);
     let classNames = "clickable dropdown-item sim-speed-" + String(speed).replace(".", "_");
-    return <span className={classNames} onClick={() => this.props.setSimSpeed(speed)}>{label}</span>;
+    return <span className={classNames} onClick={() => this.props.setSimSpeed(speed)}>{label} Speed</span>;
   }
 
   renderQualityButton(q) {
     let label = this.qualityToName(q);
     let classNames = "clickable dropdown-item sim-quality-" + String(q).replace(".", "_");
-    return <span className={classNames} onClick={() => this.props.setSimQuality(q)}>{label}</span>;
+    return <span className={classNames} onClick={() => this.props.setSimQuality(q)}>{label} Quality</span>;
   }
 
   renderControls() {
@@ -82,7 +83,7 @@ class Navi extends React.Component {
           <span className="nav-link main-nav-link" style={{fontWeight: 'normal'}}>{loading}</span>
         </li>
         <li className="dropdown">
-          <span className="clickable dropdown-toggle sim-quality-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality: {this.qualityToName(this.props.simQuality)} <span className="caret"></span></span>
+          <span className="clickable dropdown-toggle sim-quality-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-image"></i> {this.qualityToName(this.props.simQuality)} <span className="caret"></span></span>
           <div className="nav-item dropdown-menu">
             {this.renderQualityButton('auto')}
             <span role="separator" className="dropdown-divider"></span>
@@ -92,8 +93,8 @@ class Navi extends React.Component {
           </div>
         </li>
         <li className="nav-item dropdown">
-          <span className="clickable dropdown-toggle sim-speed-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Speed: {this.speedToName(this.props.simSpeed)} <span className="caret"></span></span>
-          <div className="dropdown-menu">
+          <span className="clickable dropdown-toggle sim-speed-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-tachometer-alt"></i> {this.speedToName(this.props.simSpeed)} <span className="caret"></span></span>
+          <div className="dropdown-menu dropdown-menu-right">
             {this.renderSpeedButton(0.05)}
             {this.renderSpeedButton(0.3)}
             {this.renderSpeedButton(1)}
@@ -101,6 +102,11 @@ class Navi extends React.Component {
             {this.renderSpeedButton(50)}
           </div>
         </li>
+        <ProfileButton
+          logoutUrl={'/auth/logout'}
+          role={this.props.profile ? (this.props.profile.role || 'guest') : 'guest'}
+          username={this.props.profile ? this.props.profile.username : ''}
+        />
       </ul>
     </div>;
   }
@@ -119,6 +125,7 @@ class Navi extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  profile: state.auth.profile,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
   isLoading: state.loading.SET_SIM_SPEED || state.loading.SET_SIM_QUALITY || state.loading.SETTINGS,

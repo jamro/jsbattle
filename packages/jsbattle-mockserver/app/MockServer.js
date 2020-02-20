@@ -24,6 +24,7 @@ class MockServer {
       options = options || {};
       let port = options.port || 8080;
       let publicDir = options.public || './public';
+      let rootUrl = options.rootUrl || '/';
       let serverDelay = options.serverDelay || 0;
       let silent = !!(options.silent);
 
@@ -64,15 +65,15 @@ class MockServer {
       server.use('/', express.static(publicDir));
       server.use(bodyParser.urlencoded({ extended: true }))
       server.use(bodyParser.json())
-      server.get('/auth/logout', function (req, res) {
+      server.get('/auth/logout', (req, res) => {
         this._log("Logout");
         authorized = false;
-        res.redirect('/admin')
+        res.redirect(rootUrl)
       })
-      server.get('/auth/:provider', function (req, res) {
+      server.get('/auth/:provider', (req, res) => {
         this._log("Authorized");
         authorized = true;
-        res.redirect('/admin')
+        res.redirect(rootUrl)
       })
 
       server.use((req, res, next) => {
@@ -119,8 +120,6 @@ class MockServer {
         "/api/profile": "/profile",
         "/api/:a/:b": "/:a,:b",
         "/api/*": "/$1"
-
-
       }))
       server.use(router)
 

@@ -39,7 +39,7 @@ function configPassport(app, logger, broker) {
       `/auth/logout`,
       (req, res) => {
         res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
-        res.redirect('/admin');
+        res.redirect('/');
       }
     );
     app.get(`/auth/${provider.name}`, passport.authenticate(provider.name, { scope: 'email' }));
@@ -51,7 +51,7 @@ function configPassport(app, logger, broker) {
         let response = await broker.call('auth.authorize', { user });
         broker.emit("user.login", user.id);
         res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
-        res.redirect('/admin');
+        res.redirect('/');
       }
     );
     logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/${provider.name}`);

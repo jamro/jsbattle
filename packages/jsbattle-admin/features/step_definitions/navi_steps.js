@@ -48,7 +48,8 @@ BeforeAll(async function () {
       port: 8071,
       public: './dist',
       authorized: true,
-      silent: true
+      silent: true,
+      rootUrl: '/admin'
     });
   }
 });

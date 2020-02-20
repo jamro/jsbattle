@@ -6,6 +6,7 @@ import challenge from './challengeReducer.js';
 import sandbox from './sandboxReducer.js';
 import aiRepo from './aiRepoReducer.js';
 import settings from './settingsReducer.js';
+import auth from './authReducer.js';
 
 export default combineReducers({
   loading,
@@ -13,5 +14,6 @@ export default combineReducers({
   settings,
   challenge,
   sandbox,
-  aiRepo
+  aiRepo,
+  auth
 });

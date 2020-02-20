@@ -83,3 +83,5 @@ dist
 
 #others
 .vscode
+
+.jsbattle.config.json

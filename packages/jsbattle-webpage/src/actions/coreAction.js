@@ -13,6 +13,21 @@ export const clearError = (type) => ({
   type: type + "_CLEAR_ERROR"
 });
 
+function fetchFromApi(url, type) {
+  return async (dispatch) => {
+    dispatch({type: type + "_REQUEST"});
+    try {
+      let response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      let json = await response.json();
+      dispatch({type: type + "_SUCCESS", payload: json});
+    } catch (err) {
+      dispatch({type: type + "_FAILURE", payload: err, error: true});
+    }
+  };
+}
 
 export const setSimQuality = (quality) => {
   return async (dispatch) => {
@@ -56,4 +71,12 @@ export const getSettings = () => {
 
     dispatch({type: SETTINGS_SUCCESS, payload: settings});
   };
+};
+
+export const getAuthMethods = () => {
+  return fetchFromApi("/api/authMethods", "AUTH_METHODS");
+};
+
+export const getUserProfile = () => {
+  return fetchFromApi("/api/profile", "USER_PROFILE");
 };

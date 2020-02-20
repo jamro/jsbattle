@@ -100,6 +100,9 @@ class ApiGatewayService extends Service {
 
         if(broker.serviceConfig.auth.enabled == false) {
           this.logger.warn('Auth is disabled. Everyone can access admin panel. The configuration is not recommended for production purposes');
+          this.app.get(`/auth/logout`, (req, res) => {
+            res.redirect('/');
+          });
         } else {
           configPassport(this.app, this.logger, broker);
         }

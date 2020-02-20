@@ -73,12 +73,11 @@ async function loadWebpage() {
 
   root.innerHTML = '';
 
-  store.dispatch(coreAction.getSettings());
-
   exposeActions(coreAction, store);
   exposeActions(challengeAction, store);
   exposeActions(sandboxAction, store);
   exposeActions(statsAction, store);
+  window.appController.store = store;
 
   ReactDOM.render(
     <Provider store={store}>

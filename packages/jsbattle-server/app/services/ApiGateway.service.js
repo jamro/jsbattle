@@ -88,6 +88,10 @@ class ApiGatewayService extends Service {
 
         this.app = express();
         this.app.use(stringReplace(replacements));
+        this.app.use((req, res, next) => {
+          this.logger.debug(`HTTP ${req.method}: ${req.url}`);
+          next();
+        });
         let webroot = path.resolve(broker.serviceConfig.web.webroot || './public_html');
         this.logger.info(`Web root: ${webroot}`);
         this.app.use(express.static(

@@ -14,13 +14,18 @@ let config = {
     "gaCode": "AB-123456789-Z"
   },
   "auth": {
-    "enabled": false,
+    "enabled": true,
     "admins": [
       {
         provider: 'github',
         username: 'jamro'
+      },
+      {
+        provider: 'mock',
+        username: 'mock'
       }
-    ]
+    ],
+    "providers": [{ "name": "mock" }]
   }
 };
 gateway.init(config).then(() => gateway.start())

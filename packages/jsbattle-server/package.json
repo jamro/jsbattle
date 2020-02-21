@@ -42,6 +42,7 @@
     "moleculer-db-adapter-mongo": "^0.4.7",
     "moleculer-web": "^0.9.0",
     "passport": "^0.4.1",
+    "passport-custom": "^1.1.1",
     "passport-facebook": "^3.0.0",
     "passport-github2": "^0.1.11",
     "passport-google-oauth": "^2.0.0",

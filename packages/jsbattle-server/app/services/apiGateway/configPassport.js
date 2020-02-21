@@ -4,6 +4,34 @@ const authStrategies = {};
 authStrategies['github'] = require("passport-github2");
 authStrategies['facebook'] = require("passport-facebook");
 authStrategies['google'] = require("passport-google-oauth").OAuth2Strategy;
+const CustomStrategy = require("passport-custom");
+
+
+function configStrategyMock(app, logger, broker, passport, config) {
+  const userData = {
+    extUserId: 'mock_01',
+    displayName: 'Mock User',
+    username: 'mock',
+    provider: 'mock',
+    email: 'mock@example.com'
+  };
+  passport.use(new CustomStrategy((req, callback) => {
+    callback(null, userData);
+  }));
+  app.get(
+'/auth/mock',
+    passport.authenticate('custom', { failureRedirect: '/' }),
+    async (req, res) => {
+      logger.debug('Login using ' + config.name + " integration");
+      let user = await broker.call('userStore.findOrCreate', {user: userData});
+      let response = await broker.call('auth.authorize', { user });
+      broker.emit("user.login", user.id);
+      res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
+      res.redirect('/');
+    }
+  );
+  logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/mock`);
+}
 
 function configPassport(app, logger, broker) {
   app.use(passport.initialize());
@@ -11,6 +39,10 @@ function configPassport(app, logger, broker) {
     logger.warn('Auth enabled but no providers were configured. You won\'t be able to log in or register');
   }
   broker.serviceConfig.auth.providers.forEach((provider) => {
+    if(provider.name == 'mock') {
+      configStrategyMock(app, logger, broker, passport, provider);
+      return;
+    }
     let AuthStrategy = authStrategies[provider.name];
     if(!AuthStrategy) {
       throw Error(`Strategy ${provider.name} is not supported`);
@@ -35,18 +67,12 @@ function configPassport(app, logger, broker) {
         });
       }
     ));
-    app.get(
-      `/auth/logout`,
-      (req, res) => {
-        res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
-        res.redirect('/');
-      }
-    );
     app.get(`/auth/${provider.name}`, passport.authenticate(provider.name, { scope: 'email' }));
     app.get(
       `/auth/${provider.name}/callback`,
       passport.authenticate(provider.name, { failureRedirect: '/admin' }),
       async (req, res) => {
+        logger.debug('Login using ' + provider.name + " integration");
         let user = await broker.call('userStore.findOrCreate', {user: req.user});
         let response = await broker.call('auth.authorize', { user });
         broker.emit("user.login", user.id);
@@ -56,6 +82,16 @@ function configPassport(app, logger, broker) {
     );
     logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/${provider.name}`);
   });
+
+  app.get(
+    `/auth/logout`,
+    (req, res) => {
+      logger.debug('Logout');
+      req.logout();
+      res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
+      res.redirect('/');
+    }
+  );
 
   passport.serializeUser((user, done) => {
     done(null, user);

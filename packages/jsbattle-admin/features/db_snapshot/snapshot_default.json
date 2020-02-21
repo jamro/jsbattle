@@ -1,4 +1,9 @@
 {
+  "_config": {
+    "port": 8071,
+    "public": "./dist",
+    "silent": true
+  },
   "admin,users": [
     {
       "username": "fredric.murphy",
@@ -184,12 +189,6 @@
       "createdAt": "2020-01-24T23:17:43.004Z"
     }
   ],
-  "authMethods": {
-      "mock":     {"name": "Mock","url": "/auth/mock"},
-      "github":   {"name": "GitHub", "url": "/auth/github"},
-      "facebook": {"name": "Facebook", "url": "/auth/facebook"},
-      "google":   {"name": "Google", "url": "/auth/google"}
-  },
   "profile": {
     "id":"cWzaLP12eSeDL68F",
     "username":"mock",
@@ -200,5 +199,11 @@
     "role":"admin",
     "createdAt":"2020-02-21T16:42:47.432Z",
     "lastLoginAt":"2020-02-21T16:42:47.437Z"
+  },
+  "authMethods": {
+    "mock": {
+      "name": "Mock",
+      "url": "/auth/mock"
+    }
   }
 }

@@ -54,11 +54,10 @@ class LoginScreen extends Component {
         border: 0
       };
       const icon = authConfig ? authConfig.icon : faLock;
-      return <Button key={providerName} variant="primary" size="lg" block href={auth.url} style={style}>
+      return <Button key={providerName} variant="primary" size="lg" block href={auth.url} style={style} className={`${providerName}-auth-button`}>
         <FontAwesomeIcon size="lg" className="float-left" icon={icon} /> Login with {auth.name}
       </Button>;
     });
-
 
     if(this.props.isLoading) {
       buttons = <Loading />;

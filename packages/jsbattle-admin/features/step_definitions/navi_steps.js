@@ -1,7 +1,8 @@
 const expect = require('chai').expect
-const {After, Given, When, Then, AfterAll, BeforeAll } = require('cucumber');
+const {After, Given, When, Then, AfterAll, Before } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
+const path = require('path');
 const MockServer = require('jsbattle-mockserver');
 
 async function createPage(browser) {
@@ -35,29 +36,28 @@ async function createWebClient() {
   return client;
 }
 
-BeforeAll(async function () {
-  let worldParameters = {};
-  for(let i=0; i < this.process.argv.length; i++) {
-    if(this.process.argv[i] == '--world-parameters' && i+1 < this.process.argv.length) {
-      worldParameters = JSON.parse(this.process.argv[i+1])
-    }
-  }
+Before(async function (scenario) {
+  let worldParameters = this.parameters;
   if(worldParameters.mockserver) {
-    this.mockserver = new MockServer();
-    await this.mockserver.start({
-      port: 8071,
-      public: './dist',
-      authorized: true,
-      silent: true,
-      rootUrl: '/admin'
-    });
-  }
-});
+    const snapshotTags = scenario.pickle.tags
+      .map((tag) => tag.name.replace(/^@/, ''))
+      .filter((tag) => /^snapshot_/.test(tag))
+    let snapshotName = '';
+    if(snapshotTags.length > 0) {
+      snapshotName = snapshotTags.shift() + '.json';
+    } else {
+      snapshotName = 'snapshot_default.json';
+    }
 
-AfterAll(function () {
-  if(this.mockserver) {
-    this.mockserver.stop();
-    this.mockserver = null;
+    const db = require(path.resolve(__dirname, '..', 'db_snapshot', snapshotName));
+    const defaultOptions = {
+      port: 8070,
+      public: './dist',
+      authorized: false,
+      silent: true
+    };
+    this.mockserver = new MockServer();
+    await this.mockserver.start(db._config || defaultOptions, db);
   }
 });
 
@@ -67,19 +67,34 @@ After(async function (scenario) {
     dump += this.client.log.map(msg => `[${msg.type()}] ${msg.text()}`).join("\n");
     dump += "\n-----------------------------------------";
     this.attach(dump)
+    if(this.client.page && !this.client.page.isClosed()) {
+      this.attach((await this.client.page.screenshot({type: 'jpeg', quality: 10})).toString('base64'));
+    }
   }
   if(this.client && this.client.browser) {
     await this.client.browser.close();
     this.client.browser = null;
     this.client.page = null;
   }
+  if(this.mockserver) {
+    this.mockserver.stop();
+    this.mockserver = null;
+  }
 });
+
 
 // GIVEN -----------------------------------------------------------------------
 Given('admin open in the browser', async function () {
   this.client = await createWebClient();
   const port = this.parameters.port || 8071;
   const baseUrl = `http://localhost:${port}/admin`;
+
+  await this.client.page.goto(baseUrl);
+
+  const css = '.mock-auth-button';
+  await this.client.page.waitFor(css);
+  await this.client.page.click(css);
+
   await this.client.page.goto(baseUrl);
 });
 

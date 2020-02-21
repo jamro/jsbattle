@@ -6,17 +6,21 @@
     "authorized": false
   },
   "profile": {
-    "id": "8si8Su024sj2cZwo0",
-    "extUserId": "github_10477332",
-    "username": "guest56",
-    "provider": "github",
-    "email": "fredric.murphy@gmail.com",
-    "role": "user",
-    "displayName": "Fredric Murphy",
-    "createdAt": "2020-01-01T00:00:00.000Z",
-    "lastLoginAt": "2020-01-01T00:00:00.000Z"
+    "id":"cWzaLP12eSeDL68F",
+    "username":"mock",
+    "displayName":"Mock User",
+    "provider":"mock",
+    "extUserId":"mock_01",
+    "email":"mock@example.com",
+    "role":"user",
+    "createdAt":"2020-02-21T16:42:47.432Z",
+    "lastLoginAt":"2020-02-21T16:42:47.437Z"
   },
   "authMethods": {
+    "mock": {
+      "name": "Mock",
+      "url": "/auth/mock"
+    },
     "github": {
       "name": "GitHub",
       "url": "/auth/github"

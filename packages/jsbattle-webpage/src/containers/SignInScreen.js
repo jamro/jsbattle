@@ -33,14 +33,14 @@ class SignInScreen extends React.Component {
       let auth = this.props.authMethods[providerName];
       const authConfig = config[providerName];
       const style = {
-        color: authConfig ? authConfig.color : '#000',
-        backgroundColor: authConfig ? authConfig.backgroundColor : '#6cc644',
+        color: authConfig ? authConfig.color : '#fff',
+        backgroundColor: authConfig ? authConfig.backgroundColor : '#4ca624',
         border: 0,
         width: '100%',
         maxWidth: '350px',
         margin: '0.2em'
       };
-      const icon = authConfig ? authConfig.icon : 'fa fa-lock';
+      const icon = authConfig ? authConfig.icon : 'fa fa-lock float-left';
       return <div key={providerName}>
         <a href={auth.url} style={style} className={`btn btn-primary btn-lg ${providerName}-auth-button`}>
           <i className={icon} style={{marginTop: '0.3em'}}></i> Login with {auth.name}

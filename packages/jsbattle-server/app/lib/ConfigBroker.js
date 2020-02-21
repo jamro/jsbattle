@@ -29,7 +29,7 @@ class ConfigBroker extends ServiceBroker {
       }
     };
 
-    // add auth strategioes defined in env vars
+    // add auth strategies defined in env vars
     if(useEnv && !config.skipEnv) {
       let authStrategies = Object.keys(process.env)
         .filter((keyName) => (/^OAUTH_([A-Z_\-0-9]*)_CLIENT_(SECRET|ID)$/).test(keyName))
@@ -44,6 +44,9 @@ class ConfigBroker extends ServiceBroker {
       });
     }
 
+    if(config.auth && config.auth.providers) {
+      config.auth.providers = config.auth.providers.concat(defaultConfig.auth.providers)
+    }
 
     config = _.defaultsDeep(config, defaultConfig)
 

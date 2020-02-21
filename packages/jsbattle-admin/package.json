@@ -16,7 +16,7 @@
     "lint": "eslint src/",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "test": "cucumber-js -f ./features/support/SimpleFormatter.js --retry 3 --world-parameters '{\"mockserver\": true}'",
+    "test": "cucumber-js -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast --world-parameters '{\"mockserver\": true}'",
     "watch": "npm-watch",
     "serve": "jsbattle-mock"
   },

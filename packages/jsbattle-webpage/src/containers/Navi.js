@@ -105,7 +105,7 @@ class Navi extends React.Component {
         <ProfileButton
           logoutUrl={'/auth/logout'}
           role={this.props.profile ? (this.props.profile.role || 'guest') : 'guest'}
-          username={this.props.profile ? this.props.profile.username : ''}
+          username={this.props.profile ? this.props.profile.displayName : ''}
         />
       </ul>
     </div>;

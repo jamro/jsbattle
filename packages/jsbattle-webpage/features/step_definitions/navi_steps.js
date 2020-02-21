@@ -94,7 +94,7 @@ Before(async function (scenario) {
     const defaultOptions = {
       port: 8070,
       public: './dist',
-      authorized: true,
+      authorized: false,
       silent: true
     };
     this.mockserver = new MockServer();

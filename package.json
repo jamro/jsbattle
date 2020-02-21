@@ -25,5 +25,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "passport-local": "^1.0.0"
   }
 }

@@ -1,7 +1,8 @@
 const expect = require('chai').expect
-const {After, Given, When, Then, AfterAll, BeforeAll } = require('cucumber');
+const {After, Before, Given, When, Then, AfterAll, BeforeAll } = require('cucumber');
 const puppeteer = require('puppeteer');
 const urlLib = require('url');
+const path = require('path');
 const { setDefinitionFunctionWrapper } = require('cucumber');
 const MockServer = require('jsbattle-mockserver');
 
@@ -76,29 +77,28 @@ var naviHelper = {
   }
 };
 
-
-BeforeAll(async function () {
-  let worldParameters = {};
-  for(let i=0; i < this.process.argv.length; i++) {
-    if(this.process.argv[i] == '--world-parameters' && i+1 < this.process.argv.length) {
-      worldParameters = JSON.parse(this.process.argv[i+1])
-    }
-  }
+Before(async function (scenario) {
+  let worldParameters = this.parameters;
   if(worldParameters.mockserver) {
-    this.mockserver = new MockServer();
-    await this.mockserver.start({
+    const snapshotTags = scenario.pickle.tags
+      .map((tag) => tag.name.replace(/^@/, ''))
+      .filter((tag) => /^snapshot_/.test(tag))
+    let snapshotName = '';
+    if(snapshotTags.length > 0) {
+      snapshotName = snapshotTags.shift() + '.json';
+    } else {
+      snapshotName = 'snapshot_default.json';
+    }
+
+    const db = require(path.resolve(__dirname, '..', 'db_snapshot', snapshotName));
+    const defaultOptions = {
       port: 8070,
       public: './dist',
       authorized: true,
       silent: true
-    });
-  }
-});
-
-AfterAll(function () {
-  if(this.mockserver) {
-    this.mockserver.stop();
-    this.mockserver = null;
+    };
+    this.mockserver = new MockServer();
+    await this.mockserver.start(db._config || defaultOptions, db);
   }
 });
 
@@ -116,6 +116,10 @@ After(async function (scenario) {
     await this.client.browser.close();
     this.client.browser = null;
     this.client.page = null;
+  }
+  if(this.mockserver) {
+    this.mockserver.stop();
+    this.mockserver = null;
   }
 });
 

@@ -1,0 +1,9 @@
+{
+  "_config": {
+    "port": 8070,
+    "public": "./dist",
+    "silent": true
+  },
+  "profile": {},
+  "authMethods": {}
+}

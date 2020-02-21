@@ -1,0 +1,33 @@
+{
+  "_config": {
+    "port": 8070,
+    "public": "./dist",
+    "silent": true,
+    "authorized": false
+  },
+  "profile": {
+    "id": "8si8Su024sj2cZwo0",
+    "extUserId": "github_10477332",
+    "username": "guest56",
+    "provider": "github",
+    "email": "fredric.murphy@gmail.com",
+    "role": "user",
+    "displayName": "Fredric Murphy",
+    "createdAt": "2020-01-01T00:00:00.000Z",
+    "lastLoginAt": "2020-01-01T00:00:00.000Z"
+  },
+  "authMethods": {
+    "github": {
+      "name": "GitHub",
+      "url": "/auth/github"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "url": "/auth/facebook"
+    },
+    "google": {
+      "name": "Google",
+      "url": "/auth/google"
+    }
+  }
+}

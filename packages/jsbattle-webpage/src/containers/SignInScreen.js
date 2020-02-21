@@ -42,7 +42,7 @@ class SignInScreen extends React.Component {
       };
       const icon = authConfig ? authConfig.icon : 'fa fa-lock';
       return <div key={providerName}>
-        <a href={auth.url} style={style} className="btn btn-primary btn-lg">
+        <a href={auth.url} style={style} className={`btn btn-primary btn-lg ${providerName}-auth-button`}>
           <i className={icon} style={{marginTop: '0.3em'}}></i> Login with {auth.name}
         </a>
       </div>;

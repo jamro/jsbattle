@@ -15,7 +15,19 @@ battlefieldHelper.getTankNames = async (page) => {
 
 
 // GIVEN -----------------------------------------------------------------------
+Given('battle quality set to {string}', async function (value) {
+  await this.client.page.waitFor('.sim-quality-button');
+  await this.client.page.click('.sim-quality-button');
+  await this.client.page.waitFor('.sim-quality-' + value);
+  await this.client.page.click('.sim-quality-' + value)
+});
 
+Given('battle speed set to {string}', async function (value) {
+  await this.client.page.waitFor('.sim-speed-button');
+  await this.client.page.click('.sim-speed-button');
+  await this.client.page.waitFor('.sim-speed-' + value);
+  await this.client.page.click('.sim-speed-' + value)
+});
 
 // WHEN ------------------------------------------------------------------------
 
@@ -57,6 +69,9 @@ When('edit tank {string}', async function (name) {
   await this.client.page.click(css);
 });
 
+When('wait for live code widget', async function () {
+  await this.client.page.waitFor('.live-code');
+});
 // THEN ------------------------------------------------------------------------
 
 Then('sandbox results are displayed', async function () {
@@ -79,4 +94,10 @@ Then('loser tank is {string}', async function (name) {
     return name.innerHTML;
   });
   expect(result).to.be.equal(name);
+});
+
+Then('restart the battle', async function () {
+  let css = ".restart-battle";
+  await this.client.page.waitFor(css);
+  await this.client.page.click(css);
 });

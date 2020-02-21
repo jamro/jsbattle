@@ -18,7 +18,11 @@ class MockServer {
     }
   }
 
-  start(options) {
+  getDefaultDB() {
+    return path.resolve(__dirname , 'db.json')
+  }
+
+  start(options, db) {
     return new Promise((resolve) => {
 
       options = options || {};
@@ -31,9 +35,8 @@ class MockServer {
       this._silentMode = silent;
 
       const server = jsonServer.create()
-      const router = jsonServer.router(path.resolve(__dirname , 'db.json'))
+      const router = jsonServer.router(db || this.getDefaultDB())
       const middlewares = jsonServer.defaults({logger: !silent});
-
 
       this._log(`Server port: ${port}`);
       this._log(`Public dir: ${publicDir}`);

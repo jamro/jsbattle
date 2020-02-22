@@ -39,6 +39,7 @@ class UserStoreService extends Service {
           lastLoginAt: "date"
         }
       },
+      dependencies: ['auth'],
       actions: {
         findOrCreate: this.findOrCreate,
         register: this.register
@@ -59,7 +60,11 @@ class UserStoreService extends Service {
           ],
           update: [
             function omitReadOnly(ctx) {
-              ctx.params = _.omit(ctx.params, ['createdAt']);
+              ctx.params = _.omit(ctx.params, [
+'createdAt',
+'extUserId',
+'provider'
+]);
               return ctx;
             }
           ]
@@ -69,9 +74,24 @@ class UserStoreService extends Service {
   }
 
   async register(ctx) {
+    let response;
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
-    const username = ctx.params.username.toLowerCase();
-    const displayName = ctx.params.displayName;
+    let username = ctx.params.username ? ctx.params.username.toLowerCase() : '';
+    let displayName = ctx.params.displayName || '';
+
+    // check if init data already sent
+    this.logger.debug(`Check whether user 'ID:${userId}' was initialized before`);
+    response = await ctx.call('userStore.get', { id: userId });
+    if(!response) {
+      throw new ValidationError('user not found (2)', 401);
+    }
+    if(response.registered) {
+      throw new ValidationError('user already initialized', 400);
+    }
+
+    username = username || response.username;
+    displayName = displayName || response.displayName;
+
     if(!userId) {
       throw new ValidationError('user not found (1)', 401);
     }
@@ -94,24 +114,13 @@ class UserStoreService extends Service {
       throw new ValidationError('displayName contains invalid characters', 400);
     }
 
-    let response;
-
-    // check if init data already sent
-    this.logger.debug(`Check whether user 'ID:${userId}' was initialized before`);
-    response = await ctx.call('userStore.get', { id: userId });
-    if(!response) {
-      throw new ValidationError('user not found (2)', 401);
-    }
-    if(response.registered) {
-      throw new ValidationError('user already initialized', 400);
-    }
-
     // check if username is unique
     this.logger.debug(`Check whether username '${username}' is used`);
     response = await ctx.call('userStore.find', {query: {
       username: username,
       registered: true
     }});
+
     if(response.length) {
       throw new ValidationError('username must be unique. Chose a different one.', 400);
     }

@@ -10,7 +10,7 @@
     "start": "node ./app/runner.js",
     "watch": "nodemon ./app/runner.js --delay 2",
     "lint": "eslint app/",
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage --verbose ..."
   },
   "devDependencies": {
     "axios": "^0.19.2",

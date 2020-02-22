@@ -52,6 +52,19 @@ class ApiGatewayService extends Service {
                 }
               },
               {
+                path: '/user',
+                authorization: true,
+                mappingPolicy: 'restrict',
+                use: [cookieParser()],
+                aliases: {
+                  "PATCH initData": "userStore.register"
+                },
+                bodyParsers: {
+                  json: true,
+                  urlencoded: { extended: true }
+                }
+              },
+              {
                 path: '/',
                 authorization: true,
                 mappingPolicy: 'restrict',

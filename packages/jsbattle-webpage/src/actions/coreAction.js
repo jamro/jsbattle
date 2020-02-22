@@ -6,20 +6,21 @@ import {
   SET_SIM_SPEED_REQUEST,
   SET_SIM_SPEED_SUCCESS,
   SETTINGS_REQUEST,
-  SETTINGS_SUCCESS
+  SETTINGS_SUCCESS,
 } from './actionTypes.js';
 
 export const clearError = (type) => ({
   type: type + "_CLEAR_ERROR"
 });
 
-function fetchFromApi(url, type) {
+function fetchFromApi(url, type, opts) {
   return async (dispatch) => {
     dispatch({type: type + "_REQUEST"});
     try {
-      let response = await fetch(url);
+      let response = await fetch(url, opts);
       if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+        let responseText = await response.text();
+        return dispatch({type: type + "_FAILURE", payload: new Error(`Error ${response.status}: ${responseText || response.statusText}`), error: true});
       }
       let json = await response.json();
       dispatch({type: type + "_SUCCESS", payload: json});
@@ -79,4 +80,18 @@ export const getAuthMethods = () => {
 
 export const getUserProfile = () => {
   return fetchFromApi("/api/profile", "USER_PROFILE");
+};
+
+export const registerProfile = (username, displayName) => {
+  return fetchFromApi("/api/user/initData", "PROFILE_REGISTER", {
+    method: 'PATCH',
+    body: JSON.stringify({
+      username,
+      displayName
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
 };

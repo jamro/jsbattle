@@ -46,3 +46,32 @@ Feature: Auth
     When Click Sign in button
     And Click "mock" auth method
     Then Admin link is visible
+
+  @snapshot_unregistered
+  Scenario: Ask for username at the first time
+    Given JsBattle open in the browser
+    When Click Sign in button
+    And Click "mock" auth method
+    Then register form is shown
+    And input "#register-form #username" has value "mock"
+    And input "#register-form #displayname" has value "Mock User"
+
+  @snapshot_oauth_all
+  Scenario: Do not ask for username when registered
+    Given JsBattle open in the browser
+    When Click Sign in button
+    And Click "mock" auth method
+    Then challenge [1] are unlocked
+
+  @snapshot_unregistered
+  @integration
+  Scenario: update profile when registered
+    Given JsBattle open in the browser
+    When Click Sign in button
+    And Click "mock" auth method
+    And register form is shown
+    And type "mock-registred" in "#register-form #username" input
+    And type "Registered Mock User" in "#register-form #displayname" input
+    And click "#register-form button"
+    Then challenge [1] are unlocked
+    And user name is "Registered Mock User"

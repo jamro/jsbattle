@@ -27,7 +27,7 @@
     "test:smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast --world-parameters '{\"mockserver\": true}'",
     "analyse": "webpack --profile --json --config ./webpack.config.js > bundle_stats.json && webpack-bundle-analyzer bundle_stats.json",
     "watch": "npm-watch",
-    "serve": "jsbattle-mock --port 8081",
+    "serve": "jsbattle-mock --port 9000",
     "start:dev": "webpack-dev-server --config ./webpack.config.js --mode=development"
   },
   "keywords": [],

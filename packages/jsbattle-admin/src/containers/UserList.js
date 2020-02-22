@@ -41,6 +41,12 @@ class UserList extends Component {
                   {name: 'Display Name', field: 'displayName'},
                   {name: 'Auth Provider', field: 'provider'},
                   {
+                    name: 'Registered',
+                    field: 'registered',
+                    style: {textAlign: 'center'},
+                    format: 'check'
+                  },
+                  {
                     name: 'Admin',
                     field: 'role',
                     style: {textAlign: 'center'},

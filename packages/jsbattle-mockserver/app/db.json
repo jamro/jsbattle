@@ -7,6 +7,7 @@
       "id": "8si8Su024sj2cZwo0",
       "extUserId": "facebook_10477332",
       "email": "fredric.murphy@gmail.com",
+      "registered": false,
       "role": "admin",
       "createdAt": "2020-01-01T00:00:00.000Z",
       "lastLoginAt": "2020-01-01T00:00:00.000Z"
@@ -17,6 +18,7 @@
       "provider": "github",
       "extUserId": "github_433453",
       "email": "adam@gmail.com",
+      "registered": true,
       "role": "user",
       "id": "1WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -28,6 +30,7 @@
       "provider": "github",
       "extUserId": "github_3452234",
       "email": "ajohn@gmail.com",
+      "registered": true,
       "role": "user",
       "id": "2WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -39,6 +42,7 @@
       "provider": "facebook",
       "extUserId": "facebook_884732934",
       "email": "monica@yahoo.com",
+      "registered": true,
       "role": "user",
       "id": "3WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -50,6 +54,7 @@
       "provider": "facebook",
       "extUserId": "facebook_884732934",
       "email": "maya@yahoo.com",
+      "registered": true,
       "role": "user",
       "id": "4WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -61,6 +66,7 @@
       "provider": "slack",
       "extUserId": "slack_43434",
       "email": "denise@google.com",
+      "registered": true,
       "role": "user",
       "id": "5WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -72,6 +78,7 @@
       "provider": "slack",
       "extUserId": "slack_43234",
       "email": "albkov@gmail.com",
+      "registered": true,
       "role": "user",
       "id": "6WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -83,6 +90,7 @@
       "provider": "linkedin",
       "extUserId": "linkedin_98438",
       "email": "abbn@slack.com",
+      "registered": true,
       "role": "user",
       "id": "7WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -94,6 +102,7 @@
       "provider": "linkedin",
       "extUserId": "linkedin_338472",
       "email": "gego@yahoo.com",
+      "registered": true,
       "role": "user",
       "id": "8WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -105,6 +114,7 @@
       "provider": "slack",
       "extUserId": "slack_00832",
       "email": "dwalsh@aol.com",
+      "registered": true,
       "role": "user",
       "id": "9WHI3l5oetN1NXIP",
       "createdAt": "2020-01-24T23:17:43.004Z",
@@ -117,6 +127,7 @@
       "id": "8si8Su024sj2cZwo0",
       "extUserId": "facebook_10477332",
       "email": "fredric.murphy@gmail.com",
+      "registered": true,
       "role": "admin",
       "createdAt": "2020-01-01T00:00:00.000Z",
       "lastLoginAt": "2020-01-01T00:00:00.000Z"
@@ -124,81 +135,106 @@
   ],
   "admin,battles": [
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"1QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "1QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"2QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "2QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"3QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "3QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"4QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "4QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"5QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "5QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"6QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "6QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"7QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "7QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"8QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "8QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"9QCTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "9QCTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"11CTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "11CTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"12CTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "12CTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"13CTzInfyJTAGm9i",
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "13CTzInfyJTAGm9i",
       "createdAt": "2020-01-24T23:17:43.004Z"
     }
   ],
+  "user,initData": {
+    "id": "cWzaLP12eSeDL68F",
+    "username": "mock",
+    "displayName": "Mock User",
+    "provider": "mock",
+    "extUserId": "mock_01",
+    "email": "mock@example.com",
+    "role": "admin",
+    "registered": true,
+    "createdAt": "2020-02-21T16:42:47.432Z",
+    "lastLoginAt": "2020-02-21T16:42:47.437Z"
+  },
   "authMethods": {
-      "mock":     {"name": "Mock","url": "/auth/mock"},
-      "github":   {"name": "GitHub", "url": "/auth/github"},
-      "facebook": {"name": "Facebook", "url": "/auth/facebook"},
-      "google":   {"name": "Google", "url": "/auth/google"}
+    "mock": {
+      "name": "Mock",
+      "url": "/auth/mock"
+    },
+    "github": {
+      "name": "GitHub",
+      "url": "/auth/github"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "url": "/auth/facebook"
+    },
+    "google": {
+      "name": "Google",
+      "url": "/auth/google"
+    }
   },
   "profile": {
-    "id":"cWzaLP12eSeDL68F",
-    "username":"mock",
-    "displayName":"Mock User",
-    "provider":"mock",
-    "extUserId":"mock_01",
-    "email":"mock@example.com",
-    "role":"admin",
-    "createdAt":"2020-02-21T16:42:47.432Z",
-    "lastLoginAt":"2020-02-21T16:42:47.437Z"
+    "id": "cWzaLP12eSeDL68F",
+    "username": "mock",
+    "displayName": "Mock User",
+    "provider": "mock",
+    "extUserId": "mock_01",
+    "email": "mock@example.com",
+    "role": "admin",
+    "registered": false,
+    "createdAt": "2020-02-21T16:42:47.432Z",
+    "lastLoginAt": "2020-02-21T16:42:47.437Z"
   }
 }

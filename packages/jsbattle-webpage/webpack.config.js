@@ -49,8 +49,8 @@ let config = {
     port: 8080,
     hot: true,
     proxy: {
-      '/api': 'http://localhost:8081',
-      '/auth': 'http://localhost:8081'
+      '/api': 'http://localhost:9000',
+      '/auth': 'http://localhost:9000'
     }
   }
 };

@@ -6,6 +6,7 @@ import ChallengeScreen from './ChallengeScreen.js';
 import ScriptListScreen from './ScriptListScreen.js';
 import SandboxScreen from './SandboxScreen.js';
 import SignInScreen from './SignInScreen.js';
+import RegisterScreen from './RegisterScreen.js';
 import Navi from './Navi.js';
 import Footer from './Footer.js';
 import ErrorPanel from './ErrorPanel.js';
@@ -27,7 +28,20 @@ class App extends Component {
     if(this.props.isLoading) {
       return <Loading />;
     }
-    const router = <div>
+    if(this.props.requestRegister) {
+      return <div>
+            <Router>
+              <div>
+                <Route path="/" component={Navi} />
+                <Route path="/" component={ErrorPanel} />
+                <Route path="/" component={RegisterScreen} />
+                <Route path="/" component={Footer} />
+              </div>
+            </Router>
+          </div>;
+    }
+
+    return <div>
           <Router>
             <div>
               <Route exact path="/">
@@ -44,7 +58,6 @@ class App extends Component {
             </div>
           </Router>
         </div>;
-    return router;
   }
 }
 
@@ -58,6 +71,7 @@ App.propTypes = {
 
 
 const mapStateToProps = (state) => ({
+  requestRegister: (!state.auth.profile.registered && state.auth.profile.role && state.auth.profile.role != 'guest'),
   isLoading: state.loading.SETTINGS || state.loading.USER_PROFILE
 });
 const mapDispatchToProps = (dispatch) => ({

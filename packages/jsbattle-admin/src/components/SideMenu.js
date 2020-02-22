@@ -19,11 +19,11 @@ class SideMenu extends Component {
     return (
       <div style={{paddingTop: '1em'}} className="side-menu">
         <Nav className="flex-column" variant="pills" >
-          <Nav.Link href="#/battles" active={pathname == '/battles'} className="sidenav-battles">
-            <FontAwesomeIcon icon={faShieldAlt} /> Battles
-          </Nav.Link>
           <Nav.Link href="#/users" active={pathname == '/users'} className="sidenav-users">
             <FontAwesomeIcon icon={faUsers} /> Users
+          </Nav.Link>
+          <Nav.Link href="#/battles" active={pathname == '/battles'} className="sidenav-battles">
+            <FontAwesomeIcon icon={faShieldAlt} /> Battles
           </Nav.Link>
         </Nav>
       </div>

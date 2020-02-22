@@ -66,3 +66,8 @@ Then('Admin link is visible', async function () {
   await this.client.page.click(profileCss);
   await this.client.page.waitFor('.admin-button');
 });
+
+Then('register form is shown', async function () {
+  const css = '#register-form';
+  await this.client.page.waitFor(css);
+});

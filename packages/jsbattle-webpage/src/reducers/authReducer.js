@@ -3,6 +3,7 @@ import {
   AUTH_METHODS_FAILURE,
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAILURE,
+  PROFILE_REGISTER_SUCCESS,
 } from '../actions/actionTypes.js';
 
 const initState = {
@@ -26,6 +27,8 @@ const authReducer = (state, action) => {
       return {...state, profile: action.payload};
     case USER_PROFILE_FAILURE:
       return {...state, profile: {}};
+    case PROFILE_REGISTER_SUCCESS:
+      return {...state, profile: action.payload};
     default:
       return state;
   }

@@ -22,32 +22,36 @@ class UserStoreService extends Service {
           "provider",
           "extUserId",
           "email",
+          "registered",
           "role",
           "createdAt",
           "lastLoginAt"
         ],
         entityValidator: {
-          extUserId: "string",
-          username: "string",
-          displayName: "string",
-          email: "string",
-          provider: "string",
-          role: "string",
+          extUserId: { type: "string", min: 1, max: 255 },
+          username: { type: "string", min: 1, max: 255 },
+          displayName: { type: "string", min: 1, max: 255 },
+          email: { type: "string", min: 0, max: 255 },
+          registered: "boolean",
+          provider: { type: "string", min: 1, max: 255 },
+          role: { type: "string", min: 1, max: 255 },
           createdAt: "date",
           lastLoginAt: "date"
         }
       },
       actions: {
-        findOrCreate: this.findOrCreate
+        findOrCreate: this.findOrCreate,
+        register: this.register
       },
       hooks: {
         before: {
           create: [
             function addDefaults(ctx) {
+              ctx.params.registered = false;
               ctx.params.createdAt = new Date();
               ctx.params.lastLoginAt = new Date();
-              ctx.params.username = ctx.params.username || ctx.params.email.replace(/@.*$/, '').toLowerCase() || ctx.params.displayName.replace(' ', '').toLowerCase()
-              ctx.params.displayName = ctx.params.displayName || ctx.params.username;
+              ctx.params.username = ctx.params.username || ctx.params.email.replace(/@.*$/, '').toLowerCase() || ctx.params.displayName.replace(' ', '').toLowerCase() || 'anonymous';
+              ctx.params.displayName = ctx.params.displayName || ctx.params.username || 'Anonymous';
               ctx.params.role = ctx.params.role || 'user';
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
@@ -62,6 +66,64 @@ class UserStoreService extends Service {
         }
       }
     });
+  }
+
+  async register(ctx) {
+    const userId = ctx.meta.user ? ctx.meta.user.id : null;
+    const username = ctx.params.username.toLowerCase();
+    const displayName = ctx.params.displayName;
+    if(!userId) {
+      throw new ValidationError('user not found (1)', 401);
+    }
+    if(!username) {
+      throw new ValidationError('username parameter is required', 400);
+    }
+    if(!displayName) {
+      throw new ValidationError('displayName parameter is required', 400);
+    }
+    if(username.length < 3) {
+      throw new ValidationError('username must be at least 3 characters long', 400);
+    }
+    if(displayName.length < 3) {
+      throw new ValidationError('displayName must be at least 3 characters long', 400);
+    }
+    if(!(/^[A-Za-z0-9_.-]+$/).test(username)) {
+      throw new ValidationError('username contains invalid characters', 400);
+    }
+    if(!(/^[A-Za-z0-9_. -]+$/).test(displayName)) {
+      throw new ValidationError('displayName contains invalid characters', 400);
+    }
+
+    let response;
+
+    // check if init data already sent
+    this.logger.debug(`Check whether user 'ID:${userId}' was initialized before`);
+    response = await ctx.call('userStore.get', { id: userId });
+    if(!response) {
+      throw new ValidationError('user not found (2)', 401);
+    }
+    if(response.registered) {
+      throw new ValidationError('user already initialized', 400);
+    }
+
+    // check if username is unique
+    this.logger.debug(`Check whether username '${username}' is used`);
+    response = await ctx.call('userStore.find', {query: {
+      username: username,
+      registered: true
+    }});
+    if(response.length) {
+      throw new ValidationError('username must be unique. Chose a different one.', 400);
+    }
+
+    this.logger.debug(`Update user ${userId}`);
+    response = await ctx.call('userStore.update', {
+      id: userId,
+      username: username,
+      displayName: displayName,
+      registered: true
+    });
+    return ctx.call('auth.whoami', {});
   }
 
   async findOrCreate(ctx) {

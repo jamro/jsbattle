@@ -20,6 +20,12 @@ module.exports = (rejectOnFail) => {
       case '/admin':
         roles = ['admin'];
         break;
+      case '/user':
+        roles = [
+'admin',
+'user'
+];
+        break;
       default:
         publicAccess = true;
         roles = [

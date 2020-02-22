@@ -68,6 +68,7 @@ class AuthService extends Service {
         "provider": "",
         "extUserId": "",
         "email": "",
+        "registered": false,
         "role": role,
         "createdAt": new Date(),
         "lastLoginAt": new Date()

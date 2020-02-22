@@ -36,7 +36,7 @@ class App extends Component {
           <Router>
             <div>
               <Route exact path="/">
-                <Redirect to="/battles" />
+                <Redirect to="/users" />
               </Route>
               <Route path="/users" component={UserList} />
               <Route path="/battles" component={BattleList} />

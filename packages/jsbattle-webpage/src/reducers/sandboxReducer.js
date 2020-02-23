@@ -2,7 +2,7 @@ import {
   SETTINGS_SUCCESS,
   AI_SCRIPT_REQUEST,
   AI_SCRIPT_SUCCESS,
-  AI_SCRIPT_CHANGED_REQUEST,
+  AI_SCRIPT_CHANGED_SUCCESS,
   AI_SCRIPT_RENAME_SUCCESS,
   SANDBOX_OPPONENT_CHANGE,
   SANDBOX_RNG_LOCK,
@@ -12,9 +12,8 @@ import {
 } from '../actions/actionTypes.js';
 
 const initState = {
-  list: [],
-  code: '',
-  name: '',
+  tankList: [],
+  script: {},
   opponent: {
     type: 'bundled',
     name: 'dummy',
@@ -40,24 +39,29 @@ function sanboxReducer(state = {}, action) {
       case AI_SCRIPT_REQUEST:
         return {
           ...state,
-          code: '',
-          name: '',
+          script: {}
         };
     case AI_SCRIPT_SUCCESS:
       return {
         ...state,
-        code: action.payload.code,
-        name: action.payload.name,
+        script: action.payload
       };
-    case AI_SCRIPT_CHANGED_REQUEST:
+    case AI_SCRIPT_CHANGED_SUCCESS:
       return {
         ...state,
-        code: action.payload.code
+        script: {
+          ...state.script,
+          code: action.payload.code
+        }
       };
     case AI_SCRIPT_RENAME_SUCCESS:
       return {
         ...state,
-        name: action.payload.newName
+        script: {
+          ...state.script,
+          id: action.payload.id,
+          scriptName: action.payload.scriptName
+        }
       };
     case SANDBOX_OPPONENT_CHANGE:
       return {

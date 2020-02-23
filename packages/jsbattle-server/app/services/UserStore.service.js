@@ -61,10 +61,10 @@ class UserStoreService extends Service {
           update: [
             function omitReadOnly(ctx) {
               ctx.params = _.omit(ctx.params, [
-'createdAt',
-'extUserId',
-'provider'
-]);
+                'createdAt',
+                'extUserId',
+                'provider'
+              ]);
               return ctx;
             }
           ]
@@ -76,6 +76,9 @@ class UserStoreService extends Service {
   async register(ctx) {
     let response;
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
+    if(!userId) {
+      throw new ValidationError('Not Authorized!', 401);
+    }
     let username = ctx.params.username ? ctx.params.username.toLowerCase() : '';
     let displayName = ctx.params.displayName || '';
 
@@ -83,7 +86,7 @@ class UserStoreService extends Service {
     this.logger.debug(`Check whether user 'ID:${userId}' was initialized before`);
     response = await ctx.call('userStore.get', { id: userId });
     if(!response) {
-      throw new ValidationError('user not found (2)', 401);
+      throw new ValidationError('user not found', 401);
     }
     if(response.registered) {
       throw new ValidationError('user already initialized', 400);
@@ -92,9 +95,6 @@ class UserStoreService extends Service {
     username = username || response.username;
     displayName = displayName || response.displayName;
 
-    if(!userId) {
-      throw new ValidationError('user not found (1)', 401);
-    }
     if(!username) {
       throw new ValidationError('username parameter is required', 400);
     }

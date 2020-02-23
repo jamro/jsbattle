@@ -17,24 +17,25 @@ class ScriptListScreen extends React.Component {
 
   componentDidMount() {
     this.props.notifySandboxOpen();
-    this.props.getSandboxAiScriptList();
+    this.props.getSandboxAiScriptList(this.props.useRemoteService);
   }
 
   renderRows() {
-    if(this.props.isDeleting) {
+    if(this.props.isDeleting || this.props.isLoading) {
       return <tr>
         <td colSpan={2}>
           <Loading />
         </td>
       </tr>;
     }
-    let tanks = this.props.tankList;
-    tanks = tanks.map((tankName) => {
+    let tanks = this.props.tankList.rows || [];
+    tanks = tanks.map((script) => {
       return <ScriptTableRow
-        key={tankName}
-        name={tankName}
-        link={'/sandbox/' + tankName}
-        onDelete={(name) => this.props.deleteAiScript(name)}
+        key={script.id}
+        id={script.id}
+        name={script.scriptName}
+        link={'/sandbox/' + script.id}
+        onDelete={(id) => this.props.deleteAiScript(id, this.props.useRemoteService)}
       />;
     });
     if(tanks.length > 0) {
@@ -48,19 +49,28 @@ class ScriptListScreen extends React.Component {
   }
 
   render() {
-    if(this.props.isLoading) {
-      return <Loading />;
-    }
     let createButton;
     if(this.props.isCreating) {
       createButton = <button type="button" className="btn btn-success btn-lg float-right create-tank" disabled style={{margin: "15px"}}>
         <Loading />
       </button>;
     } else {
-      createButton = <button type="button" className="btn btn-success btn-lg float-right create-tank" onClick={() => this.props.createAiScript()} style={{margin: "15px"}}>
+      createButton = <button type="button" className="btn btn-success btn-lg float-right create-tank" onClick={() => this.props.createAiScript(this.props.useRemoteService)} style={{margin: "15px"}}>
         <i className="fas fa-plus-circle" aria-hidden="true"></i> Create Tank
       </button>;
     }
+    let table = null;
+    table = <table className="table ai-table" >
+      <thead>
+        <tr>
+          <th>Tank Name</th>
+          <th className="text-right" style={{width: '90px'}}>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.renderRows()}
+      </tbody>
+    </table>;
     return <div>
       <FullRow>
         <nav className="breadcrumb-container">
@@ -72,17 +82,7 @@ class ScriptListScreen extends React.Component {
       </FullRow>
       <FullRow>
         {createButton}
-        <table className="table ai-table" >
-          <thead>
-            <tr>
-              <th>Tank Name</th>
-              <th className="text-right" style={{width: '90px'}}>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderRows()}
-          </tbody>
-        </table>
+        {table}
       </FullRow>
     </div>;
   }
@@ -92,21 +92,22 @@ const mapStateToProps = (state) => ({
   tankList: state.aiRepo.tankList,
   isLoading: state.loading.SANDBOX_AI_SCRIPT_LIST,
   isCreating: state.loading.CREATE_AI_SCRIPT,
-  isDeleting: state.loading.DELETE_AI_SCRIPT
+  isDeleting: state.loading.DELETE_AI_SCRIPT,
+  useRemoteService: state.auth.profile.registered
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createAiScript: () => {
-    dispatch(createAiScript());
+  createAiScript: (useRemoteService) => {
+    dispatch(createAiScript(null, useRemoteService));
   },
-  deleteAiScript: (name) => {
-    dispatch(deleteAiScript(name));
+  deleteAiScript: (name, useRemoteService) => {
+    dispatch(deleteAiScript(name, useRemoteService));
   },
   notifySandboxOpen: () => {
     dispatch(notifySandboxOpen());
   },
-  getSandboxAiScriptList: () => {
-    dispatch(getSandboxAiScriptList());
+  getSandboxAiScriptList: (useRemoteService) => {
+    dispatch(getSandboxAiScriptList(useRemoteService));
   }
 });
 export default connect(

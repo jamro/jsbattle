@@ -57,7 +57,7 @@ export default class ScriptTableRow extends React.Component {
   }
 
   deleteRow() {
-    this.props.onDelete(this.props.name);
+    this.props.onDelete(this.props.id);
     this.setState({mode: 'normal'});
   }
 
@@ -135,6 +135,7 @@ export default class ScriptTableRow extends React.Component {
 }
 
 ScriptTableRow.defaultProps = {
+  id: '',
   name: 'unknown',
   link: '',
   difficulty: undefined,
@@ -142,6 +143,7 @@ ScriptTableRow.defaultProps = {
 };
 
 ScriptTableRow.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   link: PropTypes.string,
   difficulty: PropTypes.number,

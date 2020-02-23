@@ -20,12 +20,12 @@ var editorHelper = {
 
 // GIVEN -----------------------------------------------------------------------
 Given('{int} AI script(s)', async function (count) {
-  let css = "button.create-tank";
-  await this.client.page.waitFor(css);
+  this.client.page.evaluate((count) => {
 
-  for(let i=0; i < count; i++) {
-    await this.client.page.click(css);
-  }
+    for(let i=0; i < count; i++) {
+      appController.createAiScript()
+    }
+  }, count);
 });
 
 Given('AI script(s) named {stringList}', async function (names) {
@@ -38,7 +38,7 @@ Given('AI script(s) named {stringList}', async function (names) {
 
 Given('AI Script no {int} open', async function (index) {
   await editorHelper.editAiScript(this.client.page, index);
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 50));
 });
 
 Given('AI Script {string} containing {string}', async function (name, code) {

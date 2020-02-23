@@ -207,6 +207,38 @@
     "createdAt": "2020-02-21T16:42:47.432Z",
     "lastLoginAt": "2020-02-21T16:42:47.437Z"
   },
+  "user,scripts": [
+    {
+      "id": "xVDPu2zXl9M4lINa",
+      "ownerId": "cWzaLP12eSeDL68F",
+      "ownerName": "mock",
+      "scriptName": "nihnae",
+      "namespace": "user",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+      "createdAt": "2020-02-23T08:26:54.011Z",
+      "modifiedAt": "2020-02-23T08:26:54.011Z"
+    },
+    {
+      "id": "FOjJ3IULPVU9KSWw",
+      "ownerId": "cWzaLP12eSeDL68F",
+      "ownerName": "mock",
+      "scriptName": "peridot",
+      "namespace": "user",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+      "createdAt": "2020-02-23T08:27:42.940Z",
+      "modifiedAt": "2020-02-23T08:27:42.940Z"
+    },
+    {
+      "id": "BuLO667PXk0yEqwg",
+      "ownerId": "cWzaLP12eSeDL68F",
+      "ownerName": "mock",
+      "scriptName": "monkey",
+      "namespace": "user",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+      "createdAt": "2020-02-23T08:28:04.922Z",
+      "modifiedAt": "2020-02-23T08:28:04.922Z"
+    }
+  ],
   "authMethods": {
     "mock": {
       "name": "Mock",
@@ -233,7 +265,7 @@
     "extUserId": "mock_01",
     "email": "mock@example.com",
     "role": "admin",
-    "registered": false,
+    "registered": true,
     "createdAt": "2020-02-21T16:42:47.432Z",
     "lastLoginAt": "2020-02-21T16:42:47.437Z"
   }

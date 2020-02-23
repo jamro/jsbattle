@@ -1,0 +1,39 @@
+{
+  "_config": {
+    "port": 8070,
+    "public": "./dist",
+    "silent": true,
+    "authorized": false
+  },
+  "profile": {
+    "id":"cWzaLP12eSeDL68F",
+    "username":"mock",
+    "displayName":"Mock User",
+    "provider":"mock",
+    "extUserId":"mock_01",
+    "email":"mock@example.com",
+    "role":"user",
+    "registered": false,
+    "createdAt":"2020-02-21T16:42:47.432Z",
+    "lastLoginAt":"2020-02-21T16:42:47.437Z"
+  },
+  "user,initData": {
+    "id":"cWzaLP12eSeDL68F",
+    "username":"mock-registered",
+    "displayName":"Registered Mock User",
+    "provider":"mock",
+    "extUserId":"mock_01",
+    "email":"mock@example.com",
+    "role":"user",
+    "registered": true,
+    "createdAt":"2020-02-21T16:42:47.432Z",
+    "lastLoginAt":"2020-02-21T16:42:47.437Z"
+  },
+  "authMethods": {
+    "mock": {
+      "name": "Mock",
+      "url": "/auth/mock"
+    }
+  },
+  "user,scripts": []
+}

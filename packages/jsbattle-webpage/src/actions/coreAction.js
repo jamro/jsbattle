@@ -8,27 +8,11 @@ import {
   SETTINGS_REQUEST,
   SETTINGS_SUCCESS,
 } from './actionTypes.js';
+import {fetchFromApi} from '../lib/fetchFromApi.js';
 
 export const clearError = (type) => ({
   type: type + "_CLEAR_ERROR"
 });
-
-function fetchFromApi(url, type, opts) {
-  return async (dispatch) => {
-    dispatch({type: type + "_REQUEST"});
-    try {
-      let response = await fetch(url, opts);
-      if (!response.ok) {
-        let responseText = await response.text();
-        return dispatch({type: type + "_FAILURE", payload: new Error(`Error ${response.status}: ${responseText || response.statusText}`), error: true});
-      }
-      let json = await response.json();
-      dispatch({type: type + "_SUCCESS", payload: json});
-    } catch (err) {
-      dispatch({type: type + "_FAILURE", payload: err, error: true});
-    }
-  };
-}
 
 export const setSimQuality = (quality) => {
   return async (dispatch) => {

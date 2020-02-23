@@ -50,7 +50,7 @@ export default class EditableText extends React.Component {
   }
 
   onEdit() {
-    this.props.onChange(this.state.name, this.props.name);
+    this.props.onChange(this.state.name, this.props.id);
     this.setState({mode: 'normal'});
   }
 

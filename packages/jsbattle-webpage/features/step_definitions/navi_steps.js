@@ -89,8 +89,9 @@ Before(async function (scenario) {
     } else {
       snapshotName = 'snapshot_default.json';
     }
-
-    const db = require(path.resolve(__dirname, '..', 'db_snapshot', snapshotName));
+    const dbPath = path.resolve(__dirname, '..', 'db_snapshot', snapshotName);
+    delete require.cache[dbPath];
+    const db = require(dbPath);
     const defaultOptions = {
       port: 8070,
       public: './dist',
@@ -167,6 +168,13 @@ When('navigate to {string} section', async function (section) {
   await naviHelper.gotoSection(this.client.page, section);
 });
 
+When('screenshot', async function () {
+  if(this.client.page && !this.client.page.isClosed()) {
+    let buffer = await this.client.page.screenshot({type: 'jpeg', quality: 10});
+    console.log(await buffer.toString('base64'));
+  }
+});
+
 When('visited all pages at {string}', {timeout: 60 * 1000}, async function (uri) {
   var visitedLinks = [];
   var unvisitedLinks = [];
@@ -205,7 +213,6 @@ When('visited all pages at {string}', {timeout: 60 * 1000}, async function (uri)
       });
       return images;
     });
-
 
     self.client.history.push({
       url: url,

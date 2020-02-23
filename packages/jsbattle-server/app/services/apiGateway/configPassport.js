@@ -6,24 +6,27 @@ authStrategies['facebook'] = require("passport-facebook");
 authStrategies['google'] = require("passport-google-oauth").OAuth2Strategy;
 const CustomStrategy = require("passport-custom");
 
+const mockUserData = {
+  extUserId: 'mock_01',
+  displayName: 'Mock User',
+  username: 'mock',
+  provider: 'mock',
+  email: 'mock@example.com'
+};
 
 function configStrategyMock(app, logger, broker, passport, config) {
-  const userData = {
-    extUserId: 'mock_01',
-    displayName: 'Mock User',
-    username: 'mock',
-    provider: 'mock',
-    email: 'mock@example.com'
-  };
   passport.use(new CustomStrategy((req, callback) => {
-    callback(null, userData);
+    callback(null, mockUserData);
   }));
   app.get(
 '/auth/mock',
     passport.authenticate('custom', { failureRedirect: '/' }),
     async (req, res) => {
+      mockUserData.username = req.query.username || 'mock';
+      mockUserData.displayName = req.query.displayName || 'Mock User';
+      mockUserData.extUserId = req.query.extUserId || 'mock_01';
       logger.debug('Login using ' + config.name + " integration");
-      let user = await broker.call('userStore.findOrCreate', {user: userData});
+      let user = await broker.call('userStore.findOrCreate', {user: mockUserData});
       let response = await broker.call('auth.authorize', { user });
       broker.emit("user.login", user.id);
       res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
@@ -87,8 +90,8 @@ function configPassport(app, logger, broker) {
     `/auth/logout`,
     (req, res) => {
       logger.debug('Logout');
-      req.logout();
       res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
+      req.logout();
       res.redirect('/');
     }
   );

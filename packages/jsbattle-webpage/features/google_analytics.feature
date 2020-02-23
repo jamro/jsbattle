@@ -43,7 +43,7 @@ Feature: Statistics
     And "Sandbox" section open
     When click create tank button
     Then GA event "sandbox/create" is sent
-
+    
   Scenario: Notify about removing an AI Script
     Given JsBattle open in the browser
     And "Sandbox" section open

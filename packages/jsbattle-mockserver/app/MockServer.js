@@ -19,7 +19,7 @@ class MockServer {
   }
 
   getDefaultDB() {
-    return path.resolve(__dirname , 'db.json')
+    return require(path.resolve(__dirname , 'init_db.json'));
   }
 
   start(options, db) {
@@ -122,6 +122,7 @@ class MockServer {
         "/api/authMethods": "/authMethods",
         "/api/profile": "/profile",
         "/api/:a/:b": "/:a,:b",
+        "/api/:a/:b/:c": "/:a,:b/:c",
         "/api/*": "/$1"
       }))
       server.use(router)

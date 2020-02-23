@@ -1,5 +1,5 @@
-  Feature: Sandbox
-  Allow editing, storing and testing custom AI scripts
+Feature: Sandbox (local)
+Allow editing, storing and testing custom AI scripts
 
   Scenario: List of AIs is empty by default
     Given JsBattle open in the browser

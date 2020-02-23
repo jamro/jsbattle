@@ -10,15 +10,13 @@
     "build:admin": "cpx './node_modules/jsbattle-admin/dist/**/*' ./dist/public",
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
     "build:server": "cpx './src/**/*' ./dist",
-    "test": "npm run test:prep && npm run test:run-all && npm run test:server-stop",
-    "test:copy-webpage": "cpx './node_modules/jsbattle-webpage/features/**/*' ./test/features-webpage",
-    "test:copy-admin": "cpx './node_modules/jsbattle-admin/features/**/*' ./test/features-admin",
-    "test:server-start": "pm2 start './dist/jsbattle.js' --wait-ready --name jsbattle-test-server -- start -c ./test/jsbattle.config.json",
-    "test:server-stop": "pm2 del jsbattle-test-server",
+    "test": "npm run test:prep && npm run test:run-all",
+    "test:copy-webpage": "cpx './node_modules/jsbattle-webpage/features/**/*' ./test/features-webpage && cpx './test/pm2_steps.js' './test/features-webpage/step_definitions'",
+    "test:copy-admin": "cpx './node_modules/jsbattle-admin/features/**/*' ./test/features-admin && cpx './test/pm2_steps.js' './test/features-admin/step_definitions'",
     "test:run-all": "npm run test:run-webpage && npm run test:run-admin",
     "test:run-webpage": "cucumber-js --fail-fast -t @integration --retry 3 -f ./test/features-webpage/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-webpage",
     "test:run-admin": "cucumber-js  --fail-fast -t @integration --retry 3 -f ./test/features-admin/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-admin",
-    "test:prep": "(npm run test:server-stop > /dev/null 2>&1 || true) && npm run test:server-start && npm run test:copy-webpage && npm run test:copy-admin"
+    "test:prep": "npm run test:copy-webpage && npm run test:copy-admin"
   },
   "repository": {
     "type": "git",

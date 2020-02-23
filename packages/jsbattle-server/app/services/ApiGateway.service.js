@@ -43,6 +43,8 @@ class ApiGatewayService extends Service {
                 aliases: {
                   "PATCH users/:id": "userStore.update",
                   "REST users": "userStore",
+                  "PATCH scripts/:id": "scriptStore.update",
+                  "REST scripts": "scriptStore",
                   "PATCH battles/:id": "battleStore.update",
                   "REST battles": "battleStore"
                 },
@@ -57,7 +59,12 @@ class ApiGatewayService extends Service {
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
                 aliases: {
-                  "PATCH initData": "userStore.register"
+                  "PATCH initData": "userStore.register",
+                  "GET scripts": "scriptStore.listUserScripts",
+                  "POST scripts": "scriptStore.createUserScript",
+                  "PATCH scripts/:id": "scriptStore.updateUserScript",
+                  "GET scripts/:id": "scriptStore.getUserScript",
+                  "DELETE scripts/:id": "scriptStore.deleteUserScript"
                 },
                 bodyParsers: {
                   json: true,

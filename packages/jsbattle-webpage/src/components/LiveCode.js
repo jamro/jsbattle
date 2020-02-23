@@ -68,7 +68,7 @@ class LiveCode extends React.Component {
   updateDebug(sim) {
     let result = sim.tankList.filter((t) => t.name == this.props.name);
     if(result.length < 1) {
-      this.setState({debug: '{}'});
+      this.setState({debug: {}});
       return;
     }
     this.setState({debug: result[0].debugData});

@@ -38,8 +38,8 @@ class SandboxScreen extends React.Component {
   }
 
   componentDidMount() {
-    let name = this.props.match.params.name;
-    this.props.getAiScript(name);
+    let id = this.props.match.params.name;
+    this.props.getAiScript(id, this.props.useRemoteService);
     this.props.notifySandboxEdit();
   }
 
@@ -87,7 +87,7 @@ class SandboxScreen extends React.Component {
 
   onCodeChanged(code) {
     console.log("Challenge code changed");
-    this.props.updateAiScript(this.props.name, code);
+    this.props.updateAiScript(this.props.script.id, code, this.props.useRemoteService);
   }
 
   onOpponentChange(value) {
@@ -125,15 +125,20 @@ class SandboxScreen extends React.Component {
   renderSettingsTab() {
     let opponents = [];
     let selectedOpponent;
-    if(this.props.opponent.type == 'user' && this.props.opponent.name == this.props.name) {
+    if(this.props.opponent.type == 'user' && this.props.opponent.name == this.props.script.scriptName) {
       selectedOpponent = 'bundled/dummy';
     } else {
       selectedOpponent = this.props.opponent.type + "/" + this.props.opponent.name;
     }
 
+    let userTankList = this.props.userTankList.rows || [];
+
     opponents = opponents.concat(
-      this.props.bundledTankList.map((name) => <option key={`bundled/${name}`} value={`bundled/${name}`}>Bundled: {name}</option>),
-      this.props.userTankList.filter((name) => name != this.props.name).map((name) => <option key={`user/${name}`} value={`user/${name}`}>{name}</option>),
+      this.props.bundledTankList
+        .map((name) => <option key={`bundled/${name}`} value={`bundled/${name}`}>Bundled: {name}</option>),
+      userTankList
+        .filter((script) => script.scriptName != this.props.script.scriptName)
+        .map((script) => <option key={`user/${script.scriptName}`} value={`user/${script.scriptName}`}>{script.scriptName}</option>),
     );
 
     return <Row>
@@ -174,7 +179,7 @@ class SandboxScreen extends React.Component {
   renderResults() {
     return <div className="text-center">
         <DuelResultScreen
-          hasWon={this.props.name == this.state.winner.name}
+          hasWon={this.props.script.scriptName == this.state.winner.name}
           winnerName={this.state.winner.name}
           winnerSkin={this.state.winner.skin}
           winnerScore={this.state.winner.score}
@@ -200,8 +205,9 @@ class SandboxScreen extends React.Component {
               <li className="breadcrumb-item"><Link to="/sandbox">Sandbox</Link></li>
               <li className="breadcrumb-item">
                 <EditableText
-                  name={this.props.name}
-                  onChange={(newName, oldName) => this.props.renameAiScript(newName, oldName)}
+                  id={this.props.script.id}
+                  name={this.props.script.scriptName}
+                  onChange={(newName, id) => this.props.renameAiScript(newName, id, this.props.useRemoteService)}
                   loading={this.props.isRenameLoading}
                 />
               </li>
@@ -217,8 +223,8 @@ class SandboxScreen extends React.Component {
             isLoading={this.props.isLoading}
             simQuality={this.props.simQuality}
             simSpeed={this.props.simSpeed}
-            code={this.props.code}
-            name={this.props.name}
+            code={this.props.script.code}
+            name={this.props.script.scriptName}
             rngSeed={this.state.rngSeed}
             timeLimit={0}
             teamMode={teamMode}
@@ -247,24 +253,24 @@ const mapStateToProps = (state) => ({
   isRenameLoading: state.loading.AI_SCRIPT_RENAME,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
-  code: state.sandbox.code,
-  name: state.sandbox.name,
   userTankList: state.aiRepo.tankList,
   bundledTankList: state.sandbox.tankList,
   opponent: state.sandbox.opponent,
   mode: state.sandbox.mode,
   lockRng: state.sandbox.lockRng,
+  script: state.sandbox.script,
+  useRemoteService: state.auth.profile.registered
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getAiScript: (name) => {
-    dispatch(getAiScript(name));
+  getAiScript: (name, useRemoteService) => {
+    dispatch(getAiScript(name, useRemoteService));
   },
-  updateAiScript: (name, code) => {
-    dispatch(updateAiScript(name, code));
+  updateAiScript: (id, code, useRemoteService) => {
+    dispatch(updateAiScript(id, code, useRemoteService));
   },
-  renameAiScript: (newName, oldName) => {
-    dispatch(renameAiScript(newName, oldName));
+  renameAiScript: (newName, id, useRemoteService) => {
+    dispatch(renameAiScript(newName, id, useRemoteService));
   },
   setSandboxOpponent: (type, name) => {
     dispatch(setSandboxOpponent(type, name));

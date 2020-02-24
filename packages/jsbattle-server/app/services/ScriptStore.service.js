@@ -37,7 +37,7 @@ class ScriptStoreService extends Service {
           modifiedAt: "date"
         }
       },
-      dependencies: ['auth'],
+      dependencies: ['userStore'],
       actions: {
         listUserScripts: this.listUserScripts,
         createUserScript: this.createUserScript,

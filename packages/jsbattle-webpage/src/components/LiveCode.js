@@ -28,6 +28,21 @@ class LiveCode extends React.Component {
       loading: true,
       debug: {}
     };
+
+    this.modifier = (simulation) => {
+      if(!this.props.modifier) return;
+      simulation.tankList.forEach((tank) => {
+        let tankName = tank.name.toLowerCase();
+        let data = this.props.modifier[tankName];
+        if(!data) return;
+        data = data[Math.floor(Math.random()*data.length)];
+        tank.moveTo(
+            (simulation.battlefield.minX + simulation.battlefield.maxX)/2 + data.x,
+            (simulation.battlefield.minY + simulation.battlefield.maxY)/2 + data.y,
+            data.a
+          );
+      });
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -185,7 +200,7 @@ class LiveCode extends React.Component {
         speed={this.props.simSpeed}
         quality={this.props.simQuality}
         renderer="brody"
-        modifier={this.props.modifier}
+        modifier={this.modifier}
         onRender={(sim) => this.updateDebug(sim)}
         onFinish={(result) => this.handleBattleFinish(result)}
         onError={(error) => this.handleBattleError(error)}
@@ -229,7 +244,7 @@ LiveCode.defaultProps = {
   rngSeed: Math.random(),
   timeLimit: 0,
   teamMode: false,
-  modifier: () => {},
+  modifier: {},
   simSpeed: 1,
   isLoading: false,
   aiDefList: [],
@@ -246,7 +261,7 @@ LiveCode.propTypes = {
   info: PropTypes.string,
   timeLimit: PropTypes.number,
   teamMode: PropTypes.bool,
-  modifier: PropTypes.func,
+  modifier: PropTypes.object,
   aiDefList: PropTypes.array,
   onFinish: PropTypes.func,
   onCodeChanged: PropTypes.func

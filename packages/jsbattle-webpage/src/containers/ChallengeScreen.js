@@ -14,7 +14,6 @@ import {
 import FullRow from '../components/FullRow.js';
 import Loading from '../components/Loading.js';
 import {Link} from 'react-router-dom';
-import {getChallengeModifier} from "../services/challengeService.js";
 import JsBattle from 'jsbattle-engine';
 
 class ChallengeScreen extends React.Component {
@@ -125,8 +124,6 @@ class ChallengeScreen extends React.Component {
       </div>;
     }
 
-    let modifier = getChallengeModifier(this.props.currentChallenge.id);
-
     return <div>
     <FullRow>
       <nav className="breadcrumb-container">
@@ -154,7 +151,7 @@ class ChallengeScreen extends React.Component {
         rngSeed={this.props.currentChallenge.rngSeed}
         timeLimit={this.props.currentChallenge.timeLimit}
         teamMode={this.props.currentChallenge.teamMode}
-        modifier={modifier}
+        modifier={this.props.currentChallenge.modifier}
       >
         {congratsScreen}
       </LiveCode>

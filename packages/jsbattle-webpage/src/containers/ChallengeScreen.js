@@ -41,8 +41,13 @@ class ChallengeScreen extends React.Component {
 
   componentDidMount() {
     let challengeId = this.props.match.params.id;
-    this.props.getChallengeCode(challengeId);
-    this.props.getChallenge(challengeId);
+    this.props.getChallengeCode(challengeId, this.props.useRemoteService);
+    this.props.getChallenge(challengeId, this.props.useRemoteService);
+
+    let currentChallenge = this.props.list.find((c) => c.id == challengeId);
+    if(currentChallenge) {
+      this.props.notifyStatsChallengeOpen(currentChallenge.level);
+    }
   }
 
   restartBattle() {
@@ -51,7 +56,7 @@ class ChallengeScreen extends React.Component {
 
   onCodeChanged(code) {
     console.log("Challenge code changed");
-    this.props.updateChallengeCode(this.props.currentChallenge.id, code);
+    this.props.updateChallengeCode(this.props.currentChallenge.id, code, this.props.useRemoteService);
   }
 
   onChallengeComplete(result) {
@@ -63,7 +68,7 @@ class ChallengeScreen extends React.Component {
     }
     console.log("Challange won");
     this.setState({hasWon: true});
-    this.props.completeChallenge(this.props.currentChallenge.id);
+    this.props.completeChallenge(this.props.currentChallenge.id, this.props.useRemoteService);
     this.props.notifyStatsChallengeComplete(this.props.currentChallenge.level);
   }
 
@@ -164,21 +169,22 @@ const mapStateToProps = (state) => ({
   currentChallenge: state.challenge.currentChallenge,
   isLoading: state.loading.CHALLENGE_CODE || state.loading.CHALLENGE,
   isCompleting: state.loading.COMPLETE_CHALLENGE,
-  code: state.challenge.code
+  code: state.challenge.code,
+  useRemoteService: state.auth.profile.registered
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  completeChallenge: (challengeId) => {
-    dispatch(completeChallenge(challengeId));
+  completeChallenge: (challengeId, useRemoteService) => {
+    dispatch(completeChallenge(challengeId, useRemoteService));
   },
-  getChallengeCode: (id) => {
-    dispatch(getChallengeCode(id));
+  getChallengeCode: (id, useRemoteService) => {
+    dispatch(getChallengeCode(id, useRemoteService));
   },
-  getChallenge: (id) => {
-    dispatch(getChallenge(id));
+  getChallenge: (id, useRemoteService) => {
+    dispatch(getChallenge(id, useRemoteService));
   },
-  updateChallengeCode: (id, code) => {
-    dispatch(updateChallengeCode(id, code));
+  updateChallengeCode: (id, code, useRemoteService) => {
+    dispatch(updateChallengeCode(id, code, useRemoteService));
   },
   notifyStatsChallengeComplete: (levelId) => {
     dispatch(notifyStatsChallengeComplete(levelId));

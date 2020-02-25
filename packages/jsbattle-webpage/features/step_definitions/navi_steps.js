@@ -47,7 +47,9 @@ async function createWebClient() {
     }
   });
   client.log = [];
-  client.page.on('console', msg => client.log.push(msg));
+  client.page.on('console', async (msg) => {
+    client.log.push(msg)
+  });
   return client;
 }
 
@@ -106,7 +108,17 @@ Before(async function (scenario) {
 After(async function (scenario) {
   if(this.client) {
     let dump = "\n-- CONSOLE LOG DUMP ---------------------\n";
-    dump += this.client.log.map(msg => `[${msg.type()}] ${msg.text()}`).join("\n");
+    for(let i=0; i < this.client.log.length; i++) {
+      let msg = this.client.log[i]
+      let args = await msg.args();
+      dump += `[${msg.type()}] ${msg.text()}\n`;
+      for(let j=0; j< args.length; j++) {
+        if(args[j]._remoteObject && args[j]._remoteObject.description) {
+          dump += args[j]._remoteObject.description + "\n"
+        }
+      }
+
+    }
     dump += "\n-----------------------------------------";
     this.attach(dump)
     if(this.client.page && !this.client.page.isClosed()) {

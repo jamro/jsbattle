@@ -13,7 +13,7 @@ class ChallengeListScreen extends React.Component {
 
   componentDidMount() {
     this.props.notifyChallengesListOpen();
-    this.props.getChallengeList();
+    this.props.getChallengeList(this.props.useRemoteService);
   }
 
   render() {
@@ -57,14 +57,15 @@ class ChallengeListScreen extends React.Component {
 const mapStateToProps = (state) => ({
   list: state.challenge.list,
   isLoading: state.loading.CHALLENGE_LIST,
+  useRemoteService: state.auth.profile.registered
 });
 
 const mapDispatchToProps = (dispatch) => ({
   notifyChallengesListOpen: () => {
     dispatch(notifyChallengesListOpen());
   },
-  getChallengeList: () => {
-    dispatch(getChallengeList());
+  getChallengeList: (useRemoteService) => {
+    dispatch(getChallengeList(useRemoteService));
   },
 });
 export default connect(

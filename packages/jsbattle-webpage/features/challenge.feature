@@ -9,6 +9,7 @@ Feature: Challenge
     And challenge [2, 3, 4, 5, 6] are locked
     And challenge [1, 2, 3, 4, 5, 6] are incomplete
 
+  @single
   Scenario Outline: Lose challenge #<index>
     Given JsBattle open in the browser
     And "Challenges" section open

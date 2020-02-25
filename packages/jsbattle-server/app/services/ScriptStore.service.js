@@ -53,7 +53,7 @@ class ScriptStoreService extends Service {
               const username = ctx.meta.user ? ctx.meta.user.username : '';
               ctx.params.ownerId = ctx.params.ownerId || userId;
               ctx.params.ownerName = ctx.params.ownerName || username;
-              ctx.params.namespace = ctx.params.namespace || 'user';
+              ctx.params.namespace = ctx.params.namespace || 'none';
               ctx.params.createdAt = new Date();
               ctx.params.modifiedAt = new Date();
               ctx.params = _.omit(ctx.params, ['id']);
@@ -81,16 +81,13 @@ class ScriptStoreService extends Service {
       throw new ValidationError('Not Authorized!', 401);
     }
 
-    const namespace = ctx.params.namespace || 'user';
-
     return ctx.call('scriptStore.list', {
       query: {
         ownerId: userId,
-        namespace: namespace
+        namespace: 'user'
       },
       fields: [
         "id",
-        "namespace",
         "ownerId",
         "ownerName",
         "scriptName",
@@ -103,7 +100,6 @@ class ScriptStoreService extends Service {
   async createUserScript(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     const username = ctx.meta.user.username ? ctx.meta.user.username : null;
-    const namespace = ctx.params.namespace || 'user';
     if(!userId || !username) {
       throw new ValidationError('Not Authorized!', 401);
     }
@@ -112,15 +108,13 @@ class ScriptStoreService extends Service {
       throw new ValidationError('You must finish registration process to perform that action', 401);
     }
 
-    // checlk limit
-    if(namespace == 'user') {
-      let count = await ctx.call('scriptStore.count', {query: {
-        namespace,
-        ownerId: userId
-      }});
-      if(count >= 7) {
-        throw new ValidationError('Script limit exceeded', 401);
-      }
+    // check limit
+    let count = await ctx.call('scriptStore.count', {query: {
+      namespace: 'user',
+      ownerId: userId
+    }});
+    if(count >= 7) {
+      throw new ValidationError('Script limit exceeded', 401);
     }
 
     let name = ctx.params.scriptName || scriptNames[Math.floor(Math.random() * scriptNames.length)].toLowerCase();
@@ -133,12 +127,11 @@ class ScriptStoreService extends Service {
       throw new ValidationError('Unable to create unique name of the script', 401);
     }
 
-
     const code = ctx.params.code || "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n";
 
     return ctx.call('scriptStore.create', {
       scriptName: name,
-      namespace: namespace,
+      namespace: 'user',
       code: code
     })
   }
@@ -153,6 +146,9 @@ class ScriptStoreService extends Service {
     // check access
     let response = await ctx.call('scriptStore.get', { id: scriptId });
     if(response.ownerId != userId) {
+      throw new ValidationError('Entity not found', 404);
+    }
+    if(response.namespace != 'user') {
       throw new ValidationError('Entity not found', 404);
     }
 
@@ -190,6 +186,9 @@ class ScriptStoreService extends Service {
     if(response.ownerId != userId) {
       throw new ValidationError('Entity not found', 404);
     }
+    if(response.namespace != 'user') {
+      throw new ValidationError('Entity not found', 404);
+    }
 
     return response;
   }
@@ -203,6 +202,9 @@ class ScriptStoreService extends Service {
     // check access
     let response = await ctx.call('scriptStore.get', { id: scriptId });
     if(response.ownerId != userId) {
+      throw new ValidationError('Entity not found', 404);
+    }
+    if(response.namespace != 'user') {
       throw new ValidationError('Entity not found', 404);
     }
 

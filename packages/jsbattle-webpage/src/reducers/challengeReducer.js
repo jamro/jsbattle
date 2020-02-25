@@ -1,7 +1,7 @@
 import {
   COMPLETE_CHALLENGE_SUCCESS,
   CHALLENGE_LIST_SUCCESS,
-  CHALLENGE_CODE_CHANGED_REQUEST,
+  CHALLENGE_CODE_CHANGED_SUCCESS,
   CHALLENGE_CODE_SUCCESS,
   CHALLENGE_CODE_FAILURE,
   CHALLENGE_FAILURE,
@@ -23,22 +23,22 @@ function challengeReducer(state = {}, action) {
     case COMPLETE_CHALLENGE_SUCCESS:
       return {
         ...state,
-        list: action.payload.challengeList
+        list: action.payload
       };
     case CHALLENGE_LIST_SUCCESS:
       return {
         ...state,
-        list: action.payload.challengeList
+        list: action.payload
       };
-    case CHALLENGE_CODE_CHANGED_REQUEST:
+    case CHALLENGE_CODE_CHANGED_SUCCESS:
       return {
         ...state,
-        code: action.payload.code
+        code: action.payload
       };
     case CHALLENGE_CODE_SUCCESS:
       return {
         ...state,
-        code: action.payload.code
+        code: action.payload
       };
     case CHALLENGE_CODE_FAILURE:
       return {

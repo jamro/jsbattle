@@ -6,7 +6,7 @@
       "description":"Let's get started. It should be a piece of cake. Your enemy is in front of you, the gun is pointed at it. All you need to do is to pull the trigger and fire! \n\n![preview](./img/challenge01.png)\n\nNo idea where to start? Read [the docs](./docs/manual/ai_script.html).",
       "rngSeed":0.98287429583523,
       "timeLimit":30000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"file",
@@ -37,7 +37,7 @@
       "description":"You know how to shoot, right? Now it's time to move a little bit. Your enemy is located on the southern-east. Point your gun at that direction, then... you know what to do next :) Notice that your tank is slightly rotated what needs to be taken into account during aiming. \n\n![preview](./img/challenge02.png) \n\nNeed more help? You'll find it in [the docs](./docs/manual/algorithms_aiming.html).",
       "rngSeed":0.2590328450293485,
       "timeLimit":30000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"file",
@@ -123,7 +123,7 @@
       "description":"There is usually no targets at predefined positions in the battlefield. In this case, your enemy will be located at a random spot somewhere nearby. Your job is to use the radar attached to your tank, locate the enemy and eliminate it. \n\n![preview](./img/challenge03.png) \n\nAs always, more guidelines in [the docs](./docs/manual/algorithms_aiming.html).",
       "rngSeed":0.4309845234095827,
       "timeLimit":30000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"file",
@@ -244,7 +244,7 @@
       "description":"Things get complicated - your target is moving back and forth. Since it takes some time for the bullet to travel the distance and hit it, you need to consider that and predict your enemy's future position before shooting. \n\n![preview](./img/challenge04.png) \n\nMore guidelines in [the docs](./docs/manual/algorithms_aiming.html).",
       "rngSeed":0.7113695353800222,
       "timeLimit":30000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"code",
@@ -321,7 +321,7 @@
       "description":"Your opponent drives around trying to run away from you. Can you catch it? \n\n![preview](./img/challenge05.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)",
       "rngSeed":0.38835849114718024,
       "timeLimit":30000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"file",
@@ -397,7 +397,7 @@
       "description":"Time for some exploration of the battlefield. The opponent is not difficult - you just need to find it. Remember that the radar has limited range so you need to move around the battlefield a little bit. \n\n![preview](./img/challenge06.png) \n\nIf you need the manual, it is available [here](./docs/manual/README.html)",
       "rngSeed":0.18940819134692158,
       "timeLimit":60000,
-      "isCompleted":false,
+      "completed":false,
       "aiDefList":[
          {
             "source":"code",

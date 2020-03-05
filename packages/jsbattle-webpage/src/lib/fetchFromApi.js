@@ -116,7 +116,9 @@ function attachFetch(fn, mapArgs) {
       body
     };
     let result;
+    let method = opts.method || 'GET';
     try {
+      console.log(`Local fetch: ${method} ${uri}`);
       result = await fn.apply(null, mapArgs(request));
     } catch (err) {
       result = err;

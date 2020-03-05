@@ -2,68 +2,13 @@ import {attachFetch} from '../lib/fetchFromApi.js';
 
 const serviceDelay = 10;
 
-function getCompletedChallenges() {
+export function getCompletedChallenges() {
   let completedChallenges = localStorage.getItem("challenges.completed");
   completedChallenges = completedChallenges ? JSON.parse(completedChallenges) : [];
   return completedChallenges;
 }
 
-export async function getChallengeList() {
-  await new Promise((resolve) => setTimeout(resolve, serviceDelay));
-  let completedChallenges = getCompletedChallenges();
-  let challengeList = require('./challenges.json');
-  challengeList = challengeList.map((challenge) => ({
-    id: challenge.id,
-    level: challenge.level,
-    name: challenge.name,
-    isCompleted: (completedChallenges.indexOf(challenge.id) != -1)
-  }));
-
-  challengeList = challengeList.sort((a, b) => a.level - b.level);
-  let completedThreshold = challengeList.length > 0 ? challengeList[0].level: 0;
-  for(let i=0; i < challengeList.length; i++) {
-    if(challengeList[i].isCompleted) {
-      completedThreshold = Math.max(completedThreshold, challengeList[i].level+1);
-    }
-  }
-  challengeList = challengeList.map((challenge) => ({
-    ...challenge,
-    isUnlocked: (challenge.level <= completedThreshold)
-  }));
-
-  return challengeList;
-}
-
-export async function getChallenge(challengeId) {
-  let challengeList = await getChallengeList();
-  let challenge;
-  challenge = challengeList.find((c) => (
-    c.id == challengeId && c.isUnlocked
-  ));
-  if(!challenge) {
-    return null;
-  }
-  let challengeData = require('./challenges.json');
-
-  challenge = challengeData.find((c) => (
-    c.id == challengeId
-  ));
-
-  if(challenge) {
-    return challenge;
-  }
-  return null;
-}
-
-export async function completeChallenge(challengeId) {
-  await new Promise((resolve) => setTimeout(resolve, serviceDelay));
-  let completedChallenges = getCompletedChallenges();
-  completedChallenges.push(challengeId);
-  localStorage.setItem("challenges.completed", JSON.stringify(completedChallenges));
-  return getChallengeList();
-}
-
-export async function getChallengeCode(id) {
+async function getChallengeCode(id) {
   let namespace = 'challengeLibrary.scriptMap';
 
   let storedScripts = localStorage.getItem(namespace);
@@ -81,42 +26,94 @@ export async function getChallengeCode(id) {
   return scriptMap[id];
 }
 
+export async function getChallengeList(completeChallengeList) {
+  await new Promise((resolve) => setTimeout(resolve, serviceDelay));
+  if(!completeChallengeList) {
+    throw new Error('completeChallengeList param is required!');
+  }
+  let completedChallenges = completeChallengeList || getCompletedChallenges();
+  let challengeList = require('./challenges.json');
+  challengeList = challengeList.map((challenge) => ({
+    id: challenge.id,
+    level: challenge.level,
+    name: challenge.name,
+    completed: (completedChallenges.indexOf(challenge.id) != -1)
+  }));
+
+  challengeList = challengeList.sort((a, b) => a.level - b.level);
+  let completedThreshold = challengeList.length > 0 ? challengeList[0].level: 0;
+  for(let i=0; i < challengeList.length; i++) {
+    if(challengeList[i].completed) {
+      completedThreshold = Math.max(completedThreshold, challengeList[i].level+1);
+    }
+  }
+  challengeList = challengeList.map((challenge) => ({
+    ...challenge,
+    isUnlocked: (challenge.level <= completedThreshold)
+  }));
+
+  return challengeList;
+}
+
+export async function getChallengeDefinition(challengeId) {
+  let challengeData = require('./challenges.json');
+  let challenge;
+  challenge = challengeData.find((c) => (
+    c.id == challengeId
+  ));
+  if(!challenge) {
+    throw new Error('Challenge not found');
+  }
+
+  challenge = challengeData.find((c) => (
+    c.id == challengeId
+  ));
+
+  challenge.code = await getChallengeCode(challengeId);
+  if(challenge) {
+    return challenge;
+  }
+  return null;
+}
+
+export async function completeChallenge(challengeId) {
+  await new Promise((resolve) => setTimeout(resolve, serviceDelay));
+  let completedChallenges = getCompletedChallenges();
+  completedChallenges.push(challengeId);
+  localStorage.setItem("challenges.completed", JSON.stringify(completedChallenges));
+  return {
+    id: challengeId,
+    completed: true
+  };
+}
+
 export async function updateChallengeCode(id, code) {
-  console.log("A");
   let namespace = 'challengeLibrary.scriptMap';
   await new Promise((resolve) => setTimeout(resolve, serviceDelay));
 
   let storedScripts = localStorage.getItem(namespace);
   let scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
   if(!scriptMap[id]) {
-    throw "Script " + id + " does not exists";
+    throw new Error("Script '" + id + "' does not exists");
   }
   scriptMap[id] = code;
   localStorage.setItem(namespace, JSON.stringify(scriptMap));
-  return code;
+  return {
+    id,
+    code
+  };
 }
 
 export default {
-  // REST   GET  /api/user/challenges
-  getChallengeList: attachFetch(getChallengeList, () => {
-    return [];
-  }),
-  // REST    GET  /api/user/challenges/:id
-  getChallenge: attachFetch(getChallenge, (request) => {
+  getChallengeList,
+  getChallengeDefinition,
+  getCompletedChallenges,
+  completeChallenge: attachFetch(completeChallenge, (request) => {
     return [request.uriElements[request.uriElements.length-1]];
   }),
-  // REST   POST /api/user/challenges/:id/completed
-  completeChallenge: attachFetch(completeChallenge, (request) => {
-    return [request.uriElements[request.uriElements.length-2]];
-  }),
-  // REST    GET  /api/user/challenges/:id/code
-  getChallengeCode: attachFetch(getChallengeCode, (request) => {
-    return [request.uriElements[request.uriElements.length-2]];
-  }),
-  // REST    POST  /api/user/challenges/:id/code
   updateChallengeCode: attachFetch(updateChallengeCode, (request) => {
     return [
-        request.uriElements[request.uriElements.length-2],
+        request.uriElements[request.uriElements.length-1],
         request.body.code
       ];
   })

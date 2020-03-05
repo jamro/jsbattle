@@ -33,7 +33,7 @@ class ChallengeListScreen extends React.Component {
       </button>;
       return <li key={challenge.id} className="list-group-item d-flex justify-content-between align-items-center challenge-list-item">
         <div style={{width: '50%'}}>Level {challenge.level}: <strong>{challenge.name}</strong></div>
-        { challenge.isCompleted ? completeBadge : null }
+        { challenge.completed ? completeBadge : null }
         { challenge.isUnlocked ? startButton : disabledButton }
       </li>;
     });

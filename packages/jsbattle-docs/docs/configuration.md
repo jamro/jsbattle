@@ -128,8 +128,6 @@ List of all settings of JsBattle:
 }
 ```
 
-
-
 ## Environment variables
 
 Part of the configuration could be provided as env vars. To disable this feature set `config.skipEnv` to `true`;

@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import LiveCode from '../components/LiveCode.js';
 import {
   completeChallenge,
-  getChallengeCode,
   getChallenge,
   updateChallengeCode,
 } from '../actions/challengeAction.js';
@@ -25,7 +24,7 @@ class ChallengeScreen extends React.Component {
     this.reloadTimeout = null;
 
     this.state = {
-      code: props.code,
+      code: props.currentChallenge ? props.currentChallenge.code : '',
       tab: 'info',
       hasWon: false,
       loading: true,
@@ -40,7 +39,6 @@ class ChallengeScreen extends React.Component {
 
   componentDidMount() {
     let challengeId = this.props.match.params.id;
-    this.props.getChallengeCode(challengeId, this.props.useRemoteService);
     this.props.getChallenge(challengeId, this.props.useRemoteService);
 
     let currentChallenge = this.props.list.find((c) => c.id == challengeId);
@@ -144,7 +142,7 @@ class ChallengeScreen extends React.Component {
         list={this.props.list}
         simQuality={this.props.simQuality}
         simSpeed={this.props.simSpeed}
-        code={this.props.code}
+        code={this.props.currentChallenge.code}
         info={this.props.currentChallenge.description}
         onFinish={(result) => this.onChallengeComplete(result)}
         onCodeChanged={(code) => this.onCodeChanged(code)}
@@ -166,16 +164,12 @@ const mapStateToProps = (state) => ({
   currentChallenge: state.challenge.currentChallenge,
   isLoading: state.loading.CHALLENGE_CODE || state.loading.CHALLENGE,
   isCompleting: state.loading.COMPLETE_CHALLENGE,
-  code: state.challenge.code,
   useRemoteService: state.auth.profile.registered
 });
 
 const mapDispatchToProps = (dispatch) => ({
   completeChallenge: (challengeId, useRemoteService) => {
     dispatch(completeChallenge(challengeId, useRemoteService));
-  },
-  getChallengeCode: (id, useRemoteService) => {
-    dispatch(getChallengeCode(id, useRemoteService));
   },
   getChallenge: (id, useRemoteService) => {
     dispatch(getChallenge(id, useRemoteService));

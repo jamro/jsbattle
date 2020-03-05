@@ -1,9 +1,6 @@
 import {
-  COMPLETE_CHALLENGE_SUCCESS,
   CHALLENGE_LIST_SUCCESS,
   CHALLENGE_CODE_CHANGED_SUCCESS,
-  CHALLENGE_CODE_SUCCESS,
-  CHALLENGE_CODE_FAILURE,
   CHALLENGE_FAILURE,
   CHALLENGE_SUCCESS
 } from '../actions/actionTypes.js';
@@ -20,11 +17,6 @@ function challengeReducer(state = {}, action) {
     ...state
   };
   switch (action.type) {
-    case COMPLETE_CHALLENGE_SUCCESS:
-      return {
-        ...state,
-        list: action.payload
-      };
     case CHALLENGE_LIST_SUCCESS:
       return {
         ...state,
@@ -33,17 +25,10 @@ function challengeReducer(state = {}, action) {
     case CHALLENGE_CODE_CHANGED_SUCCESS:
       return {
         ...state,
-        code: action.payload
-      };
-    case CHALLENGE_CODE_SUCCESS:
-      return {
-        ...state,
-        code: action.payload
-      };
-    case CHALLENGE_CODE_FAILURE:
-      return {
-        ...state,
-        code: ''
+        currentChallenge: {
+          ...state.currentChallenge,
+          code: action.payload.code
+        }
       };
     case CHALLENGE_FAILURE:
       return {

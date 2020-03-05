@@ -18,6 +18,7 @@ class LiveCode extends React.Component {
 
     this.battlefield = null;
     this.reloadTimeout = null;
+    this.reloadCallback = null;
 
     let aiDefList = (props.code && props.aiDefList.length >= 1) ? this.createAiDefList(props.aiDefList, props.code, props.count) : [];
 
@@ -74,9 +75,15 @@ class LiveCode extends React.Component {
     if(this.reloadTimeout) {
       clearTimeout(this.reloadTimeout);
     }
-    this.reloadTimeout = setTimeout(() => {
+    this.reloadCallback = () => {
       this.props.onCodeChanged(code);
       this.setState({isFinished: false});
+    };
+    this.reloadTimeout = setTimeout(() => {
+      if(this.reloadCallback) {
+        this.reloadCallback();
+        this.reloadCallback = null;
+      }
     }, 700);
   }
 
@@ -113,6 +120,10 @@ class LiveCode extends React.Component {
   restartBattle() {
     if(this.reloadTimeout) {
       clearTimeout(this.reloadTimeout);
+    }
+    if(this.reloadCallback) {
+      this.reloadCallback();
+      this.reloadCallback = null;
     }
     this.setState({isFinished: false});
     if(this.battlefield) {

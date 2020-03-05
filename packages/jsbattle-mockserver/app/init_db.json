@@ -239,6 +239,26 @@
       "modifiedAt": "2020-02-23T08:28:04.922Z"
     }
   ],
+  "user,challenges": [
+    {
+      "id": "challenge-8UCUaNvC",
+      "challengeId": "challenge-8UCUaNvC",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\tcontrol.DEBUG = {msg: 'hello from 1st challenge'}\n  \n});\n\n\n",
+      "completed": true
+    },
+    {
+      "id": "challenge-Du7tyrCB",
+      "challengeId": "challenge-Du7tyrCB",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\tcontrol.DEBUG = {msg: 'how to solve that?'}\n  \n});\n\n\n",
+      "completed": false
+    },
+    {
+      "id": "challenge-4syTf6ph",
+      "challengeId": "challenge-4syTf6ph",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\tcontrol.DEBUG = {msg: 'locked'}\n  \n});\n\n\n",
+      "completed": false
+    }
+  ],
   "authMethods": {
     "mock": {
       "name": "Mock",

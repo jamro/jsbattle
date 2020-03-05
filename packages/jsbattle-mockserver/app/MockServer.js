@@ -123,6 +123,8 @@ class MockServer {
         "/api/profile": "/profile",
         "/api/:a/:b": "/:a,:b",
         "/api/:a/:b/:c": "/:a,:b/:c",
+        "/api/:a/:b/:c/:d": "/:a,:b/:c/:d",
+        "/api/:a/:b/:c/:d/:e": "/:a,:b/:c/:d/:e",
         "/api/*": "/$1"
       }))
       server.use(router)

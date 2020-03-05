@@ -279,6 +279,10 @@
 							"script": {
 								"id": "317702f7-0bb1-4fa1-b335-fcd797b6ac35",
 								"exec": [
+									"let url = pm.variables.get(\"base_url\") + \"/auth/mock\";",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
 									""
 								],
 								"type": "text/javascript"
@@ -321,12 +325,384 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "challenges",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user/challenges",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "challenges/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"challenges",
+								"challenge-8UCUaNvC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "challenges/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"completed\": true,\n\t\"code\": \"// hello world!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"challenges",
+								"challenge-8UCUaNvC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scripts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user/scripts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"scripts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scripts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"",
+									"pm.sendRequest(url, function (err, response) {",
+									"    ",
+									"    url = pm.variables.get(\"base_url\") + \"/api/user/initData\";",
+									"    let method = 'PATCH';",
+									"    ",
+									"    pm.sendRequest({url, method}, function (err, response) {",
+									"        console.log(response.headers);",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/scripts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"scripts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scripts/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user/scripts/AW6Yl38SpNYgXJU2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"scripts",
+								"AW6Yl38SpNYgXJU2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scripts/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user/scripts/xJFrygs2PQA6iivI",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"scripts",
+								"xJFrygs2PQA6iivI"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scripts/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"",
+									"pm.sendRequest(url, function (err, response) {",
+									"    ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"code\": \"// hello2\",\n\t\"scriptName\": \"alpha-001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/scripts/qOB61PCM60tEKgE8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"scripts",
+								"qOB61PCM60tEKgE8"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Login (non-REST)",
+			"name": "Login Mock User (non-REST)",
 			"event": [
 				{
 					"listen": "test",
@@ -350,6 +726,50 @@
 					"path": [
 						"auth",
 						"mock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Fake User (non-REST)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b1bf192-7060-405e-9b78-ee48ce51544e",
+						"exec": [
+							"postman.setGlobalVariable('auth_token', postman.getResponseCookie(\"JWT_TOKEN\").value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/auth/mock?username=fake&displayName=Fake%20User&extUserId=fake_01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"mock"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "fake"
+						},
+						{
+							"key": "displayName",
+							"value": "Fake%20User"
+						},
+						{
+							"key": "extUserId",
+							"value": "fake_01"
+						}
 					]
 				}
 			},

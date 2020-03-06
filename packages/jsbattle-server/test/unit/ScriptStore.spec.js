@@ -138,7 +138,7 @@ describe("Test 'ScriptStore' service", () => {
 			expect(result).toHaveProperty('modifiedAt');
 		});
 
-		it('should delete user scriptt',  async () => {
+		it('should delete user script',  async () => {
 			const user = {
 				username: 'john',
 				role: 'user',

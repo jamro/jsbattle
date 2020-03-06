@@ -66,8 +66,8 @@ class ApiGatewayService extends Service {
                   "GET scripts/:id": "scriptStore.getUserScript",
                   "DELETE scripts/:id": "scriptStore.deleteUserScript",
                   "GET challenges": "challenges.listUserChallanges",
-                  "GET challenges/:id": "challenges.getUserChallanges",
-                  "PATCH challenges/:id": "challenges.updateUserChallanges",
+                  "GET challenges/:challengeId": "challenges.getUserChallange",
+                  "PATCH challenges/:challengeId": "challenges.updateUserChallange",
                 },
                 bodyParsers: {
                   json: true,

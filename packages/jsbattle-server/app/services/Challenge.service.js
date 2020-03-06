@@ -35,8 +35,8 @@ class ChallengeService extends Service {
       dependencies: ['userStore'],
       actions: {
         listUserChallanges: this.listUserChallanges,
-        getUserChallanges: this.getUserChallanges,
-        updateUserChallanges: this.updateUserChallanges,
+        getUserChallange: this.getUserChallange,
+        updateUserChallange: this.updateUserChallange,
       },
       hooks: {
         before: {
@@ -78,12 +78,16 @@ class ChallengeService extends Service {
     })
   }
 
-  async getUserChallanges(ctx) {
+  async getUserChallange(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     if(!userId) {
       throw new ValidationError('Not Authorized!', 401);
     }
-    const challengeId = ctx.params.id
+    let user = await ctx.call('userStore.get', { id: userId });
+    if(!user.registered) {
+      throw new ValidationError('You must finish registration process to perform that action', 401);
+    }
+    const challengeId = ctx.params.challengeId
     let response = await ctx.call('challenges.find', {query: {
       userId: userId,
       challengeId: challengeId
@@ -97,12 +101,16 @@ class ChallengeService extends Service {
     });
   }
 
-  async updateUserChallanges(ctx) {
+  async updateUserChallange(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     if(!userId) {
       throw new ValidationError('Not Authorized!', 401);
     }
-    const challengeId = ctx.params.id
+    let user = await ctx.call('userStore.get', { id: userId });
+    if(!user.registered) {
+      throw new ValidationError('You must finish registration process to perform that action', 401);
+    }
+    const challengeId = ctx.params.challengeId
     let response = await ctx.call('challenges.find', {query: {
       userId: userId,
       challengeId: challengeId

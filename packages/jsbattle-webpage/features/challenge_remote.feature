@@ -1,49 +1,25 @@
-Feature: Challenge (local)
+Feature: Challenge (remote)
   Go through set of challenges to develop your AI step by step
 
+  @snapshot_challenges_default
   Scenario: List all challenges
     Given JsBattle open in the browser
+    And Click Sign in button
+    And Click "mock" auth method
+    And click "#register-form button"
     And "Challenges" section open
     Then list of challenges contains 6 items
     And challenge [1] are unlocked
     And challenge [2, 3, 4, 5, 6] are locked
     And challenge [1, 2, 3, 4, 5, 6] are incomplete
 
-  Scenario Outline: Lose challenge #<index>
-    Given JsBattle open in the browser
-    And "Challenges" section open
-    And all challenges unlocked
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When open challenge <index>
-    And battle is completed
-    Then the challenge is lost
-    And battle is restarted
-
-    Examples:
-    | index |
-    |     1 |
-    |     2 |
-    |     3 |
-    |     4 |
-    |     5 |
-    |     6 |
-
-  @smoke
   @integration
-  Scenario: Win a challenge
+  @snapshot_challenges_default
+  Scenario: Unlock challenge
     Given JsBattle open in the browser
-    And "Challenges" section open
-    And battle quality set to "0"
-    And battle speed set to "50"
-    When open challenge 1
-    And open tab "code" of live code panel
-    And type "<<jamro code>>" in AI Script editor
-    And battle is completed
-    Then the challenge is won
-
-  Scenario: Unlock a challenge
-    Given JsBattle open in the browser
+    And Click Sign in button
+    And Click "mock" auth method
+    And click "#register-form button"
     And "Challenges" section open
     And battle quality set to "0"
     And battle speed set to "50"
@@ -59,8 +35,13 @@ Feature: Challenge (local)
     And challenge [1] are complete
     And challenge [2, 3, 4, 5, 6] are incomplete
 
+  @integration
+  @snapshot_challenges_default
   Scenario: Edit challenge code
     Given JsBattle open in the browser
+    And Click Sign in button
+    And Click "mock" auth method
+    And click "#register-form button"
     And "Challenges" section open
     And open challenge 1
     And close challenge info

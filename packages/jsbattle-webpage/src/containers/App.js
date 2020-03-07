@@ -41,11 +41,18 @@ class App extends Component {
           </div>;
     }
 
+    let signInRoute = null;
+    if(!this.props.profile || !this.props.profile.role || this.props.profile.role == 'guest') {
+      signInRoute = <Route exact path="/signin" component={SignInScreen} />;
+    } else {
+      signInRoute = <Route path="/signin"><Redirect to="/challenge" /></Route>;
+    }
+
     return <div>
           <Router>
             <div>
               <Route exact path="/">
-                <Redirect to="/challenge" />
+                <Redirect to="/signin" />
               </Route>
               <Route path="/" component={Navi} />
               <Route path="/" component={ErrorPanel} />
@@ -53,7 +60,7 @@ class App extends Component {
               <Route exact path="/challenge" component={ChallengeListScreen} />
               <Route exact path="/sandbox/:name" component={SandboxScreen} />
               <Route exact path="/sandbox" component={ScriptListScreen} />
-              <Route exact path="/signin" component={SignInScreen} />
+              {signInRoute}
               <Route path="/" component={Footer} />
             </div>
           </Router>
@@ -72,7 +79,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   requestRegister: (!state.auth.profile.registered && state.auth.profile.role && state.auth.profile.role != 'guest'),
-  isLoading: state.loading.SETTINGS || state.loading.USER_PROFILE
+  isLoading: state.loading.SETTINGS || state.loading.USER_PROFILE,
+  profile: state.auth.profile
 });
 const mapDispatchToProps = (dispatch) => ({
   getSettings: () => {

@@ -9,8 +9,8 @@ Feature: Statistics
 
   Scenario Outline: Notify about opening challenge #<index>
     Given JsBattle open in the browser
-    And all challenges unlocked
     And "Challenges" section open
+    And all challenges unlocked
     When open challenge <index>
     And wait for live code widget
     Then GA event "challenges/challenge_<index>/open" is sent
@@ -43,7 +43,7 @@ Feature: Statistics
     And "Sandbox" section open
     When click create tank button
     Then GA event "sandbox/create" is sent
-    
+
   Scenario: Notify about removing an AI Script
     Given JsBattle open in the browser
     And "Sandbox" section open

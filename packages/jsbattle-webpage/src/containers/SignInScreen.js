@@ -55,11 +55,45 @@ class SignInScreen extends React.Component {
     if(this.props.isLoading) {
       return <Loading />;
     }
+    let separatorStyle = {
+      textAlign: 'center',
+      border: 0,
+      width: '100%',
+      maxWidth: '350px',
+      margin: '2em auto',
+      height: 0,
+      borderBottom: '1px solid #aaa'
+    };
+    let separatorLabelStyle = {
+      color: '#888',
+      textAlign: 'center',
+      padding: '0.5em',
+      position: 'relative',
+      top: '-1.25em',
+      backgroundColor: '#fff',
+      margin: 'auto',
+      width: '3em',
+      fontStyle: 'italic'
+    };
+    const guestStyle = {
+      color: '#000',
+      backgroundColor: '#fff',
+      border: '1px solid #666',
+      width: '100%',
+      maxWidth: '350px',
+      margin: '0.2em'
+    };
     return <FullRow>
           <div style={{padding: '5em 1em', textAlign: 'center'}}>
             <img src="./img/tank_login.png" alt="JsBattle" />
             <h1>Please sign in</h1>
             {buttons}
+            <div style={separatorStyle}><div style={separatorLabelStyle}> OR </div></div>
+            <div>
+              <a href="#/challenge" style={guestStyle} className="btn btn-primary btn-lg guest-auth-button">
+                <i className="fas fa-sign-in-alt float-left" style={{marginTop: '0.3em'}}></i> Continue as Guest
+              </a>
+            </div>
           </div>
       </FullRow>;
   }

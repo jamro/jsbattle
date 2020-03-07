@@ -1,10 +1,6 @@
 Feature: Navigation
   Allow navigation across sections via top menu links
 
-  Scenario: Challenges opened by default
-    Given JsBattle open in the browser
-    Then "Challenges" section is selected in the navigation bar
-
   @smoke
   @integration
   Scenario Outline: Navigate from <page1> to <page2>

@@ -65,7 +65,7 @@ Feature: Auth
 
   @snapshot_unregistered
   @integration
-  Scenario: update profile when registered
+  Scenario: Update profile when registered
     Given JsBattle open in the browser
     When Click Sign in button
     And Click "mock" auth method
@@ -75,3 +75,10 @@ Feature: Auth
     And click "#register-form button"
     Then challenge [1] are unlocked
     And user name is "Registered Mock User"
+
+  Scenario: Continue as guest
+    Given JsBattle open in the browser
+    When Click Sign in button
+    And Click "guest" auth method
+    Then "Challenges" section is selected in the navigation bar
+    And challenge [1] are unlocked

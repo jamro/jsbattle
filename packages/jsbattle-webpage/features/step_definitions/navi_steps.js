@@ -55,7 +55,7 @@ async function createWebClient() {
 
 var naviHelper = {
   gotoSection: async (page, linkName) => {
-    await page.waitFor('a.main-nav-link.active');
+    await page.waitFor('a.main-nav-link');
 
     var links = await page.evaluate(() => {
       var links = document.querySelectorAll('a.main-nav-link');

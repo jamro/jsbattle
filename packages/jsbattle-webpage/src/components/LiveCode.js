@@ -65,7 +65,12 @@ class LiveCode extends React.Component {
     let aiList = [];
     for(let i = 0; i < count; i++) {
       let ai = JsBattle.createAiDefinition();
-      ai.fromCode(this.props.name, code);
+      try {
+        ai.fromCode(this.props.name, code);
+      } catch(err) {
+        console.error('Unable to create AI "' + this.props.name + '" from code', code);
+        console.error(err);
+      }
       aiList.push(ai);
     }
     return template.concat(aiList);

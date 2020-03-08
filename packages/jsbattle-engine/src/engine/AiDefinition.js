@@ -145,7 +145,9 @@ class AiDefinition {
    */
   fromCode(tankName, code, initData) {
     if(!tankName) throw "tankName is required";
-    if(code === undefined) throw "Code is required";
+    if(!code) throw "Code is required";
+    if(typeof(tankName) != 'string') throw "tankName must be a string";
+    if(typeof(code) != 'string') throw "code must be a string";
     code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
     this._name = tankName;
     this._code = code;

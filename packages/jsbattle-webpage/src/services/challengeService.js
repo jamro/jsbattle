@@ -23,6 +23,10 @@ async function getChallengeCode(id) {
     return code;
   }
   await new Promise((resolve) => setTimeout(resolve, serviceDelay));
+  // backward compability
+  if(typeof scriptMap[id] == 'object' && scriptMap[id].code) {
+    return scriptMap[id].code;
+  }
   return scriptMap[id];
 }
 

@@ -11,6 +11,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist/js'),
     filename: 'jsbattle.min.js'
   },
+  externals: {
+    'pixi.js': 'PIXI'
+  },
   module: {
     rules: [
       {

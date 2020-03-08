@@ -49,6 +49,7 @@ Create `/index.html` in project root directory and fill it with following conten
   <head>
     <meta charset="utf-8">
     <title>JsBattle Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
     <script type="text/javascript" src="js/jsbattle.min.js"></script>
   </head>
   <body>
@@ -62,6 +63,8 @@ Create `/index.html` in project root directory and fill it with following conten
 
 This is just a basic template of an HTML page. It contains `canvas` tag where the battle will be rendered and
 `script` tag where we will put our code.
+
+Please notice that `Pixi.js` has to be imported. It is not bundled with `JsBattle` to allow improving of page loading performance.
 
 You should have following files structure after this step:
 

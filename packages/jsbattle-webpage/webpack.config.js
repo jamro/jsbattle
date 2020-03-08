@@ -14,6 +14,9 @@ let config = {
     library: 'webpage',
     libraryTarget: 'var'
   },
+  externals: {
+    'pixi.js': 'PIXI'
+  },
   node: {
     fs: 'empty'
   },

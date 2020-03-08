@@ -38,6 +38,7 @@ async function loadWebpage() {
     applyMiddleware
   } = await import(/* webpackChunkName: "lib" */ 'redux');
   await import(/* webpackChunkName: "engine" */ 'jsbattle-engine');
+  //await import(/* webpackChunkName: "lib" */ 'jsbattle-react');
 
   let storeEnhancers;
   if(DEBUG_MODE) {

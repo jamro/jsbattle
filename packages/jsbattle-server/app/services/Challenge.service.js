@@ -8,7 +8,7 @@ class ChallengeService extends Service {
 
   constructor(broker) {
     super(broker);
-    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'scriptStore')
+    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'challenge')
 
     this.parseServiceSchema({
       ...adapterConfig,

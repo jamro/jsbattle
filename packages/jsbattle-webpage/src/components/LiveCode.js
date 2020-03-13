@@ -268,14 +268,12 @@ LiveCode.defaultProps = {
   modifier: {},
   simSpeed: 1,
   isLoading: false,
-  aiDefList: [],
   onFinish: () => {},
   onCodeChanged: () => {}
 };
 
 LiveCode.propTypes = {
   renderer: PropTypes.string,
-  aiDefList: PropTypes.array,
   extraTabs: PropTypes.array,
   name: PropTypes.string,
   count: PropTypes.number,

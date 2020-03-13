@@ -67,6 +67,9 @@ class LiveCode extends React.Component {
       let ai = JsBattle.createAiDefinition();
       try {
         ai.fromCode(this.props.name, code);
+        if(this.props.disableSandbox) {
+          ai.disableSandbox();
+        }
       } catch(err) {
         console.error('Unable to create AI "' + this.props.name + '" from code', code);
         console.error(err);
@@ -215,7 +218,7 @@ class LiveCode extends React.Component {
         teamMode={this.props.teamMode}
         speed={this.props.simSpeed}
         quality={this.props.simQuality}
-        renderer="brody"
+        renderer={this.props.renderer}
         modifier={this.modifier}
         onRender={(sim) => this.updateDebug(sim)}
         onFinish={(result) => this.handleBattleFinish(result)}
@@ -250,7 +253,8 @@ class LiveCode extends React.Component {
 }
 
 LiveCode.defaultProps = {
-  list: [],
+  renderer: "brody",
+  aiDefList: [],
   extraTabs: [],
   simQuality: 'auto',
   name: 'player',
@@ -260,6 +264,7 @@ LiveCode.defaultProps = {
   rngSeed: Math.random(),
   timeLimit: 0,
   teamMode: false,
+  disableSandbox: false,
   modifier: {},
   simSpeed: 1,
   isLoading: false,
@@ -269,7 +274,8 @@ LiveCode.defaultProps = {
 };
 
 LiveCode.propTypes = {
-  list: PropTypes.array,
+  renderer: PropTypes.string,
+  aiDefList: PropTypes.array,
   extraTabs: PropTypes.array,
   name: PropTypes.string,
   count: PropTypes.number,
@@ -277,6 +283,7 @@ LiveCode.propTypes = {
   info: PropTypes.string,
   timeLimit: PropTypes.number,
   teamMode: PropTypes.bool,
+  disableSandbox: PropTypes.bool,
   modifier: PropTypes.object,
   aiDefList: PropTypes.array,
   onFinish: PropTypes.func,

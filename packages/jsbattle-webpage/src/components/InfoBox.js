@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export default class InfoBox extends React.Component {
 
   render() {
-    if(!this.props.message && !this.props.children) return null;
     let boxClass = `alert alert-${this.props.level}`;
     return <div className={boxClass} role="alert">
       <strong>

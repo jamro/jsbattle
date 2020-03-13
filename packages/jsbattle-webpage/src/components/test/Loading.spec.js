@@ -1,13 +1,17 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import Loading from '../Loading.js';
+import Avatar from '../Avatar.js';
 
-test('Loading renders properly with default settings', () => {
-  const loading = shallow(<Loading />);
-  expect(loading.text()).toMatch(/Loading/);
-});
+test('Loading renders properly', () => {
+  const defaultAvatar = shallow(<Avatar />);
+  expect(defaultAvatar.html()).toMatch(/fa-user/);
 
-test('Loading renders properly with custom label', () => {
-  const loading = shallow(<Loading label="custom wait"/>);
-  expect(loading.text()).toMatch(/custom wait/);
+  const userAvatar = shallow(<Avatar img='user' />);
+  expect(userAvatar.html()).toMatch(/fa-user/);
+
+  const unknownAvatar = shallow(<Avatar img='sdfasdf' />);
+  expect(unknownAvatar.html()).toMatch(/fa-user/);
+
+  const adminAvatar = shallow(<Avatar img='admin' />);
+  expect(adminAvatar.html()).toMatch(/fa-user-cog/);
 });

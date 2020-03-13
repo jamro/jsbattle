@@ -19,10 +19,6 @@ export default class CodeArea extends React.Component {
     this.codeMirror=null;
   }
 
-  setValue(value) {
-    console.log(value);
-  }
-
   componentDidMount() {
     let orig = CodeMirror.hint.javascript;
     CodeMirror.hint.javascript = function(editor) {
@@ -169,7 +165,7 @@ export default class CodeArea extends React.Component {
 
     this.codeMirror.setSize("100%", "100%");
     this.textArea.codeMirror = this.codeMirror; // expose for testing purposes
-
+    this.codeMirror.display.input.getField().classList.add('cm-display-input');  // expose for testing purposes
   }
 
   render() {
@@ -178,7 +174,6 @@ export default class CodeArea extends React.Component {
       ref={(txt) => this.textArea = txt}
       defaultValue={this.props.defaultValue}
       onChange={(e) => this.props.onChange(e.target.value)}
-
     />;
 
   }

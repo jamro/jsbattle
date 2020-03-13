@@ -19,7 +19,7 @@ class FocusedTextInput extends React.Component {
     return <input
       ref={this.input}
       type="text"
-      className="form-control form-control-sm ai-name-input"
+      className="form-control form-control-sm ai-name-input editable-text-edit"
       defaultValue={this.props.defaultValue}
       onChange={(e) => this.props.onChange(e)} />;
   }
@@ -44,7 +44,7 @@ export default class EditableText extends React.Component {
       </span>;
     }
     return <span style={{width: '300px'}}>
-      <strong className="tank-name-view">{this.props.name}</strong> &nbsp;
+      <strong className="tank-name-view editable-text-view">{this.props.name}</strong> &nbsp;
       {pen}
     </span>;
   }
@@ -56,11 +56,6 @@ export default class EditableText extends React.Component {
 
   onChange(e) {
     this.setState({name: e.target.value});
-  }
-
-  onInputCreated(input) {
-    input.focus();
-    input.select();
   }
 
   renderEdit() {
@@ -94,6 +89,7 @@ export default class EditableText extends React.Component {
 }
 
 EditableText.defaultProps = {
+  id: '',
   name: '',
   onChange: () => {},
   loading: false

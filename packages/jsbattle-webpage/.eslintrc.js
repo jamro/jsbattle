@@ -107,6 +107,7 @@ module.exports = {
         "func-name-matching": "error",
         "func-names": "off",
         "func-style": "off",
+        "no-useless-escape": "off",
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "global-require": "off",

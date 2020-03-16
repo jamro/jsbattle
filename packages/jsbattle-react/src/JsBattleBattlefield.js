@@ -63,15 +63,15 @@ class JsBattleBattlefield extends React.Component {
     this.createCanvas(this.props.width, this.props.height);
     this.log(`creating renderer`);
     this.renderer = JsBattle.createRenderer(this.props.renderer, this.props.debug);
-    this.log(`loading assets`);
-    this.renderer.loadAssets(() => this.onAssetsLoaded());
-    window.addEventListener('resize', this.onWindowResizeHandler);
     if(this.props.onInit) {
       this.log(`call onInit`);
       this.props.onInit();
     } else {
       this.log(`no onInit listener`);
     }
+    this.log(`loading assets`);
+    this.renderer.loadAssets(() => this.onAssetsLoaded());
+    window.addEventListener('resize', this.onWindowResizeHandler);
   }
 
   componentWillUnmount() {
@@ -237,7 +237,11 @@ class JsBattleBattlefield extends React.Component {
       this.props.modifier(this.simulation);
     }
     this.log(`start simulation`);
-    this.simulation.start();
+    try {
+      this.simulation.start();
+    } catch (err) {
+      this.props.onError(err.message || err.toString());
+    }
   }
 
   /**

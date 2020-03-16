@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class LiveCodeInfoTab extends React.Component {
 
   parseDescription(txt) {
-    txt = txt.replace(/(!?\[.*\]\(.*\))/g, '<break-line>$1<break-line>');
+    txt = txt.replace(/(!?\[[^\]]*\]\([^\(]*\))/g, '<break-line>$1<break-line>');
     txt = txt.replace(/\n/g, '<break-line><br/><break-line>');
     txt = txt.split('<break-line>');
     txt = txt.map((line, index) => {

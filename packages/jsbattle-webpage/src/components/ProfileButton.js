@@ -13,7 +13,7 @@ export default class ProfileButton extends React.Component {
 
     let adminLink = null;
     if(this.props.role == 'admin') {
-      adminLink = <a href="/admin"style={{textDecoration: 'none'}} className="dropdown-item admin-button">
+      adminLink = <a href="/admin" style={{textDecoration: 'none'}} className="dropdown-item admin-button">
         <span className="clickable dropdown-item">
           <i className="fas fa-cogs"></i> Admin
         </span>

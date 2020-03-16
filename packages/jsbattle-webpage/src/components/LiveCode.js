@@ -65,14 +65,9 @@ class LiveCode extends React.Component {
     let aiList = [];
     for(let i = 0; i < count; i++) {
       let ai = JsBattle.createAiDefinition();
-      try {
-        ai.fromCode(this.props.name, code);
-        if(this.props.disableSandbox) {
-          ai.disableSandbox();
-        }
-      } catch(err) {
-        console.error('Unable to create AI "' + this.props.name + '" from code', code);
-        console.error(err);
+      ai.fromCode(this.props.name, code);
+      if(this.props.disableSandbox) {
+        ai.disableSandbox();
       }
       aiList.push(ai);
     }
@@ -87,12 +82,13 @@ class LiveCode extends React.Component {
       this.props.onCodeChanged(code);
       this.setState({isFinished: false});
     };
+    console.log('Code changed. Notification in ' + this.props.reloadTime + 'ms');
     this.reloadTimeout = setTimeout(() => {
       if(this.reloadCallback) {
         this.reloadCallback();
         this.reloadCallback = null;
       }
-    }, 700);
+    }, this.props.reloadTime);
   }
 
   updateDebug(sim) {
@@ -268,6 +264,7 @@ LiveCode.defaultProps = {
   modifier: {},
   simSpeed: 1,
   isLoading: false,
+  reloadTime: 700,
   onFinish: () => {},
   onCodeChanged: () => {}
 };
@@ -282,6 +279,8 @@ LiveCode.propTypes = {
   timeLimit: PropTypes.number,
   teamMode: PropTypes.bool,
   disableSandbox: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  reloadTime: PropTypes.number,
   modifier: PropTypes.object,
   aiDefList: PropTypes.array,
   onFinish: PropTypes.func,

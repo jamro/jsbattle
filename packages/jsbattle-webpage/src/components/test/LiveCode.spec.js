@@ -3,6 +3,7 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import LiveCode from '../LiveCode.js';
 import Loading from '../Loading.js';
+import InfoBox from '../InfoBox.js';
 import JsBattle from 'jsbattle-engine';
 import JsBattleBattlefield from "jsbattle-react";
 
@@ -221,22 +222,22 @@ test('write code', async () => {
 
 test('display AI errors', async () => {
   let aiDef = JsBattle.createAiDefinition();
-  const code = "importScripts('lib/tank.js'); tank.init(function(settings, info) { }); tank.loop(function(state, control) { throw new Error('error #523452345 from AI') });"
+  const code = "importScripts('lib/tank.js'); tank.init(function(settings, info) { }); tank.loop(function(state, control) { });"
   aiDef.fromCode('opponent532', code);
   aiDef.disableSandbox();
   const aiDefList = [aiDef];
 
-  const wrapper = mount(<LiveCode
+  const wrapper = shallow(<LiveCode
     renderer="void"
     disableSandbox={true}
     aiDefList={aiDefList}
     code={code}
   />);
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  wrapper.find(JsBattleBattlefield).props().onError('error #523452345 from AI')
 
-  expect(wrapper.text()).toMatch(/error #523452345 from AI/);
-  expect(wrapper.find('.alert')).toHaveLength(1);
+  expect(wrapper.find(InfoBox)).toHaveLength(1);
+  expect(wrapper.find(InfoBox).props().message).toMatch(/error #523452345 from AI/);
 
 });
 

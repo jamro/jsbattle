@@ -95,7 +95,7 @@ class AiDefinition {
    */
   get filePath() {
     if(!this._useSandbox) return null;
-    if(this._code) {
+    if(this._code !== null) {
       return "tanks/lib/codeWorker.js";
     } else {
       return `tanks/${this._name}.tank.js`;
@@ -131,7 +131,7 @@ class AiDefinition {
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromFile(tankName, initData) {
-    if(!tankName) throw "tankName is required";
+    if(!tankName) throw new Error("tankName is required");
     this._name = tankName;
     this._code = null;
     this._initData = initData !== undefined ? initData : null;
@@ -144,10 +144,10 @@ class AiDefinition {
    * @param {object} initData - optional initial data that is passed to the AI and can be accessed from tank info object (`info.initData`)
    */
   fromCode(tankName, code, initData) {
-    if(!tankName) throw "tankName is required";
-    if(!code) throw "Code is required";
-    if(typeof(tankName) != 'string') throw "tankName must be a string";
-    if(typeof(code) != 'string') throw "code must be a string";
+    if(!tankName) throw new Error("tankName is required");
+    if(!code) throw new Error("Code is required");
+    if(typeof(tankName) != 'string') throw new Error("tankName must be a string");
+    if(typeof(code) != 'string') throw new Error("code must be a string");
     code = code.replace(/importScripts\w*\([^\)]*\)/g, '');
     this._name = tankName;
     this._code = code;
@@ -170,8 +170,8 @@ class AiDefinition {
    * only for trusted AI code.
    */
   disableSandbox() {
-    if(!this._code) {
-      throw "Sandbox can be disabled for AI created from code only.";
+    if(this._code === null) {
+      throw new Error("Sandbox can be disabled for AI created from code only (AI name: '" + this._name + "')");
     }
     if(!SUSSPEND_AI_SANDBOX_WARNING) {
       console.warn("Disabling sandbox for AI! It could be dangerous.");

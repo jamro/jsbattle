@@ -8,14 +8,14 @@ import {
 } from '../actions/challengeAction.js';
 import {
   notifyStatsChallengeComplete,
-  notifyStatsChallengeOpen,
 } from '../actions/statsAction.js';
 import FullRow from '../components/FullRow.js';
 import Loading from '../components/Loading.js';
 import {Link} from 'react-router-dom';
 import JsBattle from 'jsbattle-engine';
+import PropTypes from 'prop-types';
 
-class ChallengeScreen extends React.Component {
+export class ChallengeScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -37,33 +37,36 @@ class ChallengeScreen extends React.Component {
     this.liveCode = React.createRef();
   }
 
-  componentDidMount() {
-    let challengeId = this.props.match.params.id;
-    this.props.getChallenge(challengeId, this.props.useRemoteService);
-
-    let currentChallenge = this.props.list.find((c) => c.id == challengeId);
-    if(currentChallenge) {
-      this.props.notifyStatsChallengeOpen(currentChallenge.level);
+  log(msg) {
+    if(this.props.logging) {
+      console.log(msg);
     }
   }
 
+  componentDidMount() {
+    let challengeId = this.props.match.params.id;
+    this.props.getChallenge(challengeId, this.props.useRemoteService);
+    this.log('ChallengeScreen mounted');
+  }
+
   restartBattle() {
+    this.log('Restarting battle from ChallengeScreen...');
     this.liveCode.current.restartBattle();
   }
 
   onCodeChanged(code) {
-    console.log("Challenge code changed");
+    this.log("Challenge code changed");
     this.props.updateChallengeCode(this.props.currentChallenge.id, code, this.props.useRemoteService);
   }
 
   onChallengeComplete(result) {
     let aliveTanks = result.tankList.filter((tank) => tank.energy > 0);
     if(aliveTanks.length != 1 || aliveTanks[0].name.toLowerCase() != 'player') {
-      console.log("Challange lost... restarting");
+      this.log("Challange lost... restarting");
       this.restartBattle();
       return;
     }
-    console.log("Challange won");
+    this.log("Challange won");
     this.setState({hasWon: true});
     this.props.completeChallenge(this.props.currentChallenge.id, this.props.useRemoteService);
     this.props.notifyStatsChallengeComplete(this.props.currentChallenge.level);
@@ -76,6 +79,9 @@ class ChallengeScreen extends React.Component {
     let aiDefListTemplate = [];
     this._lastAiDefList = this.props.currentChallenge.aiDefList;
     this.props.currentChallenge.aiDefList.forEach((tank) => {
+      if(!tank.name) {
+        throw new Error('Cannot create opponent AI for challenge. The name is missing: ' + JSON.stringify(tank));
+      }
       let aiDef = JsBattle.createAiDefinition();
       switch(tank.source) {
         case 'file':
@@ -83,6 +89,10 @@ class ChallengeScreen extends React.Component {
           break;
         case 'code':
           aiDef.fromCode(tank.name, tank.code);
+          if(this.props.disableSandbox) {
+            console.warn('disabling sanboxing for ' + tank.name);
+            aiDef.disableSandbox();
+          }
           break;
       }
       aiDefListTemplate.push(aiDef);
@@ -150,6 +160,10 @@ class ChallengeScreen extends React.Component {
         timeLimit={this.props.currentChallenge.timeLimit}
         teamMode={this.props.currentChallenge.teamMode}
         modifier={this.props.currentChallenge.modifier}
+        renderer={this.props.renderer}
+        disableSandbox={this.props.disableSandbox}
+        debug={this.props.debug}
+        reloadTime={this.props.reloadTime}
       >
         {congratsScreen}
       </LiveCode>
@@ -157,8 +171,52 @@ class ChallengeScreen extends React.Component {
   }
 }
 
+ChallengeScreen.defaultProps = {
+  reloadTime: 700,
+  renderer: "brody",
+  disableSandbox: false,
+  logging: true,
+  debug: false,
+  simQuality: 'auto',
+  simSpeed: 1,
+  currentChallenge: {
+    id: '0',
+    level: 0,
+    name: '',
+    code: '',
+    description: '',
+    aiDefList: [],
+    rngSeed: 0,
+    timeLimit: 0,
+    teamMode: false,
+    modifier: null
+  },
+  isLoading: false,
+  useRemoteService: false,
+  completeChallenge: () => {},
+  getChallenge: () => {},
+  updateChallengeCode: () => {},
+  notifyStatsChallengeComplete: () => {},
+};
+
+ChallengeScreen.propTypes = {
+  reloadTime: PropTypes.number,
+  renderer: PropTypes.string,
+  disableSandbox: PropTypes.bool,
+  debug: PropTypes.bool,
+  logging: PropTypes.bool,
+  simSpeed: PropTypes.number,
+  currentChallenge: PropTypes.object,
+  isLoading: PropTypes.bool,
+  isCompleting: PropTypes.bool,
+  useRemoteService: PropTypes.bool,
+  completeChallenge: PropTypes.func,
+  getChallenge: PropTypes.func,
+  updateChallengeCode: PropTypes.func,
+  notifyStatsChallengeComplete: PropTypes.func,
+};
+
 const mapStateToProps = (state) => ({
-  list: state.challenge.list,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
   currentChallenge: state.challenge.currentChallenge,
@@ -179,10 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   notifyStatsChallengeComplete: (levelId) => {
     dispatch(notifyStatsChallengeComplete(levelId));
-  },
-  notifyStatsChallengeOpen: (levelId) => {
-    dispatch(notifyStatsChallengeOpen(levelId));
-  },
+  }
 
 });
 export default connect(

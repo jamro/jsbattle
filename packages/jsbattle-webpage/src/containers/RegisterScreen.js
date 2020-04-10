@@ -5,7 +5,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import {registerProfile} from '../actions/coreAction.js';
 
-class RegisterScreen extends React.Component {
+export class RegisterScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,7 +39,7 @@ class RegisterScreen extends React.Component {
               <label htmlFor="displayname"><i className="fas fa-user-tag"></i> Display Name</label>
               <input  disabled={this.props.isLoading} type="text" ref={this.displayNameInput} className="form-control form-control-lg" id="displayname" defaultValue={this.props.displayName} />
             </div>
-            <button disabled={this.props.isLoading} className="btn btn-lg btn-primary float-right" onClick={() => this.submitForm()}>
+            <button disabled={this.props.isLoading} className="btn btn-lg btn-primary float-right submit-form" onClick={() => this.submitForm()}>
               {saveProfileLabel}
             </button>
           </form>

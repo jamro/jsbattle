@@ -7,6 +7,7 @@ import CodeMirrorJsAddon from 'codemirror/addon/hint/javascript-hint';
 
 configure({ adapter: new Adapter() });
 
+global.VERSION = '1.0.0-TEST'
 global.CodeMirror = CodeMirror;
 global.document.body.createTextRange = () => ({
   setEnd: () => {},

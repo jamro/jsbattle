@@ -12,8 +12,9 @@ import FullRow from '../components/FullRow.js';
 import Loading from '../components/Loading.js';
 import {Link} from 'react-router-dom';
 import ScriptTableRow from "../components/ScriptTableRow.js";
+import PropTypes from 'prop-types';
 
-class ScriptListScreen extends React.Component {
+export class ScriptListScreen extends React.Component {
 
   componentDidMount() {
     this.props.notifySandboxOpen();
@@ -28,14 +29,14 @@ class ScriptListScreen extends React.Component {
         </td>
       </tr>;
     }
-    let tanks = this.props.tankList.rows || [];
+    let tanks = this.props.tankList;
     tanks = tanks.map((script) => {
       return <ScriptTableRow
         key={script.id}
         id={script.id}
         name={script.scriptName}
         link={'/sandbox/' + script.id}
-        onDelete={(id) => this.props.deleteAiScript(id, this.props.useRemoteService)}
+        onDelete={() => this.props.deleteAiScript(script.id, this.props.useRemoteService)}
       />;
     });
     if(tanks.length > 0) {
@@ -87,9 +88,33 @@ class ScriptListScreen extends React.Component {
     </div>;
   }
 }
+ScriptListScreen.defaultProps = {
+  tankList: [],
+  isLoading: false,
+  isCreating: false,
+  isDeleting: false,
+  useRemoteService: false,
+  notifySandboxOpen: () => {},
+  createAiScript: () => {},
+  deleteAiScript: () => {},
+  getSandboxAiScriptList: () => {},
+
+};
+
+ScriptListScreen.propTypes = {
+  tankList: PropTypes.array,
+  isLoading: PropTypes.bool,
+  isCreating: PropTypes.bool,
+  isDeleting: PropTypes.bool,
+  useRemoteService: PropTypes.bool,
+  notifySandboxOpen: PropTypes.func,
+  createAiScript: PropTypes.func,
+  deleteAiScript: PropTypes.func,
+  getSandboxAiScriptList: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
-  tankList: state.aiRepo.tankList,
+  tankList: state.aiRepo.tankList.rows,
   isLoading: state.loading.SANDBOX_AI_SCRIPT_LIST,
   isCreating: state.loading.CREATE_AI_SCRIPT,
   isDeleting: state.loading.DELETE_AI_SCRIPT,

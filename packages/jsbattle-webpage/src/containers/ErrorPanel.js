@@ -3,8 +3,9 @@ import FullRow from "../components/FullRow.js";
 import React from "react";
 import {connect} from 'react-redux';
 import {clearError} from '../actions/coreAction.js';
+import PropTypes from 'prop-types';
 
-class ErrorPanel extends React.Component {
+export class ErrorPanel extends React.Component {
 
   render() {
     let errors = Object.keys(this.props.errors)
@@ -28,6 +29,15 @@ class ErrorPanel extends React.Component {
           </FullRow>;
   }
 }
+
+ErrorPanel.defaultProps = {
+  errors: [],
+  clearError: () => {}
+};
+
+ErrorPanel.propTypes = {
+  clearError: PropTypes.func
+};
 
 const mapStateToProps = (state) => ({
   errors: state.error,

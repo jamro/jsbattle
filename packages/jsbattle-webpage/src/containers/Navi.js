@@ -5,7 +5,7 @@ import {setSimQuality, setSimSpeed} from '../actions/coreAction.js';
 import Loading from '../components/Loading.js';
 import ProfileButton from '../components/ProfileButton.js';
 
-class Navi extends React.Component {
+export class Navi extends React.Component {
 
   constructor(props) {
     super(props);

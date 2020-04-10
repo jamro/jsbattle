@@ -119,7 +119,8 @@ export const setSandboxOpponent = (type, name) => {
   return async (dispatch) => {
     let code = '';
     if(type == 'user') {
-      code = await aiRepoService.getScript(name, 'scriptMap').code;
+      code = await aiRepoService.getScript(name, 'scriptMap');
+      code = code.code;
     }
     dispatch({
       type: SANDBOX_OPPONENT_CHANGE,

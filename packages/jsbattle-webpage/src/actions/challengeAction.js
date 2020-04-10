@@ -8,6 +8,7 @@ import {
   CHALLENGE_FAILURE
 } from './actionTypes.js';
 import {fetchFromApi} from '../lib/fetchFromApi.js';
+import statsService from '../services/statsService.js';
 
 export const unlockAllChallenges = (useRemoteService) => {
   return async (dispatch) => {
@@ -102,6 +103,8 @@ export const getChallenge = (challengeId, useRemoteService) => {
       if(!challenge.isUnlocked) {
         return dispatch({type: CHALLENGE_FAILURE, payload: new Error('Challenge locked'), error: true});
       }
+
+      statsService.onChallengeOpen(challenge.level);
 
       dispatch({type: CHALLENGE_SUCCESS, payload: challenge});
     } catch (err) {

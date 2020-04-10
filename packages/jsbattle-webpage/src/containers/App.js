@@ -76,10 +76,9 @@ App.propTypes = {
 
 };
 
-
 const mapStateToProps = (state) => ({
   requestRegister: (!state.auth.profile.registered && state.auth.profile.role && state.auth.profile.role != 'guest'),
-  isLoading: state.loading.SETTINGS || state.loading.USER_PROFILE,
+  isLoading: !state.settings.loaded || state.loading.SETTINGS || state.loading.USER_PROFILE,
   profile: state.auth.profile
 });
 const mapDispatchToProps = (dispatch) => ({

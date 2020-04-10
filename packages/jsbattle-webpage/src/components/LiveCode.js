@@ -65,8 +65,12 @@ class LiveCode extends React.Component {
     let aiList = [];
     for(let i = 0; i < count; i++) {
       let ai = JsBattle.createAiDefinition();
+      if(!this.props.name) {
+        throw new Error('Cannot create AI for LiveCode. Name is requreid!');
+      }
       ai.fromCode(this.props.name, code);
       if(this.props.disableSandbox) {
+        console.warn('disabling sanboxing for ' + this.props.name);
         ai.disableSandbox();
       }
       aiList.push(ai);
@@ -206,7 +210,7 @@ class LiveCode extends React.Component {
     if(this.state.aiDefList.length) {
       battlefield = <JsBattleBattlefield
         ref={(b) => this.battlefield = b }
-        debug={false}
+        debug={this.props.debug}
         autoResize={true}
         aiDefList={this.state.aiDefList}
         rngSeed={this.props.rngSeed}
@@ -264,6 +268,7 @@ LiveCode.defaultProps = {
   modifier: {},
   simSpeed: 1,
   isLoading: false,
+  debug: false,
   reloadTime: 700,
   onFinish: () => {},
   onCodeChanged: () => {}
@@ -279,6 +284,7 @@ LiveCode.propTypes = {
   timeLimit: PropTypes.number,
   teamMode: PropTypes.bool,
   disableSandbox: PropTypes.bool,
+  debug: PropTypes.bool,
   isLoading: PropTypes.bool,
   reloadTime: PropTypes.number,
   modifier: PropTypes.object,

@@ -54,7 +54,6 @@ export const getScript = async (id) => {
     throw "Script '" + name + "' does not exists";
   }
   let result = JSON.parse(JSON.stringify(scriptMap[name]));
-
   return {
     id: 'local_' + result.name,
     scriptName: result.name,

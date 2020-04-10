@@ -3,8 +3,9 @@ import Loading from "../components/Loading.js";
 import React from "react";
 import {connect} from 'react-redux';
 import {getAuthMethods} from '../actions/coreAction.js';
+import PropTypes from 'prop-types';
 
-class SignInScreen extends React.Component {
+export class SignInScreen extends React.Component {
 
   componentDidMount() {
     this.props.getAuthMethods();
@@ -98,6 +99,18 @@ class SignInScreen extends React.Component {
       </FullRow>;
   }
 }
+
+SignInScreen.defaultProps = {
+  authMethods: {},
+  isLoading: false,
+  getAuthMethods: () => {}
+};
+
+SignInScreen.propTypes = {
+  authMethods: PropTypes.object,
+  isLoading: PropTypes.bool,
+  getAuthMethods: PropTypes.func
+};
 
 const mapStateToProps = (state) => ({
   authMethods: state.auth.authMethods,

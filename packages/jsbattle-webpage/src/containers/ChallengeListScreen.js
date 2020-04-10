@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import FullRow from '../components/FullRow.js';
 import Loading from '../components/Loading.js';
+import PropTypes from 'prop-types';
 import {
   getChallengeList
 } from '../actions/challengeAction.js';
 import {
   notifyChallengesListOpen
 } from '../actions/statsAction.js';
-class ChallengeListScreen extends React.Component {
+export class ChallengeListScreen extends React.Component {
 
   componentDidMount() {
     this.props.notifyChallengesListOpen();
@@ -28,7 +29,7 @@ class ChallengeListScreen extends React.Component {
           <i className="fas fa-play"></i>
         </button>
       </Link>;
-      let disabledButton = <button type="button" className="btn btn-secondary btn-small start-challenge" disabled>
+      let disabledButton = <button type="button" className="btn btn-secondary btn-small start-challenge start-challenge-disabled" disabled>
         <i className="fas fa-play"></i>
       </button>;
       return <li key={challenge.id} className="list-group-item d-flex justify-content-between align-items-center challenge-list-item">
@@ -54,6 +55,23 @@ class ChallengeListScreen extends React.Component {
     </div>;
   }
 }
+
+ChallengeListScreen.defaultProps = {
+  useRemoteService: false,
+  notifyChallengesListOpen: () => {},
+  getChallengeList: () => {},
+  isLoading: false,
+  list: []
+};
+
+ChallengeListScreen.propTypes = {
+  useRemoteService: PropTypes.bool,
+  notifyChallengesListOpen: PropTypes.func,
+  getChallengeList: PropTypes.func,
+  isLoading: PropTypes.bool,
+  list: PropTypes.array
+};
+
 const mapStateToProps = (state) => ({
   list: state.challenge.list,
   isLoading: state.loading.CHALLENGE_LIST,

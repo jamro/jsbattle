@@ -3,7 +3,7 @@ import FullRow from "../components/FullRow.js";
 import React from "react";
 import {connect} from 'react-redux';
 
-class Footer extends React.Component {
+export class Footer extends React.Component {
 
   render() {
     return <FullRow>

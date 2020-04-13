@@ -10,6 +10,7 @@ const initState = {
 
 
 function aiRepoReducer(state = {}, action) {
+  action = action || {};
   state = state || {};
   state = {
     ...initState,

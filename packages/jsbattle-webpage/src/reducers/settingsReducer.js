@@ -1,3 +1,10 @@
+import {
+  SET_SIM_SPEED_REQUEST,
+  SET_SIM_QUALITY_REQUEST,
+  SETTINGS_REQUEST,
+  SETTINGS_SUCCESS,
+} from '../actions/actionTypes.js';
+
 const initState = {
   simSpeed: 1,
   simQuality: 'auto',
@@ -5,20 +12,20 @@ const initState = {
   loaded: false
 };
 
-function settingsReducer(state = {}, action) {
+function settingsReducer(state = {}, action = {}) {
   state = state || {};
   state = {
     ...initState,
     ...state
   };
   switch (action.type) {
-    case 'SET_SIM_SPEED_REQUEST':
+    case SET_SIM_SPEED_REQUEST:
       return {...state, simSpeed: action.payload};
-    case 'SET_SIM_QUALITY_REQUEST':
+    case SET_SIM_QUALITY_REQUEST:
       return {...state, simQuality: action.payload};
-    case 'SETTINGS_REQUEST':
+    case SETTINGS_REQUEST:
       return {...state, loaded: false};
-    case 'SETTINGS_SUCCESS':
+    case SETTINGS_SUCCESS:
       console.log('simSpeed: ' + action.payload.simSpeed);
       console.log('qualitySettings: ' + action.payload.qualitySettings);
       console.log('teamMode: ' + action.payload.teamMode);

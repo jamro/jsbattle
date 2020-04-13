@@ -1,4 +1,4 @@
-function errorReducer(state = {}, action) {
+function errorReducer(state = {}, action = {}) {
   const {type, payload} = action;
   const matches = (/(.*)_(REQUEST|FAILURE|CLEAR_ERROR)/).exec(type);
 

@@ -12,6 +12,7 @@ const initState = {
 };
 
 const authReducer = (state, action) => {
+  action = action || {};
   state = state || {};
   state = {
     ...initState,
@@ -32,7 +33,6 @@ const authReducer = (state, action) => {
     default:
       return state;
   }
-
 };
 
 export default authReducer;

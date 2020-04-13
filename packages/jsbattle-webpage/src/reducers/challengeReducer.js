@@ -7,10 +7,11 @@ import {
 
 const initState = {
   list: [],
-  code: ''
+  currentChallenge: null
 };
 
 function challengeReducer(state = {}, action) {
+  action = action || {};
   state = state || {};
   state = {
     ...initState,

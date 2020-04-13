@@ -2,6 +2,7 @@ import {
   SETTINGS_SUCCESS,
   AI_SCRIPT_REQUEST,
   AI_SCRIPT_SUCCESS,
+  AI_SCRIPT_FAILURE,
   AI_SCRIPT_CHANGED_SUCCESS,
   AI_SCRIPT_RENAME_SUCCESS,
   SANDBOX_OPPONENT_CHANGE,
@@ -25,6 +26,7 @@ const initState = {
 
 
 function sanboxReducer(state = {}, action) {
+  action = action || {};
   state = state || {};
   state = {
     ...initState,
@@ -36,11 +38,12 @@ function sanboxReducer(state = {}, action) {
         ...state,
         tankList: action.payload.bundledTanks
       };
-      case AI_SCRIPT_REQUEST:
-        return {
-          ...state,
-          script: {}
-        };
+    case AI_SCRIPT_FAILURE:
+    case AI_SCRIPT_REQUEST:
+      return {
+        ...state,
+        script: {}
+      };
     case AI_SCRIPT_SUCCESS:
       return {
         ...state,
@@ -59,7 +62,6 @@ function sanboxReducer(state = {}, action) {
         ...state,
         script: {
           ...state.script,
-          id: action.payload.id,
           scriptName: action.payload.scriptName
         }
       };

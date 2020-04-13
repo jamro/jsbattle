@@ -15,10 +15,14 @@ describe('AiDefinition', function() {
   describe('filePath', function() {
 
     it('should be empty for not sandboxed AIs', () => {
+      let logOrig = console.warn;
+      console.warn = () => {};
       let ai = new AiDefinition();
       ai.fromCode("hacker", "code");
       ai.disableSandbox();
       assert(!ai.filePath);
+
+      console.warn = logOrig;
     });
 
     it('should lead to codeWorker.js for AIs from code', () => {

@@ -96,7 +96,6 @@ describe('UltimateBattleDescriptor', function() {
       desc.setRngSeed(87);
 
       let raw = desc.encode();
-      console.log(raw);
       desc = new UltimateBattleDescriptor();
       desc.decode(raw);
 

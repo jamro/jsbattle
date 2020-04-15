@@ -12,16 +12,6 @@ Allow editing, storing and testing custom AI scripts
     When click create tank button
     Then list of AI scripts contains 1 items
 
-  Scenario: Creation of AI Script renders a unique name
-    Given JsBattle open in the browser
-    And "Sandbox" section open
-    When click create tank button
-    And click create tank button
-    And click create tank button
-    And click create tank button
-    And click create tank button
-    Then all tank names are unique
-
   Scenario: List AI Scripts
     Given JsBattle open in the browser
     And "Sandbox" section open
@@ -66,34 +56,15 @@ Allow editing, storing and testing custom AI scripts
     And "Sandbox" section open
     Then list of AI scripts consists of [alpha, beta, gamma]
 
-  Scenario: Renamed script must be unique
+  Scenario: special characters are not allowed for scripts
     Given JsBattle open in the browser
     And "Sandbox" section open
     And AI scripts named [alpha, beta, gamma]
     And AI Script no 2 open
     When click AI Script rename button
-    And type "alpha" as AI Script name
-    And confirm renaming AI Script name
-    Then there is an error "name must be unique"
-
-  Scenario Outline: Name <name> is not allowed for scripts
-    Given JsBattle open in the browser
-    And "Sandbox" section open
-    And AI scripts named [alpha, beta, gamma]
-    And AI Script no 2 open
-    When click AI Script rename button
-    And type <name> as AI Script name
+    And type "no^$pecia!$" as AI Script name
     And confirm renaming AI Script name
     Then there is an error "Wrong script name"
-
-    Examples:
-    | name                  |
-    | ""                    |
-    | "a"                   |
-    | "name with space"     |
-    | "no/slash"            |
-    | "no^$pecia!$"         |
-    | "too_long901234567890"|
 
   Scenario: Save changes in edited script
     Given JsBattle open in the browser

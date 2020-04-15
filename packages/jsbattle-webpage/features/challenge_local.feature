@@ -23,11 +23,8 @@ Feature: Challenge (local)
     Examples:
     | index |
     |     1 |
-    |     2 |
-    |     3 |
     |     4 |
     |     5 |
-    |     6 |
 
   @smoke
   @integration

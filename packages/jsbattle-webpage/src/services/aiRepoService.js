@@ -19,7 +19,7 @@ function createScriptWithName(name) {
     throw new Error('Script limit exceeded');
   }
   if(!isNameAllowed(name)) {
-    throw "Name " + name + " is not allowed for AI script";
+    throw new Error("Name " + name + " is not allowed for AI script");
   }
   let script = {
     name: name,
@@ -46,12 +46,12 @@ export const getScript = async (id) => {
   let name = id.replace(/^local_/, '');
   await new Promise((resolve) => setTimeout(resolve, serviceDelay));
   if(!existsScript(name)) {
-    throw new Error('Script not found');
+    throw new Error("Script '" + name + "' does not exist");
   }
   let storedScripts = localStorage.getItem(namespace);
   let scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
   if(!scriptMap[name]) {
-    throw "Script '" + name + "' does not exists";
+    throw new Error("Script '" + name + "' does not exist");
   }
   let result = JSON.parse(JSON.stringify(scriptMap[name]));
   return {
@@ -69,7 +69,7 @@ export const createScript = async (suggestedName) => {
     name = getRandomScriptName();
     retry++;
     if(retry > 100) {
-      throw "Cannot find unique name for the script";
+      throw new Error("Cannot find unique name for the script");
     }
   }
   return createScriptWithName(name);
@@ -95,7 +95,7 @@ export const renameScript = async (newValue, id) => {
   let storedScripts = localStorage.getItem(namespace);
   let scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
   if(!scriptMap[oldValue]) {
-    throw "Script " + oldValue + " does not exists";
+    throw new Error("Script " + oldValue + " does not exist");
   }
   let newScriptMap = {};
   let names = Object.keys(scriptMap);
@@ -139,7 +139,7 @@ export const updateScript = async (id, code) => {
   let storedScripts = localStorage.getItem(namespace);
   let scriptMap = storedScripts ? JSON.parse(storedScripts) : {};
   if(!scriptMap[name]) {
-    throw "Script " + name + " does not exists";
+    throw new Error("Script " + name + " does not exists");
   }
   scriptMap[name].code = code;
   localStorage.setItem(namespace, JSON.stringify(scriptMap));

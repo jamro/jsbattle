@@ -19,3 +19,14 @@ global.document.body.createTextRange = () => ({
     right: 0
   })
 });
+
+var localStorageMock = (function() {
+  var store = {};
+  return {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn(),
+    removeItem: jest.fn()
+  };
+})();
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });

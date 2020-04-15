@@ -23,7 +23,7 @@ export const onSandboxOpen = () => {
 };
 
 export const onChallengeOpen = (levelId) => {
-  if(isNaN(levelId)) {
+  if(isNaN(levelId) || levelId === null) {
     console.warn("Warning: levelId must be a number");
     return;
   }
@@ -31,7 +31,7 @@ export const onChallengeOpen = (levelId) => {
 };
 
 export const onChallengeComplete = (levelId) => {
-  if(isNaN(levelId)) {
+  if(isNaN(levelId) || levelId === null) {
     console.warn("Warning: levelId must be a number");
     return;
   }

@@ -4,6 +4,9 @@ const ConfigBroker = require("../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
+const updateUserChallange = jest.fn();
+const createUserScript = jest.fn();
+
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
 	username: (user ? user.username : '') || "amy",
@@ -14,11 +17,23 @@ describe("Test 'UserStore' service", () => {
 	let config = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
 	let broker = new ConfigBroker({ logger: false }, config, false);
 	broker.createService({
-			name: 'auth',
-			actions: {
+		name: 'auth',
+		actions: {
 			whoami: () => ({
 
 			})
+		}
+	})
+	broker.createService({
+		name: 'challenges',
+		actions: {
+			updateUserChallange: updateUserChallange
+		}
+	})
+	broker.createService({
+		name: 'scriptStore',
+		actions: {
+			createUserScript: createUserScript
 		}
 	})
 	broker.loadService(__dirname + "../../../app/services/UserStore.service.js");
@@ -297,7 +312,81 @@ describe("Test 'UserStore' service", () => {
 				 broker.call("userStore.register", { username: 'monic_888724' }, {meta: {user: createTestToken(user2)}})
 			).rejects.toThrow(ValidationError);
 
-
 		});
+
+		it('submit challenge data when registering', async () => {
+			updateUserChallange.mockReset();
+			let user = await broker.call("userStore.findOrCreate", {user: {
+				extUserId: 'google_306464422',
+				username: 'alfred9854',
+				provider: 'google',
+				displayName: "Alfred Allegro",
+				email: "alf@example.com",
+				registered: false,
+				role: 'user'
+			}});
+			let result = await broker.call(
+				"userStore.register",
+				{
+					challenges: [
+						{
+							challengeId: "challenge-11123423",
+							completed: true,
+							code: "// code 12345"
+						},
+						{
+							challengeId: "challenge-222425",
+							completed: false,
+							code: "// code 2345452"
+						}
+					]
+				},
+				{meta: {user: createTestToken(user)}}
+			);
+
+			expect(updateUserChallange.mock.calls).toHaveLength(2);
+			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('challengeId', "challenge-11123423");
+			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('completed', true);
+			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('code', "// code 12345");
+			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('challengeId', "challenge-222425");
+			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('completed', false);
+			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('code', "// code 2345452");
+		});
+
+		it('submit scripts data when registering', async () => {
+			createUserScript.mockReset();
+			let user = await broker.call("userStore.findOrCreate", {user: {
+				extUserId: 'google_67345',
+				username: 'book2495',
+				provider: 'google',
+				displayName: "Book Mack",
+				email: "bm@example.com",
+				registered: false,
+				role: 'user'
+			}});
+			let result = await broker.call(
+				"userStore.register",
+				{
+					scripts: [
+						{
+							scriptName: 'pink',
+							code: "// pink code"
+						},
+						{
+							scriptName: 'blue',
+							code: "// blue code"
+						}
+					]
+				},
+				{meta: {user: createTestToken(user)}}
+			);
+
+			expect(createUserScript.mock.calls).toHaveLength(2);
+			expect(createUserScript.mock.calls[0][0].params).toHaveProperty('scriptName', "pink");
+			expect(createUserScript.mock.calls[0][0].params).toHaveProperty('code', "// pink code");
+			expect(createUserScript.mock.calls[1][0].params).toHaveProperty('scriptName', "blue");
+			expect(createUserScript.mock.calls[1][0].params).toHaveProperty('code', "// blue code");
+		});
+
 	})
 });

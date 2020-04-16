@@ -82,3 +82,37 @@ Feature: Auth
     And Click "guest" auth method
     Then "Challenges" section is selected in the navigation bar
     And challenge [1] are unlocked
+
+  @integration_only
+  Scenario: submit chalenges when registering
+    Given JsBattle open in the browser
+    And "Challenges" section open
+    And battle quality set to "0"
+    And battle speed set to "50"
+    When open challenge 1
+    And close challenge info
+    And type "<<jamro code>>" in AI Script editor
+    And battle is completed
+    And the challenge is won
+    And Click Sign in button
+    And Click "mock" auth method
+    And register form is shown
+    And type "mock-registred" in "#register-form #username" input
+    And type "Registered Mock User" in "#register-form #displayname" input
+    And click "#register-form button"
+    And "Challenges" section open
+    Then challenge [1, 2] are unlocked
+
+  @integration_only
+  Scenario: submit scripts when registering
+    Given JsBattle open in the browser
+    And "Sandbox" section open
+    When click create tank button
+    And Click Sign in button
+    And Click "mock" auth method
+    And register form is shown
+    And type "mock-registred" in "#register-form #username" input
+    And type "Registered Mock User" in "#register-form #displayname" input
+    And click "#register-form button"
+    And "Sandbox" section open
+    Then list of AI scripts contains 1 items

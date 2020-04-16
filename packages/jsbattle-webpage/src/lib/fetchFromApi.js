@@ -7,13 +7,18 @@ function sequenceFetch(actionList) {
   };
 }
 
-
 function fetchFromApi(url, type, opts, localFetch) {
   return async (dispatch) => {
     localFetch = localFetch || fetch;
     dispatch({type: type + "_REQUEST"});
     try {
-      let response = await localFetch(url, opts);
+      let opsData;
+      if(typeof opts == 'function') {
+        opsData = await opts();
+      } else {
+        opsData = opts;
+      }
+      let response = await localFetch(url, opsData);
       if (!response.ok) {
         let responseText = await response.text();
         return dispatch({type: type + "_FAILURE", payload: new Error(`Error ${response.status}: ${responseText || response.statusText}`), error: true});

@@ -1,4 +1,6 @@
 import profileService from '../services/profileService.js';
+import challengeService from "../services/challengeService.js";
+import aiRepoService from "../services/aiRepoService.js";
 
 import {
   SET_SIM_QUALITY_REQUEST,
@@ -67,15 +69,42 @@ export const getUserProfile = () => {
 };
 
 export const registerProfile = (username, displayName) => {
-  return fetchFromApi("/api/user/initData", "PROFILE_REGISTER", {
-    method: 'PATCH',
-    body: JSON.stringify({
-      username,
-      displayName
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
+  return fetchFromApi("/api/user/initData", "PROFILE_REGISTER", async () => {
+
+    let challenges = await challengeService.getChallengeList(challengeService.getCompletedChallenges());
+    let scripts = await aiRepoService.getScriptNameList();
+
+    let i;
+    for(i=0; i < challenges.length; i++) {
+      let challengeDef = await challengeService.getChallengeDefinition(challenges[i].id);
+      challenges[i] = {
+        challengeId: challenges[i].id,
+        completed: challenges[i].completed,
+        code: challengeDef.code
+      };
+    }
+
+    for(i=0; i < scripts.length; i++) {
+      let scriptData = await aiRepoService.getScript(scripts[i].id);
+      scripts[i] = {
+        scriptName: scripts[i].scriptName,
+        code: scriptData.code
+      };
+    }
+
+
+    return {
+      method: 'PATCH',
+      body: JSON.stringify({
+        username,
+        displayName,
+        challenges,
+        scripts
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
   });
 
 };

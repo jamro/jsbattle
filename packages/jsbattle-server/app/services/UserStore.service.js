@@ -132,6 +132,18 @@ class UserStoreService extends Service {
       displayName: displayName,
       registered: true
     });
+
+    let initCalls = [];
+    let initChallenges = ctx.params.challenges || [];
+    let initScripts = ctx.params.scripts || [];
+    for(let challenge of initChallenges) {
+      initCalls.push(ctx.call('challenges.updateUserChallange', challenge));
+    }
+    for(let script of initScripts) {
+      initCalls.push(ctx.call('scriptStore.createUserScript', script));
+    }
+    await Promise.all(initCalls);
+
     return ctx.call('auth.whoami', {});
   }
 

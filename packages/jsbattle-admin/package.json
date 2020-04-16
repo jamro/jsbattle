@@ -57,6 +57,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.0",
     "jsbattle-mockserver": "^2.7.1",
+    "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",

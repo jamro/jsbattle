@@ -17,9 +17,9 @@
     "audit-fix": "lerna exec -- 'npm audit-fix || true'"
   },
   "devDependencies": {
-    "commitizen": "^4.0.3",
+    "commitizen": "^4.0.4",
     "cz-conventional-changelog": "^2.1.0",
-    "lerna": "^3.19.0"
+    "lerna": "^3.20.2"
   },
   "config": {
     "commitizen": {
@@ -27,6 +27,7 @@
     }
   },
   "dependencies": {
+    "npm-upgrade": "^2.0.3",
     "passport-local": "^1.0.0"
   }
 }

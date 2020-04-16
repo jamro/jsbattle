@@ -2,7 +2,7 @@
 importScripts('lib/tank.js');
 
 tank.init(function(settings, info) {
-  settings.SKIN = "forest"
+  settings.SKIN = "forest";
 
   wander_turn_counter = 0;
   circle_dir = 1.0;
@@ -21,7 +21,7 @@ function controlGun(state, control) {
   // Predict where the enemy will be to adjust the gun angle.
   let enemy = state.radar.enemy;
   let bullet_speed = 4;
-  let distance = Math.distance(state.x, state.y, enemy.x, enemy.y)
+  let distance = Math.distance(state.x, state.y, enemy.x, enemy.y);
   let bullet_time = distance / bullet_speed;
   let target = {x: enemy.x + bullet_time * enemy.speed * Math.cos(Math.deg2rad(enemy.angle)),
                 y: enemy.y + bullet_time * enemy.speed * Math.sin(Math.deg2rad(enemy.angle))};
@@ -73,7 +73,7 @@ function circleEnemy(state, control) {
   let enemy = state.radar.enemy;
 
   // Get the unit vector from us to the enemy.
-  let r = Math.distance(state.x, state.y, enemy.x, enemy.y)
+  let r = Math.distance(state.x, state.y, enemy.x, enemy.y);
   let u = {x: (enemy.x - state.x) / r,
            y: (enemy.y - state.y) / r};
 

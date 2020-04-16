@@ -3,9 +3,7 @@ import {
 } from '../actions/actionTypes.js';
 
 const initState = {
-  tankList: {
-    rows: []
-  }
+  tankList: []
 };
 
 

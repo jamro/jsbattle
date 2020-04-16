@@ -35,7 +35,7 @@ async function fetchChallengeList(useRemoteService) {
       throw new new Error(`Error ${remoteResponse.status}: ${remoteResponse || remoteResponse.statusText}`)();
     }
     let json = await remoteResponse.json();
-    completeChallengeList = json.rows
+    completeChallengeList = json
       .filter((row) => row.completed)
       .map((row) => row.challengeId);
   } else {

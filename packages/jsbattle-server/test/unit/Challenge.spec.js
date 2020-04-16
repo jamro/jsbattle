@@ -69,10 +69,7 @@ describe("Test 'Challenge' service", () => {
 				id: '92864'
 			}
 			let result = await broker.call('challenges.listUserChallanges', {}, {meta: {user: createTestToken(user)}});
-
-			expect(result).toHaveProperty('total', 0);
-			expect(result).toHaveProperty('rows');
-			expect(result.rows).toHaveProperty('length', 0);
+			expect(result).toHaveLength(0);
 		});
 
 		it('should create new challenge if does not exist on get operation',  async () => {

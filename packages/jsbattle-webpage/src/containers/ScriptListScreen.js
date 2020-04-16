@@ -114,7 +114,7 @@ ScriptListScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  tankList: state.aiRepo.tankList.rows,
+  tankList: state.aiRepo.tankList,
   isLoading: state.loading.SANDBOX_AI_SCRIPT_LIST,
   isCreating: state.loading.CREATE_AI_SCRIPT,
   isDeleting: state.loading.DELETE_AI_SCRIPT,

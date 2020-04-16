@@ -296,7 +296,7 @@ const mapStateToProps = (state) => ({
   isRenameLoading: state.loading.AI_SCRIPT_RENAME,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
-  userTankList: state.aiRepo.tankList.rows,
+  userTankList: state.aiRepo.tankList,
   bundledTankList: state.sandbox.tankList,
   opponent: state.sandbox.opponent,
   mode: state.sandbox.mode,

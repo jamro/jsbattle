@@ -145,14 +145,13 @@ test('list scripts is empty by default', async () => {
     }
   }));
   let result = await getScriptNameList();
-  expect(result).toHaveProperty('rows');
-  expect(result.rows).toHaveLength(2);
-  expect(result.rows[0]).toHaveProperty('id', 'local_duck873');
-  expect(result.rows[0]).toHaveProperty('scriptName', 'duck873');
-  expect(result.rows[0]).not.toHaveProperty('code');
-  expect(result.rows[1]).toHaveProperty('id', 'local_cat762');
-  expect(result.rows[1]).toHaveProperty('scriptName', 'cat762');
-  expect(result.rows[1]).not.toHaveProperty('code');
+  expect(result).toHaveLength(2);
+  expect(result[0]).toHaveProperty('id', 'local_duck873');
+  expect(result[0]).toHaveProperty('scriptName', 'duck873');
+  expect(result[0]).not.toHaveProperty('code');
+  expect(result[1]).toHaveProperty('id', 'local_cat762');
+  expect(result[1]).toHaveProperty('scriptName', 'cat762');
+  expect(result[1]).not.toHaveProperty('code');
 });
 
 test('update script', async () => {

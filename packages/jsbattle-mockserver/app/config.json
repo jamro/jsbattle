@@ -1,0 +1,6 @@
+{
+  "pagination": [
+    "admin,users",
+    "admin,battles"
+  ]
+}

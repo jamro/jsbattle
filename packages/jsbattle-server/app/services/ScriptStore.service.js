@@ -75,13 +75,13 @@ class ScriptStoreService extends Service {
     });
   }
 
-  listUserScripts(ctx) {
+  async listUserScripts(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     if(!userId) {
       throw new ValidationError('Not Authorized!', 401);
     }
 
-    return ctx.call('scriptStore.list', {
+    let result = await ctx.call('scriptStore.list', {
       query: {
         ownerId: userId,
         namespace: 'user'
@@ -94,7 +94,8 @@ class ScriptStoreService extends Service {
         "createdAt",
         "modifiedAt"
       ]
-    })
+    });
+    return result.rows;
   }
 
   async createUserScript(ctx) {

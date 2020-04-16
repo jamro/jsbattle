@@ -88,12 +88,7 @@ describe("Test 'ScriptStore' service", () => {
 			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
 			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
 			let result = await broker.call('scriptStore.listUserScripts', {}, {meta: {user: createTestToken(user)}});
-			expect(result).toHaveProperty('total', 3);
-			expect(result).toHaveProperty('page', 1);
-			expect(result).toHaveProperty('pageSize', 10);
-			expect(result).toHaveProperty('totalPages', 1);
-			expect(result).toHaveProperty('rows');
-			expect(result.rows).toHaveProperty('length', 3);
+			expect(result).toHaveLength(3);
 		});
 
 		it('should update user scripts',  async () => {
@@ -148,9 +143,7 @@ describe("Test 'ScriptStore' service", () => {
 			let result = await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
 			await broker.call('scriptStore.deleteUserScript', {id: result.id}, {meta: {user: createTestToken(user)}});
 			result = await broker.call('scriptStore.listUserScripts', {}, {meta: {user: createTestToken(user)}});
-			expect(result).toHaveProperty('total', 1);
-			expect(result).toHaveProperty('rows');
-			expect(result.rows).toHaveProperty('length', 1);
+			expect(result).toHaveLength(1);
 		});
 
 	});

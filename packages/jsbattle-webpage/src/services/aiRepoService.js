@@ -126,9 +126,6 @@ export const getScriptNameList = async () => {
     id: 'local_' + name,
     scriptName: name
   }));
-  result = {
-    rows: result
-  };
   return result;
 };
 

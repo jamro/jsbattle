@@ -4,6 +4,7 @@ const querystring = require('querystring')
 const jsonServer = require('json-server')
 const bodyParser = require('body-parser')
 const _ = require('lodash');
+const config = require(path.resolve(__dirname, 'config.json'));
 
 class MockServer {
 
@@ -44,6 +45,7 @@ class MockServer {
       let authorized = !!(options.authorized);
 
       router.render = (req, res) => {
+        // modify default response here
         if(req.url == '/profile' && !authorized) {
           return res.jsonp({});
         }
@@ -53,16 +55,22 @@ class MockServer {
         if(!Array.isArray(res.locals.data)) {
           return res.jsonp(res.locals.data);
         }
-        let params = querystring.parse(req.url.split('?').pop());
-        let page = params._page || 1;
-        let pageSize = params._limit || 10;
-        res.jsonp({
-          rows: res.locals.data,
-          total: 500,
-          page: page,
-          pageSize: pageSize,
-          totalPages: Math.ceil(500/pageSize)
-        })
+        for(let pattern of config.pagination) {
+          pattern = new RegExp(pattern);
+          if(pattern.test(req.url)) {
+            let params = querystring.parse(req.url.split('?').pop());
+            let page = params._page || 1;
+            let pageSize = params._limit || 10;
+            return res.jsonp({
+              rows: res.locals.data,
+              total: 500,
+              page: page,
+              pageSize: pageSize,
+              totalPages: Math.ceil(500/pageSize)
+            })
+          }
+        }
+        return res.jsonp(res.locals.data);
       }
 
       server.use('/', express.static(publicDir));

@@ -62,12 +62,12 @@ class ChallengeService extends Service {
     });
   }
 
-  listUserChallanges(ctx) {
+  async listUserChallanges(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     if(!userId) {
       throw new ValidationError('Not Authorized!', 401);
     }
-    return ctx.call('challenges.list', {
+    let result = await ctx.call('challenges.list', {
       query: {
         userId: userId
       },
@@ -75,7 +75,8 @@ class ChallengeService extends Service {
         "challengeId",
         "completed"
       ]
-    })
+    });
+    return result.rows;
   }
 
   async getUserChallange(ctx) {

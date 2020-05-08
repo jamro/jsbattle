@@ -314,6 +314,25 @@ describe("Test 'UserStore' service", () => {
 
 		});
 
+		it('should throw an error when registering reserved username', async () => {
+			const EXT_ID_1 = 'google_78923452345';
+			let user = await broker.call("userStore.findOrCreate", {user: {
+				extUserId: EXT_ID_1,
+				username: 'monic_84433',
+				provider: 'google',
+				displayName: "Monica Allegro",
+				email: "monica@example.com",
+				role: 'user'
+			}});
+
+			await expect(
+				 broker.call("userStore.register", { username: 'jsbattle' }, {meta: {user: createTestToken(user)}})
+			).rejects.toThrow(ValidationError);
+			await expect(
+				 broker.call("userStore.register", { username: 'admin' }, {meta: {user: createTestToken(user)}})
+			).rejects.toThrow(ValidationError);
+		});
+
 		it('submit challenge data when registering', async () => {
 			updateUserChallange.mockReset();
 			let user = await broker.call("userStore.findOrCreate", {user: {

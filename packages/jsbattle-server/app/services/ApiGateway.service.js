@@ -68,6 +68,10 @@ class ApiGatewayService extends Service {
                   "GET challenges": "challenges.listUserChallanges",
                   "GET challenges/:challengeId": "challenges.getUserChallange",
                   "PATCH challenges/:challengeId": "challenges.updateUserChallange",
+                  "GET league/": "league.getLeagueSummary",
+                  "GET league/submission": "league.getUserSubmission",
+                  "PATCH league/submission": "league.joinLeague",
+                  "DELETE league/submission": "league.leaveLeague",
                 },
                 bodyParsers: {
                   json: true,

@@ -100,7 +100,7 @@ class ScriptStoreService extends Service {
 
   async createUserScript(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
-    const username = ctx.meta.user.username ? ctx.meta.user.username : null;
+    const username = ctx.meta.user && ctx.meta.user.username ? ctx.meta.user.username : null;
     if(!userId || !username) {
       throw new ValidationError('Not Authorized!', 401);
     }

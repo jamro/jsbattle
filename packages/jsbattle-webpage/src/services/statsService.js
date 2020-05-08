@@ -50,6 +50,11 @@ export const onAiScriptRemove = () => {
   gaSubmit('sandbox', 'remove');
 };
 
+export const notifyLeagueOpen = () => {
+  gaSubmit('league', 'open');
+};
+
+
 export default {
   onChallengeComplete,
   onChallengeOpen,
@@ -57,5 +62,6 @@ export default {
   onAiScriptRemove,
   onChallengesList,
   onSandboxEdit,
-  onSandboxOpen
+  onSandboxOpen,
+  notifyLeagueOpen
 };

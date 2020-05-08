@@ -5,6 +5,7 @@ import ChallengeListScreen from './ChallengeListScreen.js';
 import ChallengeScreen from './ChallengeScreen.js';
 import ScriptListScreen from './ScriptListScreen.js';
 import SandboxScreen from './SandboxScreen.js';
+import LeagueScreen from './LeagueScreen.js';
 import SignInScreen from './SignInScreen.js';
 import RegisterScreen from './RegisterScreen.js';
 import Navi from './Navi.js';
@@ -60,6 +61,7 @@ class App extends Component {
               <Route exact path="/challenge" component={ChallengeListScreen} />
               <Route exact path="/sandbox/:name" component={SandboxScreen} />
               <Route exact path="/sandbox" component={ScriptListScreen} />
+              <Route exact path="/league" component={LeagueScreen} />
               {signInRoute}
               <Route path="/" component={Footer} />
             </div>

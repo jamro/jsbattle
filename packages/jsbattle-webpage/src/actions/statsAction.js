@@ -4,7 +4,8 @@ import {
   STATS_SANDBOX_EDIT,
   STATS_CHALLENGE_LIST_OPEN,
   STATS_CHALLENGE_COMPLETE,
-  STATS_CHALLENGE_OPEN
+  STATS_CHALLENGE_OPEN,
+  STATS_LEAGUE_OPEN
 } from './actionTypes.js';
 
 export const notifySandboxOpen = () => {
@@ -45,5 +46,12 @@ export const notifyStatsChallengeOpen = (level) => {
     payload: {
       level
     }
+  };
+};
+
+export const notifyLeagueOpen = () => {
+  statsService.notifyLeagueOpen();
+  return {
+    type: STATS_LEAGUE_OPEN,
   };
 };

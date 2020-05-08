@@ -56,6 +56,16 @@ export class Navi extends React.Component {
     if(this.props.isLoading) {
       loading = <Loading label="" />;
     }
+    let leagueLink = null;
+    if(this.props.profile && (this.props.profile.role == 'user' || this.props.profile.role == 'admin')) {
+      leagueLink = <li className="nav-item">
+        <a
+          className={pathname.startsWith('/league') ? activeClasses : inactiveClasses}
+          href="#/league">
+          <i className="fas fa-trophy" aria-hidden="true"></i> League
+        </a>
+      </li>;
+    }
     return <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
@@ -72,6 +82,7 @@ export class Navi extends React.Component {
             <i className="fas fa-drafting-compass" aria-hidden="true"></i> Sandbox
           </a>
         </li>
+        {leagueLink}
         <li className="nav-item">
           <a className={inactiveClasses} href="./docs" target="_blank">
             <i className="far fa-file-alt" aria-hidden="true"></i> Docs<
@@ -104,7 +115,7 @@ export class Navi extends React.Component {
         </li>
         <ProfileButton
           logoutUrl={'/auth/logout'}
-          role={this.props.profile ? (this.props.profile.role || 'guest') : 'guest'}
+          role={this.props.role}
           username={this.props.profile ? this.props.profile.displayName : ''}
         />
       </ul>
@@ -126,6 +137,7 @@ export class Navi extends React.Component {
 
 const mapStateToProps = (state) => ({
   profile: state.auth.profile,
+  role: state.auth.profile ? (state.auth.profile.role || 'guest') : 'guest',
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
   isLoading: state.loading.SET_SIM_SPEED || state.loading.SET_SIM_QUALITY || state.loading.SETTINGS,

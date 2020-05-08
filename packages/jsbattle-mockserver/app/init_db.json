@@ -209,16 +209,6 @@
   },
   "user,scripts": [
     {
-      "id": "xVDPu2zXl9M4lINa",
-      "ownerId": "cWzaLP12eSeDL68F",
-      "ownerName": "mock",
-      "scriptName": "nihnae",
-      "namespace": "user",
-      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
-      "createdAt": "2020-02-23T08:26:54.011Z",
-      "modifiedAt": "2020-02-23T08:26:54.011Z"
-    },
-    {
       "id": "FOjJ3IULPVU9KSWw",
       "ownerId": "cWzaLP12eSeDL68F",
       "ownerName": "mock",
@@ -227,6 +217,16 @@
       "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
       "createdAt": "2020-02-23T08:27:42.940Z",
       "modifiedAt": "2020-02-23T08:27:42.940Z"
+    },
+    {
+      "id": "xVDPu2zXl9M4lINa",
+      "ownerId": "cWzaLP12eSeDL68F",
+      "ownerName": "mock",
+      "scriptName": "nihnae",
+      "namespace": "user",
+      "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+      "createdAt": "2020-02-23T08:26:54.011Z",
+      "modifiedAt": "2020-02-23T08:26:54.011Z"
     },
     {
       "id": "BuLO667PXk0yEqwg",
@@ -259,6 +259,90 @@
       "completed": false
     }
   ],
+  "user,league,submission": {
+    "id": "U7aO66layk0yEqwg",
+    "scriptId": "xVDPu2zXl9M4lINa",
+    "ownerId": "cWzaLP12eSeDL68F",
+    "ownerName": "mock",
+    "scriptName": "nihnae",
+    "joinedAt": "2020-02-23T08:27:42.940Z",
+    "rank": 1,
+    "fights": {
+      "total": 343,
+      "won": 128,
+      "lose": 223,
+      "error": 43
+    },
+    "score": 1092
+  },
+  "user,league": {
+    "submission": {
+      "id": "U7aO66layk0yEqwg",
+      "scriptId": "xVDPu2zXl9M4lINa",
+      "ownerId": "cWzaLP12eSeDL68F",
+      "ownerName": "mock",
+      "scriptName": "nihnae",
+      "joinedAt": "2020-02-23T08:27:42.940Z",
+      "rank": 1,
+      "fights": {
+        "total": 343,
+        "won": 128,
+        "lose": 223,
+        "error": 43
+      },
+      "score": 1092
+    },
+    "ranktable": [
+      {
+        "id": "hjkKvy79ahj34",
+        "scriptId": "asdf772db8q9fasdo",
+        "ownerId": "jnfao8y9ascdy",
+        "ownerName": "Allegro",
+        "scriptName": "killa-8",
+        "joinedAt": "2020-01-28T10:27:42.940Z",
+        "rank": 1,
+        "fights": {
+          "total": 642,
+          "won": 561,
+          "lose": 213,
+          "error": 1
+        },
+        "score": 1872
+      },
+      {
+        "id": "U7aO66layk0yEqwg",
+        "scriptId": "xVDPu2zXl9M4lINa",
+        "ownerId": "cWzaLP12eSeDL68F",
+        "ownerName": "jerome",
+        "scriptName": "nihnae",
+        "joinedAt": "2020-02-23T08:27:42.940Z",
+        "rank": 2,
+        "fights": {
+          "total": 343,
+          "won": 128,
+          "lose": 223,
+          "error": 43
+        },
+        "score": 1092
+      },
+      {
+        "id": "jhsadf90y79a3",
+        "scriptId": "h84323adsfia98",
+        "ownerId": "fash4u39awfh2349b",
+        "ownerName": "monk",
+        "scriptName": "3ll3a",
+        "joinedAt": "2020-04-01T12:34:42.940Z",
+        "rank": 3,
+        "fights": {
+          "total": 123,
+          "won": 120,
+          "lose": 2,
+          "error": 1
+        },
+        "score": 993
+      }
+    ]
+  },
   "authMethods": {
     "mock": {
       "name": "Mock",

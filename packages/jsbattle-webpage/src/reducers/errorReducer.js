@@ -5,9 +5,13 @@ function errorReducer(state = {}, action = {}) {
   if (!matches) return state;
 
   const [, requestName, requestState] = matches;
+  if(payload) {
+    console.warn(payload);
+  }
+
   return {
     ...state,
-    [requestName]: requestState === 'FAILURE' ? payload.message : '',
+    [requestName]: (payload && requestState === 'FAILURE') ? payload.message : '',
   };
 }
 

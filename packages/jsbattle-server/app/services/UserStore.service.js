@@ -73,6 +73,38 @@ class UserStoreService extends Service {
     });
   }
 
+  validateUserName(username) {
+    if(!username) {
+      throw new ValidationError('username parameter is required', 400);
+    }
+    if(username.length < 3) {
+      throw new ValidationError('username must be at least 3 characters long', 400);
+    }
+    if(!(/^[A-Za-z0-9_.-]+$/).test(username)) {
+      throw new ValidationError('username contains invalid characters', 400);
+    }
+    const reservedNames = [
+      'jsbattle',
+      'admin'
+    ];
+    const isNameReserved = reservedNames.indexOf(username.toLowerCase()) != -1;
+    if(isNameReserved) {
+      throw new ValidationError(`username must be unique! Chose a different one.`, 400);
+    }
+  }
+
+  validateDisplayName(displayName) {
+    if(!displayName) {
+      throw new ValidationError('displayName parameter is required', 400);
+    }
+    if(displayName.length < 3) {
+      throw new ValidationError('displayName must be at least 3 characters long', 400);
+    }
+    if(!(/^[A-Za-z0-9_. -]+$/).test(displayName)) {
+      throw new ValidationError('displayName contains invalid characters', 400);
+    }
+  }
+
   async register(ctx) {
     let response;
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
@@ -95,24 +127,8 @@ class UserStoreService extends Service {
     username = username || response.username;
     displayName = displayName || response.displayName;
 
-    if(!username) {
-      throw new ValidationError('username parameter is required', 400);
-    }
-    if(!displayName) {
-      throw new ValidationError('displayName parameter is required', 400);
-    }
-    if(username.length < 3) {
-      throw new ValidationError('username must be at least 3 characters long', 400);
-    }
-    if(displayName.length < 3) {
-      throw new ValidationError('displayName must be at least 3 characters long', 400);
-    }
-    if(!(/^[A-Za-z0-9_.-]+$/).test(username)) {
-      throw new ValidationError('username contains invalid characters', 400);
-    }
-    if(!(/^[A-Za-z0-9_. -]+$/).test(displayName)) {
-      throw new ValidationError('displayName contains invalid characters', 400);
-    }
+    this.validateUserName(username)
+    this.validateDisplayName(displayName)
 
     // check if username is unique
     this.logger.debug(`Check whether username '${username}' is used`);

@@ -1,6 +1,21 @@
 import 'babel-polyfill';
 import errorReducer from '../errorReducer.js';
 
+let logOrig;
+let warnOrig;
+
+beforeAll(() => {
+  logOrig = console.log;
+  warnOrig = console.warn;
+  console.log = () => {};
+  console.warn = () => {};
+});
+
+afterAll(() => {
+  console.log = logOrig;
+  console.warn = warnOrig;
+});
+
 test('has init state', () => {
   const outcomeState = errorReducer();
   expect(Object.keys(outcomeState)).toHaveLength(0)

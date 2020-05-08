@@ -20,6 +20,7 @@ class Gateway {
   start() {
     return new Promise((resolve) => {
       this.broker.start()
+        .then(() => this.broker.broadcast('app.seed', {}))
         .then(resolve)
         .catch((err) => console.error(`Error occured! ${err.message}`));
     });

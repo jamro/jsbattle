@@ -46,7 +46,7 @@ describe("Test 'League' service", () => {
 					}
 				}
 		})
-		broker.loadService(__dirname + "../../../app/services/league.service.js");
+		broker.loadService(__dirname + "../../../app/services/League.service.js");
 		await broker.start();
 	});
 

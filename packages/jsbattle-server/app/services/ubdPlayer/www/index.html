@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JsBattle UBD Player</title>
+    <script type="text/javascript" src="js/pixi.min.js"></script>
+    <script type="text/javascript" src="js/jsbattle.min.js"></script>
+  </head>
+  <body>
+    <div>STATUS: <span id="status">ready</span></div>
+    <div id="input">
+      <p>
+        <textarea id="ubd" rows="10" cols="100"></textarea>
+      </p>
+      <p>
+        <input id="speed" type="text" value="10" />
+      </p>
+      <button id="start" onclick="start()">Start</button>
+    </div>
+    <script type="text/javascript">
+
+      function start() {
+        let ubd = document.getElementById('ubd').value;
+        document.getElementById('input').style.display = 'none';
+        try {
+          ubd = JSON.parse(ubd);
+        } catch (err) {
+          return print({ error: err.message})
+        }
+
+        let renderer = JsBattle.createRenderer('void');
+        let simulation = JsBattle.createSimulation(renderer);
+        simulation.setRngSeed(ubd.rngSeed)
+        simulation.init(900, 600);
+
+        let ai;
+        let clock;
+        for(let aiDef of ubd.aiList) {
+          ai = JsBattle.createAiDefinition();
+          ai.fromJSON(aiDef);
+          simulation.addTank(ai);
+        }
+        simulation.onError((error) => {
+          status('error');
+          print({error});
+          clearInterval(clock)
+        })
+        simulation.onFinish(() => {
+          clearInterval(clock)
+          console.log(simulation.teamList);
+          status('done');
+          print({
+            timeElapsed: simulation.timeElapsed,
+            timeLimit: simulation.timeLimit,
+            tankList: simulation.tankList.map((tank) => ({
+              id: tank.id,
+              team: tank.team.name,
+              name: tank.name,
+              fullName: tank.fullName,
+              energy: tank.energy,
+              score: tank.score
+            })),
+            teamList: simulation.teamList.map((team) => ({
+              name: team.name,
+              aliveCount: team.aliveCount,
+              energy: team.energy,
+              maxEnergy: team.maxEnergy,
+              size: team.size,
+              score: team.score,
+            }))
+          })
+
+        })
+        clock = setInterval(() => {
+          let progress;
+          if(ubd.timeLimit) {
+            status(Math.round(100 * simulation.timeElapsed / ubd.timeLimit) + '%')
+          } else {
+            status('running for ' + simulation.timeElapsed + 'ms')
+          }
+        }, 100);
+        let speed = Number(document.getElementById('speed').value);
+        if(isNaN(speed) || !speed) {
+          speed = 10;
+        }
+        simulation.setSpeed(speed)
+        simulation.timeLimit = ubd.timeLimit;
+        simulation.start();
+        status('started');
+      }
+
+      function print(data) {
+        let output = document.createElement('div');
+        output.id = 'output';
+        output.innerHTML = JSON.stringify(data);
+        document.body.appendChild(output);
+      }
+
+      function status(txt) {
+        document.getElementById('status').innerHTML = txt;
+      }
+
+    </script>
+  </body>
+</html>

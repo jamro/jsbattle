@@ -47,7 +47,7 @@ class AiDefinition {
   fromJSON(data) {
     this._name = data.name;
     this._team = data.team;
-    this._code = data.code;
+    this._code = data.code ? data.code.replace(/importScripts\w*\([^\)]*\)/g, '') : data.code;
     this._initData = data.initData;
     this._useSandbox = data.useSandbox;
     this._executionLimit = data.executionLimit;

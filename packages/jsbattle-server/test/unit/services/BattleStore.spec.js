@@ -1,9 +1,9 @@
 "use strict";
 
-const ConfigBroker = require("../../app/lib/ConfigBroker.js");
+const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
-const UbdJsonMock = require('../mock/UbdJsonMock');
+const UbdJsonMock = require('../../mock/UbdJsonMock');
 
 describe("Test 'Battlestore' service", () => {
 
@@ -16,7 +16,7 @@ describe("Test 'Battlestore' service", () => {
 				validate: () => ({valid: true})
 			}
 		})
-		broker.loadService(__dirname + "../../../app/services/BattleStore.service.js");
+		broker.loadService(__dirname + "../../../../app/services/BattleStore.service.js");
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());
@@ -84,7 +84,7 @@ describe("Test 'Battlestore' service", () => {
 				validate: () => ({valid: false, error: 'Something went wrong'})
 			}
 		})
-		broker.loadService(__dirname + "../../../app/services/BattleStore.service.js");
+		broker.loadService(__dirname + "../../../../app/services/BattleStore.service.js");
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());

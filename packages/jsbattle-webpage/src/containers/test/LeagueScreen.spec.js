@@ -40,7 +40,6 @@ test('list league', () => {
         "ownerName": "Mar87762",
         "scriptName": "greta875",
         "joinedAt": "2020-01-28T10:27:42.940Z",
-        "rank": 1843,
         "fights_total": 7542,
         "fights_win": 3471,
         "fights_lose": 2346,
@@ -58,7 +57,6 @@ test('list league', () => {
   expect(wrapper.find('table').find('th').at(5).text()).toMatch(/score/i)
 
 
-  expect(wrapper.find('table').find('tr').at(1).find('td').at(0).text()).toMatch(/1843/i)
   expect(wrapper.find('table').find('tr').at(1).find('td').at(1).text()).toMatch(/Mar87762/i)
   expect(wrapper.find('table').find('tr').at(1).find('td').at(1).text()).toMatch(/greta875/i)
   expect(wrapper.find('table').find('tr').at(1).find('td').at(2).text()).toMatch(/7542/i)

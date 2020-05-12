@@ -1,8 +1,12 @@
 "use strict";
-
-const ConfigBroker = require("../../app/lib/ConfigBroker.js");
+const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+
+jest.mock("../../../app/services/league/selectOpponents.js");
+const selectOpponentsMock = require("../../../app/services/league/selectOpponents.js");
+jest.mock("../../../app/services/league/updateScores.js");
+const updateScoresMock = require("../../../app/services/league/updateScores.js");
 
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
@@ -18,12 +22,42 @@ const ownScript = {
 	code: '// hello 17487252'
 }
 
+const scheduleBattle = jest.fn();
+const getQueueLength = jest.fn();
+
 describe("Test 'League' service", () => {
 
 	let broker;
 
 	beforeEach(async () => {
-		let config = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
+		getQueueLength.mockReturnValue(0);
+		selectOpponentsMock.mockReturnValue([
+			{
+				ownerName: 'alpha',
+				scriptName: 'alpha-1',
+				code: '//code 34523'
+			},
+			{
+				ownerName: 'beta',
+				scriptName: 'beta-1',
+				code: '//code 8852'
+			}
+		]);
+
+		let now = new Date().getTime();
+		let config = {
+			 auth: {
+				 admins: [{provider: 'google', username: 'monica83' }]
+			 },
+			 league: {
+					scheduleInterval: 10,
+					timeLimit: 3000,
+					teamSize: 3
+				},
+			 ubdPlayer: {
+				 queueLimit: 11
+			 }
+		 };
 		broker = new ConfigBroker({ logger: false }, config, false);
 		broker.createService({
 				name: 'scriptStore',
@@ -46,11 +80,19 @@ describe("Test 'League' service", () => {
 					}
 				}
 		})
-		broker.loadService(__dirname + "../../../app/services/League.service.js");
+		broker.createService({
+				name: 'ubdPlayer',
+				actions: {
+					getQueueLength: getQueueLength,
+					scheduleBattle: scheduleBattle
+				}
+		})
+		broker.loadService(__dirname + "../../../../app/services/League.service.js");
 		await broker.start();
 	});
 
 	afterEach(() => broker.stop());
+
 
 	it('should throw error when call getUserSubmission without login',  async () => {
 		const user = {
@@ -101,12 +143,11 @@ describe("Test 'League' service", () => {
 		let entry = await broker.call('league.create', {}, {});
 		expect(entry).toHaveProperty('id');
 		expect(entry).toHaveProperty('joinedAt');
-		expect(entry).toHaveProperty('rank', 0);
 		expect(entry).toHaveProperty('fights_total', 0);
 		expect(entry).toHaveProperty('fights_win', 0);
 		expect(entry).toHaveProperty('fights_lose', 0);
 		expect(entry).toHaveProperty('fights_error', 0);
-		expect(entry).toHaveProperty('score', 0);
+		expect(entry).toHaveProperty('score', 1000);
 	});
 
 	it('should return league summary',  async () => {
@@ -178,7 +219,6 @@ describe("Test 'League' service", () => {
 		expect(result.submission).toHaveProperty('ownerName', 'monica83');
 		expect(result.submission).toHaveProperty('scriptName', ownScript.scriptName);
 		expect(result.submission).toHaveProperty('joinedAt');
-		expect(result.submission).toHaveProperty('rank');
 		expect(result.submission).toHaveProperty('score');
 		expect(result.submission).toHaveProperty('fights_total');
 		expect(result.submission).toHaveProperty('fights_win');
@@ -190,7 +230,6 @@ describe("Test 'League' service", () => {
 		expect(result.ranktable[0]).toHaveProperty('ownerName', 'monica83');
 		expect(result.ranktable[0]).toHaveProperty('scriptName', ownScript.scriptName);
 		expect(result.ranktable[0]).toHaveProperty('joinedAt');
-		expect(result.ranktable[0]).toHaveProperty('rank');
 		expect(result.ranktable[0]).toHaveProperty('score');
 		expect(result.ranktable[0]).toHaveProperty('fights_total');
 		expect(result.ranktable[0]).toHaveProperty('fights_win');
@@ -219,8 +258,8 @@ describe("Test 'League' service", () => {
 			role: 'user',
 			id: '92864'
 		}
-		await broker.call('league.seedLeague', {}, {});
-		await broker.call('league.seedLeague', {}, {});
+		await broker.emit('app.seed', {}, {});
+		await broker.emit('app.seed', {}, {});
 
 		let summary = await broker.call('league.leaveLeague', {}, {meta: {user: createTestToken(user)}});
 
@@ -228,6 +267,31 @@ describe("Test 'League' service", () => {
 		expect(summary).toHaveProperty('ranktable');
 		expect(summary.ranktable).toHaveLength(7);
 		expect(Object.keys(summary.submission)).toHaveLength(0);
+	});
+
+	it('should schedule battles after start',  async () => {
+		scheduleBattle.mockReset();
+
+		await broker.call('league.seedLeague', {}, {});
+		await new Promise((resolve) => setTimeout(resolve, 100));
+		expect(scheduleBattle.mock.calls.length).toBeGreaterThan(0);
+	});
+
+	it('should not schedule battles when queue limit exceeded',  async () => {
+		scheduleBattle.mockReset();
+		getQueueLength.mockReturnValue(11);
+
+		await broker.call('league.seedLeague', {}, {});
+		await new Promise((resolve) => setTimeout(resolve, 100));
+		expect(scheduleBattle.mock.calls.length).toBe(0);
+	});
+
+	it('should process battle result',  async () => {
+		updateScoresMock.mockReset();
+		await broker.emit('ubdPlayer.battle.league', {error: 'oops 87923452'});
+		expect(updateScoresMock.mock.calls.length).toBe(0);
+		await broker.emit('ubdPlayer.battle.league', {result: true});
+		expect(updateScoresMock.mock.calls.length).toBe(1);
 	});
 
 });

@@ -1,6 +1,6 @@
 "use strict";
 
-const ConfigBroker = require("../../app/lib/ConfigBroker.js");
+const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -24,7 +24,7 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../app/services/Challenge.service.js");
+			broker.loadService(__dirname + "../../../../app/services/Challenge.service.js");
 			await broker.start()
 		});
 		afterEach(() => broker.stop());
@@ -56,7 +56,7 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../app/services/Challenge.service.js");
+			broker.loadService(__dirname + "../../../../app/services/Challenge.service.js");
 			await broker.start();
 		});
 

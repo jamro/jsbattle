@@ -1,6 +1,6 @@
 "use strict";
 
-const ConfigBroker = require("../../app/lib/ConfigBroker.js");
+const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -36,7 +36,7 @@ describe("Test 'UserStore' service", () => {
 			createUserScript: createUserScript
 		}
 	})
-	broker.loadService(__dirname + "../../../app/services/UserStore.service.js");
+	broker.loadService(__dirname + "../../../../app/services/UserStore.service.js");
 
 	beforeAll(() => broker.start());
 	afterAll(() => broker.stop());

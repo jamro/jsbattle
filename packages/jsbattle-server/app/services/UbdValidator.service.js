@@ -20,7 +20,6 @@ class UbdValidator extends Service {
 
   validate(ctx) {
     let ubd = ctx.params.ubd
-    this.logger.info(`validation...`);
     if(!ubd) {
       throw new ValidationError('ubd parameter is required', 400);
     }

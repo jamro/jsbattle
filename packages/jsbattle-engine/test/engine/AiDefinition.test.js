@@ -91,6 +91,21 @@ describe('AiDefinition', function() {
       assert.equal(jsonText1, jsonText2);
     });
 
+    it('should strip importScripts commands', () => {
+      let ai = new AiDefinition();
+      let json = {
+        name: "text_" + Math.round(Math.random()*1000000),
+        team: "text_" + Math.round(Math.random()*1000000),
+        code: "importScripts('whatever')var code = 1;",
+        initData: null,
+        useSandbox: false,
+        executionLimit: 483
+      };
+
+      ai.fromJSON(json);
+      assert.equal("var code = 1;", ai.code);
+    });
+
   });
 
   describe('clone', function() {

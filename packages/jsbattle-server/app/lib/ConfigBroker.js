@@ -26,6 +26,18 @@ class ConfigBroker extends ServiceBroker {
         "enabled": true,
         "admins": [],
         "providers": []
+      },
+      "league": {
+        "scheduleInterval": 5000,
+        "timeLimit": 30000,
+        "teamSize": 3
+      },
+      "ubdPlayer": {
+        "queueLimit": 3,
+        "queueQueryTime": 1000,
+        "port": 8899,
+        "speed": 5,
+        "timeout": 30000
       }
     };
 
@@ -49,6 +61,7 @@ class ConfigBroker extends ServiceBroker {
     }
 
     config = _.defaultsDeep(config, defaultConfig)
+
 
     this.serviceConfig = config;
 

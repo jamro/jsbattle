@@ -1,7 +1,7 @@
 module.exports = class UbdJsonMock {
 
   constructor(version) {
-    version = version === undefined ? 1 : version;
+    version = version === undefined ? 3 : version;
 
     this.version = version;
     this.rngSeed = 0.43;

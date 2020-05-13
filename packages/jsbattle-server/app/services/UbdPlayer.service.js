@@ -3,6 +3,7 @@ const { ValidationError, MoleculerError } = require("moleculer").Errors;
 const express = require('express')
 const path = require('path')
 const puppeteer = require('puppeteer');
+const insttallPuppeteer = require('./ubdPlayer/installPuppeteer.js');
 
 class UbdPlayer extends Service {
 
@@ -22,6 +23,8 @@ class UbdPlayer extends Service {
         getQueueLength: this.getQueueLength,
       },
       started: async () => {
+        await insttallPuppeteer(this.logger);
+
         // host frontend
         this.app = express();
         const port = broker.serviceConfig.ubdPlayer.port

@@ -33,7 +33,7 @@ class UbdPlayer extends Service {
 
         // start browser
         this.browser = await puppeteer.launch();
-
+        this.logger.info(`Starting player at ${broker.serviceConfig.ubdPlayer.speed}x speed`);
         this.loop = setInterval(async () => {
           if(this.isBusy) {
             let processDuration = new Date().getTime() - this.processingStartTime;
@@ -61,7 +61,7 @@ class UbdPlayer extends Service {
           try {
             this.processingStartTime = new Date().getTime();
             this.isBusy = true;
-
+            this.logger.info('Starting a battle...')
             let task = this.queue.shift();
             let ubd = task.ubd;
             let page = await this.browser.newPage();
@@ -94,9 +94,9 @@ class UbdPlayer extends Service {
             broker.broadcast(eventName, jsonResult);
             this.isBusy = false;
             let dt = new Date().getTime() - this.processingStartTime;
-            this.logger.debug(`Battle completed after ${dt}ms`)
+            this.logger.info(`Battle finished after ${dt}ms`)
           } catch (err) {
-            this.logger.debug('Unable to finish the battle');
+            this.logger.warn('Unable to finish the battle');
             this.logger.warn(err);
             this.isBusy = false;
           }

@@ -28,16 +28,16 @@ class ConfigBroker extends ServiceBroker {
         "providers": []
       },
       "league": {
-        "scheduleInterval": 5000,
-        "timeLimit": 30000,
+        "scheduleInterval": 30000,
+        "timeLimit": 20000,
         "teamSize": 3
       },
       "ubdPlayer": {
-        "queueLimit": 3,
-        "queueQueryTime": 1000,
+        "queueLimit": 2,
+        "queueQueryTime": 5000,
         "port": 8899,
-        "speed": 5,
-        "timeout": 30000
+        "speed": 1,
+        "timeout": 60000
       }
     };
 

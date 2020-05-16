@@ -91,10 +91,10 @@ class UbdPlayer extends Service {
             } else {
               eventName = eventName + ".default"
             }
-            broker.broadcast(eventName, jsonResult);
-            this.isBusy = false;
             let dt = new Date().getTime() - this.processingStartTime;
             this.logger.info(`Battle finished after ${dt}ms`)
+            broker.broadcast(eventName, jsonResult);
+            this.isBusy = false;
           } catch (err) {
             this.logger.warn('Unable to finish the battle');
             this.logger.warn(err);

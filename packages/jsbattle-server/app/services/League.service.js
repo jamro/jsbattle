@@ -5,15 +5,12 @@ const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 const fs = require('fs');
 const path = require('path');
-const selectOpponents = require('./league/selectOpponents.js');
-const updateScores = require('./league/updateScores.js');
 
 class LeagueService extends Service {
 
   constructor(broker) {
     super(broker);
     this.config = broker.serviceConfig.league;
-    this.queueLimit = broker.serviceConfig.ubdPlayer.queueLimit;
     let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'league')
     this.parseServiceSchema({
       ...adapterConfig,
@@ -49,12 +46,9 @@ class LeagueService extends Service {
         score: "number",
         code: { type: "string", min: 0, max: 65536 },
       },
-      dependencies: [
-        'scriptStore',
-        'ubdPlayer'
-      ],
+      dependencies: ['scriptStore'],
       actions: {
-        scheduleBattle: this.scheduleBattle,
+        pickRandomOpponents: this.pickRandomOpponents,
         seedLeague: this.seedLeague,
         getUserSubmission: this.getUserSubmission,
         joinLeague: this.joinLeague,
@@ -80,76 +74,42 @@ class LeagueService extends Service {
       events: {
         "app.seed": async (ctx) => {
           await ctx.call('league.seedLeague', {})
-        },
-        "ubdPlayer.battle.league": async (ctx) => {
-          if(ctx.params.error) {
-            this.logger.warn('Battle failed between: ' + Object.keys(ctx.params.refData).join(' and '));
-            return;
-          }
-          await updateScores(ctx, this.logger);
         }
-      },
-      started: () => {
-        this.loop = setInterval(async () => {
-          try {
-            let queueLength = await broker.call('ubdPlayer.getQueueLength', {});
-            if(queueLength >= this.queueLimit) {
-              return;
-            }
-            await broker.call('league.scheduleBattle', {})
-          } catch(err) {
-            this.logger.warn(err)
-          }
-        }, this.config.scheduleInterval)
-      },
-      stopped: () => {
-        clearInterval(this.loop)
       }
     });
   }
 
-  async scheduleBattle(ctx) {
-    // pick random opponents
-    let opponents = await selectOpponents(ctx);
-
-    // build UBD
-    let ubd = {
-      version: 3,
-      rngSeed: Math.random(),
-      teamMode: true,
-      timeLimit: this.config.timeLimit,
-      aiList: []
-    };
-
-    let i;
-    for(i=0; i < this.config.teamSize; i++) {
-      for(let opponent of opponents) {
-        ubd.aiList.push({
-          name: opponent.ownerName === 'jsbattle' ? opponent.scriptName : opponent.ownerName,
-          team: opponent.ownerName + '/' + opponent.scriptName,
-          code: opponent.code,
-          initData: null,
-          useSandbox: true,
-          executionLimit: 100
-        });
-      }
+  async pickRandomOpponents(ctx) {
+    let count = await ctx.call('league.count', {});
+    if(count <= 1) {
+      throw new Error('no opponents found for the league match')
     }
-
-    this.logger.debug(`Scheduling battle ${opponents[0].scriptName} vs ${opponents[1].scriptName}`)
-
-    try {
-      let refData = {};
-      refData[opponents[0].ownerName + '/' + opponents[0].scriptName] = opponents[0].id;
-      refData[opponents[1].ownerName + '/' + opponents[1].scriptName] = opponents[1].id;
-      await ctx.call('ubdPlayer.scheduleBattle', {
-        ubd: ubd,
-        event: 'league',
-        refData: refData
-      });
-    } catch(err) {
-      this.logger.debug('Unable to schedule battle due to: ' + err.message)
+    let rand1 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
+    let rand2 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
+    let index1 = Math.floor(rand1*count);
+    let index2 = Math.floor(rand2*(count-1));
+    if(index2 >= index1) {
+      index2++;
     }
+    let query = {
+      sort: 'fights_total',
+      limit: 1
+    }
+    query.offset = index1;
+    let opponent1 = await ctx.call('league.find', query)
+    query.offset = index2;
+    let opponent2 = await ctx.call('league.find', query)
 
+    if(opponent1.length === 0 || opponent2.length === 0 ) {
+      throw new Error('no opponents found for the league match')
+    }
+    opponent1 = opponent1[0];
+    opponent2 = opponent2[0];
+
+    return [
+      opponent1,
+      opponent2
+    ]
   }
 
   async seedLeague(ctx) {

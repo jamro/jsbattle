@@ -3,11 +3,6 @@ const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
-jest.mock("../../../app/services/league/selectOpponents.js");
-const selectOpponentsMock = require("../../../app/services/league/selectOpponents.js");
-jest.mock("../../../app/services/league/updateScores.js");
-const updateScoresMock = require("../../../app/services/league/updateScores.js");
-
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
 	username: (user ? user.username : '') || "amy",
@@ -22,27 +17,11 @@ const ownScript = {
 	code: '// hello 17487252'
 }
 
-const scheduleBattle = jest.fn();
-const getQueueLength = jest.fn();
-
 describe("Test 'League' service", () => {
 
 	let broker;
 
 	beforeEach(async () => {
-		getQueueLength.mockReturnValue(0);
-		selectOpponentsMock.mockReturnValue([
-			{
-				ownerName: 'alpha',
-				scriptName: 'alpha-1',
-				code: '//code 34523'
-			},
-			{
-				ownerName: 'beta',
-				scriptName: 'beta-1',
-				code: '//code 8852'
-			}
-		]);
 
 		let now = new Date().getTime();
 		let config = {
@@ -53,10 +32,7 @@ describe("Test 'League' service", () => {
 					scheduleInterval: 10,
 					timeLimit: 3000,
 					teamSize: 3
-				},
-			 ubdPlayer: {
-				 queueLimit: 11
-			 }
+				}
 		 };
 		broker = new ConfigBroker({ logger: false }, config, false);
 		broker.createService({
@@ -78,13 +54,6 @@ describe("Test 'League' service", () => {
 								throw new Error('not found')
 						}
 					}
-				}
-		})
-		broker.createService({
-				name: 'ubdPlayer',
-				actions: {
-					getQueueLength: getQueueLength,
-					scheduleBattle: scheduleBattle
 				}
 		})
 		broker.loadService(__dirname + "../../../../app/services/League.service.js");
@@ -269,29 +238,29 @@ describe("Test 'League' service", () => {
 		expect(Object.keys(summary.submission)).toHaveLength(0);
 	});
 
-	it('should schedule battles after start',  async () => {
-		scheduleBattle.mockReset();
 
-		await broker.call('league.seedLeague', {}, {});
-		await new Promise((resolve) => setTimeout(resolve, 100));
-		expect(scheduleBattle.mock.calls.length).toBeGreaterThan(0);
+	it('should pick random opponents',  async () => {
+		await broker.emit('app.seed', {}, {});
+
+		let opponents
+		for(let i=0; i < 100; i++) {
+			opponents = await broker.call('league.pickRandomOpponents', {});
+			expect(opponents).toHaveLength(2);
+			expect(opponents[0].id).not.toBe(opponents[1].id);
+			expect(opponents[0].scriptId).not.toBe(opponents[1].scriptId);
+		}
 	});
 
-	it('should not schedule battles when queue limit exceeded',  async () => {
-		scheduleBattle.mockReset();
-		getQueueLength.mockReturnValue(11);
-
-		await broker.call('league.seedLeague', {}, {});
-		await new Promise((resolve) => setTimeout(resolve, 100));
-		expect(scheduleBattle.mock.calls.length).toBe(0);
-	});
-
-	it('should process battle result',  async () => {
-		updateScoresMock.mockReset();
-		await broker.emit('ubdPlayer.battle.league', {error: 'oops 87923452'});
-		expect(updateScoresMock.mock.calls.length).toBe(0);
-		await broker.emit('ubdPlayer.battle.league', {result: true});
-		expect(updateScoresMock.mock.calls.length).toBe(1);
+	it('should not pick random opponents when league is empty',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		await expect(
+			broker.call('league.pickRandomOpponents', {})
+		).rejects.toThrow(/no opponents/i)
 	});
 
 });

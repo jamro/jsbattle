@@ -24,10 +24,10 @@ export class LeagueScreen extends React.Component {
     this.props.getLeagueSummary();
   }
 
-  renderTableRow(item, rank) {
+  renderTableRow(item) {
     let isActive = this.props.submission && item.scriptId === this.props.submission.scriptId;
     return <tr key={item.scriptId} className={isActive ? 'table-active' : ''}>
-      <td className="text-right">#{rank}</td>
+      <td className="text-right">#{item.rank}</td>
       <td className="text-left">{item.ownerName} / {item.scriptName}</td>
       <td className="text-right">{item.fights_total}</td>
       <td className="text-right">{item.fights_win}</td>
@@ -44,7 +44,7 @@ export class LeagueScreen extends React.Component {
       return <Loading />;
     }
 
-    let rows = this.props.ranktable.map((item, index) => this.renderTableRow(item, index+1));
+    let rows = this.props.ranktable.map((item) => this.renderTableRow(item));
     if(rows.length == 0) {
       rows = <tr colSpan="6" >
         <td>The league is empty!</td>

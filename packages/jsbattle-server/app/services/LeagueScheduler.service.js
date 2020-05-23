@@ -99,18 +99,22 @@ class LeagueScheduler extends Service {
     // get current state of entity
     let existingEntries = [];
     let getCalls = teamList.map((team) => new Promise(async (resolve) => {
-      existingEntries.push(await ctx.call('league.get', {
-        id: team.id,
-        fields: [
-          'id',
-          'ownerName',
-          'scriptName',
-          'fights_total',
-          'fights_win',
-          'fights_lose',
-          'score'
-        ]
-      }));
+      try {
+        existingEntries.push(await ctx.call('league.get', {
+          id: team.id,
+          fields: [
+            'id',
+            'ownerName',
+            'scriptName',
+            'fights_total',
+            'fights_win',
+            'fights_lose',
+            'score'
+          ]
+        }));
+      } catch (err) {
+        this.logger.warn('Unable to store battle results: ' + err.message);
+      }
       resolve();
     }));
     await Promise.all(getCalls)
@@ -118,6 +122,13 @@ class LeagueScheduler extends Service {
       ...team,
       entity: existingEntries.find((entry) => entry.id == team.id)
     }))
+
+    teamList = teamList.filter((team) => team && team.entity);
+
+    if(teamList.length < 2) {
+      this.logger.debug('Not all opponents exist. Skipping results');
+      return;
+    }
 
     // update entities
     teamList = teamList.map((team) => ({
@@ -146,22 +157,17 @@ class LeagueScheduler extends Service {
     this.logger.debug(`Score of ${teamList[0].name}: ${oldScore1} -> ${teamList[0].entity.score}`)
     this.logger.debug(`Score of ${teamList[1].name}: ${oldScore2} -> ${teamList[1].entity.score}`)
 
-    let updateCalls = teamList.map((team) => ctx.call('league.update', {
+
+    teamList = teamList.map((team) => ({
       id: team.entity.id,
       fights_total: team.entity.fights_total,
       fights_win: team.entity.fights_win,
       fights_lose: team.entity.fights_lose,
       score: team.entity.score
     }));
-    updateCalls = updateCalls.map((callback) => new Promise(async (resolve) => {
-      try {
-        await callback;
-      } catch (err) {
-        this.logger.warn('unable to update league entry. Entry not found')
-      }
-      resolve();
-    }));
-    Promise.all(updateCalls);
+
+    await ctx.call('league.updateRank', {results: teamList});
+
   }
 
   async scheduleBattle(ctx) {

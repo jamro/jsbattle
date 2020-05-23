@@ -5,11 +5,13 @@ const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 const fs = require('fs');
 const path = require('path');
+const RankTable = require('./league/RankTable.js');
 
 class LeagueService extends Service {
 
   constructor(broker) {
     super(broker);
+    this.ranktable = new RankTable();
     this.config = broker.serviceConfig.league;
     let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'league')
     this.parseServiceSchema({
@@ -53,7 +55,8 @@ class LeagueService extends Service {
         getUserSubmission: this.getUserSubmission,
         joinLeague: this.joinLeague,
         leaveLeague: this.leaveLeague,
-        getLeagueSummary: this.getLeagueSummary
+        getLeagueSummary: this.getLeagueSummary,
+        updateRank: this.updateRank
       },
       hooks: {
         before: {
@@ -74,37 +77,68 @@ class LeagueService extends Service {
       events: {
         "app.seed": async (ctx) => {
           await ctx.call('league.seedLeague', {})
+
+          this.logger.info('Initializing Rank able');
+          let initData = await ctx.call('league.find', {
+            sort: '-score',
+            fields: [
+              "id",
+              "ownerId",
+              "ownerName",
+              "scriptId",
+              "scriptName",
+              "joinedAt",
+              "fights_total",
+              "fights_win",
+              "fights_lose",
+              "fights_error",
+              "score"
+            ]
+          });
+          this.ranktable.init(initData);
+          this.logger.info('Rank Table initialized');
         }
       }
     });
   }
 
-  async pickRandomOpponents(ctx) {
-    let count = await ctx.call('league.count', {});
-    if(count <= 1) {
-      throw new Error('no opponents found for the league match')
+  async updateRank(ctx) {
+    if(!ctx || !ctx.params || !ctx.params.results) {
+      throw new ValidationError('results parameter is required!');
     }
-    let rand1 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
-    let rand2 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
-    let index1 = Math.floor(rand1*count);
-    let index2 = Math.floor(rand2*(count-1));
-    if(index2 >= index1) {
-      index2++;
-    }
-    let query = {
-      sort: 'fights_total',
-      limit: 1
-    }
-    query.offset = index1;
-    let opponent1 = await ctx.call('league.find', query)
-    query.offset = index2;
-    let opponent2 = await ctx.call('league.find', query)
 
-    if(opponent1.length === 0 || opponent2.length === 0 ) {
-      throw new Error('no opponents found for the league match')
-    }
-    opponent1 = opponent1[0];
-    opponent2 = opponent2[0];
+    let updateCalls = ctx.params.results.map((entity) => ctx.call('league.update', {
+      id: entity.id,
+      fights_total: entity.fights_total,
+      fights_win: entity.fights_win,
+      fights_lose: entity.fights_lose,
+      score: entity.score,
+    }));
+    updateCalls = updateCalls.map((callback) => new Promise(async (resolve) => {
+      try {
+        await callback;
+      } catch (err) {
+        this.logger.warn('unable to update league entry. Entry not found')
+      }
+      resolve();
+    }));
+    await Promise.all(updateCalls);
+
+    ctx.params.results.forEach((entity) => this.ranktable.updateScore(
+      entity.id,
+      entity.score,
+      entity.fights_total,
+      entity.fights_win,
+      entity.fights_lose
+    ));
+
+  }
+
+  async pickRandomOpponents(ctx) {
+    let opponents = this.ranktable.pickRandom();
+
+    let opponent1 = await ctx.call('league.get', {id: opponents[0].id})
+    let opponent2 = await ctx.call('league.get', {id: opponents[1].id})
 
     return [
       opponent1,
@@ -170,12 +204,26 @@ class LeagueService extends Service {
 
     await this.leaveLeague(ctx);
 
-    await ctx.call('league.create', {
+    const entity = await ctx.call('league.create', {
       ownerId: script.ownerId,
       ownerName: script.ownerName,
       scriptId: script.id,
       scriptName: script.scriptName,
       code: script.code
+    });
+
+    this.ranktable.add({
+      id: entity.id,
+      ownerId: entity.ownerId,
+      ownerName: entity.ownerName,
+      scriptId: entity.scriptId,
+      scriptName: entity.scriptName,
+      joinedAt: entity.joinedAt,
+      fights_total: entity.fights_total,
+      fights_win: entity.fights_win,
+      fights_lose: entity.fights_lose,
+      fights_error: entity.fights_error,
+      score: entity.score
     });
 
     return this.getLeagueSummary(ctx);
@@ -197,6 +245,10 @@ class LeagueService extends Service {
         id: submission.id
     }));
 
+    for(let submission of submissions) {
+      this.ranktable.remove(submission.id)
+    }
+
     await Promise.all(removals);
 
     return this.getLeagueSummary(ctx);
@@ -208,10 +260,8 @@ class LeagueService extends Service {
       throw new ValidationError('Not Authorized!', 401);
     }
 
-    let ranktable = await ctx.call('league.find', {
-      sort: '-score'
-    });
     const fields = [
+      "id",
       "ownerId",
       "ownerName",
       "scriptId",
@@ -222,15 +272,14 @@ class LeagueService extends Service {
       "fights_lose",
       "fights_error",
       "score"
-    ]
-    ranktable = ranktable.map((item) => _.pick(item, fields));
+    ];
 
     let submission = await this.getUserSubmission(ctx)
     submission = _.pick(submission, fields);
 
     return {
       submission,
-      ranktable
+      ranktable: this.ranktable.slice(submission.id, 7)
     }
   }
 

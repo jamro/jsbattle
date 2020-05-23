@@ -22,6 +22,7 @@ const getQueueLength = jest.fn();
 const pickRandomOpponents = jest.fn();
 const leagueUpdate = jest.fn();
 const leagueGet = jest.fn();
+const leagueUpdateRank = jest.fn();
 
 describe("Test 'League' service", () => {
 
@@ -121,7 +122,8 @@ describe("Test 'League' service", () => {
 				actions: {
 					pickRandomOpponents: pickRandomOpponents,
 					update: leagueUpdate,
-					get: leagueGet
+					get: leagueGet,
+					updateRank: leagueUpdateRank
 				}
 		})
 		broker.loadService(__dirname + "../../../../app/services/LeagueScheduler.service.js");
@@ -173,9 +175,14 @@ describe("Test 'League' service", () => {
 			}
 		});
 
-		expect(leagueUpdate.mock.calls).toHaveLength(2);
-		let entity1 = leagueUpdate.mock.calls[0][0].params;
-		let entity2 = leagueUpdate.mock.calls[1][0].params;
+		expect(leagueUpdateRank.mock.calls).toHaveLength(1);
+		expect(leagueUpdateRank.mock.calls[0]).toHaveLength(1);
+		expect(leagueUpdateRank.mock.calls[0][0]).toHaveProperty('params');
+		expect(leagueUpdateRank.mock.calls[0][0].params).toHaveProperty('results');
+		const results = leagueUpdateRank.mock.calls[0][0].params.results;
+		let entity1 = results[0];
+		let entity2 = results[1];
+
 		expect(entity1).toHaveProperty('id', '987243');
 		expect(entity1).toHaveProperty('fights_total', 94);
 		expect(entity1).toHaveProperty('fights_win', 5);

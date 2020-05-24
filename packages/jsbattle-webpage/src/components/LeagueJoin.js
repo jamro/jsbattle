@@ -8,9 +8,16 @@ export default class LeagueJoin extends React.Component {
   constructor(props) {
     super(props);
 
+    let submissionId = '';
+    if(this.props.selected && this.props.selected.scriptId) {
+      submissionId = this.props.selected.scriptId;
+    } else if(props.tankList.length) {
+      submissionId = props.tankList[0].id;
+    }
+
     this.state = {
       editMode: false,
-      newSubmissionId: props.tankList.length ? props.tankList[0].id : '',
+      newSubmissionId: submissionId,
     };
   }
 

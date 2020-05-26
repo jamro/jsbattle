@@ -70,11 +70,13 @@ class LeagueScheduler extends Service {
       }
     });
 
-    let winner = teamList.reduce((winner, current) => {
-      if(current.score > winner.score) {
+    this.logger.info('Battle result: ' + teamList.map((t) => `${t.name} (${t.battleScore})`).join(' vs '))
+
+    let winner = teamList.reduce((best, current) => {
+      if(current.battleScore > best.battleScore) {
         return current;
       } else {
-        return winner;
+        return best;
       }
     }, teamList[0]);
 

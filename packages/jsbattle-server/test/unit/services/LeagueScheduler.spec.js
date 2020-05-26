@@ -188,10 +188,10 @@ describe("Test 'League' service", () => {
 
 		expect(entityId1).toBe('987243');
 		expect(entityId2).toBe('50872');
-		expect(entityWon1).toBe(true);
-		expect(entityWon2).toBe(false);
-	});
+		expect(entityWon1).toBe(false);
+		expect(entityWon2).toBe(true);
 
+	});
 
 	it('should not process battle errors',  async () => {
 		leagueUpdate.mockReset();

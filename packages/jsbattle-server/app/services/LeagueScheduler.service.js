@@ -14,7 +14,8 @@ class LeagueScheduler extends Service {
       },
       dependencies: [
         'ubdPlayer',
-        'league'
+        'league',
+        'battleStore',
       ],
       started: () => {
         this.logger.info('Starting scheduling loop at ' + this.config.scheduleInterval + 'ms')
@@ -44,7 +45,8 @@ class LeagueScheduler extends Service {
           }
           await ctx.call('leagueScheduler.storeBattleResults', {
             refData: ctx.params.refData,
-            teamList: ctx.params.teamList
+            teamList: ctx.params.teamList,
+            ubd: ctx.params.ubd
           });
         }
       }
@@ -52,8 +54,13 @@ class LeagueScheduler extends Service {
   }
 
   async storeBattleResults(ctx) {
-
     let refData = ctx.params.refData;
+    let ubd = JSON.stringify(ctx.params.ubd);
+
+    await ctx.call('battleStore.create', {
+      ubd: ubd,
+      expiresIn: this.config.historyDuration
+    })
 
     let teamList = ctx.params.teamList;
     if(!teamList || teamList.length != 2) {
@@ -70,7 +77,7 @@ class LeagueScheduler extends Service {
       }
     });
 
-    this.logger.info('Battle result: ' + teamList.map((t) => `${t.name} (${t.battleScore})`).join(' vs '))
+    this.logger.info('Battle result: ' + teamList.map((t) => `${t.name} (${t.battleScore.toFixed(2)})`).join(' vs '))
 
     let winner = teamList.reduce((best, current) => {
       if(current.battleScore > best.battleScore) {

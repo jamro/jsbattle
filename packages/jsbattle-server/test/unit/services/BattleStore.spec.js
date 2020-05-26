@@ -5,11 +5,18 @@ const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
 
+const defaultExpireTime = 30*24*60*60*1000;
+
 describe("Test 'Battlestore' service", () => {
 
 	describe("ubdValidator always pass", () => {
-
-		let broker = new ConfigBroker({ logger: false }, {}, false);
+		const config = {
+			battleStore: {
+				defaultExpireTime: defaultExpireTime,
+				cleanupInterval: 100
+			}
+		};
+		let broker = new ConfigBroker({ logger: false }, config, false);
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {
@@ -20,6 +27,13 @@ describe("Test 'Battlestore' service", () => {
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());
+
+		beforeEach(async () => {
+			let readResult = await broker.call("battleStore.list", {});
+			readResult = readResult.rows.map((row) => row.id);
+			let removals = readResult.map((id) => broker.call("battleStore.remove", { id }));
+			await Promise.all(removals);
+		})
 
 		it('should store battle as text data', async () => {
 			const ubd = new UbdJsonMock();
@@ -33,19 +47,19 @@ describe("Test 'Battlestore' service", () => {
 		});
 
 		it('should throw an error when a battle does not exists', async () => {
-			expect(
+			await expect(
 				broker.call("battleStore.get", {id: '00000-02345987134598'})
 			).rejects.toThrow(MoleculerClientError)
 		});
 
 		it('should throw an error when id is missing for get call', async () => {
-			expect(
+			await expect(
 				broker.call("battleStore.get", {})
 			).rejects.toThrow(ValidationError)
 		});
 
 		it('should throw an error when ubd is missing for create call', async () => {
-			expect(
+			await expect(
 				broker.call("battleStore.create", {})
 			).rejects.toThrow(ValidationError)
 		});
@@ -73,6 +87,85 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.createdAt).toBe(writeResult.createdAt);
 		});
 
+		it('should set default expiration time', async () => {
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {ubd: JSON.stringify(ubd)});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			const now = new Date().getTime();
+			const expiresAt = readResult.expiresAt.getTime();
+			const expiresPeriod = expiresAt - now;
+			const dt = Math.abs(defaultExpireTime - expiresPeriod);
+			expect(dt < 5000).toBe(true);
+		});
+
+		it('should set expiration time by expiresAt field', async () => {
+			const expectedExpiresAt = new Date().getTime() + 823587924
+
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				expiresAt: new Date(expectedExpiresAt)
+			});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			const now = new Date().getTime();
+			const expiresAt = readResult.expiresAt.getTime();
+			const dt = Math.abs(expectedExpiresAt - expiresAt);
+			expect(dt < 5000).toBe(true);
+		});
+
+		it('should set expiration time by expiresIn field', async () => {
+			const expiresIn = 198347523;
+			const expectedExpiresAt = new Date().getTime() + expiresIn
+
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				expiresIn: expiresIn
+			});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			const now = new Date().getTime();
+			const expiresAt = readResult.expiresAt.getTime();
+			const dt = Math.abs(expectedExpiresAt - expiresAt);
+			expect(dt < 5000).toBe(true);
+		});
+
+		it('should not store expired battles', async () => {
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				expiresIn: -100000
+			});
+			expect(writeResult.error).toBeUndefined();
+			expect(writeResult.id).toBeUndefined();
+		});
+
+		it('should remove battles after expire date', async () => {
+			const ubd = new UbdJsonMock();
+			await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				expiresIn: 100
+			});
+			await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				expiresIn: 1000000
+			});
+
+			const readResult1 = await broker.call("battleStore.list", {});
+			expect(readResult1).toHaveProperty('total', 2);
+
+			await new Promise((resolve) => setTimeout(resolve, 700));
+
+			const readResult2 = await broker.call("battleStore.list", {});
+			expect(readResult2).toHaveProperty('total', 1);
+
+		});
+
 	});
 
 	describe("ubdValidator always fails", () => {
@@ -92,7 +185,7 @@ describe("Test 'Battlestore' service", () => {
 		it('throw error when invalid UBD', async () => {
 			const ubd = new UbdJsonMock();
 			ubd.version = -1;
-			expect(
+			await expect(
 				broker.call("battleStore.create", {ubd: JSON.stringify(ubd)})
 			).rejects.toThrow(MoleculerClientError)
 		});

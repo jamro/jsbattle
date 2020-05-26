@@ -17,12 +17,15 @@ const ownScript = {
 	code: '// hello 17487252'
 }
 
+const leagueHistoryDuration = 3*60*60*1000
+
 const scheduleBattle = jest.fn();
 const getQueueLength = jest.fn();
 const pickRandomOpponents = jest.fn();
 const leagueUpdate = jest.fn();
 const leagueGet = jest.fn();
 const leagueUpdateRank = jest.fn();
+const battleStoreCreate = jest.fn();
 
 describe("Test 'League' service", () => {
 
@@ -82,7 +85,8 @@ describe("Test 'League' service", () => {
 			 league: {
 					scheduleInterval: 10,
 					timeLimit: 3000,
-					teamSize: 3
+					teamSize: 3,
+					historyDuration: leagueHistoryDuration
 				},
 			 ubdPlayer: {
 				 queueLimit: 11
@@ -117,6 +121,13 @@ describe("Test 'League' service", () => {
 					scheduleBattle: scheduleBattle
 				}
 		})
+		broker.createService({
+				name: 'battleStore',
+				actions: {
+					create: battleStoreCreate,
+				}
+		})
+
 		broker.createService({
 				name: 'league',
 				actions: {
@@ -158,6 +169,7 @@ describe("Test 'League' service", () => {
 
 	it('should process battle result',  async () => {
 		leagueUpdate.mockReset();
+		battleStoreCreate.mockReset();
 		await broker.emit('ubdPlayer.battle.league', {
 			teamList: [
 				{
@@ -169,11 +181,19 @@ describe("Test 'League' service", () => {
 					score: 853
 				}
 			],
+			ubd: {"foo": "bar3245234"},
 			refData: {
 				'roger/kalix': '987243',
 				'barbra/matix': '50872'
 			}
 		});
+
+		expect(battleStoreCreate.mock.calls).toHaveLength(1);
+		expect(battleStoreCreate.mock.calls[0][0]).toHaveProperty('params');
+		expect(battleStoreCreate.mock.calls[0][0].params).toHaveProperty('ubd', JSON.stringify({"foo": "bar3245234"}));
+		expect(battleStoreCreate.mock.calls[0][0].params).toHaveProperty('expiresIn', leagueHistoryDuration);
+
+
 
 		expect(leagueUpdateRank.mock.calls).toHaveLength(2);
 		expect(leagueUpdateRank.mock.calls[0]).toHaveLength(1);

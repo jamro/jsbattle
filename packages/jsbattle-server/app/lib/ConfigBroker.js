@@ -30,7 +30,8 @@ class ConfigBroker extends ServiceBroker {
       "league": {
         "scheduleInterval": 30000,
         "timeLimit": 20000,
-        "teamSize": 3
+        "teamSize": 3,
+        "historyDuration": 3*24*60*60*1000
       },
       "ubdPlayer": {
         "queueLimit": 2,
@@ -38,6 +39,10 @@ class ConfigBroker extends ServiceBroker {
         "port": 8899,
         "speed": 1,
         "timeout": 60000
+      },
+      "battleStore": {
+        "defaultExpireTime": 7*24*60*60*1000,
+        "cleanupInterval": 60*60*1000,
       }
     };
 

@@ -48,7 +48,8 @@ class BattleList extends Component {
                       'urlLink'
                     ]
                   },
-                  {name: 'Create Date', field: 'createdAt', format: 'date'}
+                  {name: 'Create Date', field: 'createdAt', format: 'date'},
+                  {name: 'Expire Date', field: 'expiresAt', format: 'date'}
                 ]}
                 data={this.props.battlePage}
                 onPageRequest={(page) => this.props.getBattleList(page)}

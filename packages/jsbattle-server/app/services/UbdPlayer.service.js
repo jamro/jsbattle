@@ -82,6 +82,7 @@ class UbdPlayer extends Service {
             const text = await page.evaluate((element) => element.innerHTML, element);
             await page.close();
             const jsonResult = JSON.parse(text)
+            jsonResult.ubd = ubd;
             if(task.refData) {
               jsonResult.refData = task.refData;
             }

@@ -9,7 +9,7 @@ class BattleStoreService extends Service {
   constructor(broker) {
     super(broker);
 
-    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'userStore')
+    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'battleStore')
     this.parseServiceSchema({
       ...adapterConfig,
       name: "battleStore",

@@ -52,13 +52,6 @@ class LeagueScheduler extends Service {
   }
 
   async storeBattleResults(ctx) {
-    function getK(score) {
-      if(score > 3000) return 4
-      if(score > 2700) return 8
-      if(score > 2400) return 16
-      if(score > 2100) return 24
-      return 32;
-    }
 
     let refData = ctx.params.refData;
 
@@ -66,6 +59,16 @@ class LeagueScheduler extends Service {
     if(!teamList || teamList.length != 2) {
       throw new Error('teamList must have exactly 2 elements');
     }
+    teamList = teamList.map((team) => {
+      if(!refData || !refData[team.name]) {
+        throw new Error('no team mapping in refData for: ' + team.name);
+      }
+      return {
+        id: refData[team.name],
+        name: team.name,
+        battleScore: team.score
+      }
+    });
 
     let winner = teamList.reduce((winner, current) => {
       if(current.score > winner.score) {
@@ -75,98 +78,20 @@ class LeagueScheduler extends Service {
       }
     }, teamList[0]);
 
-    teamList = teamList.map((team) => {
-      if(!refData || !refData[team.name]) {
-        throw new Error('no team mapping in refData for: ' + team.name);
-      }
-      return {
-        id: refData[team.name],
-        name: team.name,
-        score: team.score,
-        winner: team == winner
-      }
-    });
-
-    let battleSummary = teamList.map((t) => {
-      if (t.winner) {
-        return `${t.name} (winner)`
-      } else {
-        return t.name
-      }
-    }).join(' vs ');
-    this.logger.info(`Storing results of ${battleSummary}`);
-
-    // get current state of entity
-    let existingEntries = [];
-    let getCalls = teamList.map((team) => new Promise(async (resolve) => {
+    let updateCalls = teamList.map((team) => new Promise(async (resolve) => {
       try {
-        existingEntries.push(await ctx.call('league.get', {
+        await ctx.call('league.updateRank', {
           id: team.id,
-          fields: [
-            'id',
-            'ownerName',
-            'scriptName',
-            'fights_total',
-            'fights_win',
-            'fights_lose',
-            'score'
-          ]
-        }));
+          name: team.name,
+          battleScore: team.battleScore,
+          winner: team == winner
+        });
       } catch (err) {
-        this.logger.warn('Unable to store battle results: ' + err.message);
+        this.logger.warn('Unable to store battle results of ' + team.name + ': ' + err.message);
       }
       resolve();
     }));
-    await Promise.all(getCalls)
-    teamList = teamList.map((team) => ({
-      ...team,
-      entity: existingEntries.find((entry) => entry.id == team.id)
-    }))
-
-    teamList = teamList.filter((team) => team && team.entity);
-
-    if(teamList.length < 2) {
-      this.logger.debug('Not all opponents exist. Skipping results');
-      return;
-    }
-
-    // update entities
-    teamList = teamList.map((team) => ({
-      ...team,
-      entity: {
-        ...team.entity,
-        fights_total: team.entity.fights_total + 1,
-        fights_win: team.entity.fights_win + (team.winner ? 1 : 0),
-        fights_lose: team.entity.fights_lose + (team.winner ? 0 : 1),
-      }
-    }));
-
-    // calculate Elo score
-    let score1 = teamList[0].entity.score;
-    let score2 = teamList[1].entity.score;
-    let oldScore1 = score1;
-    let oldScore2 = score2;
-    let result1 = teamList[0].winner ? 1 : 0
-    let result2 = teamList[1].winner ? 1 : 0
-    let expectedResult = 1 / (1 + Math.pow(10, (score1 - score2)/400));
-    score1 = score1 + getK(score1) * (result1 - expectedResult);
-    score2 = score2 + getK(score2) * (result2 - (1 - expectedResult));
-    teamList[0].entity.score = Math.max(100, Math.round(score1));
-    teamList[1].entity.score = Math.max(100, Math.round(score2));
-
-    this.logger.debug(`Score of ${teamList[0].name}: ${oldScore1} -> ${teamList[0].entity.score}`)
-    this.logger.debug(`Score of ${teamList[1].name}: ${oldScore2} -> ${teamList[1].entity.score}`)
-
-
-    teamList = teamList.map((team) => ({
-      id: team.entity.id,
-      fights_total: team.entity.fights_total,
-      fights_win: team.entity.fights_win,
-      fights_lose: team.entity.fights_lose,
-      score: team.entity.score
-    }));
-
-    await ctx.call('league.updateRank', {results: teamList});
+    await Promise.all(updateCalls)
 
   }
 

@@ -175,24 +175,21 @@ describe("Test 'League' service", () => {
 			}
 		});
 
-		expect(leagueUpdateRank.mock.calls).toHaveLength(1);
+		expect(leagueUpdateRank.mock.calls).toHaveLength(2);
 		expect(leagueUpdateRank.mock.calls[0]).toHaveLength(1);
+		expect(leagueUpdateRank.mock.calls[1]).toHaveLength(1);
 		expect(leagueUpdateRank.mock.calls[0][0]).toHaveProperty('params');
-		expect(leagueUpdateRank.mock.calls[0][0].params).toHaveProperty('results');
-		const results = leagueUpdateRank.mock.calls[0][0].params.results;
-		let entity1 = results[0];
-		let entity2 = results[1];
+		expect(leagueUpdateRank.mock.calls[1][0]).toHaveProperty('params');
 
-		expect(entity1).toHaveProperty('id', '987243');
-		expect(entity1).toHaveProperty('fights_total', 94);
-		expect(entity1).toHaveProperty('fights_win', 5);
-		expect(entity1).toHaveProperty('fights_lose', 89);
-		expect(entity1).toHaveProperty('score', 100);
-		expect(entity2).toHaveProperty('id', '50872');
-		expect(entity2).toHaveProperty('fights_total', 205);
-		expect(entity2).toHaveProperty('fights_win', 191);
-		expect(entity2).toHaveProperty('fights_lose', 14);
-		expect(entity2).toHaveProperty('score', 885);
+		let entityId1 = leagueUpdateRank.mock.calls[0][0].params.id
+		let entityId2 = leagueUpdateRank.mock.calls[1][0].params.id
+		let entityWon1 = leagueUpdateRank.mock.calls[0][0].params.winner
+		let entityWon2 = leagueUpdateRank.mock.calls[1][0].params.winner
+
+		expect(entityId1).toBe('987243');
+		expect(entityId2).toBe('50872');
+		expect(entityWon1).toBe(true);
+		expect(entityWon2).toBe(false);
 	});
 
 

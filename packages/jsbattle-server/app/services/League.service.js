@@ -67,7 +67,7 @@ class LeagueService extends Service {
               ctx.params.fights_win = 0;
               ctx.params.fights_lose = 0;
               ctx.params.fights_error = 0;
-              ctx.params.score = 1000;
+              ctx.params.score = 0;
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
@@ -103,43 +103,51 @@ class LeagueService extends Service {
   }
 
   async updateRank(ctx) {
-    if(!ctx || !ctx.params || !ctx.params.results) {
-      throw new ValidationError('results parameter is required!');
+    if(!ctx || !ctx.params || ctx.params.id === undefined) {
+      throw new ValidationError('id parameter is required!');
+    }
+    if(!ctx || !ctx.params || ctx.params.winner === undefined) {
+      throw new ValidationError('winner parameter is required!');
     }
 
-    let updateCalls = ctx.params.results.map((entity) => ctx.call('league.update', {
+    let entity = await this._get(ctx, {
+      id: ctx.params.id,
+      fields: [
+        'id',
+        'fights_total',
+        'fights_win',
+        'fights_lose',
+        'score'
+      ]
+    });
+
+    let newScore;
+    if(ctx.params.winner) {
+      newScore = entity.score + (10000 - entity.score)/25;
+    } else {
+      newScore = entity.score + (0 - entity.score)/25;
+    }
+    let newEntity = {
       id: entity.id,
-      fights_total: entity.fights_total,
-      fights_win: entity.fights_win,
-      fights_lose: entity.fights_lose,
-      score: entity.score,
-    }));
-    updateCalls = updateCalls.map((callback) => new Promise(async (resolve) => {
-      try {
-        await callback;
-      } catch (err) {
-        this.logger.warn('unable to update league entry. Entry not found')
-      }
-      resolve();
-    }));
-    await Promise.all(updateCalls);
-
-    ctx.params.results.forEach((entity) => this.ranktable.updateScore(
-      entity.id,
-      entity.score,
-      entity.fights_total,
-      entity.fights_win,
-      entity.fights_lose
-    ));
-
+      fights_total: entity.fights_total + 1,
+      fights_win: entity.fights_win + (ctx.params.winner ? 1 : 0),
+      fights_lose: entity.fights_lose + (ctx.params.winner ? 0 : 1),
+      score: Math.round(newScore)
+    }
+    this._update(ctx, newEntity);
+    this.ranktable.updateScore(
+      newEntity.id,
+      newEntity.score,
+      newEntity.fights_total,
+      newEntity.fights_win,
+      newEntity.fights_lose
+    );
   }
 
   async pickRandomOpponents(ctx) {
     let opponents = this.ranktable.pickRandom();
-
     let opponent1 = await ctx.call('league.get', {id: opponents[0].id})
     let opponent2 = await ctx.call('league.get', {id: opponents[1].id})
-
     return [
       opponent1,
       opponent2
@@ -282,7 +290,5 @@ class LeagueService extends Service {
       ranktable: this.ranktable.slice(submission.id, 7)
     }
   }
-
 }
-
 module.exports = LeagueService;

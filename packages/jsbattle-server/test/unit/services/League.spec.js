@@ -116,7 +116,7 @@ describe("Test 'League' service", () => {
 		expect(entry).toHaveProperty('fights_win', 0);
 		expect(entry).toHaveProperty('fights_lose', 0);
 		expect(entry).toHaveProperty('fights_error', 0);
-		expect(entry).toHaveProperty('score', 1000);
+		expect(entry).toHaveProperty('score', 0);
 	});
 
 	it('should return league summary',  async () => {
@@ -261,6 +261,39 @@ describe("Test 'League' service", () => {
 		await expect(
 			broker.call('league.pickRandomOpponents', {})
 		).rejects.toThrow(/no opponents/i)
+	});
+
+	it('should throw error when no input for update rank',  async () => {
+		await expect(
+			broker.call('league.updateRank', {})
+		).rejects.toThrow(/parameter is required/i)
+
+		await expect(
+			broker.call('league.updateRank', {winner: true})
+		).rejects.toThrow(/parameter is required/i)
+
+		await expect(
+			broker.call('league.updateRank', {id: '8871234'})
+		).rejects.toThrow(/parameter is required/i)
+	});
+
+	it('should update rank',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		let createResult = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		let entityId = createResult.submission.id;
+		await broker.call('league.updateRank', {id: entityId, winner: true});
+		await broker.call('league.updateRank', {id: entityId, winner: true});
+		await broker.call('league.updateRank', {id: entityId, winner: false});
+
+		let entity = await broker.call('league.get', {id: entityId});
+		expect(entity).toHaveProperty('fights_total', 3);
+		expect(entity).toHaveProperty('fights_win', 2);
+		expect(entity).toHaveProperty('fights_lose', 1);
+		expect(entity).toHaveProperty('score', 753);
 	});
 
 });

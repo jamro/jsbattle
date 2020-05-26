@@ -13,6 +13,16 @@ let config = {
     "port": "9000",
     "gaCode": "AB-123456789-Z"
   },
+  "league": {
+    "scheduleInterval": 1000,
+    "timeLimit": 10000
+  },
+  "ubdPlayer": {
+    "queueLimit": 3,
+    "queueQueryTime": 1000,
+    "speed": 5,
+    "timeout": 20000
+  },
   "auth": {
     "enabled": true,
     "admins": [

@@ -156,8 +156,8 @@ class RankTable {
     if(count <= 1) {
       throw new Error('no opponents found for the league match')
     }
-    let rand1 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
-    let rand2 = 0.3*Math.random() + 0.7*Math.random()*Math.random();
+    let rand1 = Math.random();
+    let rand2 = Math.random();
     let index1 = Math.floor(rand1*count);
     let index2 = Math.floor(rand2*(count-1));
     if(index2 >= index1) {

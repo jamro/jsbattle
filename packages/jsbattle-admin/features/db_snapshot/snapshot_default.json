@@ -140,64 +140,88 @@
   ],
   "admin,battles": [
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"1QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "1QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "userA/ai001 vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"2QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "2QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "alpha/maveric vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"3QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "3QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "beta/mayday3 vs alpha/maveric"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"4QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "4QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "userA/ai001 vs beta/mayday3"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"5QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "5QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "userA/ai001 vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"6QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "6QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "alpha/maveric vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"7QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "7QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "geog9/alan9 vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"8QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "8QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "userA/ai001 vs brody/xx9a"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"9QCTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "9QCTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "geog9/alan9 vs brody/xx9a"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"11CTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "11CTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "userA/ai001 vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"12CTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "12CTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "alpha/maveric vs tonny/bee87"
     },
     {
-      "ubd":"{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
-      "id":"13CTzInfyJTAGm9i",
-      "createdAt": "2020-01-24T23:17:43.004Z"
+      "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",
+      "id": "13CTzInfyJTAGm9i",
+      "createdAt": "2020-01-24T23:17:43.004Z",
+      "expiresAt": "2020-01-27T23:17:43.004Z",
+      "description": "geog9/alan9 vs brody/xx9a"
     }
   ],
   "profile": {

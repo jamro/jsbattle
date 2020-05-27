@@ -9,12 +9,10 @@ import Loading from '../components/Loading.js';
 import {connect} from 'react-redux';
 import {getBattleList} from '../actions';
 
-
-
 function vsFormatter(value) {
   let parts = new RegExp(/(.+)\/(.+) vs (.+)\/(.+)/).exec(value);
 
-  return <span style={{color: "#333"}}><strong style={{color: "#000"}}>{parts[1]}</strong>/{parts[2]} <span style={{color: "#888"}}>vs</span> <strong style={{color: "#000"}}>{parts[3]}</strong>/{parts[4]}</span>
+  return <span style={{color: "#333"}}><strong style={{color: "#000"}}>{parts[1]}</strong>/{parts[2]} <span style={{color: "#888"}}>vs</span> <strong style={{color: "#000"}}>{parts[3]}</strong>/{parts[4]}</span>;
 }
 
 class BattleList extends Component {

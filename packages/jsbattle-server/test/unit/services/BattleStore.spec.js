@@ -46,6 +46,21 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
+		it('should store metadata of the battle', async () => {
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				description: "my battle 7872345234"
+			});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			expect(readResult.error).toBeUndefined();
+			expect(readResult.id).toBe(writeResult.id);
+			expect(readResult.ubd).toBe(JSON.stringify(ubd));
+			expect(readResult.description).toBe("my battle 7872345234");
+		});
+
 		it('should throw an error when a battle does not exists', async () => {
 			await expect(
 				broker.call("battleStore.get", {id: '00000-02345987134598'})

@@ -57,11 +57,6 @@ class LeagueScheduler extends Service {
     let refData = ctx.params.refData;
     let ubd = JSON.stringify(ctx.params.ubd);
 
-    await ctx.call('battleStore.create', {
-      ubd: ubd,
-      expiresIn: this.config.historyDuration
-    })
-
     let teamList = ctx.params.teamList;
     if(!teamList || teamList.length != 2) {
       throw new Error('teamList must have exactly 2 elements');
@@ -78,6 +73,13 @@ class LeagueScheduler extends Service {
     });
 
     this.logger.info('Battle result: ' + teamList.map((t) => `${t.name} (${t.battleScore.toFixed(2)})`).join(' vs '))
+
+    let description = teamList.map((t) => t.name).join(' vs ').substring(0, 128);
+    await ctx.call('battleStore.create', {
+      ubd: ubd,
+      expiresIn: this.config.historyDuration,
+      description: description
+    })
 
     let winner = teamList.reduce((best, current) => {
       if(current.battleScore > best.battleScore) {

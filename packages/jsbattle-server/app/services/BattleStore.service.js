@@ -20,11 +20,13 @@ class BattleStoreService extends Service {
           "id",
           "createdAt",
           "expiresAt",
-          "ubd"
+          "ubd",
+          "description"
         ]
       },
       entityValidator: {
-        ubd: "string",
+        ubd: { type: "string", min: 2 },
+        description: { type: "string", max: 128 },
         createdAt: "date",
         expiresAt: "date",
         expiresIn: "number"

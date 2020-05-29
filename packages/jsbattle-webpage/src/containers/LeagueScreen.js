@@ -1,6 +1,9 @@
 import FullRow from "../components/FullRow.js";
+import Row from "../components/Row.js";
+import Col from "../components/Col.js";
 import Loading from "../components/Loading.js";
 import LeagueJoin from "../components/LeagueJoin.js";
+import LeagueHistory from "../components/LeagueHistory.js";
 import React from "react";
 import {connect} from 'react-redux';
 import {
@@ -32,7 +35,7 @@ export class LeagueScreen extends React.Component {
       <td className="text-right">{item.fights_total}</td>
       <td className="text-right">{item.fights_win}</td>
       <td className="text-right">{item.fights_lose}</td>
-      <td className="text-right"><span className="badge badge-primary"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {item.score}</span></td>
+      <td className="text-right"><span className="badge badge-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {item.score}</span></td>
     </tr>;
   }
 
@@ -63,12 +66,20 @@ export class LeagueScreen extends React.Component {
     }
 
     return <div>
-      <FullRow>
-        {leagueJoin}
-      </FullRow>
+      <Row>
+        <Col md={4}>
+          {leagueJoin}
+        </Col>
+        <Col md={8}>
+          <LeagueHistory
+            data={this.props.leagueHistory}
+            selectedId={this.props.submission ? this.props.submission.id : ''}
+          />
+        </Col>
+      </Row>
       <FullRow>
         <table className="table">
-          <thead>
+          <thead className="thead-dark">
             <tr>
               <th scope="col" className="text-right">Rank</th>
               <th scope="col" className="text-left">Name</th>
@@ -92,6 +103,7 @@ LeagueScreen.defaultProps = {
   tankList: [],
   submission: null,
   ranktable: [],
+  leagueHistory: [],
   isLoading: false,
   isJoining: false,
   getSandboxAiScriptList: () => {},
@@ -113,12 +125,14 @@ LeagueScreen.propTypes = {
   joinLeague: PropTypes.func,
   leaveLeague: PropTypes.func,
   notifyLeagueOpen: PropTypes.func,
+  leagueHistory: PropTypes.array
 };
 const mapStateToProps = (state) => ({
   isAuthorized: state.auth.profile && (state.auth.profile.role  == 'admin' || state.auth.profile.role  == 'user'),
   tankList: state.aiRepo.tankList,
   submission: state.league.submission,
   ranktable: state.league.ranktable,
+  leagueHistory: state.league.history,
   isLoading: state.loading.LEAGUE_SUMMARY,
   isJoining: state.loading.SANDBOX_AI_SCRIPT_LIST || state.loading.LEAGUE_NEW_SUBMISSION || state.loading.LEAGUE_CLEAR_SUBMISSION
 });

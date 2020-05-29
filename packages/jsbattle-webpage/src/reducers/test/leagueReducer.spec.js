@@ -22,6 +22,10 @@ test('league summary', () => {
         submission: {id: 7245, scriptName: 'humau4316'},
         ranktable: [
           {id: 982354, scriptName: 'bobb9245'}
+        ],
+        history: [
+          {id: 3245},
+          {id: 6543}
         ]
       }
     }
@@ -32,6 +36,9 @@ test('league summary', () => {
   expect(outcomeState.ranktable).toHaveLength(1)
   expect(outcomeState.ranktable[0]).toHaveProperty('id', 982354)
   expect(outcomeState.ranktable[0]).toHaveProperty('scriptName', 'bobb9245')
+  expect(outcomeState.history).toHaveLength(2)
+  expect(outcomeState.history[0]).toHaveProperty('id', 3245)
+  expect(outcomeState.history[1]).toHaveProperty('id', 6543)
 });
 
 

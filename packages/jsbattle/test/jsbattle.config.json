@@ -5,6 +5,9 @@
     "webroot": "./dist/public",
     "baseUrl": "http://localhost:8100"
   },
+  "ubdPlayer": {
+    "port": 8891
+  },
   "auth": {
     "enabled": true,
     "admins": [

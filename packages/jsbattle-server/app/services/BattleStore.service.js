@@ -21,7 +21,8 @@ class BattleStoreService extends Service {
           "createdAt",
           "expiresAt",
           "ubd",
-          "description"
+          "description",
+          "meta"
         ]
       },
       entityValidator: {
@@ -29,7 +30,8 @@ class BattleStoreService extends Service {
         description: { type: "string", max: 128 },
         createdAt: "date",
         expiresAt: "date",
-        expiresIn: "number"
+        expiresIn: "number",
+        meta: "object",
       },
       dependencies: ['ubdValidator'],
       actions: {
@@ -53,6 +55,7 @@ class BattleStoreService extends Service {
               }
               ctx.params.createdAt = new Date();
               ctx.params.expiresAt = ctx.params.expiresAt || defaultExpires;
+              ctx.params.meta = ctx.params.meta || {};
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
@@ -114,7 +117,7 @@ class BattleStoreService extends Service {
     this.logger.info(`Publishing UBD`);
     let response = await this._create(ctx, ctx.params);
 
-    return response
+    return response;
   }
 
 }

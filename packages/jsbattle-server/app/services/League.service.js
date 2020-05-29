@@ -5,7 +5,7 @@ const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 const fs = require('fs');
 const path = require('path');
-const RankTable = require('./league/RankTable.js');
+const RankTable = require('./league/lib/RankTable.js');
 
 class LeagueService extends Service {
 
@@ -48,11 +48,15 @@ class LeagueService extends Service {
         score: "number",
         code: { type: "string", min: 0, max: 65536 },
       },
-      dependencies: ['scriptStore'],
+      dependencies: [
+        'scriptStore',
+        'battleStore'
+      ],
       actions: {
         pickRandomOpponents: this.pickRandomOpponents,
         seedLeague: this.seedLeague,
         getUserSubmission: this.getUserSubmission,
+        getHistory: this.getHistory,
         joinLeague: this.joinLeague,
         leaveLeague: this.leaveLeague,
         getLeagueSummary: this.getLeagueSummary,
@@ -100,6 +104,29 @@ class LeagueService extends Service {
         }
       }
     });
+  }
+
+  async getHistory(ctx) {
+    let items = await ctx.call('battleStore.find', {
+      sort: '-createdAt',
+      limit: 7,
+      fields: [
+        "id",
+        "description",
+        "meta",
+        "createdAt"
+      ]
+    });
+    items = items.map((item) => ({
+      id: item.id,
+      createdAt: item.createdAt,
+      players: item.meta.map((player) => ({
+        id: player.id,
+        name: player.name,
+        winner: player.winner
+      }))
+    }))
+    return items;
   }
 
   async updateRank(ctx) {
@@ -287,7 +314,8 @@ class LeagueService extends Service {
 
     return {
       submission,
-      ranktable: this.ranktable.slice(submission.id, 7)
+      ranktable: this.ranktable.slice(submission.id, 7),
+      history: await ctx.call('league.getHistory', {})
     }
   }
 }

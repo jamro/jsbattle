@@ -46,6 +46,21 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
+		it('should store battle meta data', async () => {
+			const ubd = new UbdJsonMock();
+			const writeResult = await broker.call("battleStore.create", {
+				ubd: JSON.stringify(ubd),
+				meta: {foo73: "bar84"}
+			});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			expect(readResult.error).toBeUndefined();
+			expect(readResult).toHaveProperty('meta');
+			expect(readResult.meta).toHaveProperty('foo73', 'bar84');
+			expect(readResult.ubd).toBe(JSON.stringify(ubd));
+		});
+
 		it('should store metadata of the battle', async () => {
 			const ubd = new UbdJsonMock();
 			const writeResult = await broker.call("battleStore.create", {

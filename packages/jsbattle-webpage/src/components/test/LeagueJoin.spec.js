@@ -70,11 +70,14 @@ test('Renders submission', () => {
   const wrapper = shallow(<LeagueJoin
       selected={{
         scriptName: 'alpha8664',
-        joinedAt: '2020-01-02 01:02:03',
+        joinedAt: '2020-11-29 01:02:03',
       }}
     />);
   expect(wrapper.render().text()).toMatch(/alpha8664/i);
-  expect(wrapper.render().text()).toMatch(/2020-01-02 01:02:03/i);
+  expect(wrapper.render().text()).toMatch(/2020/i);
+  expect(wrapper.render().text()).toMatch(/11/i);
+  expect(wrapper.render().text()).toMatch(/29/i);
+  expect(wrapper.render().text()).toMatch(/02:03/i);
   expect(wrapper.find("button.league-edit")).toHaveLength(1)
 });
 

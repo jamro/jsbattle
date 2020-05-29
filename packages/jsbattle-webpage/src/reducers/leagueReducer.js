@@ -6,7 +6,8 @@ import {
 
 const initState = {
   submission: null,
-  ranktable: []
+  ranktable: [],
+  history: []
 };
 
 
@@ -24,7 +25,8 @@ function leagueReducer(state = {}, action) {
       return {
         ...state,
         submission: Object.keys(action.payload.submission).length == 0 ? null : action.payload.submission,
-        ranktable: action.payload.ranktable
+        ranktable: action.payload.ranktable,
+        history: action.payload.history
       };
     default:
       return state;

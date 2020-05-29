@@ -291,12 +291,9 @@
     "scriptName": "nihnae",
     "joinedAt": "2020-02-23T08:27:42.940Z",
     "rank": 1,
-    "fights": {
-      "total": 343,
-      "won": 128,
-      "lose": 223,
-      "error": 43
-    },
+    "fights_total": 343,
+    "fights_win": 128,
+    "fights_lose": 43,
     "score": 1092
   },
   "user,league": {
@@ -308,12 +305,9 @@
       "scriptName": "nihnae",
       "joinedAt": "2020-02-23T08:27:42.940Z",
       "rank": 1,
-      "fights": {
-        "total": 343,
-        "won": 128,
-        "lose": 223,
-        "error": 43
-      },
+      "fights_total": 343,
+      "fights_win": 128,
+      "fights_lose": 43,
       "score": 1092
     },
     "ranktable": [
@@ -325,13 +319,10 @@
         "scriptName": "killa-8",
         "joinedAt": "2020-01-28T10:27:42.940Z",
         "rank": 1,
-        "fights": {
-          "total": 642,
-          "won": 561,
-          "lose": 213,
-          "error": 1
-        },
-        "score": 1872
+        "fights_total": 343,
+        "fights_win": 128,
+        "fights_lose": 43,
+        "score": 1092
       },
       {
         "id": "U7aO66layk0yEqwg",
@@ -341,12 +332,9 @@
         "scriptName": "nihnae",
         "joinedAt": "2020-02-23T08:27:42.940Z",
         "rank": 2,
-        "fights": {
-          "total": 343,
-          "won": 128,
-          "lose": 223,
-          "error": 43
-        },
+        "fights_total": 342,
+        "fights_win": 50,
+        "fights_lose": 122,
         "score": 1092
       },
       {
@@ -357,14 +345,125 @@
         "scriptName": "3ll3a",
         "joinedAt": "2020-04-01T12:34:42.940Z",
         "rank": 3,
-        "fights": {
-          "total": 123,
-          "won": 120,
-          "lose": 2,
-          "error": 1
-        },
-        "score": 993
+        "fights_total": 354,
+        "fights_win": 128,
+        "fights_lose": 43,
+        "score": 1092
       }
+    ],
+    "history": [
+        {
+            "id": "p0lYXgSL6l8QcRLc",
+            "createdAt": "2020-04-01T12:34:49.940Z",
+            "players": [
+                {
+                    "id": "DmYdtErQJnZGpp9y",
+                    "name": "jsbattle/crawler",
+                    "winner": true
+                },
+                {
+                    "id": "wEnX0XSEfAIPmyOi",
+                    "name": "jsbattle/chicken",
+                    "winner": false
+                }
+            ]
+        },
+        {
+            "id": "ORhzc8LFEoUhZg2N",
+            "createdAt": "2020-04-01T12:34:48.940Z",
+            "players": [
+                {
+                    "id": "pMaaEfDjmw65gQKR",
+                    "name": "jsbattle/dodge",
+                    "winner": true
+                },
+                {
+                    "id": "DmYdtErQJnZGpp9y",
+                    "name": "jsbattle/crawler",
+                    "winner": false
+                }
+            ]
+        },
+        {
+            "id": "QokqNqarUwI1lxpo",
+            "createdAt": "2020-04-01T12:34:47.940Z",
+            "players": [
+                {
+                    "id": "iVl94fUAOiXXGm3H",
+                    "name": "jsbattle/sniper",
+                    "winner": false
+                },
+                {
+                    "id": "ME1DpnV8uHet6tjl",
+                    "name": "jsbattle/kamikaze",
+                    "winner": true
+                }
+            ]
+        },
+        {
+            "id": "misNbE35uRlw43kM",
+            "createdAt": "2020-04-01T12:34:46.940Z",
+            "players": [
+                {
+                    "id": "pMaaEfDjmw65gQKR",
+                    "name": "jsbattle/dodge",
+                    "winner": true
+                },
+                {
+                    "id": "wEnX0XSEfAIPmyOi",
+                    "name": "jsbattle/chicken",
+                    "winner": false
+                }
+            ]
+        },
+        {
+            "id": "op6qpAicpDB88qq5",
+            "createdAt": "2020-04-01T12:34:45.940Z",
+            "players": [
+                {
+                    "id": "13zCqjrThAGrw2vf",
+                    "name": "jsbattle/jamro",
+                    "winner": false
+                },
+                {
+                    "id": "pMaaEfDjmw65gQKR",
+                    "name": "jsbattle/dodge",
+                    "winner": false
+                }
+            ]
+        },
+        {
+            "id": "sVFjmG406YnTSUa5",
+            "createdAt": "2020-04-01T12:34:44.940Z",
+            "players": [
+                {
+                    "id": "iVl94fUAOiXXGm3H",
+                    "name": "jsbattle/sniper",
+                    "winner": true
+                },
+                {
+                    "id": "DmYdtErQJnZGpp9y",
+                    "name": "jsbattle/crawler",
+                    "winner": false
+                }
+            ]
+        },
+        {
+            "id": "RTS41R2bY2XBaRb5",
+            "createdAt": "2020-04-01T12:34:43.940Z",
+            "players": [
+                {
+                    "id": "DmYdtErQJnZGpp9y",
+                    "name": "jsbattle/crawler",
+                    "winner": true
+                },
+                {
+                    "id": "Q4W23fZ49j84nRQa",
+                    "name": "jsbattle/crazy",
+                    "winner": false
+                }
+            ]
+        }
     ]
   },
   "authMethods": {

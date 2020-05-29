@@ -17,6 +17,57 @@ const ownScript = {
 	code: '// hello 17487252'
 }
 
+const leagueHistory = [
+	{
+		id: '97723883',
+		createdAt: new Date(87239452345),
+		meta: [
+			{
+				id: '876',
+				name: 'alpha',
+				winner: false
+			},
+			{
+				id: '989',
+				name: 'beta',
+				winner: true
+			}
+		]
+	},
+	{
+		id: '89766875',
+		createdAt: new Date(523423450921),
+		meta: [
+			{
+				id: '192',
+				name: 'gamma',
+				winner: true
+			},
+			{
+				id: '391',
+				name: 'zetta',
+				winner: false
+			}
+		]
+	},
+	{
+		id: '230947923',
+		createdAt: new Date(345234029832),
+		meta: [
+			{
+				id: '109',
+				name: 'omega',
+				winner: true
+			},
+			{
+				id: '673',
+				name: 'psi',
+				winner: false
+			}
+		]
+	}
+]
+
 describe("Test 'League' service", () => {
 
 	let broker;
@@ -54,6 +105,12 @@ describe("Test 'League' service", () => {
 								throw new Error('not found')
 						}
 					}
+				}
+		})
+		broker.createService({
+				name: 'battleStore',
+				actions: {
+					find: (ctx) => leagueHistory
 				}
 		})
 		broker.loadService(__dirname + "../../../../app/services/League.service.js");
@@ -137,6 +194,39 @@ describe("Test 'League' service", () => {
 		expect(result.submission).toHaveProperty('ownerId', '123456');
 		expect(result).toHaveProperty('ranktable');
 		expect(result.ranktable).toHaveLength(2);
+		expect(result).toHaveProperty('history');
+		expect(result.history).toHaveLength(3);
+		expect(result.history[0]).toHaveProperty('id', leagueHistory[0].id);
+		expect(result.history[1]).toHaveProperty('id', leagueHistory[1].id);
+		expect(result.history[2]).toHaveProperty('id', leagueHistory[2].id);
+		expect(result.history[0]).toHaveProperty('createdAt', leagueHistory[0].createdAt);
+		expect(result.history[1]).toHaveProperty('createdAt', leagueHistory[1].createdAt);
+		expect(result.history[2]).toHaveProperty('createdAt', leagueHistory[2].createdAt);
+		expect(result.history[0]).toHaveProperty('players');
+		expect(result.history[1]).toHaveProperty('players');
+		expect(result.history[2]).toHaveProperty('players');
+		expect(result.history[0].players).toHaveLength(2);
+		expect(result.history[1].players).toHaveLength(2);
+		expect(result.history[2].players).toHaveLength(2);
+		expect(result.history[0].players[0]).toHaveProperty('id', leagueHistory[0].meta[0].id);
+		expect(result.history[0].players[1]).toHaveProperty('id', leagueHistory[0].meta[1].id);
+		expect(result.history[1].players[0]).toHaveProperty('id', leagueHistory[1].meta[0].id);
+		expect(result.history[1].players[1]).toHaveProperty('id', leagueHistory[1].meta[1].id);
+		expect(result.history[2].players[0]).toHaveProperty('id', leagueHistory[2].meta[0].id);
+		expect(result.history[2].players[1]).toHaveProperty('id', leagueHistory[2].meta[1].id);
+		expect(result.history[0].players[0]).toHaveProperty('name', leagueHistory[0].meta[0].name);
+		expect(result.history[0].players[1]).toHaveProperty('name', leagueHistory[0].meta[1].name);
+		expect(result.history[1].players[0]).toHaveProperty('name', leagueHistory[1].meta[0].name);
+		expect(result.history[1].players[1]).toHaveProperty('name', leagueHistory[1].meta[1].name);
+		expect(result.history[2].players[0]).toHaveProperty('name', leagueHistory[2].meta[0].name);
+		expect(result.history[2].players[1]).toHaveProperty('name', leagueHistory[2].meta[1].name);
+		expect(result.history[0].players[0]).toHaveProperty('winner', leagueHistory[0].meta[0].winner);
+		expect(result.history[0].players[1]).toHaveProperty('winner', leagueHistory[0].meta[1].winner);
+		expect(result.history[1].players[0]).toHaveProperty('winner', leagueHistory[1].meta[0].winner);
+		expect(result.history[1].players[1]).toHaveProperty('winner', leagueHistory[1].meta[1].winner);
+		expect(result.history[2].players[0]).toHaveProperty('winner', leagueHistory[2].meta[0].winner);
+		expect(result.history[2].players[1]).toHaveProperty('winner', leagueHistory[2].meta[1].winner);
+
 	});
 
 	it('should return empty league summary',  async () => {

@@ -1,5 +1,5 @@
 "use strict";
-const RankTable = require("../../../../app/services/league/RankTable.js");
+const RankTable = require("../../../../app/services/league/lib/RankTable.js");
 
 describe("Test Share Battle API", () => {
 

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import FullRow from "../components/FullRow.js";
 import Row from "../components/Row.js";
 import Col from "../components/Col.js";
 
@@ -55,59 +56,59 @@ export default class LeagueJoin extends React.Component {
     let leaveButton;
     let tankSelect;
     if(this.props.tankList.length > 0) {
-      joinButton = <button className="btn btn-primary mb-2 league-join" onClick={() => this.join()}><i className="fas fa-check"></i> Join</button>;
-      tankSelect = <div className="form-check mb-2 mr-sm-2">
-          <label htmlFor="joinTank">Your Tank: </label> &nbsp;
-          <select className="custom-select" style={{width: "20em"}}  value={this.state.newSubmissionId} onChange={(e) => this.onSubmissionChange(e)}>
+      joinButton = <p><button className="btn btn-primary btn-lg league-join" style={{width: "100%"}} onClick={() => this.join()}><i className="fas fa-check"></i> Join</button></p>;
+      tankSelect = <div>
+          <small style={{color: '#888'}}>your tank: </small>
+          <select className="custom-select custom-select-lg mb-3" style={{width: "100%"}}  value={this.state.newSubmissionId} onChange={(e) => this.onSubmissionChange(e)}>
             {options}
           </select>
         </div>;
     } else {
-      tankSelect = <div className="form-check mb-2 mr-sm-2">
-          <div>Create script in <strong>Sanbox</strong> mode to join the league.</div>
+      tankSelect = <div style={{padding: '3em'}}>
+          <div>Create script in <a href="#/sandbox">Sanbox</a> mode to join the league.</div>
+          <hr/>
         </div>;
     }
     if(this.props.selected) {
-      leaveButton = <button className="btn btn-danger mb-2 league-leave" onClick={() => this.leave()}><i className="fas fa-sign-out-alt"></i> Leave</button>;
+      leaveButton = <p><button className="btn btn-danger btn-lg  league-leave" style={{width: "100%"}} onClick={() => this.leave()}><i className="fas fa-sign-out-alt"></i> Leave</button></p>;
     }
 
-    return <div className="card">
+    return <div className="card text-white bg-dark">
         <div className="card-body">
-          <form className="form-inline">
-            {tankSelect} &nbsp; {joinButton} &nbsp; {leaveButton} &nbsp;
-            <button className="btn btn-secondary mb-2 league-cancel" onClick={() => this.closeEditor()}><i className="fas fa-times"></i> Cancel</button>
+          <form>
+            {tankSelect}
+            {joinButton}
+            {leaveButton}
+            <p><button className="btn btn-secondary btn-lg league-cancel" style={{width: "100%"}} onClick={() => this.closeEditor()}><i className="fas fa-times"></i> Cancel</button></p>
           </form>
         </div>
       </div>;
   }
 
   renderEmpty() {
-    return <div className="card">
+    return <div className="card text-white bg-dark">
         <div className="card-body">
-          <Row>
-            <Col md={8} className="text-left">
-              Test your AI coding skills and compete in JsBattle League with others.
-            </Col>
-            <Col md={4} className="text-right">
-              <button className="btn btn-lg btn-primary league-edit" onClick={() => this.openEditor()}><i className="fas fa-trophy"></i> Join</button>
-            </Col>
-          </Row>
+          <FullRow>
+            <div style={{padding: '3em'}}>Test your AI coding skills and compete in JsBattle League with others.</div>
+          </FullRow>
+          <hr/>
+          <FullRow>
+            <button className="btn btn-lg btn-primary league-edit" style={{width: "100%"}} onClick={() => this.openEditor()}><i className="fas fa-trophy"></i> Join</button>
+          </FullRow>
         </div>
       </div>;
   }
 
   renderSeleced() {
-    return <div className="card">
+    return <div className="card text-white bg-dark">
         <div className="card-body">
           <Row>
-            <Col md={4}>
-              <h5 className="card-title"><small style={{color: '#888'}}>your tank </small><br />{this.props.selected.scriptName}</h5>
-            </Col>
-            <Col md={4}>
-              <p className="card-text"><small style={{color: '#888'}}>script snapshot from </small><br />{this.props.selected.joinedAt}</p>
-            </Col>
-            <Col md={4} className="text-right">
-              <button className="btn btn-lg btn-primary league-edit" onClick={() => this.openEditor()}><i className="fas fa-edit"></i> Change</button>
+            <Col md={12} className="text-center">
+              <h1 className="card-title"><small style={{color: '#888', fontSize: '0.4em'}}>your tank </small><br />{this.props.selected.scriptName}</h1>
+              <hr />
+              <p className="card-text"><small style={{color: '#888'}}>script snapshot from </small><br />{new Date(this.props.selected.joinedAt).toLocaleString()}</p>
+              <hr />
+              <button className="btn btn-lg btn-primary league-edit" onClick={() => this.openEditor()} style={{width: "100%"}}><i className="fas fa-edit"></i> Change</button>
             </Col>
           </Row>
         </div>

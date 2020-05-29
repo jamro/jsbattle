@@ -61,6 +61,25 @@ class LeagueScheduler extends Service {
     if(!teamList || teamList.length != 2) {
       throw new Error('teamList must have exactly 2 elements');
     }
+
+    let winner = teamList.reduce((best, current) => {
+      if(current.score > best.score) {
+        return current;
+      } else {
+        return best;
+      }
+    }, teamList[0]);
+    let loser = teamList.reduce((worst, current) => {
+      if(current.score < worst.score) {
+        return current;
+      } else {
+        return worst;
+      }
+    }, teamList[0]);
+    if(winner == loser) {
+      winner = null;
+    }
+
     teamList = teamList.map((team) => {
       if(!refData || !refData[team.name]) {
         throw new Error('no team mapping in refData for: ' + team.name);
@@ -68,7 +87,8 @@ class LeagueScheduler extends Service {
       return {
         id: refData[team.name],
         name: team.name,
-        battleScore: team.score
+        battleScore: team.score,
+        winner: team == winner
       }
     });
 
@@ -78,16 +98,9 @@ class LeagueScheduler extends Service {
     await ctx.call('battleStore.create', {
       ubd: ubd,
       expiresIn: this.config.historyDuration,
-      description: description
-    })
-
-    let winner = teamList.reduce((best, current) => {
-      if(current.battleScore > best.battleScore) {
-        return current;
-      } else {
-        return best;
-      }
-    }, teamList[0]);
+      description: description,
+      meta: teamList
+    });
 
     let updateCalls = teamList.map((team) => new Promise(async (resolve) => {
       try {
@@ -95,7 +108,7 @@ class LeagueScheduler extends Service {
           id: team.id,
           name: team.name,
           battleScore: team.battleScore,
-          winner: team == winner
+          winner: team.winner
         });
       } catch (err) {
         this.logger.warn('Unable to store battle results of ' + team.name + ': ' + err.message);

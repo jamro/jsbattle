@@ -4,6 +4,7 @@ import {shallow} from 'enzyme';
 import {LeagueScreen} from '../LeagueScreen.js';
 import Loading from '../../components/Loading.js';
 import LeagueJoin from '../../components/LeagueJoin.js';
+import LeagueHistory from '../../components/LeagueHistory.js';
 
 
 test('show unauthorized', () => {
@@ -90,4 +91,68 @@ test('leave league', () => {
   wrapper.find(LeagueJoin).props().onLeave();
 
   expect(leaveLeague.mock.calls).toHaveLength(1)
+});
+
+test('show history league', () => {
+  const selectedId = 'qPCEf8PXtg9ptvjA'
+  const history = [
+    {
+        id: '2Z2QACxYU2TpNBcl',
+        createdAt: new Date('2020-05-29T11:10:41.188Z'),
+        players: [
+          {
+            id: '6qQC9NGqcBSvnNON',
+            name: 'jsbattle/sniper',
+            winner: true
+          },
+          {
+            id: 'a3jpQn3XPWdjgSXo',
+            name: 'jsbattle/chicken',
+            winner: false
+          }
+        ]
+      },
+      {
+        id: 'OyEbugs7DHZQmrDJ',
+        createdAt: new Date('2020-05-29T11:10:09.039Z'),
+        players: [
+          {
+            id: 'VPclRo1HV45EX3Qr',
+            name: 'jsbattle/kamikaze',
+            winner: false
+          },
+          {
+            id: 'qPCEf8PXtg9ptvjA',
+            name: 'jsbattle/crazy',
+            winner: false
+          }
+        ]
+      },
+      {
+        id: 'csKD4nuhtoA9cFn3',
+        createdAt: new Date('2020-05-29T11:09:42.653Z'),
+        players: [
+          {
+            id: '3xQuFw0Mr7x3lTGH',
+            name: 'jsbattle/dodge',
+            winner: false
+          },
+          {
+            id: 'VPclRo1HV45EX3Qr',
+            name: 'jsbattle/kamikaze',
+            winner: true
+          }
+        ]
+      }
+  ];
+
+  const wrapper = shallow(<LeagueScreen
+    isAuthorized={true}
+    leagueHistory={history}
+    submission={{id: selectedId}}
+  />);
+
+  expect(wrapper.find(LeagueHistory).props()).toHaveProperty('selectedId', selectedId);
+  expect(wrapper.find(LeagueHistory).props()).toHaveProperty('data', history);
+
 });

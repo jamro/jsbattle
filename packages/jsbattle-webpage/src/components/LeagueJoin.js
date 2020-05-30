@@ -73,7 +73,7 @@ export default class LeagueJoin extends React.Component {
       leaveButton = <p><button className="btn btn-danger btn-lg  league-leave" style={{width: "100%"}} onClick={() => this.leave()}><i className="fas fa-sign-out-alt"></i> Leave</button></p>;
     }
 
-    return <div className="card text-white bg-dark">
+    return <div className="card text-white bg-dark"  style={{height: '100%'}}>
         <div className="card-body">
           <form>
             {tankSelect}
@@ -86,7 +86,7 @@ export default class LeagueJoin extends React.Component {
   }
 
   renderEmpty() {
-    return <div className="card text-white bg-dark">
+    return <div className="card text-white bg-dark"  style={{height: '100%'}}>
         <div className="card-body">
           <FullRow>
             <div style={{padding: '3em'}}>Test your AI coding skills and compete in JsBattle League with others.</div>
@@ -100,7 +100,7 @@ export default class LeagueJoin extends React.Component {
   }
 
   renderSeleced() {
-    return <div className="card text-white bg-dark">
+    return <div className="card text-white bg-dark" style={{height: '100%'}}>
         <div className="card-body">
           <Row>
             <Col md={12} className="text-center">

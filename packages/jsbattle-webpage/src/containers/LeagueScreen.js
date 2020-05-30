@@ -5,6 +5,7 @@ import Loading from "../components/Loading.js";
 import LeagueJoin from "../components/LeagueJoin.js";
 import LeagueHistory from "../components/LeagueHistory.js";
 import React from "react";
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {
   getSandboxAiScriptList
@@ -66,19 +67,30 @@ export class LeagueScreen extends React.Component {
     }
 
     return <div>
-      <Row>
-        <Col md={4}>
-          {leagueJoin}
-        </Col>
-        <Col md={8}>
-          <LeagueHistory
-            data={this.props.leagueHistory}
-            selectedId={this.props.submission ? this.props.submission.id : ''}
-          />
-        </Col>
-      </Row>
       <FullRow>
-        <table className="table">
+        <nav className="breadcrumb-container">
+          <ol className="breadcrumb">
+            <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
+            <li className="breadcrumb-item"><Link to="/league">League</Link></li>
+          </ol>
+        </nav>
+      </FullRow>
+      <div className="jumbotron" style={{padding: '2rem'}}>
+        <Row>
+          <Col lg={4}>
+            {leagueJoin}
+          </Col>
+          <Col lg={8}>
+            <LeagueHistory
+              data={this.props.leagueHistory}
+              selectedId={this.props.submission ? this.props.submission.id : ''}
+            />
+          </Col>
+        </Row>
+      </div>
+      <FullRow>
+        <h1 className="display-4">Leaderboard</h1>
+        <table className="table leaderboard">
           <thead className="thead-dark">
             <tr>
               <th scope="col" className="text-right">Rank</th>

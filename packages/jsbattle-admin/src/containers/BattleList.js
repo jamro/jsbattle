@@ -46,13 +46,11 @@ class BattleList extends Component {
                   {
                     name: 'ID',
                     field: 'id',
-                    format: [
-                      (value) => {
+                    format: (value) => {
                         let baseUrl = window.location.href.replace(/(.*)#.*/, '$1').replace(/(.*)(admin\/?)/, '$1');
-                        return `${baseUrl}#replay=${value}`;
-                      },
-                      'urlLink'
-                    ]
+                        let url = `${baseUrl}#/league/replay/${value}`;
+                        return <a href={url}>{value}</a>;
+                      }
                   },
                   {name: 'Description', field: 'description', format: vsFormatter},
                   {name: 'Create Date', field: 'createdAt', format: 'date'},

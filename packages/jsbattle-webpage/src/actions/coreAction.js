@@ -16,6 +16,11 @@ export const clearError = (type) => ({
   type: type + "_CLEAR_ERROR"
 });
 
+export const showError = (message) => ({
+  type: "INTERNAL_FAILURE",
+  payload: {message}
+});
+
 export const setSimQuality = (quality) => {
   return async (dispatch) => {
     dispatch({

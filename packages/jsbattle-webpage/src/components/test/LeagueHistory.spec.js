@@ -6,7 +6,6 @@ test('Renders empty', () => {
   const wrapper = shallow(<LeagueHistory />);
   expect(wrapper.render().text()).toMatch(/Recent fights/i);
   expect(wrapper.render().text()).toMatch(/has not started/i);
-
 });
 
 test('list battles', () => {
@@ -86,4 +85,9 @@ test('list battles', () => {
   expect(wrapper.find('tr').at(0).prop('style')).not.toHaveProperty('backgroundColor');
   expect(wrapper.find('tr').at(1).prop('style')).toHaveProperty('backgroundColor');
   expect(wrapper.find('tr').at(2).prop('style')).not.toHaveProperty('backgroundColor');
+
+  expect(wrapper.find('tr').at(0).find('a').prop('href')).toMatch(new RegExp(data[0].id));
+  expect(wrapper.find('tr').at(1).find('a').prop('href')).toMatch(new RegExp(data[1].id));
+  expect(wrapper.find('tr').at(2).find('a').prop('href')).toMatch(new RegExp(data[2].id));
+
 });

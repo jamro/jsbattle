@@ -7,7 +7,7 @@
   position:relative;
 }
 
-.breadcrumb-container > button {
+.breadcrumb-container > .btn {
   position:absolute;
   right:1rem;
   top:50%;

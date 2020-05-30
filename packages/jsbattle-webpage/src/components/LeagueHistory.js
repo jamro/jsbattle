@@ -9,7 +9,7 @@ export default class LeagueHistory extends React.Component {
     const isSelected = (this.props.selectedId == data.players[0].id || this.props.selectedId == data.players[1].id);
     const rowStyle = isSelected ? {backgroundColor: "#555"} : {};
     return <tr style={rowStyle} key={data.id}>
-        <td>
+        <td className="d-none d-sm-none d-md-block">
           {new Date(data.createdAt).toLocaleTimeString()}
         </td>
         <td>
@@ -17,6 +17,11 @@ export default class LeagueHistory extends React.Component {
         </td>
         <td>
            {data.players[1].winner ? winnerBadge : loserBadge} {data.players[1].name}
+        </td>
+        <td className="text-right">
+          <a href={`#/league/replay/${data.id}`} className="btn btn-sm btn-primary watch-button">
+            <span className="fas fa-tv"></span><span className="d-none d-sm-none d-md-inline-block">&nbsp; Watch</span>
+          </a>
         </td>
       </tr>;
   }
@@ -30,7 +35,7 @@ export default class LeagueHistory extends React.Component {
           </td>
         </tr>;
     }
-    return <div className="card bg-dark text-white">
+    return <div className="card bg-dark text-white league-history" style={{height: '100%'}}>
       <div className="card-body">
         <h5 className="card-title">Recent fights</h5>
         <table className="table table-sm table-dark">

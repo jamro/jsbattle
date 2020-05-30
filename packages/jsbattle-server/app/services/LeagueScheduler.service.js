@@ -136,7 +136,7 @@ class LeagueScheduler extends Service {
     for(i=0; i < this.config.teamSize; i++) {
       for(let opponent of opponents) {
         ubd.aiList.push({
-          name: opponent.ownerName === 'jsbattle' ? opponent.scriptName : opponent.ownerName,
+          name: opponent.ownerName + '/' + opponent.scriptName,
           team: opponent.ownerName + '/' + opponent.scriptName,
           code: opponent.code,
           initData: null,

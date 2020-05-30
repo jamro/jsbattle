@@ -22,6 +22,18 @@ export default class LeagueJoin extends React.Component {
     };
   }
 
+  componentDidMount() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  componentDidUpdate() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  componentWillUnmount() {
+    $('[data-toggle="tooltip"]').tooltip('hide');
+  }
+
   onSubmissionChange(event) {
     this.setState({newSubmissionId: event.target.value});
   }
@@ -100,13 +112,53 @@ export default class LeagueJoin extends React.Component {
   }
 
   renderSeleced() {
+    let badges = [];
+    let defaultBadgeStyle = {
+      display: 'inline-block',
+      margin: '0.3em',
+      fontSize: '1.5em'
+    };
+
+    badges = this.props.selected.history.map((item) => {
+      let icon, badgeStyle, className;
+      if(item.winner) {
+        className = "badge badge-danger submission-history-item";
+        badgeStyle = {
+          ...defaultBadgeStyle
+        };
+        icon = 'trophy';
+      } else {
+        className = "badge badge-light submission-history-item";
+        badgeStyle = {
+          ...defaultBadgeStyle
+        };
+        icon = 'skull';
+      }
+      return <a key={item.id} href={`#/league/replay/${item.id}`} className={className} style={badgeStyle} data-toggle="tooltip" data-placement="top" title={item.opponent.name}>
+        <i className={`fas fa-${icon}`}></i>
+      </a>;
+    });
+    if(badges.length == 0) {
+      badges = <em>nothing yet</em>;
+    }
     return <div className="card text-white bg-dark" style={{height: '100%'}}>
         <div className="card-body">
           <Row>
+            <Col md={6} className="text-center">
+              <p className="card-text"><small style={{color: '#888'}}>your tank </small><br /><strong style={{fontSize: '2em'}}>{this.props.selected.scriptName}</strong></p>
+            </Col>
+            <Col md={6} className="text-center">
+              <p className="card-text"><small style={{color: '#888'}}>snapshot from </small><br />{new Date(this.props.selected.joinedAt).toLocaleDateString()}<br/>{new Date(this.props.selected.joinedAt).toLocaleTimeString()}</p>
+            </Col>
+          </Row>
+          <Row>
             <Col md={12} className="text-center">
-              <h1 className="card-title"><small style={{color: '#888', fontSize: '0.4em'}}>your tank </small><br />{this.props.selected.scriptName}</h1>
               <hr />
-              <p className="card-text"><small style={{color: '#888'}}>script snapshot from </small><br />{new Date(this.props.selected.joinedAt).toLocaleString()}</p>
+              <p className="card-text">
+                <small style={{color: '#888'}}>recent battles </small>
+                <br />
+                {badges}
+              </p>
               <hr />
               <button className="btn btn-lg btn-primary league-edit" onClick={() => this.openEditor()} style={{width: "100%"}}><i className="fas fa-edit"></i> Change</button>
             </Col>

@@ -71,6 +71,24 @@ test('Renders submission', () => {
       selected={{
         scriptName: 'alpha8664',
         joinedAt: '2020-11-29 01:02:03',
+        history: [
+          {
+            id: '324534',
+            opponent: {
+              id: '5234523465',
+              name: 'oponent11108432'
+            },
+            winner: false
+          },
+          {
+            id: '998523',
+            opponent: {
+              id: '65343402',
+              name: 'oponent222854923'
+            },
+            winner: true
+          }
+        ]
       }}
     />);
   expect(wrapper.render().text()).toMatch(/alpha8664/i);
@@ -79,6 +97,15 @@ test('Renders submission', () => {
   expect(wrapper.render().text()).toMatch(/29/i);
   expect(wrapper.render().text()).toMatch(/02:03/i);
   expect(wrapper.find("button.league-edit")).toHaveLength(1)
+
+  expect(wrapper.find(".submission-history-item")).toHaveLength(2);
+  expect(wrapper.find(".submission-history-item").at(0).props()).toHaveProperty('href', '#/league/replay/324534');
+  expect(wrapper.find(".submission-history-item").at(0).props()).toHaveProperty('title', 'oponent11108432');
+  expect(wrapper.find(".submission-history-item").at(1).props()).toHaveProperty('href', '#/league/replay/998523');
+  expect(wrapper.find(".submission-history-item").at(1).props()).toHaveProperty('title', 'oponent222854923');
+
+  expect(wrapper.find(".submission-history-item").at(0).find('i').prop('className')).toMatch(/skull/);
+  expect(wrapper.find(".submission-history-item").at(1).find('i').prop('className')).toMatch(/trophy/);
 });
 
 test('Leave the leauge', () => {
@@ -88,6 +115,7 @@ test('Leave the leauge', () => {
       selected={{
         scriptName: 'alpha5622',
         joinedAt: '2020-01-02 12:02:03',
+        history: []
       }}
     />);
 

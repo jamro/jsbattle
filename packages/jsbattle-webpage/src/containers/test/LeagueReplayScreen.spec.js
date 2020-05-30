@@ -30,6 +30,21 @@ const aiList = [
    }
 ];
 
+let logOrig;
+let warnOrig;
+
+beforeAll(() => {
+  logOrig = console.log;
+  warnOrig = console.warn;
+  console.log = () => {};
+  console.warn = () => {};
+});
+
+afterAll(() => {
+  console.log = logOrig;
+  console.warn = warnOrig;
+});
+
 test('show unauthorized', () => {
   const wrapper = shallow(<LeagueReplayScreen
     match={match}

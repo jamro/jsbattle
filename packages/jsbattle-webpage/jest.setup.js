@@ -20,7 +20,7 @@ global.document.body.createTextRange = () => ({
   })
 });
 
-var localStorageMock = (function() {
+const localStorageMock = (function() {
   var store = {};
   return {
     getItem: jest.fn(),
@@ -29,4 +29,10 @@ var localStorageMock = (function() {
     removeItem: jest.fn()
   };
 })();
+
+const $ = jest.fn(() => ({
+  tooltip: jest.fn()
+}))
+
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+Object.defineProperty(window, '$', { value: $ });

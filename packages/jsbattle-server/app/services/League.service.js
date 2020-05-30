@@ -223,7 +223,30 @@ class LeagueService extends Service {
     if(response.length === 0) {
       return {}
     }
-    return response[0]
+    response = response[0];
+    let items = await ctx.call('battleStore.find', {
+      query: {
+        owner: {$in: [response.id]}
+      },
+      sort: '-createdAt',
+      limit: 10,
+      fields: [
+        "id",
+        "meta",
+        "createdAt"
+      ]
+    });
+    items = items.map((item) => ({
+      id: item.id,
+      createdAt: item.createdAt,
+      players: item.meta.map((player) => ({
+        id: player.id,
+        name: player.name,
+        winner: player.winner
+      }))
+    }));
+    response.history = items;
+    return response;
   }
 
   async joinLeague(ctx) {
@@ -306,7 +329,8 @@ class LeagueService extends Service {
       "fights_win",
       "fights_lose",
       "fights_error",
-      "score"
+      "score",
+      "history"
     ];
 
     let submission = await this.getUserSubmission(ctx)

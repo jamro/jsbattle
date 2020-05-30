@@ -153,7 +153,6 @@ describe("Test 'League' service", () => {
 		).rejects.toThrow(/Not Authorized/i)
 	});
 
-
 	it('should throw error when call getLeagueSummary without login',  async () => {
 		const user = {
 			username: 'john',
@@ -192,6 +191,12 @@ describe("Test 'League' service", () => {
 
 		expect(result).toHaveProperty('submission');
 		expect(result.submission).toHaveProperty('ownerId', '123456');
+		expect(result.submission).toHaveProperty('history');
+		expect(result.submission.history).toHaveLength(3);
+		expect(result.submission.history[0]).toHaveProperty('id', leagueHistory[0].id);
+		expect(result.submission.history[1]).toHaveProperty('id', leagueHistory[1].id);
+		expect(result.submission.history[2]).toHaveProperty('id', leagueHistory[2].id);
+
 		expect(result).toHaveProperty('ranktable');
 		expect(result.ranktable).toHaveLength(2);
 		expect(result).toHaveProperty('history');

@@ -21,13 +21,24 @@ function leagueReducer(state = {}, action) {
     ...state
   };
   let ubd;
+  let submission = null;
   switch (action.type) {
     case LEAGUE_CLEAR_SUBMISSION_SUCCESS:
     case LEAGUE_NEW_SUBMISSION_SUCCESS:
     case LEAGUE_SUMMARY_SUCCESS:
+      if(Object.keys(action.payload.submission).length > 0) {
+        submission = {
+          ...action.payload.submission,
+          history: action.payload.submission.history.map((item) => ({
+            id: item.id,
+            opponent: item.players.find((p) => p.id != action.payload.submission.id),
+            winner: item.players.find((p) => p.id == action.payload.submission.id).winner
+          }))
+        };
+      }
       return {
         ...state,
-        submission: Object.keys(action.payload.submission).length == 0 ? null : action.payload.submission,
+        submission: submission,
         ranktable: action.payload.ranktable,
         history: action.payload.history
       };

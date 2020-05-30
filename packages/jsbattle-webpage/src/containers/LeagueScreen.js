@@ -77,10 +77,10 @@ export class LeagueScreen extends React.Component {
       </FullRow>
       <div className="jumbotron" style={{padding: '2rem'}}>
         <Row>
-          <Col lg={4}>
+          <Col lg={4} style={{paddingTop: '0.5em'}}>
             {leagueJoin}
           </Col>
-          <Col lg={8}>
+          <Col lg={8} style={{paddingTop: '0.5em'}}>
             <LeagueHistory
               data={this.props.leagueHistory}
               selectedId={this.props.submission ? this.props.submission.id : ''}

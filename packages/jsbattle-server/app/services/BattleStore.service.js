@@ -22,7 +22,8 @@ class BattleStoreService extends Service {
           "expiresAt",
           "ubd",
           "description",
-          "meta"
+          "meta",
+          "owner"
         ]
       },
       entityValidator: {
@@ -32,6 +33,7 @@ class BattleStoreService extends Service {
         expiresAt: "date",
         expiresIn: "number",
         meta: "object",
+        owner: "array",
       },
       dependencies: ['ubdValidator'],
       actions: {
@@ -56,6 +58,7 @@ class BattleStoreService extends Service {
               ctx.params.createdAt = new Date();
               ctx.params.expiresAt = ctx.params.expiresAt || defaultExpires;
               ctx.params.meta = ctx.params.meta || {};
+              ctx.params.owner = ctx.params.owner || {};
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }

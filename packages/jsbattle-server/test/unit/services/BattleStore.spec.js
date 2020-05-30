@@ -61,6 +61,44 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
+		it('should store owner info', async () => {
+			const ubd = JSON.stringify(new UbdJsonMock());
+			await broker.call("battleStore.create", { ubd, meta: 1 });
+			await broker.call("battleStore.create", { ubd, meta: 2, owner: [111, 222] });
+			await broker.call("battleStore.create", { ubd, meta: 3, owner: [222, 111, 333] });
+			await broker.call("battleStore.create", { ubd, meta: 4, owner: [333] });
+			await broker.call("battleStore.create", { ubd, meta: 5, owner: [111] });
+			await broker.call("battleStore.create", { ubd, meta: 6, owner: [222, 333] });
+
+			let result = await broker.call("battleStore.find", {
+				query: {
+					owner: {$in: [111]}
+				}
+			});
+			result = result.map((item) => item.meta)
+			expect(result).toHaveLength(3)
+			expect(result).toEqual(expect.arrayContaining([2, 3, 5]));
+
+			result = await broker.call("battleStore.find", {
+				query: {
+					owner: {$in: [222]}
+				}
+			});
+			result = result.map((item) => item.meta)
+			expect(result).toHaveLength(3)
+			expect(result).toEqual(expect.arrayContaining([2, 3, 6]));
+
+			result = await broker.call("battleStore.find", {
+				query: {
+					owner: {$in: [333]}
+				}
+			});
+			result = result.map((item) => item.meta)
+			expect(result).toHaveLength(3)
+			expect(result).toEqual(expect.arrayContaining([3, 4, 6]));
+
+		});
+
 		it('should store metadata of the battle', async () => {
 			const ubd = new UbdJsonMock();
 			const writeResult = await broker.call("battleStore.create", {

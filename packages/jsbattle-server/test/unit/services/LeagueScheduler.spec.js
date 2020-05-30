@@ -195,6 +195,9 @@ describe("Test 'League' service", () => {
 		expect(battleStoreCreate.mock.calls[0][0].params).toHaveProperty('expiresIn', leagueHistoryDuration);
 		expect(battleStoreCreate.mock.calls[0][0].params).toHaveProperty('meta');
 		expect(battleStoreCreate.mock.calls[0][0].params.meta).toHaveLength(2);
+		expect(battleStoreCreate.mock.calls[0][0].params).toHaveProperty('owner');
+		expect(battleStoreCreate.mock.calls[0][0].params.owner).toHaveLength(2);
+		expect(battleStoreCreate.mock.calls[0][0].params.owner).toEqual(expect.arrayContaining(['987243', '50872']));
 
 		expect(leagueUpdateRank.mock.calls).toHaveLength(2);
 		expect(leagueUpdateRank.mock.calls[0]).toHaveLength(1);

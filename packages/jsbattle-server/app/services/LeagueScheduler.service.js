@@ -99,7 +99,8 @@ class LeagueScheduler extends Service {
       ubd: ubd,
       expiresIn: this.config.historyDuration,
       description: description,
-      meta: teamList
+      meta: teamList,
+      owner: Object.values(refData)
     });
 
     let updateCalls = teamList.map((team) => new Promise(async (resolve) => {

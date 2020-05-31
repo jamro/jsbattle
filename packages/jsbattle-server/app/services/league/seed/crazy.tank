@@ -1,7 +1,7 @@
 importScripts('lib/tank.js');
 
 tank.init(function(settings, info) {
-  settings.SKIN = 'forest';
+  settings.SKIN = 'ocean';
 });
 
 tank.loop(function(state, control) {

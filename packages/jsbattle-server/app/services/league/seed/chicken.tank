@@ -79,7 +79,7 @@ var shootAngle;
 var timer = 0;
 
 tank.init(function(settings, info) {
-  settings.SKIN = 'forest';
+  settings.SKIN = 'black';
 
   // randomize direction of tank movement
   verticalAngle = Math.random() < 0.5 ? -90 : +90;

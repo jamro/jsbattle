@@ -3,7 +3,7 @@ importScripts('lib/tank.js');
 var power;
 
 tank.init(function(settings, info) {
-  settings.SKIN = 'forest';
+  settings.SKIN = 'tiger';
   power = Math.random()*0.9 + 0.1;
 });
 

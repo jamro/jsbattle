@@ -9,7 +9,7 @@ var avoidDirection;
 
 // initialize your tank
 tank.init(function(settings, info) {
-  settings.SKIN = 'forest';
+  settings.SKIN = 'lava';
   bulletMap = [];
   changeAvoidDirection();
 });

@@ -3,6 +3,7 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {LeagueReplayScreen} from '../LeagueReplayScreen.js';
 import Loading from '../../components/Loading.js';
+import DuelResultScreen from "../../components/DuelResultScreen.js";
 import JsBattleBattlefield from "jsbattle-react";
 
 const match = {
@@ -120,23 +121,40 @@ test('restart the battle', async () => {
     aiList={aiList}
   />);
 
-  let onRestartCallback;
-  let battlefieldMock = {
-    restart: jest.fn(() => {
-      onRestartCallback();
-    })
-  };
-
-  const restartPromise = new Promise((resolve) => {
-    onRestartCallback = resolve;
-  })
-
-  wrapper.instance().battlefield = battlefieldMock
-
   expect(wrapper.find(JsBattleBattlefield)).toHaveLength(1);
-  wrapper.find(JsBattleBattlefield).props().onFinish()
+  wrapper.find(JsBattleBattlefield).props().onFinish({
+    teamWinner: {
+      name: 'alpha342',
+      score: 873,
+      members: [
+        {skin: 'desert'}
+      ]
+    },
+    teamList: [
+      {
+        name: 'alpha342',
+        score: 873,
+        members: [
+          {skin: 'desert'}
+        ]
+      },
+      {
+        name: 'bravo883',
+        score: 12,
+        members: [
+          {skin: 'ocean'}
+        ]
+      }
+    ]
+  });
 
-  await restartPromise;
+  expect(wrapper.find(JsBattleBattlefield)).toHaveLength(0);
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('winnerName', 'alpha342');
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('loserName', 'bravo883');
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('winnerSkin', 'desert');
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('loserSkin', 'ocean');
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('winnerScore', 873);
+  expect(wrapper.find(DuelResultScreen).props()).toHaveProperty('loserScore', 12);
 });
 
 

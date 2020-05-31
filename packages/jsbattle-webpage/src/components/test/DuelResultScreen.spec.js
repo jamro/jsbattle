@@ -54,3 +54,17 @@ test('renders winner', () => {
   expect(wrapper.render().find('.winner-img').prop("src")).toBe(`img/tank_skin_lava.png`);
   expect(wrapper.render().find('.loser-img').prop("src")).toBe(`img/tank_skin_desert.png`);
 });
+
+test('hide header', () => {
+  const wrapper = mount(<DuelResultScreen
+    showHeader={false}
+    hasWon={true}
+    winnerName='alpha83'
+    winnerScore={343.7}
+    winnerSkin='lava'
+    loserName='beta6'
+    loserScore={62}
+    loserSkin='desert'
+  />);
+  expect(wrapper.render().find('.result-title')).toHaveLength(0);
+});

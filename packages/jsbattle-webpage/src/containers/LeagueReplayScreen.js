@@ -1,5 +1,6 @@
 import FullRow from "../components/FullRow.js";
 import Loading from "../components/Loading.js";
+import DuelResultScreen from "../components/DuelResultScreen.js";
 import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,21 +19,30 @@ export class LeagueReplayScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.battlefield = null;
+
+    this.state = {
+      completed: false
+    };
   }
 
   componentDidMount() {
     this.props.getLeagueReplay(this.props.match.params.id);
   }
 
-  handleBattleFinish() {
+  handleBattleFinish(result) {
     console.log('battle finished');
-    if(this.battlefield) {
-      setTimeout(() => {
-        this.battlefield.restart();
-        console.log('battle started');
-      }, 1000);
-    }
+    const winner = result.teamWinner;
+    const loser = result.teamList.find((team) => team.name != winner.name);
+
+    this.setState({
+      completed: true,
+      winnerName: winner.name,
+      loserName: loser.name,
+      winnerSkin: winner.members[0].skin,
+      loserSkin: loser.members[0].skin,
+      winnerScore: winner.score,
+      loserScore: loser.score,
+    });
   }
 
   handleBattleError(error) {
@@ -56,7 +66,7 @@ export class LeagueReplayScreen extends React.Component {
       label = "Replay";
     }
     let battlefield;
-    if(this.props.aiList.length) {
+    if(this.props.aiList.length && !this.state.completed) {
       let ai;
       let aiDefList = [];
       for(let aiDef of this.props.aiList) {
@@ -65,7 +75,6 @@ export class LeagueReplayScreen extends React.Component {
         aiDefList.push(ai);
       }
       battlefield = <JsBattleBattlefield
-        ref={(b) => this.battlefield = b }
         debug={this.props.debug}
         autoResize={true}
         rngSeed={this.props.rngSeed}
@@ -78,6 +87,21 @@ export class LeagueReplayScreen extends React.Component {
         onFinish={(result) => this.handleBattleFinish(result)}
         onError={(error) => this.handleBattleError(error)}
       />;
+    } else if(this.state.completed) {
+      battlefield = <div className="text-center">
+          <DuelResultScreen
+            showHeader={false}
+            winnerName={this.state.winnerName}
+            loserName={this.state.loserName}
+            winnerSkin={this.state.winnerSkin}
+            loserSkin={this.state.loserSkin}
+            winnerScore={this.state.winnerScore}
+            loserScore={this.state.loserScore}
+          />
+          <button className="btn btn-lg btn-primary restart-battle" onClick={() => this.setState({completed: false})}>
+            <i className="fas fa-play"></i> Replay
+          </button>
+        </div>;
     }
     return <div>
       <FullRow>

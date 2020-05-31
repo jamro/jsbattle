@@ -8,9 +8,10 @@ export default class DuelResultScreen extends React.Component {
   render() {
     const winnerScore = (Math.round(this.props.winnerScore*10)/10).toFixed(1);
     const loserScore = (Math.round(this.props.loserScore*10)/10).toFixed(1);
+    const header = this.props.showHeader ? <h3 className="result-title">Battle {this.props.hasWon ? "WON" : "LOST"}!</h3> : null;
 
     return <div className="text-center battle-result">
-      <h3 className="result-title">Battle {this.props.hasWon ? "WON" : "LOST"}!</h3>
+      {header}
       <Row style={{marginTop: '2em', marginBottom: '2em'}}>
         <Col md={6}>
           <h4><i className="fas fa-crown"></i> <span className="winner-label">{this.props.winnerName}</span></h4>
@@ -29,6 +30,7 @@ export default class DuelResultScreen extends React.Component {
 
 
 DuelResultScreen.defaultProps = {
+  showHeader: true,
   hasWon: false,
   winnerName: 'unknown',
   loserName: 'unknown',
@@ -39,6 +41,7 @@ DuelResultScreen.defaultProps = {
 };
 
 DuelResultScreen.propTypes = {
+  showHeader: PropTypes.bool,
   hasWon: PropTypes.bool,
   winnerName: PropTypes.string,
   loserName: PropTypes.string,

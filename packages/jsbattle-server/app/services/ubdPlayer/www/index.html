@@ -30,7 +30,8 @@
 
         let renderer = JsBattle.createRenderer('void');
         let simulation = JsBattle.createSimulation(renderer);
-        simulation.setRngSeed(ubd.rngSeed)
+        simulation.setRngSeed(ubd.rngSeed);
+        simulation.timeLimit = ubd.timeLimit;
         simulation.init(900, 600);
 
         let ai;
@@ -84,7 +85,6 @@
           speed = 10;
         }
         simulation.setSpeed(speed)
-        simulation.timeLimit = ubd.timeLimit;
         simulation.start();
         status('started');
       }

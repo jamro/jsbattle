@@ -6,6 +6,8 @@ const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 const fs = require('fs');
 const path = require('path');
 const RankTable = require('./league/lib/RankTable.js');
+const JavaScriptObfuscator = require('javascript-obfuscator');
+const stripComments = require('strip-comments');
 
 class LeagueService extends Service {
 
@@ -262,12 +264,47 @@ class LeagueService extends Service {
 
     await this.leaveLeague(ctx);
 
+    let code = script.code;
+    if(this.config.obfuscate) {
+      try {
+        let prevSize = Math.round(code.length/1024);
+        code = stripComments(code);
+        code = code.replace(/importScripts\w*\([^)]*\)/g, '');
+        code = JavaScriptObfuscator.obfuscate(code, {
+          compact: true,
+          controlFlowFlattening: false,
+          deadCodeInjection: false,
+          debugProtection: false,
+          debugProtectionInterval: false,
+          disableConsoleOutput: true,
+          identifierNamesGenerator: 'hexadecimal',
+          log: false,
+          renameGlobals: false,
+          rotateStringArray: true,
+          selfDefending: true,
+          shuffleStringArray: true,
+          splitStrings: false,
+          stringArray: true,
+          stringArrayEncoding: false,
+          stringArrayThreshold: 0.75,
+          unicodeEscapeSequence: false
+        }).getObfuscatedCode();
+        let currentSize = Math.round(code.length/1024);
+        this.logger.info(`Code obfuscated ${prevSize}K -> ${currentSize}K`);
+
+      } catch (err) {
+        this.logger.warn(err);
+      }
+    } else {
+      this.logger.info(`Code obfuscation disabled`);
+    }
+
     const entity = await ctx.call('league.create', {
       ownerId: script.ownerId,
       ownerName: script.ownerName,
       scriptId: script.id,
       scriptName: script.scriptName,
-      code: script.code
+      code: code
     });
 
     this.ranktable.add({

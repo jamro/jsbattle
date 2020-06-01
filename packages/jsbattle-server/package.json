@@ -36,6 +36,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "hijackresponse": "^4.0.0",
+    "javascript-obfuscator": "^0.28.4",
     "jsbattle-engine": "^2.7.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
@@ -54,6 +55,7 @@
     "puppeteer": "^3.0.0",
     "socket.io": "^2.3.0",
     "stream": "0.0.2",
+    "strip-comments": "^2.0.1",
     "uuid": "^7.0.3"
   },
   "jest": {

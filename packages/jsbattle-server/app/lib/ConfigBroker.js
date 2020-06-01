@@ -31,6 +31,7 @@ class ConfigBroker extends ServiceBroker {
         "scheduleInterval": 30000,
         "timeLimit": 20000,
         "teamSize": 3,
+        "obfuscate": true,
         "historyDuration": 3*24*60*60*1000
       },
       "ubdPlayer": {

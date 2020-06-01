@@ -127,25 +127,23 @@ class LeagueScheduler extends Service {
 
     // build UBD
     let ubd = {
-      version: 3,
+      version: 4,
       rngSeed: Math.random(),
       teamMode: true,
       timeLimit: this.config.timeLimit,
       aiList: []
     };
 
-    let i;
-    for(i=0; i < this.config.teamSize; i++) {
-      for(let opponent of opponents) {
-        ubd.aiList.push({
-          name: opponent.ownerName + '/' + opponent.scriptName,
-          team: opponent.ownerName + '/' + opponent.scriptName,
-          code: opponent.code,
-          initData: null,
-          useSandbox: true,
-          executionLimit: 100
-        });
-      }
+    for(let opponent of opponents) {
+      ubd.aiList.push({
+        name: opponent.ownerName + '/' + opponent.scriptName,
+        team: opponent.ownerName + '/' + opponent.scriptName,
+        code: opponent.code,
+        initData: null,
+        useSandbox: true,
+        executionLimit: 100,
+        count: this.config.teamSize
+      });
     }
 
     this.logger.debug(`Scheduling battle ${opponents[0].scriptName} vs ${opponents[1].scriptName}`)

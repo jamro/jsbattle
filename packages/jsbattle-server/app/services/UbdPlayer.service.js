@@ -58,13 +58,15 @@ class UbdPlayer extends Service {
           if(this.queue.length === 0) {
             return;
           }
+          let task = this.queue.shift();
           try {
             this.processingStartTime = new Date().getTime();
             this.isBusy = true;
             this.logger.info('Starting a battle...')
-            let task = this.queue.shift();
             let ubd = task.ubd;
             let page = await this.browser.newPage();
+            page.on('console', (message) => this.logger.debug(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`));
+            page.on('pageerror', ({ message }) => this.logger.debug(message));
             await page.goto('http://localhost:' + port);
             await page.waitFor('#ubd');
             await page.$eval('#ubd', (el, ubd) => {
@@ -99,6 +101,7 @@ class UbdPlayer extends Service {
           } catch (err) {
             this.logger.warn('Unable to finish the battle');
             this.logger.warn(err);
+            this.logger.debug('UBD that failed: ' + JSON.stringify(task.ubd));
             this.isBusy = false;
           }
         }, broker.serviceConfig.ubdPlayer.queueQueryTime)

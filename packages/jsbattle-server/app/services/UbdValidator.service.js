@@ -16,6 +16,7 @@ class UbdValidator extends Service {
     this.schemaV1 = JsBattleSchema.getVersion(1);
     this.schemaV2 = JsBattleSchema.getVersion(2);
     this.schemaV3 = JsBattleSchema.getVersion(3);
+    this.schemaV4 = JsBattleSchema.getVersion(4);
   }
 
   validate(ctx) {
@@ -42,6 +43,7 @@ class UbdValidator extends Service {
 
     // validate version number
     let schema;
+    this.logger.debug(`Validating UBD, version: ${version}`);
     switch (version) {
       case 1:
         schema = this.schemaV1;
@@ -51,6 +53,9 @@ class UbdValidator extends Service {
         break;
       case 3:
         schema = this.schemaV3;
+        break;
+      case 4:
+        schema = this.schemaV4;
         break;
       default:
         return {valid: false, error: `UBD version ${version} is not supported`};
@@ -65,6 +70,7 @@ class UbdValidator extends Service {
         log.push(err.dataPath + " " + err.message);
         return log;
       }, []);
+      this.logger.debug('Invalid UBD: ' + msg.join("; "));
       return {valid: false, error: msg.join("; ")};
     }
 

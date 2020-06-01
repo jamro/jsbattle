@@ -29,7 +29,7 @@ let config = {
     "queueLimit": 3,
     "queueQueryTime": 500,
     "speed": 10,
-    "timeout": 20000
+    "timeout": 5000
   },
   "auth": {
     "enabled": true,

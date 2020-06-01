@@ -2,12 +2,12 @@
 
 import AiDefinition from "./AiDefinition.js";
 import Ajv from 'ajv';
-import schema from '../schema/ubd-schema-v3.json';
+import schema from '../schema/ubd-schema-v4.json';
 
 class UltimateBattleDescriptor {
 
   constructor() {
-    this._version = 3;
+    this._version = 4;
     this._aiList = [];
     this._rngSeed = (new Date()).getTime();
     this._teamMode = false;
@@ -58,8 +58,12 @@ class UltimateBattleDescriptor {
       timeLimit: this._timeLimit,
       aiList: []
     };
+    let count;
     for(let ai of this._aiList) {
-      json.aiList.push(ai.toJSON());
+      count = ai.count || 1;
+      for(let i=0; i< count; i++) {
+        json.aiList.push(ai.toJSON());
+      }
     }
     let raw = JSON.stringify(json);
     return raw;

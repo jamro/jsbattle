@@ -69,10 +69,14 @@ export class LeagueReplayScreen extends React.Component {
     if(this.props.aiList.length && !this.state.completed) {
       let ai;
       let aiDefList = [];
+      let count;
       for(let aiDef of this.props.aiList) {
-        ai = JsBattle.createAiDefinition();
-        ai.fromJSON(aiDef);
-        aiDefList.push(ai);
+        count = aiDef.count || 1;
+        for(let i=0; i < count; i++) {
+          ai = JsBattle.createAiDefinition();
+          ai.fromJSON(aiDef);
+          aiDefList.push(ai);
+        }
       }
       battlefield = <JsBattleBattlefield
         debug={this.props.debug}

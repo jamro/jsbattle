@@ -36,10 +36,14 @@
 
         let ai;
         let clock;
+        let count;
         for(let aiDef of ubd.aiList) {
-          ai = JsBattle.createAiDefinition();
-          ai.fromJSON(aiDef);
-          simulation.addTank(ai);
+          count = aiDef.count || 1;
+          for(let i=0; i < count; i++) {
+            ai = JsBattle.createAiDefinition();
+            ai.fromJSON(aiDef);
+            simulation.addTank(ai);
+          }
         }
         simulation.onError((error) => {
           status('error');
@@ -48,7 +52,6 @@
         })
         simulation.onFinish(() => {
           clearInterval(clock)
-          console.log(simulation.teamList);
           status('done');
           print({
             timeElapsed: simulation.timeElapsed,

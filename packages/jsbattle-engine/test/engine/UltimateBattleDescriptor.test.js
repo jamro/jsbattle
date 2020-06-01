@@ -8,7 +8,7 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should create empty descriptor with current version', function () {
       let desc = new UltimateBattleDescriptor();
-      assert.equal(3, desc.getVersion());
+      assert.equal(4, desc.getVersion());
       assert.equal(0, desc.getAiList().length);
     });
   });
@@ -126,7 +126,7 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should support secure mode', function() {
       let ubd = {
-        "version": 3,
+        "version": 4,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
         "timeLimit": 30000,
@@ -162,7 +162,7 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should support unsecure mode', function() {
       let ubd = {
-        "version": 3,
+        "version": 4,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
         "timeLimit": 30000,
@@ -198,7 +198,7 @@ describe('UltimateBattleDescriptor', function() {
 
     it('should validate json', function() {
       let ubd = {
-        "version": 3,
+        "version": 4,
         "rngSeed": 0.850067584253805,
         "teamMode": false,
         "timeLimit": 30000,

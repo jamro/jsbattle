@@ -11,6 +11,7 @@ Date       | Version | Schema Location                 | Description
 2018-05-31 |       1 | `src/schema/ubd-schema-v1.json` | Initial Version
 2018-06-04 |       2 | `src/schema/ubd-schema-v2.json` | Adding teamMode information
 2019-12-09 |       3 | `src/schema/ubd-schema-v3.json` | Adding timeLimit information
+2020-06-01 |       4 | `src/schema/ubd-schema-v4.json` | Allow multiplication of AI entires to reduce memory footprint
 
 ## UBD Format
 UBD is a JSON file of the following format
@@ -34,9 +35,9 @@ Maximum duration of the battle in milliseconds, or zero if unlimited
 
 ```json
 {
-  "version": 2,
+  "version": 4,
   "rngSeed": 0.850067584253805,
-  "teamMode": false,
+  "teamMode": true,
   "timeLimit": 30000,
   "aiList": [
     {
@@ -45,7 +46,8 @@ Maximum duration of the battle in milliseconds, or zero if unlimited
       "code": "//AI code ...",
       "initData": null,
       "useSandbox": true,
-      "executionLimit": 100
+      "executionLimit": 100,
+      "count": 10
     },
     {
       "name": "crawler",
@@ -97,11 +99,7 @@ Follow those steps when releasing new version of UBD schema
         }
     }
     ```
-7. Update sample UBD at `packages/jsbattle-webpage/src/components/screen/UbdPlayer/UbdPlayer.js`
-    ```javascript
-        render() {
-            // ...
-            let ubdSample ='{"version": [version], ... }';
-            // ...
-        }
-    ```
+7. Update other files:
+ - `packages/jsbattle-server/app/services/LeagueScheduler.service.js`
+ - `packages/jsbattle-server/app/services/ubdPlayer/www/index.html`
+ - `packages/jsbattle-webpage/src/containers/LeagueReplayScreen.js`

@@ -118,6 +118,7 @@ class LeagueScheduler extends Service {
     }));
     await Promise.all(updateCalls)
 
+    ctx.broadcast('client.league.battleCompleted', {});
   }
 
   async scheduleBattle(ctx) {

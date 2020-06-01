@@ -3,9 +3,11 @@ const ApiService = require("moleculer-web");
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const http = require('http');
 const stringReplace = require('../lib/stringReplaceMiddleware.js');
 const authorize = require('./apiGateway/authorize.js');
 const configPassport = require('./apiGateway/configPassport.js');
+const IO = require("socket.io");
 
 class ApiGatewayService extends Service {
 
@@ -146,13 +148,39 @@ class ApiGatewayService extends Service {
           this.server = null;
         }
         this.logger.info(`CORS origin: ${broker.serviceConfig.web.corsOrigin.join(', ')}`)
-        this.server = this.app.listen(
+        this.server = http.Server(this.app);
+        this.logger.info('Starting Socket.IO server');
+        this.io = IO.listen(this.server, {
+          path: '/api/events',
+          serveClient: false
+        });
+
+        this.server.listen(
           port,
           host,
           () => {
             this.logger.info(`webserver started at http://${host}:${port}`)
           }
         );
+
+        this.io.on("connection", (client) => {
+          this.logger.info("Client connected via websocket!");
+            client.on("disconnect", () => {
+            this.logger.info("Client disconnected");
+          });
+        });
+
+      },
+      events: {
+        "client.**"(payload, sender, event) {
+          if (this.io) {
+            this.logger.debug(`Sending client event: ${event}`);
+            this.io.emit("event", {
+              event,
+              payload
+            });
+          }
+        }
       },
       stopped() {
         if(this.server) {

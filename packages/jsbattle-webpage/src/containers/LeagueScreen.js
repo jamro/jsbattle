@@ -18,6 +18,10 @@ import {
   joinLeague,
   leaveLeague
 } from '../actions/leagueAction.js';
+import {
+  wsConnect,
+  wsDisconnect
+} from '../actions/wsAction.js';
 import PropTypes from 'prop-types';
 
 export class LeagueScreen extends React.Component {
@@ -26,6 +30,11 @@ export class LeagueScreen extends React.Component {
     this.props.notifyLeagueOpen();
     this.props.getSandboxAiScriptList(true);
     this.props.getLeagueSummary();
+    this.props.wsConnect();
+  }
+
+  componentWillUnmount() {
+    this.props.wsDisconnect();
   }
 
   renderTableRow(item) {
@@ -123,6 +132,8 @@ LeagueScreen.defaultProps = {
   joinLeague: () => {},
   leaveLeague: () => {},
   notifyLeagueOpen: () => {},
+  wsConnect: () => {},
+  wsDisconnect: () => {},
 };
 
 LeagueScreen.propTypes = {
@@ -137,6 +148,8 @@ LeagueScreen.propTypes = {
   joinLeague: PropTypes.func,
   leaveLeague: PropTypes.func,
   notifyLeagueOpen: PropTypes.func,
+  wsConnect: PropTypes.func,
+  wsDisconnect: PropTypes.func,
   leagueHistory: PropTypes.array
 };
 const mapStateToProps = (state) => ({
@@ -164,6 +177,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   notifyLeagueOpen: () => {
     dispatch(notifyLeagueOpen());
+  },
+  wsConnect: () => {
+    dispatch(wsConnect());
+  },
+  wsDisconnect: () => {
+    dispatch(wsDisconnect());
   }
 });
 export default connect(

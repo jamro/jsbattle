@@ -8,6 +8,14 @@ export const getLeagueSummary = () => {
   );
 };
 
+export const refreshLeague = () => {
+  return fetchFromApi(
+    "/api/user/league",
+    "LEAGUE_REFRESH",
+    {}
+  );
+};
+
 export const getLeagueReplay = (replayId) => {
   return fetchFromApi(
     "/api/user/league/replay/" + replayId,

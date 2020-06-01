@@ -31,6 +31,8 @@ async function loadWebpage() {
   const {Provider} = await import(/* webpackChunkName: "lib" */ 'react-redux');
   const {default: thunk} = await import(/* webpackChunkName: "lib" */ 'redux-thunk');
   const {default: reducer} = await import(/* webpackChunkName: "app" */ './reducers');
+  const {default: socketMiddleware} = await import(/* webpackChunkName: "lib" */ './lib/socketMiddleware.js');
+
   await import(/* webpackChunkName: "lib" */ 'react-router-dom');
   const {
     createStore,
@@ -69,7 +71,7 @@ async function loadWebpage() {
 
   const store = createStore(
     reducer,
-    storeEnhancers(applyMiddleware(errorHandler, reduxLogger, thunk))
+    storeEnhancers(applyMiddleware(errorHandler, reduxLogger, socketMiddleware, thunk))
   );
 
   root.innerHTML = '';

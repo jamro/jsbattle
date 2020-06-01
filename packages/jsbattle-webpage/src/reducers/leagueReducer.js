@@ -2,7 +2,8 @@ import {
   LEAGUE_REPLAY_SUCCESS,
   LEAGUE_SUMMARY_SUCCESS,
   LEAGUE_CLEAR_SUBMISSION_SUCCESS,
-  LEAGUE_NEW_SUBMISSION_SUCCESS
+  LEAGUE_NEW_SUBMISSION_SUCCESS,
+  LEAGUE_REFRESH_SUCCESS
 } from '../actions/actionTypes.js';
 
 const initState = {
@@ -26,6 +27,7 @@ function leagueReducer(state = {}, action) {
     case LEAGUE_CLEAR_SUBMISSION_SUCCESS:
     case LEAGUE_NEW_SUBMISSION_SUCCESS:
     case LEAGUE_SUMMARY_SUCCESS:
+    case LEAGUE_REFRESH_SUCCESS:
       if(Object.keys(action.payload.submission).length > 0) {
         submission = {
           ...action.payload.submission,

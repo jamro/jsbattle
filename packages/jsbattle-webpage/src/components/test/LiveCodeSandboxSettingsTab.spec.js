@@ -10,32 +10,32 @@ test('LiveCodeSandboxSettingsTab renders properly', () => {
 
 test('list opponents', () => {
   const opponents = [
-    { id: 'op1',  scriptName: 'alpha753' },
-    { id: 'op2',  scriptName: 'beta78732' }
+    { id: 'op1',  label: 'alpha753' },
+    { id: 'op2',  label: 'beta78732' }
   ]
   const wrapper = shallow(<LiveCodeSandboxSettingsTab
-      selectedOpponent="op2"
+      selectedOpponent={{ id: 'op2',  label: 'beta78732' }}
       opponents={opponents}
     />);
   expect(wrapper.find('#opponent').text()).toMatch(/alpha753/)
   expect(wrapper.find('#opponent').text()).toMatch(/beta78732/)
-  expect(wrapper.find('#opponent').props().value).toBe('op2');
+  expect(wrapper.find('#opponent').props().value).toBe(1);
 });
 
 test('change opponent', () => {
   const opponents = [
-    { id: 'op532234',  scriptName: 'alpha98324' },
-    { id: 'op632243',  scriptName: 'beta77532' }
+    { id: 'op532234',  label: 'alpha98324' },
+    { id: 'op632243',  label: 'beta77532' }
   ];
   const onOpponentChange = jest.fn();
   const wrapper = shallow(<LiveCodeSandboxSettingsTab
-      selectedOpponent="op532234"
+      selectedOpponent={{ id: 'op532234',  label: 'alpha98324' }}
       opponents={opponents}
       onOpponentChange={onOpponentChange}
     />);
-  wrapper.find('#opponent').simulate('change', {target: { value : 'op632243'}});
+  wrapper.find('#opponent').simulate('change', {target: { value : 1}});
   expect(onOpponentChange.mock.calls).toHaveLength(1);
-  expect(onOpponentChange.mock.calls[0][0]).toBe('op632243');
+  expect(onOpponentChange.mock.calls[0][0]).toHaveProperty('id', 'op632243');
 });
 
 test('change mode', () => {
@@ -64,8 +64,8 @@ test('lock rng', () => {
   expect(onRngLock.mock.calls[0][0]).toBe(true);
 
   onRngLock.mockReset();
-wrapper.find('#lock').simulate('change', {target: { checked : false}});
-expect(onRngLock.mock.calls).toHaveLength(1);
-expect(onRngLock.mock.calls[0][0]).toBe(false);
+  wrapper.find('#lock').simulate('change', {target: { checked : false}});
+  expect(onRngLock.mock.calls).toHaveLength(1);
+  expect(onRngLock.mock.calls[0][0]).toBe(false);
 
 });

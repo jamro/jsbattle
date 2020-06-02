@@ -20,48 +20,15 @@ import {
 
 test('has init state', () => {
   const outcomeState = sandboxReducer();
-  expect(outcomeState).toHaveProperty('tankList')
+  expect(outcomeState).toHaveProperty('opponentList')
   expect(outcomeState).toHaveProperty('script')
   expect(outcomeState).toHaveProperty('opponent')
   expect(outcomeState).toHaveProperty('lockRng', false)
   expect(outcomeState).toHaveProperty('mode', 'duel')
-  expect(outcomeState.tankList).toHaveLength(0)
-  expect(outcomeState.opponent).toHaveProperty('type', 'bundled')
+  expect(outcomeState.opponentList).toHaveLength(0)
+  expect(outcomeState.opponent).toHaveProperty('source', 'bundled')
   expect(outcomeState.opponent).toHaveProperty('name', 'dummy')
   expect(outcomeState.opponent).toHaveProperty('code', '')
-});
-
-test('get settings [ok]', () => {
-  const outcomeState = sandboxReducer(
-    {},
-    {
-      type: SETTINGS_SUCCESS,
-      payload: {
-        bundledTanks: [
-          { id: 88432},
-          { id: 65461}
-        ]
-      }
-    }
-  );
-  expect(outcomeState.tankList).toHaveLength(2)
-  expect(outcomeState.tankList[0]).toHaveProperty('id', 88432)
-  expect(outcomeState.tankList[1]).toHaveProperty('id', 65461)
-});
-
-test('get settings [fail]', () => {
-  const outcomeState = sandboxReducer(
-    {
-      tankList: [
-        { id: 993 }
-      ]
-    },
-    {
-      type: SETTINGS_FAILURE
-    }
-  );
-  expect(outcomeState.tankList).toHaveLength(1)
-  expect(outcomeState.tankList[0]).toHaveProperty('id', 993)
 });
 
 test('get ai script [request]', () => {
@@ -184,13 +151,12 @@ test('change opponent', () => {
     {
       type: SANDBOX_OPPONENT_CHANGE,
       payload: {
-        type: 'user',
+        type: 'local_user',
         name: 'tank774',
         code: '// code 98243'
       }
     }
   );
-  expect(outcomeState.opponent).toHaveProperty('type', 'user')
   expect(outcomeState.opponent).toHaveProperty('name', 'tank774')
   expect(outcomeState.opponent).toHaveProperty('code', '// code 98243')
 });

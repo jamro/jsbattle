@@ -11,7 +11,7 @@ import {
 } from '../actions/statsAction.js';
 import {
   getAiScript,
-  getSandboxAiScriptList,
+  getSandboxOpponentList,
   updateAiScript,
   renameAiScript,
   setSandboxOpponent,
@@ -47,16 +47,17 @@ export class SandboxScreen extends React.Component {
   componentDidMount() {
     let id = this.props.match.params.name;
     this.props.getAiScript(id, this.props.useRemoteService);
-    this.props.getSandboxAiScriptList(this.props.useRemoteService);
+    this.props.getSandboxOpponentList(this.props.useRemoteService);
     this.props.notifySandboxEdit();
     this.log('SandboxScreen mounted');
   }
 
   shouldComponentUpdate(nextProps) {
     if(!this.state.isRunning) return true;
+
     if(
       this.props.mode != nextProps.mode ||
-      this.props.opponent.type != nextProps.opponent.type ||
+      this.props.opponent.source != nextProps.opponent.source ||
       this.props.opponent.name != nextProps.opponent.name
     ) {
       this.updateAiDefList(nextProps.mode, nextProps.opponent);
@@ -71,13 +72,16 @@ export class SandboxScreen extends React.Component {
 
     for(let i=0; i < count; i++) {
       let aiDef = JsBattle.createAiDefinition();
-      switch(opponent.type) {
+      switch(opponent.source) {
         case 'bundled':
           aiDef.fromFile(opponent.name);
           break;
-        case 'user':
+        case 'local_user':
+        case 'remote_user':
           aiDef.fromCode(opponent.name, opponent.code);
           break;
+        default:
+          throw new Error(`Unsupported source: ${opponent.source}`);
       }
       aiDefList.push(aiDef);
     }
@@ -99,9 +103,8 @@ export class SandboxScreen extends React.Component {
     this.props.updateAiScript(this.props.script.id, code, this.props.useRemoteService);
   }
 
-  onOpponentChange(value) {
-    value = value.split('/');
-    this.props.setSandboxOpponent(value[0], value[1]);
+  onOpponentChange(opponent) {
+    this.props.setSandboxOpponent(opponent.source, opponent.id);
   }
 
   onBattleFinish(result) {
@@ -133,35 +136,20 @@ export class SandboxScreen extends React.Component {
 
   renderSettingsTab() {
     let selectedOpponent;
-    if(this.props.opponent.type == 'user' && this.props.opponent.name == this.props.script.scriptName) {
-      selectedOpponent = 'bundled/dummy';
+    if((this.props.opponent.source == 'local_user' || this.props.opponent.source == 'remote_user') && this.props.opponent.name == this.props.script.scriptName) {
+      selectedOpponent = {source: 'bundled', id: 'dummy'};
     } else {
-      selectedOpponent = this.props.opponent.type + "/" + this.props.opponent.name;
+      selectedOpponent = {source: this.props.opponent.source, id: this.props.opponent.id};
     }
-
-    let userTankList = this.props.userTankList
-      .filter((script) => script.scriptName != this.props.script.scriptName)
-      .map((row) => ({
-        id: 'user/' + row.scriptName,
-        scriptName: row.scriptName,
-        bundled: false
-      }));
-    let bundledTankList = this.props.bundledTankList
-      .map((name) => ({
-        id: 'bundled/' + name,
-        scriptName: 'Bundled: ' + name,
-        bundled: true
-      }));
-    let opponents = bundledTankList.concat(userTankList);
 
     return <LiveCodeSandboxSettingsTab
       rngSeed={this.state.rngSeed}
       isRngLocked={this.props.lockRng}
       mode={this.props.mode}
-      opponents={opponents}
+      opponents={this.props.opponentList}
       selectedOpponent={selectedOpponent}
       onBattleModeChange={(isTeam) => this.props.setSandboxBattleMode(isTeam)}
-      onOpponentChange={(id) => this.onOpponentChange(id)}
+      onOpponentChange={(opponent) => this.onOpponentChange(opponent)}
       onRngLock={(locked) => this.props.lockSandboxRng(locked)}
     />;
   }
@@ -246,10 +234,9 @@ SandboxScreen.defaultProps = {
   logging: true,
   simQuality: 'auto',
   simSpeed: 1,
-  userTankList: [],
-  bundledTankList: [],
+  opponentList: [],
   opponent: {
-    type: 'user',
+    source: 'local_user',
     name: "dummy",
     code: "importScripts('lib/tank.js'); tank.init(function(settings, info) { }); tank.loop(function(state, control) { });",
   },
@@ -266,7 +253,7 @@ SandboxScreen.defaultProps = {
   setSandboxBattleMode: () => {},
   lockSandboxRng: () => {},
   notifySandboxEdit: () => {},
-  getSandboxAiScriptList: () => {},
+  getSandboxOpponentList: () => {},
 };
 
 SandboxScreen.propTypes = {
@@ -276,8 +263,7 @@ SandboxScreen.propTypes = {
   useRemoteService: PropTypes.bool,
   logging: PropTypes.bool,
   simSpeed: PropTypes.number,
-  userTankList: PropTypes.array,
-  bundledTankList: PropTypes.array,
+  opponentList: PropTypes.array,
   opponent: PropTypes.object,
   script: PropTypes.object,
   mode: PropTypes.oneOf(['duel', 'team']),
@@ -288,7 +274,7 @@ SandboxScreen.propTypes = {
   setSandboxBattleMode: PropTypes.func,
   lockSandboxRng: PropTypes.func,
   notifySandboxEdit: PropTypes.func,
-  getSandboxAiScriptList: PropTypes.func,
+  getSandboxOpponentList: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -296,8 +282,7 @@ const mapStateToProps = (state) => ({
   isRenameLoading: state.loading.AI_SCRIPT_RENAME,
   simQuality: state.settings.simQuality,
   simSpeed: state.settings.simSpeed,
-  userTankList: state.aiRepo.tankList,
-  bundledTankList: state.sandbox.tankList,
+  opponentList: state.sandbox.opponentList,
   opponent: state.sandbox.opponent,
   mode: state.sandbox.mode,
   lockRng: state.sandbox.lockRng,
@@ -309,8 +294,8 @@ const mapDispatchToProps = (dispatch) => ({
   getAiScript: (name, useRemoteService) => {
     dispatch(getAiScript(name, useRemoteService));
   },
-  getSandboxAiScriptList: (useRemoteService) => {
-    dispatch(getSandboxAiScriptList(useRemoteService));
+  getSandboxOpponentList: (useRemoteService) => {
+    dispatch(getSandboxOpponentList(useRemoteService));
   },
   updateAiScript: (id, code, useRemoteService) => {
     dispatch(updateAiScript(id, code, useRemoteService));

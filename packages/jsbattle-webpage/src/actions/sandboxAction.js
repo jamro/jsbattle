@@ -2,6 +2,8 @@ import aiRepoService from "../services/aiRepoService.js";
 import statsService from '../services/statsService.js';
 import {
   SANDBOX_OPPONENT_CHANGE,
+  SANDBOX_OPPONENT_LIST,
+  SANDBOX_OPPONENT_LIST_FAILURE,
   SANDBOX_OPPONENT_TEAM_MODE,
   SANDBOX_OPPONENT_DUEL_MODE,
   SANDBOX_RNG_LOCK,
@@ -115,19 +117,96 @@ export const renameAiScript = (newName, id, useRemoteService) => {
   );
 };
 
-export const setSandboxOpponent = (type, name) => {
+export const getSandboxOpponentList = (useRemoteService) => {
   return async (dispatch) => {
-    let code = '';
-    if(type == 'user') {
-      code = await aiRepoService.getScript(name, 'scriptMap');
-      code = code.code;
+    let result;
+    let userTankList = [];
+    if(useRemoteService) {
+      try {
+        result = await fetch("/api/user/scripts", {});
+        if(!result.ok) {
+          throw new Error(`Error ${result.status}: ${result.statusText} (url: ${result.url})`);
+        }
+        userTankList = await result.json();
+        userTankList = userTankList.map((script) => ({
+          id: script.id,
+          label: "sandbox/" + script.scriptName,
+          source: 'remote_user'
+        }));
+      } catch(err) {
+        console.log(err);
+        return dispatch({
+          type: SANDBOX_OPPONENT_LIST_FAILURE,
+          payload: err
+        });
+      }
+    } else {
+      userTankList = await aiRepoService.getScriptNameList();
+      userTankList = userTankList.map((script) => ({
+        id: script.id,
+        label: 'sandbox/' + script.scriptName,
+        source: 'local_user'
+      }));
+    }
+
+    result = await fetch("tanks/index.json");
+    let bundledTanks = await result.json();
+
+    bundledTanks = bundledTanks.map((name) => ({
+      id: name,
+      label: "jsbattle/" + name,
+      source: "bundled"
+    }));
+
+    dispatch({
+      type: SANDBOX_OPPONENT_LIST,
+      payload: Array.concat(bundledTanks, userTankList)
+    });
+  };
+};
+
+export const setSandboxOpponent = (source, id) => {
+  return async (dispatch) => {
+    let scriptName;
+    let scriptCode;
+    let script;
+    switch(source) {
+      case 'local_user':
+        script = await aiRepoService.getScript(id, 'scriptMap');
+        scriptName = script.scriptName;
+        scriptCode = script.code;
+        break;
+      case 'bundled':
+        scriptName = id;
+        scriptCode = '';
+        break;
+      case 'remote_user':
+        try {
+          script = await fetch("/api/user/scripts/" + id);
+          if(!script.ok) {
+            throw new Error(`Error ${script.status}: ${script.statusText} (url: ${script.url})`);
+          }
+          script = await script.json();
+          scriptName = script.scriptName;
+          scriptCode = script.code;
+        } catch(err) {
+          console.log(err);
+          return dispatch({
+            type: SANDBOX_OPPONENT_LIST_FAILURE,
+            payload: err
+          });
+        }
+        break;
+      default:
+        throw new Error(`Not supported source ${source}`);
     }
     dispatch({
       type: SANDBOX_OPPONENT_CHANGE,
       payload: {
-        type,
-        name,
-        code
+        id,
+        source,
+        name: scriptName,
+        code: scriptCode
       }
     });
   };

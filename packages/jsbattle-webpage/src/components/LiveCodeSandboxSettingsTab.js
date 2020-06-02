@@ -6,7 +6,9 @@ import Row from './Row.js';
 class LiveCodeSandboxSettingsTab extends React.Component {
 
   render() {
-    let opponents = this.props.opponents.map((opponent) => <option key={opponent.id} value={opponent.id}>{opponent.scriptName}</option>);
+    let opponents = this.props.opponents.map((opponent, index) => <option key={opponent.id} value={index}>{opponent.label}</option>);
+
+    let selectedIndex = this.props.opponents.findIndex((opponent) => (opponent.id == this.props.selectedOpponent.id && opponent.source == this.props.selectedOpponent.source));
 
     return <Row>
         <Col sm={12}>
@@ -15,7 +17,7 @@ class LiveCodeSandboxSettingsTab extends React.Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="opponent"><i className="fas fa-crosshairs"></i> Opponent</label>
-                  <select className="form-control" id="opponent" value={this.props.selectedOpponent} onChange={(e) => this.props.onOpponentChange(e.target.value)}>
+                  <select className="form-control" id="opponent" value={selectedIndex} onChange={(e) => this.props.onOpponentChange(this.props.opponents[e.target.value])}>
                     {opponents}
                   </select>
                 </div>
@@ -45,7 +47,7 @@ class LiveCodeSandboxSettingsTab extends React.Component {
 }
 
 LiveCodeSandboxSettingsTab.defaultProps = {
-  selectedOpponent: '',
+  selectedOpponent: {},
   opponents: [],
   mode: 'duel',
   rngSeed: 0,
@@ -57,7 +59,7 @@ LiveCodeSandboxSettingsTab.defaultProps = {
 
 LiveCodeSandboxSettingsTab.propTypes = {
   opponents: PropTypes.array,
-  selectedOpponent: PropTypes.string,
+  selectedOpponent: PropTypes.object,
   rngSeed: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isRngLocked: PropTypes.bool,
   mode: PropTypes.oneOf(['duel', 'team']),

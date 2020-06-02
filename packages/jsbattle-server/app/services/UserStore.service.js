@@ -85,6 +85,8 @@ class UserStoreService extends Service {
     }
     const reservedNames = [
       'jsbattle',
+      'sandbox',
+      'user',
       'admin'
     ];
     const isNameReserved = reservedNames.indexOf(username.toLowerCase()) != -1;

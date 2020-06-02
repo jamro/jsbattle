@@ -57,10 +57,6 @@ export const getSettings = () => {
 
     let settings = await profileService.getSettings();
 
-    let result = await fetch("tanks/index.json");
-    let bundledTanks = await result.json();
-    settings.bundledTanks = bundledTanks;
-
     dispatch({type: SETTINGS_SUCCESS, payload: settings});
   };
 };

@@ -220,12 +220,12 @@ test('enable logging', () => {
 
 test('change opponent', () => {
   const opponent = {
-    type: 'user',
+    source: 'local_user',
     name: 'op8874',
     code: '// code'
   }
   const opponent2 = {
-    type: 'bundled',
+    source: 'bundled',
     name: 'bu76644'
   }
   const wrapper = shallow(<SandboxScreen
@@ -248,7 +248,7 @@ test('notify opponent change', () => {
     logging={false}
     setSandboxOpponent={setSandboxOpponent}
   />);
-  wrapper.instance().onOpponentChange('bundled/op4352');
+  wrapper.instance().onOpponentChange({source: 'bundled', id: 'op4352'});
   expect(setSandboxOpponent.mock.calls).toHaveLength(1);
   expect(setSandboxOpponent.mock.calls[0][0]).toBe('bundled');
   expect(setSandboxOpponent.mock.calls[0][1]).toBe('op4352');

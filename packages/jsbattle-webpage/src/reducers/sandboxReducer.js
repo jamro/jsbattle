@@ -1,5 +1,4 @@
 import {
-  SETTINGS_SUCCESS,
   AI_SCRIPT_REQUEST,
   AI_SCRIPT_SUCCESS,
   AI_SCRIPT_FAILURE,
@@ -10,16 +9,17 @@ import {
   SANDBOX_RNG_UNLOCK,
   SANDBOX_OPPONENT_TEAM_MODE,
   SANDBOX_OPPONENT_DUEL_MODE,
+  SANDBOX_OPPONENT_LIST
 } from '../actions/actionTypes.js';
 
 const initState = {
-  tankList: [],
   script: {},
   opponent: {
-    type: 'bundled',
+    source: 'bundled',
     name: 'dummy',
     code: ''
   },
+  opponentList: [],
   lockRng: false,
   mode: 'duel'
 };
@@ -33,11 +33,11 @@ function sanboxReducer(state = {}, action) {
     ...state
   };
   switch (action.type) {
-    case SETTINGS_SUCCESS:
-      return {
-        ...state,
-        tankList: action.payload.bundledTanks
-      };
+    case SANDBOX_OPPONENT_LIST:
+    return {
+      ...state,
+      opponentList: action.payload
+    };
     case AI_SCRIPT_FAILURE:
     case AI_SCRIPT_REQUEST:
       return {
@@ -70,7 +70,8 @@ function sanboxReducer(state = {}, action) {
         ...state,
         opponent: {
           ...state.opponent,
-          type: action.payload.type,
+          source: action.payload.source,
+          id: action.payload.id,
           name: action.payload.name,
           code: action.payload.code || '',
         }

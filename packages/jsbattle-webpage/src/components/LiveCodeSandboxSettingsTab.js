@@ -5,11 +5,36 @@ import Row from './Row.js';
 
 class LiveCodeSandboxSettingsTab extends React.Component {
 
-  render() {
-    let opponents = this.props.opponents.map((opponent, index) => <option key={opponent.id} value={index}>{opponent.label}</option>);
+  onCategoryChange(category) {
+    let opponent = this.props.opponents.find((op) => op.source == category);
+    this.props.onOpponentChange(opponent);
+  }
 
+  render() {
+    let selectedCategory = this.props.selectedOpponent ? this.props.selectedOpponent.source : 'bundled';
+    let opponents = this.props.opponents
+      .map((opponent, index) => ({
+        ...opponent,
+        index
+      }))
+      .filter((opponent) => opponent.source == selectedCategory)
+      .map((opponent) => <option key={opponent.id} value={opponent.index}>{opponent.label}</option>);
     let selectedIndex = this.props.opponents.findIndex((opponent) => (opponent.id == this.props.selectedOpponent.id && opponent.source == this.props.selectedOpponent.source));
 
+    let categories = this.props.opponents.reduce((result, value) => {
+      if(result.indexOf(value.source) == -1) {
+        result.push(value.source);
+      }
+      return result;
+    }, []);
+    const categoryLabels = {
+      'bundled': 'Bundled',
+      'local_user': 'Sandbox',
+      'remote_user': 'Sandbox',
+      'league': 'League'
+    };
+
+    categories = categories.map((item) => <option key={item} value={item}>{categoryLabels[item]}</option>);
     return <Row>
         <Col sm={12}>
           <div className="card" style={{marginTop: '1em'}}>
@@ -17,9 +42,18 @@ class LiveCodeSandboxSettingsTab extends React.Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="opponent"><i className="fas fa-crosshairs"></i> Opponent</label>
-                  <select className="form-control" id="opponent" value={selectedIndex} onChange={(e) => this.props.onOpponentChange(this.props.opponents[e.target.value])}>
-                    {opponents}
-                  </select>
+                  <Row>
+                    <Col md={5}>
+                      <select className="form-control" id="category" value={selectedCategory} onChange={(e) => this.onCategoryChange(e.target.value)}>
+                        {categories}
+                      </select>
+                    </Col>
+                    <Col md={7}>
+                      <select className="form-control" id="opponent" value={selectedIndex} onChange={(e) => this.props.onOpponentChange(this.props.opponents[e.target.value])}>
+                        {opponents}
+                      </select>
+                    </Col>
+                  </Row>
                 </div>
                 <div className="form-group">
                   <label htmlFor="opponent"><i className="fas fa-users-cog"></i> Mode</label>

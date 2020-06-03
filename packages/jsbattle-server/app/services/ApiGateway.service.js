@@ -73,6 +73,8 @@ class ApiGatewayService extends Service {
                   "GET league/": "league.getLeagueSummary",
                   "GET league/replay/:id": "battleStore.get",
                   "GET league/submission": "league.getUserSubmission",
+                  "GET league/ranktable": "league.getUserRankTable",
+                  "GET league/scripts/:id": "league.getScript",
                   "PATCH league/submission": "league.joinLeague",
                   "DELETE league/submission": "league.leaveLeague",
                 },

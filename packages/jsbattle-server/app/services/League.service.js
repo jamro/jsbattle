@@ -59,9 +59,11 @@ class LeagueService extends Service {
         seedLeague: this.seedLeague,
         getUserSubmission: this.getUserSubmission,
         getHistory: this.getHistory,
+        getScript: this.getScript,
         joinLeague: this.joinLeague,
         leaveLeague: this.leaveLeague,
         getLeagueSummary: this.getLeagueSummary,
+        getUserRankTable: this.getUserRankTable,
         updateRank: this.updateRank
       },
       hooks: {
@@ -106,6 +108,31 @@ class LeagueService extends Service {
         }
       }
     });
+  }
+
+
+  async getScript(ctx) {
+    const userId = ctx.meta.user ? ctx.meta.user.id : null;
+    if(!userId) {
+      throw new ValidationError('Not Authorized!', 401);
+    }
+
+    const scriptId = ctx.params.id
+    let response = await ctx.call('league.get', {
+      id: scriptId,
+      fields: [
+        "id",
+        "ownerName",
+        "scriptName",
+        "code"
+      ]
+    });
+
+    return {
+      id: response.id,
+      scriptName: response.ownerName + '/' + response.scriptName,
+      code: response.code
+    };
   }
 
   async getHistory(ctx) {
@@ -349,7 +376,7 @@ class LeagueService extends Service {
     return this.getLeagueSummary(ctx);
   }
 
-  async getLeagueSummary(ctx) {
+  async getUserRankTable(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
     if(!userId) {
       throw new ValidationError('Not Authorized!', 401);
@@ -370,12 +397,24 @@ class LeagueService extends Service {
       "history"
     ];
 
-    let submission = await this.getUserSubmission(ctx)
+    let submission = await this.getUserSubmission(ctx);
     submission = _.pick(submission, fields);
 
     return {
       submission,
-      ranktable: this.ranktable.slice(submission.id, 7),
+      ranktable: this.ranktable.slice(submission.id, 7)
+    }
+  }
+
+  async getLeagueSummary(ctx) {
+    const userId = ctx.meta.user ? ctx.meta.user.id : null;
+    if(!userId) {
+      throw new ValidationError('Not Authorized!', 401);
+    }
+
+    let result = await this.getUserRankTable(ctx);
+    return {
+      ...result,
       history: await ctx.call('league.getHistory', {})
     }
   }

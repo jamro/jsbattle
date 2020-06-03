@@ -127,12 +127,24 @@ export const getSandboxOpponentList = (useRemoteService) => {
         if(!result.ok) {
           throw new Error(`Error ${result.status}: ${result.statusText} (url: ${result.url})`);
         }
-        userTankList = await result.json();
-        userTankList = userTankList.map((script) => ({
+        result = await result.json();
+        userTankList = result.map((script) => ({
           id: script.id,
-          label: "sandbox/" + script.scriptName,
+          label: script.scriptName,
           source: 'remote_user'
         }));
+        result = await fetch("/api/user/league/ranktable", {});
+        if(!result.ok) {
+          throw new Error(`Error ${result.status}: ${result.statusText} (url: ${result.url})`);
+        }
+        result = await result.json();
+        result = result.ranktable.map((item) => ({
+          id: item.id,
+          label: `${item.rank}. ${item.ownerName}/${item.scriptName}`,
+          source: 'league'
+        }));
+        userTankList = userTankList.concat(result);
+
       } catch(err) {
         console.log(err);
         return dispatch({
@@ -144,7 +156,7 @@ export const getSandboxOpponentList = (useRemoteService) => {
       userTankList = await aiRepoService.getScriptNameList();
       userTankList = userTankList.map((script) => ({
         id: script.id,
-        label: 'sandbox/' + script.scriptName,
+        label: script.scriptName,
         source: 'local_user'
       }));
     }
@@ -154,7 +166,7 @@ export const getSandboxOpponentList = (useRemoteService) => {
 
     bundledTanks = bundledTanks.map((name) => ({
       id: name,
-      label: "jsbattle/" + name,
+      label: name,
       source: "bundled"
     }));
 
@@ -197,6 +209,23 @@ export const setSandboxOpponent = (source, id) => {
           });
         }
         break;
+      case 'league':
+      try {
+        script = await fetch("/api/user/league/scripts/" + id);
+        if(!script.ok) {
+          throw new Error(`Error ${script.status}: ${script.statusText} (url: ${script.url})`);
+        }
+        script = await script.json();
+        scriptName = script.scriptName;
+        scriptCode = script.code;
+      } catch(err) {
+        console.log(err);
+        return dispatch({
+          type: SANDBOX_OPPONENT_LIST_FAILURE,
+          payload: err
+        });
+      }
+      break;
       default:
         throw new Error(`Not supported source ${source}`);
     }

@@ -16,8 +16,14 @@ export default class LeagueJoin extends React.Component {
       submissionId = props.tankList[0].id;
     }
 
+    let rejoin;
+    if(this.props.selected) {
+      rejoin = (submissionId == this.props.selected.scriptId);
+    }
+
     this.state = {
       editMode: false,
+      rejoin,
       newSubmissionId: submissionId,
     };
   }
@@ -35,7 +41,12 @@ export default class LeagueJoin extends React.Component {
   }
 
   onSubmissionChange(event) {
-    this.setState({newSubmissionId: event.target.value});
+    let rejoin = false;
+    if(this.props.selected) {
+      rejoin = (event.target.value == this.props.selected.scriptId);
+    }
+
+    this.setState({newSubmissionId: event.target.value, rejoin});
   }
 
   openEditor() {
@@ -68,7 +79,7 @@ export default class LeagueJoin extends React.Component {
     let leaveButton;
     let tankSelect;
     if(this.props.tankList.length > 0) {
-      joinButton = <p><button className="btn btn-primary btn-lg league-join" style={{width: "100%"}} onClick={() => this.join()}><i className="fas fa-check"></i> Join</button></p>;
+      joinButton = <p><button className="btn btn-primary btn-lg league-join" style={{width: "100%"}} onClick={() => this.join()}><i className="fas fa-check"></i> {this.state.rejoin ? 'Re-join' : 'Join'}</button></p>;
       tankSelect = <div>
           <small style={{color: '#888'}}>your tank: </small>
           <select className="custom-select custom-select-lg mb-3" style={{width: "100%"}}  value={this.state.newSubmissionId} onChange={(e) => this.onSubmissionChange(e)}>

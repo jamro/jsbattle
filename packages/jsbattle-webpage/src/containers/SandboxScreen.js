@@ -76,6 +76,7 @@ export class SandboxScreen extends React.Component {
         case 'bundled':
           aiDef.fromFile(opponent.name);
           break;
+        case 'league':
         case 'local_user':
         case 'remote_user':
           aiDef.fromCode(opponent.name, opponent.code);
@@ -136,17 +137,18 @@ export class SandboxScreen extends React.Component {
 
   renderSettingsTab() {
     let selectedOpponent;
-    if((this.props.opponent.source == 'local_user' || this.props.opponent.source == 'remote_user') && this.props.opponent.name == this.props.script.scriptName) {
-      selectedOpponent = {source: 'bundled', id: 'dummy'};
-    } else {
-      selectedOpponent = {source: this.props.opponent.source, id: this.props.opponent.id};
-    }
+    let opponentList = this.props.opponentList.filter((opponent) => !((opponent.source == 'local_user' || opponent.source == 'remote_user') && opponent.label == this.props.script.scriptName));
 
+    if(opponentList.find((opponent) => opponent.source == this.props.opponent.source && opponent.id == this.props.opponent.id)) {
+      selectedOpponent = {source: this.props.opponent.source, id: this.props.opponent.id};
+    } else {
+      selectedOpponent = {source: 'bundled', id: 'dummy'};
+    }
     return <LiveCodeSandboxSettingsTab
       rngSeed={this.state.rngSeed}
       isRngLocked={this.props.lockRng}
       mode={this.props.mode}
-      opponents={this.props.opponentList}
+      opponents={opponentList}
       selectedOpponent={selectedOpponent}
       onBattleModeChange={(isTeam) => this.props.setSandboxBattleMode(isTeam)}
       onOpponentChange={(opponent) => this.onOpponentChange(opponent)}

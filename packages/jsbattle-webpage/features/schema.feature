@@ -13,3 +13,4 @@ Feature: UBD Schema
         | 1       |
         | 2       |
         | 3       |
+        | 4       |

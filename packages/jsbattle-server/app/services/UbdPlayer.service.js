@@ -60,12 +60,13 @@ class UbdPlayer extends Service {
             return;
           }
           let task = this.queue.shift();
+          let page;
           try {
             this.processingStartTime = new Date().getTime();
             this.isBusy = true;
             this.logger.info('Starting a battle...')
             let ubd = task.ubd;
-            let page = await this.browser.newPage();
+            page = await this.browser.newPage();
             page.on('console', (message) => this.logger.debug(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`));
             page.on('pageerror', ({ message }) => this.logger.debug(message));
             await page.goto('http://localhost:' + this.config.port);
@@ -149,7 +150,7 @@ class UbdPlayer extends Service {
     this.logger.debug('Battle scheduled. Queue length: ' + this.queue.length)
   }
 
-  async getInfo(ctx) {
+  async getInfo() {
     let browser = {
       initialized: false,
       product: puppeteer.product,
@@ -158,7 +159,6 @@ class UbdPlayer extends Service {
       config: this.config
     };
 
-    let processInfo = null;
     if(this.browser) {
       browser.initialized = true;
       browser.isConnected = await this.browser.isConnected();

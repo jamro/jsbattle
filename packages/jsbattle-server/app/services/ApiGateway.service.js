@@ -201,7 +201,7 @@ class ApiGatewayService extends Service {
     });
   }
 
-  async getInfo(ctx) {
+  async getInfo() {
     let nodeInfo = this._broker.getLocalNodeInfo();
     return {
       memoryUsage: await process.memoryUsage(),

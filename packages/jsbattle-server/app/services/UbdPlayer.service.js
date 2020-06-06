@@ -83,7 +83,9 @@ class UbdPlayer extends Service {
             this.logger.debug('Battle completed');
             const element = await page.$("#output");
             const text = await page.evaluate((element) => element.innerHTML, element);
-            await page.close();
+            if(page && !page.isClosed()) {
+              await page.close();
+            }
             const jsonResult = JSON.parse(text);
             jsonResult.ubd = ubd;
             if(task.refData) {
@@ -104,6 +106,9 @@ class UbdPlayer extends Service {
             this.logger.warn(err);
             this.logger.debug('UBD that failed: ' + JSON.stringify(task.ubd));
             this.isBusy = false;
+            if(page && !page.isClosed()) {
+              await page.close();
+            }
           }
         }, broker.serviceConfig.ubdPlayer.queueQueryTime)
 

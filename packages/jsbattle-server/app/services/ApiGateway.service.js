@@ -91,6 +91,8 @@ class ApiGatewayService extends Service {
                 aliases: {
                   "GET profile": "auth.whoami",
                   "GET authMethods": "auth.getAuthMethods",
+                  "GET leaguePreview": "league.getHistory",
+                  "GET leaguePreview/replay/:id": "battleStore.get"
                 },
                 bodyParsers: {
                   json: true,

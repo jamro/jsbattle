@@ -61,7 +61,7 @@ Feature: Auth
     Given JsBattle open in the browser
     When Click Sign in button
     And Click "mock" auth method
-    Then challenge [1] are unlocked
+    Then register form is not shown
 
   @snapshot_unregistered
   @integration
@@ -73,7 +73,7 @@ Feature: Auth
     And type "mock-registred" in "#register-form #username" input
     And type "Registered Mock User" in "#register-form #displayname" input
     And click "#register-form button"
-    Then challenge [1] are unlocked
+    Then register form is not shown
     And user name is "Registered Mock User"
 
   Scenario: Continue as guest

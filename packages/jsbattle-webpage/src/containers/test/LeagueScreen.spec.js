@@ -11,7 +11,7 @@ test('show unauthorized', () => {
   const wrapper = shallow(<LeagueScreen
     isAuthorized={false}
   />);
-  expect(wrapper.text()).toMatch(/not authorized/i);
+  expect(wrapper.find('.signin-button').text()).toMatch(/sign up/i);
 });
 
 test('show loading', () => {

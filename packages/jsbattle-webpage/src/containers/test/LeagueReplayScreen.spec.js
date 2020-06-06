@@ -46,13 +46,6 @@ afterAll(() => {
   console.warn = warnOrig;
 });
 
-test('show unauthorized', () => {
-  const wrapper = shallow(<LeagueReplayScreen
-    match={match}
-    isAuthorized={false}
-  />);
-  expect(wrapper.text()).toMatch(/not authorized/i);
-});
 
 test('show loading', () => {
   const wrapper = shallow(<LeagueReplayScreen
@@ -78,11 +71,38 @@ test('show player in breadcrumb', () => {
   expect(wrapper.find('.breadcrumb').text()).toMatch(/bravo9743/i)
 });
 
-test('play the battle', () => {
+test('play the battle (authorized)', () => {
   const wrapper = shallow(<LeagueReplayScreen
     match={match}
     isLoading={false}
     isAuthorized={true}
+    rngSeed={787223}
+    timeLimit={12340}
+    simQuality={0.65}
+    simSpeed={0.42}
+    result={[
+      {name: 'alpha7638'},
+      {name: 'bravo9743'},
+    ]}
+    aiList={aiList}
+  />);
+  expect(wrapper.find(JsBattleBattlefield)).toHaveLength(1);
+  expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('rngSeed', 787223);
+  expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('timeLimit', 12340);
+  expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('speed', 0.42);
+  expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('quality', 0.65);
+  expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('aiDefList');
+  expect(wrapper.find(JsBattleBattlefield).prop('aiDefList')).toHaveLength(2);
+  expect(wrapper.find(JsBattleBattlefield).prop('aiDefList')[0]).toHaveProperty('name', 'brick');
+  expect(wrapper.find(JsBattleBattlefield).prop('aiDefList')[1]).toHaveProperty('name', 'moore');
+
+});
+
+test('play the battle (unauthorized)', () => {
+  const wrapper = shallow(<LeagueReplayScreen
+    match={match}
+    isLoading={false}
+    isAuthorized={false}
     rngSeed={787223}
     timeLimit={12340}
     simQuality={0.65}

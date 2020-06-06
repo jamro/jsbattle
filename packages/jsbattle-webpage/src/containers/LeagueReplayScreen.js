@@ -26,7 +26,7 @@ export class LeagueReplayScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getLeagueReplay(this.props.match.params.id);
+    this.props.getLeagueReplay(this.props.match.params.id, this.props.isAuthorized);
   }
 
   handleBattleFinish(result) {
@@ -50,9 +50,6 @@ export class LeagueReplayScreen extends React.Component {
   }
 
   render() {
-    if(!this.props.isAuthorized) {
-      return 'Not authorized';
-    }
     if(this.props.isLoading) {
       return <Loading />;
     }
@@ -171,8 +168,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getLeagueReplay: (replayId) => {
-    dispatch(getLeagueReplay(replayId));
+  getLeagueReplay: (replayId, isAuthorized) => {
+    dispatch(getLeagueReplay(replayId, isAuthorized));
   },
   showError: (msg) => {
     dispatch(showError(msg));

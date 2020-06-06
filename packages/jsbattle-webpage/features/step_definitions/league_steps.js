@@ -15,3 +15,11 @@ Then('League leaderboard is not empty', async function () {
   });
   expect(result).to.be.above(2);
 });
+
+Then('League history is not empty', async function () {
+  let result = await this.client.page.evaluate(() => {
+    const elements = document.querySelectorAll('.league-history table tr');
+    return elements.length;
+  });
+  expect(result).to.be.above(1);
+});

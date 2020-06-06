@@ -4,7 +4,7 @@ import LeagueHistory from '../LeagueHistory.js';
 
 test('Renders empty', () => {
   const wrapper = shallow(<LeagueHistory />);
-  expect(wrapper.render().text()).toMatch(/Recent fights/i);
+  expect(wrapper.render().text()).toMatch(/Recent battles/i);
   expect(wrapper.render().text()).toMatch(/has not started/i);
 });
 

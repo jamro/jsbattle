@@ -13,7 +13,7 @@
     "extUserId":"mock_01",
     "email":"mock@example.com",
     "role":"user",
-    "registered": false,
+    "registered": true,
     "createdAt":"2020-02-21T16:42:47.432Z",
     "lastLoginAt":"2020-02-21T16:42:47.437Z"
   },
@@ -35,6 +35,7 @@
       "url": "/auth/mock"
     }
   },
+  "user,scripts": [],
   "user,league,submission": {
     "id": "U7aO66layk0yEqwg",
     "scriptId": "xVDPu2zXl9M4lINa",

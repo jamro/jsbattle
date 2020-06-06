@@ -13,6 +13,8 @@ Feature: Navigation
         | page1           | page2           |
         | "Sandbox"       | "Challenges"    |
         | "Challenges"    | "Sandbox"       |
+        | "League"        | "Challenges"    |
+        | "Sandbox"       | "League"        |
 
   Scenario: Open documentation
     Given JsBattle open in the browser

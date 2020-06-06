@@ -16,7 +16,8 @@ import {
 import {
   getLeagueSummary,
   joinLeague,
-  leaveLeague
+  leaveLeague,
+  getLeaguePreview
 } from '../actions/leagueAction.js';
 import {
   wsConnect,
@@ -28,13 +29,19 @@ export class LeagueScreen extends React.Component {
 
   componentDidMount() {
     this.props.notifyLeagueOpen();
-    this.props.getSandboxAiScriptList(true);
-    this.props.getLeagueSummary();
-    this.props.wsConnect();
+    if(this.props.isAuthorized) {
+      this.props.getSandboxAiScriptList(true);
+      this.props.getLeagueSummary();
+      this.props.wsConnect();
+    } else {
+      this.props.getLeaguePreview();
+    }
   }
 
   componentWillUnmount() {
-    this.props.wsDisconnect();
+    if(this.props.isAuthorized) {
+      this.props.wsDisconnect();
+    }
   }
 
   renderTableRow(item) {
@@ -49,9 +56,53 @@ export class LeagueScreen extends React.Component {
     </tr>;
   }
 
+  renderBreadcrumb() {
+    return <FullRow>
+      <nav className="breadcrumb-container">
+        <ol className="breadcrumb">
+          <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
+          <li className="breadcrumb-item"><Link to="/league">League</Link></li>
+        </ol>
+      </nav>
+    </FullRow>;
+  }
+
+  renderUnregistered() {
+    return <div>
+      {this.renderBreadcrumb()}
+      <div className="jumbotron" style={{padding: '2rem'}}>
+        <Row>
+          <Col lg={4} style={{paddingTop: '0.5em'}}>
+          <div className="card">
+            <div className="card-body">
+              <h1 className="card-title text-center">Join the League</h1>
+              <p className="card-text text-center">
+                <p>
+                  <i className="fas fa-trophy fa-5x"></i>
+                </p>
+                <p className="text-left">
+                  Sign up and compete against other coders in the league. Create supreme artificial intelligence, beat all the opponents and climb to the top of the leaderboard.
+                </p>
+                <a className="btn btn-primary btn-lg signin-button" href="#/signin">
+                  <i className="fas fa-sign-in-alt"></i> Sign up
+                </a>
+              </p>
+            </div>
+          </div>
+          </Col>
+          <Col lg={8} style={{paddingTop: '0.5em'}}>
+            <LeagueHistory
+              data={this.props.leagueHistory}
+            />
+          </Col>
+        </Row>
+      </div>
+    </div>;
+  }
+
   render() {
     if(!this.props.isAuthorized) {
-      return 'Not authorized';
+      return this.renderUnregistered();
     }
     if(this.props.isLoading) {
       return <Loading />;
@@ -76,14 +127,7 @@ export class LeagueScreen extends React.Component {
     }
 
     return <div>
-      <FullRow>
-        <nav className="breadcrumb-container">
-          <ol className="breadcrumb">
-            <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
-            <li className="breadcrumb-item"><Link to="/league">League</Link></li>
-          </ol>
-        </nav>
-      </FullRow>
+      {this.renderBreadcrumb()}
       <div className="jumbotron" style={{padding: '2rem'}}>
         <Row>
           <Col lg={4} style={{paddingTop: '0.5em'}}>
@@ -129,6 +173,7 @@ LeagueScreen.defaultProps = {
   isJoining: false,
   getSandboxAiScriptList: () => {},
   getLeagueSummary: () => {},
+  getLeaguePreview: () => {},
   joinLeague: () => {},
   leaveLeague: () => {},
   notifyLeagueOpen: () => {},
@@ -145,6 +190,7 @@ LeagueScreen.propTypes = {
   isJoining: PropTypes.bool,
   getSandboxAiScriptList: PropTypes.func,
   getLeagueSummary: PropTypes.func,
+  getLeaguePreview: PropTypes.func,
   joinLeague: PropTypes.func,
   leaveLeague: PropTypes.func,
   notifyLeagueOpen: PropTypes.func,
@@ -152,15 +198,18 @@ LeagueScreen.propTypes = {
   wsDisconnect: PropTypes.func,
   leagueHistory: PropTypes.array
 };
-const mapStateToProps = (state) => ({
-  isAuthorized: state.auth.profile && (state.auth.profile.role  == 'admin' || state.auth.profile.role  == 'user'),
-  tankList: state.aiRepo.tankList,
-  submission: state.league.submission,
-  ranktable: state.league.ranktable,
-  leagueHistory: state.league.history,
-  isLoading: state.loading.LEAGUE_SUMMARY,
-  isJoining: state.loading.SANDBOX_AI_SCRIPT_LIST || state.loading.LEAGUE_NEW_SUBMISSION || state.loading.LEAGUE_CLEAR_SUBMISSION
-});
+const mapStateToProps = (state) => {
+  const isAuthorized = state.auth.profile && (state.auth.profile.role  == 'admin' || state.auth.profile.role  == 'user');
+  return {
+    isAuthorized: isAuthorized,
+    tankList: state.aiRepo.tankList,
+    submission: state.league.submission,
+    ranktable: state.league.ranktable,
+    leagueHistory: state.league.history,
+    isLoading: isAuthorized ? state.loading.LEAGUE_SUMMARY : state.loading.LEAGUE_PREVIEW,
+    isJoining: state.loading.SANDBOX_AI_SCRIPT_LIST || state.loading.LEAGUE_NEW_SUBMISSION || state.loading.LEAGUE_CLEAR_SUBMISSION
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getSandboxAiScriptList: (useRemoteService) => {
@@ -168,6 +217,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getLeagueSummary: () => {
     dispatch(getLeagueSummary());
+  },
+  getLeaguePreview: () => {
+    dispatch(getLeaguePreview());
   },
   joinLeague: (scriptId, scriptName) => {
     dispatch(joinLeague(scriptId, scriptName));

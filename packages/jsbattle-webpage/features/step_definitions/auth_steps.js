@@ -71,3 +71,11 @@ Then('register form is shown', async function () {
   const css = '#register-form';
   await this.client.page.waitFor(css);
 });
+
+Then('register form is not shown', async function () {
+  await new Promise((resolve) => setTimeout(resolve, 100))
+  let count = await this.client.page.evaluate(() => {
+    return document.querySelectorAll('#register-form').length;
+  });
+  expect(count).to.be.equal(0);
+});

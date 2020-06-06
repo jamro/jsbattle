@@ -48,7 +48,21 @@ async function createWebClient() {
   });
   client.log = [];
   client.page.on('console', async (msg) => {
-    client.log.push(msg)
+    //client.log.push(msg)
+    let args = await msg.args();
+    client.log.push(`[${msg.type()}] ${msg.text()}`)
+    for(let j=0; j< args.length; j++) {
+      if(args[j]._remoteObject && args[j]._remoteObject.description) {
+        client.log.push(args[j]._remoteObject.description + "\n")
+      }
+    }
+
+  });
+  client.page.on('requestfailed', async (request) => {
+    client.log.push(`[REQUEST FAILED]`);
+  });
+  client.page.on('response', async (response) => {
+    client.log.push(`[HTTP] ${response.status()}: ${response.url()}`);
   });
   return client;
 }
@@ -109,15 +123,7 @@ After(async function (scenario) {
   if(this.client) {
     let dump = "\n-- CONSOLE LOG DUMP ---------------------\n";
     for(let i=0; i < this.client.log.length; i++) {
-      let msg = this.client.log[i]
-      let args = await msg.args();
-      dump += `[${msg.type()}] ${msg.text()}\n`;
-      for(let j=0; j< args.length; j++) {
-        if(args[j]._remoteObject && args[j]._remoteObject.description) {
-          dump += args[j]._remoteObject.description + "\n"
-        }
-      }
-
+      dump += this.client.log[i] + "\n";
     }
     dump += "\n-----------------------------------------";
     this.attach(dump)

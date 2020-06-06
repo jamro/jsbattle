@@ -1,5 +1,14 @@
 import {fetchFromApi} from '../lib/fetchFromApi.js';
 
+
+export const getLeaguePreview = () => {
+  return fetchFromApi(
+    "/api/leaguePreview",
+    "LEAGUE_PREVIEW",
+    {}
+  );
+};
+
 export const getLeagueSummary = () => {
   return fetchFromApi(
     "/api/user/league",
@@ -16,9 +25,10 @@ export const refreshLeague = () => {
   );
 };
 
-export const getLeagueReplay = (replayId) => {
+export const getLeagueReplay = (replayId, isAuthorized) => {
+  let url = isAuthorized ? "/api/user/league/replay/" : "/api/leaguePreview/replay/";
   return fetchFromApi(
-    "/api/user/league/replay/" + replayId,
+    url + replayId,
     "LEAGUE_REPLAY",
     {},
   );

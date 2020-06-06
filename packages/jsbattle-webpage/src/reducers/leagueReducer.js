@@ -1,6 +1,7 @@
 import {
   LEAGUE_REPLAY_SUCCESS,
   LEAGUE_SUMMARY_SUCCESS,
+  LEAGUE_PREVIEW_SUCCESS,
   LEAGUE_CLEAR_SUBMISSION_SUCCESS,
   LEAGUE_NEW_SUBMISSION_SUCCESS,
   LEAGUE_REFRESH_SUCCESS
@@ -28,7 +29,7 @@ function leagueReducer(state = {}, action) {
     case LEAGUE_NEW_SUBMISSION_SUCCESS:
     case LEAGUE_SUMMARY_SUCCESS:
     case LEAGUE_REFRESH_SUCCESS:
-      if(Object.keys(action.payload.submission).length > 0) {
+      if(action.payload.submission && Object.keys(action.payload.submission).length > 0) {
         submission = {
           ...action.payload.submission,
           history: action.payload.submission.history.map((item) => ({
@@ -43,6 +44,11 @@ function leagueReducer(state = {}, action) {
         submission: submission,
         ranktable: action.payload.ranktable,
         history: action.payload.history
+      };
+    case LEAGUE_PREVIEW_SUCCESS:
+      return {
+        ...state,
+        history: action.payload
       };
     case LEAGUE_REPLAY_SUCCESS:
       ubd = JSON.parse(action.payload.ubd);

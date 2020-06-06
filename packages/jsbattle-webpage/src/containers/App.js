@@ -47,7 +47,7 @@ class App extends Component {
     if(!this.props.profile || !this.props.profile.role || this.props.profile.role == 'guest') {
       signInRoute = <Route exact path="/signin" component={SignInScreen} />;
     } else {
-      signInRoute = <Route path="/signin"><Redirect to="/challenge" /></Route>;
+      signInRoute = <Route path="/signin"><Redirect to="/league" /></Route>;
     }
 
     return <div>

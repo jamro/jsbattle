@@ -37,7 +37,7 @@ export default class LeagueHistory extends React.Component {
     }
     return <div className="card bg-dark text-white league-history" style={{height: '100%'}}>
       <div className="card-body">
-        <h5 className="card-title">Recent fights</h5>
+        <h5 className="card-title">Recent battles</h5>
         <table className="table table-sm table-dark">
           <tbody>
             {rows}

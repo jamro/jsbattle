@@ -264,6 +264,87 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ubdPlayer/info",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "65b36948-581e-4c56-a059-118880d07875",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/ubdPlayer/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"ubdPlayer",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "info",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "65b36948-581e-4c56-a059-118880d07875",
+								"exec": [
+									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"pm.sendRequest(url, function (err, response) {",
+									"    console.log(response.headers);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"info"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -271,6 +352,625 @@
 		{
 			"name": "USER",
 			"item": [
+				{
+					"name": "league",
+					"item": [
+						{
+							"name": "league",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/league",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"league"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "league/submission",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/league/submission",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"league",
+										"submission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "league/submission",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/jon",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/league/submission",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"league",
+										"submission"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "league/submission",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"scriptId\": \"q2v84Yv6DoJZ2REK\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/user/league/submission",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"league",
+										"submission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "league/replay",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/league/replay/1nZlRHsq1nAK0DdP",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"league",
+										"replay",
+										"1nZlRHsq1nAK0DdP"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "scripts",
+					"item": [
+						{
+							"name": "scripts",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/scripts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"scripts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "scripts",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"",
+											"pm.sendRequest(url, function (err, response) {",
+											"    ",
+											"    url = pm.variables.get(\"base_url\") + \"/api/user/initData\";",
+											"    let method = 'PATCH';",
+											"    ",
+											"    pm.sendRequest({url, method}, function (err, response) {",
+											"        console.log(response.headers);",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/user/scripts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"scripts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "scripts/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/scripts/grj6dZBgKyodYa63",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"scripts",
+										"grj6dZBgKyodYa63"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "scripts/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/scripts/xJFrygs2PQA6iivI",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"scripts",
+										"xJFrygs2PQA6iivI"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "scripts/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"",
+											"pm.sendRequest(url, function (err, response) {",
+											"    ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"code\": \"// hello2\",\n\t\"scriptName\": \"alpha-001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/user/scripts/qOB61PCM60tEKgE8",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"scripts",
+										"qOB61PCM60tEKgE8"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "challenges",
+					"item": [
+						{
+							"name": "challenges",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/challenges",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"challenges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "challenges/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"challenges",
+										"challenge-8UCUaNvC"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "challenges/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
+										"exec": [
+											"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+											"pm.sendRequest(url, function (err, response) {",
+											"    console.log(response.headers);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{auth_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"completed\": true,\n\t\"code\": \"// hello world!\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"challenges",
+										"challenge-8UCUaNvC"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "initData",
 					"event": [
@@ -321,562 +1021,6 @@
 								"api",
 								"user",
 								"initData"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "challenges",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/challenges",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"challenges"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "challenges/:id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"challenges",
-								"challenge-8UCUaNvC"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "challenges/:id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"completed\": true,\n\t\"code\": \"// hello world!\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/user/challenges/challenge-8UCUaNvC",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"challenges",
-								"challenge-8UCUaNvC"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "scripts",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/scripts",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"scripts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "scripts",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"",
-									"pm.sendRequest(url, function (err, response) {",
-									"    ",
-									"    url = pm.variables.get(\"base_url\") + \"/api/user/initData\";",
-									"    let method = 'PATCH';",
-									"    ",
-									"    pm.sendRequest({url, method}, function (err, response) {",
-									"        console.log(response.headers);",
-									"    });",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/user/scripts",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"scripts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "scripts/:id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/scripts/grj6dZBgKyodYa63",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"scripts",
-								"grj6dZBgKyodYa63"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "scripts/:id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/scripts/xJFrygs2PQA6iivI",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"scripts",
-								"xJFrygs2PQA6iivI"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "scripts/:id",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"",
-									"pm.sendRequest(url, function (err, response) {",
-									"    ",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"code\": \"// hello2\",\n\t\"scriptName\": \"alpha-001\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/user/scripts/qOB61PCM60tEKgE8",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"scripts",
-								"qOB61PCM60tEKgE8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "league",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/league",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"league"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "league/submission",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/league/submission",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"league",
-								"submission"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "league/submission",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/jon",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/user/league/submission",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"league",
-								"submission"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "league/submission",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5b729b8b-05d6-4d15-ba4e-ce6528f20972",
-								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
-									"pm.sendRequest(url, function (err, response) {",
-									"    console.log(response.headers);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "Bearer {{auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"scriptId\": \"1234567890\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/user/league/submission",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"league",
-								"submission"
 							]
 						}
 					},

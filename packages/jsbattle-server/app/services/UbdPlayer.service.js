@@ -15,21 +15,22 @@ class UbdPlayer extends Service {
     this.browser = null;
     this.isBusy = false;
     this.processingStartTime = 0;
+    this.config = broker.serviceConfig.ubdPlayer;
     this.parseServiceSchema({
       name: "ubdPlayer",
       dependencies: ['ubdValidator'],
       actions: {
         scheduleBattle: this.scheduleBattle,
         getQueueLength: this.getQueueLength,
+        getInfo: this.getInfo,
       },
       started: async () => {
         await insttallPuppeteer(this.logger);
 
         // host frontend
         this.app = express();
-        const port = broker.serviceConfig.ubdPlayer.port
         this.app.use(express.static(path.join(__dirname, 'ubdPlayer', 'www')))
-        this.server = this.app.listen(port, 'localhost', () => this.logger.info(`UbdPlayer started at http://localhost:${port}`))
+        this.server = this.app.listen(this.config.port, 'localhost', () => this.logger.info(`UbdPlayer started at http://localhost:${this.config.port}`))
 
         // start browser
         this.browser = await puppeteer.launch();
@@ -67,7 +68,7 @@ class UbdPlayer extends Service {
             let page = await this.browser.newPage();
             page.on('console', (message) => this.logger.debug(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`));
             page.on('pageerror', ({ message }) => this.logger.debug(message));
-            await page.goto('http://localhost:' + port);
+            await page.goto('http://localhost:' + this.config.port);
             await page.waitFor('#ubd');
             await page.$eval('#ubd', (el, ubd) => {
               el.value = JSON.stringify(ubd)
@@ -141,6 +142,35 @@ class UbdPlayer extends Service {
       refData: ctx.params.refData || undefined,
     });
     this.logger.debug('Battle scheduled. Queue length: ' + this.queue.length)
+  }
+
+  async getInfo(ctx) {
+    let browser = {
+      initialized: false,
+      product: puppeteer.product,
+      isBusy: this.isBusy,
+      queueLength: this.queue.length,
+      config: this.config
+    };
+
+    let processInfo = null;
+    if(this.browser) {
+      browser.initialized = true;
+      browser.isConnected = await this.browser.isConnected();
+      browser.pagesCount = (await this.browser.pages()).length;
+      browser.targetsCount = (await this.browser.targets()).length;
+      browser.contextsCount = (await this.browser.browserContexts()).length;
+      browser.userAgent = await this.browser.userAgent();
+      browser.version = await this.browser.version();
+      let proc = this.browser.process();
+      if(proc) {
+        browser.pid = proc.pid
+      }
+    }
+
+    return {
+      browser
+    }
   }
 
 }

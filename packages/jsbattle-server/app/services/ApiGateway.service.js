@@ -13,6 +13,7 @@ class ApiGatewayService extends Service {
 
   constructor(broker) {
     super(broker);
+    this._broker = broker;
     let corsOrigin = broker.serviceConfig.web.corsOrigin;
     if(!Array.isArray(corsOrigin)) {
       corsOrigin = [corsOrigin]
@@ -20,6 +21,9 @@ class ApiGatewayService extends Service {
     corsOrigin.push(broker.serviceConfig.web.baseUrl)
     this.parseServiceSchema({
       name: "apiGateway",
+      actions: {
+        "getInfo": this.getInfo
+      },
       started() {
         const svc = broker.createService({
           mixins: [ApiService],
@@ -48,7 +52,9 @@ class ApiGatewayService extends Service {
                   "PATCH scripts/:id": "scriptStore.update",
                   "REST scripts": "scriptStore",
                   "PATCH battles/:id": "battleStore.update",
-                  "REST battles": "battleStore"
+                  "REST battles": "battleStore",
+                  "GET ubdPlayer/info": "ubdPlayer.getInfo",
+                  "GET info": "apiGateway.getInfo"
                 },
                 bodyParsers: {
                   json: true,
@@ -193,6 +199,24 @@ class ApiGatewayService extends Service {
         }
       }
     });
+  }
+
+  async getInfo(ctx) {
+    let nodeInfo = this._broker.getLocalNodeInfo();
+    return {
+      memoryUsage: await process.memoryUsage(),
+      health: await this._broker.getHealthStatus(),
+      node: {
+        hostname: nodeInfo.hostname,
+        serviceCount: nodeInfo.services.length,
+        services: nodeInfo.services.map((s) => ({
+          name: s.name,
+          fullName: s.fullName,
+          actions: s.actions ? Object.keys(s.actions) : [],
+          events: s.events ? Object.keys(s.events) : [],
+        })),
+      }
+    }
   }
 
 }

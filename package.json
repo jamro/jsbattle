@@ -14,7 +14,7 @@
     "outdated": "lerna exec -- 'npm outdated || true'",
     "update": "for d in ./packages/*; do npm-check-updates -i --packageFile $d/package.json; done",
     "audit": "lerna exec -- 'npm audit || true'",
-    "audit-fix": "lerna exec -- 'npm audit-fix || true'"
+    "audit-fix": "lerna exec -- 'npm audit fix || true'"
   },
   "devDependencies": {
     "commitizen": "^4.0.4",

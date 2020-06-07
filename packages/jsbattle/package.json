@@ -36,7 +36,7 @@
     "chai": "^4.2.0",
     "cpx": "^1.5.0",
     "cucumber": "^6.0.5",
-    "pm2": "^4.2.3",
+    "pm2": "^4.4.0",
     "rimraf": "^3.0.2"
   },
   "dependencies": {
@@ -46,7 +46,7 @@
     "jsbattle-webpage": "^2.7.1",
     "jsbattle-admin": "^2.7.1",
     "jsbattle-mockserver": "^2.7.1",
-    "puppeteer": "^3.0.0",
+    "puppeteer": "^3.3.0",
     "lodash": "^4.17.15",
     "path": "^0.12.7",
     "yargs": "^15.3.1"

@@ -36,9 +36,11 @@ module.exports = (env, argv) => {
         template: "./src/index.html",
         filename: "./index.html"
       }),
-      new CopyPlugin([
-        { from: 'public', to: './' }
-      ])
+      new CopyPlugin({
+        patterns: [
+          { from: 'public', to: './' }
+        ]
+      })
     ]
   };
 };

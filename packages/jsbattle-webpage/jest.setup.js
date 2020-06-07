@@ -19,6 +19,7 @@ global.document.body.createTextRange = () => ({
     right: 0
   })
 });
+global.document.createRange = global.document.body.createTextRange
 
 const localStorageMock = (function() {
   var store = {};

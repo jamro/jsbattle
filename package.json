@@ -12,7 +12,7 @@
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "commit": "git-cz",
     "outdated": "lerna exec -- 'npm outdated || true'",
-    "update": "lerna exec -- npm update",
+    "update": "for d in ./packages/*; do npm-check-updates -i --packageFile $d/package.json; done",
     "audit": "lerna exec -- 'npm audit || true'",
     "audit-fix": "lerna exec -- 'npm audit-fix || true'"
   },

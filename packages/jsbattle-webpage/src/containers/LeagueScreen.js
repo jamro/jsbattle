@@ -76,7 +76,7 @@ export class LeagueScreen extends React.Component {
           <div className="card">
             <div className="card-body">
               <h1 className="card-title text-center">Join the League</h1>
-              <p className="card-text text-center">
+              <div className="card-text text-center">
                 <p>
                   <i className="fas fa-trophy fa-5x"></i>
                 </p>
@@ -86,7 +86,7 @@ export class LeagueScreen extends React.Component {
                 <a className="btn btn-primary btn-lg signin-button" href="#/signin">
                   <i className="fas fa-sign-in-alt"></i> Sign up
                 </a>
-              </p>
+              </div>
             </div>
           </div>
           </Col>

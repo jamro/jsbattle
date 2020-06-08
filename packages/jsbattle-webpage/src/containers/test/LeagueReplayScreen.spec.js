@@ -12,7 +12,7 @@ const match = {
   }
 }
 
-const aiList = [
+const aiDefList = [
    {
      name: 'brick',
      team: 'alpha/brick',
@@ -84,8 +84,9 @@ test('play the battle (authorized)', () => {
       {name: 'alpha7638'},
       {name: 'bravo9743'},
     ]}
-    aiList={aiList}
+    aiDefList={aiDefList}
   />);
+
   expect(wrapper.find(JsBattleBattlefield)).toHaveLength(1);
   expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('rngSeed', 787223);
   expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('timeLimit', 12340);
@@ -111,7 +112,7 @@ test('play the battle (unauthorized)', () => {
       {name: 'alpha7638'},
       {name: 'bravo9743'},
     ]}
-    aiList={aiList}
+    aiDefList={aiDefList}
   />);
   expect(wrapper.find(JsBattleBattlefield)).toHaveLength(1);
   expect(wrapper.find(JsBattleBattlefield).props()).toHaveProperty('rngSeed', 787223);
@@ -138,7 +139,7 @@ test('restart the battle', async () => {
       {name: 'alpha7638'},
       {name: 'bravo9743'},
     ]}
-    aiList={aiList}
+    aiDefList={aiDefList}
   />);
 
   expect(wrapper.find(JsBattleBattlefield)).toHaveLength(1);
@@ -192,7 +193,7 @@ test('display battle errors', async () => {
       {name: 'alpha7638'},
       {name: 'bravo9743'},
     ]}
-    aiList={aiList}
+    aiDefList={aiDefList}
     showError={showError}
   />);
 

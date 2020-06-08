@@ -21,12 +21,43 @@ export class LeagueReplayScreen extends React.Component {
     super(props);
 
     this.state = {
-      completed: false
+      aiDefList: this.createAiDefList(props.aiDefList),
+      completed: false,
+      battleLoading: true
     };
   }
 
   componentDidMount() {
     this.props.getLeagueReplay(this.props.match.params.id, this.props.isAuthorized);
+  }
+
+  componentDidUpdate(prevProps) {
+    let oldAiDefList = JSON.stringify(prevProps.aiDefList);
+    let newAiDefList = JSON.stringify(this.props.aiDefList);
+
+    if(oldAiDefList != newAiDefList) {
+      console.log("Refreshing aiDefList");
+
+      this.setState((state, props) => ({
+        aiDefList: this.createAiDefList(props.aiDefList)
+      }));
+    }
+  }
+
+  createAiDefList(input) {
+    let ai;
+    let aiDefList = [];
+    let count;
+
+    for(let aiDef of input) {
+      count = aiDef.count || 1;
+      for(let i=0; i < count; i++) {
+        ai = JsBattle.createAiDefinition();
+        ai.fromJSON(aiDef);
+        aiDefList.push(ai);
+      }
+    }
+    return aiDefList;
   }
 
   handleBattleFinish(result) {
@@ -42,11 +73,23 @@ export class LeagueReplayScreen extends React.Component {
       loserSkin: loser.members[0].skin,
       winnerScore: winner.score,
       loserScore: loser.score,
+      battleLoading: false
     });
   }
 
   handleBattleError(error) {
+    this.setState({
+      battleLoading: false
+    });
     this.props.showError(error);
+  }
+
+  handleBattleInit() {
+    this.setState({battleLoading: true});
+  }
+
+  handleBattleLoaded() {
+    this.setState({battleLoading: false});
   }
 
   render() {
@@ -63,18 +106,9 @@ export class LeagueReplayScreen extends React.Component {
       label = "Replay";
     }
     let battlefield;
-    if(this.props.aiList.length && !this.state.completed) {
-      let ai;
-      let aiDefList = [];
-      let count;
-      for(let aiDef of this.props.aiList) {
-        count = aiDef.count || 1;
-        for(let i=0; i < count; i++) {
-          ai = JsBattle.createAiDefinition();
-          ai.fromJSON(aiDef);
-          aiDefList.push(ai);
-        }
-      }
+    let battlefieldLoading = this.state.battleLoading ? <Loading /> : null;
+
+    if(this.state.aiDefList.length && !this.state.completed) {
       battlefield = <JsBattleBattlefield
         debug={this.props.debug}
         autoResize={true}
@@ -84,7 +118,9 @@ export class LeagueReplayScreen extends React.Component {
         speed={this.props.simSpeed}
         quality={this.props.simQuality}
         renderer={this.props.renderer}
-        aiDefList={aiDefList}
+        aiDefList={this.state.aiDefList}
+        onInit={() => this.handleBattleInit()}
+        onStart={() => this.handleBattleLoaded()}
         onFinish={(result) => this.handleBattleFinish(result)}
         onError={(error) => this.handleBattleError(error)}
       />;
@@ -118,6 +154,7 @@ export class LeagueReplayScreen extends React.Component {
         </nav>
       </FullRow>
       <FullRow>
+        {battlefieldLoading}
         <div style={{maxWidth: '900px', margin: 'auto'}}>
           {battlefield}
         </div>
@@ -134,7 +171,7 @@ LeagueReplayScreen.defaultProps = {
   teamMode: true,
   timeLimit: 10000,
   result: [],
-  aiList: [],
+  aiDefList: [],
   simQuality: 'auto',
   simSpeed: 1,
   renderer: "brody",
@@ -147,7 +184,7 @@ LeagueReplayScreen.propTypes = {
   isAuthorized: PropTypes.bool,
   isLoading: PropTypes.bool,
   result: PropTypes.array,
-  aiList: PropTypes.array,
+  aiDefList: PropTypes.array,
   timeLimit: PropTypes.number,
   teamMode: PropTypes.bool,
   simSpeed: PropTypes.number,
@@ -159,7 +196,7 @@ LeagueReplayScreen.propTypes = {
 const mapStateToProps = (state) => ({
   isAuthorized: state.auth.profile && (state.auth.profile.role  == 'admin' || state.auth.profile.role  == 'user'),
   result: state.league.replay.result || [],
-  aiList: state.league.replay.aiList || [],
+  aiDefList: state.league.replay.aiList || [],
   rngSeed: state.league.replay.rngSeed,
   timeLimit: state.league.replay.timeLimit,
   teamMode: state.league.replay.teamMode,

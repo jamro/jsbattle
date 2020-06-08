@@ -8,7 +8,7 @@ class ConfigBroker extends ServiceBroker {
   constructor(options, config = {}, useEnv = true) {
     super(options);
     const defaultConfig = {
-      "loglevel": "info",
+      "logLevel": "info",
       "skipEnv": false,
       "data": {
         "adapter": "nedb",

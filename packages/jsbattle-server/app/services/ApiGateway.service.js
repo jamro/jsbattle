@@ -107,9 +107,13 @@ class ApiGatewayService extends Service {
               }
             ],
             onError(req, res, err) {
+              let msg = err.message;
+              if(Array.isArray(err.data) && err.data.length > 0 && err.data[0].message) {
+                msg = err.data[0].message;
+              }
               res.setHeader("Content-Type", "text/plain");
               res.writeHead(err.code || 501);
-              res.end("Error: " + err.message);
+              res.end(msg);
             }
           },
           methods: {

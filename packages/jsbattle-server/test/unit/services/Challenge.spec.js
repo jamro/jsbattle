@@ -31,13 +31,13 @@ describe("Test 'Challenge' service", () => {
 
 		it('should throw unauthorize error when getting user challenge',  async () => {
 			expect(
-				broker.call('challenges.getUserChallange', {}, {meta: {user: createTestToken()}})
+				broker.call('challenges.getUserChallange', { challengeId: '878768' }, {meta: {user: createTestToken()}})
 			).rejects.toThrow(/must finish registration process/i)
 		});
 
 		it('should throw unauthorize error when updateing user challenge',  async () => {
 			expect(
-				broker.call('challenges.updateUserChallange', {}, {meta: {user: createTestToken()}})
+				broker.call('challenges.updateUserChallange', { challengeId: '878768' }, {meta: {user: createTestToken()}})
 			).rejects.toThrow(/must finish registration process/i)
 		});
 	});

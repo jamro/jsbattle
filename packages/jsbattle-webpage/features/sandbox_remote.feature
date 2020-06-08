@@ -27,10 +27,10 @@ Allow editing, storing and testing custom AI scripts (when logged in)
     And list of AI scripts contains 1 items
     And AI Script no 1 open
     When click AI Script rename button
-    And type "myAwesomeRemoteAI" as AI Script name
+    And type "myAwesomeAI" as AI Script name
     And confirm renaming AI Script name
     And "Sandbox" section open
-    Then list of AI scripts consists of [myAwesomeRemoteAI]
+    Then list of AI scripts consists of [myAwesomeAI]
 
   @integration
   @snapshot_sandbox

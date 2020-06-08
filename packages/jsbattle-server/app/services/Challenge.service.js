@@ -3,6 +3,7 @@ const DbService = require("moleculer-db");
 const { ValidationError } = require("moleculer").Errors;
 const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
+const validators = require("../validators");
 
 class ChallengeService extends Service {
 
@@ -25,18 +26,30 @@ class ChallengeService extends Service {
           "modifiedAt"
         ],
         entityValidator: {
-          userId: { type: "string", min: 1, max: 32 },
-          challengeId: { type: "string", min: 1, max: 32 },
-          completed: { type: "boolean", min: 1, max: 255 },
-          code: { type: "string", min: 0, max: 65536 },
-          modifiedAt: "date"
+          id: validators.entityId({optional: true}),
+          userId: validators.entityId(),
+          challengeId: validators.entityId(),
+          completed: { type: "boolean" },
+          code: validators.code(),
+          modifiedAt: validators.modifyDate()
         }
       },
-      dependencies: ['userStore'],
       actions: {
         listUserChallanges: this.listUserChallanges,
-        getUserChallange: this.getUserChallange,
-        updateUserChallange: this.updateUserChallange,
+        getUserChallange: {
+          params: {
+            challengeId: validators.entityId()
+          },
+          handler: this.getUserChallange
+        },
+        updateUserChallange: {
+          params: {
+            challengeId: validators.entityId(),
+            completed: { type: "boolean", optional: true},
+            code: validators.code({optional: true})
+          },
+          handler: this.updateUserChallange
+        },
       },
       hooks: {
         before: {

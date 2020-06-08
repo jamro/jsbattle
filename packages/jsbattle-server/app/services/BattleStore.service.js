@@ -3,6 +3,7 @@ const DbService = require("moleculer-db");
 const { ValidationError } = require("moleculer").Errors;
 const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
+const validators = require("../validators");
 
 class BattleStoreService extends Service {
 
@@ -27,19 +28,24 @@ class BattleStoreService extends Service {
         ]
       },
       entityValidator: {
-        ubd: { type: "string", min: 2 },
-        description: { type: "string", max: 128 },
-        createdAt: "date",
-        expiresAt: "date",
-        expiresIn: "number",
-        meta: "object",
-        owner: "array",
+        id: validators.entityId({optional: true}),
+        ubd: validators.ubd(),
+        description: validators.description(),
+        createdAt: validators.createDate(),
+        expiresAt: validators.expireDate(),
+        expiresIn: validators.expireDuration(),
+        meta: validators.any(),
+        owner: validators.ubdOwnerList(),
       },
-      dependencies: ['ubdValidator'],
       actions: {
         create: {
           params: {
-            ubd: { type: "string", min: 2 }
+            ubd: validators.ubd(),
+            expiresAt: validators.expireDate({optional: true}),
+            expiresIn: validators.expireDuration({optional: true}),
+            description: validators.description({optional: true}),
+            owner: validators.ubdOwnerList({optional: true}),
+            meta: validators.any({optional: true})
           },
           handler: this.create
         },

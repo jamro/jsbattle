@@ -3,6 +3,7 @@ const DbService = require("moleculer-db");
 const { ValidationError } = require("moleculer").Errors;
 const _ = require('lodash');
 const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
+const validators = require("../validators");
 
 class UserStoreService extends Service {
 
@@ -28,18 +29,17 @@ class UserStoreService extends Service {
           "lastLoginAt"
         ],
         entityValidator: {
-          extUserId: { type: "string", min: 1, max: 255 },
-          username: { type: "string", min: 1, max: 255 },
-          displayName: { type: "string", min: 1, max: 255 },
-          email: { type: "string", min: 0, max: 255 },
-          registered: "boolean",
-          provider: { type: "string", min: 1, max: 255 },
-          role: { type: "string", min: 1, max: 255 },
-          createdAt: "date",
-          lastLoginAt: "date"
+          extUserId: {type: "string", min: 1, max: 1024},
+          username: validators.entityName(),
+          displayName: validators.userFullName({optional: true}),
+          email: validators.email({optional: true}),
+          registered: {type: "boolean", optional: true},
+          provider: validators.entityName(),
+          role: validators.entityName({optional: true}),
+          createdAt: validators.createDate({optional: true}),
+          lastLoginAt: validators.modifyDate({optional: true})
         }
       },
-      dependencies: ['auth'],
       actions: {
         findOrCreate: this.findOrCreate,
         register: this.register
@@ -199,7 +199,7 @@ class UserStoreService extends Service {
       extUserId: user.extUserId,
       username: user.username,
       provider: user.provider,
-      email: user.email || '',
+      email: user.email,
       displayName: user.displayName || user.username,
       createdAt: new Date(),
       role: role,

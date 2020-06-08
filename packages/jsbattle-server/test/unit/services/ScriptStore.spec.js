@@ -36,7 +36,7 @@ describe("Test 'ScriptStore' service", () => {
 				id: '92864'
 			}
 			expect(
-				broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}})
+				broker.call('scriptStore.createUserScript', {scriptName: 'alha345'}, {meta: {user: createTestToken(user)}})
 			).rejects.toThrow(/must finish registration process/)
 		});
 	});
@@ -67,7 +67,7 @@ describe("Test 'ScriptStore' service", () => {
 				role: 'user',
 				id: '92864'
 			}
-			let result = await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('scriptStore.createUserScript', {scriptName: 'beta8978'}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('ownerId', user.id);
 			expect(result).toHaveProperty('ownerName', user.username);
 			expect(result).toHaveProperty('namespace', 'user');
@@ -84,9 +84,9 @@ describe("Test 'ScriptStore' service", () => {
 				role: 'user',
 				id: '92864'
 			}
-			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
-			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
-			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
+			await broker.call('scriptStore.createUserScript', {scriptName: 'phi3254'}, {meta: {user: createTestToken(user)}});
+			await broker.call('scriptStore.createUserScript', {scriptName: 'psi2747'}, {meta: {user: createTestToken(user)}});
+			await broker.call('scriptStore.createUserScript', {scriptName: 'psi1234'}, {meta: {user: createTestToken(user)}});
 			let result = await broker.call('scriptStore.listUserScripts', {}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveLength(3);
 		});
@@ -121,7 +121,7 @@ describe("Test 'ScriptStore' service", () => {
 				role: 'user',
 				id: '92864'
 			}
-			let result = await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('scriptStore.createUserScript', {scriptName: 'pi0983'}, {meta: {user: createTestToken(user)}});
 			result = await broker.call('scriptStore.getUserScript', {id: result.id}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('ownerId', user.id);
 			expect(result).toHaveProperty('ownerName', user.username);
@@ -139,8 +139,8 @@ describe("Test 'ScriptStore' service", () => {
 				role: 'user',
 				id: '92864'
 			}
-			await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
-			let result = await broker.call('scriptStore.createUserScript', {}, {meta: {user: createTestToken(user)}});
+			await broker.call('scriptStore.createUserScript', {scriptName: 'gamma665'}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('scriptStore.createUserScript', {scriptName: 'gamma563'}, {meta: {user: createTestToken(user)}});
 			await broker.call('scriptStore.deleteUserScript', {id: result.id}, {meta: {user: createTestToken(user)}});
 			result = await broker.call('scriptStore.listUserScripts', {}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveLength(1);

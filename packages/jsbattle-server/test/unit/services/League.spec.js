@@ -73,7 +73,6 @@ describe("Test 'League' service", () => {
 	let broker;
 
 	beforeEach(async () => {
-
 		let now = new Date().getTime();
 		let config = {
 			 auth: {
@@ -85,7 +84,7 @@ describe("Test 'League' service", () => {
 					teamSize: 3
 				}
 		 };
-		broker = new ConfigBroker({ logger: false }, config, false);
+		broker = new ConfigBroker({ logger: false, logLevel: 'debug'}, config, false);
 		broker.createService({
 				name: 'scriptStore',
 				actions: {
@@ -118,7 +117,6 @@ describe("Test 'League' service", () => {
 	});
 
 	afterEach(() => broker.stop());
-
 
 	it('should throw error when call getUserSubmission without login',  async () => {
 		const user = {
@@ -361,15 +359,15 @@ describe("Test 'League' service", () => {
 	it('should throw error when no input for update rank',  async () => {
 		await expect(
 			broker.call('league.updateRank', {})
-		).rejects.toThrow(/parameter is required/i)
+		).rejects.toThrow(/Parameters validation/i)
 
 		await expect(
 			broker.call('league.updateRank', {winner: true})
-		).rejects.toThrow(/parameter is required/i)
+		).rejects.toThrow(/Parameters validation/i)
 
 		await expect(
 			broker.call('league.updateRank', {id: '8871234'})
-		).rejects.toThrow(/parameter is required/i)
+		).rejects.toThrow(/Parameters validation/i)
 	});
 
 	it('should update rank',  async () => {

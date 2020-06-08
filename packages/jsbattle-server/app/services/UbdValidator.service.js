@@ -2,6 +2,7 @@ const Ajv = require('ajv');
 const JsBattleSchema = require('jsbattle-engine/schema');
 const Service = require("moleculer").Service;
 const { ValidationError } = require("moleculer").Errors;
+const validators = require("../validators");
 
 class UbdValidator extends Service {
 
@@ -10,7 +11,12 @@ class UbdValidator extends Service {
     this.parseServiceSchema({
       name: "ubdValidator",
       actions: {
-        validate: this.validate
+        validate: {
+          params: {
+            ubd: validators.any()
+          },
+          handler: this.validate
+        }
       }
     });
     this.schemaV1 = JsBattleSchema.getVersion(1);

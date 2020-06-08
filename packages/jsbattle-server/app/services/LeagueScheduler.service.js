@@ -1,4 +1,5 @@
 const Service = require("moleculer").Service;
+const validators = require("../validators");
 
 class LeagueScheduler extends Service {
 
@@ -10,13 +11,15 @@ class LeagueScheduler extends Service {
       name: "leagueScheduler",
       actions: {
         scheduleBattle: this.scheduleBattle,
-        storeBattleResults: this.storeBattleResults
+        storeBattleResults: {
+          params: {
+            refData: validators.any(),
+            ubd: validators.any(),
+            teamList: validators.any(),
+          },
+          handler: this.storeBattleResults
+        }
       },
-      dependencies: [
-        'ubdPlayer',
-        'league',
-        'battleStore',
-      ],
       started: () => {
         this.logger.info('Starting scheduling loop at ' + this.config.scheduleInterval + 'ms')
         this.loop = setInterval(async () => {
@@ -40,14 +43,19 @@ class LeagueScheduler extends Service {
         "ubdPlayer.battle.league": async (ctx) => {
           this.logger.debug('Battle results received');
           if(ctx.params.error) {
-            this.logger.warn('Battle failed between: ' + Object.keys(ctx.params.refData).join(' and '));
+            let details = ctx.params.refData ? Object.keys(ctx.params.refData).join(' and ') : "UNKNOWN"
+            this.logger.warn('Battle failed between: ' + details);
             return;
           }
-          await ctx.call('leagueScheduler.storeBattleResults', {
-            refData: ctx.params.refData,
-            teamList: ctx.params.teamList,
-            ubd: ctx.params.ubd
-          });
+          try {
+            await ctx.call('leagueScheduler.storeBattleResults', {
+              refData: ctx.params.refData,
+              teamList: ctx.params.teamList,
+              ubd: ctx.params.ubd
+            });
+          } catch(err) {
+            this.logger.warn(err);
+          }
         }
       }
     });

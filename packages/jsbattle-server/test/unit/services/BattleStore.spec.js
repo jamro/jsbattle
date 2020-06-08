@@ -46,6 +46,20 @@ describe("Test 'Battlestore' service", () => {
 			expect(readResult.ubd).toBe(JSON.stringify(ubd));
 		});
 
+		it('should store battle as long text data', async () => {
+			const limit = 524288;
+			const longText = 'a'.repeat(limit-8);
+			const longUbdText = `{"a":"${longText}"}`;
+			const writeResult = await broker.call("battleStore.create", {ubd: longUbdText});
+			expect(writeResult.error).toBeUndefined();
+			const readResult = await broker.call("battleStore.get", {id: writeResult.id});
+
+			expect(readResult.error).toBeUndefined();
+			expect(readResult.id).toBe(writeResult.id);
+			expect(readResult.ubd).toBe(longUbdText);
+		});
+
+
 		it('should store battle meta data', async () => {
 			const ubd = new UbdJsonMock();
 			const writeResult = await broker.call("battleStore.create", {
@@ -64,15 +78,15 @@ describe("Test 'Battlestore' service", () => {
 		it('should store owner info', async () => {
 			const ubd = JSON.stringify(new UbdJsonMock());
 			await broker.call("battleStore.create", { ubd, meta: 1 });
-			await broker.call("battleStore.create", { ubd, meta: 2, owner: [111, 222] });
-			await broker.call("battleStore.create", { ubd, meta: 3, owner: [222, 111, 333] });
-			await broker.call("battleStore.create", { ubd, meta: 4, owner: [333] });
-			await broker.call("battleStore.create", { ubd, meta: 5, owner: [111] });
-			await broker.call("battleStore.create", { ubd, meta: 6, owner: [222, 333] });
+			await broker.call("battleStore.create", { ubd, meta: 2, owner: ['111', '222'] });
+			await broker.call("battleStore.create", { ubd, meta: 3, owner: ['222', '111', '333'] });
+			await broker.call("battleStore.create", { ubd, meta: 4, owner: ['333'] });
+			await broker.call("battleStore.create", { ubd, meta: 5, owner: ['111'] });
+			await broker.call("battleStore.create", { ubd, meta: 6, owner: ['222', '333'] });
 
 			let result = await broker.call("battleStore.find", {
 				query: {
-					owner: {$in: [111]}
+					owner: {$in: ['111']}
 				}
 			});
 			result = result.map((item) => item.meta)
@@ -81,7 +95,7 @@ describe("Test 'Battlestore' service", () => {
 
 			result = await broker.call("battleStore.find", {
 				query: {
-					owner: {$in: [222]}
+					owner: {$in: ['222']}
 				}
 			});
 			result = result.map((item) => item.meta)
@@ -90,7 +104,7 @@ describe("Test 'Battlestore' service", () => {
 
 			result = await broker.call("battleStore.find", {
 				query: {
-					owner: {$in: [333]}
+					owner: {$in: ['333']}
 				}
 			});
 			result = result.map((item) => item.meta)
@@ -126,10 +140,30 @@ describe("Test 'Battlestore' service", () => {
 			).rejects.toThrow(ValidationError)
 		});
 
-		it('should throw an error when ubd is missing for create call', async () => {
+		it('should throw an error when ubd is missing or incorrect for create call', async () => {
 			await expect(
 				broker.call("battleStore.create", {})
-			).rejects.toThrow(ValidationError)
+			).rejects.toThrow(ValidationError);
+
+			await expect(
+				broker.call("battleStore.create", {
+					ubd: ''
+				})
+			).rejects.toThrow(ValidationError);
+
+			await expect(
+				broker.call("battleStore.create", {
+					ubd: 'a'
+				})
+			).rejects.toThrow(ValidationError);
+
+			const limit = 524288;
+			const longText = 'a'.repeat(limit-8);
+			await expect(
+				broker.call("battleStore.create", {
+					ubd: `{"a":"${longText}X"}`
+				})
+			).rejects.toThrow(ValidationError);
 		});
 
 		it('should list all battles', async () => {

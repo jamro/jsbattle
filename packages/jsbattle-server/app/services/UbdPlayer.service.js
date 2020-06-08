@@ -4,6 +4,7 @@ const express = require('express')
 const path = require('path')
 const puppeteer = require('puppeteer');
 const insttallPuppeteer = require('./ubdPlayer/installPuppeteer.js');
+const validators = require("../validators");
 
 class UbdPlayer extends Service {
 
@@ -18,9 +19,15 @@ class UbdPlayer extends Service {
     this.config = broker.serviceConfig.ubdPlayer;
     this.parseServiceSchema({
       name: "ubdPlayer",
-      dependencies: ['ubdValidator'],
       actions: {
-        scheduleBattle: this.scheduleBattle,
+        scheduleBattle: {
+          params: {
+            ubd: validators.any(),
+            refData: validators.any({optional: true}),
+            event: {type: "string", max: 1024, optional: true}
+          },
+          handler: this.scheduleBattle
+        },
         getQueueLength: this.getQueueLength,
         getInfo: this.getInfo,
       },

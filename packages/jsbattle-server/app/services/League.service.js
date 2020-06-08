@@ -8,6 +8,7 @@ const path = require('path');
 const RankTable = require('./league/lib/RankTable.js');
 const JavaScriptObfuscator = require('javascript-obfuscator');
 const stripComments = require('strip-comments');
+const validators = require("../validators");
 
 class LeagueService extends Service {
 
@@ -38,33 +39,44 @@ class LeagueService extends Service {
         ]
       },
       entityValidator: {
-        joinedAt: "date",
-        ownerId: "string",
-        ownerName: { type: "string", min: 1, max: 255 },
-        scriptId: "string",
-        scriptName: { type: "string", min: 1, max: 255 },
-        fights_total: "number",
-        fights_win: "number",
-        fights_lose: "number",
-        fights_error: "number",
-        score: "number",
-        code: { type: "string", min: 0, max: 65536 },
+        id: validators.entityId({optional: true}),
+        joinedAt: validators.createDate(),
+        ownerId: validators.entityId(),
+        ownerName: validators.entityName(),
+        scriptId: validators.entityId(),
+        scriptName: validators.entityName(),
+        fights_total: {type: "number", positive: true},
+        fights_win: {type: "number", positive: true},
+        fights_lose: {type: "number", positive: true},
+        fights_error: {type: "number", positive: true},
+        score: {type: "number", positive: true},
+        code: validators.code(),
       },
-      dependencies: [
-        'scriptStore',
-        'battleStore'
-      ],
       actions: {
         pickRandomOpponents: this.pickRandomOpponents,
         seedLeague: this.seedLeague,
         getUserSubmission: this.getUserSubmission,
         getHistory: this.getHistory,
-        getScript: this.getScript,
-        joinLeague: this.joinLeague,
         leaveLeague: this.leaveLeague,
         getLeagueSummary: this.getLeagueSummary,
         getUserRankTable: this.getUserRankTable,
-        updateRank: this.updateRank
+        getScript: {
+          params: {
+            id: validators.entityId()
+          },
+          handler: this.getScript
+        },
+        joinLeague: {
+          scriptId: validators.entityId(),
+          handler: this.joinLeague
+        },
+        updateRank: {
+          params: {
+            id: validators.entityId(),
+            winner: { type: "boolean" }
+          },
+          handler: this.updateRank
+        }
       },
       hooks: {
         before: {
@@ -159,13 +171,6 @@ class LeagueService extends Service {
   }
 
   async updateRank(ctx) {
-    if(!ctx || !ctx.params || ctx.params.id === undefined) {
-      throw new ValidationError('id parameter is required!');
-    }
-    if(!ctx || !ctx.params || ctx.params.winner === undefined) {
-      throw new ValidationError('winner parameter is required!');
-    }
-
     let entity = await this._get(ctx, {
       id: ctx.params.id,
       fields: [

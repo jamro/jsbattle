@@ -35,5 +35,6 @@ export const getUserList = (page, pageSize) => {
 export const getBattleList = (page, pageSize) => {
   page = page || 1;
   pageSize = pageSize || 10;
-  return fetchFromApi(`/api/admin/battles?page=${page}&pageSize=${pageSize}` , "BATTLE_LIST");
+  const fields = 'id,createdAt,expiresAt,description';
+  return fetchFromApi(`/api/admin/battles?page=${page}&pageSize=${pageSize}&sort=-createdAt&fields=${fields}` , "BATTLE_LIST");
 };

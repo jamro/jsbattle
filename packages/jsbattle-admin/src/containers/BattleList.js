@@ -31,7 +31,7 @@ class BattleList extends Component {
     }
     return (
       <div>
-        <Container fluid="xl">
+        <Container fluid>
           <Row>
             <Col lg={3} xl={2} style={{backgroundColor: '#f7f7f7', borderRight: '1px solid #ececec'}} >
               <SideMenu />
@@ -53,8 +53,8 @@ class BattleList extends Component {
                       }
                   },
                   {name: 'Description', field: 'description', format: vsFormatter},
-                  {name: 'Create Date', field: 'createdAt', format: 'date'},
-                  {name: 'Expire Date', field: 'expiresAt', format: 'date'}
+                  {name: 'Create Date', field: 'createdAt', format: 'datetime'},
+                  {name: 'Expire Date', field: 'expiresAt', format: 'datetime'}
                 ]}
                 data={this.props.battlePage}
                 onPageRequest={(page) => this.props.getBattleList(page)}

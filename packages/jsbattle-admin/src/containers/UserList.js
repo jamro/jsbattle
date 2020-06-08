@@ -25,7 +25,7 @@ class UserList extends Component {
     }
     return (
       <div>
-        <Container fluid="xl">
+        <Container fluid>
           <Row>
             <Col lg={3} xl={2} style={{backgroundColor: '#f7f7f7', borderRight: '1px solid #ececec'}} >
               <SideMenu />
@@ -58,7 +58,7 @@ class UserList extends Component {
                     ]
                   },
                   {name: 'Register Date', field: 'createdAt', format: 'date'},
-                  {name: 'Last Login', field: 'lastLoginAt', format: 'date'}
+                  {name: 'Last Login', field: 'lastLoginAt', format: 'datetime'}
                 ]}
                 data={this.props.userPage}
                 onPageRequest={(page) => this.props.getUserList(page)}

@@ -18,8 +18,13 @@ class SmartTable extends Component {
     super(props);
     this.formatter = {};
     this.formatter.date = (value) => {
-      value = value || '';
-      return value.split('T').shift();
+      return new Date(value).toLocaleDateString();
+    };
+    this.formatter.time = (value) => {
+      return new Date(value).toLocaleTimeString();
+    };
+    this.formatter.datetime = (value) => {
+      return new Date(value).toLocaleString();
     };
     this.formatter.check = (value) => {
       return value ? <FontAwesomeIcon icon={faCheckCircle} /> : <FontAwesomeIcon icon={faCircle} />;

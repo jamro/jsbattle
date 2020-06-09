@@ -1,10 +1,6 @@
 # Cooperative Mode
 
-To turn Cooperative mode on, check "Enable Team Mode for tanks of the same type" option below battle's **Start** button:
-
-![alt text](../img/cooperative_001.png)
-
-In this mode, tanks that have the same name (and thus are based on the same AI Script), will cooperate. It will cause several changes in game mechanics.
+When there are multiple tanks of the same tank in the battle, they may cooperate. It will cause several changes in game mechanics.
 
 ## Scoring System
 

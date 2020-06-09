@@ -23,7 +23,7 @@ List of all settings of JsBattle:
 ```js
 {
   // supported log levels: "error", "warn", "info", "debug", "trace"
-  "loglevel": "info",
+  "logLevel": "info",
 
   // do not inject config data from environmental variables"
   "skipEnv": false,
@@ -60,7 +60,7 @@ List of all settings of JsBattle:
     "gaCode": ""
   },
 
-  // authorization settings
+  // authorisation settings
   "auth": {
 
     // if auth is disabled, login will not be required. It is not recommended for production
@@ -93,6 +93,59 @@ List of all settings of JsBattle:
         "clientSecret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
       }
     ]
+  },
+
+  // configuration of the league
+  "league": {
+
+    // how often new battles are scheduled (ms). It does not mean the actual
+    // frequency of league battles since it is also limited by settings of UbdPlayer.
+    // If scheduleInterval is too aggressive, queue of UbdPlayer will be filed up
+    // quickly and further schedules will be skipped until there is space in the queue
+    "scheduleInterval": 30000,
+
+    // length of league battles
+    "timeLimit": 20000,
+
+    // size of teams that fights in the league
+    "teamSize": 3,
+
+    // whether code submitted to the league should be obfuscated
+    "obfuscate": true,
+
+    // how long league battles should be kept (ms)
+    "historyDuration": 3*24*60*60*1000
+  },
+
+  // Player for Ultimate Battle Descriptors. the service process battles on server side
+  "ubdPlayer": {
+
+    // maximum length of battle requests queue
+    "queueLimit": 2,
+
+    // interval of querying the queue for new battles to be played
+    "queueQueryTime": 5000,
+
+    // UbdPlayer sandbox user generated code by running headless chrome in the backend.
+    // The port is where webpage with UbdPlayer is hosted. It should not be accessible
+    // externally
+    "port": 8899,
+
+    // how fast battles should be played on the server side. Tweak that for CPU optimisation.
+    "speed": 1,
+
+    // timeout for battles in ms. Keep it above (league.timeLimit / ubdPlayer.speed)
+    "timeout": 60000
+  },
+
+  // history of battles
+  "battleStore": {
+
+    // default duration of keeping the history
+    "defaultExpireTime": 7*24*60*60*1000,
+
+    // how often the cleanup of expired battles should be ran
+    "cleanupInterval": 60*60*1000,
   }
 }
 ```

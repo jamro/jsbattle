@@ -5,7 +5,8 @@ import {withRouter} from 'react-router-dom';
 
 import {
   faShieldAlt,
-  faUsers
+  faUsers,
+  faCog
 } from '@fortawesome/free-solid-svg-icons';
 
 class SideMenu extends Component {
@@ -24,6 +25,9 @@ class SideMenu extends Component {
           </Nav.Link>
           <Nav.Link href="#/battles" active={pathname == '/battles'} className="sidenav-battles">
             <FontAwesomeIcon icon={faShieldAlt} /> Battles
+          </Nav.Link>
+          <Nav.Link href="#/system" active={pathname == '/system'} className="sidenav-battles">
+            <FontAwesomeIcon icon={faCog} /> System
           </Nav.Link>
         </Nav>
       </div>

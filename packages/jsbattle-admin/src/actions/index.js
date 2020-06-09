@@ -38,3 +38,7 @@ export const getBattleList = (page, pageSize) => {
   const fields = 'id,createdAt,expiresAt,description';
   return fetchFromApi(`/api/admin/battles?page=${page}&pageSize=${pageSize}&sort=-createdAt&fields=${fields}` , "BATTLE_LIST");
 };
+
+export const getSystemInfo = () => {
+  return fetchFromApi(`/api/admin/info` , "SYSTEM_INFO");
+};

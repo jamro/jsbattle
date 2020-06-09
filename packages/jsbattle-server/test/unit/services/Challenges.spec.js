@@ -24,7 +24,7 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/Challenge.service.js");
+			broker.loadService(__dirname + "../../../../app/services/Challenges.service.js");
 			await broker.start()
 		});
 		afterEach(() => broker.stop());
@@ -56,7 +56,7 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/Challenge.service.js");
+			broker.loadService(__dirname + "../../../../app/services/Challenges.service.js");
 			await broker.start();
 		});
 

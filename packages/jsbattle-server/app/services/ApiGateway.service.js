@@ -8,6 +8,7 @@ const stringReplace = require('../lib/stringReplaceMiddleware.js');
 const authorize = require('./apiGateway/authorize.js');
 const configPassport = require('./apiGateway/configPassport.js');
 const IO = require("socket.io");
+const fs = require('fs');
 
 class ApiGatewayService extends Service {
 
@@ -207,18 +208,36 @@ class ApiGatewayService extends Service {
 
   async getInfo() {
     let nodeInfo = this._broker.getLocalNodeInfo();
+
+    let upServices = nodeInfo.services.map((s) => s.name);
+
+    let downServices = fs
+      .readdirSync(__dirname)
+      .filter((name) => name.endsWith('.service.js'))
+      .map((name) => name.replace(/\.service\.js$/, ''))
+      .map((name) => name.charAt(0).toLowerCase() + name.slice(1))
+      .filter((name) => upServices.indexOf(name) == -1);
+
+    upServices = upServices.map((name) => ({
+      name,
+      up: true
+    }));
+    downServices = downServices.map((name) => ({
+      name,
+      up: false
+    }));
+
+    let allServices = upServices.concat(downServices);
+
     return {
       memoryUsage: await process.memoryUsage(),
       health: await this._broker.getHealthStatus(),
       node: {
         hostname: nodeInfo.hostname,
-        serviceCount: nodeInfo.services.length,
-        services: nodeInfo.services.map((s) => ({
-          name: s.name,
-          fullName: s.fullName,
-          actions: s.actions ? Object.keys(s.actions) : [],
-          events: s.events ? Object.keys(s.events) : [],
-        })),
+        totalServiceCount: allServices.length,
+        upServiceCount: upServices.length,
+        downServiceCount: downServices.length,
+        services: allServices
       }
     }
   }

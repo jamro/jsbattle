@@ -19,7 +19,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/api/admin/battles",
+							"raw": "{{base_url}}/api/admin/battles?",
 							"host": [
 								"{{base_url}}"
 							],
@@ -27,6 +27,12 @@
 								"api",
 								"admin",
 								"battles"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
 							]
 						}
 					},
@@ -273,7 +279,8 @@
 							"script": {
 								"id": "65b36948-581e-4c56-a059-118880d07875",
 								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"let url = pm.variables.get(\"base_url\") + \"/auth/mock\";",
+									"",
 									"pm.sendRequest(url, function (err, response) {",
 									"    console.log(response.headers);",
 									"});",
@@ -314,7 +321,8 @@
 							"script": {
 								"id": "65b36948-581e-4c56-a059-118880d07875",
 								"exec": [
-									"let url = pm.variables.get(\"base_url\") + pm.variables.get(\"login_uri\");",
+									"let url = pm.variables.get(\"base_url\") + \"/auth/mock\";",
+									"",
 									"pm.sendRequest(url, function (err, response) {",
 									"    console.log(response.headers);",
 									"});",

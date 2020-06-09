@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-admin",
-  "version": "2.7.1",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -56,7 +56,7 @@
     "bootstrap": "^4.5.0",
     "express": "^4.17.1",
     "jquery": "^3.5.0",
-    "jsbattle-mockserver": "^2.7.1",
+    "jsbattle-mockserver": "^3.0.0",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

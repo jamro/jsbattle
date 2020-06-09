@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/jamro/jsbattle/compare/v2.7.1...v3.0.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* **jsbattle-engine:** fix error handling when creating AI from incorrect input ([9da1a1e](https://github.com/jamro/jsbattle/commit/9da1a1e02f5f706685538eee6c9602f3e937af2b))
+
+
+### Features
+
+* **jsbattle:** list recent league battles ([492e2c9](https://github.com/jamro/jsbattle/commit/492e2c94204f59d154a55b7775916bd4d9b38daa))
+* **jsbattle:** store challenge progress on server side ([393ecf1](https://github.com/jamro/jsbattle/commit/393ecf11d24f6abdb3e799b186bcddc4e83c87cf))
+* **jsbattle-admin:** add admin panel ([b0ca6e8](https://github.com/jamro/jsbattle/commit/b0ca6e8abf1c48d4b95dc80b0123b02a2f7b7241))
+* **jsbattle-server:** add OAuth to admin services ([1d85641](https://github.com/jamro/jsbattle/commit/1d85641b7ec88a44d9f1c673c68d9ff09a5a1722))
+* **jsbattle-server:** drop share battle ([6005f58](https://github.com/jamro/jsbattle/commit/6005f58957e98658ea4b8db9324d70e05dbb6b4e))
+* **jsbattle-server:** support for MongoDB ([c91a770](https://github.com/jamro/jsbattle/commit/c91a77076791dd9a0a8b62e7a340ffbf9440144f))
+* **jsbattle-webpage:** add live coding to sandbox mode ([d83b66a](https://github.com/jamro/jsbattle/commit/d83b66a8dfdc6854e460fe77d5373dd323851847))
+
+
+
+
+
 ## [2.7.1](https://github.com/jamro/jsbattle/compare/v2.7.0...v2.7.1) (2020-01-09)
 
 

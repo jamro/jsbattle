@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/jamro/jsbattle/compare/v2.7.1...v3.0.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* **jsbattle-engine:** fix error handling when creating AI from incorrect input ([9da1a1e](https://github.com/jamro/jsbattle/commit/9da1a1e02f5f706685538eee6c9602f3e937af2b))
+
+
+### Features
+
+* **jsbattle:** bundle circler tank ([7154d61](https://github.com/jamro/jsbattle/commit/7154d61e657d29002b60fa9758b44cc3c8050011))
+* **jsbattle-server:** run league battles in the background ([0f44d81](https://github.com/jamro/jsbattle/commit/0f44d81e2e984b93ec7141b2a6048815a5df0fdc))
+* **jsbattle-webpage:** add live coding to sandbox mode ([d83b66a](https://github.com/jamro/jsbattle/commit/d83b66a8dfdc6854e460fe77d5373dd323851847))
+
+
+
+
+
 # [2.7.0](https://github.com/jamro/jsbattle/compare/v2.6.1...v2.7.0) (2020-01-09)
 
 

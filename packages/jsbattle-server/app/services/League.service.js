@@ -89,7 +89,7 @@ class LeagueService extends Service {
               ctx.params.fights_win = 0;
               ctx.params.fights_lose = 0;
               ctx.params.fights_error = 0;
-              ctx.params.score = 0;
+              ctx.params.score = ctx.params.score || 0;
               ctx.params = _.omit(ctx.params, ['id']);
               return ctx;
             }
@@ -123,7 +123,6 @@ class LeagueService extends Service {
       }
     });
   }
-
 
   async getScript(ctx) {
     const userId = ctx.meta.user ? ctx.meta.user.id : null;
@@ -308,6 +307,12 @@ class LeagueService extends Service {
       throw new ValidationError('Not Authorized!', 401);
     }
 
+    let currentSubmission = await ctx.call('league.getUserSubmission', {});
+    let startingScore = 0;
+    if(ctx.params.scriptId === currentSubmission.scriptId) {
+      startingScore = currentSubmission.score;
+    }
+
     await this.leaveLeague(ctx);
 
     let code = script.code;
@@ -351,7 +356,8 @@ class LeagueService extends Service {
       scriptId: script.id,
       scriptName: script.scriptName,
       code: code,
-      hash: script.hash
+      hash: script.hash,
+      score: startingScore
     });
 
     this.ranktable.add({

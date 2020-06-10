@@ -327,7 +327,7 @@ describe("Test 'League' service", () => {
 		expect(result.submission).toHaveProperty('ownerName', 'monica83');
 		expect(result.submission).toHaveProperty('scriptName', ownScript.scriptName);
 		expect(result.submission).toHaveProperty('joinedAt');
-		expect(result.submission).toHaveProperty('score');
+		expect(result.submission).toHaveProperty('score', 0);
 		expect(result.submission).toHaveProperty('fights_total');
 		expect(result.submission).toHaveProperty('fights_win');
 		expect(result.submission).toHaveProperty('fights_lose');
@@ -338,11 +338,29 @@ describe("Test 'League' service", () => {
 		expect(result.ranktable[0]).toHaveProperty('ownerName', 'monica83');
 		expect(result.ranktable[0]).toHaveProperty('scriptName', ownScript.scriptName);
 		expect(result.ranktable[0]).toHaveProperty('joinedAt');
-		expect(result.ranktable[0]).toHaveProperty('score');
+		expect(result.ranktable[0]).toHaveProperty('score', 0);
 		expect(result.ranktable[0]).toHaveProperty('fights_total');
 		expect(result.ranktable[0]).toHaveProperty('fights_win');
 		expect(result.ranktable[0]).toHaveProperty('fights_lose');
 		expect(result.ranktable[0]).toHaveProperty('fights_error');
+	});
+
+	it('should keep the score when re-joining the league',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		let result = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		let entityId = result.submission.id;
+		await broker.call('league.updateRank', {id: entityId, winner: true});
+		await broker.call('league.updateRank', {id: entityId, winner: true});
+		let entity = await broker.call('league.get', {id: entityId});
+		let score = entity.score;
+		let summary = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		expect(summary).toHaveProperty('submission');
+		expect(summary.submission).toHaveProperty('score', score);
+
 	});
 
 	it('should leave the league',  async () => {
@@ -376,7 +394,6 @@ describe("Test 'League' service", () => {
 		expect(summary.ranktable).toHaveLength(7);
 		expect(Object.keys(summary.submission)).toHaveLength(0);
 	});
-
 
 	it('should pick random opponents',  async () => {
 		await broker.emit('app.seed', {}, {});

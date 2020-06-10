@@ -9,20 +9,11 @@ You will need these before you start:
 
 ## Install NPM package
 
-Install JsBattle in selected directory:
+Install and start JsBattle:
 
 ```bash
-  npm install jsbattle
-```
-
-Go to `node_modules/jsbattle` directory
-
-## Run the game
-
-Start web server that is required to run JsBattle simulator:
-
-```bash
-  npm start
+  npm install jsbattle -g
+  jsbattle start
 ```
 
 The command will output URL of the server:

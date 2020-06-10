@@ -16,6 +16,9 @@
     "audit": "lerna exec -- 'npm audit || true'",
     "audit-fix": "lerna exec -- 'npm audit fix || true'"
   },
+  "engines": {
+    "node": ">=0.10.3"
+  },
   "devDependencies": {
     "commitizen": "^4.0.4",
     "cz-conventional-changelog": "^2.1.0",

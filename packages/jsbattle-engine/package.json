@@ -26,6 +26,9 @@
     "audit": "npm audit",
     "audit-fix": "npm audit fix"
   },
+  "engines": {
+    "node": ">=0.10.3"
+  },
   "watch": {
     "build:sources": {
       "patterns": [

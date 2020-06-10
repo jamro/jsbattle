@@ -18,6 +18,9 @@
     "test:run-admin": "cucumber-js  --fail-fast -t \"@integration or @integration_only\" --retry 3 -f ./test/features-admin/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-admin",
     "test:prep": "npm run test:copy-webpage && npm run test:copy-admin"
   },
+  "engines": {
+    "node": ">=0.10.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jamro/jsbattle"

@@ -69,8 +69,10 @@ test('Cancel joining league', () => {
 test('Renders submission', () => {
   const wrapper = shallow(<LeagueJoin
       selected={{
+        scriptId: '65262326234',
         scriptName: 'alpha8664',
         joinedAt: '2020-11-29 01:02:03',
+        latest: true,
         history: [
           {
             id: '324534',
@@ -91,6 +93,9 @@ test('Renders submission', () => {
         ]
       }}
     />);
+  expect(wrapper.find('.script-link').props()).toHaveProperty('href');
+  expect(wrapper.find('.new-version-badge')).toHaveLength(0);
+  expect(wrapper.find('a.script-link').prop('href')).toMatch(/65262326234/);
   expect(wrapper.render().text()).toMatch(/alpha8664/i);
   expect(wrapper.render().text()).toMatch(/2020/i);
   expect(wrapper.render().text()).toMatch(/11/i);
@@ -106,6 +111,22 @@ test('Renders submission', () => {
 
   expect(wrapper.find(".submission-history-item").at(0).find('i').prop('className')).toMatch(/skull/);
   expect(wrapper.find(".submission-history-item").at(1).find('i').prop('className')).toMatch(/trophy/);
+});
+
+test('Renders new version badge', () => {
+  const wrapper = shallow(<LeagueJoin
+      selected={{
+        scriptId: '65262326234',
+        scriptName: 'alpha8664',
+        joinedAt: '2020-11-29 01:02:03',
+        latest: false,
+        history: []
+      }}
+    />);
+
+  expect(wrapper.find('.new-version-badge')).toHaveLength(1);
+  wrapper.find('.new-version-badge').simulate('click');
+  expect(wrapper.find("button.league-leave")).toHaveLength(1);
 });
 
 test('Leave the leauge', () => {

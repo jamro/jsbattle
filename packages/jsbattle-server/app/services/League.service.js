@@ -35,7 +35,8 @@ class LeagueService extends Service {
           "fights_lose",
           "fights_error",
           "score",
-          "code"
+          "code",
+          "hash"
         ]
       },
       entityValidator: {
@@ -51,6 +52,7 @@ class LeagueService extends Service {
         fights_error: {type: "number", positive: true},
         score: {type: "number", positive: true},
         code: validators.code(),
+        hash: validators.hash()
       },
       actions: {
         pickRandomOpponents: this.pickRandomOpponents,
@@ -247,20 +249,20 @@ class LeagueService extends Service {
       throw new ValidationError('Not Authorized!', 401);
     }
 
-    let response = await ctx.call('league.find', {
+    let leagueEntry = await ctx.call('league.find', {
       query: {
         ownerId: userId
       },
       limit: 1
     });
 
-    if(response.length === 0) {
+    if(leagueEntry.length === 0) {
       return {}
     }
-    response = response[0];
+    leagueEntry = leagueEntry[0];
     let items = await ctx.call('battleStore.find', {
       query: {
-        owner: {$in: [response.id]}
+        owner: {$in: [leagueEntry.id]}
       },
       sort: '-createdAt',
       limit: 10,
@@ -279,8 +281,19 @@ class LeagueService extends Service {
         winner: player.winner
       }))
     }));
-    response.history = items;
-    return response;
+    leagueEntry.history = items;
+
+    leagueEntry.latest = true;
+    try {
+      let script = await ctx.call('scriptStore.getUserScript', { id: leagueEntry.scriptId});
+      if(script && script.hash !== leagueEntry.hash) {
+        leagueEntry.latest = false;
+      }
+    } catch (err) {
+      this.logger.debug('Reference script not found')
+    }
+
+    return leagueEntry;
   }
 
   async joinLeague(ctx) {
@@ -290,6 +303,7 @@ class LeagueService extends Service {
     }
 
     let script = await ctx.call('scriptStore.getUserScript', { id: ctx.params.scriptId });
+
     if(script.ownerId != userId) {
       throw new ValidationError('Not Authorized!', 401);
     }
@@ -336,7 +350,8 @@ class LeagueService extends Service {
       ownerName: script.ownerName,
       scriptId: script.id,
       scriptName: script.scriptName,
-      code: code
+      code: code,
+      hash: script.hash
     });
 
     this.ranktable.add({
@@ -398,7 +413,9 @@ class LeagueService extends Service {
       "fights_win",
       "fights_lose",
       "fights_error",
+      "hash",
       "score",
+      "latest",
       "history"
     ];
 

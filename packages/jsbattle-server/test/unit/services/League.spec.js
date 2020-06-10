@@ -12,9 +12,10 @@ const createTestToken = (user) => ({
 const ownScript = {
 	ownerId: '92864',
 	ownerName: 'monica83',
-	scriptId: '89052534623',
+	id: '152674',
 	scriptName: 'reptori8743',
-	code: '// hello 17487252'
+	code: '// hello 17487252',
+	hash: '1234567890abcdef2345'
 }
 
 const leagueHistory = [
@@ -68,6 +69,23 @@ const leagueHistory = [
 	}
 ]
 
+const getUserScriptMock = jest.fn((ctx) => {
+	switch(ctx.params.id) {
+		case '999999':
+			return {
+				ownerId: '123456',
+				ownerName: 'another_user',
+				id: '9324531928',
+				scriptName: 'secret script',
+				code: '// hello 48772'
+			}
+		case '152674':
+			return ownScript
+		default:
+			throw new Error('not found')
+	}
+})
+
 describe("Test 'League' service", () => {
 
 	let broker;
@@ -88,22 +106,7 @@ describe("Test 'League' service", () => {
 		broker.createService({
 				name: 'scriptStore',
 				actions: {
-					getUserScript: (ctx) => {
-						switch(ctx.params.id) {
-							case '999999':
-								return {
-									ownerId: '123456',
-									ownerName: 'another_user',
-									scriptId: '9324531928',
-									scriptName: 'secret script',
-									code: '// hello 48772'
-								}
-							case '152674':
-								return ownScript
-							default:
-								throw new Error('not found')
-						}
-					}
+					getUserScript: getUserScriptMock
 				}
 		})
 		broker.createService({
@@ -230,6 +233,49 @@ describe("Test 'League' service", () => {
 		expect(result.history[2].players[0]).toHaveProperty('winner', leagueHistory[2].meta[0].winner);
 		expect(result.history[2].players[1]).toHaveProperty('winner', leagueHistory[2].meta[1].winner);
 
+	});
+
+	it('should inform that a newer script is not available (no changes)',  async () => {
+		const user1 = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user1)}});
+		let result = await broker.call('league.getLeagueSummary', {}, {meta: {user: createTestToken(user1)}});
+		expect(result).toHaveProperty('submission');
+		expect(result.submission).toHaveProperty('latest', true);
+	});
+
+	it('should inform that a newer script is not available (no script)',  async () => {
+		const user1 = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user1)}});
+		getUserScriptMock.mockReturnValueOnce(null);
+		let result = await broker.call('league.getLeagueSummary', {}, {meta: {user: createTestToken(user1)}});
+
+		expect(result).toHaveProperty('submission');
+		expect(result.submission).toHaveProperty('latest', true);
+	});
+
+	it('should inform that a newer script is available',  async () => {
+		const user1 = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user1)}});
+		getUserScriptMock.mockReturnValueOnce({
+			...ownScript,
+			hash: '000000abc'
+		});
+		let result = await broker.call('league.getLeagueSummary', {}, {meta: {user: createTestToken(user1)}});
+
+		expect(result).toHaveProperty('submission');
+		expect(result.submission).toHaveProperty('latest', false);
 	});
 
 	it('should return empty league summary',  async () => {

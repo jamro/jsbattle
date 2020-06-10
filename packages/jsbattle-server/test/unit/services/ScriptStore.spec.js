@@ -3,6 +3,7 @@
 const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const crypto = require("crypto");
 
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
@@ -78,6 +79,24 @@ describe("Test 'ScriptStore' service", () => {
 			expect(result).toHaveProperty('modifiedAt');
 		});
 
+		it('should create hash of code',  async () => {
+			const code = "// some code 34523451";
+			const codeHash = crypto.createHash('md5').update(code).digest("hex");
+			const user = {
+				username: 'john',
+				role: 'user',
+				id: '92864',
+			}
+
+			let result = await broker.call('scriptStore.createUserScript', {scriptName: 'beta8978', code: code}, {meta: {user: createTestToken(user)}});
+			expect(result).toHaveProperty('code', code);
+			expect(result).toHaveProperty('hash', codeHash);
+
+			result = await broker.call('scriptStore.getUserScript', {id: result.id}, {meta: {user: createTestToken(user)}});
+			expect(result).toHaveProperty('code', code);
+			expect(result).toHaveProperty('hash', codeHash);
+		});
+
 		it('should list user scripts',  async () => {
 			const user = {
 				username: 'john',
@@ -92,6 +111,8 @@ describe("Test 'ScriptStore' service", () => {
 		});
 
 		it('should update user scripts',  async () => {
+			const newCode = '// new hello world8934572345';
+			const codeHash = crypto.createHash('md5').update(newCode).digest("hex");
 			const user = {
 				username: 'john',
 				role: 'user',
@@ -100,19 +121,20 @@ describe("Test 'ScriptStore' service", () => {
 			let script = await broker.call(
 				'scriptStore.createUserScript',
 				{
-					code: '// hello world',
+					code: '// hello world1235',
 					scriptName: 'helloScript'
 				},
 				{meta: {user: createTestToken(user)}}
 			);
-			let updatedScript = await broker.call('scriptStore.updateUserScript', {id: script.id}, {meta: {user: createTestToken(user)}});
+			let updatedScript = await broker.call('scriptStore.updateUserScript', {id: script.id, code: newCode}, {meta: {user: createTestToken(user)}});
 			expect(updatedScript).toHaveProperty('id', script.id);
 			expect(updatedScript).toHaveProperty('scriptName', 'helloScript');
 			expect(updatedScript).toHaveProperty('ownerId', script.ownerId);
 			expect(updatedScript).toHaveProperty('ownerName', script.ownerName);
-			expect(updatedScript).toHaveProperty('code', '// hello world');
+			expect(updatedScript).toHaveProperty('code', newCode);
 			expect(updatedScript).toHaveProperty('createdAt', script.createdAt);
 			expect(updatedScript).toHaveProperty('modifiedAt');
+			expect(updatedScript).toHaveProperty('hash', codeHash);
 		});
 
 		it('should get user script',  async () => {

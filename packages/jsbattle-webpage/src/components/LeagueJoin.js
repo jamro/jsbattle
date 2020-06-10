@@ -50,6 +50,7 @@ export default class LeagueJoin extends React.Component {
   }
 
   openEditor() {
+    $('[data-toggle="tooltip"]').tooltip('hide');
     this.setState({editMode: true});
   }
 
@@ -152,14 +153,28 @@ export default class LeagueJoin extends React.Component {
     if(badges.length == 0) {
       badges = <em>nothing yet</em>;
     }
+    let newVersionBadge = null;
+    if(!this.props.selected.latest) {
+      newVersionBadge = <span className="clickable new-version-badge" style={{position: 'relative', top: '-1em'}} onClick={() => this.openEditor()} data-toggle="tooltip" data-placement="top" title={"A new version of '" + this.props.selected.scriptName + "' script is available. You can resubmit it to the league."}>
+        <i className="fas fas fa-asterisk text-light"></i>
+      </span>;
+    }
     return <div className="card text-white bg-dark" style={{height: '100%'}}>
         <div className="card-body">
           <Row>
             <Col md={6} className="text-center">
-              <p className="card-text"><small style={{color: '#888'}}>your tank </small><br /><strong style={{fontSize: '2em'}}>{this.props.selected.scriptName}</strong></p>
+              <p className="card-text"><small style={{color: '#888'}}>your tank </small><br />
+                <a href={"/#/sandbox/" + this.props.selected.scriptId} className="text-light script-link"><strong style={{fontSize: '2em'}}>{this.props.selected.scriptName}</strong></a>
+                {newVersionBadge}
+              </p>
             </Col>
             <Col md={6} className="text-center">
-              <p className="card-text"><small style={{color: '#888'}}>snapshot from </small><br />{new Date(this.props.selected.joinedAt).toLocaleDateString()}<br/>{new Date(this.props.selected.joinedAt).toLocaleTimeString()}</p>
+              <div className="card-text">
+                <small style={{color: '#888'}}>snapshot from </small>
+                <div>
+                  {new Date(this.props.selected.joinedAt).toLocaleDateString()}<br/>{new Date(this.props.selected.joinedAt).toLocaleTimeString()}
+                </div>
+              </div>
             </Col>
           </Row>
           <Row>

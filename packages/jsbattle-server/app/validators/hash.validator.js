@@ -1,7 +1,7 @@
 module.exports = (config) => ({
   type: "string",
-  min: 3,
-  max: 256,
-  pattern: /^[\w-]+@([\w-]+\.)+[\w-]+$/,
+  min: 16,
+  max: 128,
+  pattern: /^[a-zA-Z0-9]+$/,
   ...config
 })

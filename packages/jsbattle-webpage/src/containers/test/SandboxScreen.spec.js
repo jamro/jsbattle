@@ -12,6 +12,10 @@ const match = {
   }
 }
 
+const location = {
+  search: ''
+}
+
 const userOpponent = {
   type: 'user',
   name: "opponent83",
@@ -27,6 +31,7 @@ const script = {
 test('SandboxScreen renders properly', () => {
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
   />);
@@ -40,6 +45,7 @@ test('display loading', () => {
   let wrapper = shallow(
     <SandboxScreen
       match={match}
+      location={location}
       isLoading={true}
       logging={false}
     />
@@ -49,6 +55,7 @@ test('display loading', () => {
   wrapper = shallow(
     <SandboxScreen
       match={match}
+      location={location}
       isLoading={false}
       logging={false}
     />
@@ -59,6 +66,7 @@ test('display loading', () => {
 test('restarts the battle', async () => {
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
   />);
@@ -77,6 +85,7 @@ test('edit code', async () => {
   const updateCode = jest.fn()
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
     updateAiScript={updateCode}
@@ -92,6 +101,7 @@ test('win duel', async () => {
   const wrapper = shallow(
       <SandboxScreen
         match={match}
+        location={location}
         script={script}
         mode="duel"
         logging={false}
@@ -116,6 +126,7 @@ test('win team match', async () => {
   const wrapper = shallow(
       <SandboxScreen
         match={match}
+        location={location}
         script={script}
         mode="team"
         logging={false}
@@ -140,6 +151,7 @@ test('lose duel', async () => {
   const wrapper = shallow(
       <SandboxScreen
         match={match}
+        location={location}
         script={script}
         mode="duel"
         logging={false}
@@ -164,6 +176,7 @@ test('lose team match', async () => {
   const wrapper = shallow(
       <SandboxScreen
         match={match}
+        location={location}
         script={script}
         mode="team"
         logging={false}
@@ -192,6 +205,7 @@ test('enable logging', () => {
   shallow(
     <SandboxScreen
       match={match}
+      location={location}
     />
   );
   expect(console.log.mock.calls.length).toBeGreaterThan(0)
@@ -200,6 +214,7 @@ test('enable logging', () => {
   shallow(
     <SandboxScreen
       match={match}
+      location={location}
       logging={false}
     />
   );
@@ -209,6 +224,7 @@ test('enable logging', () => {
   shallow(
     <SandboxScreen
       match={match}
+      location={location}
       logging={true}
     />
   );
@@ -230,6 +246,7 @@ test('change opponent', () => {
   }
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
     opponent={opponent}
@@ -244,6 +261,7 @@ test('notify opponent change', () => {
   const setSandboxOpponent = jest.fn();
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
     setSandboxOpponent={setSandboxOpponent}
@@ -258,6 +276,7 @@ test('rename script', () => {
   const renameAiScript= jest.fn();
   const wrapper = shallow(<SandboxScreen
     match={match}
+    location={location}
     script={script}
     logging={false}
     renameAiScript={renameAiScript}

@@ -45,6 +45,19 @@ export class LeagueScreen extends React.Component {
   }
 
   renderTableRow(item) {
+    let actions = null;
+    if(this.props.submission && this.props.submission.id != item.id) {
+      let url = `/#/sandbox/${this.props.submission.scriptId}?opponentType=league&opponentId=${item.id}`;
+      actions = <td className="text-right">
+        <a href={url} className="btn btn-primary btn-sm fight-button">
+          <i className="fas fa-crosshairs"></i> Fight
+        </a>
+      </td>;
+    } else if(this.props.submission && this.props.submission.id === item.id) {
+      actions = <td className="text-right">
+        &nbsp;
+      </td>;
+    }
     let isActive = this.props.submission && item.scriptId === this.props.submission.scriptId;
     return <tr key={item.scriptId} className={isActive ? 'table-active' : ''}>
       <td className="text-right">#{item.rank}</td>
@@ -53,6 +66,7 @@ export class LeagueScreen extends React.Component {
       <td className="text-right">{item.fights_win}</td>
       <td className="text-right">{item.fights_lose}</td>
       <td className="text-right"><span className="badge badge-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {item.score}</span></td>
+      {actions}
     </tr>;
   }
 
@@ -126,6 +140,11 @@ export class LeagueScreen extends React.Component {
       />;
     }
 
+    let actionHeader = null;
+    if(this.props.submission) {
+      actionHeader = <th scope="col" className="text-right">&nbsp;</th>;
+    }
+
     return <div>
       {this.renderBreadcrumb()}
       <div className="jumbotron" style={{padding: '2rem'}}>
@@ -152,6 +171,7 @@ export class LeagueScreen extends React.Component {
               <th scope="col" className="text-right">Won</th>
               <th scope="col" className="text-right">Lost</th>
               <th scope="col" className="text-right">Score</th>
+              {actionHeader}
             </tr>
           </thead>
           <tbody>

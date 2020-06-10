@@ -6,6 +6,7 @@ import EditableText from '../components/EditableText.js';
 import DuelResultScreen from '../components/DuelResultScreen.js';
 import LiveCodeSandboxSettingsTab from '../components/LiveCodeSandboxSettingsTab.js';
 import {Link} from 'react-router-dom';
+const queryString = require('query-string');
 import {
   notifySandboxEdit
 } from '../actions/statsAction.js';
@@ -48,6 +49,10 @@ export class SandboxScreen extends React.Component {
     let id = this.props.match.params.name;
     this.props.getAiScript(id, this.props.useRemoteService);
     this.props.getSandboxOpponentList(this.props.useRemoteService);
+    const query = queryString.parse(this.props.location.search);
+    if(query.opponentType && query.opponentId) {
+      this.props.setSandboxOpponent(query.opponentType, query.opponentId);
+    }
     this.props.notifySandboxEdit();
     this.log('SandboxScreen mounted');
   }
@@ -305,8 +310,8 @@ const mapDispatchToProps = (dispatch) => ({
   renameAiScript: (newName, id, useRemoteService) => {
     dispatch(renameAiScript(newName, id, useRemoteService));
   },
-  setSandboxOpponent: (type, name) => {
-    dispatch(setSandboxOpponent(type, name));
+  setSandboxOpponent: (type, id) => {
+    dispatch(setSandboxOpponent(type, id));
   },
   setSandboxBattleMode: (teamMode) => {
     dispatch(setSandboxBattleMode(teamMode));

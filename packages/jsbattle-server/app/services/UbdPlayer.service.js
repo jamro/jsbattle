@@ -1,10 +1,9 @@
 const Service = require("moleculer").Service;
-const { ValidationError, MoleculerError } = require("moleculer").Errors;
 const express = require('express')
 const path = require('path')
 const puppeteer = require('puppeteer');
 const insttallPuppeteer = require('./ubdPlayer/installPuppeteer.js');
-const validators = require("../validators");
+const findFreePort = require("./ubdPlayer/findFreePort.js");
 
 class UbdPlayer extends Service {
 
@@ -20,29 +19,27 @@ class UbdPlayer extends Service {
     this.parseServiceSchema({
       name: "ubdPlayer",
       actions: {
-        scheduleBattle: {
-          params: {
-            ubd: validators.any(),
-            refData: validators.any({optional: true}),
-            event: {type: "string", max: 1024, optional: true}
-          },
-          handler: this.scheduleBattle
-        },
-        getQueueLength: this.getQueueLength,
         getInfo: this.getInfo,
       },
       started: async () => {
         await insttallPuppeteer(this.logger);
 
+        // find free port
+        this.port = await findFreePort();
+
         // host frontend
         this.app = express();
         this.app.use(express.static(path.join(__dirname, 'ubdPlayer', 'www')))
-        this.server = this.app.listen(this.config.port, 'localhost', () => this.logger.info(`UbdPlayer started at http://localhost:${this.config.port}`))
+        this.server = this.app.listen(this.port, 'localhost', () => this.logger.info(`UbdPlayer started at http://localhost:${this.port}`))
 
         // start browser
         this.browser = await puppeteer.launch();
         this.logger.info(`Starting player at ${broker.serviceConfig.ubdPlayer.speed}x speed`);
         this.loop = setInterval(async () => {
+          if(!this.config.enabled) {
+            broker.destroyService(this);
+            return;
+          }
           if(this.isBusy) {
             let processDuration = new Date().getTime() - this.processingStartTime;
             if(processDuration > 1.5 * broker.serviceConfig.ubdPlayer.timeout) {
@@ -63,12 +60,15 @@ class UbdPlayer extends Service {
             }
             return;
           }
-          if(this.queue.length === 0) {
-            return;
-          }
-          let task = this.queue.shift();
           let page;
+          let task
           try {
+            task = await broker.call('queue.read', {topic: 'ubdPlayer'});
+            if(!task || !task.ok) {
+              return;
+            } else {
+              task = task.payload;
+            }
             this.processingStartTime = new Date().getTime();
             this.isBusy = true;
             this.logger.info('Starting a battle...')
@@ -76,7 +76,7 @@ class UbdPlayer extends Service {
             page = await this.browser.newPage();
             page.on('console', (message) => this.logger.debug(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`));
             page.on('pageerror', ({ message }) => this.logger.debug(message));
-            await page.goto('http://localhost:' + this.config.port);
+            await page.goto('http://localhost:' + this.port);
             await page.waitFor('#ubd');
             await page.$eval('#ubd', (el, ubd) => {
               el.value = JSON.stringify(ubd)
@@ -112,7 +112,7 @@ class UbdPlayer extends Service {
           } catch (err) {
             this.logger.warn('Unable to finish the battle');
             this.logger.warn(err);
-            this.logger.debug('UBD that failed: ' + JSON.stringify(task.ubd));
+            this.logger.debug('UBD that failed: ' + (task && task.ubd ? JSON.stringify(task.ubd) : 'undefined'));
             this.isBusy = false;
             if(page && !page.isClosed()) {
               await page.close();
@@ -133,28 +133,6 @@ class UbdPlayer extends Service {
         }
       }
     });
-    this.queue = []
-    this.queueLimit = broker.serviceConfig.ubdPlayer.queueLimit
-  }
-
-  getQueueLength() {
-    return this.queue.length;
-  }
-
-  async scheduleBattle(ctx) {
-    let result = await ctx.call('ubdValidator.validate', {ubd: ctx.params.ubd})
-    if(!result.valid) {
-      throw new ValidationError('Invalid ubd to play!')
-    }
-    if(this.queue.length >= this.queueLimit) {
-      throw new MoleculerError('UbdPlayer queue limit exceeded')
-    }
-    this.queue.push({
-      ubd: ctx.params.ubd,
-      event: ctx.params.event || "",
-      refData: ctx.params.refData || undefined,
-    });
-    this.logger.debug('Battle scheduled. Queue length: ' + this.queue.length)
   }
 
   async getInfo() {
@@ -162,7 +140,6 @@ class UbdPlayer extends Service {
       initialized: false,
       product: puppeteer.product,
       isBusy: this.isBusy,
-      queueLength: this.queue.length,
       config: this.config
     };
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const Gateway = require('jsbattle-server').Gateway;
+const Worker = require('jsbattle-server').Worker;
 const path = require('path');
 const _ = require('lodash');
 const yargs = require('yargs');
@@ -44,6 +45,34 @@ yargs
       let gateway = new Gateway();
       gateway.init(config)
       .then(() => gateway.start())
+      .then(() => {
+        if(process.send) { // for child process only}
+          process.send('ready');
+        }
+      })
+      .catch(console.error);
+    }
+  )
+  .command(
+    'worker',
+    'Launch JsBattle worker (scaling out)',
+    (yargs) => {
+
+    },
+    (argv) => {
+      let config = {};
+      if(argv.config) {
+        config = require(path.resolve(argv.config));
+      }
+
+      // overrride config by CLI arguments
+      if(argv.loglevel) {
+        config.loglevel = argv.loglevel
+      }
+
+      let worker = new Worker();
+      worker.init(config)
+      .then(() => worker.start())
       .then(() => {
         if(process.send) { // for child process only}
           process.send('ready');

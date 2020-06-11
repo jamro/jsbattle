@@ -23,7 +23,7 @@ List of all settings of JsBattle:
 ```js
 {
   // supported log levels: "error", "warn", "info", "debug", "trace"
-  "logLevel": "info",
+  "loglevel": "info",
 
   // do not inject config data from environmental variables"
   "skipEnv": false,
@@ -125,11 +125,6 @@ List of all settings of JsBattle:
 
     // interval of querying the queue for new battles to be played
     "queueQueryTime": 5000,
-
-    // UbdPlayer sandbox user generated code by running headless chrome in the backend.
-    // The port is where webpage with UbdPlayer is hosted. It should not be accessible
-    // externally
-    "port": 8899,
 
     // how fast battles should be played on the server side. Tweak that for CPU optimisation.
     "speed": 1,

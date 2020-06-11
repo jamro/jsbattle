@@ -1,14 +1,14 @@
 const ConfigBroker = require('./lib/ConfigBroker.js');
 const path = require('path')
 
-class Gateway {
+class Worker {
 
   init(options) {
     return new Promise((resolve) => {
       this.broker = new ConfigBroker(
         {
           namespace: 'jsbattle',
-          nodeID: "gateway-" + process.pid,
+          nodeID: "worker-" + process.pid,
           logLevel: options.loglevel,
           transporter: "TCP",
           circuitBreaker: {
@@ -22,7 +22,7 @@ class Gateway {
         },
         options
       );
-      this.broker.loadServices(path.resolve(__dirname, 'services'), '*.service.js');
+      this.broker.loadServices(path.resolve(__dirname, 'services'), 'UbdPlayer.service.js');
       resolve();
     });
   }
@@ -46,4 +46,4 @@ class Gateway {
 
 }
 
-module.exports = Gateway;
+module.exports = Worker;

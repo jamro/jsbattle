@@ -6,6 +6,15 @@ const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
 
 const validateMock = jest.fn();
+const readQueue = jest.fn();
+const writeQueue = jest.fn();
+const config = {
+	"ubdPlayer": {
+		"queueQueryTime": 10,
+		"speed": 100,
+		"timeout": 30000
+	}
+};
 
 describe("Test 'UbdPlayer' service", () => {
 	let broker;
@@ -15,15 +24,7 @@ describe("Test 'UbdPlayer' service", () => {
 		validateMock.mockReset();
 		validateMock.mockReturnValue({valid: true});
 
-		let config = {
-			"ubdPlayer": {
-        "queueLimit": 3,
-        "queueQueryTime": 10,
-        "port": 8199,
-        "speed": 100,
-        "timeout": 30000
-      }
-		};
+
 		broker = new ConfigBroker({ logger: false }, config, false);
 		broker.createService({
 			name: 'ubdValidator',
@@ -31,35 +32,29 @@ describe("Test 'UbdPlayer' service", () => {
 				validate: validateMock
 			}
 		});
+		broker.createService({
+				name: 'queue',
+				actions: {
+					read: readQueue,
+					write: writeQueue,
+				}
+		})
 
 		broker.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
 		await broker.start()
 	});
 	afterEach(() => broker.stop());
 
-	it('should have empty queue at start', async () => {
-		let result = await broker.call('ubdPlayer.getQueueLength', { }, { });
-		expect(result).toBe(0)
-  });
-
-	it('should add to queue up to the limit', async () => {
-		let size;
-		const ubd = new UbdJsonMock();
-		await broker.call('ubdPlayer.scheduleBattle', { ubd }, { });
-		size = await broker.call('ubdPlayer.getQueueLength', { }, { });
-		expect(size).toBe(1);
-		await broker.call('ubdPlayer.scheduleBattle', { ubd }, { });
-		size = await broker.call('ubdPlayer.getQueueLength', { }, { });
-		expect(size).toBe(2);
-		await broker.call('ubdPlayer.scheduleBattle', { ubd }, { });
-		size = await broker.call('ubdPlayer.getQueueLength', { }, { });
-		expect(size).toBe(3);
-
-		await expect(
-			broker.call('ubdPlayer.scheduleBattle', { ubd }, { })
-		).rejects.toThrow(/limit exceeded/i)
-		expect(size).toBe(3);
-  });
+	it('should pick random port', async () => {
+		let broker1 = new ConfigBroker({ logger: false }, {}, false);
+		broker1.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
+		await broker1.start();
+		let broker2 = new ConfigBroker({ logger: false }, {}, false);
+		broker2.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
+		await broker2.start();
+		await broker1.stop();
+		await broker2.stop();
+	});
 
 	it('should play the battle', async () => {
 		jest.setTimeout(30000);
@@ -88,7 +83,7 @@ describe("Test 'UbdPlayer' service", () => {
       timeLimit: 5000
 		};
 
-		await broker.call('ubdPlayer.scheduleBattle', { ubd }, { });
+		readQueue.mockReturnValueOnce({ payload: { ubd }, ok: true });
 
 		let params = await new Promise((resolve) => {
 			broker.createService({
@@ -138,4 +133,5 @@ describe("Test 'UbdPlayer' service", () => {
 		expect(Math.round(teamList[1].energy)).toBe(66)
 
 	});
+
 });

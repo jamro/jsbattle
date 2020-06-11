@@ -24,12 +24,6 @@ class LeagueScheduler extends Service {
         this.logger.info('Starting scheduling loop at ' + this.config.scheduleInterval + 'ms')
         this.loop = setInterval(async () => {
           try {
-            let queueLength = await broker.call('ubdPlayer.getQueueLength', {});
-            if(queueLength >= this.queueLimit) {
-              this.logger.debug(`ubdPlayer queue: ${queueLength}/${this.queueLimit}, skipping...`);
-              return;
-            }
-            this.logger.debug(`ubdPlayer queue: ${queueLength}/${this.queueLimit}, Scheduling next battle... `);
             await broker.call('leagueScheduler.scheduleBattle', {})
           } catch(err) {
             this.logger.warn(err)
@@ -154,23 +148,29 @@ class LeagueScheduler extends Service {
       });
     }
 
-    this.logger.debug(`Scheduling battle ${opponents[0].scriptName} vs ${opponents[1].scriptName}`)
-
     try {
       let refData = {};
       refData[opponents[0].ownerName + '/' + opponents[0].scriptName] = opponents[0].id;
       refData[opponents[1].ownerName + '/' + opponents[1].scriptName] = opponents[1].id;
-      await ctx.call('ubdPlayer.scheduleBattle', {
-        ubd: ubd,
-        event: 'league',
-        refData: refData
+      let queueResult = await ctx.call('queue.write', {
+        payload: {
+          ubd: ubd,
+          event: 'league',
+          refData: refData
+        },
+        topic: 'ubdPlayer',
+        limit:this.queueLimit
       });
+      if(queueResult.ok) {
+        this.logger.info(`Scheduling battle ${opponents[0].scriptName} vs ${opponents[1].scriptName}`);
+      } else {
+        this.logger.debug('Unable to schedule battle: ' + queueResult.error);
+      }
     } catch(err) {
       this.logger.debug('Unable to schedule battle due to: ' + err.message)
     }
 
   }
-
 
 }
 

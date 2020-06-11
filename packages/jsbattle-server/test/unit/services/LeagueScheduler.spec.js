@@ -19,8 +19,8 @@ const ownScript = {
 
 const leagueHistoryDuration = 3*60*60*1000
 
-const scheduleBattle = jest.fn();
-const getQueueLength = jest.fn();
+const readQueue = jest.fn();
+const writeQueue = jest.fn();
 const pickRandomOpponents = jest.fn();
 const leagueUpdate = jest.fn();
 const leagueGet = jest.fn();
@@ -32,7 +32,6 @@ describe("Test 'League' service", () => {
 	let broker;
 
 	beforeEach(async () => {
-		getQueueLength.mockReturnValue(0);
 		pickRandomOpponents.mockReturnValue([
 			{
 				id: '2g34a52',
@@ -115,16 +114,16 @@ describe("Test 'League' service", () => {
 				}
 		})
 		broker.createService({
-				name: 'ubdPlayer',
-				actions: {
-					getQueueLength: getQueueLength,
-					scheduleBattle: scheduleBattle
-				}
-		})
-		broker.createService({
 				name: 'battleStore',
 				actions: {
 					create: battleStoreCreate,
+				}
+		})
+		broker.createService({
+				name: 'queue',
+				actions: {
+					read: readQueue,
+					write: writeQueue,
 				}
 		})
 
@@ -145,26 +144,18 @@ describe("Test 'League' service", () => {
 
 
 	it('should schedule battles after start',  async () => {
-		scheduleBattle.mockReset();
+		writeQueue.mockReset();
 		await new Promise((resolve) => setTimeout(resolve, 100));
-		expect(scheduleBattle.mock.calls.length).toBeGreaterThan(0);
+		expect(writeQueue.mock.calls.length).toBeGreaterThan(0);
 	});
 
 	it('should not schedule battles when league is empty',  async () => {
 		pickRandomOpponents.mockImplementation(() => {
 			throw new Error('no opponents')
 		})
-		scheduleBattle.mockReset();
+		writeQueue.mockReset();
 		await new Promise((resolve) => setTimeout(resolve, 100));
-		expect(scheduleBattle.mock.calls.length).toBe(0);
-	});
-
-	it('should not schedule battles when queue limit exceeded',  async () => {
-		scheduleBattle.mockReset();
-		getQueueLength.mockReturnValue(11);
-
-		await new Promise((resolve) => setTimeout(resolve, 100));
-		expect(scheduleBattle.mock.calls.length).toBe(0);
+		expect(writeQueue.mock.calls.length).toBe(0);
 	});
 
 	it('should process battle result',  async () => {

@@ -8,7 +8,7 @@ class ConfigBroker extends ServiceBroker {
   constructor(options, config = {}, useEnv = true) {
     super(options);
     const defaultConfig = {
-      "logLevel": "info",
+      "loglevel": "info",
       "skipEnv": false,
       "data": {
         "adapter": "nedb",
@@ -35,9 +35,9 @@ class ConfigBroker extends ServiceBroker {
         "historyDuration": 3*24*60*60*1000
       },
       "ubdPlayer": {
+        "enabled": true,
         "queueLimit": 2,
-        "queueQueryTime": 5000,
-        "port": 8899,
+        "queueQueryTime": 1000,
         "speed": 1,
         "timeout": 60000
       },

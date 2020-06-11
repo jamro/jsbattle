@@ -195,6 +195,9 @@ class ApiGatewayService extends Service {
               payload
             });
           }
+        },
+        "worker.echo"(payload, sender, event) {
+          console.log('EVT', sender, event);
         }
       },
       stopped() {
@@ -230,6 +233,7 @@ class ApiGatewayService extends Service {
     let allServices = upServices.concat(downServices);
 
     return {
+      nodeInfo,
       memoryUsage: await process.memoryUsage(),
       health: await this._broker.getHealthStatus(),
       node: {

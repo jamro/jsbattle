@@ -69,6 +69,11 @@ class UbdPlayer extends Service {
             } else {
               task = task.payload;
             }
+          } catch (err) {
+            this.logger.warn('Cannot connect to queue: ' + err);
+            return;
+          }
+          try {
             this.processingStartTime = new Date().getTime();
             this.isBusy = true;
             this.logger.info('Starting a battle...')
@@ -122,7 +127,9 @@ class UbdPlayer extends Service {
 
       },
       stopped: () => {
-        this.server.close();
+        if(this.server) {
+          this.server.close();
+        }
         if(this.loop) {
           clearInterval(this.loop);
           this.loop = null;

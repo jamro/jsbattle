@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-const Gateway = require('jsbattle-server').Gateway;
-const Worker = require('jsbattle-server').Worker;
+const Node = require('jsbattle-server').Node;
 const path = require('path');
 const _ = require('lodash');
 const yargs = require('yargs');
@@ -42,7 +41,7 @@ yargs
         config.loglevel = argv.loglevel
       }
 
-      let gateway = new Gateway();
+      let gateway = new Node();
       gateway.init(config)
       .then(() => gateway.start())
       .then(() => {
@@ -70,7 +69,7 @@ yargs
         config.loglevel = argv.loglevel
       }
 
-      let worker = new Worker();
+      let worker = new Node('worker');
       worker.init(config)
       .then(() => worker.start())
       .then(() => {

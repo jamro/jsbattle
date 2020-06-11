@@ -1,5 +1,5 @@
 "use strict";
-const Gateway = require('../../app/Gateway.js');
+const Node = require('../../app/Node.js');
 const axios = require('axios');
 
 const PORT = 8771
@@ -10,7 +10,7 @@ describe("Test Share Battle API", () => {
 	let gateway;
 
 	beforeAll(async () => {
-		gateway = new Gateway();
+		gateway = new Node();
 		await gateway.init({
 			loglevel: 'none',
 			skipEnv: true,

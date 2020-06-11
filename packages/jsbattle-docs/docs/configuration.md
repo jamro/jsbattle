@@ -28,6 +28,11 @@ List of all settings of JsBattle:
   // do not inject config data from environmental variables"
   "skipEnv": false,
 
+  // nodes (workers) with the same cluster name will by connected automatically.
+  // services within a cluster can communicate between each other while running on
+  // different hosts
+  "clusterName": "jsbattle-cluster",
+
   // data persistence settings
   "data": {
 

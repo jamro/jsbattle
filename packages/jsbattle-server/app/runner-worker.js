@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const Worker = require('./Worker.js');
+const Node = require('./Node.js');
 
-let worker = new Worker();
+let worker = new Node('worker');
 let config = {
+  "clusterName": "jsbattle-dev",
   "loglevel": "debug",
   "ubdPlayer": {
     "queueQueryTime": 1000,

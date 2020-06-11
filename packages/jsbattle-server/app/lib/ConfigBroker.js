@@ -10,6 +10,7 @@ class ConfigBroker extends ServiceBroker {
     const defaultConfig = {
       "loglevel": "info",
       "skipEnv": false,
+      "clusterName": null,
       "data": {
         "adapter": "nedb",
         "path": null

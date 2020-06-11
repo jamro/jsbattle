@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-const Gateway = require('./Gateway.js');
+const Node = require('./Node.js');
 const path = require('path');
 
-let gateway = new Gateway();
+let gateway = new Node();
 let config = {
+  "clusterName": "jsbattle-dev",
   "loglevel": "debug",
   "web": {
     "webroot": path.join(__dirname, 'public'),

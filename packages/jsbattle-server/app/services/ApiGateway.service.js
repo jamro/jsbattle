@@ -233,7 +233,7 @@ class ApiGatewayService extends Service {
     let allServices = upServices.concat(downServices);
 
     return {
-      nodeInfo,
+      clusterName: this._broker.serviceConfig.clusterName,
       memoryUsage: await process.memoryUsage(),
       health: await this._broker.getHealthStatus(),
       node: {

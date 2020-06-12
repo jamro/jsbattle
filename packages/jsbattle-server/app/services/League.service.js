@@ -78,7 +78,14 @@ class LeagueService extends Service {
             winner: { type: "boolean" }
           },
           handler: this.updateRank
-        }
+        },
+        listRankTable: {
+          params: {
+            page: {type: "number", positive: true, min: 1, optional: true, convert: true},
+            pageSize: {type: "number", positive: true, min: 1, max: 50, optional: true, convert: true}
+          },
+          handler: this.listRankTable
+        },
       },
       hooks: {
         before: {
@@ -444,6 +451,22 @@ class LeagueService extends Service {
     return {
       ...result,
       history: await ctx.call('league.getHistory', {})
+    }
+  }
+
+  listRankTable(ctx) {
+    let page = ctx.params.page || 1;
+    let pageSize = ctx.params.pageSize || 10;
+    let total = this.ranktable.getLength();
+    let totalPages = Math.ceil(total/pageSize);
+    let offset = (page-1)*pageSize;
+    let rows = this.ranktable.getData().slice(offset, offset+pageSize);
+    return {
+      rows,
+      page,
+      pageSize,
+      total,
+      totalPages
     }
   }
 }

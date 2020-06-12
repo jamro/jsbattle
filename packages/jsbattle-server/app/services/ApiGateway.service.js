@@ -47,11 +47,12 @@ class ApiGatewayService extends Service {
                 use: [cookieParser()],
                 aliases: {
                   "PATCH users/:id": "userStore.update",
-                  "REST users": "userStore",
+                  "GET users": "userStore.list",
                   "PATCH scripts/:id": "scriptStore.update",
-                  "REST scripts": "scriptStore",
+                  "GET scripts": "scriptStore.list",
                   "PATCH battles/:id": "battleStore.update",
-                  "REST battles": "battleStore",
+                  "GET battles": "battleStore.list",
+                  "GET league": "league.listRankTable",
                   "GET ubdPlayer/info": "ubdPlayer.getInfo",
                   "GET info": "node.getInfo"
                 },

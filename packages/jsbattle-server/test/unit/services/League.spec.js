@@ -452,4 +452,33 @@ describe("Test 'League' service", () => {
 		expect(entity).toHaveProperty('score', 753);
 	});
 
+	it('should list the league',  async () => {
+		await broker.emit('app.seed', {}, {});
+
+		let result = await broker.call('league.listRankTable', {});
+
+		expect(result).toHaveProperty('page', 1);
+		expect(result).toHaveProperty('pageSize', 10);
+		expect(result).toHaveProperty('rows');
+		expect(result).toHaveProperty('total', 7);
+		expect(result).toHaveProperty('totalPages', 1);
+		expect(result.rows).toHaveLength(7);
+		expect(result.rows[0]).toHaveProperty('rank', 1);
+	});
+
+	it('should paginate list of the league',  async () => {
+		await broker.emit('app.seed', {}, {});
+
+		let result = await broker.call('league.listRankTable', {page: 3, pageSize: 2});
+
+		expect(result).toHaveProperty('page', 3);
+		expect(result).toHaveProperty('pageSize', 2);
+		expect(result).toHaveProperty('rows');
+		expect(result).toHaveProperty('total', 7);
+		expect(result).toHaveProperty('totalPages', 4);
+		expect(result.rows).toHaveLength(2);
+		expect(result.rows[0]).toHaveProperty('rank', 5);
+		expect(result.rows[1]).toHaveProperty('rank', 6);
+	});
+
 });

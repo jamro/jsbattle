@@ -32,6 +32,12 @@ export const getUserList = (page, pageSize) => {
   return fetchFromApi(`/api/admin/users?page=${page}&pageSize=${pageSize}` , "USER_LIST");
 };
 
+export const getLeagueList = (page, pageSize) => {
+  page = page || 1;
+  pageSize = pageSize || 10;
+  return fetchFromApi(`/api/admin/league?page=${page}&pageSize=${pageSize}` , "LEAGUE_LIST");
+};
+
 export const getBattleList = (page, pageSize) => {
   page = page || 1;
   pageSize = pageSize || 10;

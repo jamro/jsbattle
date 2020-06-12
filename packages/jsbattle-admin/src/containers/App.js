@@ -15,6 +15,7 @@ import {Route, Redirect, HashRouter as Router} from 'react-router-dom';
 import UserList from "./UserList.js";
 import SystemView from "./SystemView.js";
 import BattleList from "./BattleList.js";
+import LeagueList from "./LeagueList.js";
 import LoginScreen from "./LoginScreen.js";
 import {connect} from 'react-redux';
 import {clearError, getUserProfile} from '../actions';
@@ -41,6 +42,7 @@ class App extends Component {
               </Route>
               <Route path="/users" component={UserList} />
               <Route path="/battles" component={BattleList} />
+              <Route path="/league" component={LeagueList} />
               <Route path="/system" component={SystemView} />
             </div>
           </Router>

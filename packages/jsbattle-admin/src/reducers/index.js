@@ -5,6 +5,7 @@ import loading from './loadingReducer.js';
 import error from './errorReducer.js';
 import users from './usersReducer.js';
 import battles from './battlesReducer.js';
+import league from './leagueReducer.js';
 import system from './systemReducer.js';
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   auth,
   users,
   battles,
+  league,
   system
 });

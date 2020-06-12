@@ -151,6 +151,10 @@ class RankTable {
     return this.data;
   }
 
+  getLength() {
+    return this.data.length;
+  }
+
   pickRandom() {
     let count = this.data.length;
     if(count <= 1) {

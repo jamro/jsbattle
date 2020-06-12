@@ -1,20 +1,6 @@
 const initState = {
   info: {
-    health: {
-      client: {},
-      mem: {
-        percent: 0
-      },
-      cpu: {
-        load15: 0
-      },
-      process: {},
-      os: {},
-      time: {}
-    },
-    node: {
-      serrvices: []
-    }
+    nodes: []
   }
 };
 

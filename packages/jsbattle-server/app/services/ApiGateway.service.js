@@ -8,13 +8,11 @@ const stringReplace = require('../lib/stringReplaceMiddleware.js');
 const authorize = require('./apiGateway/authorize.js');
 const configPassport = require('./apiGateway/configPassport.js');
 const IO = require("socket.io");
-const fs = require('fs');
 
 class ApiGatewayService extends Service {
 
   constructor(broker) {
     super(broker);
-    this._broker = broker;
     let corsOrigin = broker.serviceConfig.web.corsOrigin;
     if(!Array.isArray(corsOrigin)) {
       corsOrigin = [corsOrigin]
@@ -23,7 +21,7 @@ class ApiGatewayService extends Service {
     this.parseServiceSchema({
       name: "apiGateway",
       actions: {
-        "getInfo": this.getInfo
+
       },
       started() {
         const svc = broker.createService({
@@ -55,7 +53,7 @@ class ApiGatewayService extends Service {
                   "PATCH battles/:id": "battleStore.update",
                   "REST battles": "battleStore",
                   "GET ubdPlayer/info": "ubdPlayer.getInfo",
-                  "GET info": "apiGateway.getInfo"
+                  "GET info": "node.getInfo"
                 },
                 bodyParsers: {
                   json: true,
@@ -207,43 +205,6 @@ class ApiGatewayService extends Service {
         }
       }
     });
-  }
-
-  async getInfo() {
-    let nodeInfo = this._broker.getLocalNodeInfo();
-
-    let upServices = nodeInfo.services.map((s) => s.name);
-
-    let downServices = fs
-      .readdirSync(__dirname)
-      .filter((name) => name.endsWith('.service.js'))
-      .map((name) => name.replace(/\.service\.js$/, ''))
-      .map((name) => name.charAt(0).toLowerCase() + name.slice(1))
-      .filter((name) => upServices.indexOf(name) == -1);
-
-    upServices = upServices.map((name) => ({
-      name,
-      up: true
-    }));
-    downServices = downServices.map((name) => ({
-      name,
-      up: false
-    }));
-
-    let allServices = upServices.concat(downServices);
-
-    return {
-      clusterName: this._broker.serviceConfig.clusterName,
-      memoryUsage: await process.memoryUsage(),
-      health: await this._broker.getHealthStatus(),
-      node: {
-        hostname: nodeInfo.hostname,
-        totalServiceCount: allServices.length,
-        upServiceCount: upServices.length,
-        downServiceCount: downServices.length,
-        services: allServices
-      }
-    }
   }
 
 }

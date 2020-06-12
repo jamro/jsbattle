@@ -48,10 +48,14 @@ class Node {
             'LeagueScheduler',
             'ScriptStore',
             'UbdValidator',
+            'Node',
           ];
           break;
         case WORKER:
-          serviceList = ['UbdPlayer'];
+          serviceList = [
+            'UbdPlayer',
+            'Node',
+          ];
           break;
         default:
           throw Error('unknown node type: ' + this.type);

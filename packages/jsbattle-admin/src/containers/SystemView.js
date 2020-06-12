@@ -5,9 +5,16 @@ import Col from 'react-bootstrap/Col';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import SideMenu from '../components/SideMenu.js';
 import Loading from '../components/Loading.js';
-import SmartTable from '../components/SmartTable.js';
 import {connect} from 'react-redux';
 import {getSystemInfo} from '../actions';
+import {
+  faServer,
+  faCheckCircle
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle
+} from '@fortawesome/free-regular-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 class SystemView extends Component {
 
@@ -52,10 +59,107 @@ class SystemView extends Component {
     return output.join(' ');
   }
 
+  renderNode(node) {
+
+    let cardClass = 'card';
+    let headerClass = "card-header";
+    if(node.nodeID.startsWith('gateway')) {
+      cardClass += " bg-dark";
+      headerClass += " text-white";
+    }
+    return <Col md={6} key={node.nodeID}>
+      <div className={cardClass}>
+        <div className={headerClass}>
+          <FontAwesomeIcon size="lg" icon={faServer} /> &nbsp; <strong>{node.nodeID}</strong>
+        </div>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Cluster
+            <span className="badge badge-primary badge-pill">{node.clusterName}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Host
+            <span className="badge badge-primary badge-pill">{node.hostname}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            OS up time
+            <span className="badge badge-primary badge-pill">{this.formaUptime(node.os.uptime)}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Application up time
+            <span className="badge badge-primary badge-pill">{this.formaUptime(node.processUptime)}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Client
+            <span className="badge badge-primary badge-pill">{node.client}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Running services
+            <span className="badge badge-primary badge-pill">{node.services.length}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            CPU (15min average)
+            <span className="badge badge-primary badge-pill">{node.cpu.load15.toFixed(1)}%</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Memory
+            <span className="badge badge-primary badge-pill">{node.memory.percent.toFixed(1)}%</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Server time
+            <span className="badge badge-primary badge-pill">{node.time.utc}</span>
+          </li>
+        </ul>
+      </div>
+    </Col>;
+  }
+
+  renderServices(nodes, allServices) {
+    if(!allServices || !nodes) return;
+    let data = [];
+    let header = nodes.map((node) => node.nodeID);
+    for(let serviceName of allServices) {
+      data.push({
+        name: serviceName,
+        status: nodes.map((node) => node.services.indexOf(serviceName) != -1)
+      });
+    }
+
+    function checkbox(value) {
+      if(value) {
+        return <FontAwesomeIcon size="lg" icon={faCheckCircle} />;
+      } else {
+        return <FontAwesomeIcon size="lg" icon={faCircle} />;
+      }
+    }
+
+    let grid = data.map((row) => (
+      <tr key={row.name}>
+        <th scope="row">{row.name}</th>
+        {row.status.map((s, i) => <td key={i} className="text-center">{checkbox(s)}</td>)}
+      </tr>
+    ));
+
+    return <Col md={12}>
+      <table className="table table-sm">
+        <thead className="thead-dark">
+          <tr>
+            <th scope="col">Service</th>
+            {header.map((h, i) => <th key={i} scope="col" className="text-center">{h}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {grid}
+        </tbody>
+      </table>
+    </Col>;
+  }
+
   render() {
     if(this.props.isLoading) {
       return<Loading />;
     }
+    let nodes = this.props.nodes ? this.props.nodes.map((n) => this.renderNode(n)) : null;
     return (
       <div>
         <Container fluid>
@@ -68,48 +172,13 @@ class SystemView extends Component {
                 <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
                 <Breadcrumb.Item active>System</Breadcrumb.Item>
               </Breadcrumb>
+              <h1 className="display-5">Nodes</h1>
               <Row>
-                <Col md={7}>
-                  <ul className="list-group">
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      OS up time
-                      <span className="badge badge-primary badge-pill">{this.formaUptime(this.props.osUptime)}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Application up time
-                      <span className="badge badge-primary badge-pill">{this.formaUptime(this.props.appUptime)}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Client
-                      <span className="badge badge-primary badge-pill">{this.props.client}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Running services
-                      <span className="badge badge-primary badge-pill">{this.props.node.upServiceCount}/{this.props.node.totalServiceCount}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      CPU (15min average)
-                      <span className="badge badge-primary badge-pill">{this.props.cpu.toFixed(1)}%</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Memory
-                      <span className="badge badge-primary badge-pill">{this.props.mem.toFixed(1)}%</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Server time
-                      <span className="badge badge-primary badge-pill">{this.props.time}</span>
-                    </li>
-                  </ul>
-                </Col>
-                <Col md={5}>
-                  <SmartTable
-                    columns={[
-                      {name: 'Service Name', field: 'name'},
-                      {name: 'Running', field: 'up', format: 'check'},
-                    ]}
-                    data={{rows: this.props.node.services}}
-                  />
-                </Col>
+                {nodes}
+              </Row>
+              <h1 className="display-5">Services</h1>
+              <Row>
+                {this.renderServices(this.props.nodes, this.props.allServices)}
               </Row>
             </Col>
           </Row>
@@ -122,14 +191,8 @@ class SystemView extends Component {
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = (state) => ({
   isLoading: state.loading.SYSTEM_INFO,
-  node: state.system.info.node,
-  cpu: state.system.info.health.cpu.load15,
-  mem: state.system.info.health.mem.percent,
-  client: state.system.info.health.client.type + " " + state.system.info.health.client.langVersion,
-  os: state.system.info.health.os,
-  time: state.system.info.health.time.utc,
-  osUptime: state.system.info.health.os.uptime,
-  appUptime: state.system.info.health.process.uptime,
+  nodes: state.system.info.nodes,
+  allServices: state.system.info.allServices,
 });
 
 const mapDispatchToProps = (dispatch) => ({

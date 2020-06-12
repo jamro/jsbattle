@@ -1,12 +1,9 @@
 {
   "loglevel": "debug",
   "web": {
-    "port": 8100,
+    "port": 8110,
     "webroot": "./dist/public",
-    "baseUrl": "http://localhost:8100"
-  },
-  "ubdPlayer": {
-    "port": 8891
+    "baseUrl": "http://localhost:8110"
   },
   "auth": {
     "enabled": true,

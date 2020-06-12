@@ -64,7 +64,13 @@ Before(async function (scenario) {
 After(async function (scenario) {
   if(this.client) {
     let dump = "\n-- CONSOLE LOG DUMP ---------------------\n";
-    dump += this.client.log.map(msg => `[${msg.type()}] ${msg.text()}`).join("\n");
+    dump += this.client.log.map((msg) => {
+      if(msg.text && msg.type) {
+        return `[${msg.type()}] ${msg.text()}`;
+      } else {
+        return String(msg)
+      }
+    }).join("\n");
     dump += "\n-----------------------------------------";
     this.attach(dump)
     if(this.client.page && !this.client.page.isClosed()) {

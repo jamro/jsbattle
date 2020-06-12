@@ -11,12 +11,11 @@
     "build:webpage": "cpx './node_modules/jsbattle-webpage/dist/**/*' ./dist/public",
     "build:server": "cpx './src/**/*' ./dist",
     "test": "npm run test:prep && npm run test:run-all",
-    "test:copy-webpage": "cpx './node_modules/jsbattle-webpage/features/**/*' ./test/features-webpage && cpx './test/pm2_steps.js' './test/features-webpage/step_definitions'",
-    "test:copy-admin": "cpx './node_modules/jsbattle-admin/features/**/*' ./test/features-admin && cpx './test/pm2_steps.js' './test/features-admin/step_definitions'",
-    "test:run-all": "npm run test:run-webpage && npm run test:run-admin",
-    "test:run-webpage": "cucumber-js --fail-fast -t \"@integration or @integration_only\" --retry 3 -f ./test/features-webpage/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-webpage",
-    "test:run-admin": "cucumber-js  --fail-fast -t \"@integration or @integration_only\" --retry 3 -f ./test/features-admin/support/SimpleFormatter.js --world-parameters '{\"port\": 8100}' ./test/features-admin",
-    "test:prep": "npm run test:copy-webpage && npm run test:copy-admin"
+    "test:copy-common": "cpx './test/pm2_steps.js' './test/features-webpage/step_definitions'",
+    "test:copy-webpage": "cpx './node_modules/jsbattle-webpage/features/**/*' ./test/features-webpage",
+    "test:copy-admin": "cpx './node_modules/jsbattle-admin/features/**/*' ./test/features-admin",
+    "test:run-all": "cucumber-js --fail-fast -t \"@integration or @integration_only\" --retry 3 -f ./test/features-webpage/support/SimpleFormatter.js --world-parameters '{\"port\": 8110}' ./test/features-*",
+    "test:prep": "npm run test:copy-webpage && npm run test:copy-admin && npm run test:copy-common"
   },
   "engines": {
     "node": ">=0.10.3"

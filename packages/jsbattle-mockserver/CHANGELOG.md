@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/jamro/jsbattle/compare/v3.0.0...v3.1.0) (2020-06-13)
+
+
+### Features
+
+* **jsbattle-admin:** add league view in admin panel ([103543e](https://github.com/jamro/jsbattle/commit/103543e90595ab12484a60abc7ded96a590b5b62))
+* **jsbattle-admin:** display info about all nodes ([c1ef38d](https://github.com/jamro/jsbattle/commit/c1ef38dbf70ca143238d3c1d3bc6b6231b34984d))
+
+
+
+
+
 # [3.0.0](https://github.com/jamro/jsbattle/compare/v2.7.1...v3.0.0) (2020-06-09)
 
 

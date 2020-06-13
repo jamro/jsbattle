@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/jamro/jsbattle/compare/v3.0.0...v3.1.0) (2020-06-13)
+
+
+### Features
+
+* **jsbattle-webpage:** add links to start a fight against opponents from the league ([c28c1c6](https://github.com/jamro/jsbattle/commit/c28c1c6c659776633a21f6f71ac03fe72655008c))
+* **jsbattle-webpage:** inform about new version of script for the league ([cc995ee](https://github.com/jamro/jsbattle/commit/cc995ee6fe03b88d4ddb1349f9b17d6613cdd3fe))
+
+
+
+
+
 # [3.0.0](https://github.com/jamro/jsbattle/compare/v2.7.1...v3.0.0) (2020-06-09)
 
 

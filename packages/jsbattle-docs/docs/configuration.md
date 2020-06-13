@@ -31,7 +31,22 @@ List of all settings of JsBattle:
   // nodes (workers) with the same cluster name will by connected automatically.
   // services within a cluster can communicate between each other while running on
   // different hosts
-  "clusterName": "jsbattle-cluster",
+  "cluster": {
+
+    // enable cluster mode
+    "enabled": true
+
+    // name of cluster.
+    "name": "jsbattle-cluster",
+
+    // transporter configuration (see Moleculer networking for mor info: https://moleculer.services/docs/0.14/networking.html)
+    "transporter": {
+      "type": "TCP",
+      "options": {
+        "udpDiscovery": true
+      }
+    }
+  }
 
   // data persistence settings
   "data": {

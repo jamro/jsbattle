@@ -60,7 +60,7 @@ class NodeService extends Service {
     let health = await this._broker.getHealthStatus();
     return {
       nodeID: this._broker.nodeID,
-      clusterName: this._broker.serviceConfig.clusterName,
+      clusterName: this._broker.serviceConfig.cluster.name,
       hostname: nodeInfo.hostname,
       processUptime: health.process.uptime,
       client: `${health.client.type} ${health.client.langVersion}`,

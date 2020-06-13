@@ -13,7 +13,10 @@ const path = require('path');
 
 let gateway = new Node();
 let config = {
-  "clusterName": "jsbattle-dev",
+  "cluster": {
+    "enabled": true,
+    "name": "jsbattle-dev"
+  },
   "loglevel": "debug",
   "web": {
     "webroot": path.join(__dirname, 'public'),

@@ -12,6 +12,17 @@ class Node {
 
   init(options) {
     let clusterName = options.clusterName || 'jsbattle';
+
+    let transporter;
+    if(options.cluster && options.cluster.enabled) {
+      options.cluster.transporter = options.cluster.transporter || {};
+      options.cluster.transporter.type = options.cluster.transporter.type || 'TCP';
+      transporter = {
+        type: options.cluster.transporter.type,
+        options: options.cluster.transporter.options
+      };
+    }
+
     return new Promise((resolve) => {
       this.broker = new ConfigBroker(
         {
@@ -21,7 +32,7 @@ class Node {
           },
           nodeID: this.type + "-" + clusterName + '-' + process.pid,
           logLevel: options.loglevel,
-          transporter: options.clusterName ? "TCP" : undefined,
+          transporter: transporter,
           circuitBreaker: {
               enabled: true,
               threshold: 0.5,

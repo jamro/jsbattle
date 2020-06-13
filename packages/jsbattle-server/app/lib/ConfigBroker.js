@@ -10,7 +10,12 @@ class ConfigBroker extends ServiceBroker {
     const defaultConfig = {
       "loglevel": "info",
       "skipEnv": false,
-      "clusterName": null,
+      "cluster": {
+        "enabled": false,
+        "transporter": {
+          "type": "TCP"
+        }
+      },
       "data": {
         "adapter": "nedb",
         "path": null
@@ -67,8 +72,7 @@ class ConfigBroker extends ServiceBroker {
       config.auth.providers = config.auth.providers.concat(defaultConfig.auth.providers)
     }
 
-    config = _.defaultsDeep(config, defaultConfig)
-
+    config = _.defaultsDeep(config, defaultConfig);
 
     this.serviceConfig = config;
 

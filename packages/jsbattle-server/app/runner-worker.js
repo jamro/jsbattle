@@ -4,7 +4,10 @@ const Node = require('./Node.js');
 
 let worker = new Node('worker');
 let config = {
-  "clusterName": "jsbattle-dev",
+  "cluster": {
+    "enabled": true,
+    "name": "jsbattle-dev"
+  },
   "loglevel": "debug",
   "ubdPlayer": {
     "queueQueryTime": 1000,

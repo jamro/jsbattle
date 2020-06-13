@@ -11,8 +11,7 @@ class Node {
   }
 
   init(options) {
-    let clusterName = options.clusterName || 'jsbattle';
-
+    let clusterName = options.cluster && options.cluster.name ? options.cluster.name : 'jsbattle';
     let transporter;
     if(options.cluster && options.cluster.enabled) {
       options.cluster.transporter = options.cluster.transporter || {};

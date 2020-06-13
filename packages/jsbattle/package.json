@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -46,7 +46,7 @@
     "jsbattle-docs": "^3.1.1",
     "jsbattle-engine": "^3.1.0",
     "jsbattle-mockserver": "^3.1.0",
-    "jsbattle-server": "^3.1.1",
+    "jsbattle-server": "^3.1.2",
     "jsbattle-webpage": "^3.1.1",
     "lodash": "^4.17.15",
     "path": "^0.12.7",

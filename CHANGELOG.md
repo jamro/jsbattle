@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/jamro/jsbattle/compare/v3.1.1...v3.1.2) (2020-06-13)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** set proper cluster name ([6d17a68](https://github.com/jamro/jsbattle/commit/6d17a68f466087001d24d1238bd8f701c577ecb2))
+
+
+
+
+
 ## [3.1.1](https://github.com/jamro/jsbattle/compare/v3.1.0...v3.1.1) (2020-06-13)
 
 **Note:** Version bump only for package root

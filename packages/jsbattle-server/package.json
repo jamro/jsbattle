@@ -45,6 +45,8 @@
     "moleculer-db": "^0.8.8",
     "moleculer-db-adapter-mongo": "^0.4.9",
     "moleculer-web": "^0.9.1",
+    "mqtt": "^4.1.0",
+    "nats": "^1.4.9",
     "passport": "^0.4.1",
     "passport-custom": "^1.1.1",
     "passport-facebook": "^3.0.0",

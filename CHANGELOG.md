@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/jamro/jsbattle/compare/v3.1.2...v3.1.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** fix github integration ([4125d84](https://github.com/jamro/jsbattle/commit/4125d8482070766788bbe0d2d7600eb4d1ed15ac))
+
+
+
+
+
 ## [3.1.2](https://github.com/jamro/jsbattle/compare/v3.1.1...v3.1.2) (2020-06-13)
 
 

@@ -165,7 +165,7 @@ List of all settings of JsBattle:
 }
 ```
 
-### DB Adapters
+## DB Adapters
 
 ### NeDb
 ```js

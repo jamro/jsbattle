@@ -1,0 +1,5 @@
+@startuml
+
+[web browser] -> [jsbattle server] : localhost:8080
+
+@enduml

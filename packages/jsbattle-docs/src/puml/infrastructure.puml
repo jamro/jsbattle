@@ -1,12 +1,25 @@
 @startuml
 
-node "CentOS Server" {
+node "Node" {
   [nginx]
   [jsbattle server]
+  database DB
 }
 
+node "Worker 1" {
+  [jsbattle worker 1]
+}
+
+node "Worker 2" {
+  [nginx]
+  [jsbattle worker 2]
+}
 
 [web browser] --> [nginx] : :80
 [nginx] -> [jsbattle server] : localhost:8080
+[jsbattle server] - DB
+
+[jsbattle server] -- [jsbattle worker 1] : <transporter>
+[jsbattle server] -- [jsbattle worker 2] : <transporter>
 
 @enduml

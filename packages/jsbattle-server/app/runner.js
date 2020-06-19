@@ -10,6 +10,15 @@ let config = {
     "name": "jsbattle-dev"
   },
   "loglevel": "debug",
+  "logger": {
+      "type": "Console",
+      "options": {
+          colors: true,
+          moduleColors: true,
+          formatter: "short",
+          autoPadding: true
+      }
+  },
   "web": {
     "webroot": path.join(__dirname, 'public'),
     "host": "127.0.0.1",

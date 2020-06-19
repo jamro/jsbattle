@@ -9,6 +9,15 @@ let config = {
     "name": "jsbattle-dev"
   },
   "loglevel": "debug",
+  "logger": {
+      "type": "Console",
+      "options": {
+          colors: true,
+          moduleColors: true,
+          formatter: "short",
+          autoPadding: true
+      }
+  },
   "ubdPlayer": {
     "queueQueryTime": 1000,
     "speed": 10,

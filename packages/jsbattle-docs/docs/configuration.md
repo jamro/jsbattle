@@ -25,6 +25,29 @@ List of all settings of JsBattle:
   // supported log levels: "error", "warn", "info", "debug", "trace"
   "loglevel": "info",
 
+  // additional settings of the logger
+  // (see https://moleculer.services/docs/0.14/logging.html for more details)
+  "logger": {
+
+      // built in loggers: Console, File
+      "type": "Console",
+
+      "options": {
+
+          // Using colors on the output
+          "colors": true,
+
+          // Print module names with different colors (like docker-compose for containers)
+          "moduleColors": false,
+
+          // Line formatter. It can be "json", "short", "simple", "full", a `Function` or a template string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
+          "formatter": "full",
+
+          // Auto-padding the module name in order to messages begin at the same column.
+          "autoPadding": false
+      }
+  },
+
   // do not inject config data from environmental variables"
   "skipEnv": false,
 

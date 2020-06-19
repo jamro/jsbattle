@@ -31,6 +31,7 @@ class Node {
           },
           nodeID: this.type + "-" + clusterName + '-' + process.pid,
           logLevel: options.loglevel,
+          logger: options.logger,
           transporter: transporter,
           circuitBreaker: {
               enabled: true,

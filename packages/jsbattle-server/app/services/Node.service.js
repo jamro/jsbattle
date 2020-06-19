@@ -1,5 +1,6 @@
 const Service = require("moleculer").Service;
 const fs = require('fs');
+const pkgInfo = require('../../package.json');
 
 class NodeService extends Service {
 
@@ -60,6 +61,7 @@ class NodeService extends Service {
     let health = await this._broker.getHealthStatus();
     return {
       nodeID: this._broker.nodeID,
+      appVersion: pkgInfo.version,
       clusterName: this._broker.serviceConfig.cluster.name,
       hostname: nodeInfo.hostname,
       processUptime: health.process.uptime,

@@ -75,19 +75,23 @@ class SystemView extends Component {
         <ul className="list-group list-group-flush">
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Cluster
-            <span className="badge badge-primary badge-pill">{node.clusterName}</span>
+            <span className="badge badge-dark badge-pill">{node.clusterName}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Host
-            <span className="badge badge-primary badge-pill">{node.hostname}</span>
+            <span className="badge badge-dark badge-pill">{node.hostname}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             OS up time
-            <span className="badge badge-primary badge-pill">{this.formaUptime(node.os.uptime)}</span>
+            <span className="badge badge-success badge-pill">{this.formaUptime(node.os.uptime)}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Application up time
-            <span className="badge badge-primary badge-pill">{this.formaUptime(node.processUptime)}</span>
+            <span className="badge badge-success badge-pill">{this.formaUptime(node.processUptime)}</span>
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Application version
+            <span className="badge badge-primary badge-pill">v{node.appVersion}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Client
@@ -107,7 +111,7 @@ class SystemView extends Component {
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Server time
-            <span className="badge badge-primary badge-pill">{node.time.utc}</span>
+            <span className="badge badge-light badge-pill">{node.time.utc}</span>
           </li>
         </ul>
       </div>

@@ -89,7 +89,7 @@ class AuthService extends Service {
         user,
         JWT_SECRET,
         {
-          expiresIn: '1d'
+          expiresIn: '1h'
         }
       )
     }

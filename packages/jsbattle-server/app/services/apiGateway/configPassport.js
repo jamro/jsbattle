@@ -30,7 +30,7 @@ function configStrategyMock(app, logger, broker, passport, config) {
       let response = await broker.call('auth.authorize', { user });
       broker.emit("user.login", user.id);
       broker.emit("user.activity", {action: '$.login', timestamp: new Date(), userId: user.id, username: user.username, role: user.role, uri: req.originalUrl});
-      res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
+      res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 60*60*1000 })
       res.redirect('/');
     }
   );
@@ -81,7 +81,7 @@ function configPassport(app, logger, broker) {
         let response = await broker.call('auth.authorize', { user });
         broker.emit("user.login", user.id);
         broker.emit("user.activity", {action: '$.login', timestamp: new Date(), userId: user.id, username: user.username, role: user.role, uri: req.originalUrl});
-        res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 24*60*60*1000 })
+        res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 60*60*1000 })
         res.redirect('/');
       }
     );

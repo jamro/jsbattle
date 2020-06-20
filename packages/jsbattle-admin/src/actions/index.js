@@ -52,6 +52,10 @@ export const getScriptList = (page, pageSize) => {
   return fetchFromApi(`/api/admin/scripts?page=${page}&pageSize=${pageSize}&sort=-createdAt&fields=${fields}` , "SCRIPT_LIST");
 };
 
+export const getSessionList = () => {
+  return fetchFromApi(`/api/admin/sessions` , "SESSION_LIST");
+};
+
 export const getSystemInfo = () => {
   return fetchFromApi(`/api/admin/info` , "SYSTEM_INFO");
 };

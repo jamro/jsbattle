@@ -27,7 +27,7 @@ let config = {
     "gaCode": "AB-123456789-Z"
   },
   "league": {
-    "scheduleInterval": 1000,
+    "scheduleInterval": 100000,
     "timeLimit": 10000
   },
   "ubdPlayer": {

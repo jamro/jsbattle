@@ -139,6 +139,28 @@
       "lastLoginAt": "2020-01-01T00:00:00.000Z"
     }
   ],
+  "admin,sessions": [
+    {
+      "userId": "Ek4kFhe50m6RWLic",
+      "username": "albert",
+      "role": "user",
+      "lastAction": {
+        "service": "$.login",
+        "uri": "/auth/mock",
+        "timestamp": "2020-06-20T17:22:45.687Z"
+      }
+    },
+    {
+      "userId": "ouhtZSjxsYV5x9OP",
+      "username": "geff",
+      "role": "admin",
+      "lastAction": {
+        "service": "activityMonitor.listActiveSessions",
+        "uri": "/api/admin/sessions",
+        "timestamp": "2020-06-20T17:22:49.442Z"
+      }
+    }
+  ],
   "admin,scripts": [
       {
           "id": "GPx5aePlvD4pp1FN",

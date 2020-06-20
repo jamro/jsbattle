@@ -8,6 +8,7 @@ const stringReplace = require('../lib/stringReplaceMiddleware.js');
 const authorize = require('./apiGateway/authorize.js');
 const configPassport = require('./apiGateway/configPassport.js');
 const IO = require("socket.io");
+const auditMiddleware = require('../lib/auditMiddleware.js').express;
 
 class ApiGatewayService extends Service {
 
@@ -45,9 +46,11 @@ class ApiGatewayService extends Service {
                 path: '/admin',
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
+                onBeforeCall: auditMiddleware,
                 aliases: {
                   "PATCH users/:id": "userStore.update",
                   "GET users": "userStore.list",
+                  "GET sessions": "activityMonitor.listActiveSessions",
                   "PATCH scripts/:id": "scriptStore.update",
                   "GET scripts": "scriptStore.list",
                   "PATCH battles/:id": "battleStore.update",
@@ -66,6 +69,7 @@ class ApiGatewayService extends Service {
                 authorization: true,
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
+                onBeforeCall: auditMiddleware,
                 aliases: {
                   "PATCH initData": "userStore.register",
                   "GET scripts": "scriptStore.listUserScripts",
@@ -94,6 +98,7 @@ class ApiGatewayService extends Service {
                 authorization: true,
                 mappingPolicy: 'restrict',
                 use: [cookieParser()],
+                onBeforeCall: auditMiddleware,
                 aliases: {
                   "GET profile": "auth.whoami",
                   "GET authMethods": "auth.getAuthMethods",

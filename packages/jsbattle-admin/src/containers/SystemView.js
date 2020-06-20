@@ -38,7 +38,7 @@ class SystemView extends Component {
 
     let dUnit = d > 1 ? 'days' : 'day';
     let hUnit = h > 1 ? 'hours' : 'hour';
-    let mUnit = m > 1 ? 'minute' : 'minute';
+    let mUnit = m > 1 ? 'minutes' : 'minute';
     let sUnit = 'sec';
 
     let data = [d, h, m, s];

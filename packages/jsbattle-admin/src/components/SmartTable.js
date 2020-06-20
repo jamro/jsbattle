@@ -32,6 +32,39 @@ class SmartTable extends Component {
     this.formatter.urlLink = (value) => {
       return <a href={value} rel="noopener noreferrer" target="_blank">{value}</a>;
     };
+    this.formatter.duration = (dt) => {
+      dt = Math.round(dt/1000);
+      dt = Math.round(dt);
+      let s = dt % 60;
+      dt = (dt - s)/60;
+      let m = dt % 60;
+      dt = (dt - m)/60;
+      let h = dt % 24;
+      dt = (dt - h)/24;
+      let d = dt;
+
+      let dUnit = d > 1 ? 'days' : 'day';
+      let hUnit = h > 1 ? 'hours' : 'hour';
+      let mUnit = 'min';
+      let sUnit = 'sec';
+
+      let data = [d, h, m, s];
+      let units = [dUnit, hUnit, mUnit, sUnit];
+      while(data[0] == 0) {
+        data.shift();
+        units.shift();
+      }
+      while(data.length > 2) {
+        data.pop();
+        units.pop();
+      }
+      let output = [];
+      for(let i=0; i < data.length; i++) {
+        output[i] = data[i] + units[i];
+      }
+
+      return output.join(' ');
+    };
 
   }
 

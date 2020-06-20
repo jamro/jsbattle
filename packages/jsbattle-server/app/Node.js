@@ -1,6 +1,6 @@
 const ConfigBroker = require('./lib/ConfigBroker.js');
 const path = require('path');
-
+const auditMiddleware = require('./lib/auditMiddleware.js').moleculer;
 const GATEWAY = 'gateway';
 const WORKER = 'worker';
 
@@ -29,6 +29,7 @@ class Node {
           metadata: {
             type: this.type
           },
+          middlewares: [auditMiddleware],
           nodeID: this.type + "-" + clusterName + '-' + process.pid,
           logLevel: options.loglevel,
           logger: options.logger,
@@ -59,6 +60,7 @@ class Node {
             'LeagueScheduler',
             'ScriptStore',
             'UbdValidator',
+            'ActivityMonitor',
             'Node',
           ];
           break;

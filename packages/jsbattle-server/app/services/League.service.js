@@ -437,7 +437,7 @@ class LeagueService extends Service {
 
     return {
       submission,
-      ranktable: this.ranktable.slice(submission.id, 7)
+      ranktable: this.ranktable.slice(submission.id, 9)
     }
   }
 

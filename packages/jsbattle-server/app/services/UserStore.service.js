@@ -150,6 +150,9 @@ class UserStoreService extends Service {
       displayName: displayName,
       registered: true
     });
+    if(ctx.meta.user) {
+      ctx.meta.user.username = username; // eslint-disable-line require-atomic-updates
+    }
 
     let initCalls = [];
     let initChallenges = ctx.params.challenges || [];

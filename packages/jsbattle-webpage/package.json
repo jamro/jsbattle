@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-webpage",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -41,7 +41,7 @@
     "codemirror": "^5.54.0",
     "highlight.js": "^10.0.3",
     "jquery": "~3.5.0",
-    "jsbattle-docs": "^3.1.1",
+    "jsbattle-docs": "^3.2.0",
     "jsbattle-engine": "^3.1.0",
     "jsbattle-react": "^3.1.0",
     "pixi.js": "^5.2.4",
@@ -77,7 +77,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "http-server": "^0.12.3",
     "jest": "^26.0.1",
-    "jsbattle-mockserver": "^3.1.0",
+    "jsbattle-mockserver": "^3.2.0",
     "json-server": "^0.16.1",
     "npm-watch": "^0.6.0",
     "pm2": "^4.4.0",

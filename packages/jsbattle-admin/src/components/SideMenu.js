@@ -7,7 +7,8 @@ import {
   faShieldAlt,
   faUsers,
   faCog,
-  faTrophy
+  faTrophy,
+  faCode
 } from '@fortawesome/free-solid-svg-icons';
 
 class SideMenu extends Component {
@@ -23,6 +24,9 @@ class SideMenu extends Component {
         <Nav className="flex-column" variant="pills" >
           <Nav.Link href="#/users" active={pathname == '/users'} className="sidenav-users">
             <FontAwesomeIcon icon={faUsers} /> Users
+          </Nav.Link>
+          <Nav.Link href="#/scripts" active={pathname == '/scripts'} className="sidenav-battles">
+            <FontAwesomeIcon icon={faCode} /> Scripts
           </Nav.Link>
           <Nav.Link href="#/league" active={pathname == '/league'} className="sidenav-league">
             <FontAwesomeIcon icon={faTrophy} /> League

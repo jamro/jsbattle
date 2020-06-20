@@ -139,6 +139,41 @@
       "lastLoginAt": "2020-01-01T00:00:00.000Z"
     }
   ],
+  "admin,scripts": [
+      {
+          "id": "GPx5aePlvD4pp1FN",
+          "ownerId": "84tLJzfzL2YztodD",
+          "ownerName": "alpha",
+          "scriptName": "artemis",
+          "namespace": "user",
+          "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+          "createdAt": "2020-06-20T07:46:28.229Z",
+          "modifiedAt": "2020-06-20T07:46:28.229Z",
+          "hash": "90b359ff9cbe540a42c200e096d0a59e"
+      },
+      {
+          "id": "YwkZb1zZyypCoCxe",
+          "ownerId": "84tLJzfzL2YztodD",
+          "ownerName": "alpha",
+          "scriptName": "leopard",
+          "namespace": "user",
+          "code": "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n",
+          "createdAt": "2020-06-20T07:46:28.831Z",
+          "modifiedAt": "2020-06-20T07:46:28.831Z",
+          "hash": "90b359ff9cbe540a42c200e096d0a59e"
+      },
+      {
+          "id": "aeV6BThoVYluz0Uw",
+          "ownerId": "z483zto5912tLkd8",
+          "ownerName": "beta",
+          "scriptName": "bravo",
+          "namespace": "user",
+          "code": "console.log('I am Bravo!');",
+          "createdAt": "2020-06-20T07:46:23.541Z",
+          "modifiedAt": "2020-06-20T07:46:23.541Z",
+          "hash": "40d5d42bd83133493beebf33e4ca2da5"
+      }
+  ],
   "admin,battles": [
     {
       "ubd": "{\"version\":3,\"rngSeed\":0.8186448997231914,\"teamMode\":false,\"timeLimit\":0,\"aiList\":[{\"name\":\"jamro\",\"team\":\"2m9po29ef\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100},{\"name\":\"kamikaze\",\"team\":\"97y2ckbx\",\"code\":null,\"initData\":null,\"useSandbox\":true,\"executionLimit\":100}]}",

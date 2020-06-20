@@ -45,6 +45,13 @@ export const getBattleList = (page, pageSize) => {
   return fetchFromApi(`/api/admin/battles?page=${page}&pageSize=${pageSize}&sort=-createdAt&fields=${fields}` , "BATTLE_LIST");
 };
 
+export const getScriptList = (page, pageSize) => {
+  page = page || 1;
+  pageSize = pageSize || 10;
+  const fields = 'id,ownerName,scriptName,createdAt,modifiedAt';
+  return fetchFromApi(`/api/admin/scripts?page=${page}&pageSize=${pageSize}&sort=-createdAt&fields=${fields}` , "SCRIPT_LIST");
+};
+
 export const getSystemInfo = () => {
   return fetchFromApi(`/api/admin/info` , "SYSTEM_INFO");
 };

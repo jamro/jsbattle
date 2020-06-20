@@ -1,6 +1,7 @@
 {
   "pagination": [
     "admin,users",
-    "admin,battles"
+    "admin,battles",
+    "admin,scripts"
   ]
 }

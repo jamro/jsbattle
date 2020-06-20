@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Route, Redirect, HashRouter as Router} from 'react-router-dom';
 import UserList from "./UserList.js";
 import SystemView from "./SystemView.js";
+import ScriptList from "./ScriptList.js";
 import BattleList from "./BattleList.js";
 import LeagueList from "./LeagueList.js";
 import LoginScreen from "./LoginScreen.js";
@@ -41,6 +42,7 @@ class App extends Component {
                 <Redirect to="/users" />
               </Route>
               <Route path="/users" component={UserList} />
+              <Route path="/scripts" component={ScriptList} />
               <Route path="/battles" component={BattleList} />
               <Route path="/league" component={LeagueList} />
               <Route path="/system" component={SystemView} />

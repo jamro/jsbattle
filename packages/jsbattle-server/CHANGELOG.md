@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/jamro/jsbattle/compare/v3.2.0...v3.2.1) (2020-06-20)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** use proper username for sandbox after changing it ([1fbdab5](https://github.com/jamro/jsbattle/commit/1fbdab5c548509d6e03d14376c6c31a535ba4658))
+
+
+
+
+
 # [3.2.0](https://github.com/jamro/jsbattle/compare/v3.1.3...v3.2.0) (2020-06-20)
 
 

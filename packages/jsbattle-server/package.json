@@ -12,12 +12,15 @@
     "build": "cpx 'node_modules/jsbattle-engine/dist/js/*' app/services/ubdPlayer/www/js && cpx 'node_modules/jsbattle-engine/dist/tanks/**/*.*' app/services/ubdPlayer/www/tanks",
     "watch": "nodemon ./app/runner.js --delay 2",
     "watch:worker": "nodemon ./app/runner-worker.js --delay 2",
+    "test": "npm run test:scoring && npm run test:app",
     "lint": "eslint app/",
-    "test": "jest --env node ..."
+    "test:scoring": "node ./tools/scoringBenchmark/run.js",
+    "test:app": "jest --env node ..."
   },
   "devDependencies": {
     "axios": "^0.19.2",
     "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
     "cpx": "^1.5.0",
     "eslint": "^7.2.0",
     "jest": "^26.0.1",

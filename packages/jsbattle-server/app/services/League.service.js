@@ -6,6 +6,7 @@ const getDbAdapterConfig = require("../lib/getDbAdapterConfig.js");
 const fs = require('fs');
 const path = require('path');
 const RankTable = require('./league/lib/RankTable.js');
+const calculateScore = require("./league/lib/calculateScore.js");
 const JavaScriptObfuscator = require('javascript-obfuscator');
 const stripComments = require('strip-comments');
 const validators = require("../validators");
@@ -190,12 +191,8 @@ class LeagueService extends Service {
       ]
     });
 
-    let newScore;
-    if(ctx.params.winner) {
-      newScore = entity.score + (10000 - entity.score)/25;
-    } else {
-      newScore = entity.score + (0 - entity.score)/25;
-    }
+    let newScore = calculateScore(entity.score, ctx.params.winner);
+
     let newEntity = {
       id: entity.id,
       fights_total: entity.fights_total + 1,

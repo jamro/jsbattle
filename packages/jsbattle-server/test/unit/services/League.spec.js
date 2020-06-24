@@ -449,7 +449,7 @@ describe("Test 'League' service", () => {
 		expect(entity).toHaveProperty('fights_total', 3);
 		expect(entity).toHaveProperty('fights_win', 2);
 		expect(entity).toHaveProperty('fights_lose', 1);
-		expect(entity).toHaveProperty('score', 753);
+		expect(entity).toHaveProperty('score', 196);
 	});
 
 	it('should list the league',  async () => {

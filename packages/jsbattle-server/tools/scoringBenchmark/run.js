@@ -22,10 +22,12 @@ function runScenario(scenario) {
   console.log(`Running ${scenario.name}`);
   let result = [];
   let score = scenario.initScore;
+  let fightsWin = 0;
   for(let i=0; i<width; i++) {
     result.push(score);
     let input = scenario.step(i);
-    score = calculateScore(score, input.winner);
+    fightsWin += input.winner ? 1 : 0;
+    score = calculateScore(score, input.winner, i, fightsWin);
   }
   return {
     name: scenario.name,

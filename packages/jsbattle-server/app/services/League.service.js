@@ -191,7 +191,12 @@ class LeagueService extends Service {
       ]
     });
 
-    let newScore = calculateScore(entity.score, ctx.params.winner);
+    let newScore = calculateScore(
+      entity.score,
+      ctx.params.winner,
+      entity.fights_total,
+      entity.fights_win
+    );
 
     let newEntity = {
       id: entity.id,

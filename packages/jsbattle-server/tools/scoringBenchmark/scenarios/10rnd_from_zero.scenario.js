@@ -1,7 +1,10 @@
+const seedrandom = require('seedrandom');
+const rng = seedrandom(__filename);
+
 module.exports = {
   initScore: 0,
   step: (iteration) => {
-    let rnd = Math.random();
+    let rnd = rng();
     return {
       id: 1,
       name: 'benchmark',

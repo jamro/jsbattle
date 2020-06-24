@@ -28,6 +28,7 @@
     "nodemon": "^2.0.4",
     "npm-watch": "^0.6.0",
     "rimraf": "^3.0.2",
+    "seedrandom": "^3.0.5",
     "utf-8-validate": "^5.0.2",
     "ws": "^7.3.0"
   },

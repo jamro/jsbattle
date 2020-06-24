@@ -1,14 +1,11 @@
-const seedrandom = require('seedrandom');
-const rng = seedrandom(__filename);
-
 module.exports = {
-  initScore: 10000,
+  initScore: 0,
   step: (iteration) => {
     let winning;
     if(iteration < 500) {
-      winning = (rng() > 0.1);
+      winning = !(iteration % 10);
     } else {
-      winning = (rng() > 0.9);
+      winning = !!(iteration % 10);
     }
 
     return {

@@ -62,10 +62,10 @@ export class LeagueScreen extends React.Component {
     return <tr key={item.scriptId} className={isActive ? 'table-active' : ''}>
       <td className="text-right">#{item.rank}</td>
       <td className="text-left">{item.ownerName} / {item.scriptName}</td>
-      <td className="text-right">{item.fights_total}</td>
-      <td className="text-right">{item.fights_win}</td>
-      <td className="text-right">{item.fights_lose}</td>
-      <td className="text-right"><span className="badge badge-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {item.score}</span></td>
+      <td className="text-right">{Number(item.fights_total).toLocaleString()}</td>
+      <td className="text-right">{Number(item.fights_win).toLocaleString()}</td>
+      <td className="text-right">{Number(item.fights_lose).toLocaleString()}</td>
+      <td className="text-right"><span className="badge badge-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {Number(item.score).toLocaleString()}</span></td>
       {actions}
     </tr>;
   }

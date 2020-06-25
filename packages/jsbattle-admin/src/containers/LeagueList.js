@@ -41,10 +41,10 @@ class LeagueList extends Component {
                   {name: 'Owner', field: 'ownerName'},
                   {name: 'Script', field: 'scriptName'},
                   {name: 'Joined', field: 'joinedAt', format: 'datetime'},
-                  {name: 'Fights', field: 'fights_total'},
-                  {name: 'Wins', field: 'fights_win'},
-                  {name: 'Losts', field: 'fights_lose'},
-                  {name: 'Score', field: 'score'},
+                  {name: 'Fights', field: 'fights_total', format: 'number'},
+                  {name: 'Wins', field: 'fights_win', format: 'number'},
+                  {name: 'Losts', field: 'fights_lose', format: 'number'},
+                  {name: 'Score', field: 'score', format: 'number'},
                 ]}
                 data={this.props.leaguePage}
                 onPageRequest={(page) => this.props.getLeagueList(page)}

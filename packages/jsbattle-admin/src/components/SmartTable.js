@@ -32,6 +32,9 @@ class SmartTable extends Component {
     this.formatter.urlLink = (value) => {
       return <a href={value} rel="noopener noreferrer" target="_blank">{value}</a>;
     };
+    this.formatter.number = (value) => {
+      return Number(value).toLocaleString();
+    };
     this.formatter.duration = (dt) => {
       dt = Math.round(dt/1000);
       dt = Math.round(dt);

@@ -41,11 +41,11 @@ test('list league', () => {
         "ownerName": "Mar87762",
         "scriptName": "greta875",
         "joinedAt": "2020-01-28T10:27:42.940Z",
-        "fights_total": 7542,
-        "fights_win": 3471,
-        "fights_lose": 2346,
-        "fights_error": 1320,
-        "score": 8351
+        "fights_total": 752,
+        "fights_win": 341,
+        "fights_lose": 236,
+        "fights_error": 130,
+        "score": 831
       }
     ]}
   />);
@@ -57,13 +57,12 @@ test('list league', () => {
   expect(wrapper.find('table').find('th').at(4).text()).toMatch(/lost/i)
   expect(wrapper.find('table').find('th').at(5).text()).toMatch(/score/i)
 
-
   expect(wrapper.find('table').find('tr').at(1).find('td').at(1).text()).toMatch(/Mar87762/i)
   expect(wrapper.find('table').find('tr').at(1).find('td').at(1).text()).toMatch(/greta875/i)
-  expect(wrapper.find('table').find('tr').at(1).find('td').at(2).text()).toMatch(/7542/i)
-  expect(wrapper.find('table').find('tr').at(1).find('td').at(3).text()).toMatch(/3471/i)
-  expect(wrapper.find('table').find('tr').at(1).find('td').at(4).text()).toMatch(/2346/i)
-  expect(wrapper.find('table').find('tr').at(1).find('td').at(5).text()).toMatch(/8351/i)
+  expect(wrapper.find('table').find('tr').at(1).find('td').at(2).text()).toMatch(/752/i)
+  expect(wrapper.find('table').find('tr').at(1).find('td').at(3).text()).toMatch(/341/i)
+  expect(wrapper.find('table').find('tr').at(1).find('td').at(4).text()).toMatch(/236/i)
+  expect(wrapper.find('table').find('tr').at(1).find('td').at(5).text()).toMatch(/831/i)
 });
 
 test('join league', () => {

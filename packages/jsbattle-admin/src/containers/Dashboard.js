@@ -46,6 +46,9 @@ class Dashboard extends Component {
       dark: 'white',
     };
     let text = textMap[bg];
+    if(!isNaN(Number(value))) {
+      value = value.toLocaleString();
+    }
     return <div className="col" style={{paddingBottom: '1em'}}>
       <div className={"card bg-" + bg + " text-" + text}>
         <div className="card-body text-center">

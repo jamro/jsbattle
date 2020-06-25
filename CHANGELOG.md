@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/jamro/jsbattle/compare/v3.2.1...v3.3.0) (2020-06-25)
+
+
+### Features
+
+* **jsbattle-admin:** add dashboard with stats summary ([3010ee1](https://github.com/jamro/jsbattle/commit/3010ee1ac55597397c2ee49371e30ed9434c322e))
+* **jsbattle-admin:** display details of user ([34138fa](https://github.com/jamro/jsbattle/commit/34138fac188062febece45b85d2896ce01fc1423))
+
+
+
+
+
 ## [3.2.1](https://github.com/jamro/jsbattle/compare/v3.2.0...v3.2.1) (2020-06-20)
 
 

@@ -9,6 +9,12 @@ import SmartTable from '../components/SmartTable.js';
 import {connect} from 'react-redux';
 import {getUserList} from '../actions';
 
+function userFormatter(value, row) {
+  let baseUrl = window.location.href.replace(/(.*)#.*/, '$1');
+  let url = `${baseUrl}#/users/${row.id}`;
+  return <a href={url}>{value}</a>;
+}
+
 class UserList extends Component {
 
   constructor(props) {
@@ -32,12 +38,12 @@ class UserList extends Component {
             </Col>
             <Col lg={9} xl={10} style={{paddingTop: '1em'}}>
               <Breadcrumb>
-                <Breadcrumb.Item href="/#/dashboard">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="#/dashboard">Dashboard</Breadcrumb.Item>
                 <Breadcrumb.Item active>Users</Breadcrumb.Item>
               </Breadcrumb>
               <SmartTable
                 columns={[
-                  {name: 'User Name', field: 'username'},
+                  {name: 'User Name', field: 'username', format: userFormatter},
                   {name: 'Display Name', field: 'displayName'},
                   {name: 'Auth Provider', field: 'provider'},
                   {

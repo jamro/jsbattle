@@ -63,3 +63,7 @@ export const getSystemInfo = () => {
 export const getDashboardInfo = () => {
   return fetchFromApi(`/api/admin/dashboard` , "DASHBOARD_INFO");
 };
+
+export const getUserDetails = (id) => {
+  return fetchFromApi(`/api/admin/users/${id}/summary` , "USER_VIEW");
+};

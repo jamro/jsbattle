@@ -132,6 +132,7 @@ class MockServer {
         "/api/user/league": "/user,league",
         "/api/user/league/submission": "/user,league,submission",
         "/api/user/league/replay/:id": "/user,league,replay/:id",
+        "/api/admin/users/:id/:a": "/admin,users,:id,:a",
         "/api/:a/:b": "/:a,:b",
         "/api/:a/:b/:c": "/:a,:b/:c",
         "/api/:a/:b/:c/:d": "/:a,:b/:c/:d",

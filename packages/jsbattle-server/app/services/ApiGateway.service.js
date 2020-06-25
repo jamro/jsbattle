@@ -52,6 +52,7 @@ class ApiGatewayService extends Service {
                 aliases: {
                   "PATCH users/:id": "userStore.update",
                   "GET users": "userStore.list",
+                  "GET users/:id/summary": "stats.getUserSummary",
                   "GET sessions": "activityMonitor.listActiveSessions",
                   "PATCH scripts/:id": "scriptStore.update",
                   "GET scripts": "scriptStore.list",

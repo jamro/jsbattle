@@ -32,7 +32,7 @@ class LeagueList extends Component {
             </Col>
             <Col lg={9} xl={10} style={{paddingTop: '1em'}}>
               <Breadcrumb>
-                <Breadcrumb.Item href="/#/dashboard">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="#/dashboard">Dashboard</Breadcrumb.Item>
                 <Breadcrumb.Item active>League</Breadcrumb.Item>
               </Breadcrumb>
               <SmartTable

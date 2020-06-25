@@ -163,6 +163,95 @@
       "lastLoginAt": "2020-01-01T00:00:00.000Z"
     }
   ],
+  "admin,users,8si8Su024sj2cZwo0,summary": {
+      "account": {
+          "id": "uqnGXXnSKTs6Xl5h",
+          "username": "alpha",
+          "displayName": "Alpha Centauri",
+          "provider": "mock",
+          "extUserId": "mock_01",
+          "email": "mock@example.com",
+          "registered": true,
+          "role": "admin",
+          "createdAt": "2020-06-25T11:59:37.453Z",
+          "lastLoginAt": "2020-06-25T11:59:39.119Z"
+      },
+      "scripts": [
+          {
+              "id": "1TFcBHuTSNuKVZyH",
+              "scriptName": "sharma",
+              "createdAt": "2020-06-25T11:59:59.872Z",
+              "modifiedAt": "2020-06-25T11:59:59.872Z",
+              "hash": "90b359ff9cbe540a42c200e096d0a59e"
+          },
+          {
+              "id": "FIoRSZ4A7jzzjVkr",
+              "scriptName": "venom",
+              "createdAt": "2020-06-25T11:59:51.087Z",
+              "modifiedAt": "2020-06-25T11:59:51.087Z",
+              "hash": "90b359ff9cbe540a42c200e096d0a59e"
+          }
+      ],
+      "league": {
+          "id": "qTYS3Rq5TYCsVIq1",
+          "scriptId": "FIoRSZ4A7jzzjVkr",
+          "scriptName": "venom",
+          "joinedAt": "2020-06-25T11:59:57.311Z",
+          "fights_total": 2,
+          "fights_win": 0,
+          "fights_lose": 2,
+          "fights_error": 0,
+          "score": 0
+      },
+      "battles": [
+          {
+              "id": "H60MduWgZHatFE14",
+              "meta": [
+                  {
+                      "id": "qTYS3Rq5TYCsVIq1",
+                      "name": "mock/venom",
+                      "battleScore": 20,
+                      "winner": false
+                  },
+                  {
+                      "id": "BtMRNA9fNoTmwlcv",
+                      "name": "jsbattle/jamro",
+                      "battleScore": 215.39000000000001,
+                      "winner": true
+                  }
+              ],
+              "description": "mock/venom vs jsbattle/jamro",
+              "createdAt": "2020-06-25T12:00:18.565Z",
+              "expiresAt": "2020-06-28T12:00:18.565Z"
+          },
+          {
+              "id": "kdmOGcB6yBuGllca",
+              "meta": [
+                  {
+                      "id": "qTYS3Rq5TYCsVIq1",
+                      "name": "mock/venom",
+                      "battleScore": 0,
+                      "winner": false
+                  },
+                  {
+                      "id": "J9Ws7fDPv0JsjPsK",
+                      "name": "jsbattle/crawler",
+                      "battleScore": 41.150000000000006,
+                      "winner": true
+                  }
+              ],
+              "description": "mock/venom vs jsbattle/crawler",
+              "createdAt": "2020-06-25T12:00:03.599Z",
+              "expiresAt": "2020-06-28T12:00:03.599Z"
+          }
+      ],
+      "challenges": [
+          {
+              "challengeId": "challenge-8UCUaNvC",
+              "modifiedAt": "2020-06-25T11:59:41.729Z"
+          }
+      ]
+  },
   "admin,sessions": [
     {
       "userId": "Ek4kFhe50m6RWLic",

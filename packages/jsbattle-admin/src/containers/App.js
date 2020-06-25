@@ -13,6 +13,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Route, Redirect, HashRouter as Router} from 'react-router-dom';
 import UserList from "./UserList.js";
+import UserView from "./UserView.js";
 import SystemView from "./SystemView.js";
 import ScriptList from "./ScriptList.js";
 import SessionList from "./SessionList.js";
@@ -44,7 +45,8 @@ class App extends Component {
                 <Redirect to="/dashboard" />
               </Route>
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/users" component={UserList} />
+              <Route path="/users/:id" component={UserView} />
+              <Route path="/users" exact component={UserList} />
               <Route path="/sessions" component={SessionList} />
               <Route path="/scripts" component={ScriptList} />
               <Route path="/battles" component={BattleList} />

@@ -9,10 +9,13 @@ import Loading from '../components/Loading.js';
 import {connect} from 'react-redux';
 import {getBattleList} from '../actions';
 
-function vsFormatter(value) {
+function vsFormatter(value, row) {
   let parts = new RegExp(/(.+)\/(.+) vs (.+)\/(.+)/).exec(value);
-
-  return <span style={{color: "#333"}}><strong style={{color: "#000"}}>{parts[1]}</strong>/{parts[2]} <span style={{color: "#888"}}>vs</span> <strong style={{color: "#000"}}>{parts[3]}</strong>/{parts[4]}</span>;
+  let baseUrl = window.location.href.replace(/(.*)#.*/, '$1').replace(/(.*)(admin\/?)/, '$1');
+  let url = `${baseUrl}#/league/replay/${row.id}`;
+  return <a href={url}>
+      <span><strong>{parts[1]}</strong>/{parts[2]} <span>vs</span> <strong>{parts[3]}</strong>/{parts[4]}</span>
+    </a>;
 }
 
 class BattleList extends Component {
@@ -38,20 +41,11 @@ class BattleList extends Component {
             </Col>
             <Col lg={9} xl={10} style={{paddingTop: '1em'}}>
               <Breadcrumb>
-                <Breadcrumb.Item href="/#/dashboard">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="#/dashboard">Dashboard</Breadcrumb.Item>
                 <Breadcrumb.Item active>Battles</Breadcrumb.Item>
               </Breadcrumb>
               <SmartTable
                 columns={[
-                  {
-                    name: 'ID',
-                    field: 'id',
-                    format: (value) => {
-                        let baseUrl = window.location.href.replace(/(.*)#.*/, '$1').replace(/(.*)(admin\/?)/, '$1');
-                        let url = `${baseUrl}#/league/replay/${value}`;
-                        return <a href={url}>{value}</a>;
-                      }
-                  },
                   {name: 'Description', field: 'description', format: vsFormatter},
                   {name: 'Create Date', field: 'createdAt', format: 'datetime'},
                   {name: 'Expire Date', field: 'expiresAt', format: 'datetime'}

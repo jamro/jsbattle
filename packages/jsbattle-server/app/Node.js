@@ -61,6 +61,7 @@ class Node {
             'ScriptStore',
             'UbdValidator',
             'ActivityMonitor',
+            'Stats',
             'Node',
           ];
           break;

@@ -19,6 +19,7 @@ import SessionList from "./SessionList.js";
 import BattleList from "./BattleList.js";
 import LeagueList from "./LeagueList.js";
 import LoginScreen from "./LoginScreen.js";
+import Dashboard from "./Dashboard.js";
 import {connect} from 'react-redux';
 import {clearError, getUserProfile} from '../actions';
 
@@ -40,8 +41,9 @@ class App extends Component {
           <Router>
             <div>
               <Route exact path="/">
-                <Redirect to="/users" />
+                <Redirect to="/dashboard" />
               </Route>
+              <Route path="/dashboard" component={Dashboard} />
               <Route path="/users" component={UserList} />
               <Route path="/sessions" component={SessionList} />
               <Route path="/scripts" component={ScriptList} />

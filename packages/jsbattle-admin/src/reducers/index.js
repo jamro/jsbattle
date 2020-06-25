@@ -9,6 +9,7 @@ import battles from './battlesReducer.js';
 import league from './leagueReducer.js';
 import system from './systemReducer.js';
 import sessions from './sessionsReducer.js';
+import dashboard from './dashboardReducer.js';
 
 export default combineReducers({
   loading,
@@ -19,5 +20,6 @@ export default combineReducers({
   battles,
   league,
   system,
-  sessions
+  sessions,
+  dashboard
 });

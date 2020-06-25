@@ -5,6 +5,30 @@
   "admin,league": {
     "rows":[{"id":"A76modDgAoTI0rMz","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-1","scriptName":"chicken","joinedAt":"2020-06-12T21:37:45.860Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":1},{"id":"EOd5jrqjBmq4CU3G","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-4","scriptName":"dodge","joinedAt":"2020-06-12T21:37:45.867Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":2},{"id":"Eyj6G0vxwBvepv0d","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-5","scriptName":"jamro","joinedAt":"2020-06-12T21:37:45.895Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":3},{"id":"R6EhG3ud1vdSbMh7","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-7","scriptName":"sniper","joinedAt":"2020-06-12T21:37:45.898Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":4},{"id":"RxdxM0UIntuaCC1E","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-3","scriptName":"crazy","joinedAt":"2020-06-12T21:37:45.864Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":5},{"id":"k06XywaUkaJQ9RlW","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-6","scriptName":"kamikaze","joinedAt":"2020-06-12T21:37:45.896Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":6},{"id":"pSPQRoCeEZxmpONA","ownerId":"int-user-0000-1","ownerName":"jsbattle","scriptId":"int-script-0000-2","scriptName":"crawler","joinedAt":"2020-06-12T21:37:45.862Z","fights_total":0,"fights_win":0,"fights_lose":0,"fights_error":0,"score":0,"rank":7}],"page":1,"pageSize":10,"total":7,"totalPages":1
   },
+  "admin,dashboard": {
+    "users": {
+        "all": 164,
+        "registered": 159,
+        "active": 34,
+        "online": 7
+    },
+    "league": {
+        "size": 23,
+        "entriesPerDay": 2,
+        "battlesPerHour": 43,
+        "battlesStored": 1108
+    },
+    "scriptCount": 231,
+    "nodes": 3,
+    "challenges": {
+        "challenge-8UCUaNvC": 139,
+        "challenge-Du7tyrCB": 121,
+        "challenge-4syTf6ph": 92,
+        "challenge-hXMwLdZw": 83,
+        "challenge-tV3fKHBw": 82,
+        "challenge-6iZxC1FP": 45
+    }
+  },
   "admin,users": [
     {
       "username": "fredric.murphy",

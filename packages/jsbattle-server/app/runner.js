@@ -27,13 +27,13 @@ let config = {
     "gaCode": "AB-123456789-Z"
   },
   "league": {
-    "scheduleInterval": 100000,
+    "scheduleInterval": 5000,
     "timeLimit": 10000
   },
   "ubdPlayer": {
-    "enabled": false,
+    "enabled": true,
     "queueLimit": 3,
-    "queueQueryTime": 1000,
+    "queueQueryTime": 5000,
     "speed": 5,
     "timeout": 20000
   },

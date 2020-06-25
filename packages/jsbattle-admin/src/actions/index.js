@@ -59,3 +59,7 @@ export const getSessionList = () => {
 export const getSystemInfo = () => {
   return fetchFromApi(`/api/admin/info` , "SYSTEM_INFO");
 };
+
+export const getDashboardInfo = () => {
+  return fetchFromApi(`/api/admin/dashboard` , "DASHBOARD_INFO");
+};

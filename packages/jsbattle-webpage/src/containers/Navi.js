@@ -62,7 +62,7 @@ export class Navi extends React.Component {
           <a
             className={pathname.startsWith('/challenge') ? activeClasses : inactiveClasses}
             href="#/challenge">
-            <i className="fas fa-trophy" aria-hidden="true"></i> Challenges
+            <i className="fas fa-flask" aria-hidden="true"></i> Challenges
           </a>
         </li>
         <li className="nav-item">

@@ -59,7 +59,8 @@ class ApiGatewayService extends Service {
                   "GET battles": "battleStore.list",
                   "GET league": "league.listRankTable",
                   "GET ubdPlayer/info": "ubdPlayer.getInfo",
-                  "GET info": "node.getInfo"
+                  "GET info": "node.getInfo",
+                  "GET dashboard": "stats.getSummary",
                 },
                 bodyParsers: {
                   json: true,

@@ -38,7 +38,7 @@ class BattleList extends Component {
             </Col>
             <Col lg={9} xl={10} style={{paddingTop: '1em'}}>
               <Breadcrumb>
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/#/dashboard">Dashboard</Breadcrumb.Item>
                 <Breadcrumb.Item active>Battles</Breadcrumb.Item>
               </Breadcrumb>
               <SmartTable

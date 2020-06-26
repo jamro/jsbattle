@@ -1,0 +1,21 @@
+@startuml
+
+[ApiGateway] -> [ServiceBroker]
+[Auth] <- [ApiGateway]
+[UserStore] <.. [Auth] : event: user.login
+[UserStore] <-- [Auth]
+[ServiceBroker] ..> [ActivityMonitor]  : event: user.activity
+[UserStore] -> [Challenges]
+[ScriptStore] <-- [UserStore]
+[BattleStore] -> [UbdValidator]
+[BattleStore] <-- [League]
+[League] --> [ScriptStore]
+[LeagueScheduler] -> [League]
+[BattleStore] <-- [LeagueScheduler]
+[Queue] <- [LeagueScheduler]
+[UbdPlayer] -> [Queue]
+[UbdPlayer] .> [LeagueScheduler] : event: ubdPlayer.battle.league
+[Stats]
+[Node] ..> [Node] : event: node.echo
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+
+package "Webpage" {
+  [JsBattleEngine] -- [JsBatle ReactComp]
+  [JsBatle ReactComp] -- [Webpage ReactApp]
+  [JsBattle Docs] -- [Webpage ReactApp]
+}
+
+package "Admin" {
+  [Admin ReactApp]
+}
+
+Interface HTTP as "HTTP/WebScokets"
+
+[Webpage ReactApp] -- HTTP
+[Admin ReactApp] -- HTTP
+
+package "JsBattle Worker" {
+  [ServiceBroker] as ServiceBroker2
+  [MoleculerServices] as MoleculerServices2
+  [ServiceBroker2] -- [MoleculerServices2] : 1:*
+}
+
+[Moleculer Transport]
+[ServiceBroker2] - [Moleculer Transport]
+
+
+
+package "JsBattle Server" {
+  HTTP -- [ExpressJs]
+  [ExpressJs] -- [ApiGateway] : /api/*
+  [ExpressJs] - [StaticContent]
+  [ServiceBroker] -- [ApiGateway]
+  [ServiceBroker] -- [MoleculerServices] : 1:*
+  [StaticContent] - [WebpageContent] : /*
+  [StaticContent] -- [AdminContent] : /admin/*
+  [PassportJs] - [ExpressJs] : /auth/*
+}
+
+[Moleculer Transport] - [ServiceBroker]
+
+
+@enduml

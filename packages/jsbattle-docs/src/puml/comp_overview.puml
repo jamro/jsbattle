@@ -1,8 +1,8 @@
 @startuml
 
 package "Webpage" {
-  [JsBattleEngine] -- [JsBatle ReactComp]
-  [JsBatle ReactComp] -- [Webpage ReactApp]
+  [JsBattleEngine] -- [JsBattle ReactComp]
+  [JsBattle ReactComp] -- [Webpage ReactApp]
   [JsBattle Docs] -- [Webpage ReactApp]
 }
 

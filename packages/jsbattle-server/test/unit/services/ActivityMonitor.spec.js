@@ -9,7 +9,7 @@ describe("Test 'ActivityMonitor' service", () => {
 
 	beforeEach(async () => {
 		broker = new ConfigBroker({ logger: false }, {}, false);
-		await broker.loadService(__dirname + "../../../../app/services/ActivityMonitor.service.js");
+		await broker.loadService(__dirname + "../../../../app/services/activityMonitor/index.js");
 		await broker.start()
 	});
 	afterEach(async () => await broker.stop());

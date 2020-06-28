@@ -9,7 +9,7 @@ describe("Test 'Queue' service", () => {
 
 	beforeEach(async () => {
 		broker = new ConfigBroker({ logger: false }, {}, false);
-		await broker.loadService(__dirname + "../../../../app/services/Queue.service.js");
+		await broker.loadService(__dirname + "../../../../app/services/queue/index.js");
 		await broker.start()
 	});
 	afterEach(async () => await broker.stop());

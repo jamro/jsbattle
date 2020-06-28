@@ -29,7 +29,7 @@ describe("Test 'Auth' service", () => {
 		}
 	}
 	let broker = new ConfigBroker({ logger: false }, config, false);
-	broker.loadService(__dirname + "../../../app/services/Auth.service.js");
+	broker.loadService(__dirname + "../../../app/services/auth/index.js");
 	broker.createService({
 		name: "userStore",
     actions: {

@@ -23,7 +23,7 @@ describe("Test 'Battlestore' service", () => {
 				validate: () => ({valid: true})
 			}
 		})
-		broker.loadService(__dirname + "../../../../app/services/BattleStore.service.js");
+		broker.loadService(__dirname + "../../../../app/services/battleStore/index.js");
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());
@@ -279,7 +279,7 @@ describe("Test 'Battlestore' service", () => {
 				validate: () => ({valid: false, error: 'Something went wrong'})
 			}
 		})
-		broker.loadService(__dirname + "../../../../app/services/BattleStore.service.js");
+		broker.loadService(__dirname + "../../../../app/services/battleStore/index.js");
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());

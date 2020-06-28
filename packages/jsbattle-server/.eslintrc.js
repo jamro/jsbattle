@@ -100,7 +100,7 @@ module.exports = {
         "max-depth": "error",
         "max-len": "off",
         "max-lines": ["error", {
-          "max": 450,
+          "max": 300,
           "skipBlankLines": true,
           "skipComments": true
         }],

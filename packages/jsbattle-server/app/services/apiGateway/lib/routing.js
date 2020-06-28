@@ -1,0 +1,40 @@
+module.exports = {
+  public: {
+    "GET profile": "auth.whoami",
+    "GET authMethods": "auth.getAuthMethods",
+    "GET leaguePreview": "league.getHistory",
+    "GET leaguePreview/replay/:id": "battleStore.get"
+  },
+  user: {
+    "PATCH initData": "userStore.register",
+    "GET scripts": "scriptStore.listUserScripts",
+    "POST scripts": "scriptStore.createUserScript",
+    "PATCH scripts/:id": "scriptStore.updateUserScript",
+    "GET scripts/:id": "scriptStore.getUserScript",
+    "DELETE scripts/:id": "scriptStore.deleteUserScript",
+    "GET challenges": "challenges.listUserChallenges",
+    "GET challenges/:challengeId": "challenges.getUserChallenge",
+    "PATCH challenges/:challengeId": "challenges.updateUserChallenge",
+    "GET league/": "league.getLeagueSummary",
+    "GET league/replay/:id": "battleStore.get",
+    "GET league/submission": "league.getUserSubmission",
+    "GET league/ranktable": "league.getUserRankTable",
+    "GET league/scripts/:id": "league.getScript",
+    "PATCH league/submission": "league.joinLeague",
+    "DELETE league/submission": "league.leaveLeague",
+  },
+  admin: {
+    "PATCH users/:id": "userStore.update",
+    "GET users": "userStore.list",
+    "GET users/:id/summary": "stats.getUserSummary",
+    "GET sessions": "activityMonitor.listActiveSessions",
+    "PATCH scripts/:id": "scriptStore.update",
+    "GET scripts": "scriptStore.list",
+    "PATCH battles/:id": "battleStore.update",
+    "GET battles": "battleStore.list",
+    "GET league": "league.listRankTable",
+    "GET ubdPlayer/info": "ubdPlayer.getInfo",
+    "GET info": "node.getInfo",
+    "GET dashboard": "stats.getSummary",
+  }
+}

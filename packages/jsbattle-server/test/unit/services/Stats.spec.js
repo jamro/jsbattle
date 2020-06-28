@@ -108,7 +108,7 @@ describe("Test 'Stats' service", () => {
 				]
 			}
 		});
-		await broker.loadService(__dirname + "../../../../app/services/Stats.service.js");
+		await broker.loadService(__dirname + "../../../../app/services/stats/index.js");
 		await broker.start()
 	});
 	afterEach(async () => await broker.stop());

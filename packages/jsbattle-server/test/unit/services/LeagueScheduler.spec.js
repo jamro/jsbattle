@@ -136,7 +136,7 @@ describe("Test 'League' service", () => {
 					updateRank: leagueUpdateRank
 				}
 		})
-		broker.loadService(__dirname + "../../../../app/services/LeagueScheduler.service.js");
+		broker.loadService(__dirname + "../../../../app/services/leagueScheduler/index.js");
 		await broker.start();
 	});
 

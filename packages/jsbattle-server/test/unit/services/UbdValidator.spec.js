@@ -6,7 +6,7 @@ const UbdJsonMock = require('../../mock/UbdJsonMock');
 
 describe("Test 'UbdValidator' service", () => {
 	let broker = new ConfigBroker({ logger: false }, {}, false);
-	broker.loadService(__dirname + "../../../../app/services/UbdValidator.service.js");
+	broker.loadService(__dirname + "../../../../app/services/ubdValidator/index.js");
 
 	beforeAll(() => broker.start());
 	afterAll(() => broker.stop());

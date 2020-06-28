@@ -49,33 +49,33 @@ class Node {
       switch(this.type) {
         case GATEWAY:
           serviceList = [
-            'ApiGateway',
-            'BattleStore',
-            'League',
-            'Queue',
-            'UbdPlayer',
-            'UserStore',
-            'Auth',
-            'Challenges',
-            'LeagueScheduler',
-            'ScriptStore',
-            'UbdValidator',
-            'ActivityMonitor',
-            'Stats',
-            'Node',
+            'apiGateway',
+            'battleStore',
+            'league',
+            'queue',
+            'ubdPlayer',
+            'userStore',
+            'auth',
+            'challenges',
+            'leagueScheduler',
+            'scriptStore',
+            'ubdValidator',
+            'activityMonitor',
+            'stats',
+            'node',
           ];
           break;
         case WORKER:
           serviceList = [
-            'UbdPlayer',
-            'Node',
+            'ubdPlayer',
+            'node',
           ];
           break;
         default:
           throw Error('unknown node type: ' + this.type);
 
       }
-      serviceList.forEach((service) => this.broker.loadService(path.resolve(__dirname, 'services', `${service}.service.js`)));
+      serviceList.forEach((service) => this.broker.loadService(path.resolve(__dirname, 'services', service, `index.js`)));
       resolve();
     });
   }

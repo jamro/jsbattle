@@ -115,7 +115,7 @@ describe("Test 'League' service", () => {
 					find: (ctx) => leagueHistory
 				}
 		})
-		broker.loadService(__dirname + "../../../../app/services/League.service.js");
+		broker.loadService(__dirname + "../../../../app/services/league/index.js");
 		await broker.start();
 	});
 

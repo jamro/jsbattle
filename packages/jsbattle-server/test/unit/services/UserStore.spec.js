@@ -4,7 +4,7 @@ const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
-const updateUserChallange = jest.fn();
+const updateUserChallenge = jest.fn();
 const createUserScript = jest.fn();
 
 const createTestToken = (user) => ({
@@ -27,7 +27,7 @@ describe("Test 'UserStore' service", () => {
 	broker.createService({
 		name: 'challenges',
 		actions: {
-			updateUserChallange: updateUserChallange
+			updateUserChallenge: updateUserChallenge
 		}
 	})
 	broker.createService({
@@ -36,7 +36,7 @@ describe("Test 'UserStore' service", () => {
 			createUserScript: createUserScript
 		}
 	})
-	broker.loadService(__dirname + "../../../../app/services/UserStore.service.js");
+	broker.loadService(__dirname + "../../../../app/services/userStore/index.js");
 
 	beforeAll(() => broker.start());
 	afterAll(() => broker.stop());
@@ -334,7 +334,7 @@ describe("Test 'UserStore' service", () => {
 		});
 
 		it('submit challenge data when registering', async () => {
-			updateUserChallange.mockReset();
+			updateUserChallenge.mockReset();
 			let user = await broker.call("userStore.findOrCreate", {user: {
 				extUserId: 'google_306464422',
 				username: 'alfred9854',
@@ -363,13 +363,13 @@ describe("Test 'UserStore' service", () => {
 				{meta: {user: createTestToken(user)}}
 			);
 
-			expect(updateUserChallange.mock.calls).toHaveLength(2);
-			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('challengeId', "challenge-11123423");
-			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('completed', true);
-			expect(updateUserChallange.mock.calls[0][0].params).toHaveProperty('code', "// code 12345");
-			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('challengeId', "challenge-222425");
-			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('completed', false);
-			expect(updateUserChallange.mock.calls[1][0].params).toHaveProperty('code', "// code 2345452");
+			expect(updateUserChallenge.mock.calls).toHaveLength(2);
+			expect(updateUserChallenge.mock.calls[0][0].params).toHaveProperty('challengeId', "challenge-11123423");
+			expect(updateUserChallenge.mock.calls[0][0].params).toHaveProperty('completed', true);
+			expect(updateUserChallenge.mock.calls[0][0].params).toHaveProperty('code', "// code 12345");
+			expect(updateUserChallenge.mock.calls[1][0].params).toHaveProperty('challengeId', "challenge-222425");
+			expect(updateUserChallenge.mock.calls[1][0].params).toHaveProperty('completed', false);
+			expect(updateUserChallenge.mock.calls[1][0].params).toHaveProperty('code', "// code 2345452");
 		});
 
 		it('submit scripts data when registering', async () => {

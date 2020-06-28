@@ -31,7 +31,7 @@ let config = {
     "timeLimit": 10000
   },
   "ubdPlayer": {
-    "enabled": true,
+    "enabled": false,
     "queueLimit": 3,
     "queueQueryTime": 5000,
     "speed": 5,

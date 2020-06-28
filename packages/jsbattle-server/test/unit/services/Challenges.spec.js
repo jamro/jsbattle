@@ -24,20 +24,20 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/Challenges.service.js");
+			broker.loadService(__dirname + "../../../../app/services/challenges/index.js");
 			await broker.start()
 		});
 		afterEach(() => broker.stop());
 
 		it('should throw unauthorize error when getting user challenge',  async () => {
 			expect(
-				broker.call('challenges.getUserChallange', { challengeId: '878768' }, {meta: {user: createTestToken()}})
+				broker.call('challenges.getUserChallenge', { challengeId: '878768' }, {meta: {user: createTestToken()}})
 			).rejects.toThrow(/must finish registration process/i)
 		});
 
 		it('should throw unauthorize error when updateing user challenge',  async () => {
 			expect(
-				broker.call('challenges.updateUserChallange', { challengeId: '878768' }, {meta: {user: createTestToken()}})
+				broker.call('challenges.updateUserChallenge', { challengeId: '878768' }, {meta: {user: createTestToken()}})
 			).rejects.toThrow(/must finish registration process/i)
 		});
 	});
@@ -56,7 +56,7 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/Challenges.service.js");
+			broker.loadService(__dirname + "../../../../app/services/challenges/index.js");
 			await broker.start();
 		});
 
@@ -68,7 +68,7 @@ describe("Test 'Challenge' service", () => {
 				role: 'user',
 				id: '92864'
 			}
-			let result = await broker.call('challenges.listUserChallanges', {}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('challenges.listUserChallenges', {}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveLength(0);
 		});
 
@@ -79,7 +79,7 @@ describe("Test 'Challenge' service", () => {
 				id: '92864'
 			}
 			const challengeId = 'challenge-123456XYZ';
-			let result = await broker.call('challenges.getUserChallange', {challengeId}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('challenges.getUserChallenge', {challengeId}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('id');
 			expect(result).toHaveProperty('challengeId', challengeId);
 			expect(result).toHaveProperty('userId', user.id);
@@ -95,8 +95,8 @@ describe("Test 'Challenge' service", () => {
 				id: '92864'
 			}
 			const challengeId = 'challenge-123456XYZ';
-			let challenge = await broker.call('challenges.getUserChallange', {challengeId}, {meta: {user: createTestToken(user)}});
-			let result = await broker.call('challenges.getUserChallange', {challengeId}, {meta: {user: createTestToken(user)}});
+			let challenge = await broker.call('challenges.getUserChallenge', {challengeId}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('challenges.getUserChallenge', {challengeId}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('id', challenge.id);
 			expect(result).toHaveProperty('challengeId', challengeId);
 			expect(result).toHaveProperty('userId', user.id);
@@ -114,7 +114,7 @@ describe("Test 'Challenge' service", () => {
 			const challengeId = 'challenge-123456XYZ';
 			const code = '//my sample 736432';
 			const completed = true;
-			let result = await broker.call('challenges.updateUserChallange', {challengeId, code, completed}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('challenges.updateUserChallenge', {challengeId, code, completed}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('id');
 			expect(result).toHaveProperty('challengeId', challengeId);
 			expect(result).toHaveProperty('userId', user.id);
@@ -132,8 +132,8 @@ describe("Test 'Challenge' service", () => {
 			const challengeId = 'challenge-123456XYZ';
 			const code = '//my sample 736432';
 			const completed = true;
-			let challenge = await broker.call('challenges.updateUserChallange', {challengeId}, {meta: {user: createTestToken(user)}});
-			let result = await broker.call('challenges.updateUserChallange', {challengeId, code, completed}, {meta: {user: createTestToken(user)}});
+			let challenge = await broker.call('challenges.updateUserChallenge', {challengeId}, {meta: {user: createTestToken(user)}});
+			let result = await broker.call('challenges.updateUserChallenge', {challengeId, code, completed}, {meta: {user: createTestToken(user)}});
 			expect(result).toHaveProperty('id', challenge.id);
 			expect(result).toHaveProperty('challengeId', challengeId);
 			expect(result).toHaveProperty('userId', user.id);

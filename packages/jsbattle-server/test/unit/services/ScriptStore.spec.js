@@ -25,7 +25,7 @@ describe("Test 'ScriptStore' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/ScriptStore.service.js");
+			broker.loadService(__dirname + "../../../../app/services/scriptStore/index.js");
 			await broker.start()
 		});
 		afterEach(() => broker.stop());
@@ -56,7 +56,7 @@ describe("Test 'ScriptStore' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/ScriptStore.service.js");
+			broker.loadService(__dirname + "../../../../app/services/scriptStore/index.js");
 			await broker.start();
 		});
 

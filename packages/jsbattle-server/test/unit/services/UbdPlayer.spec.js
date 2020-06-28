@@ -40,17 +40,17 @@ describe("Test 'UbdPlayer' service", () => {
 				}
 		})
 
-		broker.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
+		broker.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
 		await broker.start()
 	});
 	afterEach(() => broker.stop());
 
 	it('should pick random port', async () => {
 		let broker1 = new ConfigBroker({ logger: false }, {}, false);
-		broker1.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
+		broker1.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
 		await broker1.start();
 		let broker2 = new ConfigBroker({ logger: false }, {}, false);
-		broker2.loadService(__dirname + "../../../../app/services/UbdPlayer.service.js");
+		broker2.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
 		await broker2.start();
 		await broker1.stop();
 		await broker2.stop();

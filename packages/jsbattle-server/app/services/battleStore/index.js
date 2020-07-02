@@ -1,102 +1,59 @@
-const Service = require("moleculer").Service;
 const DbService = require("moleculer-db");
-const _ = require('lodash');
 const getDbAdapterConfig = require("../../lib/getDbAdapterConfig.js");
 const validators = require("../../validators");
-const create = require('./actions/create.js');
-const cleanup = require('./actions/cleanup.js');
 
-class BattleStoreService extends Service {
+module.exports = (config) => {
+  let adapterConfig = getDbAdapterConfig(config.data, 'battleStore')
 
-  constructor(broker) {
-    super(broker);
-    this.config = broker.serviceConfig.battleStore;
-    let adapterConfig = getDbAdapterConfig(broker.serviceConfig.data, 'battleStore')
-    this.parseServiceSchema({
-      ...adapterConfig,
-      name: "battleStore",
-      mixins: [DbService],
-      settings: {
-        idField: 'id',
-        fields: [
-          "id",
-          "createdAt",
-          "expiresAt",
-          "ubd",
-          "description",
-          "meta",
-          "owner"
-        ]
-      },
-      entityValidator: {
-        id: validators.entityId({optional: true}),
-        ubd: validators.ubd(),
-        description: validators.description(),
-        createdAt: validators.createDate(),
-        expiresAt: validators.expireDate(),
-        expiresIn: validators.expireDuration(),
-        meta: validators.any(),
-        owner: validators.ubdOwnerList(),
-      },
-      actions: {
-        create: {
-          params: {
-            ubd: validators.ubd(),
-            expiresAt: validators.expireDate({optional: true}),
-            expiresIn: validators.expireDuration({optional: true}),
-            description: validators.description({optional: true}),
-            owner: validators.ubdOwnerList({optional: true}),
-            meta: validators.any({optional: true})
-          },
-          handler: create.bind(this)
+  return {
+    ...adapterConfig,
+    name: "battleStore",
+    mixins: [DbService],
+    settings: {
+      idField: 'id',
+      fields: [
+        "id",
+        "createdAt",
+        "expiresAt",
+        "ubd",
+        "description",
+        "meta",
+        "owner"
+      ],
+      defaultExpireTime: config.battleStore.defaultExpireTime,
+      cleanupInterval: config.battleStore.cleanupInterval
+    },
+    entityValidator: {
+      id: validators.entityId({optional: true}),
+      ubd: validators.ubd(),
+      description: validators.description(),
+      createdAt: validators.createDate(),
+      expiresAt: validators.expireDate(),
+      expiresIn: validators.expireDuration(),
+      meta: validators.any(),
+      owner: validators.ubdOwnerList(),
+    },
+    actions: {
+      create: {
+        params: {
+          ubd: validators.ubd(),
+          expiresAt: validators.expireDate({optional: true}),
+          expiresIn: validators.expireDuration({optional: true}),
+          description: validators.description({optional: true}),
+          owner: validators.ubdOwnerList({optional: true}),
+          meta: validators.any({optional: true})
         },
-        cleanup: cleanup.bind(this)
+        handler: require('./actions/create.js')
       },
-      hooks: {
-        before: {
-          create: [
-            function addDefaults(ctx) {
-              let defaultExpires;
-              if(ctx.params.expiresIn === undefined) {
-                defaultExpires = new Date(new Date().getTime() + this.config.defaultExpireTime);
-              } else {
-                defaultExpires = new Date(new Date().getTime() + ctx.params.expiresIn);
-              }
-              ctx.params.createdAt = new Date();
-              ctx.params.expiresAt = ctx.params.expiresAt || defaultExpires;
-              ctx.params.meta = ctx.params.meta || {};
-              ctx.params.owner = ctx.params.owner || {};
-              ctx.params = _.omit(ctx.params, ['id']);
-              return ctx;
-            }
-          ],
-          update: [
-            function omitReadOnly(ctx) {
-              ctx.params = _.omit(ctx.params, [
-                'ubd',
-                'createdAt'
-              ]);
-              return ctx;
-            }
-          ]
-        }
-      },
-      started: () => {
-        this.logger.info('Starting clean up loop at ' + this.config.cleanupInterval + 'ms')
-        this.loop = setInterval(async () => {
-          try {
-            await broker.call('battleStore.cleanup', {})
-          } catch(err) {
-            this.logger.warn(err)
-          }
-        }, this.config.cleanupInterval)
-      },
-      stopped: () => {
-        clearInterval(this.loop)
-      },
-    });
+      cleanup: require('./actions/cleanup.js')
+    },
+    hooks: {
+      before: {
+        create: [require('./hooks/create.js')],
+        update: [require('./hooks/update.js')]
+      }
+    },
+    started: require('./events/onStart.js'),
+    stopped: require('./events/onStop.js'),
   }
-
 }
-
-module.exports = BattleStoreService;

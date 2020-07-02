@@ -1,6 +1,7 @@
 "use strict";
 
-const ConfigBroker = require("../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -17,7 +18,7 @@ const createTestToken = () => ({
 })
 
 describe("Test 'Auth' service", () => {
-	let config = {
+	serviceConfig.extend({
 		auth: {
 			providers: [
 				{
@@ -27,9 +28,10 @@ describe("Test 'Auth' service", () => {
 				}
 			]
 		}
-	}
-	let broker = new ConfigBroker({ logger: false }, config, false);
-	broker.loadService(__dirname + "../../../app/services/auth/index.js");
+	});
+	let broker = new ServiceBroker({ logger: false });
+	const schemaBuilder = require(__dirname + "../../../app/services/auth/index.js");
+	broker.createService(schemaBuilder(serviceConfig.data));
 	broker.createService({
 		name: "userStore",
     actions: {

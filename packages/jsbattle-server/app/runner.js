@@ -9,7 +9,7 @@ let config = {
     "enabled": true,
     "name": "jsbattle-dev"
   },
-  "loglevel": "debug",
+  "loglevel": "trace",
   "logger": {
       "type": "Console",
       "options": {
@@ -31,7 +31,7 @@ let config = {
     "timeLimit": 10000
   },
   "ubdPlayer": {
-    "enabled": false,
+    "enabled": true,
     "queueLimit": 3,
     "queueQueryTime": 5000,
     "speed": 5,

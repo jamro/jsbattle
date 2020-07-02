@@ -14,7 +14,7 @@ const mockUserData = {
   email: 'mock@example.com'
 };
 
-function configStrategyMock(app, logger, broker, passport, config) {
+function configStrategyMock(app, logger, broker, passport, providerConfig, serviceConfig) {
   passport.use(new CustomStrategy((req, callback) => {
     callback(null, mockUserData);
   }));
@@ -25,7 +25,7 @@ function configStrategyMock(app, logger, broker, passport, config) {
       mockUserData.username = req.query.username || 'mock';
       mockUserData.displayName = req.query.displayName || 'Mock User';
       mockUserData.extUserId = req.query.extUserId || 'mock_01';
-      logger.debug('Login using ' + config.name + " integration");
+      logger.debug('Login using ' + providerConfig.name + " integration");
       let user = await broker.call('userStore.findOrCreate', {user: mockUserData});
       let response = await broker.call('auth.authorize', { user });
       broker.emit("user.login", user.id);
@@ -34,17 +34,17 @@ function configStrategyMock(app, logger, broker, passport, config) {
       res.redirect('/');
     }
   );
-  logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/mock`);
+  logger.info(`Authorization strategy added: Log in at ${serviceConfig.web.baseUrl}/auth/mock`);
 }
 
-function configPassport(app, logger, broker) {
+function configPassport(app, logger, broker, serviceConfig) {
   app.use(passport.initialize());
-  if(broker.serviceConfig.auth.providers.length == 0) {
+  if(serviceConfig.auth.providers.length == 0) {
     logger.warn('Auth enabled but no providers were configured. You won\'t be able to log in or register');
   }
-  broker.serviceConfig.auth.providers.forEach((provider) => {
+  serviceConfig.auth.providers.forEach((provider) => {
     if(provider.name == 'mock') {
-      configStrategyMock(app, logger, broker, passport, provider);
+      configStrategyMock(app, logger, broker, passport, provider, serviceConfig);
       return;
     }
     let AuthStrategy = authStrategies[provider.name];
@@ -55,7 +55,7 @@ function configPassport(app, logger, broker) {
       {
         clientID: provider.clientID,
         clientSecret:provider.clientSecret,
-        callbackURL: broker.serviceConfig.web.baseUrl + "/auth/" + provider.name + "/callback"
+        callbackURL: serviceConfig.web.baseUrl + "/auth/" + provider.name + "/callback"
       },
       (accessToken, refreshToken, profile, done) => {
         let email = '';
@@ -85,7 +85,7 @@ function configPassport(app, logger, broker) {
         res.redirect('/');
       }
     );
-    logger.info(`Authorization strategy added: Log in at ${broker.serviceConfig.web.baseUrl}/auth/${provider.name}`);
+    logger.info(`Authorization strategy added: Log in at ${serviceConfig.web.baseUrl}/auth/${provider.name}`);
   });
 
   app.get(

@@ -1,6 +1,7 @@
 "use strict";
 
-const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
@@ -8,24 +9,23 @@ const UbdJsonMock = require('../../mock/UbdJsonMock');
 const validateMock = jest.fn();
 const readQueue = jest.fn();
 const writeQueue = jest.fn();
-const config = {
-	"ubdPlayer": {
-		"queueQueryTime": 10,
-		"speed": 100,
-		"timeout": 30000
-	}
-};
 
 describe("Test 'UbdPlayer' service", () => {
 	let broker;
+	serviceConfig.extend({
+		"ubdPlayer": {
+			"queueQueryTime": 10,
+			"speed": 100,
+			"timeout": 30000
+		}
+	});
 
 	beforeEach(async () => {
 
 		validateMock.mockReset();
 		validateMock.mockReturnValue({valid: true});
 
-
-		broker = new ConfigBroker({ logger: false }, config, false);
+		broker = new ServiceBroker({ logger: false });
 		broker.createService({
 			name: 'ubdValidator',
 			actions: {
@@ -40,17 +40,19 @@ describe("Test 'UbdPlayer' service", () => {
 				}
 		})
 
-		broker.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
+		const schemaBuilder = require(__dirname + "../../../../app/services/ubdPlayer/index.js");
+		broker.createService(schemaBuilder(serviceConfig.data));
 		await broker.start()
 	});
 	afterEach(() => broker.stop());
 
 	it('should pick random port', async () => {
-		let broker1 = new ConfigBroker({ logger: false }, {}, false);
-		broker1.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
+		let broker1 = new ServiceBroker({ logger: false });
+		const schemaBuilder = require(__dirname + "../../../../app/services/ubdPlayer/index.js");
+		broker1.createService(schemaBuilder(serviceConfig.data));
 		await broker1.start();
-		let broker2 = new ConfigBroker({ logger: false }, {}, false);
-		broker2.loadService(__dirname + "../../../../app/services/ubdPlayer/index.js");
+		let broker2 = new ServiceBroker({ logger: false });
+		broker2.createService(schemaBuilder(serviceConfig.data));
 		await broker2.start();
 		await broker1.stop();
 		await broker2.stop();

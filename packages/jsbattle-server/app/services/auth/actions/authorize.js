@@ -6,11 +6,11 @@ module.exports = function(ctx) {
   if(!ctx.params.user) {
     throw new ValidationError('user parameter is required', 400);
   }
-  let user = _.pick(ctx.params.user, this.JWT_FIELDS)
+  let user = _.pick(ctx.params.user, this.settings.jwtFields)
   return {
     token: jsonwebtoken.sign(
       user,
-      this.JWT_SECRET,
+      this.settings.jwtSecret,
       {
         expiresIn: '1h'
       }

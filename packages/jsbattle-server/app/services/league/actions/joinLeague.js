@@ -23,7 +23,7 @@ module.exports = async function(ctx) {
   await ctx.call('league.leaveLeague', {});
 
   let code = script.code;
-  if(this.config.obfuscate) {
+  if(this.settings.obfuscate) {
     try {
       let prevSize = Math.round(code.length/1024);
       code = stripComments(code);

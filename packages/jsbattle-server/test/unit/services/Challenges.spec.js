@@ -1,6 +1,7 @@
 "use strict";
 
-const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -14,8 +15,8 @@ describe("Test 'Challenge' service", () => {
 	describe("unregistered user", () => {
 		let broker;
 		beforeEach(async () => {
-			let config = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
-			broker = new ConfigBroker({ logger: false }, config, false);
+			serviceConfig.extend({ auth: { admins: [{provider: 'google', username: 'monica83' }] } });
+			broker = new ServiceBroker({ logger: false });
 			broker.createService({
 					name: 'userStore',
 					actions: {
@@ -24,7 +25,8 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/challenges/index.js");
+			const schemaBuilder = require(__dirname + "../../../../app/services/challenges/index.js");
+			broker.createService(schemaBuilder(serviceConfig.data));
 			await broker.start()
 		});
 		afterEach(() => broker.stop());
@@ -46,8 +48,8 @@ describe("Test 'Challenge' service", () => {
 		let broker;
 
 		beforeEach(async () => {
-			let config = { auth: { admins: [{provider: 'google', username: 'monica83' }] } };
-			broker = new ConfigBroker({ logger: false }, config, false);
+			serviceConfig.extend({ auth: { admins: [{provider: 'google', username: 'monica83' }] } });
+			broker = new ServiceBroker({ logger: false });
 			broker.createService({
 					name: 'userStore',
 					actions: {
@@ -56,7 +58,8 @@ describe("Test 'Challenge' service", () => {
 						})
 					}
 			})
-			broker.loadService(__dirname + "../../../../app/services/challenges/index.js");
+			const schemaBuilder = require(__dirname + "../../../../app/services/challenges/index.js");
+			broker.createService(schemaBuilder(serviceConfig.data));
 			await broker.start();
 		});
 

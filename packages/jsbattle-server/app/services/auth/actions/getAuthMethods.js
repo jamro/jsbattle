@@ -1,4 +1,4 @@
-module.exports = function(ctx) {
+module.exports = function() {
   const providerName = {
     github: "GitHub",
     facebook: "Facebook",
@@ -6,8 +6,8 @@ module.exports = function(ctx) {
     mock: "Mock",
   }
 
-  const authConfig = ctx.broker.serviceConfig.auth
-  const webConfig = ctx.broker.serviceConfig.web
+  const authConfig = this.settings.auth;
+  const webConfig = this.settings.web;
   if(!authConfig.enabled) {
     return {};
   }

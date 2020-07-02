@@ -8,7 +8,7 @@ module.exports = async function(ctx) {
     version: 4,
     rngSeed: Math.random(),
     teamMode: true,
-    timeLimit: this.config.timeLimit,
+    timeLimit: this.settings.timeLimit,
     aiList: []
   };
 
@@ -20,7 +20,7 @@ module.exports = async function(ctx) {
       initData: null,
       useSandbox: true,
       executionLimit: 100,
-      count: this.config.teamSize
+      count: this.settings.teamSize
     });
   }
 

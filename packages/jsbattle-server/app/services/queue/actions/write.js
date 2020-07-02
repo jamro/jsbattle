@@ -1,19 +1,19 @@
 
 module.exports = function(ctx) {
   let topic = ctx.params.topic || 'default';
-  let limit = ctx.params.limit || this.hardLimit;
+  let limit = ctx.params.limit || this.settings.hardLimit;
   let payload = ctx.params.payload;
 
   if(!this.topics[topic]) {
     this.topics[topic] = [];
   }
 
-  if(this.topics[topic].length >= this.hardLimit) {
+  if(this.topics[topic].length >= this.settings.hardLimit) {
     return {
       ok: false,
       topic: topic,
       queueLength: this.topics[topic].length,
-      error: `Hard limit of ${this.hardLimit} items exceeded for topic ${topic}`
+      error: `Hard limit of ${this.settings.hardLimit} items exceeded for topic ${topic}`
     }
   }
 
@@ -27,6 +27,8 @@ module.exports = function(ctx) {
   }
 
   this.topics[topic].unshift(payload);
+
+  this.logger.trace(`writting to queue '${topic}'. Length: ${this.topics[topic].length}/${this.settings.hardLimit}` );
 
   return {
     ok: true,

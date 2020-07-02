@@ -43,7 +43,7 @@ module.exports = async function(ctx) {
   let description = teamList.map((t) => t.name).join(' vs ').substring(0, 128);
   await ctx.call('battleStore.create', {
     ubd: ubd,
-    expiresIn: this.config.historyDuration,
+    expiresIn: this.settings.historyDuration,
     description: description,
     meta: teamList,
     owner: Object.values(refData)

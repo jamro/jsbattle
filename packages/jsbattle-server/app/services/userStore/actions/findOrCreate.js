@@ -23,7 +23,8 @@ module.exports = async function(ctx) {
   if(response.length > 0) {
     return response[0];
   }
-  let admins = ctx.broker.serviceConfig.auth.admins;
+  let admins = this.settings.admins;
+
   let role = 'user';
   admins = admins.find((admin) => admin.provider == user.provider && admin.username == user.username);
 

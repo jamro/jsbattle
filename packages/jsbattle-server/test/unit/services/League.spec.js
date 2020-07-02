@@ -1,5 +1,6 @@
 "use strict";
-const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -92,17 +93,17 @@ describe("Test 'League' service", () => {
 
 	beforeEach(async () => {
 		let now = new Date().getTime();
-		let config = {
-			 auth: {
-				 admins: [{provider: 'google', username: 'monica83' }]
-			 },
-			 league: {
-					scheduleInterval: 10,
-					timeLimit: 3000,
-					teamSize: 3
-				}
-		 };
-		broker = new ConfigBroker({ logger: false, logLevel: 'debug'}, config, false);
+		serviceConfig.extend({
+			auth: {
+				admins: [{provider: 'google', username: 'monica83' }]
+			},
+			league: {
+				 scheduleInterval: 10,
+				 timeLimit: 3000,
+				 teamSize: 3
+			 }
+		});
+		broker = new ServiceBroker({ logger: false, logLevel: 'debug'});
 		broker.createService({
 				name: 'scriptStore',
 				actions: {
@@ -115,7 +116,8 @@ describe("Test 'League' service", () => {
 					find: (ctx) => leagueHistory
 				}
 		})
-		broker.loadService(__dirname + "../../../../app/services/league/index.js");
+		const schemaBuilder = require(__dirname + "../../../../app/services/league/index.js");
+		broker.createService(schemaBuilder(serviceConfig.data));
 		await broker.start();
 	});
 

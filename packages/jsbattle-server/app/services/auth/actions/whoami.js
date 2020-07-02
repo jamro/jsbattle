@@ -1,6 +1,6 @@
 module.exports = async function(ctx) {
   let role = 'guest';
-  if(!ctx.broker.serviceConfig.auth.enabled) {
+  if(!this.settings.auth.enabled) {
     role = 'admin';
   }
   if(!ctx.meta.user || !ctx.meta.user.id) {

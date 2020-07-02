@@ -1,5 +1,10 @@
 const Ajv = require('ajv');
 const { ValidationError } = require("moleculer").Errors;
+const JsBattleSchema = require('jsbattle-engine/schema');
+const schemaV1 = JsBattleSchema.getVersion(1);
+const schemaV2 = JsBattleSchema.getVersion(2);
+const schemaV3 = JsBattleSchema.getVersion(3);
+const schemaV4 = JsBattleSchema.getVersion(4);
 
 module.exports = function(ctx) {
   let ubd = ctx.params.ubd
@@ -28,16 +33,16 @@ module.exports = function(ctx) {
   this.logger.debug(`Validating UBD, version: ${version}`);
   switch (version) {
     case 1:
-      schema = this.schemaV1;
+      schema = schemaV1;
       break;
     case 2:
-      schema = this.schemaV2;
+      schema = schemaV2;
       break;
     case 3:
-      schema = this.schemaV3;
+      schema = schemaV3;
       break;
     case 4:
-      schema = this.schemaV4;
+      schema = schemaV4;
       break;
     default:
       return {valid: false, error: `UBD version ${version} is not supported`};

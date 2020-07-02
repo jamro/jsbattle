@@ -24,5 +24,5 @@ module.exports = function(activity) {
       timestamp: activity.timestamp
     };
 
-    this.sessions = this.sessions.filter((s) => new Date().getTime() - s.lastAction.timestamp.getTime() < this.sessionDuration)
+    this.sessions = this.sessions.filter((s) => new Date().getTime() - s.lastAction.timestamp.getTime() < this.settings.sessionDuration)
   }

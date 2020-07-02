@@ -1,9 +1,10 @@
+const RankTable = require('../lib/RankTable.js');
 
 module.exports = async function() {
-  await this.borker.call('league.seedLeague', {})
+  await this.broker.call('league.seedLeague', {})
 
-  this.logger.info('Initializing Rank able');
-  let initData = await this.borker.call('league.find', {
+  this.logger.info('Initializing Rank table');
+  let initData = await this.broker.call('league.find', {
     sort: '-score',
     fields: [
       "id",
@@ -19,6 +20,9 @@ module.exports = async function() {
       "score"
     ]
   });
+  if(!this.ranktable ) {
+    this.ranktable = new RankTable();
+  }
   this.ranktable.init(initData);
   this.logger.info('Rank Table initialized');
 }

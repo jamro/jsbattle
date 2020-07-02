@@ -16,6 +16,8 @@ module.exports = function(ctx) {
 
   let payload = this.topics[topic].pop();
 
+  this.logger.trace(`reading from queue '${topic}'. Length: ${this.topics[topic].length}/${this.settings.hardLimit}` );
+
   return {
     ok: true,
     topic: topic,

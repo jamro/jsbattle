@@ -1,6 +1,7 @@
 "use strict";
 
-const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 
@@ -8,8 +9,9 @@ describe("Test 'Queue' service", () => {
 	let broker;
 
 	beforeEach(async () => {
-		broker = new ConfigBroker({ logger: false }, {}, false);
-		await broker.loadService(__dirname + "../../../../app/services/queue/index.js");
+		broker = new ServiceBroker({ logger: false });
+		const schemaBuilder = require(__dirname + "../../../../app/services/queue/index.js");
+		broker.createService(schemaBuilder(serviceConfig.data));
 		await broker.start()
 	});
 	afterEach(async () => await broker.stop());

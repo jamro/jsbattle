@@ -1,6 +1,7 @@
 "use strict";
 
-const ConfigBroker = require("../../../app/lib/ConfigBroker.js");
+const serviceConfig = require('../../../app/lib/serviceConfig.js');
+const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
@@ -10,21 +11,21 @@ const defaultExpireTime = 30*24*60*60*1000;
 describe("Test 'Battlestore' service", () => {
 
 	describe("ubdValidator always pass", () => {
-		const config = {
+		serviceConfig.extend({
 			battleStore: {
 				defaultExpireTime: defaultExpireTime,
 				cleanupInterval: 100
 			}
-		};
-		let broker = new ConfigBroker({ logger: false }, config, false);
+		});
+		let broker = new ServiceBroker({ logger: false });
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {
 				validate: () => ({valid: true})
 			}
 		})
-		broker.loadService(__dirname + "../../../../app/services/battleStore/index.js");
-
+		const schemaBuilder = require(__dirname + "../../../../app/services/battleStore/index.js");
+		broker.createService(schemaBuilder(serviceConfig.data));
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());
 
@@ -272,14 +273,15 @@ describe("Test 'Battlestore' service", () => {
 
 	describe("ubdValidator always fails", () => {
 
-		let broker = new ConfigBroker({ logger: false }, {}, false);
+		let broker = new ServiceBroker({ logger: false });
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {
 				validate: () => ({valid: false, error: 'Something went wrong'})
 			}
 		})
-		broker.loadService(__dirname + "../../../../app/services/battleStore/index.js");
+		const schemaBuilder = require(__dirname + "../../../../app/services/battleStore/index.js");
+		broker.createService(schemaBuilder(serviceConfig.data));
 
 		beforeAll(() => broker.start());
 		afterAll(() => broker.stop());

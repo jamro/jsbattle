@@ -1,6 +1,9 @@
-const ConfigBroker = require('./lib/ConfigBroker.js');
+const { ServiceBroker } = require("moleculer");
 const path = require('path');
 const auditMiddleware = require('./lib/auditMiddleware.js').moleculer;
+const serviceConfig = require('./lib/serviceConfig.js');
+require('dotenv').config();
+
 const GATEWAY = 'gateway';
 const WORKER = 'worker';
 
@@ -11,19 +14,26 @@ class Node {
   }
 
   init(options) {
-    let clusterName = options.cluster && options.cluster.name ? options.cluster.name : 'jsbattle';
+    // add auth strategies defined in env vars
+    if(!options.skipEnv) {
+      serviceConfig.loadEnv();
+    }
+    serviceConfig.extend(options);
+
+    let clusterName = serviceConfig.data.cluster && serviceConfig.data.cluster.name ? serviceConfig.data.cluster.name : 'jsbattle';
     let transporter;
-    if(options.cluster && options.cluster.enabled) {
-      options.cluster.transporter = options.cluster.transporter || {};
-      options.cluster.transporter.type = options.cluster.transporter.type || 'TCP';
+    if(serviceConfig.data.cluster && serviceConfig.data.cluster.enabled) {
+      serviceConfig.data.cluster.transporter = serviceConfig.data.cluster.transporter || {};
+      serviceConfig.data.cluster.transporter.type = serviceConfig.data.cluster.transporter.type || 'TCP';
       transporter = {
-        type: options.cluster.transporter.type,
-        options: options.cluster.transporter.options
+        type: serviceConfig.data.cluster.transporter.type,
+        options: serviceConfig.data.cluster.transporter.options
       };
     }
 
+
     return new Promise((resolve) => {
-      this.broker = new ConfigBroker(
+      this.broker = new ServiceBroker(
         {
           namespace: clusterName,
           metadata: {
@@ -31,8 +41,8 @@ class Node {
           },
           middlewares: [auditMiddleware],
           nodeID: this.type + "-" + clusterName + '-' + process.pid,
-          logLevel: options.loglevel,
-          logger: options.logger,
+          logLevel: serviceConfig.data.loglevel,
+          logger: serviceConfig.data.logger,
           transporter: transporter,
           circuitBreaker: {
               enabled: true,
@@ -43,7 +53,7 @@ class Node {
               check: (err) => err && err.code >= 500
           }
         },
-        options
+        serviceConfig.data
       );
       let serviceList = [];
       switch(this.type) {
@@ -75,7 +85,10 @@ class Node {
           throw Error('unknown node type: ' + this.type);
 
       }
-      serviceList.forEach((service) => this.broker.loadService(path.resolve(__dirname, 'services', service, `index.js`)));
+      serviceList.forEach((service) => {
+        let schemaBuilder = require(path.resolve(__dirname, 'services', service, `index.js`));
+        this.broker.createService(schemaBuilder(serviceConfig.data));
+      });
       resolve();
     });
   }

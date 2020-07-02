@@ -35,7 +35,7 @@ module.exports = async function(ctx) {
         refData: refData
       },
       topic: 'ubdPlayer',
-      limit:this.queueLimit
+      limit: this.settings.queueLimit
     });
     if(queueResult.ok) {
       this.logger.info(`Scheduling battle ${opponents[0].scriptName} vs ${opponents[1].scriptName}`);

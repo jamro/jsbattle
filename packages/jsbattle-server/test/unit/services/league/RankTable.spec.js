@@ -281,6 +281,23 @@ describe("Test Share Battle API", () => {
     }
   });
 
+	it('should update error factor', async () => {
+		const ranktable = new RankTable();
+		ranktable.init([
+			{ id: '543225', score: 4532, fights_error: 0.4},
+			{ id: '632243', score: 2932, fights_error: 0},
+			{ id: '123292', score: 103, fights_error: 0}
+		]);
+
+		ranktable.updateFail('632243', 0.3);
+
+		const data = ranktable.getData();
+		expect(data).toHaveLength(3);
+		expect(data[1]).toHaveProperty('id', '632243');
+		expect(data[1]).toHaveProperty('fights_error', 0.3);
+
+	});
+
   it('should not update rank elements when not exist', async () => {
     const ranktable = new RankTable();
     ranktable.init([

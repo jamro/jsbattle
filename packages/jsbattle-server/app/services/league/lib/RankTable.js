@@ -68,6 +68,11 @@ class RankTable {
 
   }
 
+  updateFail(id, fightsError) {
+    let entity = this.data.find((e) => e.id == id);
+    entity.fights_error = fightsError;
+  }
+
   updateScore(id, newScore, totalFigths, fightsWin, fightsLose) {
     const count = this.data.length;
     let newIndex = -1;

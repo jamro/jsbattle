@@ -60,6 +60,7 @@ describe("Test 'UbdPlayer' service", () => {
 
 	it('should play the battle', async () => {
 		jest.setTimeout(30000);
+		const refData = 2345234625342;
 		const ubd = {
       version: 3,
       rngSeed: 0.43,
@@ -85,7 +86,7 @@ describe("Test 'UbdPlayer' service", () => {
       timeLimit: 5000
 		};
 
-		readQueue.mockReturnValueOnce({ payload: { ubd }, ok: true });
+		readQueue.mockReturnValueOnce({ payload: { ubd, refData }, ok: true });
 
 		let params = await new Promise((resolve) => {
 			broker.createService({
@@ -102,6 +103,9 @@ describe("Test 'UbdPlayer' service", () => {
 		expect(params).toHaveProperty('timeElapsed', 5000);
 		expect(params).toHaveProperty('tankList');
 		expect(params).toHaveProperty('teamList');
+		expect(params).toHaveProperty('ubd');
+		expect(params).not.toHaveProperty('error');
+		expect(params).toHaveProperty('refData', refData);
 
 		const teamList = params.teamList;
 		const tankList = params.tankList;
@@ -133,6 +137,57 @@ describe("Test 'UbdPlayer' service", () => {
 		expect(teamList[1]).toHaveProperty('size', 1)
 		expect(teamList[1]).toHaveProperty('score', 0)
 		expect(Math.round(teamList[1].energy)).toBe(66)
+
+	});
+
+	it('should notify about battle error', async () => {
+		jest.setTimeout(30000);
+		const refData = 87634234;
+		const ubd = {
+      version: 3,
+      rngSeed: 0.43,
+      aiList: [
+				{
+					name: 'alpha',
+					team: 'asdfrvw423',
+					initData: null,
+					useSandbox: true,
+					code: 'throw("I am not working 52824")',
+					executionLimit: 100
+				},
+	      {
+					name: 'beta',
+					team: 'ncsu8a7d3',
+					initData: null,
+					useSandbox: true,
+					code: 'tank.init(function(n,t){}),tank.loop(function(n,t){t.THROTTLE=1,t.BOOST=1});',
+					executionLimit: 100
+				 }
+			 ],
+      teamMode: false,
+      timeLimit: 5000
+		};
+
+		readQueue.mockReturnValueOnce({ payload: { ubd, refData }, ok: true });
+
+		let params = await new Promise((resolve) => {
+			broker.createService({
+				name: 'eventWatcher',
+				events: {
+					"ubdPlayer.battle.*": async (ctx) => {
+						resolve(ctx.params);
+					}
+				},
+			});
+		});
+
+		expect(params).toHaveProperty('error');
+		expect(params).toHaveProperty('ubd');
+		expect(params).toHaveProperty('refData', refData);
+
+		const teamList = params.teamList;
+		const tankList = params.tankList;
+
 
 	});
 

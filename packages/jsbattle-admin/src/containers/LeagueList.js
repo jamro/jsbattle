@@ -45,6 +45,10 @@ class LeagueList extends Component {
                   {name: 'Wins', field: 'fights_win', format: 'number'},
                   {name: 'Losts', field: 'fights_lose', format: 'number'},
                   {name: 'Score', field: 'score', format: 'number'},
+                  {name: 'Error', field: 'fights_error', format: [
+                    (x) => x/0.7,
+                    'scale'
+                  ]},
                 ]}
                 data={this.props.leaguePage}
                 onPageRequest={(page) => this.props.getLeagueList(page)}

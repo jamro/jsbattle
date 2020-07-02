@@ -68,6 +68,12 @@ module.exports = (config) => {
         },
         handler: require('./actions/updateRank.js')
       },
+      failBattle: {
+        params: {
+          id: validators.entityId()
+        },
+        handler: require('./actions/failBattle.js')
+      },
       listRankTable: {
         params: {
           page: {type: "number", positive: true, min: 1, optional: true, convert: true},

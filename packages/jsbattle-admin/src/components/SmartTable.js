@@ -35,6 +35,18 @@ class SmartTable extends Component {
     this.formatter.number = (value) => {
       return Number(value).toLocaleString();
     };
+    this.formatter.scale = (value) => {
+      let scaleClass = 'bg-info';
+      if(value > 0.7) {
+        scaleClass = 'bg-warning';
+      }
+      if(value > 0.9) {
+        scaleClass = 'bg-danger';
+      }
+      return <div className="progress">
+        <div className={"progress-bar " + scaleClass} role="progressbar" style={{width: Math.round(value*100) + "%"}} aria-valuenow={Math.round(value*100)} aria-valuemin="0" aria-valuemax="100"></div>
+      </div>;
+    };
     this.formatter.duration = (dt) => {
       dt = Math.round(dt/1000);
       dt = Math.round(dt);

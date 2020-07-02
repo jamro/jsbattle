@@ -24,6 +24,7 @@ const readQueue = jest.fn();
 const writeQueue = jest.fn();
 const pickRandomOpponents = jest.fn();
 const leagueUpdate = jest.fn();
+const leagueFailBattle = jest.fn();
 const leagueGet = jest.fn();
 const leagueUpdateRank = jest.fn();
 const battleStoreCreate = jest.fn();
@@ -134,7 +135,8 @@ describe("Test 'League' service", () => {
 					pickRandomOpponents: pickRandomOpponents,
 					update: leagueUpdate,
 					get: leagueGet,
-					updateRank: leagueUpdateRank
+					updateRank: leagueUpdateRank,
+					failBattle: leagueFailBattle
 				}
 		})
 		const schemaBuilder = require(__dirname + "../../../../app/services/leagueScheduler/index.js");
@@ -210,11 +212,19 @@ describe("Test 'League' service", () => {
 
 	});
 
-	it('should not process battle errors',  async () => {
+	it('should handle battle errors',  async () => {
 		leagueUpdate.mockReset();
-		await broker.emit('ubdPlayer.battle.league', { error: 'oops8762'});
-
+		leagueUpdateRank.mockReset();
+		leagueFailBattle.mockReset();
+		await broker.emit('ubdPlayer.battle.league', { error: 'oops8762', refData: {'t1': 29345, 't2': 87543}});
 		expect(leagueUpdate.mock.calls).toHaveLength(0);
+		expect(leagueUpdateRank.mock.calls).toHaveLength(0);
+
+		expect(leagueFailBattle.mock.calls).toHaveLength(2);
+		let params1 = leagueFailBattle.mock.calls[0][0].params;
+		let params2 = leagueFailBattle.mock.calls[1][0].params;
+		expect(params1).toHaveProperty('id', 29345);
+		expect(params2).toHaveProperty('id', 87543);
 	});
 
 });

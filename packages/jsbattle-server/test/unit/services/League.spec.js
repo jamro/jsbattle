@@ -454,6 +454,41 @@ describe("Test 'League' service", () => {
 		expect(entity).toHaveProperty('score', 196);
 	});
 
+	it('should update fail factor',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		let createResult = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		let entityId = createResult.submission.id;
+		await broker.call('league.failBattle', {id: entityId});
+		await broker.call('league.failBattle', {id: entityId});
+		await broker.call('league.failBattle', {id: entityId});
+
+		let entity = await broker.call('league.get', {id: entityId});
+		expect(entity).toHaveProperty('fights_total', 0);
+		expect(entity).toHaveProperty('fights_win', 0);
+		expect(entity).toHaveProperty('fights_lose', 0);
+		expect(entity).toHaveProperty('fights_error', 0.271);
+	});
+
+	it('should update remove failing AIs',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		let createResult = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		let entityId = createResult.submission.id;
+		for(let i=0; i<12; i++) {
+			await broker.call('league.failBattle', {id: entityId});
+		}
+
+		let count = await broker.call('league.count', {query: {_id: entityId}});
+		expect(count).toBe(0)
+	});
+
 	it('should list the league',  async () => {
 		await broker.emit('app.seed', {}, {});
 

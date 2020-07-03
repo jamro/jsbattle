@@ -1,9 +1,6 @@
 # UBD files
 Ultimate Battle Descriptor (UBD) contains all the information required to replay a battle. Battle launched from UBD file is deterministic and always has the same outcome.
 
-## UBD Player
-Distribution of JsBattle contains command line tool that allows processing of UBD files to get result of the battle without watching it. It is located in `/dist/ubdplayer.js`. You can run as any shell command (`./ubdplayer.js`) or via NodeJs (`node ubdplayer.js`). For more information, run `./ubdplayer.js --help`.
-
 ## Changelog
 
 Date       | Version | Schema Location                 | Description                 

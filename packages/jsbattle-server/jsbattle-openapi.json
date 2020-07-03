@@ -8,6 +8,9 @@
   "components": {
     "securitySchemes": {},
     "schemas": {
+      "entityId": {
+        "type": "string"
+      },
       "Battle": {
         "type": "object",
         "properties": {
@@ -299,7 +302,9 @@
             "name": "battleId",
             "description": "ID of the battle",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -379,7 +384,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -400,7 +405,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -422,7 +427,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -439,7 +444,9 @@
             "name": "scriptId",
             "description": "ID of the script",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -455,7 +462,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -470,7 +477,9 @@
             "name": "scriptId",
             "description": "ID of the script",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "requestBody": {
@@ -497,7 +506,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -512,7 +521,9 @@
             "name": "scriptId",
             "description": "ID of the script",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -528,7 +539,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -549,7 +560,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -566,7 +577,9 @@
             "name": "challengeId",
             "description": "ID of the challenge",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -582,7 +595,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -597,7 +610,9 @@
             "name": "challengeId",
             "description": "ID of the challenge",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "requestBody": {
@@ -622,7 +637,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -643,7 +658,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -660,7 +675,9 @@
             "name": "battleId",
             "description": "ID of the battle",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -676,7 +693,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -697,7 +714,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -730,7 +747,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       },
@@ -749,7 +766,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -770,7 +787,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }
@@ -787,7 +804,9 @@
             "name": "scriptId",
             "description": "ID of the script",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         ],
         "responses": {
@@ -803,7 +822,7 @@
         },
         "security": [
           {
-            "oauth": []
+            "oauth_default": []
           }
         ]
       }

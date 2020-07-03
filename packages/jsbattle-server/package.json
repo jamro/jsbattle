@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node ./app/runner.js",
     "clean": "rimraf app/services/ubdPlayer/www/js && rimraf app/services/ubdPlayer/www/tank",
-    "build": "cpx 'node_modules/jsbattle-engine/dist/js/*' app/services/ubdPlayer/www/js && cpx 'node_modules/jsbattle-engine/dist/tanks/**/*.*' app/services/ubdPlayer/www/tanks",
+    "build": "npm run build:api && npm run build:app",
+    "build:api": "node ./tools/openApiGen/run.js > jsbattle-openapi.json",
+    "build:app": "cpx 'node_modules/jsbattle-engine/dist/js/*' app/services/ubdPlayer/www/js && cpx 'node_modules/jsbattle-engine/dist/tanks/**/*.*' app/services/ubdPlayer/www/tanks",
     "watch": "nodemon ./app/runner.js --delay 2",
     "watch:worker": "nodemon ./app/runner-worker.js --delay 2",
     "test": "npm run test:scoring && npm run test:app",
@@ -29,6 +31,7 @@
     "npm-watch": "^0.6.0",
     "rimraf": "^3.0.2",
     "seedrandom": "^3.0.5",
+    "swagger-jsdoc": "^4.0.0",
     "utf-8-validate": "^5.0.2",
     "ws": "^7.3.0"
   },
@@ -63,6 +66,7 @@
     "socket.io": "^2.3.0",
     "stream": "0.0.2",
     "strip-comments": "^2.0.1",
+    "swagger-ui-express": "^4.1.4",
     "uuid": "^8.1.0"
   },
   "jest": {

@@ -4,29 +4,14 @@ const validators = require("../../validators");
 
 module.exports = (config) => {
   let adapterConfig = getDbAdapterConfig(config.data, 'challenge')
+  let entity = require('./entity.js');
 
   return {
     ...adapterConfig,
     name: "challenges",
     mixins: [DbService],
     settings: {
-      idField: 'id',
-      fields: [
-        "id",
-        "challengeId",
-        "userId",
-        "code",
-        "completed",
-        "modifiedAt"
-      ],
-      entityValidator: {
-        id: validators.entityId({optional: true}),
-        userId: validators.entityId(),
-        challengeId: validators.entityId(),
-        completed: { type: "boolean" },
-        code: validators.code(),
-        modifiedAt: validators.modifyDate()
-      }
+      ...entity
     },
     actions: {
       listUserChallenges: require('./actions/listUserChallenges.js'),

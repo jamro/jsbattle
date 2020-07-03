@@ -77,7 +77,7 @@ const getUserScriptMock = jest.fn((ctx) => {
 				ownerId: '123456',
 				ownerName: 'another_user',
 				id: '9324531928',
-				scriptName: 'secret script',
+				scriptName: 'secret_script',
 				code: '// hello 48772'
 			}
 		case '152674':
@@ -165,17 +165,6 @@ describe("Test 'League' service", () => {
 		await expect(
 			broker.call('league.getLeagueSummary', {}, {})
 		).rejects.toThrow(/Not Authorized/i)
-	});
-
-	it('should create league entry with defaults',  async () => {
-		let entry = await broker.call('league.create', {}, {});
-		expect(entry).toHaveProperty('id');
-		expect(entry).toHaveProperty('joinedAt');
-		expect(entry).toHaveProperty('fights_total', 0);
-		expect(entry).toHaveProperty('fights_win', 0);
-		expect(entry).toHaveProperty('fights_lose', 0);
-		expect(entry).toHaveProperty('fights_error', 0);
-		expect(entry).toHaveProperty('score', 0);
 	});
 
 	it('should return league summary',  async () => {

@@ -1,0 +1,813 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "JsBattle server API",
+    "description": "Internal API of JsBattle ([Swagger File](../api-docs.json))",
+    "version": "3.3.0"
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {
+      "Battle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ubd": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 524288
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "meta": {
+            "type": "string",
+            "maxLength": 1048576
+          },
+          "owner": {
+            "type": "string",
+            "maxLength": 10
+          }
+        }
+      },
+      "Challenge": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "challengeId": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "userId": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 65536
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "League": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "joinedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "ownerName": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "scriptId": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "scriptName": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "fights_total": {
+            "type": "number"
+          },
+          "fights_win": {
+            "type": "number"
+          },
+          "fights_lose": {
+            "type": "number"
+          },
+          "fights_error": {
+            "type": "number"
+          },
+          "score": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 65536
+          },
+          "hash": {
+            "type": "string",
+            "pattern": "/^[a-zA-Z0-9]+$/",
+            "minLength": 16,
+            "maxLength": 128
+          }
+        }
+      },
+      "Script": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          "ownerName": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "scriptName": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "namespace": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 65536
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "hash": {
+            "type": "string",
+            "pattern": "/^[a-zA-Z0-9]+$/",
+            "minLength": 16,
+            "maxLength": 128
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "displayName": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9\\- .]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "provider": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "extUserId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "email": {
+            "type": "string",
+            "pattern": "/^([\\w-]+@([\\w-]+\\.)+[\\w-]+)|$/",
+            "maxLength": 256
+          },
+          "registered": {
+            "type": "boolean"
+          },
+          "role": {
+            "type": "string",
+            "pattern": "/^[A-Za-z0-9_-]+$/",
+            "minLength": 3,
+            "maxLength": 16
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastLoginAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/profile": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "description": "Information about current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          }
+        }
+      }
+    },
+    "/api/authMethods": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "description": "List of supported authentication methods",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          }
+        }
+      }
+    },
+    "/api/leaguePreview": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "history of recent league battles",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          }
+        }
+      }
+    },
+    "/api/leaguePreview/replay/{battleId}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "replay of league battle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "battleId",
+            "description": "ID of the battle",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "404": {
+            "description": "battle with provided Id does not exist"
+          }
+        }
+      }
+    },
+    "/api/user/initData": {
+      "patch": {
+        "tags": [
+          "account"
+        ],
+        "description": "user data used during registration to transit progress from un registered to registered user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "challenges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "challengeId": {
+                          "type": "string"
+                        },
+                        "completed": {
+                          "type": "boolean"
+                        },
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "scripts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "scriptName": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "422": {
+            "description": "user already registered"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/scripts": {
+      "get": {
+        "tags": [
+          "scripts"
+        ],
+        "description": "list all scripts of current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "scripts"
+        ],
+        "description": "create a new script owned by currrent user.",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "422": {
+            "description": "script limit exceeded"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/scripts/{scriptId}": {
+      "get": {
+        "tags": [
+          "scripts"
+        ],
+        "description": "a script owned by currrent user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scriptId",
+            "description": "ID of the script",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "script not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "scripts"
+        ],
+        "description": "update a script owned by currrent user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scriptId",
+            "description": "ID of the script",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Script"
+              }
+            }
+          },
+          "description": "Script object to be updated",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "script not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "scripts"
+        ],
+        "description": "remove a script owned by currrent user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scriptId",
+            "description": "ID of the script",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "script not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/challenges": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "description": "challenges of current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/challenges/{challengeId}": {
+      "get": {
+        "tags": [
+          "challenges"
+        ],
+        "description": "specific challenge of  current user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "challengeId",
+            "description": "ID of the challenge",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "challenge not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "challenges"
+        ],
+        "description": "update specific challenge of  current user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "challengeId",
+            "description": "ID of the challenge",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Challenge"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "challenge not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/league": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "league summary for current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/league/replay/{battleId}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "replay of league battle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "battleId",
+            "description": "ID of the battle",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "battle with provided Id does not exist"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/league/submission": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "current user submission to the league",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "league"
+        ],
+        "description": "join or re-join the league by current user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "scriptId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "league"
+        ],
+        "description": "leave the league by current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/league/ranktable": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "rank table slice for current user",
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    },
+    "/api/user/league/scripts/{scriptId}": {
+      "get": {
+        "tags": [
+          "league"
+        ],
+        "description": "script from submission to the league",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scriptId",
+            "description": "ID of the script",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a successfull response"
+          },
+          "401": {
+            "description": "not authorized"
+          },
+          "404": {
+            "description": "script not found"
+          }
+        },
+        "security": [
+          {
+            "oauth": []
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

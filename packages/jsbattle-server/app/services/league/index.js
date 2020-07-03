@@ -4,45 +4,17 @@ const validators = require("../../validators");
 
 module.exports = (config) => {
   let adapterConfig = getDbAdapterConfig(config.data, 'league');
+  let entity = require('./entity.js');
 
   return {
     ...adapterConfig,
     name: "league",
     mixins: [DbService],
     settings: {
-      idField: 'id',
-      fields: [
-        "id",
-        "joinedAt",
-        "ownerId",
-        "ownerName",
-        "scriptId",
-        "scriptName",
-        "fights_total",
-        "fights_win",
-        "fights_lose",
-        "fights_error",
-        "score",
-        "code",
-        "hash"
-      ],
+      ...entity,
       obfuscate: config.league.obfuscate
     },
-    entityValidator: {
-      id: validators.entityId({optional: true}),
-      joinedAt: validators.createDate(),
-      ownerId: validators.entityId(),
-      ownerName: validators.entityName(),
-      scriptId: validators.entityId(),
-      scriptName: validators.entityName(),
-      fights_total: {type: "number", positive: true},
-      fights_win: {type: "number", positive: true},
-      fights_lose: {type: "number", positive: true},
-      fights_error: {type: "number", positive: true},
-      score: {type: "number", positive: true},
-      code: validators.code(),
-      hash: validators.hash()
-    },
+
     actions: {
       pickRandomOpponents: require('./actions/pickRandomOpponents.js'),
       seedLeague: require('./actions/seedLeague.js'),

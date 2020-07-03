@@ -8,8 +8,11 @@ const express = require('express');
 const stringReplace = require('../../../lib/stringReplaceMiddleware.js');
 const path = require('path');
 const configPassport = require('../lib/configPassport.js');
+const getSwaggerOptions = require('../lib/getSwaggerOptions.js');
 const http = require('http');
 const IO = require("socket.io");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 module.exports = function() {
 
@@ -112,7 +115,13 @@ module.exports = function() {
     { maxAge: 12*60*60*1000, etag: true }
   ));
   this.app.use("/api", svc.express());
-
+  const swaggerOptions = getSwaggerOptions(this.settings.auth.providers);
+  const swaggerDoc = swaggerJsDoc(swaggerOptions);
+  this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+  this.app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerDoc);
+  });
   this.app.use(cookieParser());
 
   if(this.settings.auth.enabled == false) {

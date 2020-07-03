@@ -1,10 +1,10 @@
 const DbService = require("moleculer-db");
 const getDbAdapterConfig = require("../../lib/getDbAdapterConfig.js");
-const validators = require("../../validators");
 
 module.exports = (config) => {
 
   let adapterConfig = getDbAdapterConfig(config.data, 'userStore');
+  let entity = require('./entity.js');
 
   return {
     ...adapterConfig,
@@ -12,30 +12,7 @@ module.exports = (config) => {
     mixins: [DbService],
     settings: {
       $secureSettings: ['admins'],
-      idField: 'id',
-      fields: [
-        "id",
-        "username",
-        "displayName",
-        "provider",
-        "extUserId",
-        "email",
-        "registered",
-        "role",
-        "createdAt",
-        "lastLoginAt"
-      ],
-      entityValidator: {
-        extUserId: {type: "string", min: 1, max: 1024},
-        username: validators.entityName(),
-        displayName: validators.userFullName({optional: true}),
-        email: validators.email({optional: true}),
-        registered: {type: "boolean", optional: true},
-        provider: validators.entityName(),
-        role: validators.entityName({optional: true}),
-        createdAt: validators.createDate({optional: true}),
-        lastLoginAt: validators.modifyDate({optional: true})
-      },
+      ...entity,
       admins: config.auth.admins
     },
     actions: {

@@ -5,34 +5,14 @@ const validators = require("../../validators");
 module.exports = (config) => {
 
   let adapterConfig = getDbAdapterConfig(config.data, 'scriptStore');
+  let entity = require('./entity.js');
 
   return {
     ...adapterConfig,
     name: "scriptStore",
     mixins: [DbService],
     settings: {
-      idField: 'id',
-      fields: [
-        "id",
-        "ownerId",
-        "ownerName",
-        "scriptName",
-        "namespace",
-        "code",
-        "createdAt",
-        "modifiedAt",
-        "hash",
-      ],
-      entityValidator: {
-        ownerId: validators.entityId(),
-        ownerName: validators.entityName(),
-        scriptName: validators.entityName(),
-        code: validators.code(),
-        namespace: validators.entityName(),
-        createdAt: validators.createDate(),
-        modifiedAt: validators.modifyDate(),
-        hash: validators.hash({optional: true})
-      }
+      ...entity
     },
     actions: {
       listUserScripts: require('./actions/listUserScripts.js'),

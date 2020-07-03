@@ -4,34 +4,16 @@ const validators = require("../../validators");
 
 module.exports = (config) => {
   let adapterConfig = getDbAdapterConfig(config.data, 'battleStore')
+  let entity = require('./entity.js');
 
   return {
     ...adapterConfig,
     name: "battleStore",
     mixins: [DbService],
     settings: {
-      idField: 'id',
-      fields: [
-        "id",
-        "createdAt",
-        "expiresAt",
-        "ubd",
-        "description",
-        "meta",
-        "owner"
-      ],
+      ...entity,
       defaultExpireTime: config.battleStore.defaultExpireTime,
       cleanupInterval: config.battleStore.cleanupInterval
-    },
-    entityValidator: {
-      id: validators.entityId({optional: true}),
-      ubd: validators.ubd(),
-      description: validators.description(),
-      createdAt: validators.createDate(),
-      expiresAt: validators.expireDate(),
-      expiresIn: validators.expireDuration(),
-      meta: validators.any(),
-      owner: validators.ubdOwnerList(),
     },
     actions: {
       create: {

@@ -42,6 +42,7 @@
             - [JsBattle Engine Tutorial](./dev_guide/howtos/engine/jsbattle_engine_tutorial.md)
             - [JsBattle Engine API](./dev_guide/howtos/engine/jsbattle_engine_api.md)
         - [React Component](./dev_guide/howtos/react/jsbattle_react_api.md)
+        - [JsBattle Server API](/api-docs)
         - [Spritesheets](./dev_guide/howtos/spritesheets.md)
         - [Adding Bundled Tanks](./dev_guide/howtos/adding_bundled_tanks.md)
         - [UBD files](./dev_guide/howtos/ubd_files.md)

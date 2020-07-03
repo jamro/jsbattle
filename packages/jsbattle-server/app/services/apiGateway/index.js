@@ -1,6 +1,5 @@
 module.exports = (config) => ({
   name: "apiGateway",
-  started: require('./events/onStart.js'),
   settings: {
     $secureSettings: [
       'auth',
@@ -19,5 +18,6 @@ module.exports = (config) => ({
   events: {
     "client.**": require('./events/onClientEvent.js')
   },
+  started: require('./events/onStart.js'),
   stopped: require('./events/onStop.js')
 });

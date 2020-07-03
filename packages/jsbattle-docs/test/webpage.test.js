@@ -74,6 +74,10 @@ describe('Web Page', function() {
 
     it('should have all links working', async () => {
       let self = this;
+      let excludeLinks = [
+        self.config.BASE_URL + "api-docs"
+      ];
+      console.log(excludeLinks);
       async function visit(url) {
         self.visitedLinks.push(url);
         // open url
@@ -88,12 +92,14 @@ describe('Web Page', function() {
           aLinks = Object.values(aLinks).map(el => el.href);
           return aLinks;
         });
-        links = links.filter((el, index, list) => {
-          return (new RegExp(self.config.BASE_URL)).test(el)
-            && list.indexOf(el) === index
-            && self.visitedLinks.indexOf(el) === -1
-            && self.unvisitedLinks.indexOf(el) === -1;
-        })
+        links = links
+          .filter((el, index, list) => {
+            return (new RegExp(self.config.BASE_URL)).test(el)
+              && list.indexOf(el) === index
+              && self.visitedLinks.indexOf(el) === -1
+              && self.unvisitedLinks.indexOf(el) === -1;
+          })
+          .filter((l) => excludeLinks.indexOf(l) == -1)
 
         console.log(`size: ${size.toFixed(2)}KB, \tnew links: ${links.length}, \tURL: ${url}`);
         while(links.length) {

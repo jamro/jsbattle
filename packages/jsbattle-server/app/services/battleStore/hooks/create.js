@@ -10,7 +10,7 @@ module.exports = function(ctx) {
   ctx.params.createdAt = new Date();
   ctx.params.expiresAt = ctx.params.expiresAt || defaultExpires;
   ctx.params.meta = ctx.params.meta || {};
-  ctx.params.owner = ctx.params.owner || {};
+  ctx.params.owner = ctx.params.owner || [];
   ctx.params = _.omit(ctx.params, ['id']);
   return ctx;
 }

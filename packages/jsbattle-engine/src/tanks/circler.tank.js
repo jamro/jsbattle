@@ -1,6 +1,11 @@
 // Author: Jonathan Cross
 importScripts('lib/tank.js');
 
+let wander_turn_counter;
+let circle_dir;
+let boost_counter;
+let prev_energy;
+
 tank.init(function(settings, info) {
   settings.SKIN = "forest";
 

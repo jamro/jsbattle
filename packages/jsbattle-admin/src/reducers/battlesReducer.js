@@ -8,13 +8,11 @@ const battlesReducer = (state, action) => {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'BATTLE_LIST_SUCCESS':
-      return {...state, page: action.payload};
-    default:
-      return state;
+  if (action.type == 'BATTLE_LIST_SUCCESS') {
+    return {...state, page: action.payload};
+  } else {
+    return state;
   }
-
 };
 
 export default battlesReducer;

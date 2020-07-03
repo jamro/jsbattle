@@ -29,11 +29,10 @@ const dashboardReducer = (state, action) => {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'DASHBOARD_INFO_SUCCESS':
-      return {...action.payload};
-    default:
-      return state;
+  if (action.type == 'DASHBOARD_INFO_SUCCESS') {
+    return {...action.payload};
+  } else {
+    return state;
   }
 
 };

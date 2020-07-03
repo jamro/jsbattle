@@ -34,7 +34,7 @@ class RankTable {
     // remove duplicates
     count++;
     let removedCount = 0;
-    for(let i=0; i < count; i++) {
+    for(i=0; i < count; i++) {
       if(this.data[i].id == entity.id && i != insertedIndex) {
         removedCount++;
       }
@@ -43,7 +43,7 @@ class RankTable {
         this.data[i].rank = i+1;
       }
     }
-    for(let i=0; i < removedCount; i++) {
+    for(i=0; i < removedCount; i++) {
       this.data.pop();
     }
   }

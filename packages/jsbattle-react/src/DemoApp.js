@@ -2,7 +2,7 @@ import React from 'react';
 import JsBattleBattlefield from './JsBattleBattlefield.js';
 import JsBattle from 'jsbattle-engine';
 
-class App extends React.Component {
+class DemoApp extends React.Component {
 
   constructor(props) {
     super(props);
@@ -182,4 +182,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default DemoApp;

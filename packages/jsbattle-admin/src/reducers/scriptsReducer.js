@@ -8,11 +8,10 @@ const scriptsReducer = (state, action) => {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'SCRIPT_LIST_SUCCESS':
-      return {...state, page: action.payload};
-    default:
-      return state;
+  if (action.type == 'SCRIPT_LIST_SUCCESS') {
+    return {...state, page: action.payload};
+  } else {
+    return state;
   }
 
 };

@@ -10,11 +10,10 @@ const systemReducer = (state, action) => {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'SYSTEM_INFO_SUCCESS':
-      return {...state, info: action.payload};
-    default:
-      return state;
+  if (action.type == 'SYSTEM_INFO_SUCCESS') {
+    return {...state, info: action.payload};
+  } else {
+    return state;
   }
 
 };

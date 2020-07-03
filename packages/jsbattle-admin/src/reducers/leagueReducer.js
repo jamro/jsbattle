@@ -2,19 +2,18 @@ const initState = {
   page: null
 };
 
-const leaguesReducer = (state, action) => {
+const leagueReducer = (state, action) => {
   state = state || {};
   state = {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'LEAGUE_LIST_SUCCESS':
-      return {...state, page: action.payload};
-    default:
-      return state;
+  if (action.type == 'LEAGUE_LIST_SUCCESS') {
+    return {...state, page: action.payload};
+  } else {
+    return state;
   }
 
 };
 
-export default leaguesReducer;
+export default leagueReducer;

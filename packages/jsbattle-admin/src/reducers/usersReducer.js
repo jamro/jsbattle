@@ -12,8 +12,8 @@ const usersReducer = (state, action) => {
   switch (action.type) {
     case 'USER_LIST_SUCCESS':
       return {...state, page: action.payload};
-      case 'USER_VIEW_SUCCESS':
-        return {...state, selected: action.payload};
+    case 'USER_VIEW_SUCCESS':
+      return {...state, selected: action.payload};
     default:
       return state;
   }

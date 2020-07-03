@@ -14,7 +14,7 @@ const mockUserData = {
   email: 'mock@example.com'
 };
 
-function configStrategyMock(app, logger, broker, passport, providerConfig, serviceConfig) {
+function configStrategyMock(app, logger, broker, providerConfig, serviceConfig) {
   passport.use(new CustomStrategy((req, callback) => {
     callback(null, mockUserData);
   }));
@@ -44,7 +44,7 @@ function configPassport(app, logger, broker, serviceConfig) {
   }
   serviceConfig.auth.providers.forEach((provider) => {
     if(provider.name == 'mock') {
-      configStrategyMock(app, logger, broker, passport, provider, serviceConfig);
+      configStrategyMock(app, logger, broker, provider, serviceConfig);
       return;
     }
     let AuthStrategy = authStrategies[provider.name];

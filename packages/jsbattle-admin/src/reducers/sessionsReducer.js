@@ -8,16 +8,15 @@ const sessionsReducer = (state, action) => {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case 'SESSION_LIST_SUCCESS':
-      return {
-        ...state,
-        page: {
-          rows: action.payload
-        }
-      };
-    default:
-      return state;
+  if (action.type == 'SESSION_LIST_SUCCESS') {
+    return {
+      ...state,
+      page: {
+        rows: action.payload
+      }
+    };
+  } else {
+    return state;
   }
 
 };

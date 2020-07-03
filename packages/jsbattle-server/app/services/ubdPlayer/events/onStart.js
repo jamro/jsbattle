@@ -73,8 +73,8 @@ module.exports = async function() {
       page.on('pageerror', ({ message }) => this.logger.debug(message));
       await page.goto('http://localhost:' + this.port);
       await page.waitFor('#ubd');
-      await page.$eval('#ubd', (el, ubd) => {
-        el.value = JSON.stringify(ubd)
+      await page.$eval('#ubd', (el, ubdData) => {
+        el.value = JSON.stringify(ubdData)
       }, ubd);
       await page.$eval('#speed', (el, speed) => {
         el.value = speed
@@ -85,7 +85,7 @@ module.exports = async function() {
       await page.waitFor('#output', {timeout: this.settings.ubdPlayer.timeout});
       this.logger.debug('Battle completed');
       const element = await page.$("#output");
-      const text = await page.evaluate((element) => element.innerHTML, element);
+      const text = await page.evaluate((el) => el.innerHTML, element);
       if(page && !page.isClosed()) {
         await page.close();
       }

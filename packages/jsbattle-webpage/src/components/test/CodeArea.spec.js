@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {mount, unmount} from 'enzyme';
+import {mount} from 'enzyme';
 import CodeArea from '../CodeArea.js';
 
 test('Renders properly', () => {

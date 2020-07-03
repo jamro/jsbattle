@@ -1,10 +1,9 @@
 import 'babel-polyfill';
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import {ChallengeScreen} from '../ChallengeScreen.js';
 import LiveCode from '../../components/LiveCode.js';
 import Loading from '../../components/Loading.js';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 const dummyAiDef = {
   "source": "code",

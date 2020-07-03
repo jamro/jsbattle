@@ -2,8 +2,8 @@ import 'babel-polyfill';
 import leagueReducer from '../leagueReducer.js';
 import {
   LEAGUE_SUMMARY_SUCCESS,
-  LEAGUE_SUMMARY_REQUEST,
-  LEAGUE_SUMMARY_FAILURE,
+  LEAGUE_NEW_SUBMISSION_SUCCESS,
+  LEAGUE_CLEAR_SUBMISSION_SUCCESS
 } from '../../actions/actionTypes.js';
 
 test('has init state', () => {
@@ -17,7 +17,7 @@ test('league summary', () => {
   const outcomeState = leagueReducer(
     {},
     {
-      type: 'LEAGUE_SUMMARY_SUCCESS',
+      type: LEAGUE_SUMMARY_SUCCESS,
       payload: {
         submission: {
           id: 7245,
@@ -50,7 +50,7 @@ test('join league', () => {
   const outcomeState = leagueReducer(
     {},
     {
-      type: 'LEAGUE_NEW_SUBMISSION_SUCCESS',
+      type: LEAGUE_NEW_SUBMISSION_SUCCESS,
       payload: {
         submission: {
           id: 7245,
@@ -123,7 +123,7 @@ test('join league', () => {
   const outcomeState = leagueReducer(
     {},
     {
-      type: 'LEAGUE_CLEAR_SUBMISSION_SUCCESS',
+      type: LEAGUE_CLEAR_SUBMISSION_SUCCESS,
       payload: {
         submission: {},
         ranktable: [

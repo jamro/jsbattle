@@ -75,7 +75,7 @@ test('play battle', async () => {
     onFinishCallback = resolve;
   })
 
-  const wrapper = mount(<LiveCode
+  mount(<LiveCode
     renderer="void"
     disableSandbox={true}
     aiDefList={aiDefList}

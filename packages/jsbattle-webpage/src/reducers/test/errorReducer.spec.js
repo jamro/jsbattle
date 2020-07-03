@@ -43,35 +43,35 @@ test('store error', () => {
 });
 
 test('clear error', () => {
-  const state1 = errorReducer(
+  errorReducer(
     {},
     {
       type: 'MY_ACTION_FAILURE',
       payload: new Error('Ooops 4523456')
     }
   );
-  const state2 = errorReducer(
+  const state = errorReducer(
     {},
     {
       type: 'MY_ACTION_CLEAR_ERROR'
     }
   );
-  expect(!!state2.MY_ACTION).toBe(false)
+  expect(!!state.MY_ACTION).toBe(false)
 });
 
 test('clear error on another request', () => {
-  const state1 = errorReducer(
+  errorReducer(
     {},
     {
       type: 'MY_ACTION_FAILURE',
       payload: new Error('Ooops 4523456')
     }
   );
-  const state2 = errorReducer(
+  const state = errorReducer(
     {},
     {
       type: 'MY_ACTION_REQUEST'
     }
   );
-  expect(!!state2.MY_ACTION).toBe(false)
+  expect(!!state.MY_ACTION).toBe(false)
 });

@@ -33,7 +33,7 @@ test('get stored settings', async () => {
 });
 
 test('set simulation speed', async () => {
-  const result = await setSimSpeed(4.391);
+  await setSimSpeed(4.391);
   expect(global.localStorage.setItem.mock.calls).toHaveLength(1);
   expect(global.localStorage.setItem.mock.calls[0][0]).toBe("settings.simSpeed");
   expect(global.localStorage.setItem.mock.calls[0][1]).toBe(4.391);

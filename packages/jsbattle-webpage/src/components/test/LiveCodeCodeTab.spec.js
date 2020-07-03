@@ -1,7 +1,6 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import LiveCodeCodeTab from '../LiveCodeCodeTab.js';
-import CodeArea from '../CodeArea.js';
 
 test('LiveCodeCodeTab renders properly', () => {
   const wrapper = shallow(<LiveCodeCodeTab />);

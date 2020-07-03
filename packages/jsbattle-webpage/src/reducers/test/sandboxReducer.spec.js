@@ -1,8 +1,6 @@
 import 'babel-polyfill';
 import sandboxReducer from '../sandboxReducer.js';
 import {
-  SETTINGS_SUCCESS,
-  SETTINGS_FAILURE,
   AI_SCRIPT_REQUEST,
   AI_SCRIPT_SUCCESS,
   AI_SCRIPT_FAILURE,

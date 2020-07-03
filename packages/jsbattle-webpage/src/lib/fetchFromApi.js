@@ -96,9 +96,9 @@ function attachFetch(fn, mapArgs) {
       params = uriComponents[1]
         .split('&')
         .map((row) => row.split('='))
-        .reduce((result, value) => {
-          result[value[0]] = value[1];
-          return result;
+        .reduce((components, value) => {
+          components[value[0]] = value[1];
+          return components;
         }, {});
     }
     let uriElements = uriComponents[0].split('/');

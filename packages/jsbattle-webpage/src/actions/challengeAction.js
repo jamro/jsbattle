@@ -80,7 +80,7 @@ export const getChallenge = (challengeId, useRemoteService) => {
     dispatch({type: CHALLENGE_REQUEST});
     try {
       let challengeList = await fetchChallengeList(useRemoteService);
-      let challengeFromList = challengeList.find((challenge) => challenge.id == challengeId);
+      let challengeFromList = challengeList.find((c) => c.id == challengeId);
       if(!challengeFromList) {
         throw new Error('Challenge data mismatch');
       }

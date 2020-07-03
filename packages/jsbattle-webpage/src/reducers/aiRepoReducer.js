@@ -14,14 +14,13 @@ function aiRepoReducer(state = {}, action) {
     ...initState,
     ...state
   };
-  switch (action.type) {
-    case SANDBOX_AI_SCRIPT_LIST_SUCCESS:
-      return {
-        ...state,
-        tankList: action.payload
-      };
-    default:
-      return state;
+  if (action.type == SANDBOX_AI_SCRIPT_LIST_SUCCESS) {
+    return {
+      ...state,
+      tankList: action.payload
+    };
+  } else {
+    return state;
   }
 }
 

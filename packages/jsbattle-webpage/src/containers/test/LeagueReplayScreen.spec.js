@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import {LeagueReplayScreen} from '../LeagueReplayScreen.js';
 import Loading from '../../components/Loading.js';
 import DuelResultScreen from "../../components/DuelResultScreen.js";

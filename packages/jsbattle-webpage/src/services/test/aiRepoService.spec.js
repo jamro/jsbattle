@@ -188,7 +188,7 @@ test('delete script', async () => {
       code: '// code 1453'
     }
   }));
-  let result = await deleteScript('local_blue717663');
+  await deleteScript('local_blue717663');
 
   expect(global.localStorage.setItem.mock.calls[0][0]).toBe('scriptMap')
   let outcome = JSON.parse(global.localStorage.setItem.mock.calls[0][1])

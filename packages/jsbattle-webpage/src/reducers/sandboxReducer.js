@@ -25,7 +25,7 @@ const initState = {
 };
 
 
-function sanboxReducer(state = {}, action) {
+function sandboxReducer(state = {}, action) {
   action = action || {};
   state = state || {};
   state = {
@@ -101,4 +101,4 @@ function sanboxReducer(state = {}, action) {
   }
 }
 
-export default sanboxReducer;
+export default sandboxReducer;

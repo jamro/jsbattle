@@ -35,6 +35,12 @@ module.exports = (authProviders) => {
     return result;
   }
 
+  let defaultEntities = {
+    entityId: {
+      type: "string"
+    }
+  };
+
   let entities = fs
     .readdirSync(path.resolve(__dirname, '..', '..'))
     .map((name) => path.resolve(__dirname, '..', '..', name, 'entity.js'))
@@ -55,8 +61,25 @@ module.exports = (authProviders) => {
         properties
       }
       return result;
-    }, {});
+    }, defaultEntities);
 
+  let securitySchemes = authProviders.reduce((def, provider) => {
+      def['oauth_' + provider.name] = {
+        type: "oauth2",
+        description: "Login via " + provider.name,
+        flows: {
+          implicit: {
+            authorizationUrl: '/auth/' + provider.name,
+            scopes: {}
+          }
+        }
+      }
+      return def;
+    }, {});
+  let securitySchemaNames = Object.keys(securitySchemes);
+  if(securitySchemaNames.length > 0) {
+    securitySchemes.oauth_default = securitySchemes[securitySchemaNames[0]];
+  }
 
   return {
    swaggerDefinition: {
@@ -67,18 +90,7 @@ module.exports = (authProviders) => {
        version: pkgInfo.version
      },
      components: {
-       securitySchemes: authProviders.reduce((def, provider) => {
-           def['oauth_' + provider.name] = {
-             type: "oauth2",
-             flows: {
-               implict: {
-                 authorizationUrl: 'http://localhost:9000/auth/' + provider.name,
-                 scopes: {}
-               }
-             }
-           }
-           return def;
-         }, {}),
+       securitySchemes: securitySchemes,
        schemas: entities
      }
    },

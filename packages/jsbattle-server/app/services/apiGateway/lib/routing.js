@@ -52,7 +52,8 @@ module.exports = {
      *        name: battleId
      *        description: ID of the battle
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -108,7 +109,7 @@ module.exports = {
      *      '422':
      *        description: user already registered
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "PATCH initData": "userStore.register",
 
@@ -125,7 +126,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET scripts": "scriptStore.listUserScripts",
 
@@ -141,7 +142,8 @@ module.exports = {
      *        name: scriptId
      *        description: ID of the script
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -150,7 +152,7 @@ module.exports = {
      *      '404':
      *        description: script not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET scripts/:id": "scriptStore.getUserScript",
 
@@ -169,7 +171,7 @@ module.exports = {
      *      '422':
      *        description: script limit exceeded
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "POST scripts": "scriptStore.createUserScript",
 
@@ -185,7 +187,8 @@ module.exports = {
      *        name: scriptId
      *        description: ID of the script
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    requestBody:
      *      content:
      *        application/json:
@@ -201,7 +204,7 @@ module.exports = {
      *      '404':
      *        description: script not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "PATCH scripts/:id": "scriptStore.updateUserScript",
 
@@ -217,7 +220,8 @@ module.exports = {
      *        name: scriptId
      *        description: ID of the script
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -226,7 +230,7 @@ module.exports = {
      *      '404':
      *        description: script not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "DELETE scripts/:id": "scriptStore.deleteUserScript",
 
@@ -243,7 +247,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET challenges": "challenges.listUserChallenges",
 
@@ -259,7 +263,8 @@ module.exports = {
      *        name: challengeId
      *        description: ID of the challenge
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -268,7 +273,7 @@ module.exports = {
      *      '404':
      *        description: challenge not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET challenges/:challengeId": "challenges.getUserChallenge",
 
@@ -284,7 +289,8 @@ module.exports = {
      *        name: challengeId
      *        description: ID of the challenge
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    requestBody:
      *      content:
      *        application/json:
@@ -298,7 +304,7 @@ module.exports = {
      *      '404':
      *        description: challenge not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "PATCH challenges/:challengeId": "challenges.updateUserChallenge",
 
@@ -315,7 +321,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET league/": "league.getLeagueSummary",
 
@@ -331,7 +337,8 @@ module.exports = {
      *        name: battleId
      *        description: ID of the battle
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -340,7 +347,7 @@ module.exports = {
      *      '404':
      *        description: battle with provided Id does not exist
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET league/replay/:id": "battleStore.get",
 
@@ -357,7 +364,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET league/submission": "league.getUserSubmission",
 
@@ -374,7 +381,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET league/ranktable": "league.getUserRankTable",
 
@@ -390,7 +397,8 @@ module.exports = {
      *        name: scriptId
      *        description: ID of the script
      *        required: true
-     *        type: string
+     *        schema:
+     *          $ref: "#/components/schemas/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -399,7 +407,7 @@ module.exports = {
      *      '404':
      *        description: script not found
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "GET league/scripts/:id": "league.getScript",
 
@@ -424,7 +432,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "PATCH league/submission": "league.joinLeague",
 
@@ -441,7 +449,7 @@ module.exports = {
      *      '401':
      *        description: not authorized
      *    security:
-     *      - oauth: []
+     *      - oauth_default: []
      */
     "DELETE league/submission": "league.leaveLeague",
   },

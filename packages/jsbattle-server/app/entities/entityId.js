@@ -5,7 +5,9 @@ module.exports = {
     maxLength: 64,
     pattern: "^[A-Za-z0-9_\\-.\\\\]+$"
   },
-  example: {
-    value: '5f003f81d7075d564ec03066'
+  examples: {
+    default: {
+      value: '5f003f81d7075d564ec03066'
+    }
   }
 }

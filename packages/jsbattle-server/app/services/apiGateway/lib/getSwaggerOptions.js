@@ -11,7 +11,17 @@ module.exports = (authProviders) => {
     .reduce((data, entityPath) => {
       let entityName = path.basename(entityPath, '.js');
       data.schemas[entityName] = require(entityPath).schema;
-      data.examples[entityName] = require(entityPath).example;
+      let examplesInput = require(entityPath).examples;
+      let examples = {};
+      let names = Object.keys(examplesInput);
+      for(let i of names) {
+        let exampleName = i == 'default' ? entityName : entityName + "_" + i;
+        examples[exampleName] = examplesInput[i];
+      }
+      data.examples = {
+        ...data.examples,
+        ...examples
+      };
       return data;
     }, {schemas: {}, examples: {}});
 

@@ -54,6 +54,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -75,32 +78,10 @@ module.exports = {
      *      content:
      *        application/json:
      *          schema:
-     *            type: object
-     *            properties:
-     *              username:
-     *                type: string
-     *              displayName:
-     *                type: string
-     *              challenges:
-     *                type: array
-     *                items:
-     *                  type: object
-     *                  properties:
-     *                    challengeId:
-     *                      type: string
-     *                    completed:
-     *                      type: boolean
-     *                    code:
-     *                      type: string
-     *              scripts:
-     *                type: array
-     *                items:
-     *                  type: object
-     *                  properties:
-     *                    scriptName:
-     *                      type: string
-     *                    code:
-     *                      type: string
+     *            $ref: "#/components/schemas/UserInitData"
+     *          examples:
+     *            default:
+     *              $ref: "#/components/examples/UserInitData"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -144,6 +125,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -189,14 +173,17 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    requestBody:
      *      content:
      *        application/json:
      *          schema:
      *            $ref: "#/components/schemas/Script"
      *          examples:
-     *            Script:
-     *              $ref: "#/components/examples/Script"
+     *            default:
+     *              $ref: "#/components/examples/Script_update"
      *      description: Script object to be updated
      *      required: true
      *    responses:
@@ -225,6 +212,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -268,6 +258,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -294,6 +287,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    requestBody:
      *      content:
      *        application/json:
@@ -342,6 +338,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -402,6 +401,9 @@ module.exports = {
      *        required: true
      *        schema:
      *          $ref: "#/components/schemas/entityId"
+     *        examples:
+     *          default:
+     *            $ref: "#/components/examples/entityId"
      *    responses:
      *      '200':
      *        description: a successfull response
@@ -425,10 +427,10 @@ module.exports = {
      *      content:
      *        application/json:
      *          schema:
-     *            type: object
-     *            properties:
-     *              scriptId:
-     *                type: string
+     *            $ref: "#/components/schemas/League"
+     *          examples:
+     *            default:
+     *              $ref: "#/components/examples/League_join"
      *    responses:
      *      '200':
      *        description: a successfull response

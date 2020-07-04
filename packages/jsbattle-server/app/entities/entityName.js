@@ -5,7 +5,9 @@ module.exports = {
     maxLength: 16,
     pattern: '^[A-Za-z0-9_-]+$'
   },
-  example: {
-    value: 'bravo'
+  examples: {
+    default: {
+      value: 'bravo'
+    }
   }
 }

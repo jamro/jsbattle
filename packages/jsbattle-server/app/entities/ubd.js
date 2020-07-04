@@ -4,7 +4,9 @@ module.exports = {
     minLength: 2,
     maxLength: 524288
   },
-  example: {
-    value: "{\"foo\": \"bar\"}"
+  examples: {
+    default: {
+      value: "{\"foo\": \"bar\"}"
+    }
   }
 }

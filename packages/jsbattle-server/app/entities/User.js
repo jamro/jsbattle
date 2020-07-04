@@ -49,18 +49,20 @@ module.exports = {
       }
     }
   },
-  example: {
-    value: {
-      id: '81d7075d564e3e403fc07621',
-      username: 'johnny',
-      displayName: 'Johnny Bravo',
-      provider: 'google',
-      extUserId: 'johny.bravo',
-      email: 'johny.bravo@example.com',
-      registered: true,
-      role: 'user',
-      createdAt: '2020-07-04T06:36:02.048Z',
-      lastLoginAt: '2020-07-04T05:41:19.932Z'
+  examples: {
+    default: {
+      value: {
+        id: '81d7075d564e3e403fc07621',
+        username: 'johnny',
+        displayName: 'Johnny Bravo',
+        provider: 'google',
+        extUserId: 'johny.bravo',
+        email: 'johny.bravo@example.com',
+        registered: true,
+        role: 'user',
+        createdAt: '2020-07-04T06:36:02.048Z',
+        lastLoginAt: '2020-07-04T05:41:19.932Z'
+      }
     }
   }
 }

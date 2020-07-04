@@ -30,14 +30,16 @@ module.exports = {
       }
     }
   },
-  example: {
-    value: {
-      "id":"a2d7075d56b76c234ec03048",
-      "userId":"07ec06a685d56ba2d787af44",
-      "challengeId":"challenge-8UCUaNvC",
-      "modifiedAt":"2020-07-05T18:36:02.048Z",
-      "code":"console.log('hello world')",
-      "completed":false
+  examples: {
+    default: {
+      value: {
+        "id":"a2d7075d56b76c234ec03048",
+        "userId":"07ec06a685d56ba2d787af44",
+        "challengeId":"challenge-8UCUaNvC",
+        "modifiedAt":"2020-07-05T18:36:02.048Z",
+        "code":"console.log('hello world')",
+        "completed":false
+      }
     }
   }
 }

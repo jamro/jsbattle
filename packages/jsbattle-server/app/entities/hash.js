@@ -5,7 +5,9 @@ module.exports = {
     maxLength: 128,
     pattern: '^[a-zA-Z0-9]+$'
   },
-  example: {
-    value: '9AF1A86A4DC1B465C69814AA49094FA2B0403F1C'
+  examples: {
+    deafult: {
+      value: '9AF1A86A4DC1B465C69814AA49094FA2B0403F1C'
+    }
   }
 }

@@ -232,6 +232,51 @@
           }
         }
       },
+      "UserInitData": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "$ref": "#/components/schemas/entityName"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9\\- .]+$"
+          },
+          "challenges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "challengeId": {
+                  "$ref": "#/components/schemas/entityId"
+                },
+                "completed": {
+                  "type": "boolean"
+                },
+                "code": {
+                  "$ref": "#/components/schemas/code"
+                }
+              }
+            }
+          },
+          "scripts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "scriptName": {
+                  "$ref": "#/components/schemas/entityName"
+                },
+                "code": {
+                  "$ref": "#/components/schemas/code"
+                }
+              }
+            }
+          }
+        }
+      },
       "code": {
         "type": "string",
         "maxLength": 65536
@@ -318,6 +363,11 @@
           "hash": "4D2B0403F1CC1B465C69814AA49AF1A86A9094FA"
         }
       },
+      "League_join": {
+        "value": {
+          "id": "a2d7075d56b76c234ec03048"
+        }
+      },
       "Script": {
         "value": {
           "id": "81d7075d564e3e403fc07621",
@@ -329,6 +379,12 @@
           "createdAt": "2020-07-04T06:36:02.048Z",
           "modifiedAt": "2020-07-04T06:39:42.184Z",
           "hash": "4D2B0403F1CC1B465C69814AA49AF1A86A9094FA"
+        }
+      },
+      "Script_update": {
+        "value": {
+          "scriptName": "bravo",
+          "code": "console.log('hello world')"
         }
       },
       "User": {
@@ -345,6 +401,25 @@
           "lastLoginAt": "2020-07-04T05:41:19.932Z"
         }
       },
+      "UserInitData": {
+        "value": {
+          "username": "jbravo",
+          "displayName": "Johnny Bravo",
+          "challenges": [
+            {
+              "challengeId": "challenge-8UCUaNvC",
+              "code": "console.log(\"hello world\")",
+              "completed": false
+            }
+          ],
+          "scripts": [
+            {
+              "scriptName": "alpha",
+              "code": "console.log(\"hello world from alpha\")"
+            }
+          ]
+        }
+      },
       "code": {
         "value": "console.log('hello wolrd');"
       },
@@ -357,7 +432,7 @@
       "entityName": {
         "value": "bravo"
       },
-      "hash": {
+      "hash_deafult": {
         "value": "9AF1A86A4DC1B465C69814AA49094FA2B0403F1C"
       },
       "ubd": {
@@ -419,6 +494,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -442,45 +522,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "displayName": {
-                    "type": "string"
-                  },
-                  "challenges": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "challengeId": {
-                          "type": "string"
-                        },
-                        "completed": {
-                          "type": "boolean"
-                        },
-                        "code": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  },
-                  "scripts": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "scriptName": {
-                          "type": "string"
-                        },
-                        "code": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
+                "$ref": "#/components/schemas/UserInitData"
+              },
+              "examples": {
+                "default": {
+                  "$ref": "#/components/examples/UserInitData"
                 }
               }
             }
@@ -561,6 +607,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -594,6 +645,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -604,8 +660,8 @@
                 "$ref": "#/components/schemas/Script"
               },
               "examples": {
-                "Script": {
-                  "$ref": "#/components/examples/Script"
+                "default": {
+                  "$ref": "#/components/examples/Script_update"
                 }
               }
             }
@@ -643,6 +699,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -699,6 +760,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -732,6 +798,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -797,6 +868,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],
@@ -847,11 +923,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "scriptId": {
-                    "type": "string"
-                  }
+                "$ref": "#/components/schemas/League"
+              },
+              "examples": {
+                "default": {
+                  "$ref": "#/components/examples/League_join"
                 }
               }
             }
@@ -926,6 +1002,11 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/entityId"
+            },
+            "examples": {
+              "default": {
+                "$ref": "#/components/examples/entityId"
+              }
             }
           }
         ],

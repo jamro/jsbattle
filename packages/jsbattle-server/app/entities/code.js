@@ -3,7 +3,9 @@ module.exports = {
     type: "string",
     maxLength: 65536
   },
-  example: {
-    value: "console.log('hello wolrd');"
+  examples: {
+    default: {
+      value: "console.log('hello wolrd');"
+    }
   }
 }

@@ -4,7 +4,9 @@ module.exports = {
     maxLength: 256,
     pattern: '^([\\w-]+@([\\w-]+\\.)+[\\w-]+)|$',
   },
-  example: {
-    value: 'johny.bravo@example.com'
+  examples: {
+    default: {
+      value: 'johny.bravo@example.com'
+    }
   }
 }

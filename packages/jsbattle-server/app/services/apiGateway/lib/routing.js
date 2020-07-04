@@ -194,6 +194,9 @@ module.exports = {
      *        application/json:
      *          schema:
      *            $ref: "#/components/schemas/Script"
+     *          examples:
+     *            Script:
+     *              $ref: "#/components/examples/Script"
      *      description: Script object to be updated
      *      required: true
      *    responses:

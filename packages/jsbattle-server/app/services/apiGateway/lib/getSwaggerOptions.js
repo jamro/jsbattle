@@ -4,64 +4,16 @@ const fs = require('fs');
 
 module.exports = (authProviders) => {
   authProviders = authProviders || [];
-  let convertFormat = (f) => {
-    let map = {
-      number: {type: 'number'},
-      boolean: {type: 'boolean'},
-      string: {type: 'string'},
-      date: {type: 'string', format: 'date-time'}
-    };
-    let result;
-    if(map[f.type]) {
-      result = map[f.type];
-    } else {
-      result = {type: 'string'}
-    }
-    if(result.type == 'string' && f.pattern) {
-      result.pattern = f.pattern.toString();
-    }
-    if(result.type == 'string' && f.min) {
-      result.minLength = f.min;
-    }
-    if(result.type == 'string' && f.max) {
-      result.maxLength = f.max;
-    }
-    if(result.type == 'number' && f.min) {
-      result.min = f.min;
-    }
-    if(result.type == 'number' && f.max) {
-      result.max = f.max;
-    }
-    return result;
-  }
 
-  let defaultEntities = {
-    entityId: {
-      type: "string"
-    }
-  };
-
-  let entities = fs
-    .readdirSync(path.resolve(__dirname, '..', '..'))
-    .map((name) => path.resolve(__dirname, '..', '..', name, 'entity.js'))
-    .filter((entityPath) => fs.existsSync(entityPath))
-    .map((entityPath) => require(entityPath))
-    .filter((entity) => entity.entityName)
-    .reduce((result, entity) => {
-      let properties = entity.fields.reduce((schema, field) => {
-        let fieldFormat = { type: 'string'};
-        if(entity.entityValidator && entity.entityValidator[field]) {
-          fieldFormat = convertFormat(entity.entityValidator[field]);
-        }
-        schema[field] = fieldFormat;
-        return schema;
-      }, {});
-      result[entity.entityName] = {
-        type: "object",
-        properties
-      }
-      return result;
-    }, defaultEntities);
+  let entityData = fs
+    .readdirSync(path.resolve(__dirname, '..', '..', '..', 'entities'))
+    .map((filename) => path.resolve(__dirname, '..', '..', '..', 'entities', filename))
+    .reduce((data, entityPath) => {
+      let entityName = path.basename(entityPath, '.js');
+      data.schemas[entityName] = require(entityPath).schema;
+      data.examples[entityName] = require(entityPath).example;
+      return data;
+    }, {schemas: {}, examples: {}});
 
   let securitySchemes = authProviders.reduce((def, provider) => {
       def['oauth_' + provider.name] = {
@@ -91,7 +43,8 @@ module.exports = (authProviders) => {
      },
      components: {
        securitySchemes: securitySchemes,
-       schemas: entities
+       schemas: entityData.schemas,
+       examples: entityData.examples,
      }
    },
    apis: [path.resolve(__dirname, 'routing.js')]

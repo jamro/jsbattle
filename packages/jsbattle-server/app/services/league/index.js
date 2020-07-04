@@ -1,10 +1,11 @@
 const DbService = require("moleculer-db");
 const getDbAdapterConfig = require("../../lib/getDbAdapterConfig.js");
+const getEntityConfig = require("../../lib/getEntityConfig.js");
 const validators = require("../../validators");
 
 module.exports = (config) => {
   let adapterConfig = getDbAdapterConfig(config.data, 'league');
-  let entity = require('./entity.js');
+  let entity = getEntityConfig('League');
 
   return {
     ...adapterConfig,

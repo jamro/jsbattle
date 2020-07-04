@@ -1,7 +1,7 @@
 const DbService = require("moleculer-db");
 const MemoryAdapter = DbService.MemoryAdapter;
 const MongoDBAdapter = require("moleculer-db-adapter-mongo");
-const path = require('path')
+const path = require('path');
 
 module.exports = function(dbConfig = {}, name = 'data') {
   let adapterConfig;

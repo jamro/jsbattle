@@ -8,17 +8,15 @@
   "components": {
     "securitySchemes": {},
     "schemas": {
-      "entityId": {
-        "type": "string"
-      },
       "Battle": {
         "type": "object",
+        "required": [
+          "createdAt",
+          "ubd"
+        ],
         "properties": {
           "id": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "createdAt": {
             "type": "string",
@@ -29,155 +27,147 @@
             "format": "date-time"
           },
           "ubd": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 524288
+            "$ref": "#/components/schemas/ubd"
           },
           "description": {
             "type": "string",
             "maxLength": 1024
           },
           "meta": {
-            "type": "string",
-            "maxLength": 1048576
+            "type": "object"
           },
           "owner": {
-            "type": "string",
-            "maxLength": 10
+            "type": "object",
+            "items": {
+              "$ref": "#/components/schemas/entityId"
+            }
           }
         }
       },
       "Challenge": {
         "type": "object",
+        "required": [
+          "challengeId",
+          "userId",
+          "code",
+          "modifiedAt",
+          "completed"
+        ],
         "properties": {
           "id": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "challengeId": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "userId": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "code": {
-            "type": "string",
-            "maxLength": 65536
-          },
-          "completed": {
-            "type": "boolean"
+            "$ref": "#/components/schemas/code"
           },
           "modifiedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "completed": {
+            "type": "boolean"
           }
         }
       },
       "League": {
         "type": "object",
+        "required": [
+          "joinedAt",
+          "ownerId",
+          "ownerName",
+          "scriptId",
+          "scriptName",
+          "fights_total",
+          "fights_win",
+          "fights_lose",
+          "fights_error",
+          "score",
+          "code"
+        ],
         "properties": {
           "id": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "joinedAt": {
             "type": "string",
             "format": "date-time"
           },
           "ownerId": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "ownerName": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "scriptId": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "scriptName": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "fights_total": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "fights_win": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "fights_lose": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "fights_error": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "score": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "code": {
-            "type": "string",
-            "maxLength": 65536
+            "$ref": "#/components/schemas/code"
           },
           "hash": {
-            "type": "string",
-            "pattern": "/^[a-zA-Z0-9]+$/",
-            "minLength": 16,
-            "maxLength": 128
+            "$ref": "#/components/schemas/hash"
           }
         }
       },
       "Script": {
         "type": "object",
+        "required": [
+          "ownerId",
+          "ownerName",
+          "scriptName",
+          "namespace",
+          "code",
+          "createdAt",
+          "modifiedAt",
+          "hash"
+        ],
         "properties": {
           "id": {
-            "type": "string"
+            "$ref": "#/components/schemas/entityId"
           },
           "ownerId": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_\\-.\\\\]+$/",
-            "minLength": 3,
-            "maxLength": 64
+            "$ref": "#/components/schemas/entityId"
           },
           "ownerName": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "scriptName": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "namespace": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "code": {
-            "type": "string",
-            "maxLength": 65536
+            "$ref": "#/components/schemas/code"
           },
           "createdAt": {
             "type": "string",
@@ -188,36 +178,35 @@
             "format": "date-time"
           },
           "hash": {
-            "type": "string",
-            "pattern": "/^[a-zA-Z0-9]+$/",
-            "minLength": 16,
-            "maxLength": 128
+            "$ref": "#/components/schemas/hash"
           }
         }
       },
       "User": {
         "type": "object",
+        "required": [
+          "username",
+          "provider",
+          "extUserId",
+          "role",
+          "createdAt",
+          "lastLoginAt"
+        ],
         "properties": {
           "id": {
-            "type": "string"
+            "$ref": "#/components/schemas/entityId"
           },
           "username": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "displayName": {
             "type": "string",
-            "pattern": "/^[A-Za-z0-9\\- .]+$/",
             "minLength": 3,
-            "maxLength": 16
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9\\- .]+$"
           },
           "provider": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "extUserId": {
             "type": "string",
@@ -225,18 +214,13 @@
             "maxLength": 1024
           },
           "email": {
-            "type": "string",
-            "pattern": "/^([\\w-]+@([\\w-]+\\.)+[\\w-]+)|$/",
-            "maxLength": 256
+            "$ref": "#/components/schemas/email"
           },
           "registered": {
             "type": "boolean"
           },
           "role": {
-            "type": "string",
-            "pattern": "/^[A-Za-z0-9_-]+$/",
-            "minLength": 3,
-            "maxLength": 16
+            "$ref": "#/components/schemas/entityName"
           },
           "createdAt": {
             "type": "string",
@@ -247,6 +231,137 @@
             "format": "date-time"
           }
         }
+      },
+      "code": {
+        "type": "string",
+        "maxLength": 65536
+      },
+      "email": {
+        "type": "string",
+        "maxLength": 256,
+        "pattern": "^([\\w-]+@([\\w-]+\\.)+[\\w-]+)|$"
+      },
+      "entityId": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 64,
+        "pattern": "^[A-Za-z0-9_\\-.\\\\]+$"
+      },
+      "entityName": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 16,
+        "pattern": "^[A-Za-z0-9_-]+$"
+      },
+      "hash": {
+        "type": "string",
+        "minLength": 16,
+        "maxLength": 128,
+        "pattern": "^[a-zA-Z0-9]+$"
+      },
+      "ubd": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 524288
+      }
+    },
+    "examples": {
+      "Battle": {
+        "value": {
+          "id": "5f002352d7075d564ec03048",
+          "createdAt": "2020-07-04T06:36:02.048Z",
+          "expiresAt": "2020-07-05T18:36:02.048Z",
+          "ubd": "{\"foo\": \"bar\"}",
+          "description": "jsbattle/sniper vs jsbattle/crawler",
+          "meta": [
+            {
+              "id": "5ee5f5ab15fc3f3f278082c4",
+              "name": "jsbattle/sniper",
+              "winner": true
+            },
+            {
+              "id": "5ee698c99feda049511a15ee",
+              "name": "jsbattle/crawler",
+              "winner": false
+            }
+          ],
+          "owner": [
+            "5ee5f5ab15fc3f3f278082c4",
+            "5ee698c99feda049511a15ee"
+          ]
+        }
+      },
+      "Challenge": {
+        "value": {
+          "id": "a2d7075d56b76c234ec03048",
+          "userId": "07ec06a685d56ba2d787af44",
+          "challengeId": "challenge-8UCUaNvC",
+          "modifiedAt": "2020-07-05T18:36:02.048Z",
+          "code": "console.log('hello world')",
+          "completed": false
+        }
+      },
+      "League": {
+        "value": {
+          "id": "a2d7075d56b76c234ec03048",
+          "jonedAt": "2020-07-05T18:36:02.048Z",
+          "ownerId": "07ec06a685d56ba2d787af44",
+          "ownerName": "johnny",
+          "scriptId": "587ab58706a685daf4407e1",
+          "scriptName": "bravo",
+          "fights_total": 109,
+          "fights_win": 62,
+          "fights_lose": 47,
+          "fights_error": 0,
+          "score": 5688,
+          "code": "console.log('hello world')",
+          "hash": "4D2B0403F1CC1B465C69814AA49AF1A86A9094FA"
+        }
+      },
+      "Script": {
+        "value": {
+          "id": "81d7075d564e3e403fc07621",
+          "ownerId": "5d564ec076351f082a81d707",
+          "ownerName": "johnny",
+          "scriptName": "bravo",
+          "namespace": "user",
+          "code": "console.log('hello world')",
+          "createdAt": "2020-07-04T06:36:02.048Z",
+          "modifiedAt": "2020-07-04T06:39:42.184Z",
+          "hash": "4D2B0403F1CC1B465C69814AA49AF1A86A9094FA"
+        }
+      },
+      "User": {
+        "value": {
+          "id": "81d7075d564e3e403fc07621",
+          "username": "johnny",
+          "displayName": "Johnny Bravo",
+          "provider": "google",
+          "extUserId": "johny.bravo",
+          "email": "johny.bravo@example.com",
+          "registered": true,
+          "role": "user",
+          "createdAt": "2020-07-04T06:36:02.048Z",
+          "lastLoginAt": "2020-07-04T05:41:19.932Z"
+        }
+      },
+      "code": {
+        "value": "console.log('hello wolrd');"
+      },
+      "email": {
+        "value": "johny.bravo@example.com"
+      },
+      "entityId": {
+        "value": "5f003f81d7075d564ec03066"
+      },
+      "entityName": {
+        "value": "bravo"
+      },
+      "hash": {
+        "value": "9AF1A86A4DC1B465C69814AA49094FA2B0403F1C"
+      },
+      "ubd": {
+        "value": "{\"foo\": \"bar\"}"
       }
     }
   },
@@ -487,6 +602,11 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Script"
+              },
+              "examples": {
+                "Script": {
+                  "$ref": "#/components/examples/Script"
+                }
               }
             }
           },

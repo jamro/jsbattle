@@ -7,7 +7,7 @@ module.exports = {
   },
   examples: {
     default: {
-      value: '5f003f81d7075d564ec03066'
+      value: 'MRF6IRZb2CKYk8Ie'
     }
   }
 }

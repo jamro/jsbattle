@@ -11,6 +11,16 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/User"
+     *            examples:
+     *              user:
+     *                $ref: "#/components/examples/User"
+     *              guest:
+     *                $ref: "#/components/examples/User_guest"
+     *
      */
     "GET profile": "auth.whoami",
 
@@ -24,6 +34,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/AuthMethods"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/AuthMethods"
      */
     "GET authMethods": "auth.getAuthMethods",
 
@@ -37,6 +54,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/LeagueHistory"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/LeagueHistory"
      */
     "GET leaguePreview": "league.getHistory",
 
@@ -60,6 +84,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Battle"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Battle"
      *      '404':
      *        description: battle with provided Id does not exist
      */
@@ -85,6 +116,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/User"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/User"
      *      '401':
      *        description: not authorized
      *      '422':
@@ -104,6 +142,15 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: "#/components/schemas/Script"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Script_list"
      *      '401':
      *        description: not authorized
      *    security:
@@ -131,6 +178,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Script"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Script"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -150,6 +204,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Script"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Script"
      *      '401':
      *        description: not authorized
      *      '422':
@@ -189,6 +250,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Script"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Script"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -237,6 +305,15 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: "#/components/schemas/Challenge"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Challenge_list"
      *      '401':
      *        description: not authorized
      *    security:
@@ -264,6 +341,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Challenge"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Challenge"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -295,9 +379,19 @@ module.exports = {
      *        application/json:
      *          schema:
      *            $ref: "#/components/schemas/Challenge"
+     *          examples:
+     *            default:
+     *              $ref: "#/components/examples/Challenge_update"
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Challenge"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Challenge"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -317,6 +411,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/LeagueSummary"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/LeagueSummary"
      *      '401':
      *        description: not authorized
      *    security:
@@ -344,6 +445,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Battle"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Battle"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -363,6 +471,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/LeagueSubmission"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/LeagueSubmission"
      *      '401':
      *        description: not authorized
      *    security:
@@ -380,6 +495,16 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              type: array
+     *              items:
+     *                $ref: "#/components/schemas/League"
+     *            examples:
+     *              default:
+     *                value:
+     *                  - $ref: "#/components/examples/League/value"
      *      '401':
      *        description: not authorized
      *    security:
@@ -407,6 +532,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/Script"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/Script"
      *      '401':
      *        description: not authorized
      *      '404':
@@ -434,6 +566,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/LeagueSummary"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/LeagueSummary"
      *      '401':
      *        description: not authorized
      *    security:
@@ -451,6 +590,13 @@ module.exports = {
      *    responses:
      *      '200':
      *        description: a successfull response
+     *        content:
+     *           application/json:
+     *            schema:
+     *              $ref: "#/components/schemas/LeagueSummary"
+     *            examples:
+     *              default:
+     *                $ref: "#/components/examples/LeagueSummary_empty"
      *      '401':
      *        description: not authorized
      *    security:

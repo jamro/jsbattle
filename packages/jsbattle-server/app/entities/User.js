@@ -63,6 +63,19 @@ module.exports = {
         createdAt: '2020-07-04T06:36:02.048Z',
         lastLoginAt: '2020-07-04T05:41:19.932Z'
       }
+    },
+    guest: {
+      value: {
+        "username": "guest",
+        "displayName": "Guest",
+        "provider": "",
+        "extUserId": "",
+        "email": "",
+        "registered": false,
+        "role": "guest",
+        "createdAt": "2020-07-04T20:33:11.725Z",
+        "lastLoginAt": "2020-07-04T20:33:11.725Z"
+      }
     }
   }
 }

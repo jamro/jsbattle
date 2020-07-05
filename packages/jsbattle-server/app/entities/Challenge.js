@@ -40,6 +40,28 @@ module.exports = {
         "code":"console.log('hello world')",
         "completed":false
       }
+    },
+    update: {
+      value: {
+        "code":"console.log('hello world')",
+        "completed":false
+      }
+    },
+    list: {
+      value: [
+        {
+          "challengeId": "challenge-8UCUaNvC",
+          "completed": true
+        },
+        {
+          "challengeId": "challenge-Du7tyrCB",
+          "completed": true
+        },
+        {
+          "challengeId": "challenge-4syTf6ph",
+          "completed": false
+        }
+      ]
     }
   }
 }

@@ -47,7 +47,7 @@ module.exports = {
   examples: {
     default: {
       value: {
-        username: 'jbravo',
+        username: 'johnny',
         displayName: 'Johnny Bravo',
         challenges: [
           {

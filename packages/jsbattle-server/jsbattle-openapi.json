@@ -8,6 +8,9 @@
   "components": {
     "securitySchemes": {},
     "schemas": {
+      "AuthMethods": {
+        "type": "object"
+      },
       "Battle": {
         "type": "object",
         "required": [
@@ -135,6 +138,73 @@
           },
           "hash": {
             "$ref": "#/components/schemas/hash"
+          }
+        }
+      },
+      "LeagueHistory": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/components/schemas/entityId"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "players": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "$ref": "#/components/schemas/entityId"
+                  },
+                  "name": {
+                    "$ref": "#/components/schemas/entityName"
+                  },
+                  "winner": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "LeagueSubmission": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/League"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "latest": {
+                "type": "boolean"
+              },
+              "history": {
+                "$ref": "#/components/schemas/LeagueHistory"
+              }
+            }
+          }
+        ]
+      },
+      "LeagueSummary": {
+        "type": "object",
+        "properties": {
+          "submission": {
+            "$ref": "#/components/schemas/LeagueSubmission"
+          },
+          "ranktable": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/League"
+            }
+          },
+          "history": {
+            "$ref": "#/components/schemas/LeagueHistory"
           }
         }
       },
@@ -311,6 +381,18 @@
       }
     },
     "examples": {
+      "AuthMethods": {
+        "value": {
+          "github": {
+            "name": "GitHub",
+            "url": "http://localhost:9000/auth/github"
+          },
+          "google": {
+            "name": "Google",
+            "url": "http://localhost:9000/auth/google"
+          }
+        }
+      },
       "Battle": {
         "value": {
           "id": "5f002352d7075d564ec03048",
@@ -346,6 +428,28 @@
           "completed": false
         }
       },
+      "Challenge_update": {
+        "value": {
+          "code": "console.log('hello world')",
+          "completed": false
+        }
+      },
+      "Challenge_list": {
+        "value": [
+          {
+            "challengeId": "challenge-8UCUaNvC",
+            "completed": true
+          },
+          {
+            "challengeId": "challenge-Du7tyrCB",
+            "completed": true
+          },
+          {
+            "challengeId": "challenge-4syTf6ph",
+            "completed": false
+          }
+        ]
+      },
       "League": {
         "value": {
           "id": "a2d7075d56b76c234ec03048",
@@ -365,7 +469,92 @@
       },
       "League_join": {
         "value": {
-          "id": "a2d7075d56b76c234ec03048"
+          "scriptId": "587ab58706a685daf4407e1"
+        }
+      },
+      "LeagueHistory": {
+        "value": [
+          {
+            "id": "ztYTcUTDOE5g9doS",
+            "createdAt": "2020-07-05T07:14:20.509Z",
+            "players": [
+              {
+                "id": "pXgkeRXuPI3AxggE",
+                "name": "jsbattle/chicken",
+                "winner": true
+              },
+              {
+                "id": "dLz6Nz8lLmmlvzUT",
+                "name": "jsbattle/crawler",
+                "winner": false
+              }
+            ]
+          },
+          {
+            "id": "TSRqYpMO61okgWbJ",
+            "createdAt": "2020-07-05T07:14:14.531Z",
+            "players": [
+              {
+                "id": "c8P3GlLUD5IPKYi4",
+                "name": "jsbattle/sniper",
+                "winner": false
+              },
+              {
+                "id": "JYoJCbKQWX6oxZC4",
+                "name": "jsbattle/jamro",
+                "winner": true
+              }
+            ]
+          }
+        ]
+      },
+      "LeagueSubmission": {
+        "value": {
+          "allOf": [
+            {
+              "$ref": "#/components/examples/League/value"
+            },
+            {
+              "latest": true,
+              "history": [
+                {
+                  "$ref": "#/components/examples/LeagueHistory/value/0"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "LeagueSummary": {
+        "value": {
+          "submission": {
+            "$ref": "#/components/examples/LeagueSubmission/value"
+          },
+          "ranktable": [
+            {
+              "$ref": "#/components/examples/League/value"
+            }
+          ],
+          "history": [
+            {
+              "$ref": "#/components/examples/LeagueHistory/value/0"
+            }
+          ]
+        }
+      },
+      "LeagueSummary_empty": {
+        "value": {
+          "submission": {},
+          "ranktable": [
+            {
+              "$ref": "#/components/examples/League/value"
+            }
+          ],
+          "history": [
+            {
+              "$ref": "#/components/examples/LeagueHistory/value/0"
+            }
+          ]
         }
       },
       "Script": {
@@ -387,6 +576,32 @@
           "code": "console.log('hello world')"
         }
       },
+      "Script_list": {
+        "value": [
+          {
+            "id": "81d7075d564e3e403fc07621",
+            "ownerId": "5d564ec076351f082a81d707",
+            "ownerName": "johnny",
+            "scriptName": "bravo",
+            "namespace": "user",
+            "code": "console.log('hello world')",
+            "createdAt": "2020-07-04T06:36:02.048Z",
+            "modifiedAt": "2020-07-04T06:39:42.184Z",
+            "hash": "4D2B0403F1CC1B465C69814AA49AF1A86A9094FA"
+          },
+          {
+            "id": "0703f62181de3e475d5c0764",
+            "ownerId": "5d564ec076351f082a81d707",
+            "ownerName": "johnny",
+            "scriptName": "predator",
+            "namespace": "user",
+            "code": "console.log('hello world 2')",
+            "createdAt": "2020-07-05T11:32:12.001Z",
+            "modifiedAt": "2020-07-06T12:19:54.938Z",
+            "hash": "F1A840696A93F1CC09812B01B4654AA49A4FA4DC"
+          }
+        ]
+      },
       "User": {
         "value": {
           "id": "81d7075d564e3e403fc07621",
@@ -401,9 +616,22 @@
           "lastLoginAt": "2020-07-04T05:41:19.932Z"
         }
       },
+      "User_guest": {
+        "value": {
+          "username": "guest",
+          "displayName": "Guest",
+          "provider": "",
+          "extUserId": "",
+          "email": "",
+          "registered": false,
+          "role": "guest",
+          "createdAt": "2020-07-04T20:33:11.725Z",
+          "lastLoginAt": "2020-07-04T20:33:11.725Z"
+        }
+      },
       "UserInitData": {
         "value": {
-          "username": "jbravo",
+          "username": "johnny",
           "displayName": "Johnny Bravo",
           "challenges": [
             {
@@ -427,7 +655,7 @@
         "value": "johny.bravo@example.com"
       },
       "entityId": {
-        "value": "5f003f81d7075d564ec03066"
+        "value": "MRF6IRZb2CKYk8Ie"
       },
       "entityName": {
         "value": "bravo"
@@ -449,7 +677,22 @@
         "description": "Information about current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "$ref": "#/components/examples/User"
+                  },
+                  "guest": {
+                    "$ref": "#/components/examples/User_guest"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -462,7 +705,19 @@
         "description": "List of supported authentication methods",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMethods"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/AuthMethods"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -475,7 +730,19 @@
         "description": "history of recent league battles",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueHistory"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/LeagueHistory"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -504,7 +771,19 @@
         ],
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Battle"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Battle"
+                  }
+                }
+              }
+            }
           },
           "404": {
             "description": "battle with provided Id does not exist"
@@ -534,7 +813,19 @@
         },
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/User"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -558,7 +849,22 @@
         "description": "list all scripts of current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Script"
+                  }
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Script_list"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -577,7 +883,19 @@
         "description": "create a new script owned by currrent user.",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Script"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Script"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -617,7 +935,19 @@
         ],
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Script"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Script"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -671,7 +1001,19 @@
         },
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Script"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Script"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -733,7 +1075,22 @@
         "description": "challenges of current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Challenge"
+                  }
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Challenge_list"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -770,7 +1127,19 @@
         ],
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Challenge"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -811,13 +1180,30 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Challenge"
+              },
+              "examples": {
+                "default": {
+                  "$ref": "#/components/examples/Challenge_update"
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Challenge"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -841,7 +1227,19 @@
         "description": "league summary for current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueSummary"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/LeagueSummary"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -878,7 +1276,19 @@
         ],
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Battle"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Battle"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -902,7 +1312,19 @@
         "description": "current user submission to the league",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueSubmission"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/LeagueSubmission"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -935,7 +1357,19 @@
         },
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueSummary"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/LeagueSummary"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -954,7 +1388,19 @@
         "description": "leave the league by current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueSummary"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/LeagueSummary_empty"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -975,7 +1421,26 @@
         "description": "rank table slice for current user",
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/League"
+                  }
+                },
+                "examples": {
+                  "default": {
+                    "value": [
+                      {
+                        "$ref": "#/components/examples/League/value"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"
@@ -1012,7 +1477,19 @@
         ],
         "responses": {
           "200": {
-            "description": "a successfull response"
+            "description": "a successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Script"
+                },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/Script"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "not authorized"

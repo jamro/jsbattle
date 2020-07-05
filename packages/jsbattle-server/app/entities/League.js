@@ -82,7 +82,7 @@ module.exports = {
     },
     join: {
       value: {
-        "id":"a2d7075d56b76c234ec03048"
+        "scriptId":"587ab58706a685daf4407e1"
       }
     }
   }

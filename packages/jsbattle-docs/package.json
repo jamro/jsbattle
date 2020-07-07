@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "http-server -c-1 ./dist",
+    "start": "http-server -c-1 ./dist",
+    "start:dev": "run-p watch start",
     "watch": "npm-watch",
     "clean": "rimraf ./dist && rimraf ./docs/dev_guide/howtos/engine && rimraf ./docs/dev_guide/howtos/react",
     "lint": "puml testdot",

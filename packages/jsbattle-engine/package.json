@@ -5,6 +5,7 @@
   "main": "src/engine/lib.js",
   "scripts": {
     "start": "http-server -c-1 ./dist",
+    "start:dev": "run-p watch start",
     "watch": "npm-watch",
     "clean": "rimraf dist",
     "lint": "jshint --config ./jshint.config.json src/",

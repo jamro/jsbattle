@@ -6,7 +6,10 @@
   "bin": {
     "jsbattle-mock": "./app/cli.js"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node ./app/cli.js",
+    "start:dev": "nodemon ./app/cli.js --delay 2"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
@@ -15,5 +18,8 @@
     "express": "^4.17.1",
     "json-server": "^0.16.1",
     "randomstring": "^1.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

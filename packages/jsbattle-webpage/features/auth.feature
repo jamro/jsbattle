@@ -71,10 +71,10 @@ Feature: Auth
     And Click "mock" auth method
     And register form is shown
     And type "mock-registred" in "#register-form #username" input
-    And type "Registered Mock User" in "#register-form #displayname" input
+    And type "Reg User" in "#register-form #displayname" input
     And click "#register-form button"
     Then register form is not shown
-    And user name is "Registered Mock User"
+    And user name is "Reg User"
 
   Scenario: Continue as guest
     Given JsBattle open in the browser
@@ -98,7 +98,7 @@ Feature: Auth
     And Click "mock" auth method
     And register form is shown
     And type "mock-registred" in "#register-form #username" input
-    And type "Registered Mock User" in "#register-form #displayname" input
+    And type "Reg User" in "#register-form #displayname" input
     And click "#register-form button"
     And "Challenges" section open
     Then challenge [1, 2] are unlocked
@@ -112,7 +112,7 @@ Feature: Auth
     And Click "mock" auth method
     And register form is shown
     And type "mock-registred" in "#register-form #username" input
-    And type "Registered Mock User" in "#register-form #displayname" input
+    And type "Reg User" in "#register-form #displayname" input
     And click "#register-form button"
     And "Sandbox" section open
     Then list of AI scripts contains 1 items

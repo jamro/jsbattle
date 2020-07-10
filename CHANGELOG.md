@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/jamro/jsbattle/compare/v3.3.0...v3.4.0) (2020-07-10)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** fix length of ubd queu ([61a62b4](https://github.com/jamro/jsbattle/commit/61a62b4d6d125f1210fe5c8c391c448db693f8be))
+
+
+### Features
+
+* **jsbattle-server:** remove failing scripts from the battle ([b6fb6bb](https://github.com/jamro/jsbattle/commit/b6fb6bb2c210c8781392a0fceae69929af264f77))
+
+
+### Reverts
+
+* **jsbattle:** drop ubdplayer tool ([f8824a8](https://github.com/jamro/jsbattle/commit/f8824a873de15b2d69be43a2c6253ce41f865514))
+
+
+
+
+
 # [3.3.0](https://github.com/jamro/jsbattle/compare/v3.2.1...v3.3.0) (2020-06-25)
 
 

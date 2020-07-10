@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-docs",
-  "version": "3.2.0",
+  "version": "3.4.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -43,8 +43,8 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^3.1.0",
-    "jsbattle-react": "^3.1.0"
+    "jsbattle-engine": "^3.4.0",
+    "jsbattle-react": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

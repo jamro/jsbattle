@@ -51,6 +51,7 @@
     "lodash": "^4.17.15",
     "path": "^0.12.7",
     "puppeteer": "^3.3.0",
+    "swagger-jsdoc": "^4.0.0",
     "yargs": "^15.3.1"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"

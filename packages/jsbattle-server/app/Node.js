@@ -14,6 +14,7 @@ class Node {
   }
 
   init(options) {
+    options = options || {};
     // add auth strategies defined in env vars
     if(!options.skipEnv) {
       serviceConfig.loadEnv();

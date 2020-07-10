@@ -9,5 +9,6 @@ module.exports = (config) => ({
   events: {
     "node.echo": require('./events/onNodeEcho.js')
   },
-  started: require('./events/onStart.js')
+  started: require('./events/onStart.js'),
+  stopped: require('./events/onStop.js')
 });

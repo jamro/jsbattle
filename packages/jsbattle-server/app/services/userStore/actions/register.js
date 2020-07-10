@@ -36,6 +36,7 @@ function validateUserName(username) {
 
 
 module.exports = async function(ctx) {
+  this.logger.trace('Validate user register data')
   let response;
   const userId = ctx.meta.user ? ctx.meta.user.id : null;
   if(!userId) {

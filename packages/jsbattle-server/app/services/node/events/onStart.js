@@ -29,5 +29,5 @@ module.exports = function() {
 
     this.broker.broadcast("node.echo", { info })
   };
-  setInterval(loop, 5000 + Math.round(5000*Math.random()));
+  this.loopCallback = setInterval(loop, 5000 + Math.round(5000*Math.random()));
 }

@@ -6,8 +6,7 @@ const scriptNames = ["aardvark", "absence", "achlys", "adams", "admiral", "adoi"
 
 module.exports = async function(ctx) {
   const userId = ctx.meta.user ? ctx.meta.user.id : null;
-  const username = ctx.meta.user && ctx.meta.user.username ? ctx.meta.user.username : null;
-  if(!userId || !username) {
+  if(!userId) {
     throw new ValidationError('Not Authorized!', 401);
   }
   let user = await ctx.call('userStore.get', { id: userId });

@@ -1,6 +1,7 @@
 const DbService = require("moleculer-db");
 const getDbAdapterConfig = require("../../lib/getDbAdapterConfig.js");
 const getEntityConfig = require("../../lib/getEntityConfig.js");
+const validators = require("../../validators");
 
 module.exports = (config) => {
 
@@ -18,11 +19,18 @@ module.exports = (config) => {
     },
     actions: {
       findOrCreate: require("./actions/findOrCreate.js"),
-      register: require("./actions/register.js")
+      register: {
+        params: {
+          username: validators.entityName({optional: true}),
+          displayName: validators.userFullName({optional: true}),
+        },
+        handler: require("./actions/register.js")
+      }
     },
     hooks: {
       before: {
         create: [require("./hooks/create.js")],
+        register: [require("./hooks/register.js")],
         update: [require("./hooks/update.js")]
       }
     }

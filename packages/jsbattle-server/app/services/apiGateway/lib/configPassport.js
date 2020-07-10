@@ -31,7 +31,13 @@ function configStrategyMock(app, logger, broker, providerConfig, serviceConfig) 
       broker.emit("user.login", user.id);
       broker.emit("user.activity", {action: '$.login', timestamp: new Date(), userId: user.id, username: user.username, role: user.role, uri: req.originalUrl});
       res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 60*60*1000 })
-      res.redirect('/');
+      logger.trace('Auth mock: setting JWT in response header');
+      if(req.query.format == 'json') {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ token: response.token }, null, 2));
+      } else {
+        res.redirect('/');
+      }
     }
   );
   logger.info(`Authorization strategy added: Log in at ${serviceConfig.web.baseUrl}/auth/mock`);
@@ -82,7 +88,13 @@ function configPassport(app, logger, broker, serviceConfig) {
         broker.emit("user.login", user.id);
         broker.emit("user.activity", {action: '$.login', timestamp: new Date(), userId: user.id, username: user.username, role: user.role, uri: req.originalUrl});
         res.cookie('JWT_TOKEN', response.token, { httpOnly: true, maxAge: 60*60*1000 })
-        res.redirect('/');
+        logger.trace('Auth ' + provider.name + ': setting JWT in response header');
+        if(req.query.format == 'json') {
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ token: response.token }, null, 2));
+        } else {
+          res.redirect('/');
+        }
       }
     );
     logger.info(`Authorization strategy added: Log in at ${serviceConfig.web.baseUrl}/auth/${provider.name}`);

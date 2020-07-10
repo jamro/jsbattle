@@ -22,6 +22,7 @@ describe("Test 'ScriptStore' service", () => {
 					name: 'userStore',
 					actions: {
 						get: () => ({
+							username: 'john',
 							registered: false
 						})
 					}
@@ -54,6 +55,7 @@ describe("Test 'ScriptStore' service", () => {
 					name: 'userStore',
 					actions: {
 						get: () => ({
+							username: 'john',
 							registered: true
 						})
 					}

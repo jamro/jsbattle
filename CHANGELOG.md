@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/jamro/jsbattle/compare/v3.4.0...v3.4.1) (2020-07-10)
+
+
+### Bug Fixes
+
+* **jsbattle:** add missing swagger-jsdoc dependency ([17e0e97](https://github.com/jamro/jsbattle/commit/17e0e977bb676128539388b7c1a37a5b715c1e4c))
+
+
+
+
+
 # [3.4.0](https://github.com/jamro/jsbattle/compare/v3.3.0...v3.4.0) (2020-07-10)
 
 

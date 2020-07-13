@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **jsbattle-server:** fix length of ubd queu ([61a62b4](https://github.com/jamro/jsbattle/commit/61a62b4d6d125f1210fe5c8c391c448db693f8be))
+* **jsbattle-server:** fix length of ubd queue ([61a62b4](https://github.com/jamro/jsbattle/commit/61a62b4d6d125f1210fe5c8c391c448db693f8be))
 
 
 ### Features

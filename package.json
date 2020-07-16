@@ -7,7 +7,7 @@
     "clean": "lerna run clean --stream",
     "lint": "lerna bootstrap && lerna run lint --stream",
     "build": "lerna bootstrap && lerna run build --stream",
-    "test": "lerna bootstrap && lerna run test --stream",
+    "test": "lerna bootstrap && lerna run test --stream --concurrency 1",
     "all": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "ci": "lerna bootstrap && npm run-script clean && npm run-script lint && npm run-script build && npm run-script test",
     "commit": "git-cz",

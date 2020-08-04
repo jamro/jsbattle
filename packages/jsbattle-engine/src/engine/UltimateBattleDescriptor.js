@@ -110,6 +110,7 @@ class UltimateBattleDescriptor {
     let result = new UltimateBattleDescriptor();
     result.setRngSeed(this.getRngSeed());
     result.setTeamMode(this.getTeamMode());
+    result.setTimeLimit(this.getTimeLimit());
     let aiList = this.getAiList();
     let aiClone;
     for(let ai of aiList) {

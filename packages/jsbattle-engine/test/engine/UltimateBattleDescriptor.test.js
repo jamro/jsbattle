@@ -44,6 +44,7 @@ describe('UltimateBattleDescriptor', function() {
     it('should copy the descriptor', function() {
       let desc = new UltimateBattleDescriptor();
       desc.setRngSeed(342);
+      desc.setTimeLimit(9984);
       desc.setTeamMode(true);
       desc.addAiDefinition(new AiDefinitionMock("tank1"));
       desc.addAiDefinition(new AiDefinitionMock("tank2"));
@@ -56,6 +57,7 @@ describe('UltimateBattleDescriptor', function() {
       assert.equal(2, clone.getAiList().length);
       assert.equal(desc.getVersion(), clone.getVersion());
       assert.equal(true, clone.getTeamMode());
+      assert.equal(9984, clone.getTimeLimit());
 
     });
 

@@ -4,12 +4,13 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 describe("Test 'Queue' service", () => {
 	let broker;
 
 	beforeEach(async () => {
-		broker = new ServiceBroker({ logger: false });
+		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		const schemaBuilder = require(__dirname + "../../../../app/services/queue/index.js");
 		broker.createService(schemaBuilder(serviceConfig.data));
 		await broker.start()

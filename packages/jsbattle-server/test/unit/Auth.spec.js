@@ -4,6 +4,7 @@ const serviceConfig = require('../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 const createTestUser = () => ({
 	id: "123456",
@@ -29,7 +30,7 @@ describe("Test 'Auth' service", () => {
 			]
 		}
 	});
-	let broker = new ServiceBroker({ logger: false });
+	let broker = new ServiceBroker(require('../utils/getLoggerSettings.js')(path.resolve(__dirname, '..'), __filename, expect.getState()));
 	const schemaBuilder = require(__dirname + "../../../app/services/auth/index.js");
 	broker.createService(schemaBuilder(serviceConfig.data));
 	broker.createService({

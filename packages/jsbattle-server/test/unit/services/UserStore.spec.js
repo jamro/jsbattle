@@ -4,6 +4,7 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 const updateUserChallenge = jest.fn();
 const createUserScript = jest.fn();
@@ -16,7 +17,7 @@ const createTestToken = (user) => ({
 
 describe("Test 'UserStore' service", () => {
 	serviceConfig.extend({ auth: { admins: [{provider: 'google', username: 'monica83' }] } });
-	let broker = new ServiceBroker({ logger: false });
+	let broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 	broker.createService({
 		name: 'auth',
 		actions: {

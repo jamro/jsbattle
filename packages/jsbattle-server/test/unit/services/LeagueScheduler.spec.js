@@ -3,6 +3,7 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
@@ -93,7 +94,7 @@ describe("Test 'League' service", () => {
 				 queueLimit: 11
 			 }
 		});
-		broker = new ServiceBroker({ logger: false });
+		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		broker.createService({
 				name: 'scriptStore',
 				actions: {

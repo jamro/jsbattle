@@ -100,15 +100,19 @@ class Node {
       this.broker.start()
         .then(() => this.broker.broadcast('app.seed', {}))
         .then(resolve)
-        .catch((err) => console.error(`Error occured! ${err.message}`));
+        .catch((err) => console.error(`Error occured during starting the node! ${err.message}`));
     });
+  }
+
+  async waitForApi() {
+    this.broker.waitForServices('apiGateway');
   }
 
   stop() {
     return new Promise((resolve) => {
       this.broker.stop()
         .then(resolve)
-        .catch((err) => console.error(`Error occured! ${err.message}`));
+        .catch((err) => console.error(`Error occured during stopping the node! ${err.message}`));
     });
   }
 

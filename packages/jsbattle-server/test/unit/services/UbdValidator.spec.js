@@ -4,9 +4,10 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
+const path = require('path');
 
 describe("Test 'UbdValidator' service", () => {
-	let broker = new ServiceBroker({ logger: false });
+	let broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 	const schemaBuilder = require(__dirname + "../../../../app/services/ubdValidator/index.js");
 	broker.createService(schemaBuilder(serviceConfig.data));
 

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./app/runner.js",
     "start:dev": "nodemon ./app/runner.js --delay 2",
-    "clean": "rimraf app/services/ubdPlayer/www/js && rimraf app/services/ubdPlayer/www/tank",
+    "clean": "rimraf app/services/ubdPlayer/www/js && rimraf app/services/ubdPlayer/www/tank && ",
     "build": "npm run build:api && npm run build:app",
     "build:api": "node ./tools/openApiGen/run.js > jsbattle-openapi.json",
     "build:app": "cpx 'node_modules/jsbattle-engine/dist/js/*' app/services/ubdPlayer/www/js && cpx 'node_modules/jsbattle-engine/dist/tanks/**/*.*' app/services/ubdPlayer/www/tanks",
@@ -17,7 +17,7 @@
     "test": "npm run test:scoring && npm run test:app",
     "lint": "eslint app/",
     "test:scoring": "node ./tools/scoringBenchmark/run.js",
-    "test:app": "jest --env node ..."
+    "test:app": "rimraf test/logs && jest --env node ..."
   },
   "devDependencies": {
     "axios": "^0.19.2",

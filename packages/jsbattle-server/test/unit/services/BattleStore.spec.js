@@ -5,6 +5,7 @@ const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
+const path = require('path');
 
 const defaultExpireTime = 30*24*60*60*1000;
 
@@ -17,7 +18,7 @@ describe("Test 'Battlestore' service", () => {
 				cleanupInterval: 100
 			}
 		});
-		let broker = new ServiceBroker({ logger: false });
+		let broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {
@@ -273,7 +274,7 @@ describe("Test 'Battlestore' service", () => {
 
 	describe("ubdValidator always fails", () => {
 
-		let broker = new ServiceBroker({ logger: false });
+		let broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		broker.createService({
 				name: 'ubdValidator',
 				actions: {

@@ -3,12 +3,13 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 describe("Test 'Stats' service", () => {
 	let broker;
 
 	beforeEach(async () => {
-		broker = new ServiceBroker({ logger: false });
+		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		broker.createService({
 			name: 'userStore',
 			actions: {

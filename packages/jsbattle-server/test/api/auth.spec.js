@@ -2,7 +2,7 @@
 const Node = require('../../app/Node.js');
 const axios = require('axios');
 const { ServiceBroker } = require("moleculer");
-
+const path = require('path');
 const PORT = 8771
 const BASE_URL = `http://localhost:${PORT}`
 
@@ -13,7 +13,7 @@ describe("Test Auth API", () => {
 		beforeEach(async () => {
 			gateway = new Node();
 			await gateway.init({
-				loglevel: 'none',
+				...(require('../utils/getLoggerSettings.js')(path.resolve(__dirname, '..'), __filename, expect.getState())),
 				skipEnv: true,
 				web: {
 					port: PORT,
@@ -40,6 +40,7 @@ describe("Test Auth API", () => {
 				}
 			});
 			await gateway.start();
+			await gateway.waitForApi();
 		});
 
 		afterEach(async () => {

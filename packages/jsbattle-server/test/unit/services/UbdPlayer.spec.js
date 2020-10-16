@@ -5,10 +5,19 @@ const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
 const UbdJsonMock = require('../../mock/UbdJsonMock');
+const path = require('path');
 
 const validateMock = jest.fn();
 const readQueue = jest.fn();
 const writeQueue = jest.fn();
+
+const queueSericeMock =  {
+	name: 'queue',
+	actions: {
+		read: readQueue,
+		write: writeQueue,
+	}
+};
 
 describe("Test 'UbdPlayer' service", () => {
 	let broker;
@@ -25,20 +34,14 @@ describe("Test 'UbdPlayer' service", () => {
 		validateMock.mockReset();
 		validateMock.mockReturnValue({valid: true});
 
-		broker = new ServiceBroker({ logger: false });
+		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 		broker.createService({
 			name: 'ubdValidator',
 			actions: {
 				validate: validateMock
 			}
 		});
-		broker.createService({
-				name: 'queue',
-				actions: {
-					read: readQueue,
-					write: writeQueue,
-				}
-		})
+		broker.createService(queueSericeMock)
 
 		const schemaBuilder = require(__dirname + "../../../../app/services/ubdPlayer/index.js");
 		broker.createService(schemaBuilder(serviceConfig.data));
@@ -47,13 +50,20 @@ describe("Test 'UbdPlayer' service", () => {
 	afterEach(() => broker.stop());
 
 	it('should pick random port', async () => {
-		let broker1 = new ServiceBroker({ logger: false });
 		const schemaBuilder = require(__dirname + "../../../../app/services/ubdPlayer/index.js");
+
+		let broker1 = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState(), 'broker1'));
+		broker1.createService(queueSericeMock);
 		broker1.createService(schemaBuilder(serviceConfig.data));
 		await broker1.start();
-		let broker2 = new ServiceBroker({ logger: false });
+		await broker1.waitForServices('ubdPlayer');
+
+		let broker2 = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState(), 'broker2'));
+		broker2.createService(queueSericeMock);
 		broker2.createService(schemaBuilder(serviceConfig.data));
 		await broker2.start();
+		await broker2.waitForServices('ubdPlayer');
+		
 		await broker1.stop();
 		await broker2.stop();
 	});

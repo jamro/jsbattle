@@ -4,6 +4,7 @@ const serviceConfig = require('../../../app/lib/serviceConfig.js');
 const { ServiceBroker } = require("moleculer");
 const { ValidationError } = require("moleculer").Errors;
 const { MoleculerClientError } = require("moleculer").Errors;
+const path = require('path');
 
 const createTestToken = (user) => ({
 	id: (user ? user.id : '') || "123456",
@@ -16,7 +17,7 @@ describe("Test 'Challenge' service", () => {
 		let broker;
 		beforeEach(async () => {
 			serviceConfig.extend({ auth: { admins: [{provider: 'google', username: 'monica83' }] } });
-			broker = new ServiceBroker({ logger: false });
+			broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 			broker.createService({
 					name: 'userStore',
 					actions: {
@@ -49,7 +50,7 @@ describe("Test 'Challenge' service", () => {
 
 		beforeEach(async () => {
 			serviceConfig.extend({ auth: { admins: [{provider: 'google', username: 'monica83' }] } });
-			broker = new ServiceBroker({ logger: false });
+			broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
 			broker.createService({
 					name: 'userStore',
 					actions: {

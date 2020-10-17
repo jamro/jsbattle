@@ -66,7 +66,7 @@ describe("Test 'UbdPlayer' service", () => {
 		
 		await broker1.stop();
 		await broker2.stop();
-	});
+	}, 30000);
 
 	it('should play the battle', async () => {
 		jest.setTimeout(30000);

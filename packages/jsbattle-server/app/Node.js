@@ -104,8 +104,8 @@ class Node {
     });
   }
 
-  async waitForApi() {
-    this.broker.waitForServices('apiGateway');
+  waitForApi() {
+    return this.broker.waitForServices('apiGateway');
   }
 
   stop() {

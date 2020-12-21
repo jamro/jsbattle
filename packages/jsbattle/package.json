@@ -48,7 +48,7 @@
     "jsbattle-mockserver": "^3.4.0",
     "jsbattle-server": "^3.4.1",
     "jsbattle-webpage": "^3.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "path": "^0.12.7",
     "puppeteer": "^3.3.0",
     "swagger-jsdoc": "^4.0.0",

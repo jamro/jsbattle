@@ -1,4 +1,4 @@
 module.exports = {
   testEnvironment: "node",
-  setupFilesAfterEnv: ["jest-expect-message"]
+  setupFilesAfterEnv: ["./jest.setup.js", "jest-expect-message"]
 };

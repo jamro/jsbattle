@@ -15,7 +15,7 @@ When('type {string} in {string} input', async function (value, selector) {
   }, selector, value);
 });
 When('click {string}', async function (selector) {
-  await this.client.page.waitFor(selector);
+  await this.client.page.waitForSelector(selector);
   await this.client.page.click(selector);
 });
 // THEN ------------------------------------------------------------------------

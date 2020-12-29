@@ -50,7 +50,7 @@
     "jsbattle-webpage": "^3.4.0",
     "lodash": "^4.17.20",
     "path": "^0.12.7",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^5.5.0",
     "swagger-jsdoc": "^4.0.0",
     "yargs": "^15.3.1"
   },

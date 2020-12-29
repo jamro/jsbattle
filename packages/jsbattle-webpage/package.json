@@ -28,7 +28,7 @@
     "test": "npm run test:dom && npm run test:browser",
     "test:dom": "jest -b=3",
     "test:browser": "cucumber-js --tags \"not @integration_only\" -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast --world-parameters '{\"mockserver\": true}'",
-    "test:browser-smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast --world-parameters '{\"mockserver\": true}'",
+    "test:browser-smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --fail-fast  --world-parameters '{\"mockserver\": true}'",
     "analyse": "webpack --profile --json --config ./webpack.config.js > bundle_stats.json && webpack-bundle-analyzer bundle_stats.json",
     "watch": "npm-watch"
   },
@@ -81,7 +81,7 @@
     "json-server": "^0.16.3",
     "npm-watch": "^0.7.0",
     "pm2": "^4.5.1",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",
     "sinon": "^9.2.2",
     "webpack": "^4.43.0",

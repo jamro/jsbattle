@@ -41,7 +41,7 @@
     "lodash": "^4.17.20",
     "npm-watch": "^0.7.0",
     "pm2": "^4.5.1",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^5.5.0",
     "randomstring": "^1.1.5",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",

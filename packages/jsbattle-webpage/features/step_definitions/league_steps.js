@@ -4,7 +4,7 @@ const {After, Given, When, Then } = require('cucumber');
 
 When('click watch of league battle number {int}', async function (index) {
   let css = ".league-history table tr:nth-of-type(" + (index) + ") .watch-button";
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 

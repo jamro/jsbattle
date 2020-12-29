@@ -98,7 +98,7 @@ Given('admin open in the browser', async function () {
   await this.client.page.goto(baseUrl);
 
   const css = '.mock-auth-button';
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 
   await this.client.page.goto(baseUrl);
@@ -106,7 +106,7 @@ Given('admin open in the browser', async function () {
 
 // WHEN ------------------------------------------------------------------------
 When('open {string} section', async function (linkName) {
-  await this.client.page.waitFor('.side-menu');
+  await this.client.page.waitForSelector('.side-menu');
 
   var links = await this.client.page.evaluate(() => {
     var links = document.querySelectorAll('.side-menu .nav a.nav-link');
@@ -125,12 +125,12 @@ When('open {string} section', async function (linkName) {
     }
   }
   var css = '.side-menu .nav a.nav-link:nth-of-type(' + (index+1) + ')';
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 
 When('the data table is displayed', async function () {
-    await this.client.page.waitFor('table.smart-table');
+    await this.client.page.waitForSelector('table.smart-table');
 });
 
 // THEN ------------------------------------------------------------------------
@@ -143,7 +143,7 @@ Then('data table contains {int} rows', async function (rowCount) {
 });
 
 Then('{string} section is selected', async function (linkName) {
-  await this.client.page.waitFor('.side-menu');
+  await this.client.page.waitForSelector('.side-menu');
 
   var name = await this.client.page.evaluate(() => {
     var link = document.querySelector('.side-menu .nav a.nav-link.active');

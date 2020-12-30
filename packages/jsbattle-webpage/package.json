@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "jsbattle-mock --port 9000",
-    "start:dev": "webpack-dev-server --config ./webpack.config.js --mode=development",
+    "start:dev": "webpack serve --config ./webpack.config.js --mode=development",
     "clean": "rimraf dist",
     "lint": "eslint src/",
     "build": "npm run build:copy && npm run build:bundle",
@@ -67,7 +67,7 @@
     "babel-polyfill": "^6.26.0",
     "canvas": "^2.6.1",
     "chai": "^4.2.0",
-    "copy-webpack-plugin": "^6.0.2",
+    "copy-webpack-plugin": "^7.0.0",
     "cpx": "^1.5.0",
     "cucumber": "^6.0.5",
     "enzyme": "^3.11.0",
@@ -84,10 +84,10 @@
     "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",
     "sinon": "^9.2.2",
-    "webpack": "^4.43.0",
-    "webpack-bundle-analyzer": "^3.8.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.11.1",
+    "webpack-bundle-analyzer": "^4.3.0",
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.1"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

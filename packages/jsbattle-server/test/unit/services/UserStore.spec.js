@@ -46,26 +46,56 @@ describe("Test 'UserStore' service", () => {
 
 	describe("find or create user", () => {
 
-		it('should create new user', async () => {
-			const EXT_ID = 'facebook_8392742';
+		it.each([
+			['facebook_8392742', 'facebook', 'joe'],
+			['adam-2345.452#5!', 'github', 'adam-super-star'],
+			['1234567890123456789012345678901234567890', 'google', '12345678901234567890123456789012'],
+		])('should create new user', async (extId, provider, username) => {
 			let result = await broker.call('userStore.find', {query: {
-	      extUserId: EXT_ID
+	      extUserId: extId
 	    }});
 			expect(result).toHaveLength(0);
 			await broker.call("userStore.findOrCreate", {user: {
-				extUserId: EXT_ID,
-				username: 'joe',
-				provider: 'facebook'
+				extUserId: extId,
+				username: username,
+				provider: provider
 			}});
 			result = await broker.call('userStore.find', {query: {
-	      extUserId: EXT_ID
+	      extUserId: extId
 	    }});
 			expect(result).toHaveLength(1);
 			let user = result[0];
-			expect(user.extUserId).toBe(EXT_ID);
-			expect(user).toHaveProperty('username', 'joe');
+			expect(user.extUserId).toBe(extId);
+			expect(user).toHaveProperty('username', username);
 			expect(user).toHaveProperty('role', 'user');
-			expect(user).toHaveProperty('provider', 'facebook');
+			expect(user).toHaveProperty('provider', provider);
+		});
+
+		it.each([
+			['facebook_9871700', 'facebook', 'joe@joe.com'],
+			['facebook_4323422', 'facebook', '123@a.b'],
+			['facebook_5432244', 'facebook', 'long.multi.dot.name@long.multi.dot.domain'],
+			['facebook_7550123', 'facebook', 'some_special-chars@some_special-chars.com'],
+			['facebook_1988321', 'facebook', 'CapitalChars@Capital.Chars'],
+		])('should pass valid email address', async (extId, provider, email) => {
+			let result = await broker.call('userStore.find', {query: {
+	      extUserId: extId
+	    }});
+			expect(result).toHaveLength(0);
+			await broker.call("userStore.findOrCreate", {user: {
+				extUserId: extId,
+				email: email,
+				provider: provider
+			}});
+			result = await broker.call('userStore.find', {query: {
+	      extUserId: extId
+	    }});
+			expect(result).toHaveLength(1);
+			let user = result[0];
+			expect(user.extUserId).toBe(extId);
+			expect(user).toHaveProperty('email', email);
+			expect(user).toHaveProperty('role', 'user');
+			expect(user).toHaveProperty('provider', provider);
 		});
 
 		it('should reuse existing user', async () => {
@@ -136,7 +166,6 @@ describe("Test 'UserStore' service", () => {
 	});
 
 	describe("update user", () => {
-
 		it('should update user', async () => {
 			const EXT_ID = 'google_31244325234';
 			let result = await broker.call("userStore.findOrCreate", {user: {

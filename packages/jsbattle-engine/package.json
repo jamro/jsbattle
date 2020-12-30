@@ -86,7 +86,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "ajv": "^6.12.2",
+    "ajv": "^7.0.2",
     "babel-polyfill": "^6.26.0",
     "pixi.js": "^5.3.6",
     "sat": "^0.8.0",

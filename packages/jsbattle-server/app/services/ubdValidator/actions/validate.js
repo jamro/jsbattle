@@ -49,7 +49,7 @@ module.exports = function(ctx) {
   }
 
   // validate Schema
-  var ajv = new Ajv();
+  var ajv = new Ajv.default();
   var validate = ajv.compile(schema);
   var valid = validate(ubdJson);
   if (!valid) {

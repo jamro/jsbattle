@@ -63,7 +63,7 @@ Maximum duration of the battle in milliseconds, or zero if unlimited
 Follow those steps when releasing new version of UBD schema
 
 1. Create JSON Schema in `packages/jsbattle-engine/src/schema/ubd-schema-v[version].json`
-2. Update version number in ubd-schema file
+2. Update version number in ubd-schema file (`"$id": "http://jsbattle.jmrlab.com/schema/ubd-schema-v[version].json"`)
 3. Update documentation at `packages/jsbattle-docs/docs/dev_guide/ubd_files.md`
    - modify change log
    - describe changed fields

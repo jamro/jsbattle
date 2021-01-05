@@ -17,27 +17,22 @@ let config = {
   externals: {
     'pixi.js': 'PIXI'
   },
-  node: {
-    fs: 'empty'
-  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         use: {
           loader: "babel-loader",
-          query: {
+          options: {
             presets: ['@babel/preset-react']
           }
         }
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader"
-          }
-        ]
+        use: {
+          loader: "html-loader"
+        }
       },
       {
         test: /\.css$/,

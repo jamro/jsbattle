@@ -5,7 +5,7 @@ const urlLib = require('url');
 
 var challengeHelper = {
   getChallengeList: async (page) => {
-    await page.waitFor('.challenge-list');
+    await page.waitForSelector('.challenge-list');
     return await page.evaluate(() => {
       let data = [];
       const rows = document.querySelectorAll('.challenge-list-item');
@@ -27,19 +27,19 @@ Given('all challenges unlocked', async function () {
   await this.client.page.evaluate(() => {
     appController.unlockAllChallenges();
   });
-  await this.client.page.waitFor('.challenge-list > li:last-child > .start-challenge > button:enabled')
+  await this.client.page.waitForSelector('.challenge-list > li:last-child > .start-challenge > button:enabled')
 });
 
 // WHEN ------------------------------------------------------------------------
 When('open challenge {int}', async function (index) {
   let css = ".challenge-list > li:nth-child(" + index + ") > .start-challenge";
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 
 When('click next challenge', async function () {
   let css = ".next-challenge";
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 
@@ -57,13 +57,13 @@ When('battle is completed', function (done) {
 
 When('close challenge info', async function () {
   let css = ".start-coding-button";
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 
 When('open tab {string} of live code panel', async function (tab) {
   let css = `.live-code-right-tabs > .tab-link-${tab} > span.clickable`;
-  await this.client.page.waitFor(css);
+  await this.client.page.waitForSelector(css);
   await this.client.page.click(css);
 });
 
@@ -134,7 +134,7 @@ Then('battle is restarted', function (done) {
 });
 
 Then('the challenge is won', async function () {
-  await this.client.page.waitFor('.result-msg');
+  await this.client.page.waitForSelector('.result-msg');
   let result = await this.client.page.evaluate(() => {
     const element = document.querySelector('.congrats-msg');
     return (element != null);

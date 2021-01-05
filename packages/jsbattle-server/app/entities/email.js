@@ -2,7 +2,7 @@ module.exports = {
   schema: {
     type: "string",
     maxLength: 256,
-    pattern: '^([\\w-]+@([\\w-]+\\.)+[\\w-]+)|$',
+    pattern: '^([\\w\\.-]+@([\\w-]+\\.)+[\\w-]+)|$',
   },
   examples: {
     default: {

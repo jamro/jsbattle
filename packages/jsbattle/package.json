@@ -38,7 +38,7 @@
     "chai": "^4.2.0",
     "cpx": "^1.5.0",
     "cucumber": "^6.0.5",
-    "pm2": "^4.4.0",
+    "pm2": "^4.5.1",
     "rimraf": "^3.0.2"
   },
   "dependencies": {
@@ -48,11 +48,11 @@
     "jsbattle-mockserver": "^3.4.0",
     "jsbattle-server": "^3.4.1",
     "jsbattle-webpage": "^3.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "path": "^0.12.7",
-    "puppeteer": "^3.3.0",
-    "swagger-jsdoc": "^4.0.0",
-    "yargs": "^15.3.1"
+    "puppeteer": "^5.5.0",
+    "swagger-jsdoc": "^6.0.0",
+    "yargs": "^16.2.0"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

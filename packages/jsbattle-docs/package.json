@@ -47,22 +47,22 @@
     "jsbattle-react": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/register": "^7.10.1",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
     "express": "^4.17.1",
     "http-server": "^0.12.3",
-    "mocha": "^7.2.0",
+    "mocha": "^8.2.1",
     "node-plantuml": "^0.9.0",
-    "npm-watch": "^0.6.0",
-    "puppeteer": "^3.3.0",
+    "npm-watch": "^0.7.0",
+    "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",
     "showdown": "^1.9.1",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0",
-    "yargs": "^15.3.1"
+    "socket.io": "^3.0.5",
+    "socket.io-client": "^3.0.5",
+    "yargs": "^16.2.0"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

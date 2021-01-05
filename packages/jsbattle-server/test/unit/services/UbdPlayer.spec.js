@@ -50,6 +50,7 @@ describe("Test 'UbdPlayer' service", () => {
 	afterEach(() => broker.stop());
 
 	it('should pick random port', async () => {
+		jest.setTimeout(30000)
 		const schemaBuilder = require(__dirname + "../../../../app/services/ubdPlayer/index.js");
 
 		let broker1 = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState(), 'broker1'));

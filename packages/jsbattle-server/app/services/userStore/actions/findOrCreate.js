@@ -31,6 +31,10 @@ module.exports = async function(ctx) {
   if(admins) {
     role = 'admin';
   }
+  // limit length to pass entity validator
+  if(user.username) {
+    user.username = user.username.substr(0, 32);
+  }
   let userModel = {
     extUserId: user.extUserId,
     username: user.username,

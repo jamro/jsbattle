@@ -7,22 +7,20 @@ const defaultOptions = {
 }
 
 module.exports = (replacements, options = defaultOptions ) => (reqest, response, next) => {
-  hijackResponse(response, (err, res) => {
-    const contentType = res.get('content-type');
-    if (options.contentTypeFilterRegexp.test(contentType)) {
-      if (err) {
-        res.unhijack();
-        return next(err);
-      }
-      res.removeHeader('Content-Length');
-      res
-        .pipe(stringReplaceStream(replacements))
-        .pipe(res);
-    } else {
-      return res.unhijack();
+  hijackResponse(response, next).then(({ readable, writable }) => {
+    const contentType = response.get('content-type');
+    if (!options.contentTypeFilterRegexp.test(contentType)) {
+      readable.pipe(writable);
+      return;
     }
+    if(response.headersSent) {
+      readable.pipe(writable);
+      return;
+    }
+    response.removeHeader("Content-Length");
+    readable.pipe(stringReplaceStream(replacements)).pipe(writable);
   });
-  next();
+
 };
 
 function stringReplaceStream(replacements) {

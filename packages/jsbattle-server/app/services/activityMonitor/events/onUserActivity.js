@@ -1,6 +1,6 @@
 module.exports = function(activity) {
     if(!activity.userId || !activity.action) {
-      this.logger.warn(`Skipping nvalid action: {userId: ${activity.userId}, action: ${activity.action}}`)
+      this.logger.debug(`Skipping invalid action: {userId: ${activity.userId}, action: ${activity.action}}`)
     }
     activity.username = activity.username || '';
     activity.role = activity.role || '';

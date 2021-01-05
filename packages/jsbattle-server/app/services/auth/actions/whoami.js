@@ -1,8 +1,4 @@
 module.exports = async function(ctx) {
-  let role = 'guest';
-  if(!this.settings.auth.enabled) {
-    role = 'admin';
-  }
   if(!ctx.meta.user || !ctx.meta.user.id) {
     return {
       "username": "guest",
@@ -11,7 +7,7 @@ module.exports = async function(ctx) {
       "extUserId": "",
       "email": "",
       "registered": false,
-      "role": role,
+      "role": "guest",
       "createdAt": new Date(),
       "lastLoginAt": new Date()
     };

@@ -6,13 +6,32 @@ const path = require('path');
 const { setDefinitionFunctionWrapper } = require('cucumber');
 const MockServer = require('jsbattle-mockserver');
 
+
 setDefinitionFunctionWrapper(function(fn, options) {
   if(Object.getPrototypeOf(fn).constructor.name == 'AsyncFunction') {
+    let timeLimit = 3000;
+
     return async function(...args) {
-      if(this.client && this.client.page && (!options || !options.noLoadingWait)) {
-        await this.client.page.waitFor(() => !document.querySelector('.loading'));
-      }
-      return await fn.apply(this, args);
+      let timeoutPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error(`Timeout exceeded on setDefinitionFunctionWrapper (${timeLimit}ms)`))
+        }, timeLimit)
+      });
+
+      let loadingPromise = new Promise(async (resolve, reject) => {
+        if(this.client && this.client.page && (!options || !options.noLoadingWait)) {
+          await this.client.page.waitForFunction(() => !document.querySelector('.loading'));
+        }
+        return resolve();
+      });
+
+      return new Promise(async (resolve, reject) => {
+        await Promise.race([
+          loadingPromise,
+          timeoutPromise
+        ]);
+        return resolve(fn.apply(this, args));
+      })
     }
   }
   return function(...args) {
@@ -69,7 +88,7 @@ async function createWebClient() {
 
 var naviHelper = {
   gotoSection: async (page, linkName) => {
-    await page.waitFor('a.main-nav-link');
+    await page.waitForSelector('a.main-nav-link');
 
     var links = await page.evaluate(() => {
       var links = document.querySelectorAll('a.main-nav-link');
@@ -88,7 +107,7 @@ var naviHelper = {
       }
     }
     var css = 'nav .nav-item:nth-of-type(' + (index+1) + ') a.main-nav-link';
-    await page.waitFor(css);
+    await page.waitForSelector(css);
     await page.click(css);
   }
 };
@@ -114,6 +133,9 @@ Before(async function (scenario) {
       authorized: false,
       silent: true
     };
+    if(this.mockserver) {
+      await this.mockserver.stop();
+    }
     this.mockserver = new MockServer();
     await this.mockserver.start(db._config || defaultOptions, db);
   }

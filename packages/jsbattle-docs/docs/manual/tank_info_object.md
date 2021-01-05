@@ -8,7 +8,8 @@ Initial information about the tank is passed to `tank.init(function(settings, in
     team: {
       name: 'my-team',
       mates: [2, 3, 4]
-    }
+    },
+    initData: {}
   }
 ```
 
@@ -17,6 +18,7 @@ Initial information about the tank is passed to `tank.init(function(settings, in
 Name             |  Description
 -----------------|----------------------------------------
 **id**           | unique id of the tank
+**initData**     | custom configuration that could be injected to the AI Script from `AiDefinition.fromCode(...)` or `AiDefinition.fromFile(...)`
 
 ## Team Data
 

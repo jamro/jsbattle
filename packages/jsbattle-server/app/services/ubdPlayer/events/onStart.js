@@ -72,7 +72,7 @@ module.exports = async function() {
       page.on('console', (message) => this.logger.debug(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`));
       page.on('pageerror', ({ message }) => this.logger.debug(message));
       await page.goto('http://localhost:' + this.port);
-      await page.waitFor('#ubd');
+      await page.waitForSelector('#ubd');
       await page.$eval('#ubd', (el, ubdData) => {
         el.value = JSON.stringify(ubdData)
       }, ubd);
@@ -82,7 +82,7 @@ module.exports = async function() {
 
       this.logger.debug('Battle started');
       await page.click('#start');
-      await page.waitFor('#output', {timeout: this.settings.ubdPlayer.timeout});
+      await page.waitForSelector('#output', {timeout: this.settings.ubdPlayer.timeout});
       this.logger.debug('Battle completed');
       const element = await page.$("#output");
       const text = await page.evaluate((el) => el.innerHTML, element);

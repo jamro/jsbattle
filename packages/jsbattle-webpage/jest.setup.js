@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CodeMirror from 'codemirror';
 import CodeMirrorShowHintAddon from 'codemirror/addon/hint/show-hint';
 import CodeMirrorJsAddon from 'codemirror/addon/hint/javascript-hint';

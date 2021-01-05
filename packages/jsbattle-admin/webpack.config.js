@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist', 'admin'),
     },
-    devtool: (argv.mode === 'development') ? 'source-map' : '',
+    devtool: (argv.mode === 'development') ? 'source-map' : false,
     module: {
       rules: [
         {

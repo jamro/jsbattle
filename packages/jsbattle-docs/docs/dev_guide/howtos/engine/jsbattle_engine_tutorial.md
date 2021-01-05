@@ -166,7 +166,7 @@ ai.fromCode('my-tank', code, customData);
 ai.fromFile('my-tank', customData);
 ```
 
-`customData` object will be available in your AI script in `settings` object passed through `init` callback:
+`customData` object will be available in your AI script in `info` object passed through `init` callback:
 
 ```javascript
 // AI Script ----------------------------------------

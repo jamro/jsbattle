@@ -20,8 +20,8 @@
     "test:app": "rimraf test/logs && jest --env node ..."
   },
   "devDependencies": {
-    "axios": "^0.19.2",
-    "bufferutil": "^4.0.2",
+    "axios": "^0.21.1",
+    "bufferutil": "^4.0.3",
     "canvas": "^2.6.1",
     "cpx": "^1.5.0",
     "eslint": "^7.16.0",
@@ -33,11 +33,11 @@
     "rimraf": "^3.0.2",
     "seedrandom": "^3.0.5",
     "swagger-jsdoc": "^6.0.0",
-    "utf-8-validate": "^5.0.3",
-    "ws": "^7.4.1"
+    "utf-8-validate": "^5.0.4",
+    "ws": "^7.4.2"
   },
   "dependencies": {
-    "ajv": "^7.0.2",
+    "ajv": "^7.0.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
@@ -45,11 +45,11 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "hijackresponse": "^5.0.0",
-    "javascript-obfuscator": "^2.10.0",
+    "javascript-obfuscator": "^2.10.1",
     "jsbattle-engine": "^3.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
-    "moleculer": "^0.14.11",
+    "moleculer": "^0.14.12",
     "moleculer-db": "^0.8.11",
     "moleculer-db-adapter-mongo": "^0.4.10",
     "moleculer-web": "^0.9.1",
@@ -64,7 +64,7 @@
     "passport-slack": "0.0.7",
     "passport-twitter": "^1.0.4",
     "puppeteer": "^5.5.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^3.0.5",
     "stream": "0.0.2",
     "strip-comments": "^2.0.1",
     "swagger-ui-express": "^4.1.6",

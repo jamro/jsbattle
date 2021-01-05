@@ -144,7 +144,7 @@ module.exports = function() {
   this.logger.info(`CORS origin: ${corsOrigin.join(', ')}`)
   this.server = http.Server(this.app);
   this.logger.info('Starting Socket.IO server');
-  this.io = IO.listen(this.server, {
+  this.io = IO(this.server, {
     path: '/api/events',
     serveClient: false
   });

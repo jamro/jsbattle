@@ -84,10 +84,10 @@
     "rimraf": "^3.0.2",
     "sinon": "^9.2.2",
     "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.0"
+    "webpack-cli": "^4.3.1"
   },
   "dependencies": {
-    "ajv": "^7.0.2",
+    "ajv": "^7.0.3",
     "babel-polyfill": "^6.26.0",
     "pixi.js": "^5.3.7",
     "sat": "^0.8.0",

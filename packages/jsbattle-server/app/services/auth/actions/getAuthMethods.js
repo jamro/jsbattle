@@ -8,9 +8,6 @@ module.exports = function() {
 
   const authConfig = this.settings.auth;
   const webConfig = this.settings.web;
-  if(!authConfig.enabled) {
-    return {};
-  }
   let result = {};
   for(let i=0; i < authConfig.providers.length; i++) {
     let provider = authConfig.providers[i]

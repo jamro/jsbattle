@@ -89,7 +89,7 @@ module.exports = function() {
       }
     },
     methods: {
-      authorize: authorize(this.settings.auth.enabled)
+      authorize: authorize(true)
     },
     started() {
       // do not start listening since its an express middleware
@@ -124,16 +124,9 @@ module.exports = function() {
   });
   this.app.use(cookieParser());
 
-  if(this.settings.auth.enabled == false) {
-    this.logger.warn('Auth is disabled. Everyone can access admin panel. The configuration is not recommended for production purposes');
-    this.app.get(`/auth/logout`, (req, res) => {
-      res.redirect('/');
-    });
-  } else {
-    configPassport(this.app, this.logger, this.broker, {
-      ...this.settings
-    });
-  }
+  configPassport(this.app, this.logger, this.broker, {
+    ...this.settings
+  });
 
   let port = this.settings.web.port || 8080;
   let host = this.settings.web.host || '127.0.0.1';

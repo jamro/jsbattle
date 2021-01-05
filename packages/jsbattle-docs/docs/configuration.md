@@ -106,11 +106,6 @@ List of all settings of JsBattle:
   // authorisation settings
   "auth": {
 
-    // if auth is disabled, login will not be required. It is not recommended for production
-    // since it will result in exposing admin panel to public. Some features may be disabled
-    // when auth is turned off
-    "enabled": true,
-
     // list of users that will be granted administration permissions (admin role)
     "admins": [
       {

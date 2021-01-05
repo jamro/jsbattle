@@ -89,7 +89,7 @@
   "dependencies": {
     "ajv": "^7.0.2",
     "babel-polyfill": "^6.26.0",
-    "pixi.js": "^5.3.6",
+    "pixi.js": "^5.3.7",
     "sat": "^0.8.0",
     "seedrandom": "^3.0.5"
   },

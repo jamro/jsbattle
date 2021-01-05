@@ -32,7 +32,7 @@
     "npm-watch": "^0.7.0",
     "rimraf": "^3.0.2",
     "seedrandom": "^3.0.5",
-    "swagger-jsdoc": "^4.0.0",
+    "swagger-jsdoc": "^6.0.0",
     "utf-8-validate": "^5.0.3",
     "ws": "^7.4.1"
   },
@@ -44,8 +44,8 @@
     "escape-string-regexp": "^4.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "hijackresponse": "^4.0.0",
-    "javascript-obfuscator": "^1.0.1",
+    "hijackresponse": "^5.0.0",
+    "javascript-obfuscator": "^2.10.0",
     "jsbattle-engine": "^3.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
@@ -67,7 +67,7 @@
     "socket.io": "^2.3.0",
     "stream": "0.0.2",
     "strip-comments": "^2.0.1",
-    "swagger-ui-express": "^4.1.5",
+    "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2"
   },
   "jest": {

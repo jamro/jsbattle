@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/jamro/jsbattle/compare/v3.4.1...v3.5.0) (2021-01-05)
+
+**Note:** Version bump only for package jsbattle-react
+
+
+
+
+
 # [3.4.0](https://github.com/jamro/jsbattle/compare/v3.3.0...v3.4.0) (2020-07-10)
 
 **Note:** Version bump only for package jsbattle-react

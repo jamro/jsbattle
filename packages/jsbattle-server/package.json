@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-server",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "",
   "main": "app/index.js",
   "keywords": [],
@@ -46,7 +46,7 @@
     "express-session": "^1.17.1",
     "hijackresponse": "^5.0.0",
     "javascript-obfuscator": "^2.10.1",
-    "jsbattle-engine": "^3.4.0",
+    "jsbattle-engine": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "moleculer": "^0.14.12",

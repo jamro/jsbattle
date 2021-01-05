@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/jamro/jsbattle/compare/v3.4.1...v3.5.0) (2021-01-05)
+
+
+### Bug Fixes
+
+* **jsbattle-engine:** clone timeLimit of UltimateBattleDescriptor properly [#31](https://github.com/jamro/jsbattle/issues/31) ([0a4405a](https://github.com/jamro/jsbattle/commit/0a4405abc90526a009d9dcf70857d1f6cd90cbe5))
+* **jsbattle-server:** 🐛 improve email validation pattern ([b93d5e2](https://github.com/jamro/jsbattle/commit/b93d5e2b5b5c4489b5bd2d7f43f14ffb5f3de0cb)), closes [#32](https://github.com/jamro/jsbattle/issues/32)
+
+
+### Features
+
+* **jsbattle:** 🎸 remove auth.enabled flag from configuration ([71a8050](https://github.com/jamro/jsbattle/commit/71a80504249f793e619c7ffc1e526e5b1217124c))
+
+
+
+
+
 ## [3.4.1](https://github.com/jamro/jsbattle/compare/v3.4.0...v3.4.1) (2020-07-10)
 
 

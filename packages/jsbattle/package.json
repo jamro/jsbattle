@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -42,12 +42,12 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "jsbattle-admin": "^3.4.0",
-    "jsbattle-docs": "^3.4.0",
-    "jsbattle-engine": "^3.4.0",
-    "jsbattle-mockserver": "^3.4.0",
-    "jsbattle-server": "^3.4.1",
-    "jsbattle-webpage": "^3.4.0",
+    "jsbattle-admin": "^3.5.0",
+    "jsbattle-docs": "^3.5.0",
+    "jsbattle-engine": "^3.5.0",
+    "jsbattle-mockserver": "^3.5.0",
+    "jsbattle-server": "^3.5.0",
+    "jsbattle-webpage": "^3.5.0",
     "lodash": "^4.17.20",
     "path": "^0.12.7",
     "puppeteer": "^5.5.0",

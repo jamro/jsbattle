@@ -81,8 +81,8 @@ export class Navi extends React.Component {
         </li>
         <li className="nav-item">
           <a className={inactiveClasses} href="./docs" target="_blank">
-            <i className="far fa-file-alt" aria-hidden="true"></i> Docs<
-          /a>
+            <i className="far fa-file-alt" aria-hidden="true"></i> Docs
+          </a>
         </li>
       </ul>
       <ul className="nav navbar-nav navbar-right">

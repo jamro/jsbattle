@@ -9,7 +9,21 @@
     "securitySchemes": {},
     "schemas": {
       "AuthMethods": {
-        "type": "object"
+        "type": "object",
+        "description": "name of authorization method",
+        "example": "github",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
       },
       "Battle": {
         "type": "object",

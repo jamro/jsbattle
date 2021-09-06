@@ -13,7 +13,8 @@ export class RegisterScreen extends React.Component {
     this.displayNameInput = React.createRef();
   }
 
-  submitForm() {
+  submitForm(event) {
+    event.preventDefault();
     const username = this.usernameInput.current.value;
     const displayName = this.displayNameInput.current.value;
     this.props.registerProfile(username, displayName);
@@ -39,7 +40,7 @@ export class RegisterScreen extends React.Component {
               <label htmlFor="displayname"><i className="fas fa-user-tag"></i> Display Name</label>
               <input  disabled={this.props.isLoading} type="text" ref={this.displayNameInput} className="form-control form-control-lg" id="displayname" defaultValue={this.props.displayName} />
             </div>
-            <button disabled={this.props.isLoading} className="btn btn-lg btn-primary float-right submit-form" onClick={() => this.submitForm()}>
+            <button disabled={this.props.isLoading} className="btn btn-lg btn-primary float-right submit-form" onClick={(event) => this.submitForm(event)}>
               {saveProfileLabel}
             </button>
           </form>

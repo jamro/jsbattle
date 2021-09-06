@@ -10,8 +10,6 @@
     "schemas": {
       "AuthMethods": {
         "type": "object",
-        "description": "name of authorization method",
-        "example": "github",
         "additionalProperties": {
           "type": "object",
           "properties": {
@@ -663,7 +661,7 @@
         }
       },
       "code": {
-        "value": "console.log('hello wolrd');"
+        "value": "console.log('hello world');"
       },
       "email": {
         "value": "johny.bravo@example.com"

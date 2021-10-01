@@ -1,0 +1,31 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.7.0
+
+parameters:
+  app-id:
+    type: string
+    default: "jsbattle"
+
+jobs:
+  build:
+    docker:
+      - image: 'circleci/node'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run: npm install
+      - save_cache:
+          paths:
+            - ~/project/node_modules
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm run ci
+
+workflows:
+  cicd-workflow:
+    jobs:
+      - build

@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Install Graphviz
           command: sudo apt install -y graphviz
+      - run:
+          name: Install Java
+          command: sudo apt install default-jdk
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}

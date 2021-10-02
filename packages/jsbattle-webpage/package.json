@@ -26,7 +26,7 @@
     "build:copy": "build/copy-libs.js",
     "build:bundle": "webpack --config ./webpack.config.js --mode=production",
     "test": "npm run test:dom && npm run test:browser",
-    "test:dom": "jest -b=3",
+    "test:dom": "jest --runInBand",
     "test:browser": "cucumber-js --tags \"not @integration_only\" -f ./features/support/SimpleFormatter.js --retry 3 --fail-fast --world-parameters '{\"mockserver\": true}'",
     "test:browser-smoke": "cucumber-js -t @smoke -f ./features/support/SimpleFormatter.js --fail-fast  --world-parameters '{\"mockserver\": true}'",
     "analyse": "webpack --profile --json --config ./webpack.config.js > bundle_stats.json && webpack-bundle-analyzer bundle_stats.json",

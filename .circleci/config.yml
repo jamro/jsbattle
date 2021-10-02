@@ -12,6 +12,9 @@ jobs:
     docker:
       - image: 'circleci/node'
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "9e:c9:1f:e6:21:c4:3a:e8:37:2a:88:ed:29:3d:0d:65"
       - checkout
       - run:
           name: Install Graphviz

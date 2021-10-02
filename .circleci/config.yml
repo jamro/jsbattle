@@ -26,6 +26,7 @@ jobs:
           command: |
             sudo apt install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
             sudo apt install -y libgbm-dev 
+            npx browserslist@latest --update-db
       - restore_cache:
           keys:
             - node-v2-{{ .Branch }}-{{ checksum "package-lock.json" }}

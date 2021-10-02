@@ -28,14 +28,18 @@ jobs:
             sudo apt install -y libgbm-dev 
       - restore_cache:
           keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
-      - run: npm install
+            - node-v2-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v2-{{ .Branch }}-
+            - node-v2-
+      - run:
+          name: Install node_modules
+          command: |
+            npm install
+            npm run bootstrap
       - save_cache:
           paths:
             - ~/project/node_modules
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-v2-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Bootstrap Project
           command: npm run bootstrap

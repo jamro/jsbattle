@@ -13,6 +13,9 @@ jobs:
       - image: 'circleci/node'
     steps:
       - checkout
+      - run:
+          name: Install Graphviz
+          command: sudo apt install -y graphviz
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}

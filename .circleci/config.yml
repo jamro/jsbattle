@@ -36,7 +36,21 @@ jobs:
           paths:
             - ~/project/node_modules
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm run ci
+      - run:
+          name: Bootstrap Project
+          command: npm run bootstrap
+      - run:
+          name: Clean Project
+          command: npm run clean
+      - run:
+          name: Lint Project
+          command: npm run lint
+      - run:
+          name: Build Project
+          command: npm run build
+      - run:
+          name: Test Project
+          command: npm run test
 
 workflows:
   cicd-workflow:

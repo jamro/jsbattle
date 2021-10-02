@@ -13,6 +13,7 @@ Following script is used by CI to build the project:
 
 ```bash
 npm install
+npm run bootstrap
 npm run clean
 npm run lint
 npm run build

@@ -24,3 +24,5 @@ npm run bootstrap
 npm run build
 npm run start
 ```
+
+See [Building Process](./dev_process/building.md) for more details and troubleshooting 

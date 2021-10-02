@@ -19,8 +19,11 @@ jobs:
       - run:
           name: Install Java
           command: | 
-            sudo apt install default-jdk
+            sudo apt install -y default-jdk
             java --version
+      - run: 
+          name: Install Libs
+          command: sudo apt install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}

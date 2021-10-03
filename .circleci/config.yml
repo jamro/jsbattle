@@ -61,8 +61,45 @@ jobs:
           command: npm run test
           environment:
             NODE_OPTIONS: --max_old_space_size=8192 
+      - run:
+          name: Create install bundle
+          command: |
+            mkdir -p ./dist
+
+            for filename in ./packages/jsbattle*; do
+              tar -zcp --exclude="./node_modules" -C $filename -f ./dist/$(basename $filename).tar.gz .;
+            done
+
+            echo '{"name":"jsbattle-runner","version":"1.0.0","scripts":{"postinstall":"npm i ./jsbattle-engine.tar.gz; npm i ./jsbattle-docs.tar.gz; npm i ./jsbattle-react.tar.gz; npm i ./jsbattle-server.tar.gz; npm i ./jsbattle-webpage.tar.gz; npm i ./jsbattle-admin.tar.gz; npm i ./jsbattle.tar.gz; "}}' > ./dist/package.json
+            echo 'const path=require("path");process.argv=[process.argv[0],process.argv[1],"start","-c",path.resolve(__dirname,"jsbattle.config.js")],require(path.resolve(__dirname,"node_modules","jsbattle","dist","jsbattle.js"));' > ./dist/index.js
+            echo 'module.exports = {web:{port:7402}}' > ./dist/jsbattle.config.js
+            cd ./dist; zip -r ../dist.zip *
+      - persist_to_workspace:
+          root: ~/project/
+          paths:
+            - dist.zip
+
+  deploy_dev:
+      docker:
+        - image: 'cimg/base:stable'
+      steps:
+        - attach_workspace:
+            at: ~/project/
+        - run: 
+            name: Deploy to DEV
+            command: "curl -u $AUTH_TOKEN -f -X 'POST' \"https://$NODEPAD_HOST/api/apps/<< pipeline.parameters.app-id >>-dev/content/zip\" -H 'accept: application/json' -H 'Content-Type: multipart/form-data' -F 'bin=@dist.zip;type=application/zip'"      
+    
 
 workflows:
   cicd-workflow:
     jobs:
       - build
+      - deploy_dev:
+          requires:
+            - build
+          context:
+            - nodepad.jmrlab.com
+          filters:
+              branches:
+                only:
+                  - develop

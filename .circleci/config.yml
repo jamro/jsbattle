@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@4.7.0
+  aws-s3: circleci/aws-s3@3.0.0
 
 parameters:
   app-id:
@@ -100,6 +101,16 @@ jobs:
           paths:
             - dist.zip
 
+  store_artifact:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - attach_workspace:
+          at: ~/project/
+      - aws-s3/copy:  
+          from: dist.zip
+          to: s3://artifacts-jmrlab/<< pipeline.parameters.app-id >>/<< pipeline.parameters.app-id >>_dist_${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM}.zip
+
   deploy_dev:
       docker:
         - image: 'cimg/base:stable'
@@ -115,6 +126,11 @@ workflows:
   cicd-workflow:
     jobs:
       - build
+      - store_artifact:
+          requires:
+            - build
+          context:
+            - nodepad.jmrlab.com
       - deploy_dev:
           requires:
             - build

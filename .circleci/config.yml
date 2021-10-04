@@ -131,12 +131,3 @@ workflows:
             - build
           context:
             - nodepad.jmrlab.com
-      - deploy_dev:
-          requires:
-            - build
-          context:
-            - nodepad.jmrlab.com
-          filters:
-              branches:
-                only:
-                  - develop

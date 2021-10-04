@@ -1,6 +1,8 @@
 const expect = require('chai').expect
 const {After, Given, When, Then } = require('cucumber');
+const {setDefaultTimeout} = require('cucumber');
 
+setDefaultTimeout(20000);
 
 When('click watch of league battle number {int}', async function (index) {
   let css = ".league-history table tr:nth-of-type(" + (index) + ") .watch-button";

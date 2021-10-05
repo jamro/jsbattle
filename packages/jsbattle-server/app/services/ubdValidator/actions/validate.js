@@ -54,7 +54,7 @@ module.exports = function(ctx) {
   var valid = validate(ubdJson);
   if (!valid) {
     let msg = validate.errors.reduce((log, err) => {
-      log.push(err.dataPath + " " + err.message);
+      log.push(err.instancePath + " " + err.message);
       return log;
     }, []);
     this.logger.debug('Invalid UBD: ' + msg.join("; "));

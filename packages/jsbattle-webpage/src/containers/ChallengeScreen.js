@@ -107,7 +107,7 @@ export class ChallengeScreen extends React.Component {
     }
     if(!this.props.currentChallenge) {
       return <FullRow>
-          <nav className="breadcrumb-container">
+          <nav className="breadcrumb-container bg-light rounded-3">
             <ol className="breadcrumb">
               <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
               <li className="breadcrumb-item"><Link to="/challenge">Challenges</Link></li>
@@ -121,7 +121,7 @@ export class ChallengeScreen extends React.Component {
     if(this.state.hasWon && this.props.isCompleting) {
       congratsScreen = <Loading />;
     } else if(this.state.hasWon) {
-      congratsScreen = <div className="jumbotron text-center">
+      congratsScreen = <div className="bg-light rounded-3 text-center" style={{padding: '1em'}}>
         <h4 className="congrats-msg result-msg"><i className="fas fa-trophy d-none d-lg-inline d-xl-inline"></i> Challenge Completed!</h4>
         <p className="d-none d-lg-block d-xl-block">Good job! You did it! Now try something more difficult - the next challenge is waiting for you.</p>
         <Link className="btn btn-primary btn-lg next-challenge" to="/challenge" role="button">
@@ -134,15 +134,15 @@ export class ChallengeScreen extends React.Component {
 
     return <div>
     <FullRow>
-      <nav className="breadcrumb-container">
+      <nav className="breadcrumb-container bg-light rounded-3">
+        <button type="button" className="btn btn-sm btn-primary restart-challenge-battle float-end" onClick={() => this.restartBattle()}>
+          <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
+        </button>
         <ol className="breadcrumb">
           <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
           <li className="breadcrumb-item"><Link to="/challenge">Challenges</Link></li>
           <li className="breadcrumb-item active" aria-current="page">Level {this.props.currentChallenge.level}: {this.props.currentChallenge.name}</li>
         </ol>
-        <button type="button" className="btn btn-sm btn-primary restart-challenge-battle" onClick={() => this.restartBattle()}>
-          <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
-        </button>
       </nav>
     </FullRow>
       <LiveCode

@@ -29,15 +29,15 @@ export default class LeagueJoin extends React.Component {
   }
 
   componentDidMount() {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
   }
 
   componentDidUpdate() {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
   }
 
   componentWillUnmount() {
-    $('[data-toggle="tooltip"]').tooltip('hide');
+    $('[data-bs-toggle="tooltip"]').tooltip('hide');
   }
 
   onSubmissionChange(event) {
@@ -50,7 +50,7 @@ export default class LeagueJoin extends React.Component {
   }
 
   openEditor() {
-    $('[data-toggle="tooltip"]').tooltip('hide');
+    $('[data-bs-toggle="tooltip"]').tooltip('hide');
     this.setState({editMode: true});
   }
 
@@ -83,7 +83,7 @@ export default class LeagueJoin extends React.Component {
       joinButton = <p><button className="btn btn-primary btn-lg league-join" style={{width: "100%"}} onClick={() => this.join()}><i className="fas fa-check"></i> {this.state.rejoin ? 'Re-join' : 'Join'}</button></p>;
       tankSelect = <div>
           <small style={{color: '#888'}}>your tank: </small>
-          <select className="custom-select custom-select-lg mb-3" style={{width: "100%"}}  value={this.state.newSubmissionId} onChange={(e) => this.onSubmissionChange(e)}>
+          <select className="form-select form-select-lg mb-3" style={{width: "100%"}}  value={this.state.newSubmissionId} onChange={(e) => this.onSubmissionChange(e)}>
             {options}
           </select>
         </div>;
@@ -146,7 +146,7 @@ export default class LeagueJoin extends React.Component {
         };
         icon = 'skull';
       }
-      return <a key={item.id} href={`#/league/replay/${item.id}`} className={className} style={badgeStyle} data-toggle="tooltip" data-placement="top" title={item.opponent.name}>
+      return <a key={item.id} href={`#/league/replay/${item.id}`} className={className} style={badgeStyle} data-bs-toggle="tooltip" data-bs-placement="top" title={item.opponent.name}>
         <i className={`fas fa-${icon}`}></i>
       </a>;
     });
@@ -155,7 +155,7 @@ export default class LeagueJoin extends React.Component {
     }
     let newVersionBadge = null;
     if(!this.props.selected.latest) {
-      newVersionBadge = <span className="clickable new-version-badge" style={{position: 'relative', top: '-1em'}} onClick={() => this.openEditor()} data-toggle="tooltip" data-placement="top" title={"A new version of '" + this.props.selected.scriptName + "' script is available. You can resubmit it to the league."}>
+      newVersionBadge = <span className="clickable new-version-badge" style={{position: 'relative', top: '-1em'}} onClick={() => this.openEditor()} data-bs-toggle="tooltip" data-bs-placement="top" title={"A new version of '" + this.props.selected.scriptName + "' script is available. You can resubmit it to the league."}>
         <i className="fas fas fa-asterisk text-light"></i>
       </span>;
     }

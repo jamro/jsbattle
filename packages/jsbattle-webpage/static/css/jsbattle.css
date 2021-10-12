@@ -4,18 +4,24 @@
 }
 
 .breadcrumb-container {
-  position:relative;
+
+}
+
+.breadcrumb-container > ol {
+  padding: 0.6em;
+}
+
+.breadcrumb-container li a {
+  text-decoration: none;
 }
 
 .breadcrumb-container > .btn {
-  position:absolute;
-  right:1rem;
-  top:50%;
-  transform:translateY(-50%);
+  margin-top: 0.4em;
+  margin-right: 0.4em;
+  float: right;
 }
 
 .battle-overlay {
-  position: absolute;
   background: #fff;
   width: 100%;
   height: 100%;

@@ -57,7 +57,7 @@ export class Navi extends React.Component {
       loading = <Loading label="" />;
     }
     return <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul className="navbar-nav mr-auto">
+      <ul className="navbar-nav me-auto">
         <li className="nav-item">
           <a
             className={pathname.startsWith('/challenge') ? activeClasses : inactiveClasses}
@@ -81,8 +81,7 @@ export class Navi extends React.Component {
         </li>
         <li className="nav-item">
           <a className={inactiveClasses} href="./docs" target="_blank">
-            <i className="far fa-file-alt" aria-hidden="true"></i> Docs<
-          /a>
+            <i className="far fa-file-alt" aria-hidden="true"></i> Docs</a>
         </li>
       </ul>
       <ul className="nav navbar-nav navbar-right">
@@ -90,7 +89,7 @@ export class Navi extends React.Component {
           <span className="nav-link main-nav-link" style={{fontWeight: 'normal'}}>{loading}</span>
         </li>
         <li className="dropdown">
-          <span className="clickable dropdown-toggle sim-quality-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-image"></i> {this.qualityToName(this.props.simQuality)} <span className="caret"></span></span>
+          <span className="clickable dropdown-toggle sim-quality-button nav-link" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-image"></i> {this.qualityToName(this.props.simQuality)} <span className="caret"></span></span>
           <div className="nav-item dropdown-menu">
             {this.renderQualityButton('auto')}
             <span role="separator" className="dropdown-divider"></span>
@@ -100,7 +99,7 @@ export class Navi extends React.Component {
           </div>
         </li>
         <li className="nav-item dropdown">
-          <span className="clickable dropdown-toggle sim-speed-button nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-tachometer-alt"></i> {this.speedToName(this.props.simSpeed)} <span className="caret"></span></span>
+          <span className="clickable dropdown-toggle sim-speed-button nav-link" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fas fa-tachometer-alt"></i> {this.speedToName(this.props.simSpeed)} <span className="caret"></span></span>
           <div className="dropdown-menu dropdown-menu-right">
             {this.renderSpeedButton(0.05)}
             {this.renderSpeedButton(0.3)}
@@ -120,13 +119,15 @@ export class Navi extends React.Component {
 
   render() {
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+      <div className="container-fluid">
         <a className="navbar-brand" href="http://jsbattle.jmrlab.com" style={{borderRight: '1px solid #888', paddingRight: '15px'}}>
           <img src="./img/logo.png" alt="JsBattle" />
         </a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
         {this.renderControls()}
+      </div>
     </nav>;
   }
 }

@@ -84,10 +84,13 @@
     "puppeteer": "^10.4.0",
     "rimraf": "^3.0.2",
     "sinon": "^11.1.2",
-    "webpack": "^5.58.1",
+    "webpack": "^5.58.2",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.0",
     "webpack-dev-server": "^4.3.1"
   },
-  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
+  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d",
+  "engines": {
+    "node": ">= 10.18.0"
+  }
 }

@@ -47,8 +47,8 @@
     "jsbattle-react": "^3.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "@babel/register": "^7.15.3",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
@@ -64,5 +64,8 @@
     "socket.io-client": "^4.2.0",
     "yargs": "^17.2.1"
   },
-  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
+  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d",
+  "engines": {
+    "node": ">= 10.18.0"
+  }
 }

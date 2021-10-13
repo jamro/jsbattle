@@ -18,7 +18,7 @@
     "test:prep": "npm run test:copy-webpage && npm run test:copy-admin && npm run test:copy-common"
   },
   "engines": {
-    "node": ">=0.10.3"
+    "node": ">= 10.18.0"
   },
   "repository": {
     "type": "git",

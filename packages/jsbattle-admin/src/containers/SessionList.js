@@ -45,7 +45,7 @@ class SessionList extends Component {
               <SmartTable
                 columns={[
                   {name: 'User', field: 'username', format: userFormatter},
-                  {name: 'Role', field: 'role', format: (v) => v == 'admin' ? <span className="badge badge-danger">{v}</span> : <span className="badge badge-info">{v}</span>},
+                  {name: 'Role', field: 'role', format: (v) => v == 'admin' ? <span className="badge bg-danger">{v}</span> : <span className="badge bg-info">{v}</span>},
                   {name: 'Last Activity', field: 'lastAction', format: [
                     (value) => new Date().getTime() - new Date(value.timestamp).getTime(),
                     'duration',

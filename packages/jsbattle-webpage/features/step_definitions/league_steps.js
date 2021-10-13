@@ -19,6 +19,7 @@ Then('League leaderboard is not empty', async function () {
 });
 
 Then('League history is not empty', async function () {
+  await this.client.page.waitForSelector('.league-history table');
   let result = await this.client.page.evaluate(() => {
     const elements = document.querySelectorAll('.league-history table tr');
     return elements.length;

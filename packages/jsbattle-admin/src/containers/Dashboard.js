@@ -54,7 +54,7 @@ class Dashboard extends Component {
         <div className="card-body text-center">
           <h6 className="card-title">{title}</h6>
           <p className="card-text"><FontAwesomeIcon size="2x" icon={icon} /></p>
-          <h5><span className={"badge badge-pill badge-" + text + " text-" + bg}>{value}</span></h5>
+          <h5><span className={"badge badge-pill bg-" + text + " text-" + bg}>{value}</span></h5>
         </div>
       </div>
     </div>;

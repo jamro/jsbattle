@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/jamro/jsbattle/compare/v3.5.0...v3.6.0) (2021-10-19)
+
+
+### Features
+
+* **jsbattle:** add cli to dump and restore DB ([67079ff](https://github.com/jamro/jsbattle/commit/67079ff6675df108d9ea8829cd3153a75a08576b))
+
+
+
+
+
 # [3.5.0](https://github.com/jamro/jsbattle/compare/v3.4.1...v3.5.0) (2021-01-05)
 
 

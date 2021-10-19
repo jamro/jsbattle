@@ -15,4 +15,4 @@ JsBattle is inspired by [Robocode](http://robocode.sourceforge.net/). It is a ga
 Give JsBattle a try and play the demo here: [http://jsbattle.jmrlab.com](http://jsbattle.jmrlab.com)
 
 ## Documentation
-Read more in [/packages/jsbattle](./packages/jsbattle/README.md)
+Read more in [/packages/jsbattle](./packages/jsbattle/README.md) or at [jsbattle.jmrlab.com/docs](http://jsbattle.jmrlab.com/docs)

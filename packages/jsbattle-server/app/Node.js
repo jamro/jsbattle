@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const GATEWAY = 'gateway';
 const WORKER = 'worker';
+const CLI = 'cli';
 
 class Node {
 
@@ -31,7 +32,6 @@ class Node {
         options: serviceConfig.data.cluster.transporter.options
       };
     }
-
 
     return new Promise((resolve) => {
       this.broker = new ServiceBroker(
@@ -80,6 +80,17 @@ class Node {
           serviceList = [
             'ubdPlayer',
             'node',
+          ];
+          break;
+        case CLI:
+          serviceList = [
+            'cli',
+            'battleStore',
+            'challenges',
+            'league',
+            'scriptStore',
+            'userStore',
+            'ubdValidator',
           ];
           break;
         default:

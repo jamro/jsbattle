@@ -80,6 +80,62 @@ yargs
       .catch(console.error);
     }
   )
+  .command(
+    'dump [dumpPath]',
+    'Dump JsBattle DB to files',
+    (yargs) => {
+      return yargs.positional('dumpPath', {
+        describe: 'path to directory where DB dump will be stored',
+        default: './jsbattle-dump'
+      })
+    },
+    (argv) => {
+      let config = {};
+      if(argv.config) {
+        config = require(path.resolve(argv.config));
+      }
+
+      // override config by CLI arguments
+      if(argv.loglevel) {
+        config.loglevel = argv.loglevel
+      }
+
+      let cli = new Node('cli');
+      cli.init(config)
+        .then(() => cli.start())
+        .then(() => cli.broker.call('cli.dumpDb', {dumpPath: argv.dumpPath}))
+        .then(() => cli.stop())
+        .catch(console.error);
+    }
+  )
+  .command(
+    'restore [dumpPath]',
+    'Restore JsBattle DB from dump files',
+    (yargs) => {
+      return yargs.positional('dumpPath', {
+        describe: 'path to directory where DB dump will be read',
+        default: './jsbattle-dump'
+      })
+    },
+    (argv) => {
+      let config = {};
+      if(argv.config) {
+        config = require(path.resolve(argv.config));
+      }
+
+      // override config by CLI arguments
+      if(argv.loglevel) {
+        config.loglevel = argv.loglevel
+      }
+
+      let cli = new Node('cli');
+      cli.init(config)
+        .then(() => cli.start())
+        .then(() => cli.broker.call('cli.restoreDb', {dumpPath: argv.dumpPath}))
+        .then(() => cli.stop())
+        .catch(console.error);
+    }
+  )
   .command("*", "", (argv) => {
     console.log("Nothing happened :( Run 'jsbattle.js --help' for more info\n");
   })

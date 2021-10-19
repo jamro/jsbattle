@@ -17,7 +17,7 @@
     "test": "npm run test:scoring && npm run test:app",
     "lint": "eslint app/",
     "test:scoring": "node ./tools/scoringBenchmark/run.js",
-    "test:app": "rimraf test/logs && jest --env node ..."
+    "test:app": "rimraf test/logs && rimraf test/tmp && jest --env node ..."
   },
   "devDependencies": {
     "axios": "^0.23.0",

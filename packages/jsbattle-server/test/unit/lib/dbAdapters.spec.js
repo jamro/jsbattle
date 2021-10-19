@@ -78,7 +78,7 @@ for(let adapterName of adapterList) {
       expect(newItem.blob).toHaveProperty('bar', 'ABC');
 
       const retrievedItem = await broker.call('testDbService.get', {id: newItem._id});
-      console.log(retrievedItem)
+
       expect(retrievedItem).toHaveProperty('_id');
       expect(retrievedItem).toHaveProperty('foo', 'bar8732');
       expect(retrievedItem).toHaveProperty('yes', true);

@@ -508,4 +508,23 @@ describe("Test 'League' service", () => {
 		expect(result.rows[1]).toHaveProperty('rank', 6);
 	});
 
+	it('should refresh cache of ranktable',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		const entry1 = (await broker.call('league.find', {query: {ownerId: user.id}}))[0];
+		await broker.call('league.update', {
+			id: entry1.id, 
+			fights_total: 2,
+			fights_win: 2,
+			score: 200
+		});
+		await broker.call('league.updateRank', {id: entry1.id, winner: true});
+		const entry2 = await broker.call('league.get', {id: entry1.id});
+		expect(entry2).toHaveProperty('fights_total', 3)
+	});
+
 });

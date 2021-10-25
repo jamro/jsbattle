@@ -27,7 +27,7 @@ module.exports = async function(ctx) {
     await fs.mkdir(serviceDest, { recursive: true });
 
     this.logger.debug(`reading entities of '${service}'`);
-    const entities = await ctx.call(service + '.find');
+    const entities = await ctx.call(service + '.dumpData');
     this.logger.debug(`${entities.length} entities of '${service}' found`);
     stats[service] = entities.length;
 

@@ -29,15 +29,11 @@ module.exports = async function(ctx) {
     this.logger.debug(`${files.length} entities of ${service.path} service found`);
     stats[service.name] = files.length;
 
-    const allEntities = await ctx.call(service.name + '.find', {fields: ['id']});
-
-    Promise.all(allEntities.map((item) => ctx.call(service.name + '.remove', {id: item.id})));
-
     for(let file of files) {
       let data = await fs.readFile(path.join(service.path, file), 'utf8');
       try {
         let entity = JSON.parse(data);
-        await await ctx.call(service.name + '.create', entity);
+        await await ctx.call(service.name + '.restoreEntity', entity);
       } catch(err) {
         this.logger.warn(`unable to restore ${path.join(service.path, file)}`);
         this.logger.error(err);

@@ -16,8 +16,8 @@ const dataServices = [
 
 describe("Test 'CLI' service", () => {
 	let broker;
-	let createMock;
-	let removeMock;
+	let restoreMock;
+	let testData;
 
 	beforeEach(async () => {
 		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
@@ -25,33 +25,33 @@ describe("Test 'CLI' service", () => {
 		await broker.createService(schemaBuilder(serviceConfig.data));
 		await broker.start()
 
-		createMock = jest.fn();
-		removeMock = jest.fn();
+		restoreMock = jest.fn();
+		testData = {};
 
 		for(let service of dataServices) {
+
+			testData[service] = [
+				{
+					id: 'ID_' + service + "_1",
+					foo: 'bar-' + service + '-1'
+				},
+				{
+					id: 'ID_' + service + "_2",
+					foo: 'bar-' + service + '-2'
+				}
+			];
 			broker.createService({
 				name: service,
 				actions: {
-					find: () => [
-						{
-							id: 'ID_' + service + "_1",
-							foo: 'bar-' + service + '-1'
-						},
-						{
-							id: 'ID_' + service + "_2",
-							foo: 'bar-' + service + '-2'
-						}
-					],
-					remove: removeMock,
-					create: createMock
+					dumpData: () => testData[service],
+					restoreEntity: restoreMock
 				}
 			})
 		}
-
 	});
 	afterEach(async () => await broker.stop());
 
-	it.only('should dump and restore', async () => {
+	it('should dump and restore', async () => {
 		const dumpPath = path.resolve(__dirname, '..', '..', 'tmp', 'dump_' + Math.round(Math.random()*0xffffffff)).toString(16);
 		const response1 = await broker.call('cli.dumpDb', { dumpPath });
 		expect(response1).toHaveProperty('dumpPath', dumpPath);
@@ -62,15 +62,15 @@ describe("Test 'CLI' service", () => {
 		expect(response1).toHaveProperty('entities');
 		expect(response2).toHaveProperty('errors', 0);
 
-		expect(createMock.mock.calls.length).toBe(10)
-		expect(removeMock.mock.calls.length).toBe(10)
+		expect(restoreMock.mock.calls.length).toBe(10)
 
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_battleStore_1')
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_battleStore_2')
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_challenges_1')
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_league_2')
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_scriptStore_1')
-		expect(createMock.mock.calls.map(c => c[0].params._id)).toContain('ID_userStore_2')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_battleStore_1')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_battleStore_2')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_challenges_1')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_league_2')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_scriptStore_1')
+		expect(restoreMock.mock.calls.map(c => c[0].params._id)).toContain('ID_userStore_2')
+		
 	});
 
 });

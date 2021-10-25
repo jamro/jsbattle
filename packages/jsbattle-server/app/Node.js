@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const GATEWAY = 'gateway';
 const WORKER = 'worker';
-const CLI = 'cli';
+const CLI_DB = 'cli_db';
 
 class Node {
 
@@ -82,7 +82,7 @@ class Node {
             'node',
           ];
           break;
-        case CLI:
+        case CLI_DB:
           serviceList = [
             'cli',
             'battleStore',

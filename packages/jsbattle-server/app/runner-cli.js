@@ -3,7 +3,7 @@
 const Node = require('./Node.js');
 
 (async () => {
-  let gateway = new Node('cli');
+  let gateway = new Node('cli_db');
   let config = {
     "loglevel": "warn",
     "logger": {

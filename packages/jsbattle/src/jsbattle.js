@@ -100,7 +100,7 @@ yargs
         config.loglevel = argv.loglevel
       }
 
-      let cli = new Node('cli');
+      let cli = new Node('cli_db');
       cli.init(config)
         .then(() => cli.start())
         .then(() => cli.broker.call('cli.dumpDb', {dumpPath: argv.dumpPath}))
@@ -128,7 +128,7 @@ yargs
         config.loglevel = argv.loglevel
       }
 
-      let cli = new Node('cli');
+      let cli = new Node('cli_db');
       cli.init(config)
         .then(() => cli.start())
         .then(() => cli.broker.call('cli.restoreDb', {dumpPath: argv.dumpPath}))

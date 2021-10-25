@@ -1,4 +1,4 @@
-const DbService = require("moleculer-db");
+const ExtendedDbService = require("../../lib/ExtendedDbService.js");
 const getDbAdapterConfig = require("../../lib/getDbAdapterConfig.js");
 const getEntityConfig = require("../../lib/getEntityConfig.js");
 const validators = require("../../validators");
@@ -10,7 +10,7 @@ module.exports = (config) => {
   return {
     ...adapterConfig,
     name: "battleStore",
-    mixins: [DbService],
+    mixins: [ExtendedDbService],
     settings: {
       ...entity,
       defaultExpireTime: config.battleStore.defaultExpireTime,

@@ -31,3 +31,11 @@ npm run commit
 git push
 lerna publish from-package -y
 ```
+
+5. Get back to develop branch
+
+```bash
+git checkout develop
+git merge master
+git push
+```

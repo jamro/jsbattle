@@ -28,7 +28,7 @@ The authentication is handled by [PassportJs](http://www.passportjs.org/) and it
  - `/auth/logout` - close the session
 
 #### Worker
-The [Moleculer](https://moleculer.services/) has a built-in mechanism that allows spreading services across multiple nodes. If JsBattle runs in **Worker** mode, it starts a node that hosts all scaleable services and connects to other nodes. See [configuration](../../../configuration.md) and [Moleculer](https://moleculer.services/) docs for more details.
+The [Moleculer](https://moleculer.services/) has a built-in mechanism that allows spreading services across multiple nodes. If JsBattle runs in **Worker** mode, it starts a node that hosts all scaleable services and connects to other nodes. See [configuration](../../configuration.md) and [Moleculer](https://moleculer.services/) docs for more details.
 
 ## Moleculer Microservices
 

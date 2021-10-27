@@ -5,7 +5,7 @@ module.exports = {
   },
   examples: {
     default: {
-      value: "console.log('hello wolrd');"
+      value: "console.log('hello world');"
     }
   }
 }

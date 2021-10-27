@@ -9,7 +9,19 @@
     "securitySchemes": {},
     "schemas": {
       "AuthMethods": {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
       },
       "Battle": {
         "type": "object",
@@ -649,7 +661,7 @@
         }
       },
       "code": {
-        "value": "console.log('hello wolrd');"
+        "value": "console.log('hello world');"
       },
       "email": {
         "value": "johny.bravo@example.com"

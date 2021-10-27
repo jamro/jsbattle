@@ -1,6 +1,18 @@
 module.exports = {
   schema: {
-    type: "object"
+    type: "object",
+    additionalProperties: {
+      type: "object",
+      properties: {
+        name: {
+          type: "string"
+        },
+        url: {
+          type: "string",
+          format: "uri"
+        }
+      }
+    }
   },
   examples: {
     default: {

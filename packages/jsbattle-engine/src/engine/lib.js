@@ -28,7 +28,7 @@ const JsBattleLib = {
       case 'bw':      return new BWRenderer(debug);
       case 'brody':   return new BrodyRenderer(debug);
       case 'void':    return new VoidRenderer(debug);
-      default:        throw "Unknown rederer " + name;
+      default:        throw "Unknown renderer " + name;
     }
   }
 };

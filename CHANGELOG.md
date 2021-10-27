@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/jamro/jsbattle/compare/v3.6.0...v3.6.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** bypass ORM hooks and use raw data in DB dump and restore ([92da5c0](https://github.com/jamro/jsbattle/commit/92da5c04403b26410fada6a25b16be26ae9ac2a6))
+
+
+
+
+
 # [3.6.0](https://github.com/jamro/jsbattle/compare/v3.5.0...v3.6.0) (2021-10-19)
 
 

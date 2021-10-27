@@ -142,15 +142,15 @@ export class LeagueReplayScreen extends React.Component {
     }
     return <div>
       <FullRow>
-        <nav className="breadcrumb-container">
+        <nav className="breadcrumb-container bg-light rounded-3">
+          <a href="#/league" className="btn btn-sm btn-primary">
+            <i className="fas fa-reply"></i> Back
+          </a>
           <ol className="breadcrumb">
             <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
             <li className="breadcrumb-item"><Link to="/league">League</Link></li>
             <li className="breadcrumb-item" aria-current="page">{label}</li>
           </ol>
-          <a href="#/league" className="btn btn-sm btn-primary">
-            <i className="fas fa-reply"></i> Back
-          </a>
         </nav>
       </FullRow>
       <FullRow>

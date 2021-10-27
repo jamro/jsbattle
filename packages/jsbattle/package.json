@@ -1,6 +1,6 @@
 {
   "name": "jsbattle",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "dist/js/jsbattle.min.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "test:prep": "npm run test:copy-webpage && npm run test:copy-admin && npm run test:copy-common"
   },
   "engines": {
-    "node": ">=0.10.3"
+    "node": ">= 10.18.0"
   },
   "repository": {
     "type": "git",
@@ -35,24 +35,24 @@
     ]
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "cpx": "^1.5.0",
     "cucumber": "^6.0.5",
-    "pm2": "^4.5.1",
+    "pm2": "^5.1.2",
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "jsbattle-admin": "^3.5.0",
-    "jsbattle-docs": "^3.5.0",
-    "jsbattle-engine": "^3.5.0",
-    "jsbattle-mockserver": "^3.5.0",
-    "jsbattle-server": "^3.5.0",
-    "jsbattle-webpage": "^3.5.0",
-    "lodash": "^4.17.20",
+    "jsbattle-admin": "^3.6.0",
+    "jsbattle-docs": "^3.6.0",
+    "jsbattle-engine": "^3.6.0",
+    "jsbattle-mockserver": "^3.6.0",
+    "jsbattle-server": "^3.6.0",
+    "jsbattle-webpage": "^3.6.0",
+    "lodash": "^4.17.21",
     "path": "^0.12.7",
-    "puppeteer": "^5.5.0",
-    "swagger-jsdoc": "^6.0.0",
-    "yargs": "^16.2.0"
+    "puppeteer": "^10.4.0",
+    "swagger-jsdoc": "^6.1.0",
+    "yargs": "^17.2.1"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
 }

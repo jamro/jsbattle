@@ -14,9 +14,7 @@ export class ErrorPanel extends React.Component {
         <div key={index} className="card text-white bg-danger error-box">
           <div className="card-header">
             <i className="fas fa-exclamation-triangle"></i> Error
-            <button style={{color: '#fff'}} className="close" onClick={() => this.props.clearError(key)}>
-              <i className="fas fa-times"></i>
-            </button>
+            <button type="button" className="btn-close btn-close-white float-end close" aria-label="Close" onClick={() => this.props.clearError(key)}></button>
           </div>
           <div className="card-body">
             <p className="card-text">{this.props.errors[key]}</p>

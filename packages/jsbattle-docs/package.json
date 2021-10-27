@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-docs",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -43,26 +43,29 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^3.5.0",
-    "jsbattle-react": "^3.5.0"
+    "jsbattle-engine": "^3.6.0",
+    "jsbattle-react": "^3.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/register": "^7.12.10",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/register": "^7.15.3",
     "babel-polyfill": "^6.26.0",
     "cpx": "^1.5.0",
     "express": "^4.17.1",
-    "http-server": "^0.12.3",
-    "mocha": "^8.2.1",
+    "http-server": "^13.0.2",
+    "mocha": "^9.1.2",
     "node-plantuml": "^0.9.0",
-    "npm-watch": "^0.7.0",
-    "puppeteer": "^5.5.0",
+    "npm-watch": "^0.11.0",
+    "puppeteer": "^10.4.0",
     "rimraf": "^3.0.2",
     "showdown": "^1.9.1",
-    "socket.io": "^3.0.5",
-    "socket.io-client": "^3.0.5",
-    "yargs": "^16.2.0"
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
+    "yargs": "^17.2.1"
   },
-  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"
+  "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d",
+  "engines": {
+    "node": ">= 10.18.0"
+  }
 }

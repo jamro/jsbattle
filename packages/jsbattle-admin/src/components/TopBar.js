@@ -26,11 +26,11 @@ class TopBar extends Component {
 
     return (
       <div>
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" style={{padding: '0.5em 1em'}}>
           <Navbar.Brand>JsBattle Admin Panel</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="me-auto">
             </Nav>
             {profileControl}
           </Navbar.Collapse>

@@ -42,13 +42,13 @@ let config = {
   },
   plugins: [],
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: path.join(__dirname, 'dist'),
     compress: true,
     port: 8080,
     hot: true,
     proxy: {
-      '/api': 'http://localhost:9000',
-      '/auth': 'http://localhost:9000'
+      '/api': 'http://[::1]:9000',
+      '/auth': 'http://[::1]:9000'
     }
   }
 };

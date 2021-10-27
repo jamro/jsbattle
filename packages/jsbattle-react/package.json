@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-react",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "src/JsBattleBattlefield.js",
   "scripts": {
@@ -16,16 +16,16 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^3.5.0",
+    "jsbattle-engine": "^3.6.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "cpx": "^1.5.0",
-    "eslint": "^7.17.0",
-    "jsdoc-to-markdown": "^6.0.1",
-    "react-scripts": "^4.0.1",
+    "eslint": "^7.32.0",
+    "jsdoc-to-markdown": "^7.0.1",
+    "react-scripts": "^4.0.3",
     "rimraf": "^3.0.2"
   },
   "browserslist": {
@@ -39,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">= 10.18.0"
   }
 }

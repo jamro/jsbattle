@@ -25,5 +25,9 @@ npm install -g lerna
 ```bash
 lerna version --conventional-commits -y
 npm run all
+git status
+git add --all
+npm run commit
+git push
 lerna publish from-package -y
 ```

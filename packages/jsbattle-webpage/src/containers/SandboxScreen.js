@@ -184,7 +184,10 @@ export class SandboxScreen extends React.Component {
 
     return <div>
         <FullRow>
-          <nav className="breadcrumb-container">
+          <nav className="breadcrumb-container bg-light rounded-3">
+            <button type="button" className="btn btn-sm btn-primary restart-battle float-end" disabled={this.props.isLoading} onClick={() => this.restartBattle()}>
+              <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
+            </button>
             <ol className="breadcrumb">
               <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
               <li className="breadcrumb-item"><Link to="/sandbox">Sandbox</Link></li>
@@ -197,9 +200,6 @@ export class SandboxScreen extends React.Component {
                 />
               </li>
             </ol>
-            <button type="button" className="btn btn-sm btn-primary restart-battle" disabled={this.props.isLoading} onClick={() => this.restartBattle()}>
-              <i className="fas fa-sync" aria-hidden="true"></i> Restart the Battle
-            </button>
           </nav>
         </FullRow>
         <FullRow>

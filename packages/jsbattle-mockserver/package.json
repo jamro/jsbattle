@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-mockserver",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "app/MockServer.js",
   "bin": {
@@ -17,9 +17,12 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "json-server": "^0.16.3",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.13"
+  },
+  "engines": {
+    "node": ">= 10.18.0"
   }
 }

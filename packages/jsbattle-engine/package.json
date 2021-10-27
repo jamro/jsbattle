@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-engine",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "",
   "main": "src/engine/lib.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "build:tanks-build": "webpack --config ./webpack.tanks.config.js",
     "build:codeworker-build": "webpack --config ./webpack.codeworker.config.js",
     "build:schema": "cpx './src/schema/*' './dist/schema'",
-    "build:pixi": "cpx './node_modules/pixi.js/dist/pixi.min.js' './dist/js'",
+    "build:pixi": "cpx './node_modules/pixi.js/dist/browser/pixi.min.js' './dist/js'",
     "build:html": "cpx ./src/index.html ./dist",
     "build:examples": "cpx './src/examples/**/*.*' './dist/examples/' && cpx './dist/tanks/**/*.*' './dist/examples/tanks/'",
     "build:docs": "jsdoc2md --template api-doc-template.hbs -f 'src/engine/**/*'  > docs/jsbattle_engine_api.md",
@@ -28,7 +28,7 @@
     "audit-fix": "npm audit fix"
   },
   "engines": {
-    "node": ">=0.10.3"
+    "node": ">= 10.18.0"
   },
   "watch": {
     "build:sources": {
@@ -69,28 +69,28 @@
   "author": "Krzysztof Jamroz <jamro@jamro.net>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/register": "^7.12.10",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/register": "^7.15.3",
     "babel": "^6.23.0",
     "babel-loader": "^8.2.2",
     "cpx": "^1.5.0",
-    "http-server": "^0.12.3",
-    "jsdoc-to-markdown": "^6.0.1",
-    "jshint": "^2.12.0",
-    "mocha": "^8.2.1",
+    "http-server": "^13.0.2",
+    "jsdoc-to-markdown": "^7.0.1",
+    "jshint": "^2.13.1",
+    "mocha": "^9.1.2",
     "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.7.0",
+    "npm-watch": "^0.11.0",
     "rimraf": "^3.0.2",
-    "sinon": "^9.2.2",
-    "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.1"
+    "sinon": "^11.1.2",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0"
   },
   "dependencies": {
-    "ajv": "^7.0.3",
+    "ajv": "^8.6.3",
     "babel-polyfill": "^6.26.0",
-    "pixi.js": "^5.3.7",
-    "sat": "^0.8.0",
+    "pixi.js": "^6.1.3",
+    "sat": "^0.9.0",
     "seedrandom": "^3.0.5"
   },
   "gitHead": "b086d7f5befb0506cc4f1ef9a6450cf2591b9b7d"

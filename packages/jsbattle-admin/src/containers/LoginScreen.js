@@ -51,7 +51,8 @@ class LoginScreen extends Component {
       const style = {
         color: authConfig ? authConfig.color : '#000',
         backgroundColor: authConfig ? authConfig.backgroundColor : '#6cc644',
-        border: 0
+        border: 0,
+        margin: '0.2em'
       };
       const icon = authConfig ? authConfig.icon : faLock;
       return <Button key={providerName} variant="primary" size="lg" block href={auth.url} style={style} className={`${providerName}-auth-button`}>

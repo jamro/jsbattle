@@ -65,14 +65,14 @@ export class LeagueScreen extends React.Component {
       <td className="text-right">{Number(item.fights_total).toLocaleString()}</td>
       <td className="text-right">{Number(item.fights_win).toLocaleString()}</td>
       <td className="text-right">{Number(item.fights_lose).toLocaleString()}</td>
-      <td className="text-right"><span className="badge badge-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {Number(item.score).toLocaleString()}</span></td>
+      <td className="text-right"><span className="badge bg-danger"><i className="fas fa-star" style={{marginRight: '1em'}}></i> {Number(item.score).toLocaleString()}</span></td>
       {actions}
     </tr>;
   }
 
   renderBreadcrumb() {
     return <FullRow>
-      <nav className="breadcrumb-container">
+      <nav className="breadcrumb-container bg-light rounded-3">
         <ol className="breadcrumb">
           <li style={{marginRight: '0.5em'}}><i className="fas fa-angle-right"></i></li>
           <li className="breadcrumb-item"><Link to="/league">League</Link></li>
@@ -84,7 +84,7 @@ export class LeagueScreen extends React.Component {
   renderUnregistered() {
     return <div>
       {this.renderBreadcrumb()}
-      <div className="jumbotron" style={{padding: '2rem'}}>
+      <div className="bg-light rounded-3" style={{padding: '2rem'}}>
         <Row>
           <Col lg={4} style={{paddingTop: '0.5em'}}>
           <div className="card">
@@ -147,7 +147,7 @@ export class LeagueScreen extends React.Component {
 
     return <div>
       {this.renderBreadcrumb()}
-      <div className="jumbotron" style={{padding: '2rem'}}>
+      <div className="bg-light rounded-3" style={{padding: '2rem'}}>
         <Row>
           <Col lg={4} style={{paddingTop: '0.5em'}}>
             {leagueJoin}

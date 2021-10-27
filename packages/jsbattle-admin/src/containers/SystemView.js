@@ -75,43 +75,43 @@ class SystemView extends Component {
         <ul className="list-group list-group-flush">
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Cluster
-            <span className="badge badge-dark badge-pill">{node.clusterName}</span>
+            <span className="badge bg-dark badge-pill">{node.clusterName}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Host
-            <span className="badge badge-dark badge-pill">{node.hostname}</span>
+            <span className="badge bg-dark badge-pill">{node.hostname}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             OS up time
-            <span className="badge badge-success badge-pill">{this.formaUptime(node.os.uptime)}</span>
+            <span className="badge bg-success badge-pill">{this.formaUptime(node.os.uptime)}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Application up time
-            <span className="badge badge-success badge-pill">{this.formaUptime(node.processUptime)}</span>
+            <span className="badge bg-success badge-pill">{this.formaUptime(node.processUptime)}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Application version
-            <span className="badge badge-primary badge-pill">v{node.appVersion}</span>
+            <span className="badge bg-primary badge-pill">v{node.appVersion}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Client
-            <span className="badge badge-primary badge-pill">{node.client}</span>
+            <span className="badge bg-primary badge-pill">{node.client}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Running services
-            <span className="badge badge-primary badge-pill">{node.services.length}</span>
+            <span className="badge bg-primary badge-pill">{node.services.length}</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             CPU (15min average)
-            <span className="badge badge-primary badge-pill">{node.cpu.load15.toFixed(1)}%</span>
+            <span className="badge bg-primary badge-pill">{node.cpu.load15.toFixed(1)}%</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Memory
-            <span className="badge badge-primary badge-pill">{node.memory.percent.toFixed(1)}%</span>
+            <span className="badge bg-primary badge-pill">{node.memory.percent.toFixed(1)}%</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             Server time
-            <span className="badge badge-light badge-pill">{node.time.utc}</span>
+            <span className="badge bg-light badge-pill">{node.time.utc}</span>
           </li>
         </ul>
       </div>

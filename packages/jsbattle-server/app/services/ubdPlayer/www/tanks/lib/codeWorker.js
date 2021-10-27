@@ -1,2 +1,2 @@
-(()=>{importScripts("tank.js");var onmessageOrig=onmessage;onmessage=function onmessage(event){"init"==event.data.command&&event.data.code&&eval(event.data.code),onmessageOrig(event)}})();
+(()=>{var __webpack_exports__={};importScripts("tank.js");var onmessageOrig=onmessage;onmessage=function onmessage(event){"init"==event.data.command&&event.data.code&&eval(event.data.code),onmessageOrig(event)}})();
 //# sourceMappingURL=codeWorker.js.map

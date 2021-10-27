@@ -49,28 +49,28 @@ class UserView extends Component {
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      User name <span className="badge badge-primary badge-pill">{this.props.user.account.username}</span>
+                      User name <span className="badge bg-primary badge-pill">{this.props.user.account.username}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Display name <span className="badge badge-primary badge-pill">{this.props.user.account.displayName}</span>
+                      Display name <span className="badge bg-primary badge-pill">{this.props.user.account.displayName}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Provider <span className="badge badge-primary badge-pill">{this.props.user.account.provider}</span>
+                      Provider <span className="badge bg-primary badge-pill">{this.props.user.account.provider}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Email <span className="badge badge-primary badge-pill">{this.props.user.account.email}</span>
+                      Email <span className="badge bg-primary badge-pill">{this.props.user.account.email}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Status <span className="badge badge-primary badge-pill">{this.props.user.account.registered ? 'Registered' : 'Unregistered'}</span>
+                      Status <span className="badge bg-primary badge-pill">{this.props.user.account.registered ? 'Registered' : 'Unregistered'}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Role <span className="badge badge-primary badge-pill">{this.props.user.account.role}</span>
+                      Role <span className="badge bg-primary badge-pill">{this.props.user.account.role}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Joined at <span className="badge badge-primary badge-pill">{new Date(this.props.user.account.createdAt).toLocaleString()}</span>
+                      Joined at <span className="badge bg-primary badge-pill">{new Date(this.props.user.account.createdAt).toLocaleString()}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Last login <span className="badge badge-primary badge-pill">{new Date(this.props.user.account.lastLoginAt).toLocaleString()}</span>
+                      Last login <span className="badge bg-primary badge-pill">{new Date(this.props.user.account.lastLoginAt).toLocaleString()}</span>
                     </li>
                   </ul>
                 </div>
@@ -81,13 +81,13 @@ class UserView extends Component {
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Challenges Completed <span className="badge badge-primary badge-pill">{this.props.user.challenges.length}</span>
+                      Challenges Completed <span className="badge bg-primary badge-pill">{this.props.user.challenges.length}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Scripts stored <span className="badge badge-primary badge-pill">{this.props.user.scripts.length}</span>
+                      Scripts stored <span className="badge bg-primary badge-pill">{this.props.user.scripts.length}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Battles stored <span className="badge badge-primary badge-pill">{this.props.user.battles.length}</span>
+                      Battles stored <span className="badge bg-primary badge-pill">{this.props.user.battles.length}</span>
                     </li>
                   </ul>
                 </div>

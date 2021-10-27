@@ -23,13 +23,13 @@ describe("Test 'UbdValidator' service", () => {
 			expect(response.error).toBeUndefined();
     });
 
-    it('should fail on invalid UBDv1', async () => {
+    it.only('should fail on invalid UBDv1', async () => {
 			const ubd = new UbdJsonMock(1);
 			ubd.rngSeed = "INVALID_VALUE";
 			const response = await broker.call("ubdValidator.validate", {ubd: ubd});
 			expect(response.valid).toBe(false);
 			expect(response.error).toBeDefined();
-			expect(response.error).toMatch(/rngSeed should be number/);
+			expect(response.error).toMatch(/rngSeed must be number/);
     });
 
   });
@@ -49,7 +49,7 @@ describe("Test 'UbdValidator' service", () => {
 			const response = await broker.call("ubdValidator.validate", {ubd: ubd});
 			expect(response.valid).toBe(false);
 			expect(response.error).toBeDefined();
-			expect(response.error).toMatch(/rngSeed should be number/);
+			expect(response.error).toMatch(/rngSeed must be number/);
     });
 
   });
@@ -70,7 +70,7 @@ describe("Test 'UbdValidator' service", () => {
 			const response = await broker.call("ubdValidator.validate", {ubd: ubd});
 			expect(response.valid).toBe(false);
 			expect(response.error).toBeDefined();
-			expect(response.error).toMatch(/rngSeed should be number/);
+			expect(response.error).toMatch(/rngSeed must be number/);
     });
 
   });

@@ -5,3 +5,4 @@
 - [Release Procedure](./release.md)
 - [Project Structure](./structure.md)
 - [Monorepo](./monorepo.md)
+- [Dependencies Update](./dep_update.md)

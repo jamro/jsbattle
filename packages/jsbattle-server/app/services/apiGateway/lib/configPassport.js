@@ -105,7 +105,9 @@ function configPassport(app, logger, broker, serviceConfig) {
     (req, res) => {
       logger.debug('Logout');
       res.cookie('JWT_TOKEN', '', { httpOnly: true, maxAge: 0 })
-      req.logout();
+      if(req.logut) {
+        req.logut();
+      }
       res.redirect('/');
     }
   );

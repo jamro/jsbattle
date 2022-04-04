@@ -53,4 +53,5 @@
         - [Release Procedure](./dev_guide/dev_process/release.md)
         - [Project Structure](./dev_guide/dev_process/structure.md)
         - [Monorepo](./dev_guide/dev_process/monorepo.md)
+        - [Dependencies Update](./dev_guide/dev_process/dep_update.md)
     - [Toolset](./dev_guide/toolset.md)

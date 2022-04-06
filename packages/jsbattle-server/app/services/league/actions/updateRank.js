@@ -29,6 +29,7 @@ module.exports = async function(ctx) {
     score: Math.round(newScore)
   }
 
+  console.log(this.settings.cutOffFightCount, this.settings.cutOffWinRatio);
   if(
     newEntity.fights_total > this.settings.cutOffFightCount &&
     newEntity.fights_win < this.settings.cutOffWinRatio * newEntity.fights_total

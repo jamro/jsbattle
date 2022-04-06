@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-react",
-  "version": "3.6.1",
+  "version": "3.7.0",
   "description": "",
   "main": "src/JsBattleBattlefield.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "jsbattle-engine": "^3.6.1",
+    "jsbattle-engine": "^3.7.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

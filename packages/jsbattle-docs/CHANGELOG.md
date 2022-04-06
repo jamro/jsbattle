@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/jamro/jsbattle/compare/v3.6.1...v3.7.0) (2022-04-06)
+
+
+### Features
+
+* **jsbattle-server:** 🎸 remove unsuccessful league entries ([4e1d528](https://github.com/jamro/jsbattle/commit/4e1d5282c3f6333b14942587f96f513d1b1c1f86))
+
+
+
+
+
 ## [3.6.1](https://github.com/jamro/jsbattle/compare/v3.6.0...v3.6.1) (2021-10-27)
 
 

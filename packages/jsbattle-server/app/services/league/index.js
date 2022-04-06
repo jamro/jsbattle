@@ -13,7 +13,9 @@ module.exports = (config) => {
     mixins: [ExtendedDbService],
     settings: {
       ...entity,
-      obfuscate: config.league.obfuscate
+      obfuscate: config.league.obfuscate,
+      cutOffFightCount: config.league.cutOffFightCount,
+      cutOffWinRatio: config.league.cutOffWinRatio
     },
 
     actions: {

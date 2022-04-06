@@ -152,7 +152,14 @@ List of all settings of JsBattle:
     "obfuscate": true,
 
     // how long league battles should be kept (ms)
-    "historyDuration": 3*24*60*60*1000
+    "historyDuration": 3*24*60*60*1000,
+
+    // remove unsucessful AIs from the league that meets two criteria:
+    // 1. They completed `cutOffFightCount` of fights
+    // 2. Their win ratio is below `cutOffWinRatio`
+    "cutOffFightCount": 100,
+    "cutOffWinRatio": 0.05,
+
   },
 
   // Player for Ultimate Battle Descriptors. the service process battles on server side

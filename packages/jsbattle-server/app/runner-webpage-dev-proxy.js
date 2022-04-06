@@ -36,7 +36,9 @@ let config = {
   },
   "league": {
     "scheduleInterval": 500,
-    "timeLimit": 10000
+    "timeLimit": 10000,
+    "cutOffFightCount": 100,
+    "cutOffWinRatio:": 0.05,
   },
   "ubdPlayer": {
     "enabled": true,

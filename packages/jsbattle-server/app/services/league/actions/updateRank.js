@@ -28,6 +28,17 @@ module.exports = async function(ctx) {
     fights_error: entity.fights_error + (0 - entity.fights_error)*0.2,
     score: Math.round(newScore)
   }
+
+  if(
+    newEntity.fights_total > this.settings.cutOffFightCount &&
+    newEntity.fights_win < this.settings.cutOffWinRatio * newEntity.fights_total
+  ) {
+    this.logger.warn(`'${newEntity.ownerName}/${newEntity.scriptName}' won only ${newEntity.fights_win} of ${newEntity.fights_total} fights. Removing from the league...`);
+    ctx.call('league.remove', {id: newEntity.id});
+    this.ranktable.remove(newEntity.id);
+    return;
+  }
+
   this._update(ctx, newEntity);
   this.ranktable.updateScore(
     newEntity.id,

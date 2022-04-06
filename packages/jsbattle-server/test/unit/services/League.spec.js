@@ -101,7 +101,9 @@ describe("Test 'League' service", () => {
 			league: {
 				 scheduleInterval: 10,
 				 timeLimit: 3000,
-				 teamSize: 3
+				 teamSize: 3,
+				 cutOffFightCount: 10,
+				 cutOffWinRatio: 0.1,
 			 }
 		});
 		broker = new ServiceBroker(require('../../utils/getLoggerSettings.js')(path.resolve(__dirname, '..', '..'), __filename, expect.getState()));
@@ -463,7 +465,38 @@ describe("Test 'League' service", () => {
 		expect(entity).toHaveProperty('fights_error', 0.271);
 	});
 
-	it('should update remove failing AIs',  async () => {
+	it('should remove failing AIs',  async () => {
+		const user = {
+			username: 'monica83',
+			role: 'user',
+			id: '92864'
+		}
+		let createResult = await broker.call('league.joinLeague', {scriptId: '152674'}, {meta: {user: createTestToken(user)}});
+		let entityId = createResult.submission.id;
+		let i;
+		for(i=0; i < 9; i++) {
+			await broker.call('league.updateRank', {id: entityId, winner: false});
+		}
+		for(i=0; i < 2; i++) {
+			await broker.call('league.updateRank', {id: entityId, winner: true});
+		}
+		let count = await broker.call('league.count', {query: {_id: entityId}});
+		expect(count).toBe(1)
+		
+		for(i=0; i < 9; i++) {
+			await broker.call('league.updateRank', {id: entityId, winner: false});
+		}
+
+		count = await broker.call('league.count', {query: {_id: entityId}});
+		expect(count).toBe(1)
+
+		await broker.call('league.updateRank', {id: entityId, winner: false});
+
+		count = await broker.call('league.count', {query: {_id: entityId}});
+		expect(count).toBe(0)
+	});
+
+	it('should remove errored AIs',  async () => {
 		const user = {
 			username: 'monica83',
 			role: 'user',

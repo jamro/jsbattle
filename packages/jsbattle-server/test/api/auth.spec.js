@@ -223,7 +223,8 @@ describe("Test Auth API", () => {
 					...httpConfig,
 					validateStatus: () => true
 				});
-				expect(response.status, `Tested value: '${name}'`).toBe(422);
+				
+				expect(response.status).toBe(422);
 
 				response = await axios.get(`${BASE_URL}/api/profile`, httpConfig);
 				expect(response.status).toBe(200);

@@ -44,6 +44,14 @@ class LeagueList extends Component {
                   {name: 'Fights', field: 'fights_total', format: 'number'},
                   {name: 'Wins', field: 'fights_win', format: 'number'},
                   {name: 'Losts', field: 'fights_lose', format: 'number'},
+                  {name: 'Win %', field: 'fights_win', format: (x, row) => {
+                    if(row.fights_total === 0) {
+                      return '-';
+                    }
+                    const ratio = row.fights_win/row.fights_total;
+
+                    return `${(100*ratio).toFixed(1)}%`;
+                  }},
                   {name: 'Score', field: 'score', format: 'number'},
                   {name: 'Error', field: 'fights_error', format: [
                     (x) => x/0.7,

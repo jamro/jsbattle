@@ -33,7 +33,9 @@ config.data = {
     "timeLimit": 20000,
     "teamSize": 3,
     "obfuscate": true,
-    "historyDuration": 3*24*60*60*1000
+    "historyDuration": 3*24*60*60*1000,
+    "cutOffFightCount": 100,
+    "cutOffWinRatio:": 0.05
   },
   "ubdPlayer": {
     "enabled": true,

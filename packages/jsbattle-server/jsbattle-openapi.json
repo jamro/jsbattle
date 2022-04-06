@@ -3,7 +3,7 @@
   "info": {
     "title": "JsBattle server API",
     "description": "Internal API of JsBattle ([Swagger File](../api-docs.json))",
-    "version": "3.7.0"
+    "version": "3.7.1"
   },
   "components": {
     "securitySchemes": {},

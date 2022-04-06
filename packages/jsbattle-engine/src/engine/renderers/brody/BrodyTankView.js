@@ -8,6 +8,8 @@ import { Container } from 'pixi.js';
 import { Graphics } from 'pixi.js';
 import AbstractPixiTankView from "../abstractPixi/AbstractPixiTankView.js";
 
+const colorSet = [0xffffff, 0xff9999, 0xaaaaff, 0xffff99, 0x33ff33];
+
 export default class BrodyTankView extends AbstractPixiTankView  {
 
   constructor(model) {
@@ -15,8 +17,13 @@ export default class BrodyTankView extends AbstractPixiTankView  {
     this._lightTimer = 0;
   }
 
+  get color () {
+    return colorSet[this.model.team.index % colorSet.length];
+  }
+
   update(events) {
     super.update(events);
+    console.log(this.model.team.index);
     this._shoot.alpha =  this._shoot.alpha*0.8;
     this._tankGun.x = this._tankGun.x*0.8;
     this.radar.rotation = (- this.model.gunAngle + this._model.radarAngle) * (Math.PI/180);
@@ -78,7 +85,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
         fontSize: 10,
         stroke: 0x000000,
         strokeThickness: 2,
-        fill: 0xffffbb
+        fill: this.color
     });
     let label = new Text("", labelStyle);
     label.anchor.set(0.5, 0.5);
@@ -97,7 +104,7 @@ export default class BrodyTankView extends AbstractPixiTankView  {
 
   _createEnergyBar() {
     let energyBar =  new Graphics();
-    energyBar.beginFill(0xffff99, 1);
+    energyBar.beginFill(this.color, 1);
     energyBar.drawRect(0, -2, 50, 4);
     energyBar.x = -25;
     energyBar.y = -30;

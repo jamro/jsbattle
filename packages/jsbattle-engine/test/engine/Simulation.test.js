@@ -338,6 +338,34 @@ describe('Simulation', function() {
       assert.equal(3, sim.tankList.length);
     });
 
+
+    it('should add Tank to a team', function() {
+      let sim = createSimulation();
+      sim.init(600, 600);
+
+      const ai1 = new AiDefinitionMock();
+      const ai2 = new AiDefinitionMock();
+      const ai3 = new AiDefinitionMock();
+      const ai4 = new AiDefinitionMock();
+
+      ai1.teamName = 'team-1';
+      ai2.teamName = 'team-1';
+      ai3.teamName = 'team-2';
+      ai4.teamName = 'team-2';
+
+      sim.addTank(ai1);
+      sim.addTank(ai2);
+      sim.addTank(ai3);
+      sim.addTank(ai4);
+
+      assert.equal(sim.teamList.length, 2);
+      assert.equal(sim.teamList[0].name, 'team-1');
+      assert.equal(sim.teamList[0].index, 1);
+      assert.equal(sim.teamList[1].name, 'team-2');
+      assert.equal(sim.teamList[1].index, 2);
+
+    });
+
   });
 
   describe('timeLimit', function() {

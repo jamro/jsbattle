@@ -1,7 +1,8 @@
 'use strict';
 
 class Team {
-  constructor(name) {
+  constructor(name, index) {
+    this._index = index;
     this._name = name;
     this._members = [];
     this._inboxMap = [];
@@ -21,6 +22,10 @@ class Team {
 
   get size() {
     return this._members.length;
+  }
+
+  get index() {
+    return this._index;
   }
 
   get name() {

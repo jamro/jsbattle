@@ -62,6 +62,7 @@ class Simulation {
     this._callStackCount = 0;
     this._teamMap = [];
     this._teamList = [];
+    this._nextTeamIdndex = 1;
     this._ultimateBattleDescriptor = new UltimateBattleDescriptor();
     this.log('Contructing Simulation');
   }
@@ -300,7 +301,8 @@ class Simulation {
     }
 
     if(!this._teamMap[aiDefinition.teamName]) {
-      this._teamMap[aiDefinition.teamName] = new Team(aiDefinition.teamName);
+      this._teamMap[aiDefinition.teamName] = new Team(aiDefinition.teamName, this._nextTeamIdndex);
+      this._nextTeamIdndex+=1;
       this._teamList.push(this._teamMap[aiDefinition.teamName]);
     }
     this._teamMap[aiDefinition.teamName].addTank(tank);

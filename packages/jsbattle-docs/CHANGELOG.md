@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/jamro/jsbattle/compare/v3.7.0...v3.7.1) (2022-04-06)
+
+
+### Bug Fixes
+
+* **jsbattle-server:** 🐛 fix league cut off defaults ([3c37154](https://github.com/jamro/jsbattle/commit/3c3715404deb458f5e78533b6d3803c2e879fef3))
+
+
+
+
+
 # [3.7.0](https://github.com/jamro/jsbattle/compare/v3.6.1...v3.7.0) (2022-04-06)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "jsbattle-webpage",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -41,7 +41,7 @@
     "codemirror": "^5.63.3",
     "highlight.js": "^11.2.0",
     "jquery": "~3.6.0",
-    "jsbattle-docs": "^3.7.0",
+    "jsbattle-docs": "^3.7.1",
     "jsbattle-engine": "^3.7.0",
     "jsbattle-react": "^3.7.0",
     "pixi.js": "^6.1.3",

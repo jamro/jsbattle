@@ -8,7 +8,8 @@ export function getCompletedChallenges() {
   return completedChallenges;
 }
 
-async function getChallengeCode(id) {
+async function getChallengeCode(id, info) {
+  const infoComments = info || "\t// write your tank logic here\n";
   let namespace = 'challengeLibrary.scriptMap';
 
   let storedScripts = localStorage.getItem(namespace);
@@ -17,7 +18,7 @@ async function getChallengeCode(id) {
   let exists = (scriptMap[id] != undefined);
   if(!exists) {
     await new Promise((resolve) => setTimeout(resolve, serviceDelay));
-    let code = "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n\t// write your tank logic here\n  \n});\n\n\n";
+    let code = "importScripts('lib/tank.js');\n\n// Don't know where to start?\n// Read Getting Started in \"Docs\" section \n\ntank.init(function(settings, info) {\n\t// initialize tank here\n  \n});\n\ntank.loop(function(state, control) {\n" + infoComments + "  \n});\n\n\n";
     scriptMap[id] = code;
     localStorage.setItem(namespace, JSON.stringify(scriptMap));
     return code;
@@ -73,7 +74,9 @@ export async function getChallengeDefinition(challengeId) {
     c.id == challengeId
   ));
 
-  challenge.code = await getChallengeCode(challengeId);
+  console.log(challenge);
+
+  challenge.code = await getChallengeCode(challengeId, challenge.codeHint);
   if(challenge) {
     return challenge;
   }
